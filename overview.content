@@ -1,0 +1,59 @@
+<!--title: Overview-->
+<section id="overview">
+<h2 class="setup">How does OpenTSDB work?</h2>
+OpenTSDB requires you to run one or more <strong>Time Series Daemons
+(TSDs)</strong>.  Each TSD is independent.  There is no master, no shared
+state.  The TSD uses <a href="http://hbase.org">HBase</a> to store and
+retrieve time-series data.  Users of the TSD never need to access HBase
+directly.  You can communicate with the TSD via a simple telnet-style
+protocol, and via HTTP.  An additional proper binary RPC protocol is in the
+works.  All communications happen on the same port (the TSD figures out the
+protocol of the client by looking at the first few bytes it receives).
+<p>
+<img src="tsdb-architecture.png" alt="OpenTSDB architecture"/>
+<p>
+You need to write little scripts that collect data from your systems (e.g.
+by reading interesting metrics from <code>/proc</code> on Linux, collecting
+counters from your network gear via SNMP, or other interesting data from your
+applications, via JMX for instance for Java applications) and push data points
+to one of the TSDs every few seconds.
+<p>
+<a href="http://www.stumbleupon.com">StumbleUpon</a> wrote a Python framework
+called <strong><code>tcollector</code></strong> that is used to collect
+thousand of metrics from Linux 2.6, Apache's HTTPd, MySQL, HBase, memcached,
+Varnish and more.  This framework will be open-sourced separately later.
+<p>
+In OpenTSDB, a data point is made of:
+<ul>
+<li>A metric name.</li>
+<li>A UNIX timestamp (seconds since <a href="http://en.wikipedia.org/wiki/Unix_epoch">Epoch</a>).</li>
+<li>A value (64 bit integer or double-precision floating point value).</li>
+<li>A set of tags (key-value pairs) that annotate this data point.</li>
+</ul>
+Tags allow you to separate similar data points from different sources or
+related entities, so you can easily graph them individually or in groups.
+One common use case for tags consists in annotating data points with the
+name of the machine that produced it as well as name of the cluster or
+pool the machine belongs to.  This allows you to easily make dashboards
+that show the state of your service on a per-server basis as well as
+dashboards that show an aggregated state across logical pools of servers.
+<div class="code">mysql.bytes_received 1287333217  327810227706 schema=foo host=db1
+mysql.bytes_sent     1287333217 6604859181710 schema=foo host=db1
+mysql.bytes_received 1287333232  327812421706 schema=foo host=db1
+mysql.bytes_sent     1287333232 6604901075387 schema=foo host=db1
+mysql.bytes_received 1287333321  340899533915 schema=foo host=db2
+mysql.bytes_sent     1287333321 5506469130707 schema=foo host=db2
+</div>
+This examples contains 6 data points that belong to 4 different time series.
+Each different combination of metric and tags makes up a different time
+series.  All of the 4 time series are for one of two metrics
+<code>mysql.bytes_received</code> or <code>mysql.bytes_sent</code>.
+A data point must have at least one tag.  It is not recommended to have
+more than 6-7 tags per data point, as the cost associated with storing
+new data points quickly becomes dominated by the number of tags beyond
+that point.
+<p>
+With the tags in the example above, it will be easily to create graphs and
+dashboards that show the network activity of MySQL on a per host and/or per
+schema basis.
+</section>

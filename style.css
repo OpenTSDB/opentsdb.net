@@ -14,9 +14,9 @@ header {
   position: fixed;
   z-index: 1;
 }
-header a{color:#f0f2ff;text-decoration:none}
-header a:hover {color:#fff;text-decoration:none}
-header a:active {color:#fff;text-decoration:none}
+#headerbar a{color:#f0f2ff;text-decoration:none}
+#headerbar a:hover {color:#fff;text-decoration:none}
+#headerbar a:active {color:#fff;text-decoration:none}
 
 a{color:#4251AA;text-decoration:none}
 a:hover {color:#32419A;text-decoration:underline;
@@ -58,8 +58,8 @@ h2{padding-left:25px;font-size:32px;color:#425060;
 
 p{margin:16px 0 16px}
 
-#headerbar,#content{width:80%;margin:0 auto;position:relative}
-#content{width:90%;float:none;padding-top:0}
+#headerbar{width:80%;margin:0 auto;position:relative}
+#content{width:90%;padding-top:0;margin:0 auto}
 .code{
   margin: 5px;
   padding: 10px;
@@ -74,7 +74,7 @@ p{margin:16px 0 16px}
 nav{width:auto;float:left}
 nav ul{position:absolute;right:0;display:block;margin-top:-38px}
 nav ul li{display:inline;margin-left:50px}
-nav ul li a{font-size:24px;border-bottom:none}
+nav ul li a{font-size:24px}
 
 section{margin-bottom:100px;padding-top:100px}
 section h3{margin-top:1.5em}

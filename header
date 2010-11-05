@@ -3,16 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html, charset=UTF/8"/>
 <title>OpenTSDB - A Distributed, Scalable Monitoring System</title>
-<!--[if IE 7]>
-<link rel="stylesheet" href="ie7.css" type="text/css" media="screen"/>
-<![endif]-->
 <link rel="stylesheet" href="style.css" type="text/css" media="screen"/>
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="ie.css" type="text/css" media="screen"/>
+<![endif]-->
 </head>
 
 <body>
 <header><div id="headerbar">
   <h1><a href="index.html">OpenTSDB</a></h1>
-  <nav><ul>
+  <nav><ul id="navbar">
     <li><a href="overview.html">Overview</a></li>
     <li><a href="getting-started.html">Getting Started</a></li>
     <li><a href="manual.html">Manual</a></li>
@@ -20,4 +20,10 @@
   </ul></nav>
 </div></header>
 
+<!--[if lte IE 8]>
+<div class="iesucks">Warning: You're using an unsupported, archaic browser.
+Get a better, modern browsing experience with
+<a href="http://www.google.com/chrome">Chrome</a> or
+<a href="http://www.mozilla.com/firefox">Firefox</a>.</div>
+<![endif]-->
 <section id="content">

@@ -1,6 +1,10 @@
 <!--title: Manual-->
 <section id="manual">
 <h2>Manual</h2>
-TBD <i>*whistles*</i>.
+
+<ul>
+<li><a href="metrics.html">Understanding metrics and time series in OpenTSDB</a></li>
+<li>More TBD...</li>
+</ul>
 
 </section>

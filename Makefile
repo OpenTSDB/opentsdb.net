@@ -3,6 +3,7 @@ SITE_HTML = \
   getting-started.html	\
   index.html	\
   manual.html	\
+  metrics.html	\
   overview.html	\
   setup-hbase.html	\
 

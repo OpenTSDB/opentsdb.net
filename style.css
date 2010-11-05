@@ -28,7 +28,7 @@ h1{margin:0;color:#fff;font-size:40px;position:relative;top:15px}
 h1 a {
   color: #fff;
   background-color: #909AAA;
-  padding: 5px 25px 10px 25px;
+  padding: 5px 20px 10px;
   width: 300px;
   border-radius: 10px;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
@@ -58,7 +58,7 @@ h2{padding-left:25px;font-size:32px;color:#425060;
 
 p{margin:16px 0 16px}
 
-#headerbar{width:80%;margin:0 auto;position:relative}
+#headerbar{width:90%;margin:0 auto;position:relative}
 #content{width:90%;padding-top:0;margin:0 auto}
 .code{
   margin: 5px;
@@ -73,7 +73,7 @@ p{margin:16px 0 16px}
 
 nav{width:auto;float:left}
 nav ul{position:absolute;right:0;display:block;margin-top:-38px}
-nav ul li{display:inline;margin-left:50px}
+nav ul li{display:inline;margin-left:32px}
 nav ul li a{font-size:24px}
 
 section{margin-bottom:100px;padding-top:100px}

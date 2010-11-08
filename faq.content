@@ -129,16 +129,6 @@ you really need sub-second precision, please reach out to our mailing list
 for advices:
 <a href="http://groups.google.com/group/opentsdb">opentsdb<!--fuckSPAM-->@googlegroups.com</a>
 
-<a name="misc"></a><h2>Misc</h2>
-
-<h4>Why was OpenTSDB written in Java?</h4>
-Mostly because OpenTSDB lives around the HBase community, which is a Java
-community.  OpenTSDB also started by using HBase's library, which only
-exists in Java.  Eventually, however, OpenTSDB started to use another
-alternative library to access HBase
-(<a href="http://github.com/stumbleupon/asynchbase">hbaseasync</a>)
-but sadly this one too is in Java.
-
 <h4>Can I use another storage backend than HBase?</h4>
 No.  OpenTSDB was designed specifically for a storage backend that follows
 the <a href="http://labs.google.com/papers/bigtable.html">Bigtable</a> data
@@ -149,6 +139,16 @@ Technically it would be feasible to port the code to other systems that follow
 the Bigtable data model.  Systems that differ by not storing data in a sorted
 fashion (such as distributed hash tables) or that do not offer a strong
 consistency guarantee will simply not work with the current design.
+
+<a name="misc"></a><h2>Misc</h2>
+
+<h4>Why was OpenTSDB written in Java?</h4>
+Mostly because OpenTSDB lives around the HBase community, which is a Java
+community.  OpenTSDB also started by using HBase's library, which only
+exists in Java.  Eventually, however, OpenTSDB started to use another
+alternative library to access HBase
+(<a href="http://github.com/stumbleupon/asynchbase">hbaseasync</a>)
+but sadly this one too is in Java.
 
 <h4>Can I use OpenTSDB to generate graphs for my customers / end-users?</h4>
 Yes, but you have to be careful with that.  OpenTSDB was written for internal

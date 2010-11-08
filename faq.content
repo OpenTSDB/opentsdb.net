@@ -110,7 +110,17 @@ Hadoop</a> (CDH), version 3 or above preferably, as this version comes with
 all the necessary patches to make HDFS less unreliable and has better
 performance.
 
-<a name="misc"></a><h2>Misc</h2>
+<a name="datamodel"></a><h2>Data Model</h2>
+<h4>How can I increment a counter in OpenTSDB?</h4>
+OpenTSDB doesn't work with counters.  It simply records <code>(timestamp,
+value)</code> pairs.  Data points are independent from each other.  Say you
+want to keep track of clicks on an ad in OpenTSDB.  You wouldn't send a "+1"
+to the TSD for every click.  Instead, if your application doesn't already
+keeps track of click counts, you'd need to increment a counter for every click
+and periodically send the value of that counter to the TSD.  You can later
+query the TSD and ask for the rate of change of the counter, which will give
+you clicks per second.
+
 <h4>Can I store sub-second precision timestamps in OpenTSDB?</h4>
 No.  Right now timestamps are encoded on 4 bytes so this is not possible.
 Note that this is not typically needed for OpenTSDB's main use case, which
@@ -118,6 +128,8 @@ consists in monitoring large clusters of commodity machines.  If you think
 you really need sub-second precision, please reach out to our mailing list
 for advices:
 <a href="http://groups.google.com/group/opentsdb">opentsdb<!--fuckSPAM-->@googlegroups.com</a>
+
+<a name="misc"></a><h2>Misc</h2>
 
 <h4>Why was OpenTSDB written in Java?</h4>
 Mostly because OpenTSDB lives around the HBase community, which is a Java

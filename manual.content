@@ -3,7 +3,11 @@
 <h2>Manual</h2>
 
 <ul>
-<li><a href="metrics.html">Understanding metrics and time series in OpenTSDB</a></li>
+<li>User Guide (TBD)</li>
+<li><a href="metrics.html">Understanding metrics and time series</a></li>
+<li>Reference Manual (TBD)</li>
+<li>Javadoc API (TBD)</li>
+<li>HTTP API (TBD)</li>
 <li>More TBD...</li>
 </ul>
 

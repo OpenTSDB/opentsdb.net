@@ -141,6 +141,35 @@ fashion (such as distributed hash tables) or that do not offer a strong
 consistency guarantee will simply not work with the current design.
 
 <a name="misc"></a><h2>Misc</h2>
+<h4>How do the TSDs handle DST changes or leap seconds?</h4>
+The TSD doesn't assign timestamps to your data points, your collectors do.
+It is strongly recommended that you use UNIX timestamps in your collectors,
+so all your timestamps will be based on
+<a href="http://en.wikipedia.org/wiki/Unix_epoch">Epoch</a>.  This way
+you will not be affected by timezone adjustments or DST changes on your
+machines.
+<p>
+The TSD always renders timestamps in local time, to make it easier for us
+human to understand and correlate events based on the timezone we live in.
+So you should to make sure you give the TSD the correct timezone setting
+(e.g. via the <code>TZ</code> environment variable).  When the TSD starts,
+it computes its offset from UTC and will then keep that offset forever.
+In case of a DST change, for instance, it would then appear that the TSD
+is 1 hour behind.  There are plans to periodically re-compute the offset
+from UTC to avoid that situation, but right now you have to restart the
+TSD in order to adjust the offset.  Note that this doesn't prevent the TSD
+from working properly, it only affects anything that parses dates from local
+time or renders them in local time.  Dashboards and alerting systems should
+use relative time (e.g. "1d ago") and should thus be unaffected.
+<p>
+When <a href="http://en.wikipedia.org/wiki/Leap_second">leap</a> seconds
+occur, UNIX timestamps go back by one second.  The TSD should handle this
+situation gracefully (although this hasn't been tested yet).  Unless you're
+collecting data every second, you won't notice anything except that the
+interval between the two data points where the leap second occurred is one
+second less than it should have been.  If you do collect data every second,
+the second data point that attempts to overwrite the previous one during the
+leap second will be discarded with an error message.
 
 <h4>Why was OpenTSDB written in Java?</h4>
 Mostly because OpenTSDB lives around the HBase community, which is a Java

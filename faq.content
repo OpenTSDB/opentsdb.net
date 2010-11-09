@@ -42,7 +42,8 @@ It depends mostly on two things:
 If your HBase cluster is reasonably sized, it's unlikely that OpenTSDB will
 max it out as the TSDs tend to be CPU bound before that happens (unless you
 run many TSDs).  A TSD can easily handle 2000 new data points per second per
-core on a CPU from 2006.  More modern CPUs will get you more throughput.
+core on an old dual-core Intel Xeon CPU from 2006.  More modern CPUs will get
+you more throughput.
 
 <h4>How much <em>read</em> throughput can I get with OpenTSDB?</h4>
 This is not very well documented right now.  The answer certainly depends on

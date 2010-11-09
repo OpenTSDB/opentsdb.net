@@ -1,6 +1,10 @@
 <section id="intro">
 <h2 class="intro">What's OpenTSDB?</h2>
 <p>
+<div style="float:right;margin-right:-25px;font-size:small; padding:10px;width:175px">
+<a href="http://www.stumbleupon.com"><img src="stumbleupon-logo.png" width="132" height="126"/></a><br/>
+sponsored the development and open-source release of OpenTSDB and uses it as
+their main monitoring system.</div>
 <strong>OpenTSDB is a distributed, scalable Time Series Database
 (TSDB)</strong> written on top of <a href="http://hbase.org">HBase</a>.
 OpenTSDB was written to address a common need: store, index and serve
@@ -22,10 +26,10 @@ database, and correlate this with your service's latency
 (<a href="#sample-graph">example below</a>).  OpenTSDB makes generating such
 graphs on the fly a trivial operation , while manipulating millions of
 data point for very <strong>fine grained, real-time monitoring</strong>.
-<div style="float:left;margin-left:-25px;font-size:small; padding:10px;width:175px">
-<a href="http://www.stumbleupon.com"><img src="stumbleupon-logo.png" width="132" height="126"/></a><br/>
-sponsored the development and open-source release of OpenTSDB and uses it as
-their main monitoring system.</div>
+<div style="float:left;margin-right:20px;text-align:right;font-size:small;margin-bottom:10px">
+<a name="sample-graph"><img src="tsd-sample-small.png"/></a><br/>
+<small>14538 data points plotted in 388ms</small><br/>
+Generating custom graphs and correlating events is easy.</div>
 <p>
 At StumbleUpon, we have found this system tremendously helpful to:
 <ul style="margin-left:175px">
@@ -35,10 +39,6 @@ At StumbleUpon, we have found this system tremendously helpful to:
 <li>Tune our applications and databases for maximum performance.</li>
 <li>Do capacity planning.</li>
 </ul>
-<div style="float:right;margin-right:-20px;text-align:right;font-size:small;margin-bottom:10px">
-<a name="sample-graph"><img src="tsd-sample-small.png"/></a><br/>
-<small>14538 data points plotted in 388ms</small><br/>
-Generating custom graphs and correlating events is easy.</div>
 <p>
 OpenTSDB is free software and <a href="/go/github">is available</a> under the LGPLv3+ license.
 <p>

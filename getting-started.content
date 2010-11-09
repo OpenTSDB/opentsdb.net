@@ -62,18 +62,11 @@ production / at scale, make sure you use <code>COMPRESSION=lzo</code> and have
 Now start a TSD (Time Series Daemon):
 <div class="code">tsdtmp=${TMPDIR-'/tmp'}/tsd    <i># For best performance, make sure</i>
 mkdir -p "$tsdtmp"             <i># your temporary directory uses tmpfs</i>
-cat &gt;src/tsdb.local &lt;&lt;\EOF
-#!/bin/bash
-# Example if you don't use default table names:
-# MYARGS='--table=myother-tsdb --uidtable=foo-tsdb-uid-table'
-set x $MYARGS "$@"
-shift
-EOF
 make gwttsd DEV_TSD_CACHEDIR=$tsdtmp
 </div>
-The script <code>tsdb.local</code> is optional and is sourced by
-<code>./src/tsdb</code>, you can use to set global flags that will apply to
-all commands, so you don't have to type them over and over again.
+The last <code>make</code> command will install a few static files for the TSD
+in the <code>build</code> directory and start it.  You can also start a TSD
+with <code>./src/tsdb tsd --port=<i>PORT</i></code>.
 <p>
 At this point you can access the TSD's web interface through
 <a href="http://127.0.0.1:4242">127.0.0.1:4242</a> (if it's running on your

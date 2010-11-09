@@ -172,6 +172,15 @@ second less than it should have been.  If you do collect data every second,
 the second data point that attempts to overwrite the previous one during the
 leap second will be discarded with an error message.
 
+<h4>The graphs are ugly, can they be made prettier?</h4>
+Ugliness is a subjective thing :)
+<p>
+There are a lot of knobs that aren't exposed yet that would allow the TSD to
+generate nicer, antialiased, smoothed graphs.  It's just a matter of exposing
+those Gnuplot knobs.  Also, recent versions of Gnuplot can generate graphs in
+HTML5 canvas.  We plan to use this to build pretty graphs you can interact
+with from your web browser.
+
 <h4>Why was OpenTSDB written in Java?</h4>
 Mostly because OpenTSDB lives around the HBase community, which is a Java
 community.  OpenTSDB also started by using HBase's library, which only

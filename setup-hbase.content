@@ -7,6 +7,8 @@ This page will help you get started with a simple, single-node HBase
 setup, which is good enough to evaluate OpenTSDB or monitor small
 installations.  If you need scalability and reliability, you will
 need to setup a full HBase cluster.
+<p>
+You can copy-paste all the following instructions directly into a terminal.
 
 <a name="singlenode"></a>
 <h3>Setup a single-node HBase instance</h3>
@@ -16,25 +18,21 @@ If you're gonna be using less than 5-10 nodes, stick to a single node.
 Deploying HBase on a single node is easy and can help get you started
 with OpenTSDB quickly.  You can always scale to a real cluster and migrate
 your data later.
-<div class="code">git checkout git://git.apache.org/hbase.git
-cd hbase
-mvn -DskipTests assembly:assembly
-<i># Go get some coffee -- if you're impatient, you can Ctrl-C when seeing this line:
-# [INFO] [jar:test-jar {execution: default}]</i>
-cd target
-tar xfz hbase-0.89.0-SNAPSHOT-bin.tar.gz
-cd hbase-0.89.0-SNAPSHOT
+<div class="code">wget http://www.apache.org/dist/hbase/hbase-0.89.20100924/hbase-0.89.20100924-bin.tar.gz
+tar xfz hbase-0.89.20100924-bin.tar.gz
+cd hbase-0.89.20100924
 </div>
 At this point, you are ready to start HBase (without HDFS) on a single
 node.  But before starting it, I recommend using the following configuration:
-<div class="code">iface=lo`uname | sed -n s/Darwin/0/p`
+<div class="code">hbase_rootdir=${TMPDIR-'/tmp'}/tsdhbase
+iface=lo`uname | sed -n s/Darwin/0/p`
 cat &gt;conf/hbase-site.xml &lt;&lt;EOF
 &lt;?xml version="1.0"?&gt;
 &lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;
 &lt;configuration&gt;
   &lt;property&gt;
     &lt;name&gt;hbase.rootdir&lt;/name&gt;
-    &lt;value&gt;file:///<b><i>SOMEPATHHERE</i></b>/hbase-\${user.name}/hbase&lt;/value&gt;
+    &lt;value&gt;file:///$hbase_rootdir/hbase-\${user.name}/hbase&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
     &lt;name&gt;hbase.zookeeper.dns.interface&lt;/name&gt;
@@ -51,12 +49,13 @@ cat &gt;conf/hbase-site.xml &lt;&lt;EOF
 &lt;/configuration&gt;
 EOF
 </div>
-Make sure to replace <code>SOMEPATHHERE</code> with a path to a
-directory where you want HBase to store its data.  The default is
-to use <code>/tmp</code>, which means you'll lose all your data
+Make sure to adjust the value of <code>hbase_rootdir</code> if you want HBase
+to store its data in somewhere more durable than a temporary directory.  The
+default is to use <code>/tmp</code>, which means you'll lose all your data
 whenever your server reboots.  The remaining settings are less important
 and simply force HBase to stick to the loopback interface (<code>lo0</code>
-on Mac OS X, or just <code>lo</code> on Linux).
+on Mac OS X, or just <code>lo</code> on Linux), which simplifies things when
+you're just testing HBase on a single node.
 <p>
 Now start HBase:
 <div class="code">./bin/start-hbase.sh</div>

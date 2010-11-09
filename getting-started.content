@@ -46,18 +46,17 @@ No special privileges are required.
 
 <a name="setuptsdb"></a>
 <h3>Checkout, compile &amp; start OpenTSDB</h3>
-<div class="code">git checkout git://github.com/stumbleupon/opentsdb.git
+<div class="code">git clone git://github.com/stumbleupon/opentsdb.git
 cd opentsdb
 make
 </div>
 If it's the first time you run OpenTSDB with your HBase instance, you need to
 create the necessary HBase tables:
-<div class="code">export COMPRESSION=NONE  <i># Don't execute if your cluster supports LZO.</i>
-env HBASE_HOME=<b><i>path/to/hbase</i></b> ./src/create_table.sh
+<div class="code">env COMPRESSION=none HBASE_HOME=<b><i>path/to/hbase-0.89.DATE</i></b> ./src/create_table.sh
 </div>
 This will create two tables: <code>tsdb</code> and <code>tsdb-uid</code>.
-If you're just evaluating OpenTSDB, don't worry about LZO for now.  In
-production / at scale, make sure you have
+If you're just evaluating OpenTSDB, don't worry about compression for now.  In
+production / at scale, make sure you use <code>COMPRESSION=lzo</code> and have
 <a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO enabled</a>.
 <p>
 Now start a TSD (Time Series Daemon):
@@ -65,14 +64,16 @@ Now start a TSD (Time Series Daemon):
 mkdir -p "$tsdtmp"             <i># your temporary directory uses tmpfs</i>
 cat &gt;src/tsdb.local &lt;&lt;\EOF
 #!/bin/bash
-MYARGS='--tsdb=tsdb --uidtable=tsdb-uid'
+# Example if you don't use default table names:
+# MYARGS='--table=myother-tsdb --uidtable=foo-tsdb-uid-table'
 set x $MYARGS "$@"
 shift
 EOF
-./src/tsdb tsd --port=4242 --cachedir="$tsdtmp" --staticroot=build/staticroot</div>
-The script <code>tsdb.local</code> is sourced by <code>./src/tsdb</code>, you
-can use to set global flags that will apply to all commands, so you don't have
-to type them over and over again.
+make gwttsd DEV_TSD_CACHEDIR=$tsdtmp
+</div>
+The script <code>tsdb.local</code> is optional and is sourced by
+<code>./src/tsdb</code>, you can use to set global flags that will apply to
+all commands, so you don't have to type them over and over again.
 <p>
 At this point you can access the TSD's web interface through
 <a href="http://127.0.0.1:4242">127.0.0.1:4242</a> (if it's running on your

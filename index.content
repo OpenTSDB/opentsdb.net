@@ -24,7 +24,7 @@ Imagine having the ability to quickly plot a graph showing the number of
 active worker threads in your web servers, the number of threads used by your
 database, and correlate this with your service's latency
 (<a href="#sample-graph">example below</a>).  OpenTSDB makes generating such
-graphs on the fly a trivial operation , while manipulating millions of
+graphs on the fly a trivial operation, while manipulating millions of
 data point for very <strong>fine grained, real-time monitoring</strong>.
 <div style="float:left;margin-right:20px;text-align:right;font-size:small;margin-bottom:10px">
 <a name="sample-graph"><img src="tsd-sample-small.png"/></a><br/>

@@ -48,7 +48,7 @@ No special privileges are required.
 <h3>Checkout, compile &amp; start OpenTSDB</h3>
 <div class="code">git clone git://github.com/stumbleupon/opentsdb.git
 cd opentsdb
-make
+make || make MD5=md5sum
 </div>
 If it's the first time you run OpenTSDB with your HBase instance, you need to
 create the necessary HBase tables:

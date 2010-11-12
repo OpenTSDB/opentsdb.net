@@ -101,7 +101,7 @@ them in HBase (configurable via the <code>--flush-interval</code> flag).  If
 the TSD was to crash without getting a chance to run its shutdown hook, you
 could lose up to 1 second worth of data points.  In practice we've found this
 trade off to be acceptable given the performance benefits that deferred
-flushes offer in terms of write throughput.  Once a data point as been stored
+flushes offer in terms of write throughput.  Once a data point has been stored
 in HBase, data durability is guaranteed if you're running HBase on top of a
 distributed filesystem that provides the necessary data durability guarantees.
 <p>

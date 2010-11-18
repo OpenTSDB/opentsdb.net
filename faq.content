@@ -64,14 +64,13 @@ The answer depends mostly on the average number of tags per data point.  At
 StumbleUpon, we use 4.5 tags on average and our billions of data points take
 just a few dozens of GB on disk (pre-HDFS 3x replication).  We use
 <a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO</a> which is
-extremely recommended in a production setting if you use HDFS to store HBase's
-data.  In our case, each data point ends up taking about 12 bytes of disk
-space (or actually 36 if you include the 3x replication factor of HDFS).  We
-also find that, on average, LZO is able to achieve a compression factor of
-4.2x on our table, but your mileage will vary.  Without LZO, a data point
-costs roughly: 16 bytes of HBase overhead, 3 bytes for the metric, 4 bytes for
-the timestamp, 6 bytes per tag, 2 bytes of OpenTSDB overhead, 8 bytes for the
-value.
+extremely recommended in a production setting.  In our case, each data point
+ends up taking about 12 bytes of disk space (or actually 36 if you include the
+3x replication factor of HDFS).  We also find that, on average, LZO is able to
+achieve a compression factor of 4.2x on our table, but your mileage will vary.
+Without LZO, a data point costs roughly: 16 bytes of HBase overhead, 3 bytes
+for the metric, 4 bytes for the timestamp, 6 bytes per tag, 2 bytes of
+OpenTSDB overhead, 8 bytes for the value.
 <p>
 We expect that those storage costs, even though they're already pretty low,
 will come down significantly.  Right now all the values are stored on 8 bytes,

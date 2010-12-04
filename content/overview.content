@@ -10,7 +10,7 @@ protocol, and via HTTP.  An additional proper binary RPC protocol is in the
 works.  All communications happen on the same port (the TSD figures out the
 protocol of the client by looking at the first few bytes it receives).
 <p>
-<img src="tsdb-architecture.png" alt="OpenTSDB architecture"/>
+<img src="img/tsdb-architecture.png" alt="OpenTSDB architecture"/>
 <p>
 You need to write little scripts that collect data from your systems (e.g.
 by reading interesting metrics from <code>/proc</code> on Linux, collecting

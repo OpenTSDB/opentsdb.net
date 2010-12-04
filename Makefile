@@ -7,16 +7,19 @@ SITE_HTML = \
   overview.html	\
   setup-hbase.html	\
 
+CONTENT_DIR = content
+CONTENT_HEADER = $(CONTENT_DIR)/header
+CONTENT_FOOTER = $(CONTENT_DIR)/footer
 
 all: $(SITE_HTML)
 
-%.html: %.content
-	sed '/^<!--.*-->$$/d' $< | cat header - footer >$@-t
+%.html: $(CONTENT_DIR)/%.content
+	sed '/^<!--.*-->$$/d' $< | cat $(CONTENT_HEADER) - $(CONTENT_FOOTER) > $@-t
 	title=`sed -n 's/<!--title: *\([^>]*\) *-->/\1 - /p' $<` && \
-	  sed "s/<title>/&$$title/" $@-t >$@
+	  sed "s/<title>/&$$title/" $@-t > $@
 	rm -f $@-t
 
-$(SITE_HTML): header footer
+$(SITE_HTML): $(CONTENT_HEADER) $(CONTENT_FOOTER)
 
 clean:
 	rm -f $(SITE_HTML:.html=.html-t)

@@ -21,7 +21,8 @@ to one of the TSDs every few seconds.
 <a href="http://www.stumbleupon.com">StumbleUpon</a> wrote a Python framework
 called <strong><code>tcollector</code></strong> that is used to collect
 thousand of metrics from Linux 2.6, Apache's HTTPd, MySQL, HBase, memcached,
-Varnish and more.  This framework will be open-sourced separately later.
+Varnish and more.  This framework will be open-sourced separately on December
+20, 2010 so <a href="http://groups.google.com/group/opentsdb">stay tuned</a>.
 <p>
 In OpenTSDB, a data point is made of:
 <ul>

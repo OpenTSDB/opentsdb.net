@@ -231,8 +231,8 @@ too ambiguous, and the author miserably failed to come up with a better name.
 
 <h4>Who is behind OpenTSDB?</h4>
 OpenTSDB was originally designed and implemented at
-<a href="http://www.stumbleupon.com">StumbleUpon</a> by Beno&icirc;t Sigoure,
-with contributions from Berk D. Demir during the early design stages.
+<a href="http://www.stumbleupon.com">StumbleUpon</a> by Beno&icirc;t Sigoure.
+Berk D. Demir contributed ideas and feedback during the early design stages.
 <code>tcollector</code> was designed and implemented by Mark Smith and Dave
 Barr, with contributions from Beno&icirc;t Sigoure.
 

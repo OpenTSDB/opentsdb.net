@@ -4,6 +4,7 @@
 
 <ul>
 <li>User Guide (TBD)</li>
+<li><a href="schema.html">Schema</a></li>
 <li><a href="metrics.html">Understanding metrics and time series</a></li>
 <li>Reference Manual (TBD)</li>
 <li>Javadoc API (TBD)</li>

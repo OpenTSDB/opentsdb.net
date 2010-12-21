@@ -5,6 +5,7 @@ SITE_HTML = \
   manual.html	\
   metrics.html	\
   overview.html	\
+  schema.html	\
   setup-hbase.html	\
 
 CONTENT_DIR = content

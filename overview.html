@@ -59,10 +59,13 @@ applications, via JMX for instance for Java applications) and push data points
 to one of the TSDs every few seconds.
 <p>
 <a href="http://www.stumbleupon.com">StumbleUpon</a> wrote a Python framework
-called <strong><code>tcollector</code></strong> that is used to collect
+called
+<a href="https://github.com/stumbleupon/tcollector"><strong><code>tcollector</code></strong></a>
+that we use to collect
 thousand of metrics from Linux 2.6, Apache's HTTPd, MySQL, HBase, memcached,
-Varnish and more.  This framework will be open-sourced separately on December
-20, 2010 so <a href="http://groups.google.com/group/opentsdb">stay tuned</a>.
+Varnish and more.  This framework comes with a number of Linux collectors and
+an HBase collector, and we're planning on releasing more collectors later
+so <a href="http://groups.google.com/group/opentsdb">stay tuned</a>.
 <p>
 In OpenTSDB, a data point is made of:
 <ul>

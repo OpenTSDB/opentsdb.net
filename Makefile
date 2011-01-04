@@ -7,6 +7,7 @@ SITE_HTML = \
   overview.html	\
   schema.html	\
   setup-hbase.html	\
+  tcollector.html	\
 
 CONTENT_DIR = content
 CONTENT_HEADER = $(CONTENT_DIR)/header

@@ -1,6 +1,7 @@
 SITE_HTML = \
   faq.html	\
   getting-started.html	\
+  http-api.html	\
   index.html	\
   manual.html	\
   metrics.html	\

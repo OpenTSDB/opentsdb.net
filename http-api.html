@@ -162,6 +162,175 @@ Valid
 are (from the most verbose to the least): <code>ALL TRACE DEBUG INFO WARN
 ERROR OFF</code> (names are case insensitive).
 
+<h3 id="/q">/q</h3>
+This end point is used to query the time series database.  It can produce
+results in HTML, JSON, PNG or plain text.
+
+<h4>/q Parameters</h4>
+The <code>/q</code> end-point accepts a number of different query string
+parameters.  At least <code>start</code> and one <code>m</code> parameters are
+required.
+<table>
+<thead>
+<tr><th>Name</th><th>Definition</th></tr>
+</thead>
+<tbody>
+<tr><td><code>start</code></td><td>The query's start date.</td></tr>
+<tr><td><code>end</code></td><td>The query's end date.</td></tr>
+<tr><td><code>m</code></td><td>The query itself.</td></tr>
+<tr><td><code>o</code></td><td>Rendering options.</td></tr>
+<tr><td><code>wxh</code></td><td>The dimensions of the graph.</td></tr>
+<tr><td><code>yrange</code></td><td>The range of the left Y axis.</td></tr>
+<tr><td><code>y2range</code></td><td>The range of the right Y axis.</td></tr>
+<tr><td><code>ylabel</code></td><td>Label for the left Y axis.</td></tr>
+<tr><td><code>y2label</code></td><td>Label for the right Y axis.</td></tr>
+<tr><td><code>yformat</code></td><td>Format string for the left Y axis.</td></tr>
+<tr><td><code>y2format</code></td><td>Format string for the right Y axis.</td></tr>
+<tr><td><code>ylog</code></td><td>Enables log scale for the left Y axis.</td></tr>
+<tr><td><code>y2log</code></td><td>Enables log scale for the right Y axis.</td></tr>
+<tr><td><code>key</code></td><td>Options for the key (legend) of the graph.</td></tr>
+<tr><td><code>nokey</code></td><td>Removes the key (legend) from the graph.</td></tr>
+</tbody>
+</table>
+
+<p>
+Dates are always expected to be in one of two forms: absolute (e.g.
+<code>end=2011/02/12-19:42:51</code>) or relative (e.g.
+<code>start=2h-ago</code>).  Dates are always assumed to be in the local time
+of the TSD.  Relative dates can use the suffix <code>s</code> for seconds,
+<code>m</code> for minutes, <code>h</code> for hours, <code>d</code> for days,
+<code>w</code> for weeks, <code>y</code> for years.  If no <code>end</code>
+date is specified, the TSD will use the current time as the end date.
+
+<p>
+Queries are expressed in the <code>m</code> parameters.  There can be multiple
+<code>m</code> parameters.  Each <code>m</code> parameter is made of multiple
+components, separated by colons (:).  Here are some examples and explanations
+of well formed <code>m</code> parameters:
+<table>
+<thead>
+<tr><th>Query</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><code>m=sum:proc.stat.cpu</code></td>
+<td>Sum the value of <code>proc.stat.cpu</code> across all time series for
+this metric.</td>
+</tr>
+<tr>
+<td><code>m=sum:rate:proc.stat.cpu</code></td>
+<td>Sum the rate of change of <code>proc.stat.cpu</code> across all time
+series for this metric.</td>
+</tr>
+<tr>
+<td><code>m=sum:rate:proc.stat.cpu{host=foo}</code></td>
+<td>Sum the rate of change of <code>proc.stat.cpu</code> across all time
+series for this metric but only for the host <code>foo</code>.</td>
+</tr>
+<tr>
+<td><code>m=sum:rate:proc.stat.cpu{host=foo,type=idle}</code></td>
+<td>Idle CPU cycles for host <code>foo</code>.</td>
+</tr>
+<tr>
+<td><code>m=sum:rate:proc.stat.cpu{host=foo,type=user|system}</code></td>
+<td>User and system CPU cycles for host <code>foo</code>.</td>
+</tr>
+<tr>
+<td><code>m=sum:rate:proc.stat.cpu{host=foo,type=*}</code></td>
+<td>Show how CPU cycles are spent on host <code>foo</code>.  Note that
+<code>type=*</code> is roughly equivalent to <code>GROUP BY type</code>
+in SQL.</td>
+</tr>
+<tr>
+<td><code>m=avg:rate:proc.stat.cpu{type=idle}</code></td>
+<td>Average number of idle CPU cycles across the board.</td>
+</tr>
+<tr>
+<td><code>m=avg:10m-avg:rate:proc.stat.cpu{type=idle}</code></td>
+<td>10-minute average of the average number of idle CPU cycles across the
+board.</td> </tr>
+</tbody>
+</tbody>
+</table>
+
+<p>
+As you can infer from the examples above, a query always has at least an
+aggregation function first, and a metric name last.  Tags can be optionally
+specified in curly braces after the name of the metric.  The overall syntax
+is (square brackets indicate an optional part):
+<pre>AGG:[interval-AGG:][rate:]metric[{tag1=value1[,tag2=value2...]}]</pre>
+
+<p>
+The <code>o</code> parameter is optional and is used to pass options to
+Gnuplot to alter the way it renders each line on the graph.  It is typically
+used to move a line on the right axis (<code>o=axis x1y2</code>).  If an
+<code>o</code> parameter is specified, then each <code>m</code> parameter must
+be followed by its <code>o</code> parameter.
+
+<p>
+The <code>wxh</code> parameter specifies the dimensions of the graph, e.g.
+<code>wxh=640x480</code> for an image of 640 pixels large and 480 pixels high.
+
+<h4>/q Output formats</h4>
+The default output format is HTML.  Right now it is not very useful, it simply
+generates a page that fetches the graph as an image.  The image is served when
+the <code>png</code> query string parameter is present.
+
+<p>
+The plain text output format is produced when the <code>ascii</code> query
+string parameter is specified.  This format is the same as the one used during
+data imports:
+<div class="code"><i>GET /q?start=30s-ago&m=sum:rate:proc.stat.cpu{host=foo,type=*}&ascii</i>
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Cache-Control: no-cache
+Content-Length: 23094
+
+proc.stat.cpu 1297574486 54.2 host=foo type=user
+proc.stat.cpu 1297574501 39.6 host=foo type=user
+<i>[...]</i>
+proc.stat.cpu 1297574486 2.66 host=foo type=nice
+proc.stat.cpu 1297574501 0.06 host=foo type=nice
+<i>[...]</i>
+proc.stat.cpu 1297574486 5.0 host=foo type=system
+proc.stat.cpu 1297574501 1.6 host=foo type=system
+<i>[...]</i>
+</div>
+The TSD may return data for a larger time interval than the one requested.
+This is done in order to help third-party graphing tools to properly plot
+values at the edges of the graph.
+<p>
+Note that in this example, the <code>Cache-Control</code> header asks clients
+to not cache the response.  This is because we requested the last 30 seconds
+of data, and this data is too fresh to be cached (collectors are still in the
+process of updating it).
+
+<p>
+The JSON output contains meta-data instead of the actual results of the query.
+This is primarily for the benefit of AJAXy UIs, such as the one of the TSD
+itself.
+<div class="code"><i>GET /q?start=30s-ago&m=sum:rate:proc.stat.cpu{host=foo}&json</i>
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 58
+
+{"plotted":2,"points":387,"etags":[["type"]],"timing":109}
+</div>
+Typically a UI makes a request to the <code>&amp;json</code> URL first, and
+in case of success then requests the same URL again but with
+<code>&amp;png</code> instead to fetch the graph.  The graph is actually
+generated durnig the first request, the second one will simply hit the cache.
+The meta-data in the example above means:
+<ul>
+<li>Only 2 data points ended up being plotted on the graph.</li>
+<li>The TSD processed 387 data points.  The most likely reason as to why only
+2 data points ended up on the graph is that they were aggregated together by
+sum.</li>
+<li>The query is implicitely aggregating a tag, <code>type</code>.</li>
+<li>The TSD self-timed the query and claims that it took 109 milliseconds to
+run (including the time to generate the graph).</li>
+</ul>
+
 <h3 id="/s">/s</h3>
 Serves static files, such as JavaScript generated by the GWT compiler or
 <code>favicon.ico</code>.  The TSD needs a <code>--staticroot</code> argument

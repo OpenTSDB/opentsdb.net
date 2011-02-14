@@ -1,4 +1,5 @@
 SITE_HTML = \
+  cli.html	\
   faq.html	\
   getting-started.html	\
   http-api.html	\

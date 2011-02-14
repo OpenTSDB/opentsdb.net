@@ -86,7 +86,7 @@ The code that adds new data to HBase is in
 <a href="https://github.com/stumbleupon/opentsdb/blob/master/src/core/IncomingDataPoints.java#L35"><code>core.IncomingDataPoints</code></a>,
 so you can refer to this if you want to get down to the implementation
 details.  You can also examine the raw contents of your table using the
-<code>scan</code> command-line tool, for instance:
+<code>scan</code> <a href="cli.html">command-line tool</a>, for instance:
 <div class="code">$ ./src/tsdb scan 2010/11/07-23:00 sum test
 [0, 0, -69, 76, -41, -97, -16, 0, 0, 1, 0, 0, -15] test 1289199600 (Sun Nov 07 23:00:00 PST 2010) {host=face}
   [1, 23] [0, 0, 0, 0, 0, 0, 108, 61]   17      l 27709 1289199617 (Sun Nov 07 23:00:17 PST 2010)
@@ -119,7 +119,7 @@ encoded in the row key + the delta) and the human readable version of the
 timestamp.
 
 <h2 id="upcoming-changes">Upcoming changes</h2>
-The following schema changes have been planned for Q1 2011:
+The following schema changes have been planned for Q2 2011:
 <ul>
 <li>A more compact storage of values (by storing multiple values in
 the same cell to eliminate a lot of HBase overhead).</li>

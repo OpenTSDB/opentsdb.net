@@ -71,7 +71,7 @@ These stats from running <code>/usr/bin/df -PlTk</code>
 <ul>
 <li><code>df.1kblocks.total</code> size of fs
 <li><code>df.1kblocks.used</code>  1K blocks used
-<li><code>df.1kblocks.available</code> 1K blocks available
+<li><code>df.1kblocks.free</code> 1K blocks available
 <li><code>df.inodes.total</code> total number of inodes
 <li><code>df.inodes.used</code> number of inodes used
 <li><code>df.inodes.free</code> number of inodes free

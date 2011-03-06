@@ -185,6 +185,66 @@ for a given box will be double-counted, since a given operation will increment
 both the disk series and the partition series.  To fix this, we output by-disk
 data to <code>iostat.disk.*</code> and by-partition data to <code>iostat.part.*</code>.
 
+<h3><code>0/netstat.py</code></h3>
+
+Socket allocation and network statistics.
+
+<p>Metrics from <code>/proc/net/sockstat</code>:
+<ul>
+<li><code>net.sockstat.num_sockets</code>:
+    Number of sockets allocated (only TCP).</li>
+<li><code>net.sockstat.num_timewait</code>:
+    Number of TCP sockets currently in <code>TIME_WAIT</code> state.</li>
+<li><code>net.sockstat.sockets_inuse</code>:
+    Number of sockets in use (TCP/UDP/raw).</li>
+<li><code>net.sockstat.num_orphans</code>:
+    Number of orphan TCP sockets (not attached to any file descriptor).</li>
+<li><code>net.sockstat.memory</code>:
+    Memory allocated for this socket type (in bytes).</li>
+<li><code>net.sockstat.ipfragqueues</code>:
+    Number of IP flows for which there are currently fragments queued for
+    reassembly.</li>
+</ul>
+
+<p>Metrics from <code>/proc/net/netstat</code> (<code>netstat -s</code> command):
+<ul>
+<li><code>net.stat.tcp.abort</code>:
+    Number of connections that the kernel had to abort.
+    <code>type=memory</code> is especially bad, the kernel had to drop a connection
+    due to having too many orphaned sockets.  Other types are normal (e.g.
+    timeout).</li>
+<li><code>net.stat.tcp.abort.failed</code>:
+    Number of times the kernel failed to abort a connection because it didn't
+    even have enough memory to reset it (bad).</li>
+<li><code>net.stat.tcp.congestion.recovery</code>:
+    Number of times the kernel detected spurious retransmits and was able to
+    recover part or all of the CWND.</li>
+<li><code>net.stat.tcp.delayedack</code>:
+    Number of delayed ACKs sent of different types.</li>
+<li><code>net.stat.tcp.failed_accept</code>:
+    Number of times a connection had to be dropped after the 3WHS.
+    <code>reason=full_acceptq</code> indicates that the application isn't accepting
+    connections fast enough.  You should see SYN cookies too.</li>
+<li><code>net.stat.tcp.invalid_sack</code>:
+    Number of invalid SACKs we saw of diff types.
+    (requires Linux v2.6.24-rc1 or newer)</li>
+<li><code>net.stat.tcp.memory.pressure</code>:
+    Number of times a socket entered the "memory pressure" mode (not great).</li>
+<li><code>net.stat.tcp.memory.prune</code>:
+    Number of times a socket had to discard received data due to low memory
+    conditions (bad).</li>
+<li><code>net.stat.tcp.packetloss.recovery</code>:
+    Number of times we recovered from packet loss by type of recovery (e.g.
+    fast retransmit vs SACK).</li>
+<li><code>net.stat.tcp.receive.queue.full</code>:
+    Number of times a received packet had to be dropped because the socket's
+    receive queue was full. (requires Linux v2.6.34-rc2 or newer)</li>
+<li><code>net.stat.tcp.reording</code>:
+    Number of times we detected re-ordering and how.</li>
+<li><code>net.stat.tcp.syncookies</code>:
+    SYN cookies (both sent &amp; received).</li>
+</ul>
+
 <h3><code>0/procnettcp.py</code></h3>
 
 These stats are all from <code>/proc/net/tcp{,6}</code>. (Note if

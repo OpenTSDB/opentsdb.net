@@ -23,7 +23,7 @@ Tcollector does several things for you:
 <li>Handles all of the wire protocol work for you, as well as future enhancements</li>
 </ul>
 
-<h4>Deduplication</h4>
+<h3>Deduplication</h3>
 Typically you want to gather data about everything in your system.
 This generates a lot of datapoints, the majority of which don't
 change very often over time (if ever).  However, you want fine-grained
@@ -57,7 +57,7 @@ we send datapoints every 15 seconds).
 then they are ignored.  We've included a <code>lib</code> and <code>etc</code> directory
 for library and config data used by all collectors.
 
-<h2>Included collectors</h2>
+<h2>Collectors bundled with <code>tcollector</code></h2>
 
 The following are the collectors we've included as part of the base package, together
 with all of the metric names they report on and what they mean.  If you have any others

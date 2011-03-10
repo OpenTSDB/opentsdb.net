@@ -48,18 +48,20 @@ is made of a tag name ID and a tag value ID.
 
 <p/>
 For instance, if you have the following data point:
-<div class="code">myservice.latency.avg 1292148123 42 reqtype=foo
+<div class="code">myservice.latency.avg 1292148123 42 reqtype=foo host=web42
 </div>
 And the metric ID for <code>myservice.latency.avg</code> is
 <code>[0, 0, -69]</code>, the tag name ID for <code>reqtype</code> is
-<code>[0, 0, 1]</code> and the tag value ID for <code>foo</code> is
-<code>[0, 1, 11]</code>, then you'd have the following row key:
+<code>[0, 0, 1]</code>, the tag value ID for <code>foo</code> is
+<code>[0, 1, 11]</code>, the tag name ID for <code>host</code> is
+<code>[0, 0, 2]</code> and the tag value ID for <code>web42</code> is
+<code>[0, -7, 42]</code>, then you'd have the following row key:
 <div class="code"><!--
-     -->[0, 0, -69, 77, 4, -99, 32, 0, 0, 1, 0, 1, 11]
-<!-- --> `-------'  `------------'  `-----'  `------'
-<!-- --> metric ID  base timestamp  name ID  value ID
-<!-- -->                            `---------------'
-<!-- -->                                first tag
+     -->[0, 0, -69, 77, 4, -99, 32, 0, 0, 1, 0, 1, 11, 0, 0, 2, 0, -7, 42]
+<!-- --> `-------'  `------------'  `-----'  `------'  `-----'  `-------'
+<!-- --> metric ID  base timestamp  name ID  value ID  name ID  value ID
+<!-- -->                            `---------------'  `---------------'
+<!-- -->                                first tag         second tag
 </div>
 (note that the bytes for the timestamp are <code>[77, 4, -99, 32]</code> =
 1292148000, because timestamps in the row key are rounded down to a

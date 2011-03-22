@@ -295,9 +295,12 @@ type={user|nice|system|iowait|irq} .
 <li><code>proc.vmstat.*</code>A subset of VM Stats from
 <code>/proc/vmstat</code> (mix of rate and non-rate)  See <a
 href="http://www.linuxinsight.com/proc_vmstat.html">http://www.linuxinsight.com/proc_vmstat.html</a></li>
-<li><code>proc.meminfo.*</code>  Memory usage stats from /proc/meminfo
-See <a href="http://go/s/url/http%3A%2F%2Fwww.linuxweblog.com%2Fmeminfo">http://www.linuxweblog.com/meminfo</a></li>
-<li><code>proc.loadavg.*</code>  1min, 5min, 15min, runnable, total_threads metrics from /proc/loadavg</li>
+<li><code>proc.meminfo.*</code>  Memory usage stats from
+<code>/proc/meminfo</code>. See the
+<a href="http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=blob;f=Documentation/filesystems/proc.txt;hb=HEAD">Linux
+kernel documentation</a></li>
+<li><code>proc.loadavg.*</code>  1min, 5min, 15min, runnable, total_threads
+metrics from <code>/proc/loadavg</code></li>
 <li><code>proc.uptime.total</code>   (rate) Seconds since boot</li>
 <li><code>proc.uptime.now</code>  (rate) Seconds since boot that the system has been idle</li>
 </ul>

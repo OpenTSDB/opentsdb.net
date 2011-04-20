@@ -10,6 +10,7 @@ SITE_HTML = \
   schema.html	\
   setup-hbase.html	\
   tcollector.html	\
+  varnish.html	\
 
 CONTENT_DIR = content
 CONTENT_HEADER = $(CONTENT_DIR)/header

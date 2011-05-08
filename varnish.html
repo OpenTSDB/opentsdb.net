@@ -107,7 +107,7 @@ sub vcl_recv {
     set req.backend = tsd;
     # Make sure we hit the same backend based on the URL requested,
     # but ignore some parameters before hashing the URL.
-    set client.identity = regsuball(req.url, "&(ignore|png|json|html)\b(=[^&]*)?", "");
+    set client.identity = regsuball(req.url, "&(o|ignore|png|json|html|y2?range|y2?label|y2?log|key|nokey)\b(=[^&]*)?", "");
 }
 
 sub vcl_hash {

@@ -303,6 +303,20 @@ kernel documentation</a></li>
 metrics from <code>/proc/loadavg</code></li>
 <li><code>proc.uptime.total</code>   (rate) Seconds since boot</li>
 <li><code>proc.uptime.now</code>  (rate) Seconds since boot that the system has been idle</li>
+<li><code>proc.kernel.entropy_avail</code>: Amount of entropy (in bits)
+available in the input pool (the one that's cryptographically strong and
+backing <code>/dev/random</code> among other things).  Watch this value on
+your frontend servers that do SSL unwrapping, if it gets too low, your SSL
+performance will suffer.</li>
+<li><code>sys.numa.zoneallocs</code>: Number of pages allocated from the
+preferred node (<code>type=hit</code>) or not (<code>type=miss</code>).</li>
+<li><code>sys.numa.foreign_allocs</code>: Number of pages this node allocated
+because the preferred node didn't have a free page to accommodate the request.</li>
+<li><code>sys.numa.allocation</code>: Number of pages allocated locally
+(<code>type=local</code>) or remotely (<code>type=remote</code>) for processes
+executing on this node.</li>
+<li><code>sys.numa.interleave</code>: Number of pages allocated successfully
+by the interleave strategy.</li>
 </ul>
 </section>
 <footer>

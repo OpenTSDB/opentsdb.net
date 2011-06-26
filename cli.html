@@ -130,6 +130,15 @@ name:
 metrics my.metric -> new.metric.name
 </div>
 
+<p>
+Because UIDs are stored in a separate table (named <code>tsdb-uid</code> by
+default), there's a sub-command called <code>fsck</code> to check that the
+table is consistent.
+<div class="code">$ ./src/tsdb uid fsck
+8668 KVs analyzed in 1709ms (~5071 KV/s)
+No errors found.
+</div>
+
 <h3>mkmetric</h3>
 This tool is used to register new metrics in OpenTSDB.  Although you can also
 register new metrics with the <a href="#uid"><code>uid</code></a> tool, using
@@ -183,6 +192,18 @@ OpenTSDB using the <a href="http-api.html#/q">HTTP interface</a> of a TSD, not
 with the command-line tool.  The TSD has much better query performance thanks
 to various caches and existing open connections to HBase.
 
+<h3>fsck</h3>
+This lets command lets you scan your data and find anything that might be
+wrong with it.  It can also fix some errors automatically.
+<p>
+Its usage is very similar to the <a href="#query"><code>query</code></a>
+in the sense that you have to specify a query and whatever data is covered
+by this query will be checked.
+<div class="code">$ ./src/tsdb fsck 2011/06/24 2011/06/25 sum proc.meminfo.memfree
+<i>[...]</i>
+3592067 KVs (in 15288 rows) analyzed in 6212ms (~578246 KV/s)
+No error found.
+</div>
 <h3>scan</h3>
 This command lets you scan the HBase table and helps you make sense of all the
 binary byte arrays stored in it.  It is useful to try to debug the raw data

@@ -222,4 +222,56 @@ Berk D. Demir contributed ideas and feedback during the early design stages.
 was designed and implemented by Mark Smith and Dave
 Barr, with contributions from Beno&icirc;t Sigoure.
 
+<h4>How to contribute to OpenTSDB?</h4>
+The easiest way is to <a href="http://help.github.com/fork-a-repo/">fork</a>
+the project on <a href="https://github.com/stumbleupon/opentsdb">GitHub</a>.
+Make whatever changes you want to your own fork, then send a
+<a href="http://help.github.com/send-pull-requests/">pull request</a>.
+You can also send your patches to the
+<a href="http://groups.google.com/group/opentsdb">mailing list</a>.
+Be prepared to go through a couple iterations as the code is being reviewed
+before getting accepted in the main repository.  If you are familiar with
+how the Linux kernel is developped, then this is pretty similar.
+
+<h4>Who commits to OpenTSDB?</h4>
+Anyone can commit to OpenTSDB, provided that the changes are accepted
+in the main repository after getting reviewed.  There is no notion of
+"commit access", or no list of committers.
+
+<h4>Why does OpenTSDB use the LGPL?</h4>
+One of the most frequent "holy war" that plague open-source communities is
+that of what licenses to use, which ones are better or "more free" than others.
+OpenTSDB uses the <a href="http://www.gnu.org/licenses/lgpl.html">GNU LGPLv3+</a>
+for maximum compatibility with its dependencies and other licenses, and
+because its author thinks that the LGPL strikes the right balance between the
+goals of free software and the legal restrictions often present in corporate
+environments.
+<p>
+Let's stress the following points:
+<ul>
+<li>The LGPL is <em>not</em> the GPL.  Although based on the same text, the
+way it extends the GPL has significant consequences.  Do not confuse the two.</li>
+<li>The <a href="http://www.gnu.org/licenses/lgpl-java.html">LGPL is perfectly
+compatible with Java</a>.  The myth that the LGPL does not work as intended
+with Java is, well, just a myth, albeit a widespread one.</li>
+<li>The LGPL allows you to use the code in proprietary software, provided that
+you don't <em>redistribute a modified version</em> of the LGPL'ed code.</li>
+<li>If you want to redistribute a modified version of the code, then your
+changes must be released under the LGPL.</li>
+<li>The LGPL is perfectly compatible with the
+<a href="http://www.apache.org/licenses/LICENSE-2.0">ASF2</a> license.
+Many people are misled to believe that there is an incompatibility because the
+Apache Software Foundation (ASF) decided to not allow inclusion of LGPL'ed
+code in its own projects.  This choice only applies to the projects managed by
+the ASF itself and doesn't stem from any license incompability.</li>
+</ul>
+With this out of the way, we hope that those afraid of the 3 letters "GPL"
+will acknowledge the importance of using the LGPL in OpenTSDB and will
+overcome their fear of the license.
+<br/>
+<small>Disclaimer: This page doesn't provide any formal legal advice.
+Information given here is given in good faith.  If you have any doubt, talk to
+a lawyer first.  In the text above "LGPL" or "GPL" refers to the version 3 of
+the license, or (at your option) any later version.</small>
+
 </section>

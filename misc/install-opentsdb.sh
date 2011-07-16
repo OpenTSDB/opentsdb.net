@@ -1,12 +1,12 @@
 #!/bin/bash
 set -xe
-HBASE_VERSION=0.89.20100924
+HBASE_VERSION=0.90.3
 export TMPDIR=${TMPDIR-'/tmp'}/opentsdb
 mkdir -p "$TMPDIR"
 cd "$TMPDIR"
 
 # 1. Download and unpack HBase.
-wget http://www.apache.org/dist/hbase/hbase-$HBASE_VERSION/hbase-$HBASE_VERSION-bin.tar.gz
+wget http://www.apache.org/dist/hbase/hbase-$HBASE_VERSION/hbase-$HBASE_VERSION.tar.gz
 tar xfz hbase-$HBASE_VERSION-bin.tar.gz
 cd hbase-$HBASE_VERSION
 
@@ -43,9 +43,8 @@ EOF
 cd ..
 git clone git://github.com/stumbleupon/opentsdb.git
 cd opentsdb
-make || make MD5=md5sum
-make staticroot
+./build.sh
 env COMPRESSION=none HBASE_HOME=../hbase-$HBASE_VERSION ./src/create_table.sh
 tsdtmp=${TMPDIR-'/tmp'}/tsd    # For best performance, make sure
 mkdir -p "$tsdtmp"             # your temporary directory uses tmpfs
-./src/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"
+./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"

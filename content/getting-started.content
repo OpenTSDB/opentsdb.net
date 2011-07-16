@@ -37,7 +37,7 @@ open-source license) installed in your <code>PATH</code> version 4.2 minimum,
 4.4 recommended.
 <p>
 Before getting started, you need an instance of
-<a href="http://hbase.org">HBase</a> 0.89 (ASLv2) up and running.
+<a href="http://hbase.org">HBase</a> 0.90 (ASLv2) up and running.
 If you don't already have one, you can <a href="setup-hbase.html">get started
 quickly with a single-node HBase instance</a>.  <b>Note: HBase 0.90 recently
 came out</b>.  These instructions are going to be updated to reflect the
@@ -53,17 +53,24 @@ No special privileges are required.
 
 <a name="setuptsdb"></a>
 <h3>Checkout, compile &amp; start OpenTSDB</h3>
+OpenTSDB uses the usual build process that consists in running
+<code>./bootstrap</code> (only once, when you first check out the code),
+followed by <code>./configure</code> and <code>make</code>.  There is a
+handy shell script named <code>build.sh</code> that will take care of all
+of that for you, and build OpenTSDB in a new subdirectory named
+<code>build</code>:
 <div class="code">git clone git://github.com/stumbleupon/opentsdb.git
 cd opentsdb
-make || make MD5=md5sum
-make staticroot
+./build.sh
 </div>
-The last <code>make</code> command will install a few static files for the TSD
-under the <code>build</code> directory.
+From there on, you can use the command-line tool by invoking
+<code>./build/tsdb</code> or you can run <code>make install</code> to install
+OpenTSDB on your system.  Should you ever change your mind, there is also
+<code>make uninstall</code>, so there are no strings attached.
 <p>
-If it's the first time you run OpenTSDB with your HBase instance, you need to
-create the necessary HBase tables:
-<div class="code">env COMPRESSION=none HBASE_HOME=<b><i>path/to/hbase-0.89.DATE</i></b> ./src/create_table.sh
+If it's the first time you run OpenTSDB with your HBase instance, you first
+need to create the necessary HBase tables:
+<div class="code">env COMPRESSION=none HBASE_HOME=<b><i>path/to/hbase-0.90.X</i></b> ./src/create_table.sh
 </div>
 This will create two tables: <code>tsdb</code> and <code>tsdb-uid</code>.
 If you're just evaluating OpenTSDB, don't worry about compression for now.  In
@@ -73,7 +80,7 @@ production / at scale, make sure you use <code>COMPRESSION=lzo</code> and have
 Now start a TSD (Time Series Daemon):
 <div class="code">tsdtmp=${TMPDIR-'/tmp'}/tsd    <i># For best performance, make sure</i>
 mkdir -p "$tsdtmp"             <i># your temporary directory uses tmpfs</i>
-./src/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"
+./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"
 </div>
 If you're using a real HBase cluster, you will also need to pass the
 <code>--zkquorum</code> flag to specify the comma-separated list of hosts
@@ -90,7 +97,7 @@ local machine).
 <h3>Create your first metrics</h3>
 Metrics need to be registered before you can start storing data points for
 them.
-<div class="code">./src/tsdb mkmetric mysql.bytes_received mysql.bytes_sent</div>
+<div class="code">./tsdb mkmetric mysql.bytes_received mysql.bytes_sent</div>
 This will create 2 metrics: <code>mysql.bytes_received</code> and
 <code>mysql.bytes_sent</code>
 <p>
@@ -218,7 +225,7 @@ average latency across the board and/or per request type.
 <p>
 In order to import a data file in the format above (<code>metric timestamp
 value tags</code>) simply run the following command:
-<div class="code">./src/tsdb import <b><i>your-file</i></b></div>
+<div class="code">./tsdb import <b><i>your-file</i></b></div>
 If your data file is large, consider <code>gzip</code>'ing it first.  This can
 be as simple as piping the output of your cron job to
 <code>gzip -9 &gt;output.gz</code> instead of writing directly to a file.  The
@@ -232,7 +239,7 @@ command.  You can collect those stats and feed them back to the TSD every few
 seconds.  First, create the necessary metrics:
 <div class="code">echo stats | nc -w 1 localhost 4242 \
 | awk '{ print $1 }' | sort -u \
-| xargs echo ./src/tsdb mkmetric</div>
+| xargs echo ./tsdb mkmetric</div>
 This requests the stats from the TSD (assuming it's running on the local host
 and listening to port 4242), extract the names of the metrics from the stats
 and assigns them UIDs.

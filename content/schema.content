@@ -49,7 +49,7 @@ The code that adds new data to HBase is in
 so you can refer to this if you want to get down to the implementation
 details.  You can also examine the raw contents of your table using the
 <code>scan</code> <a href="cli.html">command-line tool</a>, for instance:
-<div class="code">$ ./src/tsdb scan 2010/11/07-23:00 sum test
+<div class="code">$ ./tsdb scan 2010/11/07-23:00 sum test
 [0, 0, -69, 76, -41, -97, -16, 0, 0, 1, 0, 0, -15] test 1289199600 (Sun Nov 07 23:00:00 PST 2010) {host=face}
   [1, 23] [0, 0, 0, 0, 0, 0, 108, 61]   17      l 27709 1289199617 (Sun Nov 07 23:00:17 PST 2010)
   [1, 39] [0, 0, 0, 0, 0, 0, 48, 125]   18      l 12413 1289199618 (Sun Nov 07 23:00:18 PST 2010)
@@ -104,13 +104,13 @@ the increased number of objects that HBase has to handle.
 The idea here is simply to re-compact rows in the background so that all the
 values in a row would end up in one big cell, instead of being in many
 individual cells.  For instance, this row containing 2 values:
-<div class="code">$ ./src/tsdb scan 2010/11/07-23:00 sum test
+<div class="code">$ ./tsdb scan 2010/11/07-23:00 sum test
 [0, 0, -69, 76, -41, -94, 72, 0, 0, 1, 0, 0, -15] test 1289200200 (Sun Nov 07 23:10:00 PST 2010) {host=face}
   [3, -89] [108, 61]  58      l 27709 1289200258 (Sun Nov 07 23:10:58 PST 2010)
   [3, -73] [48, 125]  59      l 12413 1289200259 (Sun Nov 07 23:10:59 PST 2010)
 </div>
 Could be stored like so instead:
-<div class="code">$ ./src/tsdb scan 2010/11/07-23:00 sum test
+<div class="code">$ ./tsdb scan 2010/11/07-23:00 sum test
 [0, 0, -69, 76, -41, -94, 72, 0, 0, 1, 0, 0, -15] test 1289200200 (Sun Nov 07 23:10:00 PST 2010) {host=face}
   [3, -89, 3, -73] [108, 61, 48, 125]  58      l 27709 1289200258 (Sun Nov 07 23:10:58 PST 2010)
                                        59      l 12413 1289200259 (Sun Nov 07 23:10:59 PST 2010)

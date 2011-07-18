@@ -7,7 +7,7 @@ cd "$TMPDIR"
 
 # 1. Download and unpack HBase.
 wget http://www.apache.org/dist/hbase/hbase-$HBASE_VERSION/hbase-$HBASE_VERSION.tar.gz
-tar xfz hbase-$HBASE_VERSION-bin.tar.gz
+tar xfz hbase-$HBASE_VERSION.tar.gz
 cd hbase-$HBASE_VERSION
 
 # 2. Configure HBase.

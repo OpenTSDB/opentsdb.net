@@ -97,9 +97,9 @@ Here is an example that is recommended for production use:
 if test -t 0; then  # if stdin is a tty, don't turn on GC logging.
   GCARGS=
 fi
-# The stupid Sun JDK caches all name resolution results forever.  This forces
-# you to restart your application if any of the backends change IP.  Instead
-# tell it to cache name resolution results for only 10 minutes at most.
+# The Sun JDK caches all name resolution results forever, which is stupid.
+# This forces you to restart your application if any of the backends change
+# IP.  Instead tell it to cache names for only 10 minutes at most.
 UNFUCK_DNS='-Dsun.net.inetaddr.ttl=600'
 JVMARGS="$JVMARGS $GCARGS $UNFUCK_DNS"
 </div>

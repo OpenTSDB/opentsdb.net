@@ -25,7 +25,7 @@ And the metric ID for <code>myservice.latency.avg</code> is
 </div>
 (note that the bytes for the timestamp are <code>[77, 4, -99, 32]</code> =
 1292148000, because timestamps in the row key are rounded down to a
-<a href="https://github.com/stumbleupon/opentsdb/blob/b2b9fac7e378b22f2e038bfb69f9baf724db782e/src/core/Const.java#L38">60
+<a href="https://github.com/stumbleupon/opentsdb/blob/25078599673e357c20f3ca0b354079141aaf1345/src/core/Const.java#L38">60
 minute</a> boundary)
 
 <p/>

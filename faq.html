@@ -141,7 +141,9 @@ unable to keep up with the load.
 We recommend that you run multiple TSDs.  At StumbleUpon, we found it useful
 to dedicate one or more TSDs for read queries (human users using the web UI to
 generate graphs or to view dashboards) and let other TSDs handle the write
-queries (new data points coming in from production machines).
+queries (new data points coming in from production machines).  For the
+"read-only" TSDs, we recommend Varnish for load balancing.
+<a href="varnish.html">Read more about Varnish and TSDs</a>.
 
 <h4>What data durability guarantees does OpenTSDB make?</h4>
 By default the TSD buffers data points for about 1 second before persisting

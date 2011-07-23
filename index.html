@@ -62,14 +62,13 @@ hundred of thousands of time series and collects over 600 million data
 points per day in their main production datacenter.
 <p>
 Imagine having the ability to quickly plot a graph showing the number of
-active worker threads in your web servers, the number of threads used by your
-database, and correlate this with your service's latency
-(<a href="#sample-graph">example below</a>).  OpenTSDB makes generating such
+<code>DELETE</code> statements going to your MySQL database along with the
+number of slow queries and temporary files created, and correlate this with
+the 99th percentile of your service's latency.  OpenTSDB makes generating such
 graphs on the fly a trivial operation, while manipulating millions of
 data point for very <strong>fine grained, real-time monitoring</strong>.
 <div style="float:left;margin-right:20px;text-align:right;font-size:small;margin-bottom:10px;margin-left:-30px">
-<a name="sample-graph"></a>
-<a href="img/tsd-sample.png"><img src="img/tsd-sample-small.png"/></a><br/>
+<a href="img/tsd-sample.png"><img id="sample-graph" src="img/tsd-sample-small.png"/></a><br/>
 <small>15464 points retrieved, 932 points plotted in 100ms</small><br/>
 Generating custom graphs and correlating events is easy.</div>
 <p>

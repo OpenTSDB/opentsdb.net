@@ -156,7 +156,8 @@ now if you have a large site.
 <h3>Start collecting data</h3>
 So now that we have our 2 metrics, we can start sending data do the TSD.
 Let's write a little shell script to collect some data off of MySQL and
-send it to the TSD:
+send it to the TSD (note: this is just an example, in practice you can
+use <a href="https://github.com/stumbleupon/tcollector/blob/master/collectors/0/mysql.py">tcollector's MySQL collector</a>.):
 <div class="code">cat &gt;mysql-collector.sh &lt;&lt;\EOF
 #!/bin/bash
 set -e
@@ -202,6 +203,9 @@ by the second word (the value), another space, and finally <code>host=</code>
 and the current hostname.  Rinse and repeat every 15 seconds.  The <code>-w
 30</code> parameter given to <code>nc</code> simply sets a timeout on the
 connection to the TSD.
+<p>
+Bear in mind, this is just an example, in practice you can use
+<a href="https://github.com/stumbleupon/tcollector/blob/master/collectors/0/mysql.py">tcollector's MySQL collector</a>.
 <p>
 If you don't have a MySQL server to monitor, you can try this instead to
 collect basic load metrics from your Linux servers.

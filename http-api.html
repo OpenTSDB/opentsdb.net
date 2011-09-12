@@ -248,7 +248,7 @@ in SQL.</td>
 </tr>
 <tr>
 <td><code>m=avg:10m-avg:rate:proc.stat.cpu{type=idle}</code></td>
-<td>10-minute average of the average number of idle CPU cycles across the
+<td>Downsample the datapoints using the 10-minute average, and show the average number of idle CPU cycles across the
 board.</td> </tr>
 </tbody>
 </tbody>
@@ -256,10 +256,12 @@ board.</td> </tr>
 
 <p>
 As you can infer from the examples above, a query always has at least an
-aggregation function first, and a metric name last.  Tags can be optionally
+aggregation function first, and a metric name last.  There's optional qualifiers
+before the metric to indicate that a metric is a rate or to do downsampling of
+datapoints.  Tag queries can be optionally
 specified in curly braces after the name of the metric.  The overall syntax
 is (square brackets indicate an optional part):
-<pre>AGG:[interval-AGG:][rate:]metric[{tag1=value1[,tag2=value2...]}]</pre>
+<pre>AGG:[interval-DOWNSAMPLE:][rate:]metric[{tag1=value1[,tag2=value2...]}]</pre>
 
 <p>
 The <code>o</code> parameter is optional and is used to pass options to

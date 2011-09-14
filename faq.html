@@ -203,7 +203,8 @@ machines.
 The TSD always renders timestamps in local time, to make it easier for us
 human to understand and correlate events based on the timezone we live in.
 So you should to make sure you give the TSD the correct timezone setting
-(e.g. via the <code>TZ</code> environment variable).  When the TSD starts,
+(e.g. via the <a href="cli.html#Overriding_the_timezone_of_the_TSD"><code>TZ</code> environment variable</a>).
+When the TSD starts,
 it computes its offset from UTC and will then keep that offset forever.
 In case of a DST change, for instance, it would then appear that the TSD
 is 1 hour behind.  There are plans to periodically re-compute the offset

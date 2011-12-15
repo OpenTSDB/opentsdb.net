@@ -6,6 +6,7 @@ SITE_HTML = \
   index.html	\
   manual.html	\
   metrics.html	\
+  nagios.html	\
   overview.html	\
   schema.html	\
   setup-hbase.html	\

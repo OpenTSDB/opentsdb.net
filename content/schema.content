@@ -80,19 +80,11 @@ value, and the timestamp of this value (which is equal to the base time
 encoded in the row key + the delta) and the human readable version of the
 timestamp.
 
-<h2 id="upcoming-changes">Upcoming changes</h2>
-The following schema changes have been planned for Q2 2011:
-<ul>
-<li>A more compact storage of values (by storing multiple values in
-the same cell to eliminate a lot of HBase overhead).</li>
-<li>Variable length encoding of all values.</li>
-<li>Run-length encoding for duplicate values.</li>
-</ul>
-The newer TSDs will always be able to understand the current format
-anyway, so no need to rewrite their entire TSDB table and no downtime
-required to rollout the change.
-
 <h3 id="reduced-overhead">Reducing HBase overhead</h3>
+Note: As of OpenTSDB 1.0.0, this feature is disabled by default.  It will be
+enabled by default in release 1.1.0.
+
+<p/>
 The problem with HBase's implementation is that every single cell also
 stores the row key and a bunch of other redundant information.  In the
 example above with 2 rows and 16 cells, the 13-byte row key is stored
@@ -101,7 +93,7 @@ problems, especially due to memory pressure inside Region Servers and
 the increased number of objects that HBase has to handle.
 
 <p/>
-The idea here is simply to re-compact rows in the background so that all the
+The idea here is simply to re-compact rows in background so that all the
 values in a row would end up in one big cell, instead of being in many
 individual cells.  For instance, this row containing 2 values:
 <div class="code">$ ./tsdb scan 2010/11/07-23:00 sum test
@@ -115,20 +107,37 @@ Could be stored like so instead:
   [3, -89, 3, -73] [108, 61, 48, 125]  58      l 27709 1289200258 (Sun Nov 07 23:10:58 PST 2010)
                                        59      l 12413 1289200259 (Sun Nov 07 23:10:59 PST 2010)
 </div>
-Where both values are grouped together in a single cell.  The TSD could
-continuously re-compact values in background.  New data points would still
+Where both values are grouped together in a single cell.  The TSD can
+continuously re-compact values in background.  New data points are still
 need to be written to their own cell though, because HBase doesn't have
 an "atomic append" operation, and doing read-modify-write is a lot more
 expensive than just adding a new cell.  After a certain amount of time,
-we know that a given row will not be changed ever again, so we can do
-a single read-modify-write-delete to compact all the cells in that row
-into a single bigger cell.
+we know that a given row will probably not be changed ever again, so we
+can do a single read-modify-write-delete to compact all the cells in that
+row into a single bigger cell.
 
 <p/>
-This change is expected to dramatically increase the speed of read queries
-as it will require HBase to look at far fewer objects when scanning the
-table.  It will also improve memory usage in HBase, thus allowing for a
-better cache hit rate.
+This change can dramatically increase the speed of read queries as it forces
+HBase to look at far fewer objects when scanning the table.  It also improves
+memory usage in HBase, thus allowing for a better cache hit rate.
+
+<p/>
+To enable TSD compactions, add the following line to your
+<code>tsdb.local</code>, in the same directory as the <code>tsdb</code>
+executable script:
+<div class="code">JVMARGS="$JVMARGS -Dtsd.feature.compactions=true"
+</div>
+If you wish to disable compactions, just set the value to <code>false</code>.
+
+<h2 id="upcoming-changes">Upcoming changes</h2>
+The following schema changes have been planned for Q1 2012:
+<ul>
+<li>Variable length encoding of all values.</li>
+<li>Run-length encoding for duplicate values.</li>
+</ul>
+The newer TSDs will always be able to understand the current format
+anyway, so no need to rewrite their entire TSDB table and no downtime
+required to rollout the change.
 
 <h3 id="vint">Variable length encoding</h3>
 Both integer value and floating point values will be encoded on a variable

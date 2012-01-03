@@ -65,7 +65,20 @@ Now start HBase:
 
 <a name="hbasescaleup"></a>
 <h3>Migrating to a real HBase cluster</h3>
-TBD
+TBD.  In short:
+<ul>
+<li>Shut down all your TSDs.</li>
+<li>Shut down your single-node HBase cluster.</li>
+<li>Copy the directories named <code>tsdb</code> and <code>tsdb-uid</code>
+from your local filesystem to the HDFS cluster backing up your real HBase
+cluster.</li>
+<li>Run <code>./bin/hbase org.jruby.Main ./bin/add_table.rb
+<i>/hdfs/path/to/hbase/<b>tsdb</b></i></code> and again for the
+<code>tsdb-uid</code> directory.</li>
+<li>Restart your real HBase cluster (sorry).</li>
+<li>Restart your TSDs after making sure they now use your real HBase
+cluster.</li>
+</ul>
 
 <a name="hbaseprod"></a>
 <h3>Putting HBase in production</h3>

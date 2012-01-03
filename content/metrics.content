@@ -108,6 +108,15 @@ series was the total minimum and just show you that host plot.  The other
 way to see how many hits each web server is serving?  This is where we look
 at the tag fields.
 
+<h4>Downsampling</h4>
+
+To reduce the number of datapoints returned, you can specify a downsampling
+interval and method, such as <code>1h-avg<code> or <code>1d-sum</code>.  This
+is also useful (such as when using the <code>max</code> and <code>min</code>)
+to find best and worst-case datapoints over a given period.  Downsampling is
+most useful to make the graphing phase less intensive and more readable,
+especially when graphing more datapoints than screen pixels.
+
 <h4>Tag filters</h4>
 
 In the UI you'll see that the TSD has filled one or more "Tags", the first

@@ -57,7 +57,7 @@ more than 6-7 tags per data point, as the cost associated with storing
 new data points quickly becomes dominated by the number of tags beyond
 that point.
 <p>
-With the tags in the example above, it will be easily to create graphs and
+With the tags in the example above, it will be easy to create graphs and
 dashboards that show the network activity of MySQL on a per host and/or per
 schema basis.
 </section>

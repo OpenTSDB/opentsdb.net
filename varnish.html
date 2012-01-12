@@ -53,8 +53,7 @@ will help you easily scale the amount of read capacity of your TSD cluster.
 The following is a sample Varnish configuration recommended for use with
 OpenTSDB.  It uses a slightly custom load balancing strategy to achieve
 optimal cache hit rate at the TSD level.  This configuration requires at least
-Varnish 2.1.0 to run, but using Varnish 2.1.4 or above is strongly recommended
-in order to really use the slightly custom load balancing strategy.
+Varnish 2.1.0 to run, but using Varnish 3.0 or above is strongly recommended.
 
 <p>
 This sample configuration is for 2 backends, named <code>foo</code> and
@@ -113,11 +112,11 @@ sub vcl_recv {
 sub vcl_hash {
     # Remove the `ignore' parameter from the URL we hash, so that two
     # identical requests modulo that parameter will hit Varnish's cache.
-    set req.hash += regsuball(req.url, "&ignore\b(=[^&]*)?", "");
+    hash_data(regsuball(req.url, "&ignore\b(=[^&]*)?", ""));
     if (req.http.host) {
-        set req.hash += req.http.host;
+        hash_data(req.http.host);
     } else {
-        set req.hash += server.ip;
+        hash_data(server.ip);
     }
     return (hash);
 }
@@ -142,6 +141,12 @@ checking backends</a></li>
 <li><a href="http://www.varnish-cache.org/trac/wiki/LoadBalancing">Tweaking
 the load balancing strategy</a></li>
 </ul>
+
+<p>
+Note: if you're using Varnish 2.x (which is not recommended as we would
+strongly encourage you to migrate to 3.x) you have to replace each function
+call <code>hash_data(foo);</code> to <code>set req.hash += foo;</code> in the
+VCL configuration above.
 
 </section>
 <footer>

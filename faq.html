@@ -86,8 +86,8 @@ before getting to the point where it must start discarding data.
 
 <h4>How much disk space do I need?</h4>
 The answer depends mostly on the average number of tags per data point.  At
-StumbleUpon, we use 4.5 tags on average and our billions of data points take
-just a few dozens of GB on disk (pre-HDFS 3x replication).  We use
+StumbleUpon, we use 4.5 tags on average and our 100+ billion data points take
+only just over a terabyte of disk space (pre-HDFS 3x replication).  We use
 <a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO</a> which is
 extremely recommended in a production setting.  In our case, each data point
 ends up taking about 12 bytes of disk space (or actually 36 if you include the

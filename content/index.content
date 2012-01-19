@@ -17,7 +17,7 @@ thousands of metrics from thousands of hosts and applications</strong>, at a
 high rate (every few seconds).  OpenTSDB will never delete or downsample data
 and can easily store billions of data points.  As a matter of fact,
 <a href="http://www.stumbleupon.com">StumbleUpon</a> uses it to keep track of
-hundred of thousands of time series and collects over 600 million data
+hundred of thousands of time series and collects over 1 billion data
 points per day in their main production datacenter.
 <p>
 Imagine having the ability to quickly plot a graph showing the number of

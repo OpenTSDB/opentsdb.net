@@ -377,6 +377,35 @@ Content-Length: 2887
 "tsd.rpc.received 1297547030 124763 type=http host=foo",
 "tsd.rpc.exceptions 1297547030 16 host=foo", <i>[...]</i>]
 </div>
+<h4 id="self-metrics">Self-reported metrics</h4>
+<ul>
+<li><code>tsd.compaction.count</code>: Number of rows
+<a href="schema.html#reduced-overhead">compacted</a> so far.</li>
+<li><code>tsd.connectionmgr.connections</code>: Number of TCP connections TSD
+accepted.</li>
+<li><code>tsd.connectionmgr.exceptions</code>: Number of uncaught exceptions
+that forced TSD to close an accepted connection.</li>
+<li><code>tsd.rpc.received</code>: Number of RPCs received.</li>
+<li><code>tsd.rpc.exceptions</code>: Number of exceptions caught while serving
+RPCs.</li>
+<li><code>tsd.http.graph.requests</code>: Number of graphs served.</li>
+<li><code>tsd.query.count</code>: Number of read requests served.</li>
+<li><code>tsd.rpc.errors</code>: Number of errors during write requests.</li>
+<li><code>tsd.uid.cache-hit</code>: Number of cache hits in the in-memory
+UID cache.</li>
+<li><code>tsd.uid.cache-miss</code>: Number of cache misses in the in-memory
+UID cache.</li>
+<li><code>tsd.uid.cache-size</code>: Number of entries in the in-memory UID
+cache.</li>
+<li><code>tsd.jvm.ramfree</code>: Number of bytes reported as free by the
+JVM's <code>Runtime.freeMemory()</code>.</li>
+<li><code>tsd.jvm.ramused</code>: Number of bytes reported as used by the
+JVM's <code>Runtime.totalMemory()</code>.</li>
+<li><code>tsd.hbase.root_lookups</code>: Number of times a lookup had to be
+performed in the <code>-ROOT-</code> table.</li>
+<li><code>tsd.hbase.meta_lookups</code>: Number of times a lookup had to be
+performed in the <code>.META.</code> table.</li>
+</ul>
 
 <h3 id="/suggest">/suggest</h3>
 Provides suggestions for metric names, tag names, tag values.  Results are

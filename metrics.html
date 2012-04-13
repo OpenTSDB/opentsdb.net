@@ -261,6 +261,13 @@ RRD-based systems, but historical data doesn't get lost as your boxes shift
 around.  You also don't have to put a bunch of cluster or grouping awareness
 logic into your dashboards.
 
+<h4>Precisions on metrics and tags</h4>
+The maximum number of tags allowed on a data point is defined by a constant
+(<code>Const.MAX_NUM_TAGS</code>), which at time of writing is 8.  Metric
+names, tag names and tag values have to be made of alpha numeric characters,
+dash "-", underscore "_", period ".", and forward slash "/", as is enforced
+by the package-private function <code>Tags.validateString</code>.
+
 </section>
 <footer>
 &copy; 2010&ndash;2012 The OpenTSDB Authors.

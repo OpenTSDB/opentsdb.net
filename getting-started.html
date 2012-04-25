@@ -279,7 +279,7 @@ command.  You can collect those stats and feed them back to the TSD every few
 seconds.  First, create the necessary metrics:
 <div class="code">echo stats | nc -w 1 localhost 4242 \
 | awk '{ print $1 }' | sort -u \
-| xargs echo ./tsdb mkmetric</div>
+| xargs ./tsdb mkmetric</div>
 This requests the stats from the TSD (assuming it's running on the local host
 and listening to port 4242), extract the names of the metrics from the stats
 and assigns them UIDs.

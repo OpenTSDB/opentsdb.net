@@ -48,6 +48,17 @@ Join the OpenTSDB mailing list:
 <a href="http://groups.google.com/group/opentsdb">opentsdb<!--fuckSPAM-->@googlegroups.com</a>
 </p>
 <hr/>
+<div style="float:right">
+<a href="http://www.hbasecon.com/sessions/lessons-learned-from-opentsdb/"><img
+src="http://www.hbasecon.com/wp-content/themes/hbasecon/images/logo-hbasecon.png"
+width="256" height="80" border="0" alt="HBaseCon 2012" title="HBaseCon 2012"/></a>
+</div>
+<p>
+If you're coming to <a href="http://www.hbasecon.com/">HBaseCon</a>
+on May 22, 2012 in San Francisco, don't miss the talk on
+<a href="http://www.hbasecon.com/sessions/lessons-learned-from-opentsdb/">
+Lessons Learned from OpenTSDB</a>.
+<hr/>
 <p>
 December 23, 2011:
 <a href="https://groups.google.com/forum/#!topic/opentsdb/bG6ARrNjEcs">OpenTSDB

@@ -13,6 +13,7 @@
 <li><a href="http://tsunanet.net/~tsuna/opentsdb/api/">Javadoc API</a></li>
 <li><a href="varnish.html">Load balancing with Varnish</a></li>
 <li><a href="nagios.html">Alerting with Nagios</a></li>
+<li><a href="contributing.html">Contributing to OpenTSDB</a></li>
 </ul>
 
 </section>

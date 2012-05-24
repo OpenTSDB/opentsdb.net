@@ -11,13 +11,13 @@ on a single node</a>.
 <div style="float:right">
 Additional compile-time dependencies:
 <ul>
-<li><a href="http://gwt.google.com">GWT</a> 2.0 (ASLv2)</li>
+<li><a href="http://gwt.google.com">GWT</a> 2.4 (ASLv2)</li>
 </ul>
 Additional unit test dependencies:
 <ul>
-<li><a href="http://www.javassist.org">Javassist</a> 3.13 (MPL / LGPL)</li>
-<li><a href="http://www.junit.org">JUnit</a> 4.8 (CPL)</li>
-<li><a href="http://mockito.org">Mockito</a> 1.8 (MIT)</li>
+<li><a href="http://www.javassist.org">Javassist</a> 3.15 (MPL / LGPL)</li>
+<li><a href="http://www.junit.org">JUnit</a> 4.10 (CPL)</li>
+<li><a href="http://mockito.org">Mockito</a> 1.9 (MIT)</li>
 <li><a href="http://code.google.com/p/powermock/">PowerMock</a> 1.4 (ASLv2)</li>
 </ul>
 </div>
@@ -25,11 +25,12 @@ OpenTSDB comes pre-packaged with all the necessary dependencies except the
 JDK and Gnuplot.<br/>The runtime dependencies for OpenTSDB are:
 <ul>
 <li>JDK 1.6</li>
-<li><a href="http://github.com/stumbleupon/asynchbase">asynchbase</a> 1.1.0 (BSD)</li>
-<li><a href="http://logback.qos.ch/">logback</a> 0.9 (LGPLv2.1 / EPL)</li>
-<li><a href="http://jboss.org/netty">Netty</a> 3.2 (ASLv2)</li>
+<li><a href="http://github.com/stumbleupon/asynchbase">asynchbase</a> 1.3.0 (BSD)</li>
+<li><a href="http://code.google.com/p/guava-libraries/">Guava</a> 12.0 (ASLv2)</li>
+<li><a href="http://logback.qos.ch/">logback</a> 1.0 (LGPLv2.1 / EPL)</li>
+<li><a href="http://jboss.org/netty">Netty</a> 3.4 (ASLv2)</li>
 <li><a href="http://slf4j.org">SLF4J</a> 1.6 (MIT) with Log4J and JCL adapters</li>
-<li><a href="http://github.com/stumbleupon/async">suasync</a> 1.0 (BSD)</li>
+<li><a href="http://github.com/stumbleupon/async">suasync</a> 1.2 (BSD)</li>
 <li><a href="http://hadoop.apache.org/zookeeper/">ZooKeeper</a> 3.3 (ASLv2)</li>
 </ul>
 You need to have <a href="http://www.gnuplot.info/">Gnuplot</a> (custom

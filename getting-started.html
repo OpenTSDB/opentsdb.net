@@ -77,7 +77,7 @@ open-source license) installed in your <code>PATH</code> version 4.2 minimum,
 4.4 recommended.
 <p>
 Before getting started, you need an instance of
-<a href="http://hbase.org">HBase</a> 0.90 (ASLv2) up and running.
+<a href="http://hbase.org">HBase</a> 0.92 (ASLv2) up and running.
 If you don't already have one, you can <a href="setup-hbase.html">get started
 quickly with a single-node HBase instance</a>.
 <p>
@@ -106,7 +106,7 @@ OpenTSDB on your system.  Should you ever change your mind, there is also
 <p>
 If it's the first time you run OpenTSDB with your HBase instance, you first
 need to create the necessary HBase tables:
-<div class="code">env COMPRESSION=none HBASE_HOME=<b><i>path/to/hbase-0.90.X</i></b> ./src/create_table.sh
+<div class="code">env COMPRESSION=none HBASE_HOME=<b><i>path/to/hbase-0.92.X</i></b> ./src/create_table.sh
 </div>
 This will create two tables: <code>tsdb</code> and <code>tsdb-uid</code>.
 If you're just evaluating OpenTSDB, don't worry about compression for now.  In

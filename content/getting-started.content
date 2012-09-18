@@ -72,7 +72,7 @@ need to create the necessary HBase tables:
 This will create two tables: <code>tsdb</code> and <code>tsdb-uid</code>.
 If you're just evaluating OpenTSDB, don't worry about compression for now.  In
 production / at scale, make sure you use <code>COMPRESSION=lzo</code> and have
-<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO enabled</a>.
+<a href="setup-hbase.html#lzo">LZO enabled</a>.
 <p>
 Now start a TSD (Time Series Daemon):
 <div class="code">tsdtmp=${TMPDIR-'/tmp'}/tsd    <i># For best performance, make sure</i>

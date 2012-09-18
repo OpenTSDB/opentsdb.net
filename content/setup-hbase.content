@@ -57,9 +57,58 @@ whenever your server reboots.  The remaining settings are less important
 and simply force HBase to stick to the loopback interface (<code>lo0</code>
 on Mac OS X, or just <code>lo</code> on Linux), which simplifies things when
 you're just testing HBase on a single node.
+<a name="lzo"></a>
 <p>
 Now start HBase:
 <div class="code">./bin/start-hbase.sh</div>
+
+<h3>Using LZO</h3>
+There is no reason to not use LZO with HBase.  Except in rare cases, the CPU
+cycles spent on doing LZO compression / decompression pay for themselves by
+saving you time wasted doing more I/O.  This is certainly true for OpenTSDB
+where LZO can easily compress OpenTSDB's binary data by 3 to 4x.  Installing
+LZO is simple and is done as follows.
+
+<h4>Pre-requisites</h4>
+In order to build <code>hadoop-lzo</code>, you need to have Ant installed as
+well as liblzo2 with development headers:
+<div class="code">apt-get install ant liblzo2-dev              # Debian/Ubuntu
+yum install ant ant-nodeps lzo-devel.x86_64  # RedHat/CentOS/Fedora
+brew install lzo                             # Mac OS X</div>
+
+<h4>Compile &amp; Deploy</h4>
+Thanks to our friends at Cloudera for maintaining the Hadoop-LZO package:
+<div class="code">git clone git://github.com/cloudera/hadoop-lzo.git
+cd hadoop-lzo
+CLASSPATH=<i>path/to</i>/hadoop-core-1.0.3.jar CFLAGS=-m64 CXXFLAGS=-m64 ant compile-native tar
+hbasedir=<i>path/to/hbase</i>
+mkdir -p $hbasedir/lib/native
+cp build/hadoop-lzo-0.4.14/hadoop-lzo-0.4.14.jar $hbasedir/lib
+cp -a build/hadoop-lzo-0.4.14/lib/native/* $hbasedir/lib/native
+</div>
+Restart HBase and make sure you create your tables with
+<code>COMPRESSION => 'LZO'</code>
+
+<p>
+Common gotchas:
+<ul>
+<li>Where to find <code>hadoop-core-1.0.3.jar</code>?  On a normal, production
+HBase install, it will be under HBase's <code>lib/</code> directory.  In your
+development environment it may be stashed under HBase's <code>target/</code>
+directory, use <code>find</code> to locate it.</li>
+<li>On Mac OS X, you may get <code>error: Native java headers not found. Is
+$JAVA_HOME set correctly?</code> when <code>configure</code> is looking for
+<code>jni.h</code>, in which case you need to insert
+<code>CPPFLAGS=-I/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers</code>
+before <code>CLASSPATH</code> on the 3rd command above (the one that invokes
+<code>ant</code>).</li>
+<li>On RedHat/CentOS/Fedora you may have to specify where Java is, by adding
+<code>JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk.x86_64</code> (or similar)
+to the <code>ant</code> command-line, before the <code>CLASSPATH</code>.</li>
+<li>On RedHat/CentOS/Fedora, if you get the weird error message that "Cause:
+the class org.apache.tools.ant.taskdefs.optional.Javah was not found." then
+you need to install the <code>ant-nodeps</code> package.</li>
+</ul>
 
 <a name="hbasescaleup"></a>
 <h3>Migrating to a real HBase cluster</h3>

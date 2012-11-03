@@ -35,18 +35,6 @@ cat &gt;conf/hbase-site.xml &lt;&lt;EOF
     &lt;name&gt;hbase.rootdir&lt;/name&gt;
     &lt;value&gt;file:///$hbase_rootdir/hbase-\${user.name}/hbase&lt;/value&gt;
   &lt;/property&gt;
-  &lt;property&gt;
-    &lt;name&gt;hbase.zookeeper.dns.interface&lt;/name&gt;
-    &lt;value&gt;$iface&lt;/value&gt;
-  &lt;/property&gt;
-  &lt;property&gt;
-    &lt;name&gt;hbase.regionserver.dns.interface&lt;/name&gt;
-    &lt;value&gt;$iface&lt;/value&gt;
-  &lt;/property&gt;
-  &lt;property&gt;
-    &lt;name&gt;hbase.master.dns.interface&lt;/name&gt;
-    &lt;value&gt;$iface&lt;/value&gt;
-  &lt;/property&gt;
 &lt;/configuration&gt;
 EOF
 </div>

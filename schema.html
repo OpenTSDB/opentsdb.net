@@ -65,19 +65,19 @@ And the metric ID for <code>myservice.latency.avg</code> is
 </div>
 (note that the bytes for the timestamp are <code>[77, 4, -99, 32]</code> =
 1292148000, because timestamps in the row key are rounded down to a
-<a href="https://github.com/stumbleupon/opentsdb/blob/25078599673e357c20f3ca0b354079141aaf1345/src/core/Const.java#L38">60
+<a href="https://github.com/OpenTSDB/opentsdb/blob/25078599673e357c20f3ca0b354079141aaf1345/src/core/Const.java#L38">60
 minute</a> boundary)
 
 <p/>
 Then the column qualifier for the value is on 2 bytes (16 bits).  The
 first 12 bits are used to store an integer which is a delta in seconds
 from the timestamp in the row key, and the remaining
-<a href="https://github.com/stumbleupon/opentsdb/blob/b2b9fac7e378b22f2e038bfb69f9baf724db782e/src/core/Const.java#L26">4 bits</a>
+<a href="https://github.com/OpenTSDB/opentsdb/blob/b2b9fac7e378b22f2e038bfb69f9baf724db782e/src/core/Const.java#L26">4 bits</a>
 are flags.  In the example above, the data point is at time 1292148123 but
 the timestamp in the row key is 1292148000, so the delta is 123.  The 4 bits
 of flag are used as follows: the first bit indicates whether the value is an
 integer value or a floating point value
-(<a href="https://github.com/stumbleupon/opentsdb/blob/b2b9fac7e378b22f2e038bfb69f9baf724db782e/src/core/Const.java#L29"><code>Const.FLAG_FLOAT</code></a>),
+(<a href="https://github.com/OpenTSDB/opentsdb/blob/b2b9fac7e378b22f2e038bfb69f9baf724db782e/src/core/Const.java#L29"><code>Const.FLAG_FLOAT</code></a>),
 the remaining 3 bits aren't really used at this time (as of 2010-12-21), but
 they're reserved for variable-length encoding in the future.
 <p/>
@@ -85,7 +85,7 @@ The value in the cell is the value of the data point itself, on 8 bytes.
 
 <p/>
 The code that adds new data to HBase is in
-<a href="https://github.com/stumbleupon/opentsdb/blob/master/src/core/IncomingDataPoints.java#L35"><code>core.IncomingDataPoints</code></a>,
+<a href="https://github.com/OpenTSDB/opentsdb/blob/master/src/core/IncomingDataPoints.java#L35"><code>core.IncomingDataPoints</code></a>,
 so you can refer to this if you want to get down to the implementation
 details.  You can also examine the raw contents of your table using the
 <code>scan</code> <a href="cli.html">command-line tool</a>, for instance:

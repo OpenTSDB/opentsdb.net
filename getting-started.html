@@ -65,12 +65,12 @@ OpenTSDB comes pre-packaged with all the necessary dependencies except the
 JDK and Gnuplot.<br/>The runtime dependencies for OpenTSDB are:
 <ul>
 <li>JDK 1.6</li>
-<li><a href="http://github.com/stumbleupon/asynchbase">asynchbase</a> 1.3.0 (BSD)</li>
+<li><a href="http://github.com/OpenTSDB/asynchbase">asynchbase</a> 1.3.0 (BSD)</li>
 <li><a href="http://code.google.com/p/guava-libraries/">Guava</a> 12.0 (ASLv2)</li>
 <li><a href="http://logback.qos.ch/">logback</a> 1.0 (LGPLv2.1 / EPL)</li>
 <li><a href="http://jboss.org/netty">Netty</a> 3.4 (ASLv2)</li>
 <li><a href="http://slf4j.org">SLF4J</a> 1.6 (MIT) with Log4J and JCL adapters</li>
-<li><a href="http://github.com/stumbleupon/async">suasync</a> 1.2 (BSD)</li>
+<li><a href="http://github.com/OpenTSDB/async">suasync</a> 1.2 (BSD)</li>
 <li><a href="http://hadoop.apache.org/zookeeper/">ZooKeeper</a> 3.3 (ASLv2)</li>
 </ul>
 You need to have <a href="http://www.gnuplot.info/">Gnuplot</a> (custom
@@ -96,7 +96,7 @@ followed by <code>./configure</code> and <code>make</code>.  There is a
 handy shell script named <code>build.sh</code> that will take care of all
 of that for you, and build OpenTSDB in a new subdirectory named
 <code>build</code>:
-<div class="code">git clone git://github.com/stumbleupon/opentsdb.git
+<div class="code">git clone git://github.com/OpenTSDB/opentsdb.git
 cd opentsdb
 ./build.sh
 </div>
@@ -154,7 +154,7 @@ now if you have a large site.
 So now that we have our 2 metrics, we can start sending data do the TSD.
 Let's write a little shell script to collect some data off of MySQL and
 send it to the TSD (note: this is just an example, in practice you can
-use <a href="https://github.com/stumbleupon/tcollector/blob/master/collectors/0/mysql.py">tcollector's MySQL collector</a>.):
+use <a href="https://github.com/OpenTSDB/tcollector/blob/master/collectors/0/mysql.py">tcollector's MySQL collector</a>.):
 <div class="code">cat &gt;mysql-collector.sh &lt;&lt;\EOF
 #!/bin/bash
 set -e
@@ -202,7 +202,7 @@ and the current hostname.  Rinse and repeat every 15 seconds.  The <code>-w
 connection to the TSD.
 <p>
 Bear in mind, this is just an example, in practice you can use
-<a href="https://github.com/stumbleupon/tcollector/blob/master/collectors/0/mysql.py">tcollector's MySQL collector</a>.
+<a href="https://github.com/OpenTSDB/tcollector/blob/master/collectors/0/mysql.py">tcollector's MySQL collector</a>.
 <p>
 If you don't have a MySQL server to monitor, you can try this instead to
 collect basic load metrics from your Linux servers.

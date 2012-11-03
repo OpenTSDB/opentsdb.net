@@ -5,7 +5,7 @@
 
 A few guidelines to keep in mind:
 <ul>
-<li>Please file <a href="https://github.com/stumbleupon/opentsdb/issues">
+<li>Please file <a href="https://github.com/OpenTSDB/opentsdb/issues">
 issues on GitHub</a>.  Make sure your bug reports contain enough details
 so they can be easily understood by others and quickly fixed.</li>
 <li>The best way to contribute code is to

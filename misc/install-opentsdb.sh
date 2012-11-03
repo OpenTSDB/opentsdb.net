@@ -41,7 +41,7 @@ EOF
 
 # 4. Download and build OpenTSDB
 cd ..
-git clone git://github.com/stumbleupon/opentsdb.git
+git clone git://github.com/OpenTSDB/opentsdb.git
 cd opentsdb
 ./build.sh
 env COMPRESSION=none HBASE_HOME=../hbase-$HBASE_VERSION ./src/create_table.sh

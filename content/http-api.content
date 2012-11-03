@@ -7,7 +7,7 @@
 This document is a draft specification of the HTTP API exposed by the TSD
 (Time Series Daemon).  OpenTSDB is still in beta, so this specification is
 subject to changes.  This specification is current as of
-<a href="https://github.com/stumbleupon/opentsdb/commit/f33d77416017802bb4c3001aa9581db7feced3d6">December 4, 2010</a>.
+<a href="https://github.com/OpenTSDB/opentsdb/commit/f33d77416017802bb4c3001aa9581db7feced3d6">December 4, 2010</a>.
 The excerpts of HTTP queries in this document have been intentionally
 simplified, e.g. by removing some headers in the responses or not specifying
 the HTTP protocol version in the requests (HTTP 1.1 is assumed throughout).
@@ -16,7 +16,7 @@ the HTTP protocol version in the requests (HTTP 1.1 is assumed throughout).
 <h3>Generalities</h3>
 
 The code that dispatches all requests is in
-<a href="https://github.com/stumbleupon/opentsdb/blob/b85f7602872ecefda7b2a8b35e79681473f74130/src/tsd/RpcHandler.java">
+<a href="https://github.com/OpenTSDB/opentsdb/blob/b85f7602872ecefda7b2a8b35e79681473f74130/src/tsd/RpcHandler.java">
 <code>RpcHandler.java</code></a>.  Some HTTP end-points can return results
 in 3 different formats:
 <ul>
@@ -96,7 +96,7 @@ strings and all the strings are returned in an array.
 <p>
 The number of log messages returned depends on the configuration of the
 cyclic buffer in
-<a href="https://github.com/stumbleupon/opentsdb/blob/master/src/logback.xml"><code>src/logback.xml</code></a>.
+<a href="https://github.com/OpenTSDB/opentsdb/blob/master/src/logback.xml"><code>src/logback.xml</code></a>.
 
 <p>
 Passing a <code>level</code> query string parameter will instead change the

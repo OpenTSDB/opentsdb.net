@@ -20,7 +20,7 @@ to one of the TSDs every few seconds.
 <p>
 <a href="http://www.stumbleupon.com">StumbleUpon</a> wrote a Python framework
 called
-<a href="https://github.com/stumbleupon/tcollector"><strong><code>tcollector</code></strong></a>
+<a href="https://github.com/OpenTSDB/tcollector"><strong><code>tcollector</code></strong></a>
 that we use to collect
 thousand of metrics from Linux 2.6, Apache's HTTPd, MySQL, HBase, memcached,
 Varnish and more.  This framework comes with a number of Linux collectors and

@@ -115,6 +115,9 @@ Accessing this end point causes the TSD to perform a graceful shutdown and
 exit.  A graceful shutdown prevents data loss by flushing all the buffered
 edits to HBase before exiting.
 
+<h3 id="/dropcaches">/dropcaches</h3>
+Accessing this endpoint causes the TSD to drop all it's in-memory caches.
+
 <h3 id="/logs">/logs</h3>
 Returns the last N messages logged by the TSD internally, most recent messages
 first.  Can also be used to change the logging level at runtime (see below).

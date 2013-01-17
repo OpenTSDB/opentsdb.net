@@ -5,7 +5,8 @@
 <div id="toc"></div>
 <h2>tcollector</h2>
 
-tcollector is a client-side process that gathers data from local
+<a href="https://github.com/OpenTSDB/tcollector/">tcollector</a>
+is a client-side process that gathers data from local
 collectors and pushes the data to OpenTSDB.
 You run it on all your hosts, and it does the work of sending each
 host's data to the TSD.<p>

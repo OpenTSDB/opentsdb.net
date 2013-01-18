@@ -1,6 +1,6 @@
 #!/bin/bash
 set -xe
-HBASE_VERSION=0.92.1
+HBASE_VERSION=0.94.4
 export TMPDIR=${TMPDIR-'/tmp'}/opentsdb
 mkdir -p "$TMPDIR"
 cd "$TMPDIR"

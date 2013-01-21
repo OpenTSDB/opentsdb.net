@@ -18,7 +18,10 @@ high rate (every few seconds).  OpenTSDB will never delete or downsample data
 and can easily store billions of data points.  As a matter of fact,
 <a href="http://www.stumbleupon.com">StumbleUpon</a> uses it to keep track of
 hundred of thousands of time series and collects over 1 billion data
-points per day in their main production datacenter.
+points per day in their main production datacenter.  Other sites such as
+<a href="https://www.box.com/">Box</a> or
+<a href="http://www.tumblr.com/">Tumblr</a> are pushing tens of billions of
+data points per day.
 <p>
 Imagine having the ability to quickly plot a graph showing the number of
 <code>DELETE</code> statements going to your MySQL database along with the

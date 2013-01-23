@@ -192,14 +192,6 @@ those Gnuplot knobs.  Also, recent versions of Gnuplot can generate graphs in
 HTML5 canvas.  We plan to use this to build pretty graphs you can interact
 with from your web browser.
 
-<h4>Why was OpenTSDB written in Java?</h4>
-Mostly because OpenTSDB lives around the HBase community, which is a Java
-community.  OpenTSDB also started by using HBase's library, which only
-exists in Java.  Eventually, however, OpenTSDB started to use another
-alternative library to access HBase
-(<a href="http://github.com/OpenTSDB/asynchbase">asynchbase</a>)
-but sadly this one too is in Java.
-
 <h4>Can I use OpenTSDB to generate graphs for my customers / end-users?</h4>
 Yes, but you have to be careful with that.  OpenTSDB was written for internal
 use only, to help engineers and operations staff understand and manage large
@@ -211,6 +203,32 @@ you put the TSD behind a secured HTTP proxy that only allows specific requests
 to go through.  Alternatively, you could use the TSD to periodically
 pre-generate a fixed set of graphs and serve them as static images to your
 customers.
+
+<h4>Why does OpenTSDB return more data than I asked for in my query?</h4>
+All queries specify a start time and an end time (if the end time isn't
+specified, it is assumed to be "now").  OpenTSDB's goal is to plot a sensible
+graph covering that time span.  However it needs to retrieve data before and
+after the times you actually specified, in order to know how to properly
+compute the values near the "edges" of the graph.  Because having extra values
+past the times actually requested is required to draw accurate graphs,
+OpenTSDB also returns the extra data based on the assumption that if you want
+to plot your own graphs or make your own processing, you will also need the
+extra data to get the correct behavior near the edges.
+<p>
+The amount of extra data that OpenTSDB attempts to retrieve is proportional to
+the time span covered by your query.  It is a known usability issue that
+sometimes it will return too much excessive data, when less data is actually
+required to correctly plot the edges of the graph.  This is being fixed.
+
+<a name="meta"></a><h2>Meta</h2>
+
+<h4>Why was OpenTSDB written in Java?</h4>
+Mostly because OpenTSDB lives around the HBase community, which is a Java
+community.  OpenTSDB also started by using HBase's library, which only
+exists in Java.  Eventually, however, OpenTSDB started to use another
+alternative library to access HBase
+(<a href="http://github.com/OpenTSDB/asynchbase">asynchbase</a>)
+but sadly this one too is in Java.
 
 <h4>Has OpenTSDB anything to do with OpenBSD?</h4>
 While the author of OpenTSDB admires the work done on OpenBSD, the fact that

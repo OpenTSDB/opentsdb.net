@@ -9,6 +9,7 @@ SITE_HTML = \
   metrics.html	\
   nagios.html	\
   overview.html	\
+  query-execution.html	\
   schema.html	\
   setup-hbase.html	\
   tcollector.html	\

@@ -150,6 +150,10 @@ Technically it would be feasible to port the code to other systems that follow
 the Bigtable data model.  Systems that differ by not storing data in a sorted
 fashion (such as distributed hash tables) or that do not offer a strong
 consistency guarantee will simply not work with the current design.
+<p>
+edit (Q1'13): Due to popular demand, the next major version of OpenTSDB
+is likely to contain an interface behind which calls to HBase will be
+abstracted away, in order to allow integration with other storage backends.
 
 <a name="misc"></a><h2>Misc</h2>
 <h4>How do the TSDs handle DST changes or leap seconds?</h4>
@@ -191,6 +195,8 @@ generate nicer, antialiased, smoothed graphs.  It's just a matter of exposing
 those Gnuplot knobs.  Also, recent versions of Gnuplot can generate graphs in
 HTML5 canvas.  We plan to use this to build pretty graphs you can interact
 with from your web browser.
+<p>
+Please contribute to help make the UI sexier.
 
 <h4>Can I use OpenTSDB to generate graphs for my customers / end-users?</h4>
 Yes, but you have to be careful with that.  OpenTSDB was written for internal

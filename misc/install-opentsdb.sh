@@ -44,7 +44,7 @@ cd ..
 git clone git://github.com/OpenTSDB/opentsdb.git
 cd opentsdb
 ./build.sh
-env COMPRESSION=none HBASE_HOME=../hbase-$HBASE_VERSION ./src/create_table.sh
+env COMPRESSION=NONE HBASE_HOME=../hbase-$HBASE_VERSION ./src/create_table.sh
 tsdtmp=${TMPDIR-'/tmp'}/tsd    # For best performance, make sure
 mkdir -p "$tsdtmp"             # your temporary directory uses tmpfs
 ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"

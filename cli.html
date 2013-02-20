@@ -204,6 +204,7 @@ by this query will be checked.
 3592067 KVs (in 15288 rows) analyzed in 6212ms (~578246 KV/s)
 No error found.
 </div>
+
 <h3>scan</h3>
 This command lets you scan the HBase table and helps you make sense of all the
 binary byte arrays stored in it.  It is useful to try to debug the raw data
@@ -246,6 +247,25 @@ output to a file in case you mistakenly delete too much data and you want to
 re-import it back later!  This is also useful to quickly fix up data.  You can
 <code>scan --delete</code> it to a file, do some text manipulations on the
 file using your favorite editor, and then import it back into OpenTSDB.
+
+<h3>tsd</h3>
+This command is used to start a TSD (Time Series Daemon), as is shown in the
+<a href="getting-started.html">Getting Started</a> guide.  Here are the flags
+specific to this command:
+<div class="code">  --async-io=true|false Use async NIO (default true) or traditional blocking io
+  --auto-metric         Automatically add metrics to tsdb as they are inserted.  Warning: this may cause unexpected metrics to be tracked
+  --cachedir=PATH       Directory under which to cache result of requests.
+  --flush-interval=MSEC Maximum time for which a new data point can be buffered (default: 1000).
+  --port=NUM            TCP port to listen on.
+  --staticroot=PATH     Web root from which to serve static files (/s URLs).
+  --worker-threads=NUM  Number for async io workers (default: cpu * 2).
+</div>
+
+The <code>--auto-metric</code> command is particularly useful to get started,
+so as to avoid having to manually create all the metrics you want to use.  In
+the long run, however, it's recommended to not run with this flag to avoid
+bogus metric creation caused by buggy scripts, or scripts still under
+development.
 
 </section>
 <footer>

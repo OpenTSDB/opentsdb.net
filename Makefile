@@ -1,6 +1,7 @@
 SITE_HTML = \
   cli.html	\
   contributing.html	\
+  development.html	\
   faq.html	\
   getting-started.html	\
   http-api.html	\
@@ -14,6 +15,7 @@ SITE_HTML = \
   setup-hbase.html	\
   tcollector.html	\
   varnish.html	\
+  version-two.html	\
 
 CONTENT_DIR = content
 CONTENT_HEADER = $(CONTENT_DIR)/header

@@ -1,0 +1,42 @@
+<!--title: Development-->
+<section id="Development">
+<h2>OpenTSDB 2.0 Roadmap</h2>
+<p>The OpenTSDB community has been growing and many developers have contributed patches, new features and ideas to the project. We are proud to start  development on version 2.0 that will integrate many of these features in the official repository. 2.0 will maintain backwards compatiblity with the previous relesae though there maybe some slight changes in the HTTP and JAVA APIs. Below is a roadmap for the next release: </p>
+<h3>Timeline</h3>
+<ul>
+  <li>July 2013 - Initial Release Candidate</li>
+  <li>August 2013 - Release Candidate 2</li>
+  <li>October 2013 - Official Release</li>
+  </ul>
+<p>We'll do our best to hit these dates and can certainly use all of the help we can get.</p>
+<h3>Improvements</h3>
+<p>These are just some of the improvements on the planning board:</p>
+<ul>
+  <li>Improved UID assignment</li>
+  <li>Faster query speeds for complex or aggregated queries</li>
+  <li>More aggregators</li>
+  <li>Graphing options</li>
+  <li>New website and documentation including a user guide</li>
+</ul>
+<h3>New Features</h3>
+
+Some of the new features we're planning to integrate include:
+
+<ul>
+<li>A configuration file for storing properties</li>
+<li>Full RESTful HTTP API that provides access to all of OpenTSDBs features including storing data points via HTTP</li>
+<li>Plugable data formatters that can accept or emit data in various formats. The default will be JSON though implementations could be created for XML, ProtoBuf or others</li>
+<li>Annotations that allow tracking of events associated with a particular timeseries or global notes tied to a timestamp</li>
+<li>Metadata for timeseries, metrics, tag names and tag values so you can find out what is stored in OpenTSDB and add your own notes</li>
+<li>Metadata trees that organize timeseries into a directory like structure</li>
+<li>Plugable search abstraction layer to publish metadata and annotations to your search engine of choice, such as Elastic Search</li>
+<li>Plugable data abstraction layer that will allow the use of data stores other than HBase. Initially we'll release a Cassandra plugin</li>
+<li>Millsecond timestamp support, enabled as an option for users who need greater resolution</li>
+<li>Plugable real-time publisher sink to push incoming data out to subscribes such as RabbitMQ or Memcache</li>
+<li>Debian and FreeBSD packages with init scripts</li>
+</ul>
+<h3>Requests</h3>
+<p>Have a feature you would like to see in 2.0? Check the <a href="https://github.com/OpenTSDB/opentsdb/issues?state=open">Issues</a> list to see if someone is working on it or already posted a request. Also post a notice to the <a href="https://groups.google.com/forum/?fromgroups=#!forum/opentsdb">Users Group</a></p>
+<h3>Contributions</h3>
+<p>We need all of the help we can get so post your thoughts to the users group, then read the <a href="development.html">Development</a> guid and <a href="contributing.html">Contributing</a> page. Create a fork in Github and publish your changes to the &quot;next&quot; branch. Issue a pull request and we'll try and fit it in.</p>
+</section>

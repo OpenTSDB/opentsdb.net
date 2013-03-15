@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HTTP API &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="next" title="Tree" href="tree.html" />
+    <link rel="prev" title="TCollector" href="../user_guide/utilities/tcollector.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tree.html" title="Tree"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../user_guide/utilities/tcollector.html" title="TCollector"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">HTTP API</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#authentication-permissions">Authentication/Permissions</a></li>
+<li><a class="reference internal" href="#response-codes">Response Codes</a></li>
+<li><a class="reference internal" href="#errors">Errors</a><ul>
+<li><a class="reference internal" href="#example-error-result">Example Error Result</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#api-endpoints">API Endpoints</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../user_guide/utilities/tcollector.html"
+                        title="previous chapter">TCollector</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tree.html"
+                        title="next chapter">Tree</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="http-api">
+<h1>HTTP API</h1>
+<p>OpenTSDB provides an HTTP based application programming interface to enable integration with external systems. Almost all OpenTSDB features are accessiable via the API such as querying timeseries data, managing metadata and storing data points. Please read this entire page for important information about standard API behavior before investigating individual endpoints.</p>
+<div class="section" id="overview">
+<h2>Overview</h2>
+<p>The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though plugable <tt class="docutils literal"><span class="pre">formatters</span></tt> may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.</p>
+</div>
+<div class="section" id="authentication-permissions">
+<h2>Authentication/Permissions</h2>
+<p>As of yet, OpenTSDB lacks an authentication and access control system. Therefore no authentication is required when accessing the API. If you wish to limit access to OpenTSDB, uer network ACLs or firewalls to block access. NEVER run OpenTSDB on a machine with a public IP Address.</p>
+</div>
+<div class="section" id="response-codes">
+<h2>Response Codes</h2>
+<p>Every request will be returned with a standard HTTP response code. Most responses will include content, particularly error codes that will include details in the body about what went wrong. Successful codes returned from the API include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>200</td>
+<td>The request completed successfully</td>
+</tr>
+<tr class="row-odd"><td>204</td>
+<td>The server has completed the request successfully but is not returning content in the body. This is primarily used for storing data points as it is not necessary to return data to caller</td>
+</tr>
+<tr class="row-even"><td>301</td>
+<td>This may be used in the event that an API call has migrated or should be forwarded to another server</td>
+</tr>
+</tbody>
+</table>
+<p>Common error response codes include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>400</td>
+<td>Information provided by the API user, via a query string or content data, was in error or missing. This will usually include information in the error body about what parameter caused the issue. Correct the data and try again.</td>
+</tr>
+<tr class="row-odd"><td>404</td>
+<td>The requested endpoint or file was not found. This is usually related to the static file endpoint.</td>
+</tr>
+<tr class="row-even"><td>405</td>
+<td>The requested verb or method was not allowed. Please see the documentation for the endpoint you are attempting to access</td>
+</tr>
+<tr class="row-odd"><td>406</td>
+<td>The request could not generate a response in the format specified. For example, if you ask for a PNG file of the <tt class="docutils literal"><span class="pre">logs</span></tt> endpoing, you will get a 406 response since log entries cannot be converted to a PNG image (easily)</td>
+</tr>
+<tr class="row-even"><td>408</td>
+<td>The request has timed out. This may be due to a timeout fetching data from the underlying storage system or other issues</td>
+</tr>
+<tr class="row-odd"><td>413</td>
+<td>The results returned from a query may be too large for the server&#8217;s buffers to handle. This can happen if you request a lot of raw data from OpenTSDB. In such cases break your query up into smaller queries and run each individually</td>
+</tr>
+<tr class="row-even"><td>500</td>
+<td>An internal error occured within OpenTSDB. Make sure all of the systems OpenTSDB depends on are accessible and check the bug list for issues</td>
+</tr>
+<tr class="row-odd"><td>501</td>
+<td>The requested feature has not been implemented yet. This may appear with formatters or when calling methods that depend on plugins</td>
+</tr>
+<tr class="row-even"><td>503</td>
+<td>A temporary overload has occurred. Check with other users/applications that are interacting with OpenTSDB and determine if you need to reduce requests or scale your system.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="errors">
+<h2>Errors</h2>
+<p>If an error occurs, the API will return a response with an error object formatted per the requested response type. Error object fields include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="50%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field Name</th>
+<th class="head">Data Type</th>
+<th class="head">Always Present</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>code</td>
+<td>Integer</td>
+<td>Yes</td>
+<td>The HTTP status code</td>
+<td>400</td>
+</tr>
+<tr class="row-odd"><td>message</td>
+<td>String</td>
+<td>Yes</td>
+<td>A descriptive error message about what went wrong</td>
+<td>Missing required parameter</td>
+</tr>
+<tr class="row-even"><td>details</td>
+<td>String</td>
+<td>Optional</td>
+<td>Details about the error, often a stack trace</td>
+<td>Missing value: type</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-error-result">
+<h3>Example Error Result</h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;error&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s">&quot;code&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+      <span class="s">&quot;message&quot;</span><span class="p">:</span> <span class="s">&quot;Missing required parameter&quot;</span><span class="p">,</span>
+      <span class="s">&quot;details&quot;</span><span class="p">:</span> <span class="s">&quot;Missing value: type&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is the default error object as JSON. Different formatters may change the layout but must present all of the information.</p>
+</div>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+</div>
+<div class="section" id="api-endpoints">
+<h2>API Endpoints</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tree.html" title="Tree"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../user_guide/utilities/tcollector.html" title="TCollector"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

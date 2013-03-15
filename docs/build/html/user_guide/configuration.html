@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuration &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="next" title="GUIs" href="guis/index.html" />
+    <link rel="prev" title="User Guide" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="guis/index.html" title="GUIs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="User Guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuration</a><ul>
+<li><a class="reference internal" href="#configuration-file">Configuration File</a></li>
+<li><a class="reference internal" href="#file-locations">File Locations</a></li>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#data-types">Data Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">User Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="guis/index.html"
+                        title="next chapter">GUIs</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuration">
+<h1>Configuration</h1>
+<p>OpenTSDB can be configured via a file on the local system, via command line arguments or a combination or both.</p>
+<div class="section" id="configuration-file">
+<h2>Configuration File</h2>
+<p>The configuration file conforms to the Java properties specification. Configuration names are lower-case, dotted strings without spaces. Each name is followed by an equals sign, then the value for the property. All OpenTSDB properties start with &#8220;tsd.&#8221; Comments or inactive configuration lines are blocked by a hash symbol &#8220;#&#8221;. For example:</p>
+<div class="highlight-python"><pre># List of Zookeeper hosts that manage the HBase cluster
+tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
+</div>
+<p>will configure the TSD to connect to &#8220;192.168.1.100&#8221; for HBase storage access.</p>
+<p>When combining configuration files and command line arguments, the order of processing is as follows:</p>
+<ol class="arabic simple">
+<li>Default values are loaded</li>
+<li>Configuration file values are loaded, overriding default values</li>
+<li>Command line parameters are loaded, overriding config file and default values</li>
+</ol>
+</div>
+<div class="section" id="file-locations">
+<h2>File Locations</h2>
+<p>You can use the <tt class="docutils literal"><span class="pre">--config</span></tt> command line argument to specify the full path to a configuration file. Otherwise if not specified, OpenTSDB and some of the commandline tools will attempt to search for a valid configuration file in the following locations:</p>
+<ul class="simple">
+<li>./opentsdb.conf</li>
+<li>/etc/opentsdb.conf</li>
+<li>/etc/opentsdb/opentsdb.conf</li>
+<li>/opt/opentsdb/opentsdb.conf</li>
+</ul>
+<p>In the event that a valid configuration file cannot be found and the required properties are not set, the TSD will not start. Please see the properties table below for a list of required configuration settings.</p>
+</div>
+<div class="section" id="properties">
+<h2>Properties</h2>
+<p>The following is a table of configuration options for all tools. When applicable, the corresponding command line override is provided. Please note that individual command line tools may have their own values so see their documentation for details.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="5%" />
+<col width="5%" />
+<col width="40%" />
+<col width="5%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">CLI</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tsd.core.auto_create_metrics</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn&#8217;t match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.</td>
+<td>False</td>
+<td>&#8211;auto-metric</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.cachedir</td>
+<td>String</td>
+<td>Required</td>
+<td>The full path to a location where temporary files can be written</td>
+<td>&nbsp;</td>
+<td>&#8211;cachedir</td>
+<td>/tmp/opentsdb</td>
+</tr>
+<tr class="row-even"><td>tsd.http.staticroot</td>
+<td>String</td>
+<td>Required</td>
+<td>Location of a directory where static files, such as javascript files for the web interface, are located</td>
+<td>&nbsp;</td>
+<td>&#8211;staticroot</td>
+<td>/opt/opentsdb/staticroot</td>
+</tr>
+<tr class="row-odd"><td>tsd.network.async_io</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to use NIO or tradditional blocking IO&#8221;</td>
+<td>True</td>
+<td>&#8211;async-io</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>tsd.network.bind</td>
+<td>String</td>
+<td>Optional</td>
+<td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.</td>
+<td>0.0.0.0</td>
+<td>&#8211;bind</td>
+<td>127.0.0.1</td>
+</tr>
+<tr class="row-odd"><td>tsd.network.keep_alive</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to allow keep-alive connections</td>
+<td>True</td>
+<td>&nbsp;</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>tsd.network.reuse_address</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Wether or not to allow reuse of the bound port within Netty</td>
+<td>True</td>
+<td>&nbsp;</td>
+<td>False</td>
+</tr>
+<tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to disable TCP buffering before sending data</td>
+<td>True</td>
+<td>&nbsp;</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>tsd.network.worker_threads</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The number fo asynchronous IO worker threads for Netty</td>
+<td>#CPU cores * 2</td>
+<td>&#8211;worker-threads</td>
+<td>15</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.enable_compaction</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable compactions</td>
+<td>True</td>
+<td>&nbsp;</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.flush_interval</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>How often, in milliseconds, to flush the data point storage write buffer</td>
+<td>1000</td>
+<td>&#8211;flush-interval</td>
+<td>500</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.hbase.data_table</td>
+<td>String</td>
+<td>Optional</td>
+<td>Name of the HBase table where data points are stored</td>
+<td>tsdb</td>
+<td>&#8211;table</td>
+<td>tsdb</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.hbase.uid_table</td>
+<td>String</td>
+<td>Optional</td>
+<td>Name of the HBase table where UID information is stored</td>
+<td>tsdb-uid</td>
+<td>&#8211;uidtable</td>
+<td>tsdb-uid</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.hbase.zk_basedir</td>
+<td>String</td>
+<td>Optional</td>
+<td>Path under which the znode for the -ROOT- region is located</td>
+<td>/hbase</td>
+<td>&#8211;zkbasedir</td>
+<td>/hbase</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.hbase.zk_quorum</td>
+<td>String</td>
+<td>Optional</td>
+<td>A space separated list of Zookeeper hosts to connect to, with or without port specifiers</td>
+<td>localhost</td>
+<td>&#8211;zkquorum</td>
+<td>192.168.1.1:2181 192.168.1.2:2181</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="data-types">
+<h2>Data Types</h2>
+<p>Some configuration values require special consideration:</p>
+<ul>
+<li><p class="first">Booleans - The following literals will parse to <tt class="docutils literal"><span class="pre">True</span></tt>:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">true</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">yes</span></tt></li>
+</ul>
+<p>Any other values will result in a <tt class="docutils literal"><span class="pre">False</span></tt>. Parsing is case insensitive</p>
+</li>
+<li><p class="first">Strings - Strings, even those with spaces, do not require quotation marks, but some considerations apply:</p>
+<ul>
+<li><p class="first">Special characters must be escaped with a backslash include: <tt class="docutils literal"><span class="pre">#</span></tt>, <tt class="docutils literal"><span class="pre">!</span></tt>, <tt class="docutils literal"><span class="pre">=</span></tt>, and <tt class="docutils literal"><span class="pre">:</span></tt>
+E.g.:</p>
+<div class="highlight-python"><pre>my.property = Hello World\!</pre>
+</div>
+</li>
+<li><p class="first">Unicode characters must be escaped with their hexadecimal representation, e.g.:</p>
+<div class="highlight-python"><pre>my.property = \u0009</pre>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="guis/index.html" title="GUIs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="User Guide"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >User Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

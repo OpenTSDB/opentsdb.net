@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plugins &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="up" title="Development" href="index.html" />
+    <link rel="next" title="Frequently Asked Questions (FAQ)" href="../faq.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../faq.html" title="Frequently Asked Questions (FAQ)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Plugins</a><ul>
+<li><a class="reference internal" href="#manifest">Manifest</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contributing.html"
+                        title="previous chapter">Contributing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../faq.html"
+                        title="next chapter">Frequently Asked Questions (FAQ)</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="plugins">
+<h1>Plugins</h1>
+<p>OpenTSDB implements a very simple plugin model to extend the application. Plugins use the <em>service</em> and <em>service provider</em> facilities built into Java 1.6 that allows for dynamically loading JAR files and instantiating plugin implementations after OpenTSDB has been started. While not as flexible as many framework implementations, all we need to do is load a plugin on startup, initialize the implementation, and start passing data to or through it.</p>
+<p>To create a plugin, all you have to do is extend one of the <em>abstract</em> plugin classes, write a service description/manifest, compile, drop your JAR (along with any dependencies needed) into the OpenTSDB plugin folder, edit the TSD config and restart. That&#8217;s all there is to it. No fancy frameworks, no worrying about loading and unloading at strange times, etc.</p>
+<div class="section" id="manifest">
+<h2>Manifest</h2>
+<p>A plugin JAR requires a manifest with a special <em>services</em> folder and file to enable the <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to load it properly. Here are the steps for creating the proper files:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">Create a <tt class="docutils literal"><span class="pre">META-INF</span></tt> directory under your <tt class="docutils literal"><span class="pre">src</span></tt> directory. Some IDEs can automatically generate this</p>
+</li>
+<li><p class="first">Within the <tt class="docutils literal"><span class="pre">META-INF</span></tt> directory, create a file named <tt class="docutils literal"><span class="pre">MANIFEST.MF</span></tt>. Again some IDEs can generate this automatically.</p>
+</li>
+<li><p class="first">Edit the <tt class="docutils literal"><span class="pre">MANIFEST.MF</span></tt> file and add:</p>
+<div class="highlight-python"><pre>Manifest-Version: 1.0</pre>
+</div>
+<p>making sure to end with a blank line. You can add more manifest information if you like. This is the bare minimum to satisfy plugin requirements.</p>
+</li>
+<li><p class="first">Create a <tt class="docutils literal"><span class="pre">services</span></tt> directory under <tt class="docutils literal"><span class="pre">META-INF</span></tt></p>
+</li>
+<li><p class="first">Within <tt class="docutils literal"><span class="pre">services</span></tt> create a file with the canonical class name of the abstract plugin class you are implementing. E.g. if you implement <tt class="docutils literal"><span class="pre">net.opentsdb.search.SearchPlugin</span></tt>, use that for the name of the file.</p>
+</li>
+<li><p class="first">Edit the new file and put the canonical name of each class that implements the abstract interface on a new line of the file. E.g. if your implementation is called <tt class="docutils literal"><span class="pre">net.opentsdb.search.ElasticSearch</span></tt>, put that on a line. Some quick notes about this file:</p>
+<ul>
+<li><p class="first">You can put comments in the service implementation file. The comment character is the <tt class="docutils literal"><span class="pre">#</span></tt>, just like a Java properties file. E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ElasticSearch plugin written by John Doe</span>
+<span class="c"># that sends data over HTTP to a number of ElasticSearch servers</span>
+<span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearch</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You can have more than one implementation of the same abstract class in one JAR and in this file.
+NOTE: If you have widely different implementations, start a different project and JAR. E.g. if you implement a search plugin for ElasticSearch and another for Solr, put Solr in a different project. However if you have two implementations that are very similar but slightly different, you can create one project. For example you could write an ElasticSearch plugin that uses HTTP for a protocol and another that uses Thrift. In that case, you could have a file like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ElasticSearch HTTP</span>
+<span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchHTTP</span>
+<span class="c"># ElasticSearch Thrift</span>
+<span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchThrift</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you&#8217;re going command line, try this:</p>
+<div class="highlight-python"><pre>jar cvmf &lt;path to MANIFEST.MF&gt; &lt;plugin jar name&gt; &lt;list of class files&gt;</pre>
+</div>
+<p>Where the <tt class="docutils literal"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></tt> includes the services file that you created above. E.g.:</p>
+<div class="highlight-python"><pre>jar cvmf META-INF/MANIFEST.MF searchplugin.jar ../bin/net/opentsdb/search/myplugin.class META-INF/services/net.opentsdb.search.SearchPlugin</pre>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../faq.html" title="Frequently Asked Questions (FAQ)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Development</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

@@ -41,6 +41,7 @@ The following is a table of configuration options for all tools. When applicable
    :widths: 20, 5, 5, 40, 5, 10, 15
 
    "tsd.core.auto_create_metrics", "Boolean", "Optional", "Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn't match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.", "False", "--auto-metric", "True"
+   "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone", "System Configured", "", "America/Los_Angeles"
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written", "", "--cachedir", "/tmp/opentsdb"
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as javascript files for the web interface, are located", "", "--staticroot", "/opt/opentsdb/staticroot"
    "tsd.network.async_io", "Boolean", "Optional", Whether or not to use NIO or tradditional blocking IO", "True", "--async-io", "False"

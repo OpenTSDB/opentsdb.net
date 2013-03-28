@@ -145,7 +145,15 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;auto-metric</td>
 <td>True</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.cachedir</td>
+<tr class="row-odd"><td>tsd.core.timezone</td>
+<td>String</td>
+<td>Optional</td>
+<td>A localized timezone identification string used to override the local system timezone</td>
+<td>System Configured</td>
+<td>&nbsp;</td>
+<td>America/Los_Angeles</td>
+</tr>
+<tr class="row-even"><td>tsd.http.cachedir</td>
 <td>String</td>
 <td>Required</td>
 <td>The full path to a location where temporary files can be written</td>
@@ -153,7 +161,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;cachedir</td>
 <td>/tmp/opentsdb</td>
 </tr>
-<tr class="row-even"><td>tsd.http.staticroot</td>
+<tr class="row-odd"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
 <td>Location of a directory where static files, such as javascript files for the web interface, are located</td>
@@ -161,7 +169,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;staticroot</td>
 <td>/opt/opentsdb/staticroot</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.async_io</td>
+<tr class="row-even"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or tradditional blocking IO&#8221;</td>
@@ -169,7 +177,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;async-io</td>
 <td>False</td>
 </tr>
-<tr class="row-even"><td>tsd.network.bind</td>
+<tr class="row-odd"><td>tsd.network.bind</td>
 <td>String</td>
 <td>Optional</td>
 <td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.</td>
@@ -177,7 +185,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;bind</td>
 <td>127.0.0.1</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.keep_alive</td>
+<tr class="row-even"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
@@ -185,7 +193,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&nbsp;</td>
 <td>False</td>
 </tr>
-<tr class="row-even"><td>tsd.network.reuse_address</td>
+<tr class="row-odd"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Wether or not to allow reuse of the bound port within Netty</td>
@@ -193,7 +201,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&nbsp;</td>
 <td>False</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
+<tr class="row-even"><td>tsd.network.tcp_no_delay</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to disable TCP buffering before sending data</td>
@@ -201,7 +209,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&nbsp;</td>
 <td>False</td>
 </tr>
-<tr class="row-even"><td>tsd.network.worker_threads</td>
+<tr class="row-odd"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number fo asynchronous IO worker threads for Netty</td>
@@ -209,7 +217,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;worker-threads</td>
 <td>15</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.enable_compaction</td>
+<tr class="row-even"><td>tsd.storage.enable_compaction</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable compactions</td>
@@ -217,7 +225,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&nbsp;</td>
 <td>False</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.flush_interval</td>
+<tr class="row-odd"><td>tsd.storage.flush_interval</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How often, in milliseconds, to flush the data point storage write buffer</td>
@@ -225,7 +233,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;flush-interval</td>
 <td>500</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.data_table</td>
+<tr class="row-even"><td>tsd.storage.hbase.data_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where data points are stored</td>
@@ -233,7 +241,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;table</td>
 <td>tsdb</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.uid_table</td>
+<tr class="row-odd"><td>tsd.storage.hbase.uid_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where UID information is stored</td>
@@ -241,7 +249,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;uidtable</td>
 <td>tsdb-uid</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.zk_basedir</td>
+<tr class="row-even"><td>tsd.storage.hbase.zk_basedir</td>
 <td>String</td>
 <td>Optional</td>
 <td>Path under which the znode for the -ROOT- region is located</td>
@@ -249,7 +257,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;zkbasedir</td>
 <td>/hbase</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.zk_quorum</td>
+<tr class="row-odd"><td>tsd.storage.hbase.zk_quorum</td>
 <td>String</td>
 <td>Optional</td>
 <td>A space separated list of Zookeeper hosts to connect to, with or without port specifiers</td>

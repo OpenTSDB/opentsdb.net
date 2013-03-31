@@ -41,12 +41,14 @@ The following is a table of configuration options for all tools. When applicable
    :widths: 20, 5, 5, 40, 5, 10, 15
 
    "tsd.core.auto_create_metrics", "Boolean", "Optional", "Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn't match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.", "False", "--auto-metric", "True"
-   "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone", "System Configured", "", "America/Los_Angeles"
+   "tsd.core.enable_milliseconds", "Boolean", "Optional", "Whether or not to enable millisecond timestamp support.", "False", "", "True"
+   "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.", "System Configured", "", "America/Los_Angeles"
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written", "", "--cachedir", "/tmp/opentsdb"
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as javascript files for the web interface, are located", "", "--staticroot", "/opt/opentsdb/staticroot"
    "tsd.network.async_io", "Boolean", "Optional", Whether or not to use NIO or tradditional blocking IO", "True", "--async-io", "False"
    "tsd.network.bind", "String", "Optional", "An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.", "0.0.0.0", "--bind", "127.0.0.1"
    "tsd.network.keep_alive", "Boolean", "Optional", "Whether or not to allow keep-alive connections", "True", "", "False"
+   "tsd.network.port", "Integer", "Required", "The TCP port to use for accepting connections", "", "--port", "4242"
    "tsd.network.reuse_address", "Boolean", "Optional", "Wether or not to allow reuse of the bound port within Netty", "True", "", "False"
    "tsd.network.tcp_no_delay", "Boolean", "Optional", "Whether or not to disable TCP buffering before sending data", "True", "", "False"
    "tsd.network.worker_threads", "Integer", "Optional", "The number fo asynchronous IO worker threads for Netty", "#CPU cores \* 2", "--worker-threads", "15"

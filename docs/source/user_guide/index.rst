@@ -8,7 +8,6 @@ TODO
    
    configuration
    guis/index
-   timeseries
    writing
    query/index
    plugins
@@ -20,3 +19,4 @@ TODO
    backends/index
    cli/index
    utilities/index
+   logging

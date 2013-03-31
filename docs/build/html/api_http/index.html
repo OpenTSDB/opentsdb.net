@@ -23,8 +23,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
-    <link rel="next" title="Tree" href="tree.html" />
-    <link rel="prev" title="TCollector" href="../user_guide/utilities/tcollector.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="next" title="/s" href="s.html" />
+    <link rel="prev" title="Logging" href="../user_guide/logging.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -35,10 +35,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="tree.html" title="Tree"
+          <a href="s.html" title="/s"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../user_guide/utilities/tcollector.html" title="TCollector"
+          <a href="../user_guide/logging.html" title="Logging"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,6 +49,8 @@
   <ul>
 <li><a class="reference internal" href="#">HTTP API</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#version-1-x-to-2-x">Version 1.X to 2.x</a></li>
+<li><a class="reference internal" href="#serializers">Serializers</a></li>
 <li><a class="reference internal" href="#authentication-permissions">Authentication/Permissions</a></li>
 <li><a class="reference internal" href="#response-codes">Response Codes</a></li>
 <li><a class="reference internal" href="#errors">Errors</a><ul>
@@ -56,6 +58,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#api-versioning">API Versioning</a></li>
+<li><a class="reference internal" href="#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#deprecated-api">Deprecated API</a></li>
 <li><a class="reference internal" href="#api-endpoints">API Endpoints</a><ul>
 </ul>
 </li>
@@ -64,11 +70,11 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../user_guide/utilities/tcollector.html"
-                        title="previous chapter">TCollector</a></p>
+  <p class="topless"><a href="../user_guide/logging.html"
+                        title="previous chapter">Logging</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="tree.html"
-                        title="next chapter">Tree</a></p>
+  <p class="topless"><a href="s.html"
+                        title="next chapter">/s</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -96,6 +102,32 @@
 <div class="section" id="overview">
 <h2>Overview</h2>
 <p>The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though plugable <tt class="docutils literal"><span class="pre">formatters</span></tt> may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.</p>
+</div>
+<div class="section" id="version-1-x-to-2-x">
+<h2>Version 1.X to 2.x</h2>
+<p>OpenTSDB 1.x had a simple HTTP API that provided access to common behaviors such as querying for data, auto-complete queries and static file requests. OpenTSDB 2.0 introduces a new, formalized API as documented here. The 1.0 API is still accessible though most calls are deprecated and may be removed in version 3. All 2.0 API calls start with <tt class="docutils literal"><span class="pre">/api/</span></tt>.</p>
+</div>
+<div class="section" id="serializers">
+<h2>Serializers</h2>
+<p>2.0 introduces plugable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before.</p>
+<p>All API calls use the default JSON serializer unless overridden by query string or <tt class="docutils literal"><span class="pre">Content-Type</span></tt> header. To override:</p>
+<ul>
+<li><p class="first"><strong>Query String</strong> - Supply a parameter such as <tt class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></tt> where <tt class="docutils literal"><span class="pre">&lt;serializer_name&gt;</span></tt> is the hard-coded name of the serializer as shown in the <tt class="docutils literal"><span class="pre">/api/serializers</span></tt> <tt class="docutils literal"><span class="pre">serializer</span></tt> output field.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If a serializer isn&#8217;t found that matches the <tt class="docutils literal"><span class="pre">&lt;serializer_name&gt;</span></tt> value, the query will return an error instead of processing further.</p>
+</div>
+</li>
+<li><p class="first"><strong>Content-Type</strong> - If a query string is not given, the TSD will parse the <tt class="docutils literal"><span class="pre">Content-Type</span></tt> header from the HTTP request. Each serializer may supply a content type and if matched to the incoming request, the proper serializer will be used. If a serializer isn&#8217;t located that maps to the content type, the default serializer will be used.</p>
+</li>
+<li><p class="first"><strong>Default</strong> - If no query string parameter is given or the content-type is missing or not matched, the default JSON serializer will be used.</p>
+</li>
+</ul>
+<p>The API documentation will display requests and responses using the JSON serializer. See plugin documentation for the ways in which serializers alter behavior.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The JSON specification states that fields can appear in any order, so do not assume the ordering in given examples will be preserved. Arrays may be sorted and if so, this will be documented.</p>
+</div>
 </div>
 <div class="section" id="authentication-permissions">
 <h2>Authentication/Permissions</h2>
@@ -206,30 +238,110 @@
 <td>Details about the error, often a stack trace</td>
 <td>Missing value: type</td>
 </tr>
+<tr class="row-odd"><td>trace</td>
+<td>String</td>
+<td>Optional</td>
+<td>A JAVA stack trace describing the location where the error was generated. This can be enabled via the <tt class="docutils literal"><span class="pre">tsd.http.show_stack_trace</span></tt> configuration option. The default for TSD is to hide the stack trace.</td>
+<td><cite>See below</cite></td>
+</tr>
 </tbody>
 </table>
+<p>All errors will return with a valid HTTP status error code and a content body with error details. The default formatter returns error messages as JSON with the <tt class="docutils literal"><span class="pre">application/json</span></tt> content-type. If a different formatter was requested, the output may be different. See the formatter documentation for details.</p>
 <div class="section" id="example-error-result">
 <h3>Example Error Result</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;error&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s">&quot;code&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
-      <span class="s">&quot;message&quot;</span><span class="p">:</span> <span class="s">&quot;Missing required parameter&quot;</span><span class="p">,</span>
-      <span class="s">&quot;details&quot;</span><span class="p">:</span> <span class="s">&quot;Missing value: type&quot;</span>
-  <span class="p">}</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">400</span><span class="p">,</span>
+        <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Missing parameter &lt;code&gt;type&lt;/code&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trace&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.BadRequestException: Missing parameter &lt;code&gt;type&lt;/code&gt;\r\n\tat net.opentsdb.tsd.BadRequestException.missingParameter(BadRequestException.java:78) ~[bin/:na]\r\n\tat net.opentsdb.tsd.HttpQuery.getRequiredQueryStringParam(HttpQuery.java:250) ~[bin/:na]\r\n\tat net.opentsdb.tsd.SuggestRpc.execute(SuggestRpc.java:63) ~[bin/:na]\r\n\tat net.opentsdb.tsd.RpcHandler.handleHttpQuery(RpcHandler.java:172) [bin/:na]\r\n\tat net.opentsdb.tsd.RpcHandler.messageReceived(RpcHandler.java:120) [bin/:na]\r\n\tat org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:75) [netty-3.5.9.Final.jar:na]\r\n\tat org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:565) [netty-3.5.9.Final.jar:na]</span>
+<span class="s2">        ....\r\n\tat java.lang.Thread.run(Unknown Source) [na:1.6.0_26]\r\n&quot;</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This is the default error object as JSON. Different formatters may change the layout but must present all of the information.</p>
+<p>Note that the stack trace is truncated. Also, the trace will include system specific line endings (in this case <tt class="docutils literal"><span class="pre">\r\n</span></tt> for Windows). If displaying for a user or writing to a log, be sure to replace the <tt class="docutils literal"><span class="pre">\n</span></tt> or <tt class="docutils literal"><span class="pre">\r\n</span></tt> and <tt class="docutils literal"><span class="pre">\r</span></tt> characters with new lines and tabs.</p>
 </div>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
+<p>The HTTP API is RESTful in nature, meaning it does it&#8217;s best to adhere to the REST protocol by using HTTP verbs to determine a course of action. For example, a <tt class="docutils literal"><span class="pre">GET</span></tt> request should only return data, a <tt class="docutils literal"><span class="pre">PUT</span></tt> or <tt class="docutils literal"><span class="pre">POST</span></tt> should modify data and <tt class="docutils literal"><span class="pre">DELETE</span></tt> should remove it. Documentation will reflect what verbs can be used on an endpoint and what they do.</p>
+<p>However in some situations, verbs such as <tt class="docutils literal"><span class="pre">DELETE</span></tt> and <tt class="docutils literal"><span class="pre">PUT</span></tt> are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using <tt class="docutils literal"><span class="pre">GET</span></tt> and <tt class="docutils literal"><span class="pre">POST</span></tt> exclusively. Therefore, while the OpenTSDB API supports extended verbs, all requests can be performed with just <tt class="docutils literal"><span class="pre">GET</span></tt> and <tt class="docutils literal"><span class="pre">POST</span></tt> using the query string parameter <tt class="docutils literal"><span class="pre">method</span></tt>. The following table describes verb behavior and overrides.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="70%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Verb</th>
+<th class="head">Description</th>
+<th class="head">Override</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GET</td>
+<td>Used to retrieve data from OpenTSDB. Overrides can be provided to modify content. <strong>Note</strong>: Requests via GET can only use query string parameters; see the note below.</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>POST</td>
+<td>Used to update or create an object in OpenTSDB using the content body from the request. Will use a formatter to parse the content body</td>
+<td>method=post</td>
+</tr>
+<tr class="row-even"><td>PUT</td>
+<td>Replace an entire object in the system with the provided content</td>
+<td>method=put</td>
+</tr>
+<tr class="row-odd"><td>DELETE</td>
+<td>Used to delete data from the system</td>
+<td>method=delete</td>
+</tr>
+</tbody>
+</table>
+<p>If a method is not supported for a given API call, the TSD will return a 405 error.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The HTTP specification states that there shouldn&#8217;t be an association between data passed in a request body and the URI in a <tt class="docutils literal"><span class="pre">GET</span></tt> request. Thus OpenTSDB&#8217;s API does not parse body content in <tt class="docutils literal"><span class="pre">GET</span></tt> requests. You can, however, provide a query string with data and an override for updating data in certain endpoints. But we recommend that you use <tt class="docutils literal"><span class="pre">POST</span></tt> for anything that writes data.</p>
+</div>
+</div>
+<div class="section" id="api-versioning">
+<h2>API Versioning</h2>
+<p>OpenTSDB 2.0&#8217;s API call calls are versioned so that users can upgrade with gauranteed backwards compatability. To access a specific API version, you craft a URL such as <tt class="docutils literal"><span class="pre">/api/v&lt;version&gt;/&lt;endpoint&gt;</span></tt> such as <tt class="docutils literal"><span class="pre">/api/v2/suggest</span></tt>. This will access version 2 of the <tt class="docutils literal"><span class="pre">suggest</span></tt> endpoint. Versioning starts at 1 for OpenTSDB 2.0.0. Requests for a version that does not exist will result in calls to the latest version. Also, if you do not supply an explicit version, such as <tt class="docutils literal"><span class="pre">/api/suggest</span></tt>, the latest version will be used.</p>
+</div>
+<div class="section" id="query-string-vs-body-content">
+<h2>Query String Vs. Body Content</h2>
+<p>Most of the API endpoints support query string parameters, particularly those that fetch data from the system. However due to the complexities of encoding some characters, and particularly Unicode, all endpoints also support access via POST content using formatters. The default format is JSON so clients can use their favorite means of generating a JSON object and send it to the OpenTSDB API via a <tt class="docutils literal"><span class="pre">POST</span></tt> request. <tt class="docutils literal"><span class="pre">POST</span></tt> requests will generally provided greater flexibility in the fields offered and fully Unicode support than query strings.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation</h2>
+<p>The documentation for each endpoint listed below will contain details about how to use that endpoint. Eahc page will contain a description of the endpoint, what verbs are supported, the fields in a request, fields in a respone and examples.</p>
+<p>Request Parameters are a list of field names that you can pass in with your request. Each table has the following information:</p>
+<ul class="simple">
+<li>Name - The name of the field</li>
+<li>Data Type - The type of data you need to supply. E.g. <tt class="docutils literal"><span class="pre">String</span></tt> should be text, <tt class="docutils literal"><span class="pre">Integer</span></tt> must be a whole number (positive or negative), <tt class="docutils literal"><span class="pre">Float</span></tt> should be a decimal number. The data type may also be a complex object such as an array or map of values or objects.</li>
+<li>Required - Whether or not the parameter is required for a successful query. If the parameter is required, you&#8217;ll see <tt class="docutils literal"><span class="pre">Required</span></tt> otherwise it will be <tt class="docutils literal"><span class="pre">Optional</span></tt>.</li>
+<li>Description - A detailed description of the parameter including what values are allowed if applicable.</li>
+<li>Default - The default value of the <tt class="docutils literal"><span class="pre">Optional</span></tt> parameter. If the data is required, this field will be blank.</li>
+<li>QS - If the parameter can be supplied via query string, this field will have a <tt class="docutils literal"><span class="pre">Yes</span></tt> in it, otherwise it will have a <tt class="docutils literal"><span class="pre">No</span></tt> meaning the parameter can only be supplied as part of the request body content.</li>
+<li>RW - Describes whether or not this parameter can result in an update to data stored in OpenTSDB. Possible values in this column are:<ul>
+<li><em>empty</em> - This means that the field is for queries only and does not, necessarily, represent a field in the response.</li>
+<li><strong>RO</strong> - A field that appears in the response but is read only. The value passed along with a request will not alter the output field.</li>
+<li><strong>RW</strong> - A field that <strong>will</strong> result in an update to the data stored in the system</li>
+</ul>
+</li>
+<li>Example - An example of the parameter value</li>
+</ul>
+</div>
+<div class="section" id="deprecated-api">
+<h2>Deprecated API</h2>
+<p>Read <a class="reference internal" href="deprecated.html"><em>Deprecated HTTP API</em></a></p>
 </div>
 <div class="section" id="api-endpoints">
 <h2>API Endpoints</h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="s.html">/s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serializers.html">/api/serializers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suggest.html">/api/suggest</a></li>
 </ul>
 </div>
 </div>
@@ -248,10 +360,10 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="tree.html" title="Tree"
+          <a href="s.html" title="/s"
              >next</a> |</li>
         <li class="right" >
-          <a href="../user_guide/utilities/tcollector.html" title="TCollector"
+          <a href="../user_guide/logging.html" title="Logging"
              >previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>

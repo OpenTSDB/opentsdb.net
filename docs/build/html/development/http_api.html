@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Contributing &mdash; OpenTDSB 2.0 documentation</title>
+    <title>HTTP API &mdash; OpenTDSB 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="Development" href="index.html" />
-    <link rel="next" title="Plugins" href="plugins.html" />
-    <link rel="prev" title="Development" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="next" title="Frequently Asked Questions (FAQ)" href="../faq.html" />
+    <link rel="prev" title="Plugins" href="plugins.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -36,10 +36,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="plugins.html" title="Plugins"
+          <a href="../faq.html" title="Frequently Asked Questions (FAQ)"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Development"
+          <a href="plugins.html" title="Plugins"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Development</a> &raquo;</li> 
@@ -47,12 +47,20 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">HTTP API</a><ul>
+<li><a class="reference internal" href="#reserved-query-string-parameters">Reserved Query String Parameters</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Development</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="plugins.html"
-                        title="next chapter">Plugins</a></p>
+                        title="previous chapter">Plugins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../faq.html"
+                        title="next chapter">Frequently Asked Questions (FAQ)</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -74,10 +82,31 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="contributing">
-<h1>Contributing</h1>
-<p>TODO</p>
-<p><a class="reference external" href="http://opentsdb.net/contributing.html">Original</a></p>
+  <div class="section" id="http-api">
+<h1>HTTP API</h1>
+<div class="section" id="reserved-query-string-parameters">
+<h2>Reserved Query String Parameters</h2>
+<p>The following is a list of query string parameters that are used by OpenTSDB across the entire API:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>serializer</td>
+<td>The name of a serializer to use for parsing input or formatting return data</td>
+</tr>
+<tr class="row-odd"><td>method</td>
+<td>Allows for overriding the HTTP verb when necessary</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 
 
@@ -93,10 +122,10 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="plugins.html" title="Plugins"
+          <a href="../faq.html" title="Frequently Asked Questions (FAQ)"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Development"
+          <a href="plugins.html" title="Plugins"
              >previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >Development</a> &raquo;</li> 

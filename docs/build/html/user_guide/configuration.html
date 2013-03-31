@@ -145,15 +145,23 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;auto-metric</td>
 <td>True</td>
 </tr>
-<tr class="row-odd"><td>tsd.core.timezone</td>
+<tr class="row-odd"><td>tsd.core.enable_milliseconds</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable millisecond timestamp support.</td>
+<td>False</td>
+<td>&nbsp;</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>tsd.core.timezone</td>
 <td>String</td>
 <td>Optional</td>
-<td>A localized timezone identification string used to override the local system timezone</td>
+<td>A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.</td>
 <td>System Configured</td>
 <td>&nbsp;</td>
 <td>America/Los_Angeles</td>
 </tr>
-<tr class="row-even"><td>tsd.http.cachedir</td>
+<tr class="row-odd"><td>tsd.http.cachedir</td>
 <td>String</td>
 <td>Required</td>
 <td>The full path to a location where temporary files can be written</td>
@@ -161,7 +169,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;cachedir</td>
 <td>/tmp/opentsdb</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.staticroot</td>
+<tr class="row-even"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
 <td>Location of a directory where static files, such as javascript files for the web interface, are located</td>
@@ -169,7 +177,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;staticroot</td>
 <td>/opt/opentsdb/staticroot</td>
 </tr>
-<tr class="row-even"><td>tsd.network.async_io</td>
+<tr class="row-odd"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or tradditional blocking IO&#8221;</td>
@@ -177,7 +185,7 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;async-io</td>
 <td>False</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.bind</td>
+<tr class="row-even"><td>tsd.network.bind</td>
 <td>String</td>
 <td>Optional</td>
 <td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.</td>
@@ -185,13 +193,21 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;bind</td>
 <td>127.0.0.1</td>
 </tr>
-<tr class="row-even"><td>tsd.network.keep_alive</td>
+<tr class="row-odd"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
 <td>True</td>
 <td>&nbsp;</td>
 <td>False</td>
+</tr>
+<tr class="row-even"><td>tsd.network.port</td>
+<td>Integer</td>
+<td>Required</td>
+<td>The TCP port to use for accepting connections</td>
+<td>&nbsp;</td>
+<td>&#8211;port</td>
+<td>4242</td>
 </tr>
 <tr class="row-odd"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>

@@ -169,6 +169,22 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>&#8211;cachedir</td>
 <td>/tmp/opentsdb</td>
 </tr>
+<tr class="row-even"><td>tsd.http.request.enable_chunked</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable incoming chunk support for the HTTP RPC</td>
+<td>false</td>
+<td>&nbsp;</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.request.max_chunk</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The maximum chunk size to support for incoming HTTP requests.</td>
+<td>4096</td>
+<td>&nbsp;</td>
+<td>1024</td>
+</tr>
 <tr class="row-even"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>

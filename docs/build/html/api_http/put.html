@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/put &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="up" title="HTTP API" href="index.html" />
+    <link rel="next" title="/api/serializers" href="serializers.html" />
+    <link rel="prev" title="/api/dropcaches" href="dropcaches.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="serializers.html" title="/api/serializers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dropcaches.html" title="/api/dropcaches"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/put</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response-with-summary">Example Response with Summary</a></li>
+<li><a class="reference internal" href="#example-response-with-details">Example Response With Details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dropcaches.html"
+                        title="previous chapter">/api/dropcaches</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="serializers.html"
+                        title="next chapter">/api/serializers</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-put">
+<h1>/api/put</h1>
+<p>This endpoint allows for storing data in OpenTSDB over HTTP as an alternative to the Telnet interface. Put requests can only be performed via content associated with the POST method. The format of the content is dependent on the serializer selected. However there are some common parameters and responses as documented below.</p>
+<p>To save on bandwidth, the put API allows clients to store multiple data points in a single request. The data points do not have to be related in any way. Each data point is processed individually and an error with one piece of data will not affect the storing of good data. This means if your request has 100 data points and 1 of them has an error, 99 data points will still be written and one will be rejected. See the Response section below for details on determining what data point was not stored.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the content you provide with the request cannot be parsed, such JSON content missing a quotation mark or curly brace, then all of the datapoints will be discarded. The API will return an error with details about what went wrong.</p>
+</div>
+<p>While the API does support multiple data points per request, the API will not return until every one has been processed. That means metric and tag names/values must be verified, the value parsed and the data queued for storage. If your put request has a large number of data points, it may take a long time for the API to respond, particularly if OpenTSDB has to assign UIDs to tag names or values. Therefore it is a good idea to limit the maximum number of data points per request; 50 per request is a good starting point.</p>
+<p>Another recommendation is to enable keep-alives on your HTTP client so that you can re-use your connection to the server every time you put data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When using HTTP for puts, you may need to enable support for chunks if your HTTP client automatically breaks large requests into smaller packets. For example, CURL will break up messages larger than 2 or 3 data points and by default, OpenTSDB disables chunk support. Enable it by setting <tt class="docutils literal"><span class="pre">tsd.http.request.enable_chunked</span></tt> to true in the config file.</p>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Some query string parameters can be supplied that alter the response to a put request:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>summary</td>
+<td>Present</td>
+<td>Optional</td>
+<td>Whether or not to return summary information</td>
+<td>false</td>
+<td>summary</td>
+<td>&nbsp;</td>
+<td>/api/put?summary</td>
+</tr>
+<tr class="row-odd"><td>details</td>
+<td>Present</td>
+<td>Optional</td>
+<td>Whether or not to return detailed information</td>
+<td>false</td>
+<td>detailed</td>
+<td>&nbsp;</td>
+<td>/api/put?detailed</td>
+</tr>
+</tbody>
+</table>
+<p>If both <tt class="docutils literal"><span class="pre">detailed</span></tt> and <tt class="docutils literal"><span class="pre">summary</span></tt> are present in a query string, the API will respond with <tt class="docutils literal"><span class="pre">detailed</span></tt> information.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p>Please see the serializer documentation for request information.</p>
+<p><a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>By default, the put endpoint will respond with a <tt class="docutils literal"><span class="pre">204</span></tt> HTTP status code and no content if all data points were stored successfully. If one or more datapoints had an error, the API will return a <tt class="docutils literal"><span class="pre">400</span></tt> with an error message in the content.</p>
+<p>For debugging purposes, you can ask for the response to include a summary of how many data points were stored successfully and failed, or get details about what data points could not be stored and why so that you can fix your client code. Also, errors with a data point will be logged in the TSD&#8217;s log file so you can look there for issues.</p>
+<p>Fields present in <tt class="docutils literal"><span class="pre">summary</span></tt> or <tt class="docutils literal"><span class="pre">detailed</span></tt> responses include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>success</td>
+<td>Integer</td>
+<td>The number of data points that were queued successfully for storage</td>
+</tr>
+<tr class="row-odd"><td>failed</td>
+<td>Integer</td>
+<td>The number of data points that could not be queued for storage</td>
+</tr>
+<tr class="row-even"><td>errors</td>
+<td>Array</td>
+<td>A list of data points that failed be queued and why. Present in the <tt class="docutils literal"><span class="pre">details</span></tt> response only.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-response-with-summary">
+<h3>Example Response with Summary</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;failed&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-response-with-details">
+<h3>Example Response With Details</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;errors&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;datapoint&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1365465600</span><span class="p">,</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;Unable to parse value to a number&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;failed&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="serializers.html" title="/api/serializers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dropcaches.html" title="/api/dropcaches"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

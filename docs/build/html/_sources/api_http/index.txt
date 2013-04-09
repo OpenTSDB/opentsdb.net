@@ -134,7 +134,8 @@ The documentation for each endpoint listed below will contain details about how 
 Request Parameters are a list of field names that you can pass in with your request. Each table has the following information:
 
 * Name - The name of the field
-* Data Type - The type of data you need to supply. E.g. ``String`` should be text, ``Integer`` must be a whole number (positive or negative), ``Float`` should be a decimal number. The data type may also be a complex object such as an array or map of values or objects.
+* Data Type - The type of data you need to supply. E.g. ``String`` should be text, ``Integer`` must be a whole number (positive or negative), ``Float`` should be a decimal number. The data type may also be a complex object such as an array or map of values or objects. 
+  If you see ``Present`` in this column then simply adding the parameter to the query string sets the value to ``true``, the actual value of the parameter is ignored. For example ``/api/put?summary`` will effectively set ``summary=true``. If you request ``/api/put?summary=false``, the API will still consider the request as ``summary=true``.
 * Required - Whether or not the parameter is required for a successful query. If the parameter is required, you'll see ``Required`` otherwise it will be ``Optional``. 
 * Description - A detailed description of the parameter including what values are allowed if applicable.
 * Default - The default value of the ``Optional`` parameter. If the data is required, this field will be blank.
@@ -143,7 +144,7 @@ Request Parameters are a list of field names that you can pass in with your requ
 
   * *empty* - This means that the field is for queries only and does not, necessarily, represent a field in the response.
   * **RO** - A field that appears in the response but is read only. The value passed along with a request will not alter the output field. 
-  * **RW** - A field that **will** result in an update to the data stored in the system
+  * **RW** or **W** - A field that **will** result in an update to the data stored in the system
   
 * Example - An example of the parameter value
 
@@ -161,6 +162,7 @@ API Endpoints
    s
    aggregators
    dropcaches
+   put
    serializers
    suggest
    version

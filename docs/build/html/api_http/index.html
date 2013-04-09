@@ -317,7 +317,8 @@
 <p>Request Parameters are a list of field names that you can pass in with your request. Each table has the following information:</p>
 <ul class="simple">
 <li>Name - The name of the field</li>
-<li>Data Type - The type of data you need to supply. E.g. <tt class="docutils literal"><span class="pre">String</span></tt> should be text, <tt class="docutils literal"><span class="pre">Integer</span></tt> must be a whole number (positive or negative), <tt class="docutils literal"><span class="pre">Float</span></tt> should be a decimal number. The data type may also be a complex object such as an array or map of values or objects.</li>
+<li>Data Type - The type of data you need to supply. E.g. <tt class="docutils literal"><span class="pre">String</span></tt> should be text, <tt class="docutils literal"><span class="pre">Integer</span></tt> must be a whole number (positive or negative), <tt class="docutils literal"><span class="pre">Float</span></tt> should be a decimal number. The data type may also be a complex object such as an array or map of values or objects.
+If you see <tt class="docutils literal"><span class="pre">Present</span></tt> in this column then simply adding the parameter to the query string sets the value to <tt class="docutils literal"><span class="pre">true</span></tt>, the actual value of the parameter is ignored. For example <tt class="docutils literal"><span class="pre">/api/put?summary</span></tt> will effectively set <tt class="docutils literal"><span class="pre">summary=true</span></tt>. If you request <tt class="docutils literal"><span class="pre">/api/put?summary=false</span></tt>, the API will still consider the request as <tt class="docutils literal"><span class="pre">summary=true</span></tt>.</li>
 <li>Required - Whether or not the parameter is required for a successful query. If the parameter is required, you&#8217;ll see <tt class="docutils literal"><span class="pre">Required</span></tt> otherwise it will be <tt class="docutils literal"><span class="pre">Optional</span></tt>.</li>
 <li>Description - A detailed description of the parameter including what values are allowed if applicable.</li>
 <li>Default - The default value of the <tt class="docutils literal"><span class="pre">Optional</span></tt> parameter. If the data is required, this field will be blank.</li>
@@ -325,7 +326,7 @@
 <li>RW - Describes whether or not this parameter can result in an update to data stored in OpenTSDB. Possible values in this column are:<ul>
 <li><em>empty</em> - This means that the field is for queries only and does not, necessarily, represent a field in the response.</li>
 <li><strong>RO</strong> - A field that appears in the response but is read only. The value passed along with a request will not alter the output field.</li>
-<li><strong>RW</strong> - A field that <strong>will</strong> result in an update to the data stored in the system</li>
+<li><strong>RW</strong> or <strong>W</strong> - A field that <strong>will</strong> result in an update to the data stored in the system</li>
 </ul>
 </li>
 <li>Example - An example of the parameter value</li>
@@ -342,6 +343,7 @@
 <li class="toctree-l1"><a class="reference internal" href="s.html">/s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aggregators.html">/api/aggregators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dropcaches.html">/api/dropcaches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put.html">/api/put</a></li>
 <li class="toctree-l1"><a class="reference internal" href="serializers.html">/api/serializers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="suggest.html">/api/suggest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">/api/version</a></li>

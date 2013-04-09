@@ -44,6 +44,8 @@ The following is a table of configuration options for all tools. When applicable
    "tsd.core.enable_milliseconds", "Boolean", "Optional", "Whether or not to enable millisecond timestamp support.", "False", "", "True"
    "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.", "System Configured", "", "America/Los_Angeles"
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written", "", "--cachedir", "/tmp/opentsdb"
+   "tsd.http.request.enable_chunked", "Boolean", "Optional", "Whether or not to enable incoming chunk support for the HTTP RPC", "false", "", "true"
+   "tsd.http.request.max_chunk", "Integer", "Optional", "The maximum chunk size to support for incoming HTTP requests.", "4096", "", "1024"
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as javascript files for the web interface, are located", "", "--staticroot", "/opt/opentsdb/staticroot"
    "tsd.network.async_io", "Boolean", "Optional", Whether or not to use NIO or tradditional blocking IO", "True", "--async-io", "False"
    "tsd.network.bind", "String", "Optional", "An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.", "0.0.0.0", "--bind", "127.0.0.1"

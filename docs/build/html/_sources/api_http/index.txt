@@ -16,7 +16,7 @@ OpenTSDB 1.x had a simple HTTP API that provided access to common behaviors such
 Serializers
 -----------
 
-2.0 introduces plugable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before.
+2.0 introduces plugable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read :doc:`serializers/index`
 
 All API calls use the default JSON serializer unless overridden by query string or ``Content-Type`` header. To override:
 
@@ -159,5 +159,8 @@ API Endpoints
    :maxdepth: 1
    
    s
+   aggregators
+   dropcaches
    serializers
    suggest
+   version

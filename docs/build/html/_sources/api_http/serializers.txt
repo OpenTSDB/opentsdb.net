@@ -1,5 +1,5 @@
 /api/serializers
-===============
+================
 
 This endpoint lists the serializer plugins loaded by the running TSD. Information given includes the name, implemented methods, content types and methods. 
 

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/s &mdash; OpenTDSB 2.0 documentation</title>
+    <title>/api/dropcaches &mdash; OpenTDSB 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="HTTP API" href="index.html" />
-    <link rel="next" title="/api/aggregators" href="aggregators.html" />
-    <link rel="prev" title="HTTP API" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="next" title="/api/serializers" href="serializers.html" />
+    <link rel="prev" title="/api/aggregators" href="aggregators.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -36,10 +36,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="aggregators.html" title="/api/aggregators"
+          <a href="serializers.html" title="/api/serializers"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="HTTP API"
+          <a href="aggregators.html" title="/api/aggregators"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
@@ -49,21 +49,26 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">/s</a><ul>
+<li><a class="reference internal" href="#">/api/dropcaches</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
-<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
 <li><a class="reference internal" href="#example-request">Example Request</a></li>
-<li><a class="reference internal" href="#response">Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">HTTP API</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="aggregators.html"
-                        title="next chapter">/api/aggregators</a></p>
+                        title="previous chapter">/api/aggregators</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="serializers.html"
+                        title="next chapter">/api/serializers</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -85,35 +90,42 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="s">
-<h1>/s</h1>
-<p>This endpoint was introduced in 1.0 as a means of accessing static files on the local system. <tt class="docutils literal"><span class="pre">/s</span></tt> will be maintained in the future and will not be deprecated. The static root is definied in the config file as <tt class="docutils literal"><span class="pre">tsd.http.staticroot</span></tt> or CLI via <tt class="docutils literal"><span class="pre">--staticroot</span></tt>.</p>
-<p>By default, static files will be returned with a header telling clients to cache them for 1 year. Any file that contains <tt class="docutils literal"><span class="pre">nocache</span></tt> in the name (e.g. <tt class="docutils literal"><span class="pre">queryui.nocache.js</span></tt>, the idiom used by GWT) will not include the cache header.</p>
+  <div class="section" id="api-dropcaches">
+<h1>/api/dropcaches</h1>
+<p>This endpoint purges the in-memory data cached in OpenTSDB. This includes all UID to name and name to UID maps for metrics, tag names and tag values.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The TSD will attempt to return the correct <strong>Content-Type</strong> header for the requested file. However the TSD code doesn&#8217;t support very many formats at this time, just HTML, JSON, Javascript and PNG. Let us know what formats you need or issue a pull request with your patches.</p>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The code for this endpoint is very simple and does not include any security. Thus you should make sure that permissions on your static root directory are secure so that users can&#8217;t write malicious files and serve them out of OpenTSDB. Users shouldn&#8217;t be able to write files via OpenTSDB, but take precautions just to be safe.</p>
+<p class="last">This endpoint does not purge the on-disk temporary cache where graphs and other files are stored.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
-<p>All verbs are supported and simply ignored</p>
+<ul class="simple">
+<li>GET</li>
+<li>POST</li>
+</ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>Query string and content body requests are ignored. Rather the requested file is a component of the path, e.g. <tt class="docutils literal"><span class="pre">/s/index.html</span></tt> will return the contents of the <tt class="docutils literal"><span class="pre">index.html</span></tt> file.</p>
-</div>
+<p>This endpoint does not require any parameters via query string or body.</p>
 <div class="section" id="example-request">
-<h2>Example Request</h2>
+<h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-python"><pre>http://localhost:4242/s/queryui.nocache.js</pre>
+<div class="highlight-python"><pre>http://localhost:4242/api/dropcaches</pre>
+</div>
 </div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The response will be the contents of the requested file with appropriate HTTP headers configured.</p>
+<p>The response is a hash map of information. Unless something goes wrong, this should always result in a <tt class="docutils literal"><span class="pre">status</span></tt> of <tt class="docutils literal"><span class="pre">200</span></tt> and a message of <tt class="docutils literal"><span class="pre">Caches</span> <span class="pre">dropped</span></tt>.</p>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Caches dropped&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="s2">&quot;200&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -130,10 +142,10 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="aggregators.html" title="/api/aggregators"
+          <a href="serializers.html" title="/api/serializers"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="HTTP API"
+          <a href="aggregators.html" title="/api/aggregators"
              >previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >HTTP API</a> &raquo;</li> 

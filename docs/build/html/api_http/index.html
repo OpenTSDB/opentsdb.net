@@ -109,7 +109,7 @@
 </div>
 <div class="section" id="serializers">
 <h2>Serializers</h2>
-<p>2.0 introduces plugable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before.</p>
+<p>2.0 introduces plugable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read <a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
 <p>All API calls use the default JSON serializer unless overridden by query string or <tt class="docutils literal"><span class="pre">Content-Type</span></tt> header. To override:</p>
 <ul>
 <li><p class="first"><strong>Query String</strong> - Supply a parameter such as <tt class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></tt> where <tt class="docutils literal"><span class="pre">&lt;serializer_name&gt;</span></tt> is the hard-coded name of the serializer as shown in the <tt class="docutils literal"><span class="pre">/api/serializers</span></tt> <tt class="docutils literal"><span class="pre">serializer</span></tt> output field.</p>
@@ -340,8 +340,11 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="s.html">/s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aggregators.html">/api/aggregators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dropcaches.html">/api/dropcaches</a></li>
 <li class="toctree-l1"><a class="reference internal" href="serializers.html">/api/serializers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="suggest.html">/api/suggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">/api/version</a></li>
 </ul>
 </div>
 </div>

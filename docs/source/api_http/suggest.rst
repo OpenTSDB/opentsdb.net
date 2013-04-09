@@ -25,6 +25,7 @@ Example Request
 
 **Query String**
 ::
+  
   http://localhost:4242/api/suggest?type=metrics&q=sys&max=10
 
 **JSON Content**

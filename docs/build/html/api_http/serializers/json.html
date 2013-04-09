@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JSON Serializer &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JSON Serializer</a><ul>
+<li><a class="reference internal" href="#serializer-name">Serializer Name</a></li>
+<li><a class="reference internal" href="#serializer-options">Serializer Options</a></li>
+<li><a class="reference internal" href="#jsonp">JSONP</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="json-serializer">
+<h1>JSON Serializer</h1>
+<p>The default OpenTSDB serializer parses and returns JSON formatted data.</p>
+<div class="section" id="serializer-name">
+<h2>Serializer Name</h2>
+<p><tt class="docutils literal"><span class="pre">json</span></tt></p>
+</div>
+<div class="section" id="serializer-options">
+<h2>Serializer Options</h2>
+<p>The following options are supported via query string:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="55%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>jsonp</td>
+<td>String</td>
+<td>Optional</td>
+<td>Wraps the response in a JavaScript function name passed to the parameter.</td>
+<td><tt class="docutils literal"><span class="pre">empty</span></tt></td>
+<td>jsonp=callback</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="jsonp">
+<h2>JSONP</h2>
+<p>The JSON formatter can wrap responses in a JavaScript function using the <tt class="docutils literal"><span class="pre">jsonp</span></tt> query string parameter. Supply the name of the function you wish to use and the result will be wrapped.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<div class="highlight-python"><pre>http://localhost:4242/api/version?jsonp=callback</pre>
+</div>
+</div>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">callback</span><span class="p">({</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="s2">&quot;1362712695&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;DF81QBM1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;repo&quot;</span><span class="o">:</span> <span class="s2">&quot;/c/temp/a/opentsdb/build&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;full_revision&quot;</span><span class="o">:</span> <span class="s2">&quot;11c5eefd79f0c800b703ebd29c10e7f924c01572&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;short_revision&quot;</span><span class="o">:</span> <span class="s2">&quot;11c5eef&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;user&quot;</span><span class="o">:</span> <span class="s2">&quot;df81qbm1_/clarsen&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;repo_status&quot;</span><span class="o">:</span> <span class="s2">&quot;MODIFIED&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;2.0.0&quot;</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

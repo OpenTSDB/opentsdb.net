@@ -165,4 +165,5 @@ API Endpoints
    put
    serializers
    suggest
+   uid/index
    version

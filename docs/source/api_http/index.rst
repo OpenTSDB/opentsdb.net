@@ -163,6 +163,7 @@ API Endpoints
    aggregators
    dropcaches
    put
+   query
    serializers
    suggest
    uid/index

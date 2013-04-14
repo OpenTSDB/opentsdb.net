@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/query &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="up" title="HTTP API" href="index.html" />
+    <link rel="next" title="/api/serializers" href="serializers.html" />
+    <link rel="prev" title="/api/put" href="put.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="serializers.html" title="/api/serializers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="put.html" title="/api/put"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/query</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-query-string-request">Example Query String Request</a></li>
+<li><a class="reference internal" href="#example-content-request">Example Content Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="put.html"
+                        title="previous chapter">/api/put</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="serializers.html"
+                        title="next chapter">/api/serializers</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-query">
+<h1>/api/query</h1>
+<p>Probably the most useful endpoint in the API, <tt class="docutils literal"><span class="pre">/api/query</span></tt> enables extracting data from the storage system in various formats determined by the serializer selected. Queries can be submitted via the 1.0 query string format or body content.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>For query string requests, please see <a class="reference external" href="http://opentsdb.net/http-api.html#/q">/q</a> until we get some other docs written.</p>
+<div class="section" id="example-query-string-request">
+<h3>Example Query String Request</h3>
+<div class="highlight-python"><pre>http://localhost:4242/api/query?start=1h-ago&amp;m=sum:rate:proc.stat.cpu{host=foo,type=idle}</pre>
+</div>
+</div>
+<div class="section" id="example-content-request">
+<h3>Example Content Request</h3>
+<p>Please see the serializer documentation for request information.</p>
+<p><a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The output generated for a query depends heavily on the chosen serializer:</p>
+<p><a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
+<p>Unless there was an error with the query, you will generally receive a <tt class="docutils literal"><span class="pre">200</span></tt> status with content. However if your query couldn&#8217;t find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="serializers.html" title="/api/serializers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="put.html" title="/api/put"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

@@ -52,6 +52,15 @@
 <li><a class="reference internal" href="#example-multiple-data-point-put">Example Multiple Data Point Put</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#api-query">api/query</a><ul>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#example-json-request">Example JSON Request</a></li>
+<li><a class="reference internal" href="#response">Response</a></li>
+<li><a class="reference internal" href="#example-aggregated-default-response">Example Aggregated Default Response</a></li>
+<li><a class="reference internal" href="#example-aggregated-array-response">Example Aggregated Array Response</a></li>
+<li><a class="reference internal" href="#example-multi-set-response">Example Multi-Set Response</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -239,6 +248,293 @@
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="api-query">
+<h2>api/query</h2>
+<div class="section" id="requests">
+<h3>Requests</h3>
+<p>Instead of using the query string method, you can build a query as a JSON object and pass it along with a POST request. A request consists of one or more sub queries along with overall query fields. Top level fields include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="5%" />
+<col width="50%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>start</td>
+<td>String, Integer</td>
+<td>Required</td>
+<td>The start time for the query. This can be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Queries</em></a> for details.</td>
+<td>&nbsp;</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-odd"><td>end</td>
+<td>String, Integer</td>
+<td>Optional</td>
+<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Queries</em></a> for details.</td>
+<td><em>current time</em></td>
+<td>1s-ago</td>
+</tr>
+<tr class="row-even"><td>padding</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the response should include one data point to either side of the requested time range. This is used for some graphing methods that require extra data for proper display.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>queries</td>
+<td>Array</td>
+<td>Required</td>
+<td>A list of one or more sub queries describing the timeseries data to retrieve</td>
+<td>&nbsp;</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<p>Each query can retrieve one or sets of timeseries data, performing aggregation or grouping calculations on each set. Fields for each sub query include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="5%" />
+<col width="50%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>aggregator</td>
+<td>String</td>
+<td>Required</td>
+<td>The name of an aggregation function to use. See <a class="reference internal" href="../aggregators.html"><em>/api/aggregators</em></a></td>
+<td>&nbsp;</td>
+<td>sum</td>
+</tr>
+<tr class="row-odd"><td>metric</td>
+<td>String</td>
+<td>Required</td>
+<td>The name of a metric stored in the system</td>
+<td>&nbsp;</td>
+<td>sys.cpu.0</td>
+</tr>
+<tr class="row-even"><td>rate</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continously incrementing counter and you want to view the rate of change between data points.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>downsample</td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional downsampling function to reduce the amount of data returned. See <a class="reference external" href="http://opentsdb.net/http-api.html#/q">/q</a></td>
+<td>&nbsp;</td>
+<td>5m-avg</td>
+</tr>
+<tr class="row-even"><td>tags</td>
+<td>Map</td>
+<td>Optional</td>
+<td>To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. See <a class="reference external" href="http://opentsdb.net/http-api.html#/q">/q</a>. Note that if no tags are specified, all metrics in the system will be aggregated into the results.</td>
+<td>&nbsp;</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, the JSON serializer allows some query string parameters that modify the output but have no effect on the data retrieved.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="5%" />
+<col width="50%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>arrays</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Returns the data points formatted as an array of arrays instead of a map of key/value pairs. Each array consists of the timestamp followed by the value.</td>
+<td>&nbsp;</td>
+<td>asarrays=true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example-json-request">
+<h3>Example JSON Request</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="mi">1356998400</span><span class="p">,</span>
+    <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="mi">1356998460</span><span class="p">,</span>
+    <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="response">
+<h3>Response</h3>
+<p>Query responses are arrays of result sets, with one result set per timeseries or aggregated set. If none of the queries returned data, the response will be an empty array, e.g. <tt class="docutils literal"><span class="pre">[]</span></tt>. Fields returned in the response include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>metric</td>
+<td>String</td>
+<td>Name of the metric retreived</td>
+<td>sys.cpu.0</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>Map</td>
+<td>A list of tags only returned when the results are for a single timeseries. If results are aggregated, this value may be null or an empty map</td>
+<td>&#8220;tags&#8221;:{&#8220;host&#8221;:&#8221;web01&#8221;}</td>
+</tr>
+<tr class="row-even"><td>aggregated_tags</td>
+<td>Array</td>
+<td>If more than one timeseries were included in the result set, i.e. they were aggregated, this will display a list of tag names that were found in common across all time series.</td>
+<td>&#8220;aggregated_tags&#8221;:[&#8220;host&#8221;]</td>
+</tr>
+<tr class="row-odd"><td>dps</td>
+<td>Map, Array</td>
+<td>Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by query string parameters.</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example-aggregated-default-response">
+<h3>Example Aggregated Default Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;host&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1365966001&quot;</span><span class="o">:</span> <span class="mi">25595461080</span><span class="p">,</span>
+            <span class="s2">&quot;1365966061&quot;</span><span class="o">:</span> <span class="mi">25595542522</span><span class="p">,</span>
+            <span class="s2">&quot;1365966062&quot;</span><span class="o">:</span> <span class="mi">25595543979</span><span class="p">,</span>
+<span class="p">...</span>
+            <span class="s2">&quot;1365973801&quot;</span><span class="o">:</span> <span class="mi">25717417859</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-aggregated-array-response">
+<h3>Example Aggregated Array Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;host&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="mi">1365966001</span><span class="p">,</span>
+                <span class="mi">25595461080</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="mi">1365966061</span><span class="p">,</span>
+                <span class="mi">25595542522</span>
+            <span class="p">],</span>
+<span class="p">...</span>
+            <span class="p">[</span>
+                <span class="mi">1365974221</span><span class="p">,</span>
+                <span class="mi">25722266376</span>
+            <span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-multi-set-response">
+<h3>Example Multi-Set Response</h3>
+<p>For the following example, two TSDs were running and the query was: <tt class="docutils literal"><span class="pre">http://localhost:4242/api/query?start=1h-ago&amp;m=sum:tsd.hbase.puts{host=*}</span></tt></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-1.mysite.com&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1365966001&quot;</span><span class="o">:</span> <span class="mi">3758788892</span><span class="p">,</span>
+            <span class="s2">&quot;1365966061&quot;</span><span class="o">:</span> <span class="mi">3758804070</span><span class="p">,</span>
+<span class="p">...</span>
+            <span class="s2">&quot;1365974281&quot;</span><span class="o">:</span> <span class="mi">3778141673</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-2.mysite.com&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1365966001&quot;</span><span class="o">:</span> <span class="mi">3902179270</span><span class="p">,</span>
+            <span class="s2">&quot;1365966062&quot;</span><span class="o">:</span> <span class="mi">3902197769</span><span class="p">,</span>
+<span class="p">...</span>
+            <span class="s2">&quot;1365974281&quot;</span><span class="o">:</span> <span class="mi">3922266478</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">]</span>

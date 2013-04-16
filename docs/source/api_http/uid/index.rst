@@ -5,6 +5,8 @@ Every metric, tag name and tag value is associated with a unique identifier (UID
 
 UIDs exposed via the API are encoded as hexadecimal strings. The UID ``42`` would be expressed as ``00002A`` given the default UID width of 3 bytes.
 
+You may also edit meta data associated with timeseries or individual UID objects via the UID endpoint.
+
 UID API Endpoints
 -----------------
 
@@ -12,3 +14,5 @@ UID API Endpoints
    :maxdepth: 1
    
    assign
+   tsmeta
+   uidmeta

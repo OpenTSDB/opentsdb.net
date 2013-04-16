@@ -88,11 +88,14 @@
 <h1>/api/uid</h1>
 <p>Every metric, tag name and tag value is associated with a unique identifier (UID). Internally, the UID is a binary array assigned to a text value the first time it is encountered or via an explicit assignment request. This endpoint provides utilities for managing UIDs and their associated data. Please see the UID endpoint TOC below for information on what functions are implemented.</p>
 <p>UIDs exposed via the API are encoded as hexadecimal strings. The UID <tt class="docutils literal"><span class="pre">42</span></tt> would be expressed as <tt class="docutils literal"><span class="pre">00002A</span></tt> given the default UID width of 3 bytes.</p>
+<p>You may also edit meta data associated with timeseries or individual UID objects via the UID endpoint.</p>
 <div class="section" id="uid-api-endpoints">
 <h2>UID API Endpoints</h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="assign.html">/api/uid/assign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tsmeta.html">/api/uid/tsmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uidmeta.html">/api/uid/uidmeta</a></li>
 </ul>
 </div>
 </div>

@@ -46,6 +46,14 @@ LGPLv2.1+ license.
 Join the OpenTSDB mailing list:
 <a href="http://groups.google.com/group/opentsdb">opentsdb<!--fuckSPAM-->@googlegroups.com</a>
 <hr/>
+<div style="float:right">
+<a href="http://www.hbasecon.com/sessions/lessons-learned-from-opentsdb/"><img
+src="http://www.hbasecon.com/wp-content/themes/hbasecon/images/logo-hbasecon.png"
+width="256" height="80" border="0" alt="HBaseCon 2013" title="HBaseCon 2013"/></a>
+</div>
+<p>
+2013-05-16: <a href="http://www.hbasecon.com/">HBaseCon</a> is coming up on June 13th, 2013 in San Francisco with a presentation on OpenTSDB by Box and Jonathan Creasy and Geoff Anderson of Box. We'll try to organize a meetup so come on out!
+<hr/>
 <p> 2013-03-12: We're hard at work on OpenTSDB v2.0. Read the <a href="version-two.html">roadmap</a> and contribute your ideas.</p>
 <hr/>
 <p>
@@ -84,17 +92,12 @@ and subsequent poster session about OpenTSDB at
 <a href="http://www-conf.slac.stanford.edu/xldb2012/">XLDB</a>, on September
 11, 2012 at Stanford University. Watch the talk on <a href="http://www.youtube.com/watch?v=xmC7UsKf9UQ">YouTube</a>.
 <hr/>
-<div style="float:right">
-<a href="http://www.hbasecon.com/sessions/lessons-learned-from-opentsdb/"><img
-src="http://www.hbasecon.com/wp-content/themes/hbasecon/images/logo-hbasecon.png"
-width="256" height="80" border="0" alt="HBaseCon 2012" title="HBaseCon 2012"/></a>
-</div>
 <p>
 Thanks to those who attended <a href="http://www.hbasecon.com/">HBaseCon</a>
 on May 22, 2012 in San Francisco,
 <a href="/misc/opentsdb-hbasecon.pdf">here are the slides</a> of the talk on
-<a href="http://www.hbasecon.com/sessions/lessons-learned-from-opentsdb/">
-Lessons Learned from OpenTSDB</a>.
+<!--No longer valid <a href="http://www.hbasecon.com/sessions/lessons-learned-from-opentsdb/">-->
+Lessons Learned from OpenTSDB<!--</a>-->.
 <hr/>
 <p>
 December 23, 2011:

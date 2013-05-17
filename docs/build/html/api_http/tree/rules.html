@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/tree/rules &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="/api/tree" href="index.html" />
+    <link rel="next" title="/api/tree/test" href="test.html" />
+    <link rel="prev" title="/api/tree/rule" href="rule.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="test.html" title="/api/tree/test"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rule.html" title="/api/tree/rule"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/tree/rules</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#response">Response</a></li>
+<li><a class="reference internal" href="#post-put">POST/PUT</a><ul>
+<li><a class="reference internal" href="#example-post-request">Example POST Request</a></li>
+<li><a class="reference internal" href="#example-content-request">Example Content Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delete">DELETE</a><ul>
+<li><a class="reference internal" href="#example-delete-request">Example DELETE Request</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rule.html"
+                        title="previous chapter">/api/tree/rule</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="test.html"
+                        title="next chapter">/api/tree/test</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-tree-rules">
+<h1>/api/tree/rules</h1>
+<p>The rules endpoint is used for bulk merging, replacing or deleting the entire ruleset of a tree. Instead of calling the <tt class="docutils literal"><span class="pre">tree/rule</span></tt> endpoint multiple times for a single rule, you can supply a list of rules that will be merged into, or replace, the current rule set. Note that the <tt class="docutils literal"><span class="pre">GET</span></tt> verb is not supported for this endpoint. To fetch the ruleset, load the tree via the <tt class="docutils literal"><span class="pre">/tree</span></tt> endpoint. Also, all data must be provided in request content, query strings are not supported.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>POST - Merge rule sets</li>
+<li>PUT - Replace the entire rule set</li>
+<li>DELETE - Delete a rule</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>A request to store data must be an array of objects in the content of the request. The same fields as required for the <a class="reference internal" href="rule.html"><em>/api/tree/rule</em></a> endpoint are supported.</p>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response to a <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return a <tt class="docutils literal"><span class="pre">204</span></tt> response code without body content. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. If a tree does not have any rules, the <tt class="docutils literal"><span class="pre">DELETE</span></tt> request will still return a <tt class="docutils literal"><span class="pre">204</span></tt>. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+</div>
+<div class="section" id="post-put">
+<h2>POST/PUT</h2>
+<p>Issuing a <tt class="docutils literal"><span class="pre">POST</span></tt> will merge the given rule set with any that already exist. This means that if a rule already exists for one of the given rules, only the fields given will be modified in the existing rule. Using the <tt class="docutils literal"><span class="pre">PUT</span></tt> method will replace <em>all</em> of the rules for the given tree with the new set. Any existing rules for the tree will be deleted before the new rules are stored.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All of the rules in the request array must belong to the same <tt class="docutils literal"><span class="pre">treeId</span></tt> or a <tt class="docutils literal"><span class="pre">400</span></tt> exception will be returned. Likewise, all of the rules will pass validation and must include the <tt class="docutils literal"><span class="pre">level</span></tt> and <tt class="docutils literal"><span class="pre">order</span></tt> fields.</p>
+</div>
+<div class="section" id="example-post-request">
+<h3>Example POST Request</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=.&amp;method=post</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-content-request">
+<h3>Example Content Request</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Metric split rule&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;split&quot;</span><span class="o">:</span> <span class="s2">&quot;\\.&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;tagk&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;fqdn&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Hostname for the device&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;tagk&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;department&quot;</span>
+        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Department that owns the device&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delete">
+<h2>DELETE</h2>
+<p>Using the <tt class="docutils literal"><span class="pre">DELETE</span></tt> method will remove all rules from a tree. A successful deletion will respond with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no content body. If the tree did not exist, a <tt class="docutils literal"><span class="pre">404</span></tt> error will be returned.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This method cannot be undone.</p>
+</div>
+<div class="section" id="example-delete-request">
+<h3>Example DELETE Request</h3>
+<div class="highlight-python"><pre>http://localhost:4242/api/tree/rules?treeId=1&amp;method=delete</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="test.html" title="/api/tree/test"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rule.html" title="/api/tree/rule"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" >/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

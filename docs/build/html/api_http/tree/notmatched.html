@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/tree/notmatched &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="/api/tree" href="index.html" />
+    <link rel="next" title="/api/tree/rule" href="rule.html" />
+    <link rel="prev" title="/api/tree/collisions" href="collisions.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="rule.html" title="/api/tree/rule"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="collisions.html" title="/api/tree/collisions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/tree/notmatched</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="collisions.html"
+                        title="previous chapter">/api/tree/collisions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rule.html"
+                        title="next chapter">/api/tree/rule</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-tree-notmatched">
+<h1>/api/tree/notmatched</h1>
+<p>When processing a TSMeta, if the tree has <tt class="docutils literal"><span class="pre">strictMatch</span></tt> enabled and the meta fails to match on a rule in any level of the set, a <em>not matched</em> entry will be recorded. This endpoint allows for retrieving the list of TSUIDs that failed to match a rule set. It is useful for debugging in that if you find a TSUID in this list, you can pass it through the <tt class="docutils literal"><span class="pre">/tree/test</span></tt> endpoint to get details on why the meta failed to match.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Calling this endpoint without a list of one or more TSUIDs will return all non-matched TSUIDs in the tree. If you have a large number of timeseries in your system, the response can potentially be very large. Thus it is best to use this endpoint with specific TSUIDs.</p>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>The following fields are used for this endpoint</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>treeId</td>
+<td>Integer</td>
+<td>Required</td>
+<td>The ID of the tree to pass the TSMeta objects through</td>
+<td>&nbsp;</td>
+<td>treeid</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>tsuids</td>
+<td>String</td>
+<td>Required</td>
+<td>A list of one or more TSUIDs to search for not-matched entries. If requesting testing of more than one TSUID, they should be separted by a comma.</td>
+<td>&nbsp;</td>
+<td>tsuids</td>
+<td>&nbsp;</td>
+<td>000001000001000001,00000200000200002</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response will return a map of key/value pairs where the unrecorded TSUID as the key and a message about which rule failed to match as the value. The response will only return not matched entries that were found. If one or more of the TSUIDs requested did not result in a not matched entry, it will not be returned with the result. This may mean that the TSMeta has not been processed yet. Note that if no failed matches have occurred or the tree hasn&#8217;t processed any data yet, the result set will be empty. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<blockquote>
+<div><a class="reference external" href="http://localhost:4242/api/tree/notmatched?treeId=1&amp;tsuids=010101,020202">http://localhost:4242/api/tree/notmatched?treeId=1&amp;tsuids=010101,020202</a></div></blockquote>
+</div>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;010101&quot;</span><span class="o">:</span> <span class="s2">&quot;Failed rule 0:0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;020202&quot;</span><span class="o">:</span> <span class="s2">&quot;Failed rule 1:1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="rule.html" title="/api/tree/rule"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="collisions.html" title="/api/tree/collisions"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" >/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

@@ -166,5 +166,6 @@ API Endpoints
    query
    serializers
    suggest
+   tree/index
    uid/index
    version

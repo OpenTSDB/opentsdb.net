@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
-    <link rel="next" title="GUIs" href="guis/index.html" />
+    <link rel="next" title="UIDs and TSUIDs" href="uids.html" />
     <link rel="prev" title="User Guide" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -36,7 +36,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="guis/index.html" title="GUIs"
+          <a href="uids.html" title="UIDs and TSUIDs"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="User Guide"
@@ -62,8 +62,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">User Guide</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="guis/index.html"
-                        title="next chapter">GUIs</a></p>
+  <p class="topless"><a href="uids.html"
+                        title="next chapter">UIDs and TSUIDs</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -121,10 +121,9 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <col width="20%" />
 <col width="5%" />
 <col width="5%" />
-<col width="40%" />
+<col width="55%" />
 <col width="5%" />
 <col width="10%" />
-<col width="15%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Property</th>
@@ -133,7 +132,6 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <th class="head">Description</th>
 <th class="head">Default</th>
 <th class="head">CLI</th>
-<th class="head">Example</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -143,7 +141,6 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn&#8217;t match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.</td>
 <td>False</td>
 <td>&#8211;auto-metric</td>
-<td>True</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.enable_milliseconds</td>
 <td>Boolean</td>
@@ -151,151 +148,173 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>Whether or not to enable millisecond timestamp support.</td>
 <td>False</td>
 <td>&nbsp;</td>
-<td>True</td>
+</tr>
+<tr class="row-even"><td>tsd.core.meta.enable_tracking</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable real-time metadata tracking/creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.plugin_path</td>
+<td>String</td>
+<td>Optional</td>
+<td>A path to search for plugins when the TSD starts. If the path is invalid, the TSD will fail to start. Plugins can still be enabled if they are in the class path.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.timezone</td>
 <td>String</td>
 <td>Optional</td>
-<td>A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.</td>
+<td>A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.
+E.g. America/Los_Angeles</td>
 <td>System Configured</td>
 <td>&nbsp;</td>
-<td>America/Los_Angeles</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.cachedir</td>
+<tr class="row-odd"><td>tsd.core.tree.enable_processing</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable processing new/edited TSMeta through tree rule sets</td>
+<td>false</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.http.cachedir</td>
 <td>String</td>
 <td>Required</td>
-<td>The full path to a location where temporary files can be written</td>
+<td>The full path to a location where temporary files can be written.
+E.g. /tmp/opentsdb</td>
 <td>&nbsp;</td>
 <td>&#8211;cachedir</td>
-<td>/tmp/opentsdb</td>
 </tr>
-<tr class="row-even"><td>tsd.http.request.enable_chunked</td>
+<tr class="row-odd"><td>tsd.http.request.enable_chunked</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable incoming chunk support for the HTTP RPC</td>
 <td>false</td>
 <td>&nbsp;</td>
-<td>true</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.request.max_chunk</td>
+<tr class="row-even"><td>tsd.http.request.max_chunk</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum chunk size to support for incoming HTTP requests.</td>
 <td>4096</td>
 <td>&nbsp;</td>
-<td>1024</td>
 </tr>
-<tr class="row-even"><td>tsd.http.staticroot</td>
+<tr class="row-odd"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
-<td>Location of a directory where static files, such as javascript files for the web interface, are located</td>
+<td>Location of a directory where static files, such as javascript files for the web interface, are located.
+E.g. /opt/opentsdb/staticroot</td>
 <td>&nbsp;</td>
 <td>&#8211;staticroot</td>
-<td>/opt/opentsdb/staticroot</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.async_io</td>
+<tr class="row-even"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or tradditional blocking IO&#8221;</td>
 <td>True</td>
 <td>&#8211;async-io</td>
-<td>False</td>
 </tr>
-<tr class="row-even"><td>tsd.network.bind</td>
+<tr class="row-odd"><td>tsd.network.bind</td>
 <td>String</td>
 <td>Optional</td>
-<td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.</td>
+<td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
+E.g. 127.0.0.1</td>
 <td>0.0.0.0</td>
 <td>&#8211;bind</td>
-<td>127.0.0.1</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.keep_alive</td>
+<tr class="row-even"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
 <td>True</td>
 <td>&nbsp;</td>
-<td>False</td>
 </tr>
-<tr class="row-even"><td>tsd.network.port</td>
+<tr class="row-odd"><td>tsd.network.port</td>
 <td>Integer</td>
 <td>Required</td>
 <td>The TCP port to use for accepting connections</td>
 <td>&nbsp;</td>
 <td>&#8211;port</td>
-<td>4242</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.reuse_address</td>
+<tr class="row-even"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Wether or not to allow reuse of the bound port within Netty</td>
+<td>Whether or not to allow reuse of the bound port within Netty</td>
 <td>True</td>
 <td>&nbsp;</td>
-<td>False</td>
 </tr>
-<tr class="row-even"><td>tsd.network.tcp_no_delay</td>
+<tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to disable TCP buffering before sending data</td>
 <td>True</td>
 <td>&nbsp;</td>
-<td>False</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.worker_threads</td>
+<tr class="row-even"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number fo asynchronous IO worker threads for Netty</td>
-<td>#CPU cores * 2</td>
+<td><em>#CPU cores * 2</em></td>
 <td>&#8211;worker-threads</td>
-<td>15</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.enable_compaction</td>
+<tr class="row-odd"><td>tsd.search.enable</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable search functionality. If true, you must supply a valid <tt class="docutils literal"><span class="pre">tsd.search.plugin</span></tt> class name</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.search.plugin</td>
+<td>String</td>
+<td>Optional</td>
+<td>The class name of a search plugin to instantiate. If <tt class="docutils literal"><span class="pre">tsd.search.enable</span></tt> is set to false, this value is ignored.
+E.g. net.opentsdb.search.ElasticSearch</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.enable_compaction</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable compactions</td>
 <td>True</td>
 <td>&nbsp;</td>
-<td>False</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.flush_interval</td>
+<tr class="row-even"><td>tsd.storage.flush_interval</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How often, in milliseconds, to flush the data point storage write buffer</td>
 <td>1000</td>
 <td>&#8211;flush-interval</td>
-<td>500</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.data_table</td>
+<tr class="row-odd"><td>tsd.storage.hbase.data_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where data points are stored</td>
 <td>tsdb</td>
 <td>&#8211;table</td>
-<td>tsdb</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.uid_table</td>
+<tr class="row-even"><td>tsd.storage.hbase.uid_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where UID information is stored</td>
 <td>tsdb-uid</td>
 <td>&#8211;uidtable</td>
-<td>tsdb-uid</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.zk_basedir</td>
+<tr class="row-odd"><td>tsd.storage.hbase.zk_basedir</td>
 <td>String</td>
 <td>Optional</td>
 <td>Path under which the znode for the -ROOT- region is located</td>
 <td>/hbase</td>
 <td>&#8211;zkbasedir</td>
-<td>/hbase</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.zk_quorum</td>
+<tr class="row-even"><td>tsd.storage.hbase.zk_quorum</td>
 <td>String</td>
 <td>Optional</td>
-<td>A space separated list of Zookeeper hosts to connect to, with or without port specifiers</td>
+<td>A space separated list of Zookeeper hosts to connect to, with or without port specifiers.
+E.g. 192.168.1.1:2181 192.168.1.2:2181</td>
 <td>localhost</td>
 <td>&#8211;zkquorum</td>
-<td>192.168.1.1:2181 192.168.1.2:2181</td>
 </tr>
 </tbody>
 </table>
@@ -342,7 +361,7 @@ E.g.:</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="guis/index.html" title="GUIs"
+          <a href="uids.html" title="UIDs and TSUIDs"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="User Guide"

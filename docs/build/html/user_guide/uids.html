@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>UIDs and TSUIDs &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="next" title="GUIs" href="guis/index.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="guis/index.html" title="GUIs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">UIDs and TSUIDs</a><ul>
+<li><a class="reference internal" href="#uid">UID</a><ul>
+<li><a class="reference internal" href="#assignment">Assignment</a></li>
+<li><a class="reference internal" href="#storage">Storage</a></li>
+<li><a class="reference internal" href="#display">Display</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tsuids">TSUIDs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="configuration.html"
+                        title="previous chapter">Configuration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="guis/index.html"
+                        title="next chapter">GUIs</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="uids-and-tsuids">
+<h1>UIDs and TSUIDs</h1>
+<p>In OpenTSDB, when you write a timeseries data point, it is always associated with a metric and at least one tag name/value pair. Each metric, tag name and tag value is assigned a unique identifier (UID) the first time it is encountered or when explicitly assigned via the API or a CLI tool. The combination of metric and tag name/value pairs create a timeseries UID or TSUID.</p>
+<div class="section" id="uid">
+<h2>UID</h2>
+<p>Types of UID objects include:</p>
+<ul class="simple">
+<li><strong>metric</strong> - A metric such as &#8216;&#8217;sys.cpu.0&#8217;&#8217; or &#8216;&#8217;trades.per.second&#8217;&#8216;</li>
+<li><strong>tagk</strong> - A tag name such as &#8216;&#8217;host&#8217;&#8217; or &#8216;&#8217;symbol&#8217;&#8216;. This is always the &#8220;key&#8221; (the first value) in a tag key/value pair.</li>
+<li><strong>tagv</strong> - A tag value such as &#8216;&#8217;web01&#8217;&#8217; or &#8216;&#8217;goog&#8217;&#8216;. This is always the &#8220;value&#8221; (the second value) in a tag key/value pair.</li>
+</ul>
+<div class="section" id="assignment">
+<h3>Assignment</h3>
+<p>The UID is a positive integer that is unique to the name of the UID object and it&#8217;s type. Within the storage system there is a counter that is incremented for each &#8216;&#8217;metric&#8217;&#8216;, &#8216;&#8217;tagk&#8217;&#8217; and &#8216;&#8217;tagv&#8217;&#8216;. When you create a new &#8216;&#8217;tsdb-uid&#8217;&#8217; table, this counter is set to 0 for each type. So if you put a new data point with a metric of &#8216;&#8217;sys.cpu.0&#8217;&#8217; and a tag pair of &#8216;&#8217;host=web01&#8217;&#8217; you will have 3 new UID objects, each with a UID of 1.</p>
+<p>UIDs are assigned automatically for new &#8216;&#8217;tagk&#8217;&#8217; and &#8216;&#8217;tagv&#8217;&#8217; objects when data points are written to a TSD. &#8216;&#8217;metric&#8217;&#8217; objects also receive new UIDs but only if the <em>auto metric</em> setting has been configured to &#8216;&#8217;true&#8217;&#8216;. Otherwise data points with new metrics are rejected. The UIDs are looked up in a cached map for every incoming data point. If the lookup fails, then the TSD will attempt to assign a new UID.</p>
+</div>
+<div class="section" id="storage">
+<h3>Storage</h3>
+<p>By default, UIDs are encoded on 3 bytes in storage, giving a maximum unique ID of 16,777,215 for each UID type. This is done to reduce the amount of space taken up in storage and to reduce the memory footprint of a TSD. For the vast majority of users, 16 million unique metrics, 16 million unique tag names and 16 million unique tag values should be enough. But if you do need more of a particular type, you can modify the OpenTSDB source code and recompile with 4 bytes or more.</p>
+</div>
+<div class="section" id="display">
+<h3>Display</h3>
+<p>UIDs can be displayed in a few ways. The most common method is via the HTTP API where the 3 bytes of UID data are encoded as a hexadecimal string. For example, the UID of &#8216;&#8216;1&#8217;&#8217; would be written in binary as &#8216;&#8216;000000000000000000000001&#8217;&#8216;. As an array of unsigned byte values, you could imagine it as &#8216;&#8217;[0, 0, 1]&#8217;&#8216;. Encoded as a hex string, the value would be &#8216;&#8216;000001&#8217;&#8217; where the string is padded with 0s for each byte. The UID of 255 would result in a hex value of &#8216;&#8216;0000FF&#8217;&#8217; (or as a byte array, &#8216;&#8217;[0, 0, 255]&#8217;&#8216;. To convert between a decimal UID to a hex, use any kind of hex conversion tool you prefer and put 0s in front of the resulting value until you have a total of 6 characters. To convert from a hex UID to decimal, simply drop any 0s from the front, then use a tool to convert the hex string to a decimal.</p>
+<p>In some CLI tools and log files, a UID may be displayed as an array of signed bytes (thanks to Java) such as the above example of &#8216;&#8217;[0, 0, 1]&#8217;&#8217; or &#8216;&#8217;[0, 0, -28]&#8217;&#8216;. To convert from this signed array to an an array of unsigned bytes, then to hex. For example, &#8216;&#8217;-28&#8217;&#8217; would be binary &#8216;&#8216;10011100&#8217;&#8217; which results in a decimal value of &#8216;&#8216;156&#8217;&#8217; and a hex value of &#8216;&#8216;9C&#8217;&#8216;.</p>
+</div>
+</div>
+<div class="section" id="tsuids">
+<h2>TSUIDs</h2>
+<p>When a data point is written to OpenTSDB, the row key is formatted as &#8216;&#8217;&lt;metric_UID&gt;&lt;timestamp&gt;&lt;tagk1_UID&gt;&lt;tagv1_UID&gt;[...&lt;tagkN_UID&gt;&lt;tagvN_UID&gt;]&#8217;&#8216;. By simply dropping the timestamp from the row key, we have a long array of UIDs that combined, form a unique timeseries ID. Encoding the bytes as a hex string will give us a useful TSUID that can be passed around various API calls. Thus from our UID example above where each metric, tag name and value has a UID of 1, our TSUID, encoded as a hexadecimal string, would be &#8216;&#8216;000001000001000001&#8217;&#8216;.</p>
+<p>While this TSUID format may be long and ugly, particularly with all of the 0s for early UIDs, there are a few reasons why this is useful:</p>
+<ul class="simple">
+<li>If you know the width of each UID (by default 3 bytes as stated above), then you can easily parse the UID for each metric, tag name and value from the UID string.</li>
+<li>Assigning a unique numeric ID for each timeseries creates issues with lock contention and/or synchronization issues where a timeseries may be missed if the UID could not be incremented.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="guis/index.html" title="GUIs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >User Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

@@ -47,6 +47,15 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CLI Tools</a><ul>
+<li><a class="reference internal" href="#common-parameters">Common Parameters</a></li>
+<li><a class="reference internal" href="#site-specific-configuration">Site-specific Configuration</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="../backends/cassandra.html"
                         title="previous chapter">Cassandra</a></p>
@@ -76,10 +85,58 @@
             
   <div class="section" id="cli-tools">
 <h1>CLI Tools</h1>
-<p>OpenTSDB includes a number of CLI utilities including:</p>
+<p>OpenTSDB consists of a single JAR file that uses a shell script to determine what actiosn the user wants to take. While the most common action is to start the TSD with the &#8216;&#8217;tsd&#8217; command so that it can run all the time and process RPCs, other commands are available to work with OpenTSDB data. These commands include:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="uid.html">uid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html">uid</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#cli-parameters">CLI Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#lookup">Lookup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#command-format">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#example-command">Example Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#example-response">Example Response</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#grep">grep</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id1">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id2">Example Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id3">Example Response</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#assign">assign</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id4">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id5">Example Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id6">Example Response</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#rename">rename</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id7">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id8">Example Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id9">Example Response</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#fsck">fsck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#metasync">metasync</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id10">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id11">Example Command</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#metapurge">metapurge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id12">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id13">Example Command</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#treesync">treesync</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id14">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id15">Example Command</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uid.html#treepurge">treepurge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id16">Command Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uid.html#id17">Example Command</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="mkmetric.html">mkmetric</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import.html">import</a></li>
 <li class="toctree-l1"><a class="reference internal" href="query.html">query</a></li>
@@ -87,6 +144,93 @@
 <li class="toctree-l1"><a class="reference internal" href="scan.html">scan</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tsd.html">tsd</a></li>
 </ul>
+</div>
+<p>Accessing a CLI tool is performed from the location of the &#8216;&#8217;tsdb&#8217;&#8217; file, built after compiling OpenTSDB. By default the tsdb file will be located in the &#8216;&#8217;build&#8217;&#8217; directory so you may access it via &#8216;&#8217;./build/tsdb&#8217;&#8216;. Provide the name of the CLI utility as in &#8216;&#8217;./build/tsdb tsd&#8217;&#8216;.</p>
+<div class="section" id="common-parameters">
+<h2>Common Parameters</h2>
+<p>All command line utilities share some common command line parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="50%" />
+<col width="10%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8211;config</td>
+<td>String</td>
+<td>The full or relative path to an OpenTSDB <tt class="xref doc docutils literal"><span class="pre">configuration</span></tt> file. If this parameter is not provided, the command will attempt to load the default config file.</td>
+<td>See <tt class="xref doc docutils literal"><span class="pre">configuration</span></tt></td>
+<td>&#8211;config=/usr/local/tempconfig.conf</td>
+</tr>
+<tr class="row-odd"><td>&#8211;table</td>
+<td>String</td>
+<td>Name of the HBase table where datapoints are stored</td>
+<td>tsdb</td>
+<td>&#8211;table=prod-tsdb</td>
+</tr>
+<tr class="row-even"><td>&#8211;uidtable</td>
+<td>String</td>
+<td>Name of the HBase table where UID information is stored</td>
+<td>tsdb-uid</td>
+<td>&#8211;uidtable=prod-tsdb-uid</td>
+</tr>
+<tr class="row-odd"><td>&#8211;zkbasedir</td>
+<td>String</td>
+<td>Path under which is the znode for the -ROOT- region</td>
+<td>/hbase</td>
+<td>&#8211;zkbasedir=/prod/hbase</td>
+</tr>
+<tr class="row-even"><td>&#8211;zkquorum</td>
+<td>String</td>
+<td>Specification of the ZooKeeper quorum to use, i.e. a list of servers and/or ports in the ZooKeeper cluster</td>
+<td>localhost</td>
+<td>&#8211;zkquorum=zkhost1,zkhost2,zkhost3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="site-specific-configuration">
+<h2>Site-specific Configuration</h2>
+<p>The common parameters above are required by all the CLI commands. It can be tedious to manually type them over and over again. You can instead store typically used values in a file &#8216;&#8217;./tsdb.local&#8217;&#8216;. This file is expected to be a shell script and will be sourced by &#8216;&#8217;./tsdb&#8217;&#8217; if it exists.</p>
+<p><em>Setting default values for common parameters</em></p>
+<p>If, for example, your ZooKeeper quorum is behind the DNS name &#8220;zookeeper.example.com&#8221; (a name with 5 A records), instead of always passing &#8216;&#8217;&#8211;zkquorum=zookeeper.example.com&#8217;&#8217; to the CLI tool each time you use it, you can create &#8216;&#8217;./tsdb.local&#8217;&#8217; with the following contents:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="nv">MY_ARGS</span><span class="o">=</span><span class="s1">&#39;--zkquorum=zookeeper&#39;</span>
+<span class="nb">set </span>x <span class="nv">$MY_ARGS</span> <span class="s2">&quot;$@&quot;</span>
+<span class="nb">shift</span>
+</pre></div>
+</div>
+<p><em>Overriding the timezone of the TSD</em></p>
+<p>Servers are frequently using UTC as their timezone. By default, the TSD renders graphs using the local timezone of the server. You can override this to have graphs in your local time by specifying a timezone in &#8216;&#8217;./tsdb.local&#8217;&#8216;. For example, if you&#8217;re in California, this will force the TSD to use your timezone:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">echo export </span><span class="nv">TZ</span><span class="o">=</span>PST8PDT &gt;&gt;tsdb.local
+</pre></div>
+</div>
+<p>On most Linux and BSD systems, you can look under &#8216;&#8217;/usr/share/zoneinfo&#8217;&#8217; for names of timezones supported on your system.</p>
+<p><em>Changing JVM parameters</em></p>
+<p>You might want to adjust JVM parameters, for instance to turn on GC activity logging or to set the size of various memory regions. In order to do so, simply set the variable JVMARGS in &#8216;&#8217;./tsdb.local&#8217;&#8216;.</p>
+<p>Here is an example that is recommended for production use:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">GCARGS</span><span class="o">=</span><span class="s2">&quot;-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps\</span>
+<span class="s2"> -XX:+PrintTenuringDistribution -Xloggc:/tmp/tsd-gc-`date +%s`.log&quot;</span>
+<span class="k">if </span><span class="nb">test</span> -t 0; <span class="k">then</span> <span class="c"># if stdin is a tty, don&#39;t turn on GC logging.</span>
+  <span class="nv">GCARGS</span><span class="o">=</span>
+<span class="k">fi</span>
+<span class="c"># The Sun JDK caches all name resolution results forever, which is stupid.</span>
+<span class="c"># This forces you to restart your application if any of the backends change</span>
+<span class="c"># IP. Instead tell it to cache names for only 10 minutes at most.</span>
+<span class="nv">FIX_DNS</span><span class="o">=</span><span class="s1">&#39;-Dsun.net.inetaddr.ttl=600&#39;</span>
+<span class="nv">JVMARGS</span><span class="o">=</span><span class="s2">&quot;$JVMARGS $GCARGS $FIX_DNS&quot;</span>
+</pre></div>
+</div>
 </div>
 </div>
 

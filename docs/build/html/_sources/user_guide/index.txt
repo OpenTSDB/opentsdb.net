@@ -7,6 +7,7 @@ TODO
    :maxdepth: 1
    
    configuration
+   uids
    guis/index
    writing
    query/index

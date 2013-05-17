@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/tree/branch &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="/api/tree" href="index.html" />
+    <link rel="next" title="/api/tree/collisions" href="collisions.html" />
+    <link rel="prev" title="/api/tree" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="collisions.html" title="/api/tree/collisions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="/api/tree"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/tree/branch</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#response">Response</a></li>
+<li><a class="reference internal" href="#get">GET</a><ul>
+<li><a class="reference internal" href="#example-root-get-query">Example Root GET Query</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+<li><a class="reference internal" href="#example-branch-get-query">Example Branch GET Query</a></li>
+<li><a class="reference internal" href="#id1">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">/api/tree</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="collisions.html"
+                        title="next chapter">/api/tree/collisions</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-tree-branch">
+<h1>/api/tree/branch</h1>
+<p>A branch represents a level in the tree heirarchy and contains information about child branches and/or leaves. Branches are immutable from an API perspective and can only be created or modified by processing a TSMeta through tree rules via a CLI command or when a new timeseries is encountered or a TSMeta object modified. Therefore the <tt class="docutils literal"><span class="pre">branch</span></tt> endpoint only supports the <tt class="docutils literal"><span class="pre">GET</span></tt> verb.</p>
+<p>A branch is identified by a <tt class="docutils literal"><span class="pre">branchId</span></tt>, a hexadecimal encoded string that represents the ID of the tree it belongs to as well as the IDs of each parent the branch stems from. All branches stem from the <strong>ROOT</strong> branch of a tree and this is usually the starting place when browsing. To fetch the <strong>ROOT</strong> just call this endpoingt with a valid <tt class="docutils literal"><span class="pre">treeId</span></tt>. The root branch ID is also a 4 character encoding of the tree ID.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>The following fields can be used to request a branch. Only one or the other may be used.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>treeId</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Used to fetch the root branch of the tree. If used in combination with a branchId, the tree ID will be ignored.</td>
+<td>&nbsp;</td>
+<td>treeid</td>
+<td>RO</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>branchId</td>
+<td>String</td>
+<td>Required</td>
+<td>A hexadecimal representation of the branch ID, required for all but the root branch request</td>
+<td>&nbsp;</td>
+<td>branchId</td>
+<td>RO</td>
+<td>000183A21C8F</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response to a request will return the branch object using the requested serializer. If the requested tree or branch did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message.</p>
+<p>Fields returned with the response include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>treeId</td>
+<td>Integer</td>
+<td>The ID of the tree the branch belongs to</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>displayName</td>
+<td>String</td>
+<td>Name of the branch as determined by the rule set</td>
+<td>sys</td>
+</tr>
+<tr class="row-even"><td>branchId</td>
+<td>String</td>
+<td>Hexadecimal encoded ID of the branch</td>
+<td>00010001BECD</td>
+</tr>
+<tr class="row-odd"><td>depth</td>
+<td>Integer</td>
+<td>Depth of the branch within the tree, starting at <em>0</em> for the root branch</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>path</td>
+<td>Map</td>
+<td>List of parent branch names and their depth.</td>
+<td><em>See Below</em></td>
+</tr>
+<tr class="row-odd"><td>branches</td>
+<td>Array</td>
+<td>An array of child branch objects. May be <tt class="docutils literal"><span class="pre">null</span></tt>.</td>
+<td><em>See Below</em></td>
+</tr>
+<tr class="row-even"><td>leaves</td>
+<td>Array</td>
+<td>An array of child leaf objects. May be <tt class="docutils literal"><span class="pre">null</span></tt>.</td>
+<td><em>See Leaves Below</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leaves</strong></p>
+<p>If a branch contains child leaves, i.e. timeseries stored in OpenTSDB, their metric, tags, TSUID and display name will be contained in the results. Leaf fields are as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>metric</td>
+<td>String</td>
+<td>The name of the metric for the timeseries</td>
+<td>sys.cpu.0</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>Map</td>
+<td>A list of tag names and values representing the timeseries</td>
+<td><em>See Below</em></td>
+</tr>
+<tr class="row-even"><td>tsuid</td>
+<td>String</td>
+<td>Hexadecimal encoded timeseries ID</td>
+<td>000001000001000001</td>
+</tr>
+<tr class="row-odd"><td>displayName</td>
+<td>String</td>
+<td>A name as parsed by the rule set</td>
+<td>user</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="get">
+<h2>GET</h2>
+<div class="section" id="example-root-get-query">
+<h3>Example Root GET Query</h3>
+<div class="highlight-python"><pre>http://localhost:4242/api/tree/branch?treeid=1</pre>
+</div>
+</div>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">&quot;branches&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;branches&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;sys&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;sys&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;branchId&quot;</span><span class="o">:</span> <span class="s2">&quot;00010001BECD&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;depth&quot;</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;branchId&quot;</span><span class="o">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;depth&quot;</span><span class="o">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-branch-get-query">
+<h3>Example Branch GET Query</h3>
+<div class="highlight-python"><pre>http://localhost:4242/api/tree/branch?branchid=00010001BECD000181A8</pre>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0.user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;user&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;branches&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;branches&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;sys&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;3&quot;</span><span class="o">:</span> <span class="s2">&quot;mboard&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;mboard&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;branchId&quot;</span><span class="o">:</span> <span class="s2">&quot;00010001BECD000181A8BF992A99&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;depth&quot;</span><span class="o">:</span> <span class="mi">3</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;sys&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;branchId&quot;</span><span class="o">:</span> <span class="s2">&quot;00010001BECD000181A8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;depth&quot;</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="collisions.html" title="/api/tree/collisions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="/api/tree"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" >/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

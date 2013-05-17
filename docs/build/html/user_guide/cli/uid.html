@@ -48,6 +48,59 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">uid</a><ul>
+<li><a class="reference internal" href="#cli-parameters">CLI Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lookup">Lookup</a><ul>
+<li><a class="reference internal" href="#command-format">Command Format</a></li>
+<li><a class="reference internal" href="#example-command">Example Command</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grep">grep</a><ul>
+<li><a class="reference internal" href="#id1">Command Format</a></li>
+<li><a class="reference internal" href="#id2">Example Command</a></li>
+<li><a class="reference internal" href="#id3">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#assign">assign</a><ul>
+<li><a class="reference internal" href="#id4">Command Format</a></li>
+<li><a class="reference internal" href="#id5">Example Command</a></li>
+<li><a class="reference internal" href="#id6">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rename">rename</a><ul>
+<li><a class="reference internal" href="#id7">Command Format</a></li>
+<li><a class="reference internal" href="#id8">Example Command</a></li>
+<li><a class="reference internal" href="#id9">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fsck">fsck</a></li>
+<li><a class="reference internal" href="#metasync">metasync</a><ul>
+<li><a class="reference internal" href="#id10">Command Format</a></li>
+<li><a class="reference internal" href="#id11">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metapurge">metapurge</a><ul>
+<li><a class="reference internal" href="#id12">Command Format</a></li>
+<li><a class="reference internal" href="#id13">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#treesync">treesync</a><ul>
+<li><a class="reference internal" href="#id14">Command Format</a></li>
+<li><a class="reference internal" href="#id15">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#treepurge">treepurge</a><ul>
+<li><a class="reference internal" href="#id16">Command Format</a></li>
+<li><a class="reference internal" href="#id17">Example Command</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">CLI Tools</a></p>
@@ -77,7 +130,327 @@
             
   <div class="section" id="uid">
 <h1>uid</h1>
+<p>The UID utility provides various functions to search or modify information in the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data.</p>
+<p>Use the UID utility with the command line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">uid</span> <span class="o">&lt;</span><span class="n">subcommands</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">arguments</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="cli-parameters">
+<h2>CLI Parameters</h2>
+<p>Parameters specific to the UID utility include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="50%" />
+<col width="10%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8211;idwidth</td>
+<td>Integer</td>
+<td>Number of bytes on which the UniqueId is encoded. This allows for an override of the built in UID width.</td>
+<td>3</td>
+<td>&#8211;idwidth=4</td>
+</tr>
+<tr class="row-odd"><td>&#8211;ignore-case</td>
+<td>Flag</td>
+<td>Ignore case distinctions when matching on a regular expression using the <tt class="docutils literal"><span class="pre">grep</span></tt> sub command</td>
+<td>&nbsp;</td>
+<td>&#8211;ignore-case</td>
+</tr>
+<tr class="row-even"><td>&#8211;verbose</td>
+<td>Flag</td>
+<td>Print logging messages at level DEBUG and higher. The default is for ERROR and higher to be displayed.</td>
+<td>&nbsp;</td>
+<td>&#8211;verbose&#8221;</td>
+</tr>
+<tr class="row-odd"><td>-i</td>
+<td>Flag</td>
+<td>Short hand for the <tt class="docutils literal"><span class="pre">--ignore-case</span></tt> flag</td>
+<td>&nbsp;</td>
+<td>-i</td>
+</tr>
+<tr class="row-even"><td>-v</td>
+<td>Flag</td>
+<td>Short hand for the <tt class="docutils literal"><span class="pre">--verbose</span></tt> flag</td>
+<td>&nbsp;</td>
+<td>-v</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="lookup">
+<h1>Lookup</h1>
+<p>The lookup command is the default for <tt class="docutils literal"><span class="pre">uid</span></tt> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
+<div class="section" id="command-format">
+<h2>Command Format</h2>
+<div class="highlight-python"><pre>&lt;kind&gt; &lt;name&gt;
+&lt;kind&gt; &lt;UID&gt;</pre>
+</div>
+</div>
+<div class="section" id="example-command">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid tagk</pre>
+</div>
+</div>
+<div class="section" id="example-response">
+<h2>Example Response</h2>
+<div class="highlight-python"><pre>tagk host: [0, 0, 1]</pre>
+</div>
+</div>
+</div>
+<div class="section" id="grep">
+<h1>grep</h1>
+<p>The grep sub command performs a regular expression search for the given UID type and returns a list of all UID names that match the expression. Fields required for the grep command include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="50%" />
+<col width="10%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID to search for. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>&nbsp;</td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>expression</td>
+<td>String</td>
+<td>The regex expression to search with</td>
+<td>&nbsp;</td>
+<td>disk.*write</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h2>Command Format</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s">&#39;&lt;expression&gt;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid grep metrics 'disk.*write'</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Example Response</h2>
+<div class="highlight-python"><pre>metrics iostat.disk.msec_write: [0, 3, -67]
+metrics iostat.disk.write_merged: [0, 3, -69]
+metrics iostat.disk.write_requests: [0, 3, -70]
+metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
+</div>
+</div>
+</div>
+<div class="section" id="assign">
+<h1>assign</h1>
+<p>This sub command is used to assign IDs to new unique names for metrics, tag names or tag values. Supply a list of one or more values to assign UIDs and the list of assignments will be returned.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID the names represent. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>String</td>
+<td>One or more names to assign UIDs to. Names must not be in quotes and cannot contain spaces.</td>
+<td>owner</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id4">
+<h2>Command Format</h2>
+<div class="highlight-python"><pre>assign &lt;kind&gt; &lt;name&gt; [&lt;name&gt;...]</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid assign metrics disk.d0 disk.d1 disk.d2 disk.d3</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Example Response</h2>
+</div>
+</div>
+<div class="section" id="rename">
+<h1>rename</h1>
+<p>Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After changing a UID name you must flush the cache or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID the name represent. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>String</td>
+<td>The existing UID name</td>
+<td>owner</td>
+</tr>
+<tr class="row-even"><td>newname</td>
+<td>String</td>
+<td>The new name UID name</td>
+<td>server_owner</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id7">
+<h2>Command Format</h2>
+<div class="highlight-python"><pre>assign &lt;kind&gt; &lt;name&gt; &lt;newname&gt;</pre>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid rename disk.d0 disk.d0.bytes_read</pre>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>Example Response</h2>
+</div>
+</div>
+<div class="section" id="fsck">
+<h1>fsck</h1>
 <p>TODO</p>
+</div>
+<div class="section" id="metasync">
+<h1>metasync</h1>
+<p>This command will run through the entire data table, scanning each row of timeseries data and generate missing TSMeta objects and UIDMeta objects or update the created timestamps for each object type if necessary. Use this command after enabling meta tracking with existing data or if you suspect that some timeseries may not have been indexed properly. The command will also push new or updated meta entries to a search engine if a plugin has been configured. If existing meta is corrupted, meaning the TSD is unable to deserialize the object, it will be replaced with a new entry.</p>
+<p>It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.</p>
+<div class="section" id="id10">
+<h2>Command Format</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">metasync</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid metasync</pre>
+</div>
+</div>
+</div>
+<div class="section" id="metapurge">
+<h1>metapurge</h1>
+<p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <tt class="docutils literal"><span class="pre">metasync</span></tt>.</p>
+<div class="section" id="id12">
+<h2>Command Format</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">metapurge</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid metapurge</pre>
+</div>
+</div>
+</div>
+<div class="section" id="treesync">
+<h1>treesync</h1>
+<p>Runs through the list of TSMeta objects in the UID table and processes each through all configured and enabled trees to compile branches. This command may be run at any time and will not affect existing objects.</p>
+<div class="section" id="id14">
+<h2>Command Format</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">treesync</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid treesync</pre>
+</div>
+</div>
+</div>
+<div class="section" id="treepurge">
+<h1>treepurge</h1>
+<p>Removes all branches, collision, not matched data and optionally the tree definition itself for a given tree. Parameters include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Integer</td>
+<td>ID of the tree to purge</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>definition</td>
+<td>Flag</td>
+<td>Add this literal after the ID to delete the definition of the tree as well as the data</td>
+<td>definition</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id16">
+<h2>Command Format</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">treepurge</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">definition</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>Example Command</h2>
+<div class="highlight-python"><pre>./tsdb uid treepurge 1</pre>
+</div>
+</div>
 </div>
 
 

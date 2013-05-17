@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/tree/test &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="/api/tree" href="index.html" />
+    <link rel="next" title="/api/uid" href="../uid/index.html" />
+    <link rel="prev" title="/api/tree/rules" href="rules.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../uid/index.html" title="/api/uid"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rules.html" title="/api/tree/rules"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/tree/test</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+<li><a class="reference internal" href="#example-error-response">Example Error Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rules.html"
+                        title="previous chapter">/api/tree/rules</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../uid/index.html"
+                        title="next chapter">/api/uid</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-tree-test">
+<h1>/api/tree/test</h1>
+<p>For debugging a rule set, the test endpoint can be used to run a TSMeta object through a tree&#8217;s rules and determine where in the heirarchy the leaf would appear. Or find out why a timeseries failed to match on a rule set or collided with an existing timeseries. The only method supported is <tt class="docutils literal"><span class="pre">GET</span></tt> and no changes will be made to the actual tree in storage when using this endpoint.</p>
+<p>The <tt class="docutils literal"><span class="pre">messages</span></tt> field of the response contains information about what occurred during processing. If the TSUID did not exist or an error occurred, the reason will be found in this field. During processing, each rule that the TSMeta is processed through will generate a message. If a rule matched on the TSMeta successfully or failed, the reason will be recorded.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>The following fields are required for this endpoint.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>treeId</td>
+<td>Integer</td>
+<td>Required</td>
+<td>The ID of the tree to pass the TSMeta objects through</td>
+<td>&nbsp;</td>
+<td>treeid</td>
+<td>&nbsp;</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>tsuids</td>
+<td>String</td>
+<td>Required</td>
+<td>A list of one or more TSUIDs to fetch TSMeta for. If requesting testing of more than one TSUID, they should be separted by a comma.</td>
+<td>&nbsp;</td>
+<td>tsuids</td>
+<td>&nbsp;</td>
+<td>000001000001000001,00000200000200002</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response will return a list of JSON objects with a number of items including the TSMeta object, messages about the processing steps taken and a resulting branch. There will be one object for each TSUID requested with the TSUID as the object name. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+<p>Fields found in the response include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>messages</td>
+<td>Array of Strings</td>
+<td>A list of messages for each level and rule of the rule set</td>
+<td><em>See Below</em></td>
+</tr>
+<tr class="row-odd"><td>meta</td>
+<td>Object</td>
+<td>The TSMeta object loaded from storage</td>
+<td><em>See Below</em></td>
+</tr>
+<tr class="row-even"><td>branch</td>
+<td>Object</td>
+<td>The full tree if successfully parsed</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<blockquote>
+<div><a class="reference external" href="http://localhost:4242/api/tree/test?treeId=1&amp;tsuids=000001000001000001000002000002">http://localhost:4242/api/tree/test?treeId=1&amp;tsuids=000001000001000001000002000002</a></div></blockquote>
+</div>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;000001000001000001000002000002&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;messages&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Processing rule: [1:0:0:TAGK]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Matched tagk [host] for rule: [1:0:0:TAGK]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Processing rule: [1:1:0:METRIC]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Depth [3] Adding leaf [name: sys.cpu.0 tsuid: 000001000001000001000002000002] to parent branch [Name: [web-01.lga.mysite.com]]&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;meta&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001000002000002&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368979404</span><span class="p">,</span>
+                <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368979404</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web-01.lga.mysite.com&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368979404</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000002&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368979404</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000002&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368979404</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;retention&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;totalDatapoints&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;branch&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;branches&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001000002000002&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="s2">&quot;branches&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;web-01.lga.mysite.com&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;web-01.lga.mysite.com&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;branchId&quot;</span><span class="o">:</span> <span class="s2">&quot;0001247F7202&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;numLeaves&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;numBranches&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;depth&quot;</span><span class="o">:</span> <span class="mi">1</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;path&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;ROOT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;branchId&quot;</span><span class="o">:</span> <span class="s2">&quot;0001&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;numLeaves&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;numBranches&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;depth&quot;</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-error-response">
+<h3>Example Error Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;000001000001000001000002000003&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;branch&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">&quot;messages&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Unable to locate TSUID meta data&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;meta&quot;</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../uid/index.html" title="/api/uid"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rules.html" title="/api/tree/rules"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" >/api/tree</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

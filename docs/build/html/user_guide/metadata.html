@@ -47,6 +47,14 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Metadata</a></li>
+<li><a class="reference internal" href="#uidmeta">UIDMeta</a></li>
+<li><a class="reference internal" href="#tsmeta">TSMeta</a></li>
+<li><a class="reference internal" href="#tracking">Tracking</a></li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="search.html"
                         title="previous chapter">Searching</a></p>
@@ -76,7 +84,26 @@
             
   <div class="section" id="metadata">
 <h1>Metadata</h1>
-<p>TODO</p>
+<p>The primary purpose of OpenTSDB is to store timeseries data points and allow for various operations on that data. However it helps ot know what kind of data is stored and provide some context when working with the information. OpenTSDB&#8217;s metadata is data about the data points. Much of it is user configurable to provide tie-ins with external tools such as search engines or issue tracking systems. This chapter describes various metadata available and what it&#8217;s used for.</p>
+</div>
+<div class="section" id="uidmeta">
+<h1>UIDMeta</h1>
+<p>Every data point stored in OpenTSDB has at least three UIDs associated with it. There will always be a <tt class="docutils literal"><span class="pre">metric</span></tt> and one or more tag pairs consisting of a <tt class="docutils literal"><span class="pre">tagk</span></tt> or tag name, and a <tt class="docutils literal"><span class="pre">tagv</span></tt> or tag value. When a new name for orne of these UIDs comes into the system, a Unique ID is assigned so that there is always a UID name and numeric identifier pair.</p>
+<p>Each UID may also have a metadata entry recorded in the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table. Data available for each UID includes immutable fields such as the <tt class="docutils literal"><span class="pre">uid</span></tt>, <tt class="docutils literal"><span class="pre">type</span></tt>, <tt class="docutils literal"><span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">created</span></tt> timestamp that reflects the time when the UID was first assigned. Additionaly some fields may be edited such as the <tt class="docutils literal"><span class="pre">description</span></tt>, <tt class="docutils literal"><span class="pre">notes</span></tt>, <tt class="docutils literal"><span class="pre">displayName</span></tt> and a set of <tt class="docutils literal"><span class="pre">custom</span></tt> key/value pairs to record extra information. For details on the fields, see the <a class="reference internal" href="../api_http/uid/uidmeta.html"><em>/api/uid/uidmeta</em></a> endpoint.</p>
+<p>Whenever a new UIDMeta object is created or modified, it will be pushed to the Search plugin if a plugin has been configured and loaded. For information about UID values, see <a class="reference internal" href="uids.html"><em>UIDs and TSUIDs</em></a>.</p>
+</div>
+<div class="section" id="tsmeta">
+<h1>TSMeta</h1>
+<p>Each timeseries in OpenTSDB is uniquely identified by the combination of it&#8217;s metric UID and tag name/value UIDs, creating a TSUID as per <a class="reference internal" href="uids.html"><em>UIDs and TSUIDs</em></a>. When a new timeseries is received, a TSMeta object can be recorded in the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table in a row identified by the TSUID. The meta object includes some immutable fields such as the <tt class="docutils literal"><span class="pre">tsuid</span></tt>, <tt class="docutils literal"><span class="pre">metric</span></tt>, <tt class="docutils literal"><span class="pre">tags</span></tt>, <tt class="docutils literal"><span class="pre">lastReceived</span></tt> and <tt class="docutils literal"><span class="pre">created</span></tt> timestamp that reflects the time when the TSMeta was first received. Additionally some fields can be edited such as a <tt class="docutils literal"><span class="pre">description</span></tt>, <tt class="docutils literal"><span class="pre">notes</span></tt> and others. See <a class="reference internal" href="../api_http/uid/tsmeta.html"><em>/api/uid/tsmeta</em></a> for details.</p>
+</div>
+<div class="section" id="tracking">
+<h1>Tracking</h1>
+<p>If you want to use metadata in your OpenTSDB setup, you must explicitly enable real-time metadata tracking and/or use the CLI tools. In the configuration file, you can set <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tracking</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> for a TSD and each time a new UID is assigned a UIDMeta object will be recorded. Every data point will also increment a counter in the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table that indicates a data point was received. The first time this counter is created, a new TSMeta object will be recorded.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For extremely busy TSDs that are receiving many data points per second, you may want to leave meta tracking disabled to increase throughput. For most TSDs you shouldn&#8217;t have a problem enabling this setting.</p>
+</div>
+<p>For situations where a TSD crashes or if you do not enable real-time tracking, you can periodically use the <tt class="docutils literal"><span class="pre">uid</span></tt> CLI tool and the <tt class="docutils literal"><span class="pre">metasync</span></tt> sub command to generate missing UIDMeta and TSMeta objects. See <a class="reference internal" href="cli/uid.html"><em>uid</em></a> for information.</p>
 </div>
 
 

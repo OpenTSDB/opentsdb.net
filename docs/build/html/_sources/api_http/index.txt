@@ -161,6 +161,7 @@ API Endpoints
    
    s
    aggregators
+   annotation
    dropcaches
    put
    query

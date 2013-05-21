@@ -101,6 +101,68 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>For query string requests, please see <a class="reference external" href="http://opentsdb.net/http-api.html#/q">/q</a> until we get some other docs written.</p>
+<p>Common parameters include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>start</td>
+<td>String, Integer</td>
+<td>Required</td>
+<td>The start time for the query. This can be a relative or absolute timestamp. See <a class="reference internal" href="../user_guide/query/index.html"><em>Queries</em></a> for details.</td>
+<td>&nbsp;</td>
+<td>start</td>
+<td>&nbsp;</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-odd"><td>end</td>
+<td>String, Integer</td>
+<td>Optional</td>
+<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <a class="reference internal" href="../user_guide/query/index.html"><em>Queries</em></a> for details.</td>
+<td><em>current time</em></td>
+<td>end</td>
+<td>&nbsp;</td>
+<td>1s-ago</td>
+</tr>
+<tr class="row-even"><td>noAnnotations</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides <tt class="docutils literal"><span class="pre">globalAnnotations</span></tt></td>
+<td>true</td>
+<td>no_annotations</td>
+<td>&nbsp;</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>globalAnnotations</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the query should retrieve global annotations for the requested timespan</td>
+<td>false</td>
+<td>global_annotations</td>
+<td>&nbsp;</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
 <div class="section" id="example-query-string-request">
 <h3>Example Query String Request</h3>
 <div class="highlight-python"><pre>http://localhost:4242/api/query?start=1h-ago&amp;m=sum:rate:proc.stat.cpu{host=foo,type=idle}</pre>
@@ -114,8 +176,38 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output generated for a query depends heavily on the chosen serializer:</p>
-<p><a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
+<p>The output generated for a query depends heavily on the chosen serializer <a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a>. A request may result in multiple sets of data returned, particularly if the request included multiple queries or grouping was requested. Some common fields included with each data set in the response will be:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>metric</td>
+<td>Name of the metric retreived</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>A list of tags only returned when the results are for a single timeseries. If results are aggregated, this value may be null or an empty map</td>
+</tr>
+<tr class="row-even"><td>aggregatedTags</td>
+<td>If more than one timeseries were included in the result set, i.e. they were aggregated, this will display a list of tag names that were found in common across all time series.</td>
+</tr>
+<tr class="row-odd"><td>dps</td>
+<td>Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by the serializer.</td>
+</tr>
+<tr class="row-even"><td>annotations</td>
+<td>If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by <tt class="docutils literal"><span class="pre">start_time</span></tt>. Aggregator functions do not affect annotations, all annotations will be returned for the span.</td>
+</tr>
+<tr class="row-odd"><td>globalAnnotations</td>
+<td>If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group</td>
+</tr>
+</tbody>
+</table>
 <p>Unless there was an error with the query, you will generally receive a <tt class="docutils literal"><span class="pre">200</span></tt> status with content. However if your query couldn&#8217;t find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
 </pre></div>

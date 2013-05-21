@@ -25,3 +25,22 @@ If you want to use metadata in your OpenTSDB setup, you must explicitly enable r
 .. NOTE:: For extremely busy TSDs that are receiving many data points per second, you may want to leave meta tracking disabled to increase throughput. For most TSDs you shouldn't have a problem enabling this setting.
 
 For situations where a TSD crashes or if you do not enable real-time tracking, you can periodically use the ``uid`` CLI tool and the ``metasync`` sub command to generate missing UIDMeta and TSMeta objects. See :doc:`cli/uid` for information.
+
+Annotations
+===========
+
+Another form of metadata is the *annotation*. Annotations are simple objects associated with a timestamp and, optionally, a timeseries. Annotations are meant to be a very basic means of recording an event. They are not intended as an event management or issue tracking system. Rather they can be used to link a timeseries to such an external system.
+
+Every annotation is associated with a start timestamp. This determines where the note is stored in the backend and may be the start of an event with a beggining and end, or just used to record a note at a specific point in time. Optionally an end timestamp can be set if the note represents a time span, such as an issue that was resolved some time after the start.
+
+Additionally, an annotation is defined by a TSUID. If the TSUID field is set to a valid TSUID, the annotation will be stored, and associated, along with the data points for the timeseries defined by the ID. This means that when creating a query for data points, any annotations stored within the requested timespan will be retrieved and optionally returned to the user. These annotations are considered "local".
+
+If the TSUID is empty, the annotation is considered a "global" notation, something associated with all timeseries in the system. When querying, the user can specify that global annotations be fetched for the timespan of the query. These notes will then be returned along with "local" annotations.
+
+Annotations should have a very brief *description*, limited to 25 characters or so since the note may appear on a graph. If the requested timespan has many annotations, the graph can become clogged with notes. User interfaces can then let the user select an annotation to retrieve greater detail. This detail may include lengthy "notes" and/or a custom map of key/value pairs.
+
+Users can add, edit and delete annotations via the Http API at :doc:`../api_http/annotation`.
+
+An example GnuPlot graph with annotation markers appears below. Notice how only the ``description`` field appears in a box with a blue line recording the ``start_time``.
+
+.. image:: ../images/annotation_ex.png

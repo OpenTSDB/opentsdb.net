@@ -119,6 +119,8 @@ Instead of using the query string method, you can build a query as a JSON object
   "start", "String, Integer", "Required", "The start time for the query. This can be a relative or absolute timestamp. See :doc:`../../user_guide/query/index` for details.", "", "1h-ago"
   "end", "String, Integer", "Optional", "An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See :doc:`../../user_guide/query/index` for details.", "*current time*", "1s-ago"
   "padding", "Boolean", "Optional", "Whether or not the response should include one data point to either side of the requested time range. This is used for some graphing methods that require extra data for proper display.", "false", "true"
+  "noAnnotations", "Boolean", "Optional", "Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides ``globalAnnotations``", "true", "false"
+  "globalAnnotations", "Boolean", "Optional", "Whether or not the query should retrieve global annotations for the requested timespan", "false", "true"
   "queries", "Array", "Required", "A list of one or more sub queries describing the timeseries data to retrieve", "", "*See Below*"
    
 Each query can retrieve one or sets of timeseries data, performing aggregation or grouping calculations on each set. Fields for each sub query include:
@@ -175,11 +177,12 @@ Query responses are arrays of result sets, with one result set per timeseries or
   "tags", "Map", "A list of tags only returned when the results are for a single timeseries. If results are aggregated, this value may be null or an empty map", """tags"":{""host"":""web01""}"
   "aggregated_tags", "Array", "If more than one timeseries were included in the result set, i.e. they were aggregated, this will display a list of tag names that were found in common across all time series.", """aggregated_tags"":[""host""]"
   "dps", "Map, Array", "Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by query string parameters.", "*See Below*"
+  "annotations", "Array", "If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by ``start_time``. Aggregator functions do not affect annotations, all annotations will be returned for the span."
+  "globalAnnotations", "Array", "If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group"
   
 Example Aggregated Default Response
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block :: javascript
+.. code-block:: javascript
 
   [
       {
@@ -187,6 +190,28 @@ Example Aggregated Default Response
           "tags": {},
           "aggregated_tags": [
               "host"
+          ],
+          "annotations": [
+              {
+                  "tsuid": "00001C0000FB0000FB",
+                  "description": "Testing Annotations",
+                  "notes": "These would be details about the event, the description is just a summary",
+                  "custom": {
+                      "owner": "jdoe",
+                      "dept": "ops"
+                  },
+                  "endTime": 0,
+                  "startTime": 1365966062
+              }
+          ],
+          "globalAnnotations": [
+              {
+                  "description": "Notice",
+                  "notes": "DAL was down during this period",
+                  "custom": null,
+                  "endTime": 1365966164,
+                  "startTime": 1365966064
+              }
           ],
           "dps": {
               "1365966001": 25595461080,
@@ -200,8 +225,7 @@ Example Aggregated Default Response
 
 Example Aggregated Array Response
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block :: javascript
+.. code-block:: javascript
 
   [
       {
@@ -233,7 +257,7 @@ Example Multi-Set Response
 
 For the following example, two TSDs were running and the query was: ``http://localhost:4242/api/query?start=1h-ago&m=sum:tsd.hbase.puts{host=*}``
 
-.. code-block :: javascript
+.. code-block:: javascript
 
   [
       {

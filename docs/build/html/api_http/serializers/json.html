@@ -300,6 +300,20 @@
 <td>false</td>
 <td>true</td>
 </tr>
+<tr class="row-odd"><td>noAnnotations</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides <tt class="docutils literal"><span class="pre">globalAnnotations</span></tt></td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>globalAnnotations</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the query should retrieve global annotations for the requested timespan</td>
+<td>false</td>
+<td>true</td>
+</tr>
 <tr class="row-odd"><td>queries</td>
 <td>Array</td>
 <td>Required</td>
@@ -454,6 +468,16 @@
 <td>Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by query string parameters.</td>
 <td><em>See Below</em></td>
 </tr>
+<tr class="row-even"><td>annotations</td>
+<td>Array</td>
+<td>If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by <tt class="docutils literal"><span class="pre">start_time</span></tt>. Aggregator functions do not affect annotations, all annotations will be returned for the span.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>globalAnnotations</td>
+<td>Array</td>
+<td>If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group</td>
+<td>&nbsp;</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -465,6 +489,28 @@
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
             <span class="s2">&quot;host&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;annotations&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;00001C0000FB0000FB&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1365966062</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;globalAnnotations&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Notice&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;DAL was down during this period&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">1365966164</span><span class="p">,</span>
+                <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1365966064</span>
+            <span class="p">}</span>
         <span class="p">],</span>
         <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;1365966001&quot;</span><span class="o">:</span> <span class="mi">25595461080</span><span class="p">,</span>

@@ -29,12 +29,12 @@ we can get.</p>
 Some of the new features we're planning to integrate include:
 
 <ul>
-<li>A configuration file for storing properties</li>
-<li>Full RESTful HTTP API that provides access to all of OpenTSDB's features including storing data points via HTTP</li>
-<li>Pluggable data formatters that can accept or emit data in various formats. The default will be JSON though implementations could be created for XML, ProtoBuf or others</li>
-<li>Annotations that allow tracking of events associated with a particular timeseries or global notes tied to a timestamp</li>
-<li>Metadata for timeseries, metrics, tag names and tag values so you can find out what is stored in OpenTSDB and add your own notes</li>
-<li>Metadata trees that organize timeseries into a directory like structure</li>
+<li>DONE: A configuration file for storing properties</li>
+<li>DONE: Full RESTful HTTP API that provides access to all of OpenTSDB's features including storing data points via HTTP</li>
+<li>DONE: Pluggable data formatters that can accept or emit data in various formats. The default will be JSON though implementations could be created for XML, ProtoBuf or others</li>
+<li>DONE: Annotations that allow tracking of events associated with a particular timeseries or global notes tied to a timestamp</li>
+<li>DONE: Metadata for timeseries, metrics, tag names and tag values so you can find out what is stored in OpenTSDB and add your own notes</li>
+<li>DONE: Metadata trees that organize timeseries into a directory like structure</li>
 <li>Pluggable search abstraction layer to publish metadata and annotations to your search engine of choice, such as Elastic Search</li>
 <li>Pluggable data abstraction layer that will allow the use of data stores other than HBase. Initially we'll release a Cassandra plugin</li>
 <li>Millisecond timestamp support, enabled as an option for users who need greater resolution</li>

@@ -95,8 +95,9 @@ All **Request** fields will be present in the response in addition to others:
    
    "metric", "UIDMeta", "A UID meta data object representing information about the UID", "*See Below*"
    "tags", "Array of UIDMeta", "A list of tag name / tag value UID meta data objects associated with the timeseries. The ``tagk`` UID will be first followed by it's corresponding ``tagv`` object.", "*See Below*"
-   "created", "Integer", "A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the ______ utility to synchronize meta data.", "1350425579"
+   "created", "Integer", "A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the :doc:`../../user_guide/cli/uid` utility to synchronize meta data.", "1350425579"
    "lastReceived", "Integer", "A Unix epoch timestamp, in seconds, when a data point was last recieved. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.", "1350425579"
+   "totalDatapoints", "Integer", "The total number of data points recorded for the timeseries. NOTE: This may not be accurate unless you have enabled metadata tracking since creating the TSDB tables.", "3242322"
 
 Example Response
 ^^^^^^^^^^^^^^^^
@@ -150,5 +151,6 @@ Example Response
       },
       "displayName": "",
       "dataType": "absolute",
-      "lastReceived": 1350425590
+      "lastReceived": 1350425590,
+      "totalDatapoints", 12532
   }

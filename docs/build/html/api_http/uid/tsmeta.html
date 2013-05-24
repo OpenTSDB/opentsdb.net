@@ -299,13 +299,18 @@
 </tr>
 <tr class="row-even"><td>created</td>
 <td>Integer</td>
-<td>A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the ______ utility to synchronize meta data.</td>
+<td>A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the <a class="reference internal" href="../../user_guide/cli/uid.html"><em>uid</em></a> utility to synchronize meta data.</td>
 <td>1350425579</td>
 </tr>
 <tr class="row-odd"><td>lastReceived</td>
 <td>Integer</td>
 <td>A Unix epoch timestamp, in seconds, when a data point was last recieved. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.</td>
 <td>1350425579</td>
+</tr>
+<tr class="row-even"><td>totalDatapoints</td>
+<td>Integer</td>
+<td>The total number of data points recorded for the timeseries. NOTE: This may not be accurate unless you have enabled metadata tracking since creating the TSDB tables.</td>
+<td>3242322</td>
 </tr>
 </tbody>
 </table>
@@ -359,7 +364,8 @@
     <span class="p">},</span>
     <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;absolute&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mi">1350425590</span>
+    <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mi">1350425590</span><span class="p">,</span>
+    <span class="s2">&quot;totalDatapoints&quot;</span><span class="p">,</span> <span class="mi">12532</span>
 <span class="p">}</span>
 </pre></div>
 </div>

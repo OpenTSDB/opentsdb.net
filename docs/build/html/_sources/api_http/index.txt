@@ -166,6 +166,7 @@ API Endpoints
    put
    query
    serializers
+   stats
    suggest
    tree/index
    uid/index

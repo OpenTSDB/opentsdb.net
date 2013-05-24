@@ -221,16 +221,16 @@
 <td>&nbsp;</td>
 <td>regex</td>
 <td>RW</td>
-<td>&nbsp;</td>
+<td>^.*\.([a-zA-Z]{3,4})[0-9]{0,1}\..*\..*$</td>
 </tr>
 <tr class="row-odd"><td>separator</td>
 <td>String</td>
 <td>Optional</td>
-<td>If the field value should be split into multiple branches, provide the separation character. Must be one character only.</td>
+<td>If the field value should be split into multiple branches, provide the separation character.</td>
 <td>&nbsp;</td>
 <td>separator</td>
 <td>RW</td>
-<td>\\.</td>
+<td>\.</td>
 </tr>
 <tr class="row-even"><td>regexGroupIdx</td>
 <td>Integer</td>
@@ -252,6 +252,10 @@
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When supplying a <tt class="docutils literal"><span class="pre">separator</span></tt> or a <tt class="docutils literal"><span class="pre">regex</span></tt> value, you must supply a valid regular expression. For separators, the most common use is to split dotted metrics into branches. E.g. you may want &#8220;sys.cpu.0.user&#8221; to be split into &#8220;sys&#8221;, &#8220;cpu&#8221;, &#8220;0&#8221; and &#8220;user&#8221; branches. You cannot supply just a &#8221;.&#8221; for the separator value as that will not match properly. Instead, escape the period via &#8221;.&#8221;. Note that if you are supplying JSON via a POST request, you must escape the backslash as well and supply &#8220;\.&#8221;. GET request responses will escape all backslashes.</p>
+</div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>

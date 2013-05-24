@@ -51,6 +51,7 @@ The following is a table of configuration options for all tools. When applicable
    E.g. /tmp/opentsdb", "", "--cachedir"
    "tsd.http.request.enable_chunked", "Boolean", "Optional", "Whether or not to enable incoming chunk support for the HTTP RPC", "false", ""
    "tsd.http.request.max_chunk", "Integer", "Optional", "The maximum chunk size to support for incoming HTTP requests.", "4096", ""
+   "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as javascript files for the web interface, are located.
    E.g. /opt/opentsdb/staticroot", "", "--staticroot"
    "tsd.network.async_io", "Boolean", "Optional", Whether or not to use NIO or tradditional blocking IO", "True", "--async-io"
@@ -64,6 +65,7 @@ The following is a table of configuration options for all tools. When applicable
    "tsd.search.enable", "Boolean", "Optional", "Whether or not to enable search functionality. If true, you must supply a valid ``tsd.search.plugin`` class name", "False", ""
    "tsd.search.plugin", "String", "Optional", "The class name of a search plugin to instantiate. If ``tsd.search.enable`` is set to false, this value is ignored.
    E.g. net.opentsdb.search.ElasticSearch", "", ""
+   "tsd.stats.canonical", "Boolean", "Optional", "Whether or not the FQDN should be returned with statistics requests. The default stats are returned with ""host=<hostname>"" which is not gauranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the fqdn if found, otherwise it may return the IP. The stats output should be ""fqdn=<hostname""", "false", ""
    "tsd.storage.enable_compaction", "Boolean", "Optional", "Whether or not to enable compactions", "True", ""
    "tsd.storage.flush_interval", "Integer", "Optional", "How often, in milliseconds, to flush the data point storage write buffer", "1000", "--flush-interval"
    "tsd.storage.hbase.data_table", "String", "Optional", "Name of the HBase table where data points are stored", "tsdb", "--table"

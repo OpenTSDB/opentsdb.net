@@ -30,11 +30,13 @@ The following fields can be used for all rule endpoint requests:
    "type", "String", "Required*", "The type of rule represented. See :doc:`../../user_guide/trees`. *Required when creating a new rule.", "", "type", "RW", "METRIC"
    "field", "String", "Optional", "The name of a field for the rule to operate on", "", "field", "RW", "host"
    "customField", "String", "Optional", "The name of a ``TSMeta`` custom field for the rule to operate on. Note that the ``field`` value must also be configured or an exception will be raised.", "", "custom_field", "RW", "owner"
-   "regex", "String", "Optional", "A regular expression pattern to process the associated field or custom field value through.", "", "regex", "RW", ""
-   "separator", "String", "Optional", "If the field value should be split into multiple branches, provide the separation character. Must be one character only.", "", "separator", "RW", "\\\\."
+   "regex", "String", "Optional", "A regular expression pattern to process the associated field or custom field value through.", "", "regex", "RW", "^.*\\.([a-zA-Z]{3,4})[0-9]{0,1}\\..*\\..*$"
+   "separator", "String", "Optional", "If the field value should be split into multiple branches, provide the separation character.", "", "separator", "RW", "\\."
    "regexGroupIdx", "Integer", "Optional", "A group index for extracting a portion of a pattern from the given regular expression pattern. Must be 0 or greater.", "0", "regex_group_idx", "RW", "1"
    "displayFormat", "String", "Optional", "A display format string to alter the ``display_name`` value of the resulting branch or leaf. See :doc:`../../user_guide/trees`", "", "display_format", "RW", "Port: {ovalue}"
    
+.. NOTE:: When supplying a ``separator`` or a ``regex`` value, you must supply a valid regular expression. For separators, the most common use is to split dotted metrics into branches. E.g. you may want "sys.cpu.0.user" to be split into "sys", "cpu", "0" and "user" branches. You cannot supply just a "." for the separator value as that will not match properly. Instead, escape the period via "\.". Note that if you are supplying JSON via a POST request, you must escape the backslash as well and supply "\\.". GET request responses will escape all backslashes.
+
 Response
 --------
 

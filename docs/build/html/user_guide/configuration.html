@@ -200,7 +200,14 @@ E.g. /tmp/opentsdb</td>
 <td>4096</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.staticroot</td>
+<tr class="row-odd"><td>tsd.http.show_stack_trace</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to return the stack trace with an API query response when an exception occurs.</td>
+<td>false</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
 <td>Location of a directory where static files, such as javascript files for the web interface, are located.
@@ -208,14 +215,14 @@ E.g. /opt/opentsdb/staticroot</td>
 <td>&nbsp;</td>
 <td>&#8211;staticroot</td>
 </tr>
-<tr class="row-even"><td>tsd.network.async_io</td>
+<tr class="row-odd"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or tradditional blocking IO&#8221;</td>
 <td>True</td>
 <td>&#8211;async-io</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.bind</td>
+<tr class="row-even"><td>tsd.network.bind</td>
 <td>String</td>
 <td>Optional</td>
 <td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
@@ -223,54 +230,61 @@ E.g. 127.0.0.1</td>
 <td>0.0.0.0</td>
 <td>&#8211;bind</td>
 </tr>
-<tr class="row-even"><td>tsd.network.keep_alive</td>
+<tr class="row-odd"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.port</td>
+<tr class="row-even"><td>tsd.network.port</td>
 <td>Integer</td>
 <td>Required</td>
 <td>The TCP port to use for accepting connections</td>
 <td>&nbsp;</td>
 <td>&#8211;port</td>
 </tr>
-<tr class="row-even"><td>tsd.network.reuse_address</td>
+<tr class="row-odd"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow reuse of the bound port within Netty</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
+<tr class="row-even"><td>tsd.network.tcp_no_delay</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to disable TCP buffering before sending data</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.network.worker_threads</td>
+<tr class="row-odd"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number fo asynchronous IO worker threads for Netty</td>
 <td><em>#CPU cores * 2</em></td>
 <td>&#8211;worker-threads</td>
 </tr>
-<tr class="row-odd"><td>tsd.search.enable</td>
+<tr class="row-even"><td>tsd.search.enable</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable search functionality. If true, you must supply a valid <tt class="docutils literal"><span class="pre">tsd.search.plugin</span></tt> class name</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.search.plugin</td>
+<tr class="row-odd"><td>tsd.search.plugin</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of a search plugin to instantiate. If <tt class="docutils literal"><span class="pre">tsd.search.enable</span></tt> is set to false, this value is ignored.
 E.g. net.opentsdb.search.ElasticSearch</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.stats.canonical</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with &#8220;host=&lt;hostname&gt;&#8221; which is not gauranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the fqdn if found, otherwise it may return the IP. The stats output should be &#8220;fqdn=&lt;hostname&#8221;</td>
+<td>false</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.enable_compaction</td>

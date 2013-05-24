@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/stats &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="up" title="HTTP API" href="index.html" />
+    <link rel="next" title="/api/suggest" href="suggest.html" />
+    <link rel="prev" title="/api/serializers" href="serializers.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="suggest.html" title="/api/suggest"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="serializers.html" title="/api/serializers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/stats</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="serializers.html"
+                        title="previous chapter">/api/serializers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="suggest.html"
+                        title="next chapter">/api/suggest</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-stats">
+<h1>/api/stats</h1>
+<p>This endpoint provides a list of statistics for the running TSD. These statistics are automatically recorded by a running TSD every 5 minutes but may be accessed via this endpoint. All statistics are read only.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>No parameters available.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p><strong>Query String</strong></p>
+<div class="highlight-python"><pre>http://localhost:4242/api/stats</pre>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is an array of objects. Fields in the response include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>metric</td>
+<td>String</td>
+<td>Name of the metric the statistic is recording</td>
+<td>tsd.connectionmgr.connections</td>
+</tr>
+<tr class="row-odd"><td>timestamp</td>
+<td>Integer</td>
+<td>Unix epoch timestamp, in seconds, when the statistic was collected and displayed</td>
+<td>1369350222</td>
+</tr>
+<tr class="row-even"><td>value</td>
+<td>Integer</td>
+<td>The numeric value for the statistic</td>
+<td>42</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>Map</td>
+<td>A list of key/value tag name/tag value pairs</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+  <span class="p">{</span>
+      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.connectionmgr.connections&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1369350222</span><span class="p">,</span>
+      <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;wtdb-1-4&quot;</span>
+      <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.connectionmgr.exceptions&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1369350222</span><span class="p">,</span>
+      <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;wtdb-1-4&quot;</span>
+      <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.rpc.received&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1369350222</span><span class="p">,</span>
+      <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;wtdb-1-4&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;telnet&quot;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="suggest.html" title="/api/suggest"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="serializers.html" title="/api/serializers"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

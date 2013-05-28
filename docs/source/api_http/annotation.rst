@@ -25,7 +25,7 @@ All annotations are identified by the ``startTime`` field and optionally the ``t
    "startTime", "Integer", "Required", "A Unix epoch timestamp, in seconds, marking the time when the annotation event should be recorded", "", "start_time", "RW", "1369141261"
    "endTime", "Integer", "Optional", "An optional end time for the event if it has completed or been resolved", "0", "end_time", "RW", "1369141262"
    "tsuid", "String", "Optional", "A TSUID if the annotation is associated with a timeseries. This may be null or empty if the note was for a global event", "", "tsuid", "RW", "000001000001000001"
-   "description", "String", "A brief description of the event. As this may appear on GnuPlot graphs, the description should be very short, ideally less than 25 characters.", "", "description", "RW", "Network Outage"
+   "description", "String", "Optional", "A brief description of the event. As this may appear on GnuPlot graphs, the description should be very short, ideally less than 25 characters.", "", "description", "RW", "Network Outage"
    "notes", "String", "Optional", "Detailed notes about the event", "", "notes", "RW", "Switch #5 died and was replaced"
    "custom", "Map", "Optional", "A key/value map to store custom fields and values", "null", "", "RW", "*See Below*"
 

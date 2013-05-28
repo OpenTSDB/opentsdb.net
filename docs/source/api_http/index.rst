@@ -165,6 +165,7 @@ API Endpoints
    dropcaches
    put
    query
+   search
    serializers
    stats
    suggest

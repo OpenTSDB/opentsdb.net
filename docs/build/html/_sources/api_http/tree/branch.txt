@@ -20,7 +20,7 @@ The following fields can be used to request a branch. Only one or the other may 
    :widths: 10, 5, 5, 45, 10, 5, 5, 15
    
    "treeId", "Integer", "Optional", "Used to fetch the root branch of the tree. If used in combination with a branchId, the tree ID will be ignored.", "", "treeid", "RO", "1"
-   "branchId", "String", "Required", "A hexadecimal representation of the branch ID, required for all but the root branch request", "", "branchId", "RO", "000183A21C8F"
+   "branch", "String", "Required", "A hexadecimal representation of the branch ID, required for all but the root branch request", "", "branch", "RO", "000183A21C8F"
    
 Response
 --------

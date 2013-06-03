@@ -141,7 +141,7 @@ Additionally, the JSON serializer allows some query string parameters that modif
   :header: "Name", "Data Type", "Required", "Description", "Default", "Example"
   :widths: 10, 10, 5, 50, 10, 15
   
-  "arrays", "Boolean", "Optional", "Returns the data points formatted as an array of arrays instead of a map of key/value pairs. Each array consists of the timestamp followed by the value.", "", "asarrays=true"
+  "arrays", "Boolean", "Optional", "Returns the data points formatted as an array of arrays instead of a map of key/value pairs. Each array consists of the timestamp followed by the value.", "false", "arrays=true"
 
 Example JSON Request
 ^^^^^^^^^^^^^^^^^^^^
@@ -177,8 +177,8 @@ Query responses are arrays of result sets, with one result set per timeseries or
   "tags", "Map", "A list of tags only returned when the results are for a single timeseries. If results are aggregated, this value may be null or an empty map", """tags"":{""host"":""web01""}"
   "aggregatedTags", "Array", "If more than one timeseries were included in the result set, i.e. they were aggregated, this will display a list of tag names that were found in common across all time series.", """aggregatedTags"":[""host""]"
   "dps", "Map, Array", "Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by query string parameters.", "*See Below*"
-  "annotations", "Array", "If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by ``start_time``. Aggregator functions do not affect annotations, all annotations will be returned for the span."
-  "globalAnnotations", "Array", "If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group"
+  "annotations", "Array", "If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by ``start_time``. Aggregator functions do not affect annotations, all annotations will be returned for the span.", "*See Below*"
+  "globalAnnotations", "Array", "If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group", "*See Below*"
   
 Example Aggregated Default Response
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

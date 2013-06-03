@@ -404,8 +404,8 @@
 <td>Boolean</td>
 <td>Optional</td>
 <td>Returns the data points formatted as an array of arrays instead of a map of key/value pairs. Each array consists of the timestamp followed by the value.</td>
-<td>&nbsp;</td>
-<td>asarrays=true</td>
+<td>false</td>
+<td>arrays=true</td>
 </tr>
 </tbody>
 </table>
@@ -471,12 +471,12 @@
 <tr class="row-even"><td>annotations</td>
 <td>Array</td>
 <td>If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by <tt class="docutils literal"><span class="pre">start_time</span></tt>. Aggregator functions do not affect annotations, all annotations will be returned for the span.</td>
-<td>&nbsp;</td>
+<td><em>See Below</em></td>
 </tr>
 <tr class="row-odd"><td>globalAnnotations</td>
 <td>Array</td>
 <td>If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group</td>
-<td>&nbsp;</td>
+<td><em>See Below</em></td>
 </tr>
 </tbody>
 </table>

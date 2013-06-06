@@ -61,6 +61,20 @@ we send datapoints every 15 seconds).
 then they are ignored.  We've included a <code>lib</code> and <code>etc</code> directory
 for library and config data used by all collectors.
 
+<h3>Installation of tcollector</h3>
+
+You need to clone tcollector from GitHub:
+<div class="code">git clone git://github.com/OpenTSDB/tcollector.git</div>
+
+and edit 'tcollector/startstop' script to set following variables:
+<div class="code">TSD_HOST=dns.name.of.tsd
+TCOLLECTOR_PATH==path/to/tcollector
+</div>
+
+<p>To avoid running of mkmetric for every metric that tcollector tracks
+you need to start TSD with --auto-metric flag.
+</p>
+
 <h2>Collectors bundled with <code>tcollector</code></h2>
 
 The following are the collectors we've included as part of the base package, together
@@ -81,8 +95,7 @@ These stats from running <code>/usr/bin/df -PlTk</code>
 <li><code>df.inodes.free</code> number of inodes free
 </ul>
 These metrics include time series tagged with each mount point and the filesystem's fstype.
-Since TSD doesn't allow slashes in tag values, we substitute <code>/</code> for <code>_</code>.
-This collector also filters out any debugfs, devtmpfs filesystems, as well as any any
+This collector filters out any debugfs, devtmpfs filesystems, as well as any any
 mountpoints mounted under <code>/dev/</code> or <code>/lib/</code>.
 
 <p>With these tags you can select to graph just a specific filesystem, or all filesystems

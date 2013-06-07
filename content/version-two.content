@@ -18,11 +18,11 @@ we can get.</p>
 <h3>Improvements</h3>
 <p>These are just some of the improvements on the planning board:</p>
 <ul>
-  <li>Improved (lock-less) UID assignment</li>
+  <li>Done: Improved (lock-less) UID assignment</li>
   <li>Faster query speeds for complex or aggregated queries</li>
   <li>More aggregators</li>
   <li>Graphing options</li>
-  <li>New website and documentation including a user guide</li>
+  <li>WIP: New website and documentation including a user guide</li>
 </ul>
 <h3>New Features</h3>
 
@@ -35,17 +35,26 @@ Some of the new features we're planning to integrate include:
 <li>DONE: Annotations that allow tracking of events associated with a particular timeseries or global notes tied to a timestamp</li>
 <li>DONE: Metadata for timeseries, metrics, tag names and tag values so you can find out what is stored in OpenTSDB and add your own notes</li>
 <li>DONE: Metadata trees that organize timeseries into a directory like structure</li>
-<li>Pluggable search abstraction layer to publish metadata and annotations to your search engine of choice, such as Elastic Search</li>
+<li>DONE: Pluggable search abstraction layer to publish metadata and annotations to your search engine of choice, such as Elastic Search</li>
 <li>Pluggable data abstraction layer that will allow the use of data stores other than HBase. Initially we'll release a Cassandra plugin</li>
 <li>Millisecond timestamp support, enabled as an option for users who need greater resolution</li>
-<li>Pluggable real-time publisher sink to push incoming data out to subscribes such as RabbitMQ or Memcache</li>
+<li>DONE Pluggable real-time publisher to push incoming data out to systems such as RabbitMQ or Memcache</li>
 <li>Debian and FreeBSD packages with init scripts</li>
 </ul>
 <h3>Requests</h3>
-<p>Have a feature you would like to see in 2.0? Check the
+<p>Have a feature you would like to see in OpenTSDB? Check the
 <a href="https://github.com/OpenTSDB/opentsdb/issues?state=open">Issues</a> list
 to see if someone is working on it or already posted a request. Also post a
 notice to the <a href="http://groups.google.com/group/opentsdb">Users Group</a>.
+</p>
+<p>
+Features for 2.0 are essentially locked in at this time so that we can finish the code and focus on bug hunting. Features we'll work on for 2.1 or later include:
+<ul>
+<li>Name increment call to add or subtract from a specified data point</li>
+<li>Top N queries</li>
+<li>Rollup and pre-aggregation</li>
+<li>Last value queries</li>
+</ul>
 </p>
 <h3>Documentation</h3>
 <p>As work progresses on 2.0, we'll update the <a href="docs/build/html/index.html">documentation here.</a> If you would like to contribute to the docs, fork the <a href="https://github.com/OpenTSDB/opentsdb.net">opentsdb.net</a> project on github and edit the Sphinx source files, compile the HTML and issue a pull request. We're also looking for anyhone who has design chops to help make the website and new documentation pretty, so if you're interested, please contact us.

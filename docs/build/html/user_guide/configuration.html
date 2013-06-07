@@ -265,6 +265,21 @@ E.g. 127.0.0.1</td>
 <td><em>#CPU cores * 2</em></td>
 <td>&#8211;worker-threads</td>
 </tr>
+<tr class="row-even"><td>tsd.rtpublisher.enable</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable a real time publishing plugin. If true, you must supply a valid <tt class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></tt> class name</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.rtpublisher.plugin</td>
+<td>String</td>
+<td>Optional</td>
+<td>The class name of a real time publishing plugin to instantiate. If <tt class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></tt> is set to false, this value is ignored.
+E.g. net.opentsdb.tsd.RabbitMQPublisher</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
 <tr class="row-even"><td>tsd.search.enable</td>
 <td>Boolean</td>
 <td>Optional</td>

@@ -62,6 +62,9 @@ The following is a table of configuration options for all tools. When applicable
    "tsd.network.reuse_address", "Boolean", "Optional", "Whether or not to allow reuse of the bound port within Netty", "True", ""
    "tsd.network.tcp_no_delay", "Boolean", "Optional", "Whether or not to disable TCP buffering before sending data", "True", ""
    "tsd.network.worker_threads", "Integer", "Optional", "The number fo asynchronous IO worker threads for Netty", "*#CPU cores \* 2*", "--worker-threads"
+   "tsd.rtpublisher.enable", "Boolean", "Optional", "Whether or not to enable a real time publishing plugin. If true, you must supply a valid ``tsd.rtpublisher.plugin`` class name", "False", ""
+   "tsd.rtpublisher.plugin", "String", "Optional", "The class name of a real time publishing plugin to instantiate. If ``tsd.rtpublisher.enable`` is set to false, this value is ignored.
+   E.g. net.opentsdb.tsd.RabbitMQPublisher", "", ""
    "tsd.search.enable", "Boolean", "Optional", "Whether or not to enable search functionality. If true, you must supply a valid ``tsd.search.plugin`` class name", "False", ""
    "tsd.search.plugin", "String", "Optional", "The class name of a search plugin to instantiate. If ``tsd.search.enable`` is set to false, this value is ignored.
    E.g. net.opentsdb.search.ElasticSearch", "", ""

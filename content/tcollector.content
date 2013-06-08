@@ -95,7 +95,7 @@ These stats from running <code>/usr/bin/df -PlTk</code>
 <li><code>df.inodes.free</code> number of inodes free
 </ul>
 These metrics include time series tagged with each mount point and the filesystem's fstype.
-This collector filters out any debugfs, devtmpfs filesystems, as well as any any
+This collector filters out any debugfs, devtmpfs filesystems, as well as any
 mountpoints mounted under <code>/dev/</code> or <code>/lib/</code>.
 
 <p>With these tags you can select to graph just a specific filesystem, or all filesystems

@@ -68,11 +68,14 @@ You need to clone tcollector from GitHub:
 
 and edit 'tcollector/startstop' script to set following variables:
 <div class="code">TSD_HOST=dns.name.of.tsd
-TCOLLECTOR_PATH==path/to/tcollector
+TCOLLECTOR_PATH=path/to/tcollector
 </div>
 
-<p>To avoid running of mkmetric for every metric that tcollector tracks
-you need to start TSD with --auto-metric flag.
+<p>
+To avoid having to run <code>mkmetric</code> for every metric that
+tcollector tracks you can to start TSD with the <code>--auto-metric</code>
+flag.  This is useful to get started quickly, but it's not recommended to
+keep this flag in the long term, to avoid accidental metric creation.
 </p>
 
 <h2>Collectors bundled with <code>tcollector</code></h2>

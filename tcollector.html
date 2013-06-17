@@ -127,19 +127,19 @@ include them with your permission in a future release.
 
 <h3><code>0/dfstat.py</code></h3>
 
-These stats from running <code>/usr/bin/df -PlTk</code>
+These stats are similar to ones provided by <code>/usr/bin/df</code> util
 
 <ul>
-<li><code>df.1kblocks.total</code> size of fs
-<li><code>df.1kblocks.used</code>  1K blocks used
-<li><code>df.1kblocks.free</code> 1K blocks available
+<li><code>df.bytes.total</code> total size of data
+<li><code>df.bytes.used</code> bytes used
+<li><code>df.bytes.free</code> bytes free
 <li><code>df.inodes.total</code> total number of inodes
 <li><code>df.inodes.used</code> number of inodes used
 <li><code>df.inodes.free</code> number of inodes free
 </ul>
 These metrics include time series tagged with each mount point and the filesystem's fstype.
-This collector filters out any debugfs, devtmpfs filesystems, as well as any
-mountpoints mounted under <code>/dev/</code> or <code>/lib/</code>.
+This collector filters out any debugfs, devtmpfs, rpc_pipefs, rootfs filesystems, as well as any any
+mountpoints mounted under <code>/dev/</code>, <code>/lib/</code>, <code>/proc/</code>, and <code>/lib/</code>.
 
 <p>With these tags you can select to graph just a specific filesystem, or all filesystems
 with a particular fstype (e.g. ext3).

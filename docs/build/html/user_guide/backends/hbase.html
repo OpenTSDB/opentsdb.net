@@ -48,6 +48,18 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">HBase</a><ul>
+<li><a class="reference internal" href="#data-table-schema">Data Table Schema</a><ul>
+<li><a class="reference internal" href="#row-key">Row Key</a></li>
+<li><a class="reference internal" href="#columns">Columns</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Backends</a></p>
@@ -77,7 +89,63 @@
             
   <div class="section" id="hbase">
 <h1>HBase</h1>
-<p>TODO</p>
+<div class="section" id="data-table-schema">
+<h2>Data Table Schema</h2>
+<p>All OpenTSDB data points are stored in a single, massive table. This is to take advantage of HBases ordering and region distribution. All values are stored in the <tt class="docutils literal"><span class="pre">t</span></tt> column family.</p>
+<div class="section" id="row-key">
+<h3>Row Key</h3>
+<p>Row keys are byte arrays comprised of the metric UID, a base timestamp and the UID for tagk/v pairs:  <tt class="docutils literal"><span class="pre">&lt;metric_uid&gt;&lt;timestamp&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></tt>. By default, UIDs are encoded on 3 bytes.</p>
+<p>The timestamp is a Unix epoch value in seconds encoded on 4 bytes. Rows are broken up into hour increments, reflected by the timestamp in each row. Thus each timestamp will be normalized to an hour value, e.g. <em>2013-01-01 08:00:00</em>. This is to avoid stuffing too many data points in a single row that would affect region distribution. Also, since HBase sorts on the row key, data for the same metric and time bucket, but with different tags, will be grouped together for efficient queries.</p>
+<p>Some example row keys, represented as hex are:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mf">00000150E22700000001000001</span>
+<span class="mf">00000150E22700000001000001000002000004</span>
+<span class="mf">00000150E22700000001000002</span>
+<span class="mf">00000150E22700000001000003</span>
+<span class="mf">00000150E23510000001000001</span>
+<span class="mf">00000150E23510000001000001000002000004</span>
+<span class="mf">00000150E23510000001000002</span>
+<span class="mf">00000150E23510000001000003</span>
+<span class="mf">00000150E24320000001000001</span>
+<span class="mf">00000150E24320000001000001000002000004</span>
+<span class="mf">00000150E24320000001000002</span>
+<span class="mf">00000150E24320000001000003</span>
+</pre></div>
+</div>
+<p>where:</p>
+<div class="highlight-python"><pre>00000150E22700000001000001
+'----''------''----''----'
+metric  time   tagk  tagv</pre>
+</div>
+<p>This represents a single metric but four time series across three hours. Note how there is one time series with two sets of tags:</p>
+<div class="highlight-python"><pre>00000150E22700000001000001000002000004
+'----''------''----''----''----''----'
+metric  time   tagk  tagv  tagk  tagv</pre>
+</div>
+</div>
+<div class="section" id="columns">
+<h3>Columns</h3>
+<p>There are currently three types of columns in the data table. All column qualifiers are byte arrays. In general, data point qualifiers will always have an even number of bytes while meta data have odd numbers.</p>
+<p><strong>Data Points</strong></p>
+<p>By far the most common column are data points. These are the actual values recorded when data is sent to the TSD for storage.</p>
+<p>Qualifier:</p>
+<p>The qualifier is comprised of 2 bytes that encode an offset from the row&#8217;s base time and flags to determine if the value is an integer or a decimal value. The first 12 bits of the qualifer represent an integer that is a delta from the timestamp in the row key. For example, if the row key is normalized to <tt class="docutils literal"><span class="pre">1292148000</span></tt> and a data point comes in for <tt class="docutils literal"><span class="pre">1292148123</span> <span class="pre">``,</span> <span class="pre">the</span> <span class="pre">recorded</span> <span class="pre">delta</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">``123</span></tt>. The last 4 bits are flags that describe the data. <tt class="docutils literal"><span class="pre">0100</span></tt> means the column value is an 8 byte, signed integer. <tt class="docutils literal"><span class="pre">1011</span></tt> indicates the column value is a 4 byte floating point value TODO ____floatToRawIntBits____ So the qualifier for the data point at <tt class="docutils literal"><span class="pre">1292148123</span></tt> with an integer value of 42 would have a qualifier of <tt class="docutils literal"><span class="pre">0000011110110100</span></tt> or <tt class="docutils literal"><span class="pre">07B4</span></tt> in hex.</p>
+<p>Value:</p>
+<p>8 or 4 bytes encoded as indicated by the qualifier flag. E.g. our integer of <tt class="docutils literal"><span class="pre">42</span></tt> would be encoded as <tt class="docutils literal"><span class="pre">0000002A</span></tt>.</p>
+<p><strong>Compactions</strong></p>
+<p>If compactions have been enabled for a TSD, a row may be compacted after it&#8217;s base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.</p>
+<p>:: Note: The OpenTSDB compaction process is entirely separate in scope and definition than the HBase idea of compactions.</p>
+<p>Qualifier:</p>
+<p>The qualifier for a compacted column will always be an even number of bytes and is simply a concatenation of the qualifiers for every data point that was in the row. Since we know each data point qualifier is 2 bytes, it&#8217;s simple to split this up. A qualifier in hex with 2 data points may look like <tt class="docutils literal"><span class="pre">07B407D4</span></tt>.</p>
+<p>Value:</p>
+<p>The value is also a concatenation of all of the individual data points. The qualifier is split first and the flags for each data point determine if the parser consumes 4 or 8 bytes</p>
+<p><strong>Annotations</strong></p>
+<p>A row may have annotations, notes about the timeseries represented by the row.</p>
+<p>Qualifier:</p>
+<p>The qualifier is on 3 bytes with the first byte an ID that denotes the column as a qualifier. The first byte will always have a hex value of <tt class="docutils literal"><span class="pre">01</span></tt>. The second two bytes encode the timestamp delta, in seconds, from the row base time in a manner similar to a data point, though without the flags. Thus if we record an annotation at <tt class="docutils literal"><span class="pre">1292148123</span></tt>, the delta will be <tt class="docutils literal"><span class="pre">123</span></tt> and the qualifier, in hex, will be <tt class="docutils literal"><span class="pre">01007B</span></tt>.</p>
+<p>Value:</p>
+<p>Annotation values are UTF-8 encoded JSON objects. Do not modify this value directly. The order of the fields is important, affecting CAS calls.</p>
+</div>
+</div>
 </div>
 
 

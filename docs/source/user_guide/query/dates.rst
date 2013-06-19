@@ -1,0 +1,54 @@
+Dates and Times
+===============
+
+OpenTSDB supports a number of date and time formats when querying for data. The following formats are supported in queries submitted through the GUI, CliQuery tool or HTTP API. Every query requires a **start time** and an optional **end time**. If the end time is not specified, the current time on the system where the TSD is running will be used.
+
+Relative
+--------
+
+If you don't know the exact timestamp to request you can submit a time in the past relative to the time on the system where the TSD is running. Relative times follow the format ``<amount><time unit>-ago`` where ``<amount>`` is the number of time units and ``<time unit>`` is the unit of time, such as hours, days, etc. For example, if we provide a **start time** of ``1h-ago`` and leave out the **end time**, our query will return data start at 1 hour ago to the current time. Possible units of time include:
+
+* s - Seconds
+* m - Minutes
+* h - Hours
+* d - Days (24 hours)
+* w - Weeks (14 days)
+* n - Months (30 days)
+* y - Years ( 365 days)
+
+.. NOTE:: Relative times do not account for leap seconds, leap years or time zones. They simply calculate the number of seconds in the past from the current time.
+
+.. NOTE:: OpenTSDB does not support a millisecond relative time unit since users are rarely fast enough to issue queries less than a second apart. If a script or application is performing queries that require millsecond precision, they should use absolute Unix times.
+
+Absolute Unix Time
+------------------
+
+Internally, all data is associated with a Unix (or POSIX) style timestamp. Unix times are defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. Timestamps are represented as a positive integer such as ``1364410924``, representing ``ISO 8601:2013-03-27T19:02:04Z``. Since calls to store data in OpenTSDB require a Unix timestamp, it makes sense to support the format in queries. Thus you can supply an integer for a start or end time in a query.
+
+Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of ``1364410924000`` and an end time of ``1364410924250`` will return data within a 250 millisecond window. Any integers over 10 characters long will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds.
+
+Absolute Formatted Time
+-----------------------
+
+Since calculating a Unix time in your head is pretty difficult, OpenTSDB also supports human readable absolute date and times. Supported formats include:
+
+* yyyy/MM/dd-HH:mm:ss
+* yyyy/MM/dd HH:mm:ss
+* yyyy/MM/dd-HH:mm
+* yyyy/MM/dd HH:mm
+* yyyy/MM/dd
+
+``yyyy`` represents the year as a four digit value, e.g. ``2013``. ``MM`` represents the month of year starting at ``01`` for January to ``12`` for December. ``dd`` represents the day of the month starting at ``01``. ``HH`` represents the hour of day in 24 hour format starting at ``00`` to ``23``. ``mm`` represents the minutes starting at ``00`` to ``59`` and ``ss`` represents seconds starting at ``00`` to ``59``. All months, days, hours, minutes and seconds that are single digits must be preceeded by a 0, e.g. the 5th day of the month must be given as ``05``. When supplying on the data without a time, the system will assume midnight of the given day.
+
+Examples include ``2013/01/23-12:50:42`` or ``2013/01/23``. Formatted times are converted from the default timezone of the host running the TSD to UTC. HTTP API queries can accept a user supplied time zone to override the local zone. 
+
+.. NOTE:: When using the CliQuery tool, you must use the format that separates the date from the time with a dash. This is because the command line is split on spaces, so if you put a space in the timestamp, it will fail to parse execute properly.
+
+Time Zones
+----------
+
+When converting human readable timestamps, OpenTSDB will convert to UTC from the timezone configured on the system where the TSD is running. While many servers are configured to UTC, and we recommend that all systems running OpenTSDB use UTC, sometimes a local timezone is used. 
+
+Queries via query string to the HTTP API can specify a ``tz`` parameter with a timezone identification string in a format applicable to the localization settings of the system running the TSD. For example, we could specify ``tz=America/Los_Angeles`` to convert our timestamp from Los Angeles local time to UTC. 
+
+Alternatively, if you are unable to change the system timezone, you can provide an override via the config file ``tsd.core.timezone`` property.

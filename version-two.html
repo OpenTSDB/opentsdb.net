@@ -58,7 +58,7 @@ we can get.</p>
 <h3>Improvements</h3>
 <p>These are just some of the improvements on the planning board:</p>
 <ul>
-  <li>Done: Improved (lock-less) UID assignment</li>
+  <li>DONE: Improved (lock-less) UID assignment</li>
   <li>Faster query speeds for complex or aggregated queries</li>
   <li>More aggregators</li>
   <li>Graphing options</li>
@@ -79,7 +79,7 @@ Some of the new features we're planning to integrate include:
 <li>Pluggable data abstraction layer that will allow the use of data stores other than HBase. Initially we'll release a Cassandra plugin</li>
 <li>Millisecond timestamp support, enabled as an option for users who need greater resolution</li>
 <li>DONE Pluggable real-time publisher to push incoming data out to systems such as RabbitMQ or Memcache</li>
-<li>Debian and FreeBSD packages with init scripts</li>
+<li>Debian (DONE), CentOS and FreeBSD packages with init scripts</li>
 </ul>
 <h3>Requests</h3>
 <p>Have a feature you would like to see in OpenTSDB? Check the
@@ -90,9 +90,10 @@ notice to the <a href="http://groups.google.com/group/opentsdb">Users Group</a>.
 <p>
 Features for 2.0 are essentially locked in at this time so that we can finish the code and focus on bug hunting. Features we'll work on for 2.1 or later include:
 <ul>
-<li>Name increment call to add or subtract from a specified data point</li>
+<li>Increment call to add or subtract from a specified data point</li>
+<li>Query language</li>
 <li>Top N queries</li>
-<li>Rollup and pre-aggregation</li>
+<li>Rollups</li>
 <li>Last value queries</li>
 </ul>
 </p>

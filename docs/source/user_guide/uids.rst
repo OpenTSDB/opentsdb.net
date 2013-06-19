@@ -33,6 +33,21 @@ UIDs can be displayed in a few ways. The most common method is via the HTTP API 
 
 In some CLI tools and log files, a UID may be displayed as an array of signed bytes (thanks to Java) such as the above example of ``[0, 0, 1]`` or ``[0, 0, -28]``. To convert from this signed array to an an array of unsigned bytes, then to hex. For example, ``-28`` would be binary ``10011100`` which results in a decimal value of ``156`` and a hex value of ``9C``.
 
+Why UIDs?
+---------
+
+This question is asked often enough it's worth laying out the reasons here. Looking up or assigning a UID takes up precious cycles in the TSD so folks wonder if it wouldn't be faster to use the raw name of the metric or computer a hash. Indeed, from a write perspective it would be slightly faster, but there are a number of drawbacks that become apparent.
+
+Raw Names
+^^^^^^^^^
+
+Since OpenTSDB uses HBase as the storage layer, you could use strings as the row key. Following the current schema, you may have a row key that looked like ``sys.cpu.0.user 1292148000 host=websv01.lga.mysite.com owner=operations``. Ordering would be similar to the existing schema, but now you're using up 72 bytes of storage each hour instead of 40. Additionally, the row key must be written and returned with every query to HBase, so you're increasing your network usage as well. So resorting to UIDs can help save space.
+
+Hashes
+^^^^^^
+
+Another idea is to simply bump up the UIDs to 4 bytes then calculate a hash on the strings and store the hash with forward and reverse maps as we currently do. This would certainly reduce the amount of time it takes to assign a UID, but there are a few problems. First, you will encounter collisions where different names return the same hash. You could try different algorithms and even try increasing the hash to 8 bytes, but you'll always have the issue of colliding hashes. Second, you are now adding a hash calculation to every data put since it would have to determine the hash, then lookup the hash in the UID table to see if it's been mapped yet. Right now, each data point only performs the lookup. Third, you can't pre-split your HBase regions as easily. If you know you will have roughly 800 metrics in your system (the tags are irrelevant for this purpose), you can pre-split your HBase table to evenly distribute those 800 metrics and increase your initial write performance. 
+
 TSUIDs
 ^^^^^^
 

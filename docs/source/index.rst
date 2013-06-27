@@ -15,7 +15,6 @@ Contents
    :maxdepth: 2
    
    installation
-   quick_start
    user_guide/index
    api_http/index
    development/index

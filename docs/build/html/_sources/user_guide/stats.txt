@@ -1,4 +1,74 @@
 Stats
 =====
 
-TODO
+OpenTSDB offers a number of metrics about it's performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accesible from the GUI via the "Stats" tab, from the Http API at ``/api/stats`` or the legacy API at ``/stats``.
+
+All stats include a ``host`` tag that includes the name of the host where the TSD is running. If the __ configuration is set, this will change to ``fqdn`` and the TSD will try to resolve it's host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.
+
+.. csv-table::
+   :header: "Metric", "Tags", "Type", "Description"
+   :widths: 20, 20, 10, 50
+   
+   "tsd.connectionmgr.connections", "", "Counter", "The total number of connections made to OpenTSDB. This includes all Telnet and HTTP connections."
+   "tsd.connectionmgr.exceptions", "", "Counter", "The total number exceptions thrown by connections. Only network level exceptions are tracked by this metric, such as abrupt disconnects or invalid packets. This includes all Telnet and HTTP connections."
+   "tsd.rpc.received", "type=telnet", "Counter", "The total number of telnet RPC requests received"
+   "tsd.rpc.received", "type=http", "Counter", "The total number of Http RPC requests received"
+   "tsd.rpc.exceptions", "", "Counter", "The total number exceptions caught during RPC calls. These may be user error or bugs."
+   "tsd.http.latency_50pct", "type=all", "Guage", "The time it took, in milliseconds, to answer HTTP requests for the 50th percentile cases"
+   "tsd.http.latency_75pct", "type=all", "Guage", "The time it took, in milliseconds, to answer HTTP requests for the 75th percentile cases"
+   "tsd.http.latency_90pct", "type=all", "Guage", "The time it took, in milliseconds, to answer HTTP requests for the 90th percentile cases"
+   "tsd.http.latency_95pct", "type=all", "Guage", "The time it took, in milliseconds, to answer HTTP requests for the 95th percentile cases"
+   "tsd.http.latency_50pct", "type=graph", "Guage", "The time it took, in milliseconds, to answer graphing requests for the 50th percentile cases"
+   "tsd.http.latency_75pct", "type=graph", "Guage", "The time it took, in milliseconds, to answer graphing requests for the 75th percentile cases"
+   "tsd.http.latency_90pct", "type=graph", "Guage", "The time it took, in milliseconds, to answer graphing requests for the 90th percentile cases"
+   "tsd.http.latency_95pct", "type=graph", "Guage", "The time it took, in milliseconds, to answer graphing requests for the 95th percentile cases"
+   "tsd.http.latency_50pct", "type=gnuplot", "Guage", "The time it took, in milliseconds, to generate the GnuPlot graphs for the 50th percentile cases"
+   "tsd.http.latency_75pct", "type=gnuplot", "Guage", "The time it took, in milliseconds, to generate the GnuPlot graphs for the 75th percentile cases"
+   "tsd.http.latency_90pct", "type=gnuplot", "Guage", "The time it took, in milliseconds, to generate the GnuPlot graphs for the 90th percentile cases"
+   "tsd.http.latency_95pct", "type=gnuplot", "Guage", "The time it took, in milliseconds, to generate the GnuPlot graphs for the 95th percentile cases"
+   "tsd.http.graph.requests", "cache=disk", "Counter", "The total number of graph requests satisfied from the disk cache"
+   "tsd.http.graph.requests", "cache=miss", "Counter", "The total number of graph requests that were not cached and required a fetch from storage"
+   "tsd.rpc.received", "type=put", "Counter", "The total number of ``put`` requests for writing data points"
+   "tsd.rpc.errors", "type=hbase_errors", "Counter", "The total number of RPC errors caused by HBase exceptions"
+   "tsd.rpc.errors", "type=invalid_values", "Counter", "The total number of RPC errors caused invalid ``put`` values from user requests, such as a string instead of a number"
+   "tsd.rpc.errors", "type=illegal_arguments", "Counter", "The total number of RPC errors caused by bad data from the user"
+   "tsd.rpc.errors", "type=unknown_metrics", "Counter", "The total number of RPC errors caused by attempts to ``put`` a metric without an assigned UID. This only increments if *auto metrics* is disabled."
+   "tsd.uid.cache-hit", "kind=metrics", "Counter", "The total number of successful cache lookups for metric UIDs"
+   "tsd.uid.cache-miss", "kind=metrics", "Counter", "The total number of failed cache lookups for metric UIDs that required a call to storage"
+   "tsd.uid.cache-size", "kind=metrics", "Gauge", "The current number of cached metric UIDs"
+   "tsd.uid.cache-hit", "kind=tagk", "Counter", "The total number of successful cache lookups for tagk UIDs"
+   "tsd.uid.cache-miss", "kind=tagk", "Counter", "The total number of failed cache lookups for tagk UIDs that required a call to storage"
+   "tsd.uid.cache-size", "kind=tagk", "Gauge", "The current number of cached tagk UIDs"
+   "tsd.uid.cache-hit", "kind=tagv", "Counter", "The total number of successful cache lookups for tagv UIDs"
+   "tsd.uid.cache-miss", "kind=tagv", "Counter", "The total number of failed cache lookups for tagv UIDs that required a call to storage"
+   "tsd.uid.cache-size", "kind=tagv", "Gauge", "The current number of cached tagv UIDs"
+   "tsd.jvm.ramfree", "", "Gauge", "The number of bytes reported as free by the JVM's Runtime.freeMemory()"
+   "tsd.jvm.ramused", "", "Gauge", "The number of bytes reported as used by the JVM's Runtime.totalMemory()"
+   "tsd.hbase.latency_50pct", "method=put", "Guage", "The time it took, in milliseconds, to execute a Put call for the 50th percentile cases"
+   "tsd.hbase.latency_75pct", "method=put", "Guage", "The time it took, in milliseconds, to execute a Put call for the 75th percentile cases"
+   "tsd.hbase.latency_90pct", "method=put", "Guage", "The time it took, in milliseconds, to execute a Put call for the 90th percentile cases"
+   "tsd.hbase.latency_95pct", "method=put", "Guage", "The time it took, in milliseconds, to execute a Put call for the 95th percentile cases"
+   "tsd.hbase.latency_50pct", "method=scan", "Guage", "The time it took, in milliseconds, to execute a Scan call for the 50th percentile cases"
+   "tsd.hbase.latency_75pct", "method=scan", "Guage", "The time it took, in milliseconds, to execute a Scan call for the 75th percentile cases"
+   "tsd.hbase.latency_90pct", "method=scan", "Guage", "The time it took, in milliseconds, to execute a Scan call for the 90th percentile cases"
+   "tsd.hbase.latency_95pct", "method=scan", "Guage", "The time it took, in milliseconds, to execute a Scan call for the 95th percentile cases"
+   "tsd.hbase.root_lookups", "", "Counter", "The total number of root lookups performed by the client"
+   "tsd.hbase.meta_lookups", "type=uncontended", "Counter", "The total number of uncontended meta table lookups performed by the client"
+   "tsd.hbase.meta_lookups", "type=contended", "Counter", "The total number of contended meta table lookups performed by the client"
+   "tsd.hbase.rpcs", "type=increment", "Counter", "The total number of Increment requests performed by the client"
+   "tsd.hbase.rpcs", "type=delete", "Counter", "The total number of Delete requests performed by the client"
+   "tsd.hbase.rpcs", "type=get", "Counter", "The total number of Get requests performed by the client"
+   "tsd.hbase.rpcs", "type=put", "Counter", "The total number of Put requests performed by the client"
+   "tsd.hbase.rpcs", "type=rowLock", "Counter", "The total number of Row Lock requests performed by the client"
+   "tsd.hbase.rpcs", "type=openScanner", "Counter", "The total number of Open Scanner requests performed by the
+    client"
+   "tsd.hbase.rpcs", "type=scan", "Counter", "The total number of Scan requests performed by the client. These indicate a scan->next() call."
+   "tsd.hbase.rpcs.batched", "", "Counter", "The total number of batched requests sent by the client"
+   "tsd.hbase.flushes", "", "Counter", "The total number of flushes performed by the client"
+   "tsd.hbase.connections.created", "", "Counter", "The total number of connections made by the client to region servers"
+   "tsd.hbase.nsre", "", "Counter", "The total number of No Such Region Exceptions caught. These can happen when a region server crashes, is taken offline or when a region splits (?)"
+   "tsd.hbase.rpcs.rpcs_delayed", "", "Counter", "The total number of calls delayed due to an NSRE that were later successfully executed"
+   "tsd.compaction.count", "type=trivial", "Counter", "The total number of trivial compactions performed by the TSD"
+   "tsd.compaction.count", "type=complex", "Counter", "The total number of complex compactions performed by the TSD"
+   
+   

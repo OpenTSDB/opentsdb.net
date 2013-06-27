@@ -46,6 +46,7 @@ This represents a single metric but four time series across three hours. Note ho
   '----''------''----''----''----''----'
   metric  time   tagk  tagv  tagk  tagv
   
+Tag names (tagk) are sorted alphabetically before storage, so the "host" tag will always appear first in the row key/TSUID ahead of "owner".
 
 Columns
 ^^^^^^^
@@ -68,7 +69,7 @@ Value:
 
 If compactions have been enabled for a TSD, a row may be compacted after it's base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.
 
-:: Note: The OpenTSDB compaction process is entirely separate in scope and definition than the HBase idea of compactions.
+.. Note:G The OpenTSDB compaction process is entirely separate in scope and definition than the HBase idea of compactions.
 
 Qualifier:
 

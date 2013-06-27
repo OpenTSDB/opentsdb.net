@@ -51,52 +51,18 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">uid</a><ul>
-<li><a class="reference internal" href="#cli-parameters">CLI Parameters</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#cli-parameters">CLI Parameters</a><ul>
 <li><a class="reference internal" href="#lookup">Lookup</a><ul>
 <li><a class="reference internal" href="#command-format">Command Format</a></li>
-<li><a class="reference internal" href="#example-command">Example Command</a></li>
-<li><a class="reference internal" href="#example-response">Example Response</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#grep">grep</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-command">Example Command</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
 <li><a class="reference internal" href="#id1">Command Format</a></li>
 <li><a class="reference internal" href="#id2">Example Command</a></li>
 <li><a class="reference internal" href="#id3">Example Response</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#assign">assign</a><ul>
-<li><a class="reference internal" href="#id4">Command Format</a></li>
-<li><a class="reference internal" href="#id5">Example Command</a></li>
-<li><a class="reference internal" href="#id6">Example Response</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#rename">rename</a><ul>
-<li><a class="reference internal" href="#id7">Command Format</a></li>
-<li><a class="reference internal" href="#id8">Example Command</a></li>
-<li><a class="reference internal" href="#id9">Example Response</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#fsck">fsck</a></li>
-<li><a class="reference internal" href="#metasync">metasync</a><ul>
-<li><a class="reference internal" href="#id10">Command Format</a></li>
-<li><a class="reference internal" href="#id11">Example Command</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#metapurge">metapurge</a><ul>
-<li><a class="reference internal" href="#id12">Command Format</a></li>
-<li><a class="reference internal" href="#id13">Example Command</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#treesync">treesync</a><ul>
-<li><a class="reference internal" href="#id14">Command Format</a></li>
-<li><a class="reference internal" href="#id15">Example Command</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#treepurge">treepurge</a><ul>
-<li><a class="reference internal" href="#id16">Command Format</a></li>
-<li><a class="reference internal" href="#id17">Example Command</a></li>
 </ul>
 </li>
 </ul>
@@ -187,15 +153,15 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <div class="section" id="lookup">
-<h1>Lookup</h1>
+<h3>Lookup</h3>
 <p>The lookup command is the default for <tt class="docutils literal"><span class="pre">uid</span></tt> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
 <div class="section" id="command-format">
-<h2>Command Format</h2>
+<h4>Command Format</h4>
 <div class="highlight-python"><pre>&lt;kind&gt; &lt;name&gt;
 &lt;kind&gt; &lt;UID&gt;</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="example-command">
@@ -207,10 +173,6 @@
 <h2>Example Response</h2>
 <div class="highlight-python"><pre>tagk host: [0, 0, 1]</pre>
 </div>
-</div>
-</div>
-<div class="section" id="grep">
-<h1>grep</h1>
 <p>The grep sub command performs a regular expression search for the given UID type and returns a list of all UID names that match the expression. Fields required for the grep command include:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -243,6 +205,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <div class="section" id="id1">
 <h2>Command Format</h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s">&#39;&lt;expression&gt;&#39;</span>
@@ -261,10 +224,6 @@ metrics iostat.disk.write_merged: [0, 3, -69]
 metrics iostat.disk.write_requests: [0, 3, -70]
 metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
 </div>
-</div>
-</div>
-<div class="section" id="assign">
-<h1>assign</h1>
 <p>This sub command is used to assign IDs to new unique names for metrics, tag names or tag values. Supply a list of one or more values to assign UIDs and the list of assignments will be returned.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -293,22 +252,10 @@ metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
 </tr>
 </tbody>
 </table>
-<div class="section" id="id4">
-<h2>Command Format</h2>
 <div class="highlight-python"><pre>assign &lt;kind&gt; &lt;name&gt; [&lt;name&gt;...]</pre>
 </div>
-</div>
-<div class="section" id="id5">
-<h2>Example Command</h2>
 <div class="highlight-python"><pre>./tsdb uid assign metrics disk.d0 disk.d1 disk.d2 disk.d3</pre>
 </div>
-</div>
-<div class="section" id="id6">
-<h2>Example Response</h2>
-</div>
-</div>
-<div class="section" id="rename">
-<h1>rename</h1>
 <p>Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -346,72 +293,30 @@ metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
 </tr>
 </tbody>
 </table>
-<div class="section" id="id7">
-<h2>Command Format</h2>
 <div class="highlight-python"><pre>assign &lt;kind&gt; &lt;name&gt; &lt;newname&gt;</pre>
 </div>
-</div>
-<div class="section" id="id8">
-<h2>Example Command</h2>
 <div class="highlight-python"><pre>./tsdb uid rename disk.d0 disk.d0.bytes_read</pre>
 </div>
-</div>
-<div class="section" id="id9">
-<h2>Example Response</h2>
-</div>
-</div>
-<div class="section" id="fsck">
-<h1>fsck</h1>
 <p>TODO</p>
-</div>
-<div class="section" id="metasync">
-<h1>metasync</h1>
 <p>This command will run through the entire data table, scanning each row of timeseries data and generate missing TSMeta objects and UIDMeta objects or update the created timestamps for each object type if necessary. Use this command after enabling meta tracking with existing data or if you suspect that some timeseries may not have been indexed properly. The command will also push new or updated meta entries to a search engine if a plugin has been configured. If existing meta is corrupted, meaning the TSD is unable to deserialize the object, it will be replaced with a new entry.</p>
 <p>It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.</p>
-<div class="section" id="id10">
-<h2>Command Format</h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">metasync</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id11">
-<h2>Example Command</h2>
 <div class="highlight-python"><pre>./tsdb uid metasync</pre>
 </div>
-</div>
-</div>
-<div class="section" id="metapurge">
-<h1>metapurge</h1>
 <p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <tt class="docutils literal"><span class="pre">metasync</span></tt>.</p>
-<div class="section" id="id12">
-<h2>Command Format</h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">metapurge</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id13">
-<h2>Example Command</h2>
 <div class="highlight-python"><pre>./tsdb uid metapurge</pre>
 </div>
-</div>
-</div>
-<div class="section" id="treesync">
-<h1>treesync</h1>
 <p>Runs through the list of TSMeta objects in the UID table and processes each through all configured and enabled trees to compile branches. This command may be run at any time and will not affect existing objects.</p>
-<div class="section" id="id14">
-<h2>Command Format</h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">treesync</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id15">
-<h2>Example Command</h2>
 <div class="highlight-python"><pre>./tsdb uid treesync</pre>
 </div>
-</div>
-</div>
-<div class="section" id="treepurge">
-<h1>treepurge</h1>
 <p>Removes all branches, collision, not matched data and optionally the tree definition itself for a given tree. Parameters include:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -440,14 +345,9 @@ metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
 </tr>
 </tbody>
 </table>
-<div class="section" id="id16">
-<h2>Command Format</h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">treepurge</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">definition</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id17">
-<h2>Example Command</h2>
 <div class="highlight-python"><pre>./tsdb uid treepurge 1</pre>
 </div>
 </div>

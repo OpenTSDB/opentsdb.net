@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
     <link rel="up" title="User Guide" href="../index.html" />
-    <link rel="next" title="Understanding Metrics and Time Series" href="timeseries.html" />
+    <link rel="next" title="Dates and Times" href="dates.html" />
     <link rel="prev" title="Writing Data" href="../writing.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -36,7 +36,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="timeseries.html" title="Understanding Metrics and Time Series"
+          <a href="dates.html" title="Dates and Times"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../writing.html" title="Writing Data"
@@ -50,13 +50,15 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Queries</a><ul>
-<li><a class="reference internal" href="#dates-and-times">Dates and Times</a><ul>
-<li><a class="reference internal" href="#relative">Relative</a></li>
-<li><a class="reference internal" href="#absolute-unix-time">Absolute Unix Time</a></li>
-<li><a class="reference internal" href="#absolute-formatted-time">Absolute Formatted Time</a></li>
-<li><a class="reference internal" href="#time-zones">Time Zones</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#query-components">Query Components</a></li>
+<li><a class="reference internal" href="#times">Times</a></li>
+<li><a class="reference internal" href="#tags">Tags</a></li>
+<li><a class="reference internal" href="#grouping">Grouping</a></li>
+<li><a class="reference internal" href="#aggregation">Aggregation</a></li>
+<li><a class="reference internal" href="#interpolation">Interpolation</a></li>
+<li><a class="reference internal" href="#down-sampling">Down Sampling</a></li>
+<li><a class="reference internal" href="#rate">Rate</a></li>
+<li><a class="reference internal" href="#order-of-operations">Order of operations</a></li>
 </ul>
 </li>
 </ul>
@@ -65,8 +67,8 @@
   <p class="topless"><a href="../writing.html"
                         title="previous chapter">Writing Data</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="timeseries.html"
-                        title="next chapter">Understanding Metrics and Time Series</a></p>
+  <p class="topless"><a href="dates.html"
+                        title="next chapter">Dates and Times</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -90,63 +92,174 @@
             
   <div class="section" id="queries">
 <h1>Queries</h1>
+<p>OpenTSDB offers a number of means to extract data such as CLI tools, an HTTP API and as a GnuPlot graph. Querying with OpenTSDB&#8217;s tag based system can be a bit tricky so read through this document and checkout the following pages for deeper information. Example queries on this page follow the HTTP API format.</p>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="dates.html">Dates and Times</a></li>
 <li class="toctree-l1"><a class="reference internal" href="timeseries.html">Understanding Metrics and Time Series</a></li>
 </ul>
 </div>
-<div class="section" id="dates-and-times">
-<h2>Dates and Times</h2>
-<p>OpenTSDB supports a number of date and time formats when querying for data. The following formats are supported in queries submitted through the GUI, CliQuery tool or HTTP API. Every query requires a <strong>start time</strong> and an optional <strong>end time</strong>. If the end time is not specified, the current time on the system where the TSD is running will be used.</p>
-<div class="section" id="relative">
-<h3>Relative</h3>
-<p>If you don&#8217;t know the exact timestamp to request you can submit a time in the past relative to the time on the system where the TSD is running. Relative times follow the format <tt class="docutils literal"><span class="pre">&lt;amount&gt;&lt;time</span> <span class="pre">unit&gt;-ago</span></tt> where <tt class="docutils literal"><span class="pre">&lt;amount&gt;</span></tt> is the number of time units and <tt class="docutils literal"><span class="pre">&lt;time</span> <span class="pre">unit&gt;</span></tt> is the unit of time, such as hours, days, etc. For example, if we provide a <strong>start time</strong> of <tt class="docutils literal"><span class="pre">1h-ago</span></tt> and leave out the <strong>end time</strong>, our query will return data start at 1 hour ago to the current time. Possible units of time include:</p>
+<div class="section" id="query-components">
+<h2>Query Components</h2>
+<p>OpenTSDB&#8217;s query language is fairly simple but flexible. Each query has the following components:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="10%" />
+<col width="5%" />
+<col width="50%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Date Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Start Time</td>
+<td>String or Integer</td>
+<td>Yes</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="dates.html"><em>Dates and Times</em></a> for details</td>
+<td>24h-ago</td>
+</tr>
+<tr class="row-odd"><td>End Time</td>
+<td>String or Integer</td>
+<td>No</td>
+<td>An end time for the query. If the end time is not supplied, the current time on the TSD will be used. See <a class="reference internal" href="dates.html"><em>Dates and Times</em></a> for details.</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-even"><td>Metric</td>
+<td>String</td>
+<td>Yes</td>
+<td>The full name of a metric in the system. Must be the complete name. Case sensitive</td>
+<td>sys.cpu.user</td>
+</tr>
+<tr class="row-odd"><td>Aggregation Function</td>
+<td>String</td>
+<td>Yes</td>
+<td>A mathematical function to use in combining multiple time series</td>
+<td>sum</td>
+</tr>
+<tr class="row-even"><td>Tags</td>
+<td>String</td>
+<td>No</td>
+<td>An optional set of tags for filtering or grouping</td>
+<td>host=*,dc=lax</td>
+</tr>
+<tr class="row-odd"><td>Downsampler</td>
+<td>String</td>
+<td>No</td>
+<td>An optional interval and function to reduce the number of data points returned</td>
+<td>1h-avg</td>
+</tr>
+<tr class="row-even"><td>Rate</td>
+<td>String</td>
+<td>No</td>
+<td>An optional flag to calculate the rate of change for the result</td>
+<td>rate</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="times">
+<h2>Times</h2>
+<p>Absolute time stamps are supported in human readable format or Unix style integers. Relative times may be used for refreshing dashboards. Currently, all queries are able to cover a single time span. In the future we hope to provide an offset query parameter that would allow for aggregations or graphing of a metric over different time periods, such as comparing last week to 1 year ago. See <a class="reference internal" href="dates.html"><em>Dates and Times</em></a> for details on what is permissible.</p>
+</div>
+<div class="section" id="tags">
+<h2>Tags</h2>
+<p>Every time series is comprised of a metric and one or more tag name/value pairs. Since tags are optional in queries, if you request only the metric name, then every metric with any number or value of tags will be returned in the aggregated results. For example, if we have a stored data set:</p>
+<div class="highlight-python"><pre>sys.cpu.user host=webserver01,cpu=0  1356998400  1
+sys.cpu.user host=webserver01,cpu=1  1356998400  4
+sys.cpu.user host=webserver02,cpu=0  1356998400  2
+sys.cpu.user host=webserver02,cpu=1  1356998400  1</pre>
+</div>
+<p>and simply craft a query <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user</span></tt>, we will get a value of <tt class="docutils literal"><span class="pre">8</span></tt> at <tt class="docutils literal"><span class="pre">1356998400</span></tt> that incorporates all 4 time series.</p>
+<p>If we want to aggregate the results for a specific group, we can filter on the <tt class="docutils literal"><span class="pre">host</span></tt> tag. The query <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01}</span></tt> will return a value of <tt class="docutils literal"><span class="pre">5</span></tt>, incorporating only the time series where <tt class="docutils literal"><span class="pre">host=webserver01</span></tt>. To drill down to a specific time series, you must include all of the tags for the series, e.g. <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01,cpu=0}</span></tt> will return <tt class="docutils literal"><span class="pre">1</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Inconsistent tags can cause unexpected results when querying. See <a class="reference internal" href="../writing.html"><em>Writing Data</em></a> for details.</p>
+</div>
+</div>
+<div class="section" id="grouping">
+<h2>Grouping</h2>
+<p>A query can also aggregate time series with multiple tags into groups based on a tag value. Two special characters can be passed to the right of the equals symbol in a query:</p>
 <ul class="simple">
-<li>s - Seconds</li>
-<li>m - Minutes</li>
-<li>h - Hours</li>
-<li>d - Days (24 hours)</li>
-<li>w - Weeks (14 days)</li>
-<li>n - Months (30 days)</li>
-<li>y - Years ( 365 days)</li>
+<li><strong>*</strong> - The asterisk will return a separate result for each unique tag value</li>
+<li><strong>|</strong> - The pipe will return a separate result <em>only</em> for the exact tag values specified</li>
 </ul>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Relative times do not account for leap seconds, leap years or time zones. They simply calculate the number of seconds in the past from the current time.</p>
+<p>Let&#8217;s take the following data set as an example:</p>
+<div class="highlight-python"><pre>sys.cpu.user host=webserver01,cpu=0  1356998400  1
+sys.cpu.user host=webserver01,cpu=1  1356998400  4
+sys.cpu.user host=webserver02,cpu=0  1356998400  2
+sys.cpu.user host=webserver02,cpu=1  1356998400  1
+sys.cpu.user host=webserver03,cpu=0  1356998400  5
+sys.cpu.user host=webserver03,cpu=1  1356998400  3</pre>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">OpenTSDB does not support a millisecond relative time unit since users are rarely fast enough to issue queries less than a second apart. If a script or application is performing queries that require millsecond precision, they should use absolute Unix times.</p>
+<p>If we want to query for the average CPU time across each server we can craft a query like <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=avg:sys.cpu.user{host=*}</span></tt>. This will give us three results:</p>
+<ol class="arabic simple">
+<li>The aggregated average for <tt class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=webserver01,cpu=0</span></tt> and <tt class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=webserver01,cpu=1</span></tt></li>
+<li>The aggregated average for <tt class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=webserver02,cpu=0</span></tt> and <tt class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=webserver02,cpu=1</span></tt></li>
+<li>The aggregated average for <tt class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=webserver03,cpu=0</span></tt> and <tt class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=webserver03,cpu=1</span></tt></li>
+</ol>
+<p>However if we have many web servers in the system, this could create a ton of results. To filter on only the hosts we want you can use the pipe operator to select a subset of time series. For example <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=avg:sys.cpu.user{host=webserver01|webserver03}</span></tt> will return results only for <tt class="docutils literal"><span class="pre">webserver01</span></tt> and <tt class="docutils literal"><span class="pre">webserver03</span></tt>.</p>
 </div>
-</div>
-<div class="section" id="absolute-unix-time">
-<h3>Absolute Unix Time</h3>
-<p>Internally, all data is associated with a Unix (or POSIX) style timestamp. Unix times are defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. Timestamps are represented as a positive integer such as <tt class="docutils literal"><span class="pre">1364410924</span></tt>, representing <tt class="docutils literal"><span class="pre">ISO</span> <span class="pre">8601:2013-03-27T19:02:04Z</span></tt>. Since calls to store data in OpenTSDB require a Unix timestamp, it makes sense to support the format in queries. Thus you can supply an integer for a start or end time in a query.</p>
-<p>Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of <tt class="docutils literal"><span class="pre">1364410924000</span></tt> and an end time of <tt class="docutils literal"><span class="pre">1364410924250</span></tt> will return data within a 250 millisecond window. Any integers over 10 characters long will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds.</p>
-</div>
-<div class="section" id="absolute-formatted-time">
-<h3>Absolute Formatted Time</h3>
-<p>Since calculating a Unix time in your head is pretty difficult, OpenTSDB also supports human readable absolute date and times. Supported formats include:</p>
+<div class="section" id="aggregation">
+<h2>Aggregation</h2>
+<p>A powerful feature of OpenTSDB is the ability to perform on-the-fly aggregations of multiple time series into a single set of data points. The original data is always available in storage but we can quickly extract the data in meaningful ways. Aggregation functions are means of merging two or more data points for a single time stamp into a single value. Functions currently included with OpenTSDB are:</p>
 <ul class="simple">
-<li>yyyy/MM/dd-HH:mm:ss</li>
-<li>yyyy/MM/dd HH:mm:ss</li>
-<li>yyyy/MM/dd-HH:mm</li>
-<li>yyyy/MM/dd HH:mm</li>
-<li>yyyy/MM/dd</li>
+<li>Sum - Adds all data points together</li>
+<li>Avg - Calculates the arithmetic mean across all data points, i.e. the sum of all values divided by the total number of values.</li>
+<li>Max - Returns only the maximum value for all data points</li>
+<li>Min - Returns only the minimum value for all data points</li>
+<li>Dev - Returns the standard deviation across all data points</li>
 </ul>
-<p><tt class="docutils literal"><span class="pre">yyyy</span></tt> represents the year as a four digit value, e.g. <tt class="docutils literal"><span class="pre">2013</span></tt>. <tt class="docutils literal"><span class="pre">MM</span></tt> represents the month of year starting at <tt class="docutils literal"><span class="pre">01</span></tt> for January to <tt class="docutils literal"><span class="pre">12</span></tt> for December. <tt class="docutils literal"><span class="pre">dd</span></tt> represents the day of the month starting at <tt class="docutils literal"><span class="pre">01</span></tt>. <tt class="docutils literal"><span class="pre">HH</span></tt> represents the hour of day in 24 hour format starting at <tt class="docutils literal"><span class="pre">00</span></tt> to <tt class="docutils literal"><span class="pre">23</span></tt>. <tt class="docutils literal"><span class="pre">mm</span></tt> represents the minutes starting at <tt class="docutils literal"><span class="pre">00</span></tt> to <tt class="docutils literal"><span class="pre">59</span></tt> and <tt class="docutils literal"><span class="pre">ss</span></tt> represents seconds starting at <tt class="docutils literal"><span class="pre">00</span></tt> to <tt class="docutils literal"><span class="pre">59</span></tt>. All months, days, hours, minutes and seconds that are single digits must be preceeded by a 0, e.g. the 5th day of the month must be given as <tt class="docutils literal"><span class="pre">05</span></tt>. When supplying on the data without a time, the system will assume midnight of the given day.</p>
-<p>Examples include <tt class="docutils literal"><span class="pre">2013/01/23-12:50:42</span></tt> or <tt class="docutils literal"><span class="pre">2013/01/23</span></tt>. Formatted times are converted from the default timezone of the host running the TSD to UTC. HTTP API queries can accept a user supplied time zone to override the local zone.</p>
+<p>Why is an aggregation fuction always required when making a query? Unfortunately the TSD doesn&#8217;t know ahead of time whether your query will return a single time series or if it will match more than one. Thus some kind of aggregation function must be declared in the event multiple time series are found. The authors didn&#8217;t want to presume a default so you are forced to choose one every time. However if only one time series is returned, the aggregation function won&#8217;t modify the data if you <em>know</em> that your query will only match a single series, you can specify any function you like.</p>
+</div>
+<div class="section" id="interpolation">
+<h2>Interpolation</h2>
+<p>When performing an aggregation, what happens if the time stamps of the data points for each time series fail to line up? Say we record the temperature every 5 minutes in different regions around the world. A sensor in Pairs may send a temperature of <tt class="docutils literal"><span class="pre">27c</span></tt> at <tt class="docutils literal"><span class="pre">1356998400</span></tt>. Then a sensor in San Franciso may send a value of <tt class="docutils literal"><span class="pre">18c</span></tt> at <tt class="docutils literal"><span class="pre">1356998430</span></tt>, 30 seconds later. Antartica may report <tt class="docutils literal"><span class="pre">-29c</span></tt> at <tt class="docutils literal"><span class="pre">1356998529</span></tt>. If we run a query requesting the average temperature, we want all of the data points averaged together into a single point. This is where <strong>interpolation</strong> comes into play. Interpolation is a way of estimating the value of a data point at a specific time using known values. Without interpolation we would get three separate data points, each reflecting the original value. The following graphs illustrates this quite well.</p>
+<p>An imaginary metric named <tt class="docutils literal"><span class="pre">m</span></tt> is recorded in OpenTSDB. The &#8220;sum of m&#8221; is the blue line at the top resulting from a query like <tt class="docutils literal"><span class="pre">start=1h-ago&amp;m=sum:m</span></tt>. It&#8217;s made of the sum of the red line for <tt class="docutils literal"><span class="pre">host=foo</span></tt> and the green line for <tt class="docutils literal"><span class="pre">host=bar</span></tt>:</p>
+<img alt="../../_images/with-lerp.png" src="../../_images/with-lerp.png" />
+<p>It seems intuitive from the image above that if you &#8220;stack up&#8221; the red line and the green line, you&#8217;d get the blue line. At any discrete point in time, the blue line has a value that is equal to the sum of the value of the red line and the value of the green line at that time. Without interpolation, you get something rather unintuitive that is harder to make sense of, and which is also a lot less meaningful and useful:</p>
+<img alt="../../_images/without-lerp.png" src="../../_images/without-lerp.png" />
+<p>Notice how the blue line plumets down to the green data point at 18:46:48. No need to be a mathematician or to have taken advanced maths classes to see that interpolation is needed to properly aggregate multiple time series together and get meaningful results.</p>
+<p>At the moment OpenTSDB only supports <strong>`linear interpolation &lt;http://en.wikipedia.org/wiki/Linear_interpolation&gt;`_</strong> (sometimes shortened &#8220;lerp&#8221;) for sake of simplicity. Patches are welcome for those who would like to add other interpolation methods.</p>
+<p>Interpolation is only performed at query time when more than one time series are found to match a query. Many metrics collection systems interpolate on <em>write</em> so that you original value is never recorded. OpenTSDB stores your original value and lets you retreive it at any time.</p>
+<p>Here is another slightly more complicated example that came from the mailing list, depicting how multiple time series are aggregated by average:</p>
+<a class="reference external image-reference" href="../../_images/aggregation_average.png"><img alt="Click the image to enlarge." src="../../_images/aggregation-average_sm.png" /></a>
+<p>The thick blue line with triangles is the an aggregation with the <tt class="docutils literal"><span class="pre">avg</span></tt> function of multiple time series as per the query <tt class="docutils literal"><span class="pre">start=1h-ago&amp;m=avg:duration_seconds</span></tt>. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point.</p>
+</div>
+<div class="section" id="down-sampling">
+<h2>Down Sampling</h2>
+<p>OpenTSDB can ingest a large amount of data, even a data point every second for a given time series. Thus queries may return a large number of data points. Accessing the results of a query with a large number of points from the API can eat up bandwidth. High frequencies of data can easily overwhelm Javascript graphing libraries, hence the choice to use GnuPlot. Graphs created by the GUI can be difficult to read, resulting in thick lines such as the graph below:</p>
+<img alt="../../_images/gui_downsampling_off1.jpg" src="../../_images/gui_downsampling_off1.jpg" />
+<p>Down sampling can be used at query time to reduce the number of data points returned so that you can extract better information from a graph or pass less data over a connection. Down sampling requires an <strong>aggregation</strong> function and a <strong>time interval</strong>. The aggregation function is used to compute a new data point across all of the data points in the specified interval with the proper mathematical function. For example, if the aggregation <tt class="docutils literal"><span class="pre">sum</span></tt> is used, then all of the data points within the interval will be added together into a new value. If <tt class="docutils literal"><span class="pre">avg</span></tt> is chosen, then the average of all data points within the interval will be returned.</p>
+<p>Intervals are specified by a number and a unit of time. For example, <tt class="docutils literal"><span class="pre">30m</span></tt> will aggregate data points every 30 minutes. <tt class="docutils literal"><span class="pre">1h</span></tt> will aggregate across an hour. See <a class="reference internal" href="dates.html"><em>Dates and Times</em></a> for valid relative time units. Do not add the <tt class="docutils literal"><span class="pre">-ago</span></tt> to a down sampling query.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When using the CliQuery tool, you must use the format that separates the date from the time with a dash. This is because the command line is split on spaces, so if you put a space in the timestamp, it will fail to parse execute properly.</p>
+<p class="last">When down sampling a time series with irregularly spaced data points, the average of all time stamps in the interval will be used to calculate a new time stamp for the down sampled data point. This means a graph may show varying gaps between values. Future versions of OpenTSDB may normalize the timestamp on even boundaries.</p>
 </div>
+<p>Using down sampling we can cleanup the previous graph to arrive at something much more useful:</p>
+<img alt="../../_images/gui_downsampling_on1.jpg" src="../../_images/gui_downsampling_on1.jpg" />
 </div>
-<div class="section" id="time-zones">
-<h3>Time Zones</h3>
-<p>When converting human readable timestamps, OpenTSDB will convert to UTC from the timezone configured on the system where the TSD is running. While many servers are configured to UTC, and we recommend that all systems running OpenTSDB use UTC, sometimes a local timezone is used.</p>
-<p>Queries via query string to the HTTP API can specify a <tt class="docutils literal"><span class="pre">tz</span></tt> parameter with a timezone identification string in a format applicable to the localization settings of the system running the TSD. For example, we could specify <tt class="docutils literal"><span class="pre">tz=America/Los_Angeles</span></tt> to convert our timestamp from Los Angeles local time to UTC.</p>
-<p>Alternatively, if you are unable to change the system timezone, you can provide an override via the config file <tt class="docutils literal"><span class="pre">tsd.core.timezone</span></tt> property.</p>
+<div class="section" id="rate">
+<h2>Rate</h2>
+<p>A number of data sources return values as constantly incrementing counters. One example is a web site hit counter. When you start a web server, it may have a hit counter of 0. After five minutes the value may be 1,024. After another five minutes it may be 2,048. The graph for a counter will be a somewhat straight line angling up to the right and isn&#8217;t always very useful. OpenTSDB provides the <strong>rate</strong> key word that calculates the rate of change in values over time. This will transform counters into lines with spikes to show you when activity occurred and can be much more useful.</p>
+<p>The rate is the first derivative of the values. It&#8217;s defined as (v2 - v1) / (t2 - t1). Therefore you will get the rate of change per second.</p>
 </div>
+<div class="section" id="order-of-operations">
+<h2>Order of operations</h2>
+<p>Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:</p>
+<ol class="arabic simple">
+<li>Grouping</li>
+<li>Interpolation</li>
+<li>Down Sampling</li>
+<li>Aggregation</li>
+<li>Rate Calculation</li>
+</ol>
 </div>
 </div>
 
@@ -163,7 +276,7 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="timeseries.html" title="Understanding Metrics and Time Series"
+          <a href="dates.html" title="Dates and Times"
              >next</a> |</li>
         <li class="right" >
           <a href="../writing.html" title="Writing Data"

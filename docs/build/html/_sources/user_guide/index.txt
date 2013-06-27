@@ -12,7 +12,6 @@ TODO
    writing
    query/index
    plugins
-   search
    metadata
    trees
    stats

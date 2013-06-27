@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dates and Times &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dates and Times</a><ul>
+<li><a class="reference internal" href="#relative">Relative</a></li>
+<li><a class="reference internal" href="#absolute-unix-time">Absolute Unix Time</a></li>
+<li><a class="reference internal" href="#absolute-formatted-time">Absolute Formatted Time</a></li>
+<li><a class="reference internal" href="#time-zones">Time Zones</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dates-and-times">
+<h1>Dates and Times</h1>
+<p>OpenTSDB supports a number of date and time formats when querying for data. The following formats are supported in queries submitted through the GUI, CliQuery tool or HTTP API. Every query requires a <strong>start time</strong> and an optional <strong>end time</strong>. If the end time is not specified, the current time on the system where the TSD is running will be used.</p>
+<div class="section" id="relative">
+<h2>Relative</h2>
+<p>If you don&#8217;t know the exact timestamp to request you can submit a time in the past relative to the time on the system where the TSD is running. Relative times follow the format <tt class="docutils literal"><span class="pre">&lt;amount&gt;&lt;time</span> <span class="pre">unit&gt;-ago</span></tt> where <tt class="docutils literal"><span class="pre">&lt;amount&gt;</span></tt> is the number of time units and <tt class="docutils literal"><span class="pre">&lt;time</span> <span class="pre">unit&gt;</span></tt> is the unit of time, such as hours, days, etc. For example, if we provide a <strong>start time</strong> of <tt class="docutils literal"><span class="pre">1h-ago</span></tt> and leave out the <strong>end time</strong>, our query will return data start at 1 hour ago to the current time. Possible units of time include:</p>
+<ul class="simple">
+<li>s - Seconds</li>
+<li>m - Minutes</li>
+<li>h - Hours</li>
+<li>d - Days (24 hours)</li>
+<li>w - Weeks (14 days)</li>
+<li>n - Months (30 days)</li>
+<li>y - Years ( 365 days)</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Relative times do not account for leap seconds, leap years or time zones. They simply calculate the number of seconds in the past from the current time.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">OpenTSDB does not support a millisecond relative time unit since users are rarely fast enough to issue queries less than a second apart. If a script or application is performing queries that require millsecond precision, they should use absolute Unix times.</p>
+</div>
+</div>
+<div class="section" id="absolute-unix-time">
+<h2>Absolute Unix Time</h2>
+<p>Internally, all data is associated with a Unix (or POSIX) style timestamp. Unix times are defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. Timestamps are represented as a positive integer such as <tt class="docutils literal"><span class="pre">1364410924</span></tt>, representing <tt class="docutils literal"><span class="pre">ISO</span> <span class="pre">8601:2013-03-27T19:02:04Z</span></tt>. Since calls to store data in OpenTSDB require a Unix timestamp, it makes sense to support the format in queries. Thus you can supply an integer for a start or end time in a query.</p>
+<p>Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of <tt class="docutils literal"><span class="pre">1364410924000</span></tt> and an end time of <tt class="docutils literal"><span class="pre">1364410924250</span></tt> will return data within a 250 millisecond window. Any integers over 10 characters long will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds.</p>
+</div>
+<div class="section" id="absolute-formatted-time">
+<h2>Absolute Formatted Time</h2>
+<p>Since calculating a Unix time in your head is pretty difficult, OpenTSDB also supports human readable absolute date and times. Supported formats include:</p>
+<ul class="simple">
+<li>yyyy/MM/dd-HH:mm:ss</li>
+<li>yyyy/MM/dd HH:mm:ss</li>
+<li>yyyy/MM/dd-HH:mm</li>
+<li>yyyy/MM/dd HH:mm</li>
+<li>yyyy/MM/dd</li>
+</ul>
+<p><tt class="docutils literal"><span class="pre">yyyy</span></tt> represents the year as a four digit value, e.g. <tt class="docutils literal"><span class="pre">2013</span></tt>. <tt class="docutils literal"><span class="pre">MM</span></tt> represents the month of year starting at <tt class="docutils literal"><span class="pre">01</span></tt> for January to <tt class="docutils literal"><span class="pre">12</span></tt> for December. <tt class="docutils literal"><span class="pre">dd</span></tt> represents the day of the month starting at <tt class="docutils literal"><span class="pre">01</span></tt>. <tt class="docutils literal"><span class="pre">HH</span></tt> represents the hour of day in 24 hour format starting at <tt class="docutils literal"><span class="pre">00</span></tt> to <tt class="docutils literal"><span class="pre">23</span></tt>. <tt class="docutils literal"><span class="pre">mm</span></tt> represents the minutes starting at <tt class="docutils literal"><span class="pre">00</span></tt> to <tt class="docutils literal"><span class="pre">59</span></tt> and <tt class="docutils literal"><span class="pre">ss</span></tt> represents seconds starting at <tt class="docutils literal"><span class="pre">00</span></tt> to <tt class="docutils literal"><span class="pre">59</span></tt>. All months, days, hours, minutes and seconds that are single digits must be preceeded by a 0, e.g. the 5th day of the month must be given as <tt class="docutils literal"><span class="pre">05</span></tt>. When supplying on the data without a time, the system will assume midnight of the given day.</p>
+<p>Examples include <tt class="docutils literal"><span class="pre">2013/01/23-12:50:42</span></tt> or <tt class="docutils literal"><span class="pre">2013/01/23</span></tt>. Formatted times are converted from the default timezone of the host running the TSD to UTC. HTTP API queries can accept a user supplied time zone to override the local zone.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When using the CliQuery tool, you must use the format that separates the date from the time with a dash. This is because the command line is split on spaces, so if you put a space in the timestamp, it will fail to parse execute properly.</p>
+</div>
+</div>
+<div class="section" id="time-zones">
+<h2>Time Zones</h2>
+<p>When converting human readable timestamps, OpenTSDB will convert to UTC from the timezone configured on the system where the TSD is running. While many servers are configured to UTC, and we recommend that all systems running OpenTSDB use UTC, sometimes a local timezone is used.</p>
+<p>Queries via query string to the HTTP API can specify a <tt class="docutils literal"><span class="pre">tz</span></tt> parameter with a timezone identification string in a format applicable to the localization settings of the system running the TSD. For example, we could specify <tt class="docutils literal"><span class="pre">tz=America/Los_Angeles</span></tt> to convert our timestamp from Los Angeles local time to UTC.</p>
+<p>Alternatively, if you are unable to change the system timezone, you can provide an override via the config file <tt class="docutils literal"><span class="pre">tsd.core.timezone</span></tt> property.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

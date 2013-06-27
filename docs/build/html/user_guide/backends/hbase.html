@@ -23,9 +23,9 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
-    <link rel="up" title="Backends" href="index.html" />
-    <link rel="next" title="Cassandra" href="cassandra.html" />
-    <link rel="prev" title="Backends" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="up" title="Storage" href="index.html" />
+    <link rel="next" title="CLI Tools" href="../cli/index.html" />
+    <link rel="prev" title="Storage" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -36,14 +36,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="cassandra.html" title="Cassandra"
+          <a href="../cli/index.html" title="CLI Tools"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Backends"
+          <a href="index.html" title="Storage"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Backends</a> &raquo;</li> 
+          <li><a href="index.html" accesskey="U">Storage</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -62,10 +62,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Backends</a></p>
+                        title="previous chapter">Storage</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="cassandra.html"
-                        title="next chapter">Cassandra</a></p>
+  <p class="topless"><a href="../cli/index.html"
+                        title="next chapter">CLI Tools</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -121,6 +121,7 @@ metric  time   tagk  tagv</pre>
 '----''------''----''----''----''----'
 metric  time   tagk  tagv  tagk  tagv</pre>
 </div>
+<p>Tag names (tagk) are sorted alphabetically before storage, so the &#8220;host&#8221; tag will always appear first in the row key/TSUID ahead of &#8220;owner&#8221;.</p>
 </div>
 <div class="section" id="columns">
 <h3>Columns</h3>
@@ -133,7 +134,6 @@ metric  time   tagk  tagv  tagk  tagv</pre>
 <p>8 or 4 bytes encoded as indicated by the qualifier flag. E.g. our integer of <tt class="docutils literal"><span class="pre">42</span></tt> would be encoded as <tt class="docutils literal"><span class="pre">0000002A</span></tt>.</p>
 <p><strong>Compactions</strong></p>
 <p>If compactions have been enabled for a TSD, a row may be compacted after it&#8217;s base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.</p>
-<p>:: Note: The OpenTSDB compaction process is entirely separate in scope and definition than the HBase idea of compactions.</p>
 <p>Qualifier:</p>
 <p>The qualifier for a compacted column will always be an even number of bytes and is simply a concatenation of the qualifiers for every data point that was in the row. Since we know each data point qualifier is 2 bytes, it&#8217;s simple to split this up. A qualifier in hex with 2 data points may look like <tt class="docutils literal"><span class="pre">07B407D4</span></tt>.</p>
 <p>Value:</p>
@@ -161,14 +161,14 @@ metric  time   tagk  tagv  tagk  tagv</pre>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="cassandra.html" title="Cassandra"
+          <a href="../cli/index.html" title="CLI Tools"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Backends"
+          <a href="index.html" title="Storage"
              >previous</a> |</li>
         <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >Backends</a> &raquo;</li> 
+          <li><a href="index.html" >Storage</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

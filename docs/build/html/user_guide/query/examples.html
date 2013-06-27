@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Query Examples &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Query Examples</a><ul>
+<li><a class="reference internal" href="#sample-data">Sample Data</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="query-examples">
+<h1>Query Examples</h1>
+<p>The following is a list of example queries using a fictional data set. We&#8217;ll illustrate a number of common query types that may be encountered so you can get an understanding of how the query system works. Each time series in the example set has only a single data point stored and the UIDs have been truncated to a single byte to make it easier to read.</p>
+<div class="section" id="sample-data">
+<h2>Sample Data</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="20%" />
+<col width="50%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">TS#</th>
+<th class="head">Metric</th>
+<th class="head">Tags</th>
+<th class="head">TSUID</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>sys.cpu.system</td>
+<td>dc=dal host=web01</td>
+<td>0102040101</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>sys.cpu.system</td>
+<td>dc=dal host=web02</td>
+<td>0102040102</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>sys.cpu.system</td>
+<td>dc=dal host=web03</td>
+<td>0102040103</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>sys.cpu.system</td>
+<td>host=web01</td>
+<td>010101</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>sys.cpu.system</td>
+<td>host=web01 owner=jdoe</td>
+<td>0102040101</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>sys.cpu.system</td>
+<td>dc=lax host=web01</td>
+<td>0102040101</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>sys.cpu.system</td>
+<td>dc=lax host=web01</td>
+<td>0102040101</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>sys.cpu.user</td>
+<td>dc=dal host=web01</td>
+<td>0102040101</td>
+</tr>
+<tr class="row-even"><td>9</td>
+<td>sys.cpu.user</td>
+<td>dc=dal host=web01</td>
+<td>0102040101</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

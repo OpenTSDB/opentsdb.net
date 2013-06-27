@@ -4,7 +4,7 @@ CLI Tools
 OpenTSDB consists of a single JAR file that uses a shell script to determine what actiosn the user wants to take. While the most common action is to start the TSD with the ''tsd' command so that it can run all the time and process RPCs, other commands are available to work with OpenTSDB data. These commands include:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    
    uid
    mkmetric

@@ -54,8 +54,11 @@
 <li><a class="reference internal" href="#assignment">Assignment</a></li>
 <li><a class="reference internal" href="#storage">Storage</a></li>
 <li><a class="reference internal" href="#display">Display</a></li>
+<li><a class="reference internal" href="#why-uids">Why UIDs?</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#raw-names">Raw Names</a></li>
+<li><a class="reference internal" href="#hashes">Hashes</a></li>
 <li><a class="reference internal" href="#tsuids">TSUIDs</a></li>
 </ul>
 </li>
@@ -113,6 +116,18 @@
 <p>UIDs can be displayed in a few ways. The most common method is via the HTTP API where the 3 bytes of UID data are encoded as a hexadecimal string. For example, the UID of <tt class="docutils literal"><span class="pre">1</span></tt> would be written in binary as <tt class="docutils literal"><span class="pre">000000000000000000000001</span></tt>. As an array of unsigned byte values, you could imagine it as <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">1]</span></tt>. Encoded as a hex string, the value would be <tt class="docutils literal"><span class="pre">000001</span></tt> where the string is padded with 0s for each byte. The UID of 255 would result in a hex value of <tt class="docutils literal"><span class="pre">0000FF</span></tt> (or as a byte array, <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">255]</span></tt>. To convert between a decimal UID to a hex, use any kind of hex conversion tool you prefer and put 0s in front of the resulting value until you have a total of 6 characters. To convert from a hex UID to decimal, simply drop any 0s from the front, then use a tool to convert the hex string to a decimal.</p>
 <p>In some CLI tools and log files, a UID may be displayed as an array of signed bytes (thanks to Java) such as the above example of <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">1]</span></tt> or <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">-28]</span></tt>. To convert from this signed array to an an array of unsigned bytes, then to hex. For example, <tt class="docutils literal"><span class="pre">-28</span></tt> would be binary <tt class="docutils literal"><span class="pre">10011100</span></tt> which results in a decimal value of <tt class="docutils literal"><span class="pre">156</span></tt> and a hex value of <tt class="docutils literal"><span class="pre">9C</span></tt>.</p>
 </div>
+<div class="section" id="why-uids">
+<h3>Why UIDs?</h3>
+<p>This question is asked often enough it&#8217;s worth laying out the reasons here. Looking up or assigning a UID takes up precious cycles in the TSD so folks wonder if it wouldn&#8217;t be faster to use the raw name of the metric or computer a hash. Indeed, from a write perspective it would be slightly faster, but there are a number of drawbacks that become apparent.</p>
+</div>
+</div>
+<div class="section" id="raw-names">
+<h2>Raw Names</h2>
+<p>Since OpenTSDB uses HBase as the storage layer, you could use strings as the row key. Following the current schema, you may have a row key that looked like <tt class="docutils literal"><span class="pre">sys.cpu.0.user</span> <span class="pre">1292148000</span> <span class="pre">host=websv01.lga.mysite.com</span> <span class="pre">owner=operations</span></tt>. Ordering would be similar to the existing schema, but now you&#8217;re using up 72 bytes of storage each hour instead of 40. Additionally, the row key must be written and returned with every query to HBase, so you&#8217;re increasing your network usage as well. So resorting to UIDs can help save space.</p>
+</div>
+<div class="section" id="hashes">
+<h2>Hashes</h2>
+<p>Another idea is to simply bump up the UIDs to 4 bytes then calculate a hash on the strings and store the hash with forward and reverse maps as we currently do. This would certainly reduce the amount of time it takes to assign a UID, but there are a few problems. First, you will encounter collisions where different names return the same hash. You could try different algorithms and even try increasing the hash to 8 bytes, but you&#8217;ll always have the issue of colliding hashes. Second, you are now adding a hash calculation to every data put since it would have to determine the hash, then lookup the hash in the UID table to see if it&#8217;s been mapped yet. Right now, each data point only performs the lookup. Third, you can&#8217;t pre-split your HBase regions as easily. If you know you will have roughly 800 metrics in your system (the tags are irrelevant for this purpose), you can pre-split your HBase table to evenly distribute those 800 metrics and increase your initial write performance.</p>
 </div>
 <div class="section" id="tsuids">
 <h2>TSUIDs</h2>

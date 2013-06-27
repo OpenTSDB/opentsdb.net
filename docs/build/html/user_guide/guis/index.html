@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>GUIs &mdash; OpenTDSB 2.0 documentation</title>
+    <title>GUI &mdash; OpenTDSB 2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -25,7 +25,7 @@
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
     <link rel="up" title="User Guide" href="../index.html" />
     <link rel="next" title="Writing Data" href="../writing.html" />
-    <link rel="prev" title="Configuration" href="../configuration.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="UIDs and TSUIDs" href="../uids.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -39,7 +39,7 @@
           <a href="../writing.html" title="Writing Data"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../configuration.html" title="Configuration"
+          <a href="../uids.html" title="UIDs and TSUIDs"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">User Guide</a> &raquo;</li> 
@@ -47,9 +47,34 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GUI</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a><ul>
+<li><a class="reference internal" href="#menu">Menu</a></li>
+<li><a class="reference internal" href="#errors">Errors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#query-builder">Query Builder</a><ul>
+<li><a class="reference internal" href="#metrics-section">Metrics Section</a></li>
+<li><a class="reference internal" href="#time-section">Time Section</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#graphing">Graphing</a><ul>
+<li><a class="reference internal" href="#graph-style">Graph Style</a></li>
+<li><a class="reference internal" href="#axes-tab">Axes Tab</a></li>
+<li><a class="reference internal" href="#key-tab">Key Tab</a></li>
+<li><a class="reference internal" href="#style-tab">Style Tab</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#saving-your-work">Saving Your Work</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../configuration.html"
-                        title="previous chapter">Configuration</a></p>
+  <p class="topless"><a href="../uids.html"
+                        title="previous chapter">UIDs and TSUIDs</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../writing.html"
                         title="next chapter">Writing Data</a></p>
@@ -74,9 +99,126 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="guis">
-<h1>GUIs</h1>
-<p>TODO</p>
+  <div class="section" id="gui">
+<h1>GUI</h1>
+<p>Currently OpenTSDB offers a simple built-in GUI accessible by opening your browser and navigating to the host and port where the TSD is running. For example, if you are running a TSD on your local computer on port 4242, simply navigate to <tt class="docutils literal"><span class="pre">http://localhost:4242</span></tt>. While the GUI won&#8217;t win awards for beauty, it provides a quick means of building a useful graph with the data in your system.</p>
+<div class="section" id="interface">
+<h2>Interface</h2>
+<img alt="../../_images/gui_sections.jpg" src="../../_images/gui_sections.jpg" />
+<p>There are three main areas of the GUI:</p>
+<ol class="arabic simple">
+<li>The notification area and tab area that serves as a menu</li>
+<li>The query builder that lets you select what will be displayed and how</li>
+<li>The graph area that displays query results</li>
+</ol>
+<div class="section" id="menu">
+<h3>Menu</h3>
+<p>The menu is a group of tabs that can be clicked for different options.</p>
+<ul class="simple">
+<li>Graph - This is the default that lets you issue a query and generate a graph</li>
+<li>Stats - This tab will display a list of statistics about the running TSD. The same stats can be retrieved via the <tt class="docutils literal"><span class="pre">/stats</span></tt> or <tt class="docutils literal"><span class="pre">/api/stats</span></tt> endpoints.</li>
+<li>Logs - If Logback is configured, this tab will show you a list of the latest 1,024 log entries for the TSD.</li>
+<li>Version - Displays version information about the TSD</li>
+</ul>
+</div>
+<div class="section" id="errors">
+<h3>Errors</h3>
+<p>When building a graph, if an error occurs, a message will appear above the menu.</p>
+<img alt="../../_images/gui_error.jpg" src="../../_images/gui_error.jpg" />
+</div>
+</div>
+<div class="section" id="query-builder">
+<h2>Query Builder</h2>
+<p>You&#8217;ll likely spend a lot of time in this area since there are a number of options to play with. You&#8217;ll likely want to start by choosing one or more metrics and tags to graph.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you start by picking a start and end time then as soon as you enter a metric, the TSD will start to graph <em>every time series for that metric</em>. This will show the <tt class="docutils literal"><span class="pre">Loading</span> <span class="pre">Graph...</span></tt> status and may take a long time before you can do anything else. So skip the times and choose your metrics first.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Also note that changes to any field in this section will cause a graph reload, so be aware if you&#8217;re graph takes a long time to load.</p>
+</div>
+<div class="section" id="metrics-section">
+<h3>Metrics Section</h3>
+<img alt="../../_images/gui_metric_section.jpg" src="../../_images/gui_metric_section.jpg" />
+<p>This area is where you choose the metrics, optional tags, aggregation function and a possible down sampler for your graph. Along the top are a pair of blue tabs. Each graph can display multiple metrics and the tabs organize the different sub queries. Each graph requires at least one metric so you&#8217;ll choose that metric in the first tab. To add another metric to your graph, click the <tt class="docutils literal"><span class="pre">+</span></tt> tab and you&#8217;ll be able to setup another sub query. If you have configured multiple metrics, simply click on the tab that corresponds to the metric you want to modify. The tab will display a subset of the metric name it is associated with.</p>
+<p>The <strong>Metric</strong> box is where you&#8217;ll choose a metric. This field auto-completes as you type just like a modern web browser. Auto-complete is case sensitive so only metrics matching the case provided will be displayed. By default, only the 25 top matching entries will be returned so you may not see all of the possible choices as you type. Either click on the entry you want when it appears or keep typing until you have entire metric in the box.</p>
+<img alt="../../_images/gui_autocomplete.jpg" src="../../_images/gui_autocomplete.jpg" />
+<p>Recall from the <a class="reference internal" href="../query/index.html"><em>Queries</em></a> documentation that if you only provide a metric without any tags, <em>every time series with that metric</em> will be aggregated in the results. If you want to drill down, supply one or more <strong>Tags</strong> to filter or group the results. A new metric section will have two boxes next to <strong>Tags</strong>. The left box is for the tag name or <tt class="docutils literal"><span class="pre">tagk</span></tt> value, e.g. <tt class="docutils literal"><span class="pre">host</span></tt> or <tt class="docutils literal"><span class="pre">symbol</span></tt>. The right hand box is for the tag value or <tt class="docutils literal"><span class="pre">tagv</span></tt>, e.g. <tt class="docutils literal"><span class="pre">webserver01</span></tt> or <tt class="docutils literal"><span class="pre">goog</span></tt>. When you add a tag, another pair of boxes will appear so that you can keep adding tags to filter as much as necessary.</p>
+<p>Both tag name and value boxes also auto-complete in the same way as the <strong>Metric</strong> box. However each auto-complete will show <em>all</em> of the results for the name or value, not just the values that would apply to a specific metric or tag name. In future versions we may be able to implement such a mapping feature but currently you&#8217;ll have to sort through all of the values.</p>
+<p>The tag value box can use grouping operators such as the <tt class="docutils literal"><span class="pre">*</span></tt> and the <tt class="docutils literal"><span class="pre">|</span></tt>. See <a class="reference internal" href="../query/index.html"><em>Queries</em></a> for details.</p>
+<p>The <strong>Rate</strong> box allows you to convert all of the time series for the metric to a rate of change value. By default this option is turned off.</p>
+<p>For metrics or time series with different scales, you can select the <strong>Right Axis</strong> check box to add another axis to the right of the graph for the metric&#8217;s time series. This can make graphs much more readable if the scales differ greatly.</p>
+<p>The <strong>Aggregator</strong> box is a drop-down list of aggregation functions used to manipulate the data for multiple time series associated with the sub query. The default aggregator is <em>sum</em> but you can choose from a number of other options.</p>
+<p>The <strong>Downsample</strong> section is used to reduce the number of data points displayed on the graph. By default, GnuPlot will place a character, such as the <tt class="docutils literal"><span class="pre">+</span></tt> or <tt class="docutils literal"><span class="pre">x</span></tt> at each data point of a graph. When the time span is wide and there are many data points, the graph can grow pretty thick and ugly. Use down sampling to reduce the number of points. Simply choose an aggregation function from the drop down list, then enter a time interval in the second box. The interval must follow the relative date format (without the <tt class="docutils literal"><span class="pre">-ago</span></tt> component). For example, to downsample on an hour, enter <tt class="docutils literal"><span class="pre">1h</span></tt>. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details.</p>
+<div class="figure">
+<img alt="../../_images/gui_downsampling_off.jpg" src="../../_images/gui_downsampling_off.jpg" />
+<p class="caption">Downsampling Disabled</p>
+</div>
+<div class="figure">
+<img alt="../../_images/gui_downsampling_on.jpg" src="../../_images/gui_downsampling_on.jpg" />
+<p class="caption">Downsampling Enabled</p>
+</div>
+</div>
+<div class="section" id="time-section">
+<h3>Time Section</h3>
+<img alt="../../_images/gui_time.jpg" src="../../_images/gui_time.jpg" />
+<p>The time secion determines the timespan for all metrics and time series in your graph. The <strong>Frome</strong> time determines when your graph will start and the <strong>End</strong> time determines when it will stop. Both fields must be filled out for a query to execute. Times may be in human readable, absolute format or a relative format. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details.</p>
+<p>Clicking a time box will pop-up a utility to help you choose a time. Use the arrows at the top left of the box to navigate through the months, then click on a date. The relative links in the upper right are helpers to jump forward or backward 1 minute, 10 minutes, 1 hour, 1 day, 1 week or 30 days. The <em>now</em> link will update the time to the current time on your local system. The <strong>HH</strong> buttons let you choose an hour along with <em>AM</em> or <em>PM</em>. The MM buttons let you choose a normalized minute. You can also cut and paste a time into the any of the boxes or edit the times directly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unix timestamps are not supported directly in the boxes. You can click in a box to display the calendar, then paste a Unix timestamp (in seconds) in the <em>UNIX Timestamp</em> box, then press the <em>TAB</em> key to convert to a human readable time stamp.</p>
+</div>
+<p>If the time stamp in a time box is invalid, the background will turn red. This may happen if your start time is greater than or equal to your end time.</p>
+<p>The <strong>To (now)</strong> link will update the <strong>End</strong> box to the current time on your system.</p>
+<p>Click the <strong>Autoreload</strong> check box to automatically refresh your graph periodically. This can be very useful for monitoring displays where you want to have the graph displayed for a number of people. When checked, the <strong>End</strong> box will disappear and be replaced by an <strong>Every:</strong> box that lets you choose the refresh rate in seconds. The default is to refresh every 15 seconds.</p>
+</div>
+</div>
+<div class="section" id="graphing">
+<h2>Graphing</h2>
+<p>We&#8217;ll make a quick detour here to talk about the actual graph section. Below the query building area is a spot where details about query results are displayed as well as the actual graph.</p>
+<img alt="../../_images/gui_cached.jpg" src="../../_images/gui_cached.jpg" />
+<p>A status line prints information about the results of a query including whether or not the results were cached in the TSD, how many raw data points were analyzed, how many data points were actually plotted (as per the results of aggregations and down sampling) and how long the query took to execute. When the browser is waiting for the results of a query, this message will show <tt class="docutils literal"><span class="pre">Loading</span> <span class="pre">Graph...</span></tt>.</p>
+<p>Below the status line will be the actual graph. The graph is simply a PNG image generated by GnuPlot so you can copy the image and save it to your local machine or send it in an email.</p>
+<p>You can also zoom in on a time range by clicking and dragging a red box across a section of the graph. Release and the query will be updated with the new time span. Note that the browser cursor doesn&#8217;t change when you&#8217;re over the graph, it will still remain the default arrow your browser or OS provides.</p>
+<img alt="../../_images/gui_zoom.jpg" src="../../_images/gui_zoom.jpg" />
+<div class="section" id="graph-style">
+<h3>Graph Style</h3>
+<p>Back in the query builder section you have the graphing style box to the right.</p>
+<img alt="user_guide\guis\../../images/gui_graphing_style.jpg" src="user_guide\guis\../../images/gui_graphing_style.jpg" />
+<p>The <strong>WxH</strong> box alters the dimensions of the graph. Simply enter the <tt class="docutils literal"><span class="pre">&lt;width&gt;x&lt;height&gt;</span></tt> in pixels such as <tt class="docutils literal"><span class="pre">1024x768</span></tt> then tab or click in another box to update the graph.</p>
+<p>Below that are a few tabs for altering different parts of the graph.</p>
+</div>
+<div class="section" id="axes-tab">
+<h3>Axes Tab</h3>
+<p>This area deals with altering the Y axes of the graph. <strong>Y</strong> settings affect the axis on the left and <strong>Y2</strong> settings affect the axis on the right. Y2 settings are only enabled if at least one of the metrics has had the <strong>Right Axis</strong> check box checked.</p>
+<p>The <strong>Label</strong> box will add the specified text to the graph alon the left or right Y axis. By default, no label is provided since OpenTSDB doesn&#8217;t know what you&#8217;re graphing.</p>
+<p>The <strong>Format</strong> box can alter the numbers on the Y axis according to a custom algorithm or formatting. This can be useful to convert numbers to or from scientific notation and adjusting the scale for gigabytes if the data comes in as bytes. For example, you can supply a value of <tt class="docutils literal"><span class="pre">%0.0f</span> <span class="pre">Reqs</span></tt> and it will change the axis to show an integer value at each step with the string <em>Reqs</em> after it as in the following example.</p>
+<img alt="../../_images/gui_format.png" src="../../_images/gui_format.png" />
+<p>Read the <a class="reference external" href="http://www.gnuplot.info/">GnuPlot Manual</a> for <em>Format Specifiers</em> to find out what is permissible.</p>
+<p>The <strong>Range</strong> box allows you to effectively zoom horizontally, showing only the data points between a range of Y axis values. The format for this box is <tt class="docutils literal"><span class="pre">[&lt;starting</span> <span class="pre">value&gt;:&lt;optional</span> <span class="pre">end</span> <span class="pre">value&gt;]</span></tt>. For example, if I want to show only the data points with values between 700 and 800 I can enter <tt class="docutils literal"><span class="pre">[700:800]</span></tt>. This will produce a graph as below:</p>
+<img alt="../../_images/gui_range.png" src="../../_images/gui_range.png" />
+<p>The <strong>Log Scale</strong> check box will set a base ten log scale on the Y axis. An example appears below.</p>
+<img alt="../../_images/gui_log.png" src="../../_images/gui_log.png" />
+</div>
+<div class="section" id="key-tab">
+<h3>Key Tab</h3>
+<p>The top half of the key tab&#8217;s section deals with the location of the graph key. This is a series of buttons layed out to show you where the key will appear. A box surrounds some of the buttons indicating that the key will appear inside of the graph&#8217;s box, overlaying the data. The default location is the top right inside of the graph box. Simply select a button to move the key box.</p>
+<img alt="../../_images/gui_key_above.png" src="../../_images/gui_key_above.png" />
+<p>By default, the key lists all of the different labels vertically. The <strong>Horizontal Layout</strong> check box will lay out the key horizontally first, then vertically if the dimensions of the graph wouldn&#8217;t support it.</p>
+<p>The <strong>Box</strong> check box will toggle a box outline around the key. This is on by default.</p>
+<p>The <strong>No Key</strong> check box will hide the key altogether.</p>
+</div>
+<div class="section" id="style-tab">
+<h3>Style Tab</h3>
+<p>The style tab currently has a single box, the <strong>Smooth</strong> check box. With this checked, the data point characters will be removed from the graph showing the lines only. Some users prefer this over the default.</p>
+<img alt="../../_images/gui_smooth.png" src="../../_images/gui_smooth.png" />
+</div>
+</div>
+<div class="section" id="saving-your-work">
+<h2>Saving Your Work</h2>
+<p>As you make changes via the GUI you&#8217;ll see that the URL reflects your edits. You can copy the URL, save it or email it around and pull it back up to pick up where you were. Unfortunately OpenTSDB doesn&#8217;t include a built in dashboard so you&#8217;ll have to save the URL somewhere manually.</p>
+</div>
 </div>
 
 
@@ -95,7 +237,7 @@
           <a href="../writing.html" title="Writing Data"
              >next</a> |</li>
         <li class="right" >
-          <a href="../configuration.html" title="Configuration"
+          <a href="../uids.html" title="UIDs and TSUIDs"
              >previous</a> |</li>
         <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >User Guide</a> &raquo;</li> 

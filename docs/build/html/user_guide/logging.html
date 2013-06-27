@@ -47,6 +47,24 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Logging</a><ul>
+<li><a class="reference internal" href="#levels">Levels</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li><a class="reference internal" href="#appenders">Appenders</a></li>
+<li><a class="reference internal" href="#loggers">Loggers</a></li>
+<li><a class="reference internal" href="#root">Root</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#log-to-rotating-file">Log to Rotating File</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="utilities/tcollector.html"
                         title="previous chapter">TCollector</a></p>
@@ -76,7 +94,89 @@
             
   <div class="section" id="logging">
 <h1>Logging</h1>
-<p>TODO</p>
+<p>OpenTSDB uses the <a class="reference external" href="http://www.slf4j.org/">SLF4J</a> abstraction layer along with <a class="reference external" href="http://logback.qos.ch/">Logback</a> for logging flexibility. Configuration is performed via an XML file and there are many different formatting, level and destination options.</p>
+<div class="section" id="levels">
+<h2>Levels</h2>
+<p>Every log message is accompanied by a descriptive severity level. Levels employed by OpenTSDB include:</p>
+<ul class="simple">
+<li><strong>ERROR</strong> - Something failed, be it invalid data, a failed connection or a bug in the code. You should pay attention to these and figure out what caused the error. Check with the user group for assistance.</li>
+<li><strong>WARN</strong> - These are often caused by bad user data or something else that was wrong but not a critical error. Look for warnings if you are not receiving the results you expect when using OpenTSDB.</li>
+<li><strong>INFO</strong> - Informational messages are notifications of expected or normal behavior. They can be useful during troubleshooting. Most logging appenders should be set to <tt class="docutils literal"><span class="pre">INFO</span></tt>.</li>
+<li><strong>DEBUG</strong> - If you require further troubleshooting you can enable <tt class="docutils literal"><span class="pre">DEBUG</span></tt> logging that will give much greater detail about what OpenTSDB is doing under the hood. Be careful enabling this level as it can return a vast amount of data.</li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration</h2>
+<p>A file called <tt class="docutils literal"><span class="pre">logback.xml</span></tt> is included in the <tt class="docutils literal"><span class="pre">/src</span></tt> directory and copied for distributions. On startup, OpenTSDB will search the class path for this file and if found, load the configuration. The default config from GIT will log INFO level events to console and store the 1,024 latest messages in a round-robin buffer to be accessed from the GUI. Packages built from GIT also include rotating file logs.</p>
+<p>The default config for OpenTSDB is:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+  <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;STDOUT&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;encoder&gt;</span>
+      <span class="nt">&lt;pattern&gt;</span>
+        %d{ISO8601} %-5level [%thread] %logger{0}: %msg%n
+      <span class="nt">&lt;/pattern&gt;</span>
+    <span class="nt">&lt;/encoder&gt;</span>
+  <span class="nt">&lt;/appender&gt;</span>
+
+  <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;CYCLIC&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.read.CyclicBufferAppender&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;MaxSize&gt;</span>1024<span class="nt">&lt;/MaxSize&gt;</span>
+  <span class="nt">&lt;/appender&gt;</span>
+
+  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;org.apache.zookeeper&quot;</span> <span class="na">level=</span><span class="s">&quot;INFO&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;org.hbase.async&quot;</span> <span class="na">level=</span><span class="s">&quot;INFO&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;com.stumbleupon.async&quot;</span> <span class="na">level=</span><span class="s">&quot;INFO&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">&quot;INFO&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&quot;STDOUT&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&quot;CYCLIC&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/root&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+<p>The config is broken up into the following sections:</p>
+<div class="section" id="appenders">
+<h3>Appenders</h3>
+<p>Appenders are destinations where logging information is sent. Typically logging configs send results to the console and a file. Optionally you can send logs to Syslog, email, sockets, databases and more. Each appender section defines a destination, a format and an optional trigger. Read about appenders in the <a class="reference external" href="http://logback.qos.ch/manual/appenders.html">Logback Manual</a>.</p>
+</div>
+<div class="section" id="loggers">
+<h3>Loggers</h3>
+<p>Loggers determine what data and what level of data is routed to the appenders. Loggers can match a particular Java class namespace and affect all messages emitted from that space. The default OpenTSDB config explicitly lists some loggers for Zookeeper, Asyncbase and the Async libraries to set their levels to <tt class="docutils literal"><span class="pre">INFO</span></tt> so as to avoid chatty outputs that are not relevant most of the time. If you enable a plugin and start seeing a lot of messages that you don&#8217;t care about, add a logger entry to suppress the messages.</p>
+</div>
+<div class="section" id="root">
+<h3>Root</h3>
+<p>The root section is the catch-all logger that determines that default logging level for all messages that don&#8217;t match an explicit logger. It also handles routing to the different appenders.</p>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples</h2>
+<p>If you aren&#8217;t installing from a package, you may want to try adding some of the following appenders to your file.</p>
+<div class="section" id="log-to-rotating-file">
+<h3>Log to Rotating File</h3>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;FILE&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;file&gt;</span>/var/log/opentsdb/opentsdb.log<span class="nt">&lt;/file&gt;</span>
+  <span class="nt">&lt;append&gt;</span>true<span class="nt">&lt;/append&gt;</span>
+
+  <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.rolling.FixedWindowRollingPolicy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;fileNamePattern&gt;</span>/var/log/opentsdb/opentsdb.log.%i<span class="nt">&lt;/fileNamePattern&gt;</span>
+    <span class="nt">&lt;minIndex&gt;</span>1<span class="nt">&lt;/minIndex&gt;</span>
+    <span class="nt">&lt;maxIndex&gt;</span>3<span class="nt">&lt;/maxIndex&gt;</span>
+  <span class="nt">&lt;/rollingPolicy&gt;</span>
+
+  <span class="nt">&lt;triggeringPolicy</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;maxFileSize&gt;</span>128MB<span class="nt">&lt;/maxFileSize&gt;</span>
+  <span class="nt">&lt;/triggeringPolicy&gt;</span>
+
+  <span class="c">&lt;!-- encoders are assigned the type</span>
+<span class="c">       ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
+  <span class="nt">&lt;encoder&gt;</span>
+    <span class="nt">&lt;pattern&gt;</span>%d{HH:mm:ss.SSS} %-5level [%logger{0}.%M] - %msg%n<span class="nt">&lt;/pattern&gt;</span>
+  <span class="nt">&lt;/encoder&gt;</span>
+<span class="nt">&lt;/appender&gt;</span>
+</pre></div>
+</div>
+<p>This appender will write to a log file called <tt class="docutils literal"><span class="pre">/var/log/opentsdb/opentsdb.log</span></tt>. When the file reaches 128MB in size, it will rotate the log to <tt class="docutils literal"><span class="pre">opentsdb.log.1</span></tt> and start a new <tt class="docutils literal"><span class="pre">opentsdb.log</span></tt> file. Once the new log fills up, it bumps <tt class="docutils literal"><span class="pre">.1</span></tt> to <tt class="docutils literal"><span class="pre">.2</span></tt>, <tt class="docutils literal"><span class="pre">.log</span></tt> to <tt class="docutils literal"><span class="pre">.1</span></tt> and creates a new one. It repeats this until there are four log files in total. The next time the log fills up, the last log is deleted. This way you are gauranteed to only use up to 512MB of disk space. Many other appenders are available so see what fits your needs the best.</p>
+</div>
+</div>
 </div>
 
 

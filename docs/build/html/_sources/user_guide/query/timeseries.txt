@@ -1,4 +1,62 @@
 Understanding Metrics and Time Series
 =====================================
 
-TODO
+OpenTSDB is a time series database. A time series is a series of numeric data points of some particular metric over time. Each time series consists of a metric plus zero or more tags associated with this metric (we'll cover tags in a bit). A metric is any particular piece of data (e.g. hits to an Apache hosted file) that you wish to track over time.
+
+OpenTSDB is also a data plotting system. OpenTSDB plots things a bit differently than other systems. We'll discuss plotting in more detail below, but for now it's important to know that for OpenTSDB, the basis of any given plot is the metric. It takes that metric, finds all of the time series for the time range you select, aggregates those times series together (e.g. by summing them up) and plots the result. The plotting mechanism is very flexible and powerful and you can do much more than this, but for now let's talk about the key to the time series, which is the metric.
+
+In OpenTSDB, a metric is named with a string, like ``http.hits``. To be able to store all the different values for all the places where this metric exists, you tag the data with one or more tags when you send them to the TSD. TSD stores the timestamp, the value, and the tags. When you want to retrieve this data, TSD retrieves all of the values for the time span you supply, optionally with a tag filter you supply, aggregates all these values together how you want, and plots a graph of this value over time.
+
+There's a bunch of things in here that we've introduced so far. To help you understand how things work, I'll start with a typical example. Let's say you have a bunch of web servers and you want to track two things: hits to the web server and load average of the system. Let's make up metric names to express this. For load average, let's call it ``proc.loadavg.1min`` (since on Linux you can easily get this data by reading ``/proc/loadavg``). For many web servers, there is a way to ask the web server for a counter expressing the number of hits to the server since it started. This is a convenient counter upon which to use for a metric we'll call ``http.hits``. I chose these two examples for two reasons. One, we'll get to see how OpenTSDB easily handles both counters (values that increase over time, except when they get reset by a restart/reboot or overflow) and how it handles normal values that go up and down, like load average. A great advantage of OpenTSDB is that you don't need to do any rate calculation of your counters. It will do it all for you. The second reason is that we can also show you how you can plot two different metrics with different scales on the same graph, which is a great way to correlate different metrics.
+
+Your first datapoints
+---------------------
+
+Without going into too much detail on how collectors send data to the TSD , you write a collector that periodically sends the current value of these datapoints for each server to the TSD. So the TSD can aggregate the data from multiple hosts, you tag each value with a "host" tag. So, if you have web servers A, B, C, etc, they each periodically send something like this to the TSD:
+
+::
+
+  put http.hits 1234567890 34877 host=A 
+  put proc.loadavg.1min 1234567890 1.35 host=A
+  
+Here "1234567890" is the current epoch time (date +%s) in seconds (OpenTSDB does resolution down to the second only at this time). The next number is the value of the metric at this time. This is data from host A, so it's tagged with ``host=A``. Data from host B would be tagged with ``host=B``, and so forth. Over time, you'll get a bunch of time series stored in OpenTSDB.
+
+Your first plot
+---------------
+
+Now, let's revisit what we talked about here at the beginning. A time series is a series of datapoints of some particular metric (and its tags) over time. For this example, each host is sending two time series to the TSD. If you had 3 boxes each sending these two time series, TSD would be collecting and storing 6 time series. Now that you have the data, let's start plotting.
+
+To plot HTTP hits, you just go to the UI and enter ``http.hits`` as your metric name, and enter the time range. Check the "Rate" button since this particular metric is a rate counter, and voilà, you have a plot of the rate of HTTP hits to your web servers over time.
+
+Aggregators
+-----------
+
+The default for the UI is to aggregate each time series for each host by adding them together (sum). What this means is, TSD is taking the three time series with this metric (host=A, B and C) and adding their values together to come up with the total hits by all web servers at a given time . Note you don't need to send your datapoints at exactly the same time, the TSD will figure it out. So, if each of your hosts was serving 1000 hits per second each at some point in time, the graph would show 3000. What if you wanted to show about how many hits each web server was serving? Two ways. If you just care about the average that each web server was serving, just change the Aggregator method from sum to avg. You can also try the others (max, min) to see the maximum or minimum value. More aggregation functions are in the works (percentiles, etc.). This is done on a per-interval basis , so if at some point in time one of your webservers was serving 50 QPS and the others were serving 100 and later a different webserver was serving 50 QPS and the others were serving 100, for these two points the Min would be 50. In other words it doesn't figure out which time series was the total minimum and just show you that host plot. The other way to see how many hits each web server is serving? This is where we look at the tag fields.
+
+Downsampling
+------------
+
+To reduce the number of datapoints returned, you can specify a downsampling interval and method, such as 1h-avg or 1d-sum. This is also useful (such as when using the max and min) to find best and worst-case datapoints over a given period. Downsampling is most useful to make the graphing phase less intensive and more readable, especially when graphing more datapoints than screen pixels.
+
+Tag filters
+-----------
+In the UI you'll see that the TSD has filled one or more "Tags", the first one is host. What TSD is saying here that for this time range it sees that the data was tagged with a host tag. You can filter the graph so that it just plots the value of one host. If you fill in A in the host row, you'll just plot the values over time of host A. If you want to give a list of hosts to plot, fill in the list of hosts separated by the pipe symbol, e.g. A|B. This will give you two plots instead of one, one for A and one for B. Finally, you can also specify the special character *, which means to plot a line for every host.
+Adding more metrics
+So, now you have a plot of your web hits. How does that correlate against load average? On this same graph, click the "+" tab to add a new metric to this existing graph. Enter proc.loadavg.1min as your metric and click "Right Axis" so the Y axis is scaled separately and its labels on the right. Make sure "Rate" is unchecked, since load average is not a counter metric. Voilà! Now you can see how changes in the rate of web hits affects your system's load average.
+Getting fancy
+Imagine each if your servers actually ran two webservers, say, one for static content and one for dynamic content. Rather than create another metric, just tag the http.hits metric with the server instance. Have your collector send stuff like:
+
+put http.hits 1234567890 34877 host=A webserver=static put http.hits 1234567890 4357 host=A webserver=dynamic put proc.loadavg.1min 1234567890 1.35 host=A
+Why do this instead of creating another metric? Well, what if sometimes you care about plotting total HTTP hits and sometimes you care about breaking out static vs. dynamic hits? With a tag, it's easy. With this new tag, you'll see a webserver tag appear in the UI when plotting this metric. You can leave it blank and it will aggregate up both values into one plot (according to your Aggregator setting) and you can see the total hits, or you can do webserver=* to break out how much each of your static and dynamic instances are collectively doing across your web servers. You can even go deeper and specify webserver=* and host=* to see the full breakdown.
+Guidelines when creating metrics
+Right now, you cannot combine two metrics into one plot line. This means you want a metric to be the biggest possible aggregation point. If you want to drill down to specifics within a metric, use tags.
+Tags vs. metrics
+The metric should be a specific thing, like "Ethernet packets" but not be broken out into a particular instance of a thing. Generally you don't want to collect a metric like net.bytes.eth0, net.bytes.eth1, etc. Collect net.bytes and tag eth0 datapoints with iface=eth0, etc. Don't bother creating separate "in" and "out" metrics, either. Add the tag direction=in or direction=out. This way you can easily see the total network activity for a given box without having to plot a bunch of metrics. This still gives you the flexibility to drill down and just show activity for a particular interface, or just a particular direction.
+Counters and rates
+If something is a counter, or is naturally something that is a rate, don't convert it to a rate before sending it to the TSD. There's two main reasons for this. First, doing your own rate calculation, reset/overflow handling, etc. is silly, since TSD can do it for you. You also don't have to worry about getting the units-per-second calculation correct based on a slightly inaccurate or changing sample interval. Secondly, if something happens where you lose a datapoint or more, if you are sending the current counter value then you won't lose data, just resolution of that data. The golden rule in TSD is, if your source data is a counter (some counter out of /proc or SNMP), keep it that way. Don't convert it. If you're writing your own collector (say, one that counts how often a particular error message appears in a tail -f of a log), don't reset your counter every sample interval. Let TSD to do the work for you.
+Tags are your friend
+In anything above a small environment, you probably have clusters or groups of machines doing the same thing. Over time these change, though. That's OK. Just use a tag when you send the data to TSD to pass this cluster info along. Add something like cluster=webserver to all the datapoints being sent from each of your webservers, and cluster=db for all your databases, etc.
+
+Now when you plot CPU activity for your webserver cluster, you see all of them aggregated into one plot. Then let's say you add a webserver or even change it from a webserver to a database. All you have to do is make sure the right tag gets sent when its role changes, and now that box's CPU activity gets counted toward the right cluster. What's more, all of your historical data is still correct! This is the true power of OpenTSDB. Not only do you never lose resolution of your datapoints over time like RRD-based systems, but historical data doesn't get lost as your boxes shift around. You also don't have to put a bunch of cluster or grouping awareness logic into your dashboards.
+Precisions on metrics and tags
+The maximum number of tags allowed on a data point is defined by a constant (Const.MAX_NUM_TAGS), which at time of writing is 8. Metric names, tag names and tag values have to be made of alpha numeric characters, dash "-", underscore "_", period ".", and forward slash "/", as is enforced by the package-private function Tags.validateString. 

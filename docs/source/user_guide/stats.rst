@@ -9,7 +9,8 @@ All stats include a ``host`` tag that includes the name of the host where the TS
    :header: "Metric", "Tags", "Type", "Description"
    :widths: 20, 20, 10, 50
    
-   "tsd.connectionmgr.connections", "", "Counter", "The total number of connections made to OpenTSDB. This includes all Telnet and HTTP connections."
+   "tsd.connectionmgr.connections", "type=open", "Guage", "The number of currently open Telnet and HTTP connections."
+   "tsd.connectionmgr.connections", "type=total", "Counter", "The total number of connections made to OpenTSDB. This includes all Telnet and HTTP connections."
    "tsd.connectionmgr.exceptions", "", "Counter", "The total number exceptions thrown by connections. Only network level exceptions are tracked by this metric, such as abrupt disconnects or invalid packets. This includes all Telnet and HTTP connections."
    "tsd.rpc.received", "type=telnet", "Counter", "The total number of telnet RPC requests received"
    "tsd.rpc.received", "type=http", "Counter", "The total number of Http RPC requests received"

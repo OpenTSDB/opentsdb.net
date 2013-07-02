@@ -94,261 +94,266 @@
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>tsd.connectionmgr.connections</td>
-<td>&nbsp;</td>
+<td>type=open</td>
+<td>Guage</td>
+<td>The number of currently open Telnet and HTTP connections.</td>
+</tr>
+<tr class="row-odd"><td>tsd.connectionmgr.connections</td>
+<td>type=total</td>
 <td>Counter</td>
 <td>The total number of connections made to OpenTSDB. This includes all Telnet and HTTP connections.</td>
 </tr>
-<tr class="row-odd"><td>tsd.connectionmgr.exceptions</td>
+<tr class="row-even"><td>tsd.connectionmgr.exceptions</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number exceptions thrown by connections. Only network level exceptions are tracked by this metric, such as abrupt disconnects or invalid packets. This includes all Telnet and HTTP connections.</td>
 </tr>
-<tr class="row-even"><td>tsd.rpc.received</td>
+<tr class="row-odd"><td>tsd.rpc.received</td>
 <td>type=telnet</td>
 <td>Counter</td>
 <td>The total number of telnet RPC requests received</td>
 </tr>
-<tr class="row-odd"><td>tsd.rpc.received</td>
+<tr class="row-even"><td>tsd.rpc.received</td>
 <td>type=http</td>
 <td>Counter</td>
 <td>The total number of Http RPC requests received</td>
 </tr>
-<tr class="row-even"><td>tsd.rpc.exceptions</td>
+<tr class="row-odd"><td>tsd.rpc.exceptions</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number exceptions caught during RPC calls. These may be user error or bugs.</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.latency_50pct</td>
+<tr class="row-even"><td>tsd.http.latency_50pct</td>
 <td>type=all</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 50th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.http.latency_75pct</td>
+<tr class="row-odd"><td>tsd.http.latency_75pct</td>
 <td>type=all</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 75th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.latency_90pct</td>
+<tr class="row-even"><td>tsd.http.latency_90pct</td>
 <td>type=all</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 90th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.http.latency_95pct</td>
+<tr class="row-odd"><td>tsd.http.latency_95pct</td>
 <td>type=all</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 95th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.latency_50pct</td>
+<tr class="row-even"><td>tsd.http.latency_50pct</td>
 <td>type=graph</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 50th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.http.latency_75pct</td>
+<tr class="row-odd"><td>tsd.http.latency_75pct</td>
 <td>type=graph</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 75th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.latency_90pct</td>
+<tr class="row-even"><td>tsd.http.latency_90pct</td>
 <td>type=graph</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 90th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.http.latency_95pct</td>
+<tr class="row-odd"><td>tsd.http.latency_95pct</td>
 <td>type=graph</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 95th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.latency_50pct</td>
+<tr class="row-even"><td>tsd.http.latency_50pct</td>
 <td>type=gnuplot</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 50th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.http.latency_75pct</td>
+<tr class="row-odd"><td>tsd.http.latency_75pct</td>
 <td>type=gnuplot</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 75th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.latency_90pct</td>
+<tr class="row-even"><td>tsd.http.latency_90pct</td>
 <td>type=gnuplot</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 90th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.http.latency_95pct</td>
+<tr class="row-odd"><td>tsd.http.latency_95pct</td>
 <td>type=gnuplot</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 95th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.graph.requests</td>
+<tr class="row-even"><td>tsd.http.graph.requests</td>
 <td>cache=disk</td>
 <td>Counter</td>
 <td>The total number of graph requests satisfied from the disk cache</td>
 </tr>
-<tr class="row-even"><td>tsd.http.graph.requests</td>
+<tr class="row-odd"><td>tsd.http.graph.requests</td>
 <td>cache=miss</td>
 <td>Counter</td>
 <td>The total number of graph requests that were not cached and required a fetch from storage</td>
 </tr>
-<tr class="row-odd"><td>tsd.rpc.received</td>
+<tr class="row-even"><td>tsd.rpc.received</td>
 <td>type=put</td>
 <td>Counter</td>
 <td>The total number of <tt class="docutils literal"><span class="pre">put</span></tt> requests for writing data points</td>
 </tr>
-<tr class="row-even"><td>tsd.rpc.errors</td>
+<tr class="row-odd"><td>tsd.rpc.errors</td>
 <td>type=hbase_errors</td>
 <td>Counter</td>
 <td>The total number of RPC errors caused by HBase exceptions</td>
 </tr>
-<tr class="row-odd"><td>tsd.rpc.errors</td>
+<tr class="row-even"><td>tsd.rpc.errors</td>
 <td>type=invalid_values</td>
 <td>Counter</td>
 <td>The total number of RPC errors caused invalid <tt class="docutils literal"><span class="pre">put</span></tt> values from user requests, such as a string instead of a number</td>
 </tr>
-<tr class="row-even"><td>tsd.rpc.errors</td>
+<tr class="row-odd"><td>tsd.rpc.errors</td>
 <td>type=illegal_arguments</td>
 <td>Counter</td>
 <td>The total number of RPC errors caused by bad data from the user</td>
 </tr>
-<tr class="row-odd"><td>tsd.rpc.errors</td>
+<tr class="row-even"><td>tsd.rpc.errors</td>
 <td>type=unknown_metrics</td>
 <td>Counter</td>
 <td>The total number of RPC errors caused by attempts to <tt class="docutils literal"><span class="pre">put</span></tt> a metric without an assigned UID. This only increments if <em>auto metrics</em> is disabled.</td>
 </tr>
-<tr class="row-even"><td>tsd.uid.cache-hit</td>
+<tr class="row-odd"><td>tsd.uid.cache-hit</td>
 <td>kind=metrics</td>
 <td>Counter</td>
 <td>The total number of successful cache lookups for metric UIDs</td>
 </tr>
-<tr class="row-odd"><td>tsd.uid.cache-miss</td>
+<tr class="row-even"><td>tsd.uid.cache-miss</td>
 <td>kind=metrics</td>
 <td>Counter</td>
 <td>The total number of failed cache lookups for metric UIDs that required a call to storage</td>
 </tr>
-<tr class="row-even"><td>tsd.uid.cache-size</td>
+<tr class="row-odd"><td>tsd.uid.cache-size</td>
 <td>kind=metrics</td>
 <td>Gauge</td>
 <td>The current number of cached metric UIDs</td>
 </tr>
-<tr class="row-odd"><td>tsd.uid.cache-hit</td>
+<tr class="row-even"><td>tsd.uid.cache-hit</td>
 <td>kind=tagk</td>
 <td>Counter</td>
 <td>The total number of successful cache lookups for tagk UIDs</td>
 </tr>
-<tr class="row-even"><td>tsd.uid.cache-miss</td>
+<tr class="row-odd"><td>tsd.uid.cache-miss</td>
 <td>kind=tagk</td>
 <td>Counter</td>
 <td>The total number of failed cache lookups for tagk UIDs that required a call to storage</td>
 </tr>
-<tr class="row-odd"><td>tsd.uid.cache-size</td>
+<tr class="row-even"><td>tsd.uid.cache-size</td>
 <td>kind=tagk</td>
 <td>Gauge</td>
 <td>The current number of cached tagk UIDs</td>
 </tr>
-<tr class="row-even"><td>tsd.uid.cache-hit</td>
+<tr class="row-odd"><td>tsd.uid.cache-hit</td>
 <td>kind=tagv</td>
 <td>Counter</td>
 <td>The total number of successful cache lookups for tagv UIDs</td>
 </tr>
-<tr class="row-odd"><td>tsd.uid.cache-miss</td>
+<tr class="row-even"><td>tsd.uid.cache-miss</td>
 <td>kind=tagv</td>
 <td>Counter</td>
 <td>The total number of failed cache lookups for tagv UIDs that required a call to storage</td>
 </tr>
-<tr class="row-even"><td>tsd.uid.cache-size</td>
+<tr class="row-odd"><td>tsd.uid.cache-size</td>
 <td>kind=tagv</td>
 <td>Gauge</td>
 <td>The current number of cached tagv UIDs</td>
 </tr>
-<tr class="row-odd"><td>tsd.jvm.ramfree</td>
+<tr class="row-even"><td>tsd.jvm.ramfree</td>
 <td>&nbsp;</td>
 <td>Gauge</td>
 <td>The number of bytes reported as free by the JVM&#8217;s Runtime.freeMemory()</td>
 </tr>
-<tr class="row-even"><td>tsd.jvm.ramused</td>
+<tr class="row-odd"><td>tsd.jvm.ramused</td>
 <td>&nbsp;</td>
 <td>Gauge</td>
 <td>The number of bytes reported as used by the JVM&#8217;s Runtime.totalMemory()</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.latency_50pct</td>
+<tr class="row-even"><td>tsd.hbase.latency_50pct</td>
 <td>method=put</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 50th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.latency_75pct</td>
+<tr class="row-odd"><td>tsd.hbase.latency_75pct</td>
 <td>method=put</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 75th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.latency_90pct</td>
+<tr class="row-even"><td>tsd.hbase.latency_90pct</td>
 <td>method=put</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 90th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.latency_95pct</td>
+<tr class="row-odd"><td>tsd.hbase.latency_95pct</td>
 <td>method=put</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 95th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.latency_50pct</td>
+<tr class="row-even"><td>tsd.hbase.latency_50pct</td>
 <td>method=scan</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 50th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.latency_75pct</td>
+<tr class="row-odd"><td>tsd.hbase.latency_75pct</td>
 <td>method=scan</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 75th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.latency_90pct</td>
+<tr class="row-even"><td>tsd.hbase.latency_90pct</td>
 <td>method=scan</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 90th percentile cases</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.latency_95pct</td>
+<tr class="row-odd"><td>tsd.hbase.latency_95pct</td>
 <td>method=scan</td>
 <td>Guage</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 95th percentile cases</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.root_lookups</td>
+<tr class="row-even"><td>tsd.hbase.root_lookups</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number of root lookups performed by the client</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.meta_lookups</td>
+<tr class="row-odd"><td>tsd.hbase.meta_lookups</td>
 <td>type=uncontended</td>
 <td>Counter</td>
 <td>The total number of uncontended meta table lookups performed by the client</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.meta_lookups</td>
+<tr class="row-even"><td>tsd.hbase.meta_lookups</td>
 <td>type=contended</td>
 <td>Counter</td>
 <td>The total number of contended meta table lookups performed by the client</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<tr class="row-odd"><td>tsd.hbase.rpcs</td>
 <td>type=increment</td>
 <td>Counter</td>
 <td>The total number of Increment requests performed by the client</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.rpcs</td>
+<tr class="row-even"><td>tsd.hbase.rpcs</td>
 <td>type=delete</td>
 <td>Counter</td>
 <td>The total number of Delete requests performed by the client</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<tr class="row-odd"><td>tsd.hbase.rpcs</td>
 <td>type=get</td>
 <td>Counter</td>
 <td>The total number of Get requests performed by the client</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.rpcs</td>
+<tr class="row-even"><td>tsd.hbase.rpcs</td>
 <td>type=put</td>
 <td>Counter</td>
 <td>The total number of Put requests performed by the client</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<tr class="row-odd"><td>tsd.hbase.rpcs</td>
 <td>type=rowLock</td>
 <td>Counter</td>
 <td>The total number of Row Lock requests performed by the client</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.rpcs</td>
+<tr class="row-even"><td>tsd.hbase.rpcs</td>
 <td>type=openScanner</td>
 <td>Counter</td>
 <td><dl class="first last docutils">
@@ -357,42 +362,42 @@
 </dl>
 </td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<tr class="row-odd"><td>tsd.hbase.rpcs</td>
 <td>type=scan</td>
 <td>Counter</td>
 <td>The total number of Scan requests performed by the client. These indicate a scan-&gt;next() call.</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.rpcs.batched</td>
+<tr class="row-even"><td>tsd.hbase.rpcs.batched</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number of batched requests sent by the client</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.flushes</td>
+<tr class="row-odd"><td>tsd.hbase.flushes</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number of flushes performed by the client</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.connections.created</td>
+<tr class="row-even"><td>tsd.hbase.connections.created</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number of connections made by the client to region servers</td>
 </tr>
-<tr class="row-even"><td>tsd.hbase.nsre</td>
+<tr class="row-odd"><td>tsd.hbase.nsre</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number of No Such Region Exceptions caught. These can happen when a region server crashes, is taken offline or when a region splits (?)</td>
 </tr>
-<tr class="row-odd"><td>tsd.hbase.rpcs.rpcs_delayed</td>
+<tr class="row-even"><td>tsd.hbase.rpcs.rpcs_delayed</td>
 <td>&nbsp;</td>
 <td>Counter</td>
 <td>The total number of calls delayed due to an NSRE that were later successfully executed</td>
 </tr>
-<tr class="row-even"><td>tsd.compaction.count</td>
+<tr class="row-odd"><td>tsd.compaction.count</td>
 <td>type=trivial</td>
 <td>Counter</td>
 <td>The total number of trivial compactions performed by the TSD</td>
 </tr>
-<tr class="row-odd"><td>tsd.compaction.count</td>
+<tr class="row-even"><td>tsd.compaction.count</td>
 <td>type=complex</td>
 <td>Counter</td>
 <td>The total number of complex compactions performed by the TSD</td>

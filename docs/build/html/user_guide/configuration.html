@@ -142,28 +142,21 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>False</td>
 <td>&#8211;auto-metric</td>
 </tr>
-<tr class="row-odd"><td>tsd.core.enable_milliseconds</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to enable millisecond timestamp support.</td>
-<td>False</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>tsd.core.meta.enable_tracking</td>
+<tr class="row-odd"><td>tsd.core.meta.enable_tracking</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable real-time metadata tracking/creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.core.plugin_path</td>
+<tr class="row-even"><td>tsd.core.plugin_path</td>
 <td>String</td>
 <td>Optional</td>
 <td>A path to search for plugins when the TSD starts. If the path is invalid, the TSD will fail to start. Plugins can still be enabled if they are in the class path.</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.core.timezone</td>
+<tr class="row-odd"><td>tsd.core.timezone</td>
 <td>String</td>
 <td>Optional</td>
 <td>A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.
@@ -171,14 +164,14 @@ E.g. America/Los_Angeles</td>
 <td>System Configured</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.core.tree.enable_processing</td>
+<tr class="row-even"><td>tsd.core.tree.enable_processing</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable processing new/edited TSMeta through tree rule sets</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.cachedir</td>
+<tr class="row-odd"><td>tsd.http.cachedir</td>
 <td>String</td>
 <td>Required</td>
 <td>The full path to a location where temporary files can be written.
@@ -186,28 +179,28 @@ E.g. /tmp/opentsdb</td>
 <td>&nbsp;</td>
 <td>&#8211;cachedir</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.request.enable_chunked</td>
+<tr class="row-even"><td>tsd.http.request.enable_chunked</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable incoming chunk support for the HTTP RPC</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.request.max_chunk</td>
+<tr class="row-odd"><td>tsd.http.request.max_chunk</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum chunk size to support for incoming HTTP requests.</td>
 <td>4096</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.show_stack_trace</td>
+<tr class="row-even"><td>tsd.http.show_stack_trace</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to return the stack trace with an API query response when an exception occurs.</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.staticroot</td>
+<tr class="row-odd"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
 <td>Location of a directory where static files, such as javascript files for the web interface, are located.
@@ -215,14 +208,14 @@ E.g. /opt/opentsdb/staticroot</td>
 <td>&nbsp;</td>
 <td>&#8211;staticroot</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.async_io</td>
+<tr class="row-even"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or tradditional blocking IO&#8221;</td>
 <td>True</td>
 <td>&#8211;async-io</td>
 </tr>
-<tr class="row-even"><td>tsd.network.bind</td>
+<tr class="row-odd"><td>tsd.network.bind</td>
 <td>String</td>
 <td>Optional</td>
 <td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
@@ -230,49 +223,49 @@ E.g. 127.0.0.1</td>
 <td>0.0.0.0</td>
 <td>&#8211;bind</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.keep_alive</td>
+<tr class="row-even"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.network.port</td>
+<tr class="row-odd"><td>tsd.network.port</td>
 <td>Integer</td>
 <td>Required</td>
 <td>The TCP port to use for accepting connections</td>
 <td>&nbsp;</td>
 <td>&#8211;port</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.reuse_address</td>
+<tr class="row-even"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow reuse of the bound port within Netty</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.network.tcp_no_delay</td>
+<tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to disable TCP buffering before sending data</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.worker_threads</td>
+<tr class="row-even"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number fo asynchronous IO worker threads for Netty</td>
 <td><em>#CPU cores * 2</em></td>
 <td>&#8211;worker-threads</td>
 </tr>
-<tr class="row-even"><td>tsd.rtpublisher.enable</td>
+<tr class="row-odd"><td>tsd.rtpublisher.enable</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable a real time publishing plugin. If true, you must supply a valid <tt class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></tt> class name</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.rtpublisher.plugin</td>
+<tr class="row-even"><td>tsd.rtpublisher.plugin</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of a real time publishing plugin to instantiate. If <tt class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></tt> is set to false, this value is ignored.
@@ -280,14 +273,14 @@ E.g. net.opentsdb.tsd.RabbitMQPublisher</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.search.enable</td>
+<tr class="row-odd"><td>tsd.search.enable</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable search functionality. If true, you must supply a valid <tt class="docutils literal"><span class="pre">tsd.search.plugin</span></tt> class name</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.search.plugin</td>
+<tr class="row-even"><td>tsd.search.plugin</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of a search plugin to instantiate. If <tt class="docutils literal"><span class="pre">tsd.search.enable</span></tt> is set to false, this value is ignored.
@@ -295,49 +288,49 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.stats.canonical</td>
+<tr class="row-odd"><td>tsd.stats.canonical</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with &#8220;host=&lt;hostname&gt;&#8221; which is not gauranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the fqdn if found, otherwise it may return the IP. The stats output should be &#8220;fqdn=&lt;hostname&#8221;</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.enable_compaction</td>
+<tr class="row-even"><td>tsd.storage.enable_compaction</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable compactions</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.flush_interval</td>
+<tr class="row-odd"><td>tsd.storage.flush_interval</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How often, in milliseconds, to flush the data point storage write buffer</td>
 <td>1000</td>
 <td>&#8211;flush-interval</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.data_table</td>
+<tr class="row-even"><td>tsd.storage.hbase.data_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where data points are stored</td>
 <td>tsdb</td>
 <td>&#8211;table</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.uid_table</td>
+<tr class="row-odd"><td>tsd.storage.hbase.uid_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where UID information is stored</td>
 <td>tsdb-uid</td>
 <td>&#8211;uidtable</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.zk_basedir</td>
+<tr class="row-even"><td>tsd.storage.hbase.zk_basedir</td>
 <td>String</td>
 <td>Optional</td>
 <td>Path under which the znode for the -ROOT- region is located</td>
 <td>/hbase</td>
 <td>&#8211;zkbasedir</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.zk_quorum</td>
+<tr class="row-odd"><td>tsd.storage.hbase.zk_quorum</td>
 <td>String</td>
 <td>Optional</td>
 <td>A space separated list of Zookeeper hosts to connect to, with or without port specifiers.

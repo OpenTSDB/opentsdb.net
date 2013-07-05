@@ -47,9 +47,20 @@ Data Specification
 Every time series data point requires the following data:
 
 * metric - A generic name for the timeseries such as ``sys.cpu.user``, ``stock.quote`` or ``env.probe.temp``.
-* timestamp - A Unix/POSIX Epoch timestamp in seconds defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. This must be an integer value.
+* timestamp - A Unix/POSIX Epoch timestamp in seconds or milliseconds defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time.
 * value - A numeric value to store at the given timestamp for the time series. This may be an integer or a floating point value.
 * tag(s) - A key/value pair consisting of a ``tagk`` (the key) and a ``tagv`` (the value). Each data point must have at least one tag.
+
+Timestamps
+----------
+
+Data can be written to OpenTSDB with second or millisecond resolution. When writing to the telnet interface, millisecond timestamps may be of the format ``1364410924250`` where three digits are appended that represent the milliseconds, or ``1364410924.250`` where three digits are placed after a period. Timestamps with more than 13 digits will throw an error, so if your application outputs timestamps with more than three millisecond digits, you must round the value before submitting it. Timestamps sent to the ``/api/put`` endpoint over HTTP must be integers and may not have periods.
+
+Timestamps with second resolution are stored on 2 bytes while millisecond resolution are stored on 4. Thus if you do not need millisecond resolution or all of your data points are on 1 second boundaries, we recommend that you submit timestamps with 10 digits for second resolution so that you can save on storage space. OpenTSDB will store whatever you give it.
+
+.. NOTE:: Providing millisecond resolution does not necessarily mean that OpenTSDB supports write speeds of 1 data point per millisecond over many time series. While a single TSD may be able to handle a few thousand writes per second, that would only cover a few time series if you're try to store a point every millisecond. Instead OpenTSDB aims to provide greater measurement accuracy and you should generally avoid recording data at such a speed, particularly for long running time series.
+
+.. NOTE:: Data with millisecond resolution can only be extracted via the ``/api/query`` endpoint at this time. See :doc:`query/index` for details.
 
 Metrics and Tags
 ----------------

@@ -22,7 +22,10 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="Queries" href="index.html" />
+    <link rel="next" title="Understanding Metrics and Time Series" href="timeseries.html" />
+    <link rel="prev" title="Queries" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -32,7 +35,15 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="timeseries.html" title="Understanding Metrics and Time Series"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Queries"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Queries</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -48,6 +59,12 @@
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Queries</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="timeseries.html"
+                        title="next chapter">Understanding Metrics and Time Series</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -76,6 +93,7 @@
 <h2>Relative</h2>
 <p>If you don&#8217;t know the exact timestamp to request you can submit a time in the past relative to the time on the system where the TSD is running. Relative times follow the format <tt class="docutils literal"><span class="pre">&lt;amount&gt;&lt;time</span> <span class="pre">unit&gt;-ago</span></tt> where <tt class="docutils literal"><span class="pre">&lt;amount&gt;</span></tt> is the number of time units and <tt class="docutils literal"><span class="pre">&lt;time</span> <span class="pre">unit&gt;</span></tt> is the unit of time, such as hours, days, etc. For example, if we provide a <strong>start time</strong> of <tt class="docutils literal"><span class="pre">1h-ago</span></tt> and leave out the <strong>end time</strong>, our query will return data start at 1 hour ago to the current time. Possible units of time include:</p>
 <ul class="simple">
+<li>ms - Milliseconds</li>
 <li>s - Seconds</li>
 <li>m - Minutes</li>
 <li>h - Hours</li>
@@ -88,15 +106,11 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Relative times do not account for leap seconds, leap years or time zones. They simply calculate the number of seconds in the past from the current time.</p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">OpenTSDB does not support a millisecond relative time unit since users are rarely fast enough to issue queries less than a second apart. If a script or application is performing queries that require millsecond precision, they should use absolute Unix times.</p>
-</div>
 </div>
 <div class="section" id="absolute-unix-time">
 <h2>Absolute Unix Time</h2>
 <p>Internally, all data is associated with a Unix (or POSIX) style timestamp. Unix times are defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. Timestamps are represented as a positive integer such as <tt class="docutils literal"><span class="pre">1364410924</span></tt>, representing <tt class="docutils literal"><span class="pre">ISO</span> <span class="pre">8601:2013-03-27T19:02:04Z</span></tt>. Since calls to store data in OpenTSDB require a Unix timestamp, it makes sense to support the format in queries. Thus you can supply an integer for a start or end time in a query.</p>
-<p>Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of <tt class="docutils literal"><span class="pre">1364410924000</span></tt> and an end time of <tt class="docutils literal"><span class="pre">1364410924250</span></tt> will return data within a 250 millisecond window. Any integers over 10 characters long will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds.</p>
+<p>Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of <tt class="docutils literal"><span class="pre">1364410924000</span></tt> and an end time of <tt class="docutils literal"><span class="pre">1364410924250</span></tt> will return data within a 250 millisecond window. Millisecond timestamps may also be supplied with a period separating the seconds from the milliseconds as in <tt class="docutils literal"><span class="pre">1364410924.250</span></tt>. Any integers with 13 (or 14) characters will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds. Milliseconds may only be supplied with 3 digit precision. If your tool outputs more than 3 digits you must truncate or round the value.</p>
 </div>
 <div class="section" id="absolute-formatted-time">
 <h2>Absolute Formatted Time</h2>
@@ -135,7 +149,15 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="timeseries.html" title="Understanding Metrics and Time Series"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Queries"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" >Queries</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="HTTP API" href="index.html" />
-    <link rel="next" title="/api/serializers" href="serializers.html" />
+    <link rel="next" title="/api/search" href="search.html" />
     <link rel="prev" title="/api/put" href="put.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -36,7 +36,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="serializers.html" title="/api/serializers"
+          <a href="search.html" title="/api/search"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="put.html" title="/api/put"
@@ -65,8 +65,8 @@
   <p class="topless"><a href="put.html"
                         title="previous chapter">/api/put</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="serializers.html"
-                        title="next chapter">/api/serializers</a></p>
+  <p class="topless"><a href="search.html"
+                        title="next chapter">/api/search</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -161,6 +161,15 @@
 <td>&nbsp;</td>
 <td>true</td>
 </tr>
+<tr class="row-even"><td>msResolution</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to output data point timestamps in milliseconds or seconds. If this flag is not provided and there are multiple data points within a second, those data points will be down sampled using the query&#8217;s aggregation function.</td>
+<td>false</td>
+<td>ms</td>
+<td>&nbsp;</td>
+<td>true</td>
+</tr>
 </tbody>
 </table>
 <div class="section" id="example-query-string-request">
@@ -228,7 +237,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="serializers.html" title="/api/serializers"
+          <a href="search.html" title="/api/search"
              >next</a> |</li>
         <li class="right" >
           <a href="put.html" title="/api/put"

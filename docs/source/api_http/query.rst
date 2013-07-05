@@ -24,6 +24,7 @@ Common parameters include:
    "end", "String, Integer", "Optional", "An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See :doc:`../user_guide/query/index` for details.", "*current time*", "end", "", "1s-ago"
    "noAnnotations", "Boolean", "Optional", "Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides ``globalAnnotations``", "true", "no_annotations", "", "false"
    "globalAnnotations", "Boolean", "Optional", "Whether or not the query should retrieve global annotations for the requested timespan", "false", "global_annotations", "", "true"
+   "msResolution", "Boolean", "Optional", "Whether or not to output data point timestamps in milliseconds or seconds. If this flag is not provided and there are multiple data points within a second, those data points will be down sampled using the query's aggregation function.", "false", "ms", "", "true"
 
 Example Query String Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

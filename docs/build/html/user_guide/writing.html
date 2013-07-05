@@ -25,7 +25,7 @@
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Queries" href="query/index.html" />
-    <link rel="prev" title="GUIs" href="guis/index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="GUI" href="guis/index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -39,7 +39,7 @@
           <a href="query/index.html" title="Queries"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="guis/index.html" title="GUIs"
+          <a href="guis/index.html" title="GUI"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
@@ -52,6 +52,7 @@
 <li><a class="reference internal" href="#">Writing Data</a><ul>
 <li><a class="reference internal" href="#naming-schema">Naming Schema</a></li>
 <li><a class="reference internal" href="#data-specification">Data Specification</a><ul>
+<li><a class="reference internal" href="#timestamps">Timestamps</a></li>
 <li><a class="reference internal" href="#metrics-and-tags">Metrics and Tags</a></li>
 <li><a class="reference internal" href="#integer-values">Integer Values</a></li>
 <li><a class="reference internal" href="#floating-point-values">Floating Point Values</a></li>
@@ -79,7 +80,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="guis/index.html"
-                        title="previous chapter">GUIs</a></p>
+                        title="previous chapter">GUI</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="query/index.html"
                         title="next chapter">Queries</a></p>
@@ -142,10 +143,23 @@ sys.cpu.user host=webserver01,cpu=63 1356998400  1</pre>
 <p>Every time series data point requires the following data:</p>
 <ul class="simple">
 <li>metric - A generic name for the timeseries such as <tt class="docutils literal"><span class="pre">sys.cpu.user</span></tt>, <tt class="docutils literal"><span class="pre">stock.quote</span></tt> or <tt class="docutils literal"><span class="pre">env.probe.temp</span></tt>.</li>
-<li>timestamp - A Unix/POSIX Epoch timestamp in seconds defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. This must be an integer value.</li>
+<li>timestamp - A Unix/POSIX Epoch timestamp in seconds or milliseconds defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time.</li>
 <li>value - A numeric value to store at the given timestamp for the time series. This may be an integer or a floating point value.</li>
 <li>tag(s) - A key/value pair consisting of a <tt class="docutils literal"><span class="pre">tagk</span></tt> (the key) and a <tt class="docutils literal"><span class="pre">tagv</span></tt> (the value). Each data point must have at least one tag.</li>
 </ul>
+<div class="section" id="timestamps">
+<h3>Timestamps</h3>
+<p>Data can be written to OpenTSDB with second or millisecond resolution. When writing to the telnet interface, millisecond timestamps may be of the format <tt class="docutils literal"><span class="pre">1364410924250</span></tt> where three digits are appended that represent the milliseconds, or <tt class="docutils literal"><span class="pre">1364410924.250</span></tt> where three digits are placed after a period. Timestamps with more than 13 digits will throw an error, so if your application outputs timestamps with more than three millisecond digits, you must round the value before submitting it. Timestamps sent to the <tt class="docutils literal"><span class="pre">/api/put</span></tt> endpoint over HTTP must be integers and may not have periods.</p>
+<p>Timestamps with second resolution are stored on 2 bytes while millisecond resolution are stored on 4. Thus if you do not need millisecond resolution or all of your data points are on 1 second boundaries, we recommend that you submit timestamps with 10 digits for second resolution so that you can save on storage space. OpenTSDB will store whatever you give it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Providing millisecond resolution does not necessarily mean that OpenTSDB supports write speeds of 1 data point per millisecond over many time series. While a single TSD may be able to handle a few thousand writes per second, that would only cover a few time series if you&#8217;re try to store a point every millisecond. Instead OpenTSDB aims to provide greater measurement accuracy and you should generally avoid recording data at such a speed, particularly for long running time series.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Data with millisecond resolution can only be extracted via the <tt class="docutils literal"><span class="pre">/api/query</span></tt> endpoint at this time. See <a class="reference internal" href="query/index.html"><em>Queries</em></a> for details.</p>
+</div>
+</div>
 <div class="section" id="metrics-and-tags">
 <h3>Metrics and Tags</h3>
 <p>The following rules apply to metric and tag values:</p>
@@ -266,7 +280,7 @@ sys.cpu.user host=webserver01,cpu=63 1356998400  1</pre>
           <a href="query/index.html" title="Queries"
              >next</a> |</li>
         <li class="right" >
-          <a href="guis/index.html" title="GUIs"
+          <a href="guis/index.html" title="GUI"
              >previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >User Guide</a> &raquo;</li> 

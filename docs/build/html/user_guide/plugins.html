@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
-    <link rel="next" title="Searching" href="search.html" />
+    <link rel="next" title="Metadata" href="metadata.html" />
     <link rel="prev" title="Understanding Metrics and Time Series" href="query/timeseries.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -36,7 +36,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="search.html" title="Searching"
+          <a href="metadata.html" title="Metadata"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="query/timeseries.html" title="Understanding Metrics and Time Series"
@@ -66,6 +66,10 @@
 <li><a class="reference internal" href="#id3">Plugins</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#rpc">RPC</a><ul>
+<li><a class="reference internal" href="#id4">Plugins</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -74,8 +78,8 @@
   <p class="topless"><a href="query/timeseries.html"
                         title="previous chapter">Understanding Metrics and Time Series</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="search.html"
-                        title="next chapter">Searching</a></p>
+  <p class="topless"><a href="metadata.html"
+                        title="next chapter">Metadata</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -132,7 +136,7 @@
 </div>
 <div class="section" id="search">
 <h2>Search</h2>
-<p>OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The <tt class="docutils literal"><span class="pre">tsd.search.plugin</span></tt> property lets you select a search plugin and <tt class="docutils literal"><span class="pre">tsd.search.enable</span></tt> will start sending data and queries.</p>
+<p>OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The <tt class="docutils literal"><span class="pre">tsd.search.plugin</span></tt> property lets you select a search plugin and <tt class="docutils literal"><span class="pre">tsd.search.enable</span></tt> will start sending data and queries. Search plugins will be loaded by TSDs and select command line tools such as the UID Manager tool.</p>
 <div class="section" id="id2">
 <h3>Plugins</h3>
 <ul class="simple">
@@ -142,13 +146,21 @@
 </div>
 <div class="section" id="real-time-publishing">
 <h2>Real Time Publishing</h2>
-<p>Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The <tt class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></tt> proeprty lets you select a plugin and <tt class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></tt> will start sending data.</p>
+<p>Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The <tt class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></tt> property lets you select a plugin and <tt class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></tt> will start sending data.</p>
 <div class="section" id="id3">
 <h3>Plugins</h3>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/manolama/opentsdb-rtpub-rabbitmq">RabbitMQ</a> - A proof-of-concept plugin to publish to a RabbitMQ cluster by metric name</li>
 <li><a class="reference external" href="https://github.com/gutefrage/OpenTsdbSkylinePublisher">Skyline</a> - A proof-of-concept plugin to publish to an  Etsy Skyline processor</li>
 </ul>
+</div>
+</div>
+<div class="section" id="rpc">
+<h2>RPC</h2>
+<p>Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the <tt class="docutils literal"><span class="pre">tsd.rpc.plugins</span></tt> configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.</p>
+<div class="section" id="id4">
+<h3>Plugins</h3>
+<p>No implementations at this time.</p>
 </div>
 </div>
 </div>
@@ -166,7 +178,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="search.html" title="Searching"
+          <a href="metadata.html" title="Metadata"
              >next</a> |</li>
         <li class="right" >
           <a href="query/timeseries.html" title="Understanding Metrics and Time Series"

@@ -40,7 +40,7 @@ No implementations, aside from the default, at this time.
 Search
 ^^^^^^
 
-OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The ``tsd.search.plugin`` property lets you select a search plugin and ``tsd.search.enable`` will start sending data and queries.
+OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The ``tsd.search.plugin`` property lets you select a search plugin and ``tsd.search.enable`` will start sending data and queries. Search plugins will be loaded by TSDs and select command line tools such as the UID Manager tool.
 
 Plugins
 -------
@@ -50,10 +50,20 @@ Plugins
 Real Time Publishing
 ^^^^^^^^^^^^^^^^^^^^
 
-Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The ``tsd.rtpublisher.plugin`` proeprty lets you select a plugin and ``tsd.rtpublisher.enable`` will start sending data.
+Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The ``tsd.rtpublisher.plugin`` property lets you select a plugin and ``tsd.rtpublisher.enable`` will start sending data.
 
 Plugins
 -------
 
 * `RabbitMQ <https://github.com/manolama/opentsdb-rtpub-rabbitmq>`_ - A proof-of-concept plugin to publish to a RabbitMQ cluster by metric name
 * `Skyline <https://github.com/gutefrage/OpenTsdbSkylinePublisher>`_ - A proof-of-concept plugin to publish to an  Etsy Skyline processor
+
+RPC
+^^^
+
+Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the ``tsd.rpc.plugins`` configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.
+
+Plugins
+-------
+
+No implementations at this time.

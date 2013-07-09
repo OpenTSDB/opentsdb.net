@@ -314,7 +314,14 @@
 <td>false</td>
 <td>true</td>
 </tr>
-<tr class="row-odd"><td>queries</td>
+<tr class="row-odd"><td>showTSUIDs</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to output the TSUIDs associated with timeseries in the results. If multiple time series were aggregated into one set, multiple TSUIDs will be returned in a sorted manner</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>queries</td>
 <td>Array</td>
 <td>Required</td>
 <td>A list of one or more sub queries describing the timeseries data to retrieve</td>
@@ -478,6 +485,11 @@
 <td>If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group</td>
 <td><em>See Below</em></td>
 </tr>
+<tr class="row-even"><td>tsuids</td>
+<td>Array</td>
+<td>If requested by the user, a list of unique TSUIDs aggregated into the results will be returned in sorted order.</td>
+<td><em>See Below</em></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -511,6 +523,9 @@
                 <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">1365966164</span><span class="p">,</span>
                 <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1365966064</span>
             <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0023E3000002000008000006000001&quot;</span>
         <span class="p">],</span>
         <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;1365966001&quot;</span><span class="o">:</span> <span class="mi">25595461080</span><span class="p">,</span>

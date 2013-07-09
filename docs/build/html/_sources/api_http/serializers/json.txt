@@ -121,6 +121,7 @@ Instead of using the query string method, you can build a query as a JSON object
   "padding", "Boolean", "Optional", "Whether or not the response should include one data point to either side of the requested time range. This is used for some graphing methods that require extra data for proper display.", "false", "true"
   "noAnnotations", "Boolean", "Optional", "Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides ``globalAnnotations``", "true", "false"
   "globalAnnotations", "Boolean", "Optional", "Whether or not the query should retrieve global annotations for the requested timespan", "false", "true"
+  "showTSUIDs", "Boolean", "Optional", "Whether or not to output the TSUIDs associated with timeseries in the results. If multiple time series were aggregated into one set, multiple TSUIDs will be returned in a sorted manner", "false", "true"
   "queries", "Array", "Required", "A list of one or more sub queries describing the timeseries data to retrieve", "", "*See Below*"
    
 Each query can retrieve one or sets of timeseries data, performing aggregation or grouping calculations on each set. Fields for each sub query include:
@@ -179,6 +180,7 @@ Query responses are arrays of result sets, with one result set per timeseries or
   "dps", "Map, Array", "Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by query string parameters.", "*See Below*"
   "annotations", "Array", "If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by ``start_time``. Aggregator functions do not affect annotations, all annotations will be returned for the span.", "*See Below*"
   "globalAnnotations", "Array", "If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group", "*See Below*"
+  "tsuids", "Array", "If requested by the user, a list of unique TSUIDs aggregated into the results will be returned in sorted order.", "*See Below*"
   
 Example Aggregated Default Response
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -212,6 +214,9 @@ Example Aggregated Default Response
                   "endTime": 1365966164,
                   "startTime": 1365966064
               }
+          ],
+          "tsuids": [
+              "0023E3000002000008000006000001"
           ],
           "dps": {
               "1365966001": 25595461080,

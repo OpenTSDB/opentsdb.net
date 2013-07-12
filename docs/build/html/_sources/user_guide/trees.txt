@@ -125,7 +125,9 @@ Each rule can only process a regex, a separator, or neither. If the rule has bot
 Tree Building
 ^^^^^^^^^^^^^
 
-A tree can be built in two ways. The ``tsd.core.tree.enable_processing`` configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The results, be it a branch, collision or not matched entry, will be recorded to storagge.
+First, you must create the ``tsdb-tree`` table in HBase if you haven't already done so. If you enable tree processing and the table does not exist, the TSDs will not start.
+
+A tree can be built in two ways. The ``tsd.core.tree.enable_processing`` configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The resulting branch will be recorded to storage. If a collision occurs or the TSUID failed to match on any rules, a warning will be logged and if the tree options configured, may be recorded to storage.
 
 Alternatively you can periodically synchronize all TSMeta objects via the CLI ``uid`` tool. This will scan through the ``tsdb-uid`` table and pass each discovered TSMeta object through configured and enabled trees. See :doc:`cli/uid` for details.
 
@@ -133,11 +135,11 @@ Alternatively you can periodically synchronize all TSMeta objects via the CLI ``
 
 The general process for creating and building a tree is as follows:
 
-# Create a new tree via the HTTP API
-# Assign one or more rules to the tree via the HTTP API
-# Test the rules with some TSMeta objects via the HTTP API
-# After veryfing the branches would appear correctly, set the tree's ``enable`` flat to ``true``
-# Run the ``uid`` tool with the ``treesync`` sub command to synchronize existing TSMeta objects in the tree
+#. Create a new tree via the HTTP API
+#. Assign one or more rules to the tree via the HTTP API
+#. Test the rules with some TSMeta objects via the HTTP API
+#. After veryfing the branches would appear correctly, set the tree's ``enable`` flat to ``true``
+#. Run the ``uid`` tool with the ``treesync`` sub command to synchronize existing TSMeta objects in the tree
 
 .. NOTE:: When you create a new tree, it will be disabled by default so TSMeta objects will not be processed through the rule set. This is so you have time to configure the rule set and test it to verify that the tree would be built as you expect it to.
 

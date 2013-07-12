@@ -96,6 +96,10 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Calling this endpoint without a list of one or more TSUIDs will return all collisions in the tree. If you have a large number of timeseries in your system, the response can potentially be very large. Thus it is best to use this endpoint with specific TSUIDs.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If <tt class="docutils literal"><span class="pre">storeFailures</span></tt> is diabled for the tree, this endpoint will not return any data. Collisions will still appear in the TSD&#8217;s logs.</p>
+</div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">

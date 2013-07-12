@@ -60,14 +60,14 @@
 <li><a class="reference internal" href="#example-get-all-trees-query">Example GET All Trees Query</a></li>
 <li><a class="reference internal" href="#example-response">Example Response</a></li>
 <li><a class="reference internal" href="#example-get-single-tree">Example GET Single Tree</a></li>
-<li><a class="reference internal" href="#id11">Example Response</a></li>
+<li><a class="reference internal" href="#id7">Example Response</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#post-put">POST/PUT</a><ul>
 <li><a class="reference internal" href="#example-post-create-request">Example POST Create Request</a></li>
-<li><a class="reference internal" href="#id12">Example Response</a></li>
+<li><a class="reference internal" href="#id8">Example Response</a></li>
 <li><a class="reference internal" href="#example-post-edit-request">Example POST Edit Request</a></li>
-<li><a class="reference internal" href="#id13">Example Response</a></li>
+<li><a class="reference internal" href="#id9">Example Response</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#delete">DELETE</a><ul>
@@ -164,7 +164,7 @@
 <tr class="row-even"><td>treeId</td>
 <td>Integer</td>
 <td>Required*</td>
-<td>Used to fetch or modify a specific tree. <a href="#id1"><span class="problematic" id="id2">*</span></a>When creating a new tree, the <a href="#id3"><span class="problematic" id="id4">``</span></a>tree&#8217; value must not be present.</td>
+<td>Used to fetch or modify a specific tree. <a href="#id1"><span class="problematic" id="id2">*</span></a>When creating a new tree, the <tt class="docutils literal"><span class="pre">tree</span></tt> value must not be present.</td>
 <td>&nbsp;</td>
 <td>treeid</td>
 <td>RO</td>
@@ -173,7 +173,7 @@
 <tr class="row-odd"><td>name</td>
 <td>String</td>
 <td>Required*</td>
-<td>A brief, descriptive name for the tree. <a href="#id5"><span class="problematic" id="id6">*</span></a>Required only when creating a tree.</td>
+<td>A brief, descriptive name for the tree. <a href="#id3"><span class="problematic" id="id4">*</span></a>Required only when creating a tree.</td>
 <td>&nbsp;</td>
 <td>name</td>
 <td>RW</td>
@@ -203,8 +203,8 @@
 <td>Whether or not timeseries should be included in the tree if they fail to match one or more rule levels.</td>
 <td>false</td>
 <td>strict_match</td>
+<td>RW</td>
 <td>true</td>
-<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>enabled</td>
 <td>Boolean</td>
@@ -215,10 +215,19 @@
 <td>RW</td>
 <td>true</td>
 </tr>
-<tr class="row-even"><td>definition</td>
+<tr class="row-even"><td>storeFailures</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Used only when <a href="#id7"><span class="problematic" id="id8">``</span></a>DELETE``ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries</td>
+<td>Whether or not collisions and &#8216;not matched&#8217; TSUIDs should be recorded. This can create very wide rows.</td>
+<td>false</td>
+<td>store_failures</td>
+<td>RW</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>definition</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Used only when <tt class="docutils literal"><span class="pre">DELETE</span></tt> ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries</td>
 <td>false</td>
 <td>definition</td>
 <td>&nbsp;</td>
@@ -311,6 +320,7 @@
         <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1356998400</span><span class="p">,</span>
         <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span>
     <span class="p">},</span>
     <span class="p">{</span>
@@ -354,19 +364,20 @@
         <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
         <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
         <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
     <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>To fetch a specific tree, supply a <a href="#id9"><span class="problematic" id="id10">``</span></a>treeId&#8217; value. The response will include the tree object if found. If the requested tree does not exist, a 404 exception will be returned.</p>
+<p>To fetch a specific tree, supply a <a href="#id5"><span class="problematic" id="id6">``</span></a>treeId&#8217; value. The response will include the tree object if found. If the requested tree does not exist, a 404 exception will be returned.</p>
 </div>
 <div class="section" id="example-get-single-tree">
 <h3>Example GET Single Tree</h3>
 <div class="highlight-python"><pre>http://localhost:4242/api/treeId?tree=1</pre>
 </div>
 </div>
-<div class="section" id="id11">
+<div class="section" id="id7">
 <h3>Example Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;2nd Tree&quot;</span><span class="p">,</span>
@@ -409,6 +420,7 @@
     <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
     <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
 <span class="p">}</span>
 </pre></div>
@@ -427,7 +439,7 @@
 <div class="highlight-python"><pre>http://localhost:4242/api/tree?name=Network%20Tree&amp;method=post</pre>
 </div>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id8">
 <h3>Example Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
@@ -437,6 +449,7 @@
     <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
     <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
 <span class="p">}</span>
 </pre></div>
@@ -447,7 +460,7 @@
 <div class="highlight-python"><pre>http://localhost:4242/api/tree?treeId=3&amp;description=Network%20Device%20Information&amp;method=post</pre>
 </div>
 </div>
-<div class="section" id="id13">
+<div class="section" id="id9">
 <h3>Example Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
@@ -457,6 +470,7 @@
     <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
     <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
 <span class="p">}</span>
 </pre></div>

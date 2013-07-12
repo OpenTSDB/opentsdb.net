@@ -37,13 +37,14 @@ The following fields can be used for all tree endpoint requests:
    :header: "Name", "Data Type", "Required", "Description", "Default", "QS", "RW", "Example"
    :widths: 10, 5, 5, 45, 10, 5, 5, 15
    
-   "treeId", "Integer", "Required*", "Used to fetch or modify a specific tree. *When creating a new tree, the ``tree' value must not be present.", "", "treeid", "RO", "1"
+   "treeId", "Integer", "Required*", "Used to fetch or modify a specific tree. *When creating a new tree, the ``tree`` value must not be present.", "", "treeid", "RO", "1"
    "name", "String", "Required*", "A brief, descriptive name for the tree. *Required only when creating a tree.", "", "name", "RW", "Network Infrastructure"
    "description", "String", "Optional", "A longer description of what the tree contains", "", "description", "RW", "Tree containing all network gearl"
    "notes", "String", "Optional", "Detailed notes about the tree", "", "notes", "RW", ""
-   "strictMatch", "Boolean", "Optional", "Whether or not timeseries should be included in the tree if they fail to match one or more rule levels.", "false", "strict_match", "true"
+   "strictMatch", "Boolean", "Optional", "Whether or not timeseries should be included in the tree if they fail to match one or more rule levels.", "false", "strict_match", "RW", "true"
    "enabled", "Boolean", "Optional", "Whether or not TSMeta should be processed through the tree. By default this is set to ``false`` so that you can setup rules and test some objects before building branches.", "false", "enabled", "RW", "true"
-   "definition", "Boolean", "Optional", "Used only when ``DELETE``ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries", "false", "definition", "", "true"
+   "storeFailures", "Boolean", "Optional", "Whether or not collisions and 'not matched' TSUIDs should be recorded. This can create very wide rows.", "false", "store_failures", "RW", "true"
+   "definition", "Boolean", "Optional", "Used only when ``DELETE`` ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries", "false", "definition", "", "true"
    
 Response
 --------
@@ -116,6 +117,7 @@ Example Response
           "created": 1356998400,
           "treeId": 1,
           "strictMatch": false,
+          "storeFailures": false,
           "enabled": true
       },
       {
@@ -159,6 +161,7 @@ Example Response
           "created": 1368964815,
           "treeId": 2,
           "strictMatch": false,
+          "storeFailures": false,
           "enabled": false
       }
   ]
@@ -216,6 +219,7 @@ Example Response
       "created": 1368964815,
       "treeId": 2,
       "strictMatch": false,
+      "storeFailures": false,
       "enabled": false
   }
 
@@ -245,6 +249,7 @@ Example Response
       "created": 1368964815,
       "treeId": 3,
       "strictMatch": false,
+      "storeFailures": false,
       "enabled": false
   }
 
@@ -266,6 +271,7 @@ Example Response
       "created": 1368964815,
       "treeId": 3,
       "strictMatch": false,
+      "storeFailures": false,
       "enabled": false
   }
 

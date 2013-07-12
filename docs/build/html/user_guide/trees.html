@@ -283,18 +283,21 @@
 </div>
 <div class="section" id="tree-building">
 <h2>Tree Building</h2>
-<p>A tree can be built in two ways. The <tt class="docutils literal"><span class="pre">tsd.core.tree.enable_processing</span></tt> configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The results, be it a branch, collision or not matched entry, will be recorded to storagge.</p>
+<p>First, you must create the <tt class="docutils literal"><span class="pre">tsdb-tree</span></tt> table in HBase if you haven&#8217;t already done so. If you enable tree processing and the table does not exist, the TSDs will not start.</p>
+<p>A tree can be built in two ways. The <tt class="docutils literal"><span class="pre">tsd.core.tree.enable_processing</span></tt> configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The resulting branch will be recorded to storage. If a collision occurs or the TSUID failed to match on any rules, a warning will be logged and if the tree options configured, may be recorded to storage.</p>
 <p>Alternatively you can periodically synchronize all TSMeta objects via the CLI <tt class="docutils literal"><span class="pre">uid</span></tt> tool. This will scan through the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table and pass each discovered TSMeta object through configured and enabled trees. See <a class="reference internal" href="cli/uid.html"><em>uid</em></a> for details.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">For real-time tree building you need to enable the <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tracking</span></tt> setting as well so that TSMeta objects are created when a timeseries is received.</p>
 </div>
 <p>The general process for creating and building a tree is as follows:</p>
-<p># Create a new tree via the HTTP API
-# Assign one or more rules to the tree via the HTTP API
-# Test the rules with some TSMeta objects via the HTTP API
-# After veryfing the branches would appear correctly, set the tree&#8217;s <tt class="docutils literal"><span class="pre">enable</span></tt> flat to <tt class="docutils literal"><span class="pre">true</span></tt>
-# Run the <tt class="docutils literal"><span class="pre">uid</span></tt> tool with the <tt class="docutils literal"><span class="pre">treesync</span></tt> sub command to synchronize existing TSMeta objects in the tree</p>
+<ol class="arabic simple">
+<li>Create a new tree via the HTTP API</li>
+<li>Assign one or more rules to the tree via the HTTP API</li>
+<li>Test the rules with some TSMeta objects via the HTTP API</li>
+<li>After veryfing the branches would appear correctly, set the tree&#8217;s <tt class="docutils literal"><span class="pre">enable</span></tt> flat to <tt class="docutils literal"><span class="pre">true</span></tt></li>
+<li>Run the <tt class="docutils literal"><span class="pre">uid</span></tt> tool with the <tt class="docutils literal"><span class="pre">treesync</span></tt> sub command to synchronize existing TSMeta objects in the tree</li>
+</ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">When you create a new tree, it will be disabled by default so TSMeta objects will not be processed through the rule set. This is so you have time to configure the rule set and test it to verify that the tree would be built as you expect it to.</p>

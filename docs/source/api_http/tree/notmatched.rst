@@ -4,7 +4,9 @@
 When processing a TSMeta, if the tree has ``strictMatch`` enabled and the meta fails to match on a rule in any level of the set, a *not matched* entry will be recorded. This endpoint allows for retrieving the list of TSUIDs that failed to match a rule set. It is useful for debugging in that if you find a TSUID in this list, you can pass it through the ``/tree/test`` endpoint to get details on why the meta failed to match.
 
 .. NOTE:: Calling this endpoint without a list of one or more TSUIDs will return all non-matched TSUIDs in the tree. If you have a large number of timeseries in your system, the response can potentially be very large. Thus it is best to use this endpoint with specific TSUIDs.
-   
+
+.. NOTE:: If ``storeFailures`` is diabled for the tree, this endpoint will not return any data. Not Matched entries will still appear in the TSD's logs.
+
 Verbs
 -----
 

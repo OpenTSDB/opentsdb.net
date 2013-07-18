@@ -53,7 +53,8 @@ The following is a table of configuration options for all tools. When applicable
    "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as javascript files for the web interface, are located.
    E.g. /opt/opentsdb/staticroot", "", "--staticroot"
-   "tsd.network.async_io", "Boolean", "Optional", Whether or not to use NIO or tradditional blocking IO", "True", "--async-io"
+   "tsd.network.async_io", "Boolean", "Optional", "Whether or not to use NIO or tradditional blocking IO", "True", "--async-io"
+   "tsd.network.backlog", "Integer", "Optional", "The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the 'somaxconn' kernel setting or set by Netty to 3072.", "See Description", "--backlog"
    "tsd.network.bind", "String", "Optional", "An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
    E.g. 127.0.0.1", "0.0.0.0", "--bind"
    "tsd.network.keep_alive", "Boolean", "Optional", "Whether or not to allow keep-alive connections", "True", ""

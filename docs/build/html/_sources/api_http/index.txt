@@ -162,6 +162,7 @@ API Endpoints
    s
    aggregators
    annotation
+   config
    dropcaches
    put
    query

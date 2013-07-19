@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/config &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="up" title="HTTP API" href="index.html" />
+    <link rel="next" title="/api/dropcaches" href="dropcaches.html" />
+    <link rel="prev" title="/api/annotation" href="annotation.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dropcaches.html" title="/api/dropcaches"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="annotation.html" title="/api/annotation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/config</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="annotation.html"
+                        title="previous chapter">/api/annotation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dropcaches.html"
+                        title="next chapter">/api/dropcaches</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-config">
+<h1>/api/config</h1>
+<p>This endpoint returns information about the running configuration of the TSD. It is read only and cannot be used to set configuration options.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>This endpoint does not require any parameters via query string or body.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p><strong>Query String</strong></p>
+<div class="highlight-python"><pre>http://localhost:4242/api/config</pre>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is a hash map of configuration properties and values.</p>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;tsd.search.elasticsearch.tsmeta_type&quot;</span><span class="o">:</span> <span class="s2">&quot;tsmetadata&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.flush_interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.tcp_no_delay&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.tree.indexer.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.staticroot&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/opentsdb/staticroot/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.bind&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.worker_threads&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.hbase.zk_quorum&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.port&quot;</span><span class="o">:</span> <span class="s2">&quot;4242&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rpcplugin.DummyRPCPlugin.port&quot;</span><span class="o">:</span> <span class="s2">&quot;42&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.elasticsearch.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.async_io&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.plugin&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.RabbitMQPublisher&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.enableindexer&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.user&quot;</span><span class="o">:</span> <span class="s2">&quot;guest&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.plugin&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.search.ElasticSearch&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.tree.enable_processing&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.stats.canonical&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.cachedir&quot;</span><span class="o">:</span> <span class="s2">&quot;/tmp/opentsdb/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.request.max_chunk&quot;</span><span class="o">:</span> <span class="s2">&quot;16384&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.show_stack_trace&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.auto_create_metrics&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.enable_compaction&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.pass&quot;</span><span class="o">:</span> <span class="s2">&quot;guest&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.meta.enable_tracking&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.mq.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.vhost&quot;</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.hbase.data_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.hbase.uid_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-uid&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.request.enable_chunked&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.plugin_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/opentsdb/plugins&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.hbase.zk_basedir&quot;</span><span class="o">:</span> <span class="s2">&quot;/hbase&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rpcplugin.DummyRPCPlugin.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.hbase.tree_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-tree&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.keep_alive&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.reuse_address&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rpc.plugins&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.DummyRpcPlugin&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dropcaches.html" title="/api/dropcaches"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="annotation.html" title="/api/annotation"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

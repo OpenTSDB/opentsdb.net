@@ -48,6 +48,7 @@ The following is a table of configuration options for all tools. When applicable
    "tsd.core.tree.enable_processing", "Boolean", "Optional", "Whether or not to enable processing new/edited TSMeta through tree rule sets", "false", ""
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written.
    E.g. /tmp/opentsdb", "", "--cachedir"
+   "tsd.http.request.cors_domains", "String", "Optional", "A comma separated list of domain names to allow access to OpenTSDB when the ``Origin`` header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard ``*`` and specific domains at the same time.", "", ""
    "tsd.http.request.enable_chunked", "Boolean", "Optional", "Whether or not to enable incoming chunk support for the HTTP RPC", "false", ""
    "tsd.http.request.max_chunk", "Integer", "Optional", "The maximum chunk size to support for incoming HTTP requests.", "4096", ""
    "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""

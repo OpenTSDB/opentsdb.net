@@ -126,6 +126,19 @@ Query String Vs. Body Content
 
 Most of the API endpoints support query string parameters, particularly those that fetch data from the system. However due to the complexities of encoding some characters, and particularly Unicode, all endpoints also support access via POST content using formatters. The default format is JSON so clients can use their favorite means of generating a JSON object and send it to the OpenTSDB API via a ``POST`` request. ``POST`` requests will generally provided greater flexibility in the fields offered and fully Unicode support than query strings. 
 
+CORS
+----
+
+OpenTSDB provides simple and preflight support for Cross-Origin Resource Sharing (CORS) requests. To enable CORS, you must supply either a wild card ``*`` or a comma separated list of specific domains in the ``tsd.http.request.cors_domains`` configuration setting and restart OpenTSDB. For example, you can supply a value of ``*`` or you could provide a list of domains such as ``beeblebrox.com,www.beeblebrox.com,aurtherdent.com``. The domain list is case insensitive but must fully match any value sent by clients.
+
+When a ``GET``, ``POST``, ``PUT`` or ``DELETE`` request arrives with the ``Origin`` header set to a valid domain name, the server will compare the domain against the configured list. If the domain appears in the list or the wild card was set, the server will add the ``Access-Control-Allow-Origin`` and ``Access-Control-Allow-Methods`` headers to the response after processing is complete. The allowed methods will always be ``GET, POST, PUT, DELETE``. It does not change per end point. If the request is a CORS preflight, i.e. the ``OPTION`` method is used, the response will be the same but with an empty content body and a 200 status code.
+
+If the ``Origin`` domain did not match a domain in the configured list, the response will be a 200 status code and an Error (see above) for the content body stating that access was denied, regardless of whether the request was a preflight or a regular request. The request will not be processed any further.
+
+By default, the ``tsd.http.request.cors_domains`` list is empty and CORS is diabled. Requests are passed through without appending CORS specific headers. If an ``Options`` request arrives, it will receive a 405 error message.
+
+.. NOTE:: Do not rely on CORS for security. It is exceedingly easy to spoof a domain in an HTTP request and OpenTSDB does not perform reverse lookups or domain validation. CORS is only implemented as a means to make it easier JavaScript developers to work with the API.
+
 Documentation
 -------------
 

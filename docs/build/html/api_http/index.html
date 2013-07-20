@@ -60,6 +60,7 @@
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#api-versioning">API Versioning</a></li>
 <li><a class="reference internal" href="#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li><a class="reference internal" href="#cors">CORS</a></li>
 <li><a class="reference internal" href="#documentation">Documentation</a></li>
 <li><a class="reference internal" href="#deprecated-api">Deprecated API</a></li>
 <li><a class="reference internal" href="#api-endpoints">API Endpoints</a><ul>
@@ -310,6 +311,17 @@
 <div class="section" id="query-string-vs-body-content">
 <h2>Query String Vs. Body Content</h2>
 <p>Most of the API endpoints support query string parameters, particularly those that fetch data from the system. However due to the complexities of encoding some characters, and particularly Unicode, all endpoints also support access via POST content using formatters. The default format is JSON so clients can use their favorite means of generating a JSON object and send it to the OpenTSDB API via a <tt class="docutils literal"><span class="pre">POST</span></tt> request. <tt class="docutils literal"><span class="pre">POST</span></tt> requests will generally provided greater flexibility in the fields offered and fully Unicode support than query strings.</p>
+</div>
+<div class="section" id="cors">
+<h2>CORS</h2>
+<p>OpenTSDB provides simple and preflight support for Cross-Origin Resource Sharing (CORS) requests. To enable CORS, you must supply either a wild card <tt class="docutils literal"><span class="pre">*</span></tt> or a comma separated list of specific domains in the <tt class="docutils literal"><span class="pre">tsd.http.request.cors_domains</span></tt> configuration setting and restart OpenTSDB. For example, you can supply a value of <tt class="docutils literal"><span class="pre">*</span></tt> or you could provide a list of domains such as <tt class="docutils literal"><span class="pre">beeblebrox.com,www.beeblebrox.com,aurtherdent.com</span></tt>. The domain list is case insensitive but must fully match any value sent by clients.</p>
+<p>When a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt>, <tt class="docutils literal"><span class="pre">PUT</span></tt> or <tt class="docutils literal"><span class="pre">DELETE</span></tt> request arrives with the <tt class="docutils literal"><span class="pre">Origin</span></tt> header set to a valid domain name, the server will compare the domain against the configured list. If the domain appears in the list or the wild card was set, the server will add the <tt class="docutils literal"><span class="pre">Access-Control-Allow-Origin</span></tt> and <tt class="docutils literal"><span class="pre">Access-Control-Allow-Methods</span></tt> headers to the response after processing is complete. The allowed methods will always be <tt class="docutils literal"><span class="pre">GET,</span> <span class="pre">POST,</span> <span class="pre">PUT,</span> <span class="pre">DELETE</span></tt>. It does not change per end point. If the request is a CORS preflight, i.e. the <tt class="docutils literal"><span class="pre">OPTION</span></tt> method is used, the response will be the same but with an empty content body and a 200 status code.</p>
+<p>If the <tt class="docutils literal"><span class="pre">Origin</span></tt> domain did not match a domain in the configured list, the response will be a 200 status code and an Error (see above) for the content body stating that access was denied, regardless of whether the request was a preflight or a regular request. The request will not be processed any further.</p>
+<p>By default, the <tt class="docutils literal"><span class="pre">tsd.http.request.cors_domains</span></tt> list is empty and CORS is diabled. Requests are passed through without appending CORS specific headers. If an <tt class="docutils literal"><span class="pre">Options</span></tt> request arrives, it will receive a 405 error message.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Do not rely on CORS for security. It is exceedingly easy to spoof a domain in an HTTP request and OpenTSDB does not perform reverse lookups or domain validation. CORS is only implemented as a means to make it easier JavaScript developers to work with the API.</p>
+</div>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation</h2>

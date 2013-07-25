@@ -142,10 +142,24 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 <td>False</td>
 <td>&#8211;auto-metric</td>
 </tr>
-<tr class="row-odd"><td>tsd.core.meta.enable_tracking</td>
+<tr class="row-odd"><td>tsd.core.meta.enable_realtime_ts</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable real-time metadata tracking/creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>Whether or not to enable real-time TSMeta object creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.core.meta.enable_realtime_uid</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable real-time UIDMeta object creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.meta.enable_tsuid_incrementing</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>

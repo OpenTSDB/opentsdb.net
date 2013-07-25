@@ -68,11 +68,10 @@ Metrics and Tags
 The following rules apply to metric and tag values:
 
 * Strings are case sensitive, i.e. "Sys.Cpu.User" will be stored separately from "sys.cpu.user"
-* Only ASCII characters are allowed
 * Spaces are not allowed
-* Only the following characters are allowed: ``a`` to ``z``, ``A`` to ``Z``, ``0`` to ``9``, ``-``, ``_``, ``.``, ``/``
+* Only the following characters are allowed: ``a`` to ``z``, ``A`` to ``Z``, ``0`` to ``9``, ``-``, ``_``, ``.``, ``/`` or Unicode letters (as per the specification)
 
-Unfortunatley unicode strings are not supported at this time for various reasons. Once is for performance and security as the input filter would have to be fairly complex and one of the primary reasons for OpenTSDB's existence is incredibly fast writes. Another is to avoid collisions in queries with reserved characters. 
+Metric and tags are not limited in length, though you should try to keep the values fairly short.
 
 Integer Values
 --------------

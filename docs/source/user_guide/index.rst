@@ -7,13 +7,13 @@ TODO
    :maxdepth: 1
    
    configuration
-   uids
-   guis/index
    writing
    query/index
-   plugins
+   uids
    metadata
    trees
+   guis/index
+   plugins
    stats
    definitions
    backends/index

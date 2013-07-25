@@ -3,6 +3,26 @@ Installation
 
 OpenTSDB is currently only available via GIT but you can compile and generate packages for distribution throughout your environment.
 
+Upgrading
+^^^^^^^^^
+
+OpenTSDB 2.0 is fully backwards compatible with 1.x data. We've taken great pains to make sure you can download 2.0, compile, stop your old TSD and start the new one. You don't *have* to change a thing. Your existing tools will read and write to the TSD without a problem. 
+
+While you can start a 2.0 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at ``./src/opentsdb.conf``. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See :doc:`user_guide/configuration` for details.
+
+You do not have to upgrade all of your TSDs to 2.0 at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs. 
+
+If you do perform a rolling upgrade where you have multiple TSDs, heed the following warning:
+
+.. WARNING:: Do not write **Annotations** or **Data point with Millisecond Timestamps** while you run a mixture of 1.x and 2.x. Because these data are stored in the same rows as regular data points, they can affect compactions and queries. 
+
+Before upgrading to 2.x, you may want to upgrade all of your TSDs to OpenTSDB 1.2. This release is fully forwards compatible in that it will ignore annotations and millisecond timestamps and operate as expected. With 1.2 running, if you accidentally record an annotation or millisecond data point, your 1.2 TSDs will operate normally.
+
+Downgrading
+^^^^^^^^^^^
+
+Because we've worked hard to maintain backwards compatability, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later.
+
 Compiling
 ^^^^^^^^^
 

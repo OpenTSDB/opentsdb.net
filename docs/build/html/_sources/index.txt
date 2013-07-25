@@ -14,6 +14,7 @@ Contents
 .. toctree::
    :maxdepth: 2
    
+   new
    installation
    user_guide/index
    api_http/index

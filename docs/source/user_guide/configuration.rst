@@ -41,7 +41,9 @@ The following is a table of configuration options for all tools. When applicable
    :widths: 20, 5, 5, 55, 5, 10
 
    "tsd.core.auto_create_metrics", "Boolean", "Optional", "Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn't match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.", "False", "--auto-metric"
-   "tsd.core.meta.enable_tracking", "Boolean", "Optional", "Whether or not to enable real-time metadata tracking/creation. See :doc:`../user_guide/metadata`", "False", ""
+   "tsd.core.meta.enable_realtime_ts", "Boolean", "Optional", "Whether or not to enable real-time TSMeta object creation. See :doc:`../user_guide/metadata`", "False", ""
+   "tsd.core.meta.enable_realtime_uid", "Boolean", "Optional", "Whether or not to enable real-time UIDMeta object creation. See :doc:`../user_guide/metadata`", "False", ""
+   "tsd.core.meta.enable_tsuid_incrementing", "Boolean", "Optional", "Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See :doc:`../user_guide/metadata`", "False", ""
    "tsd.core.plugin_path", "String", "Optional", "A path to search for plugins when the TSD starts. If the path is invalid, the TSD will fail to start. Plugins can still be enabled if they are in the class path.", "", ""
    "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.
    E.g. America/Los_Angeles", "System Configured", ""

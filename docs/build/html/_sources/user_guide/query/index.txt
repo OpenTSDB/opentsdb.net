@@ -1,5 +1,5 @@
-Queries
-=======
+Querying or Reading Data
+========================
 
 OpenTSDB offers a number of means to extract data such as CLI tools, an HTTP API and as a GnuPlot graph. Querying with OpenTSDB's tag based system can be a bit tricky so read through this document and checkout the following pages for deeper information. Example queries on this page follow the HTTP API format.
 

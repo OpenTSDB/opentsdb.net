@@ -165,11 +165,10 @@ sys.cpu.user host=webserver01,cpu=63 1356998400  1</pre>
 <p>The following rules apply to metric and tag values:</p>
 <ul class="simple">
 <li>Strings are case sensitive, i.e. &#8220;Sys.Cpu.User&#8221; will be stored separately from &#8220;sys.cpu.user&#8221;</li>
-<li>Only ASCII characters are allowed</li>
 <li>Spaces are not allowed</li>
-<li>Only the following characters are allowed: <tt class="docutils literal"><span class="pre">a</span></tt> to <tt class="docutils literal"><span class="pre">z</span></tt>, <tt class="docutils literal"><span class="pre">A</span></tt> to <tt class="docutils literal"><span class="pre">Z</span></tt>, <tt class="docutils literal"><span class="pre">0</span></tt> to <tt class="docutils literal"><span class="pre">9</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">_</span></tt>, <tt class="docutils literal"><span class="pre">.</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt></li>
+<li>Only the following characters are allowed: <tt class="docutils literal"><span class="pre">a</span></tt> to <tt class="docutils literal"><span class="pre">z</span></tt>, <tt class="docutils literal"><span class="pre">A</span></tt> to <tt class="docutils literal"><span class="pre">Z</span></tt>, <tt class="docutils literal"><span class="pre">0</span></tt> to <tt class="docutils literal"><span class="pre">9</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">_</span></tt>, <tt class="docutils literal"><span class="pre">.</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt> or Unicode letters (as per the specification)</li>
 </ul>
-<p>Unfortunatley unicode strings are not supported at this time for various reasons. Once is for performance and security as the input filter would have to be fairly complex and one of the primary reasons for OpenTSDB&#8217;s existence is incredibly fast writes. Another is to avoid collisions in queries with reserved characters.</p>
+<p>Metric and tags are not limited in length, though you should try to keep the values fairly short.</p>
 </div>
 <div class="section" id="integer-values">
 <h3>Integer Values</h3>

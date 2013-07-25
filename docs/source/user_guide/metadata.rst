@@ -1,7 +1,7 @@
 Metadata
 ========
 
-The primary purpose of OpenTSDB is to store timeseries data points and allow for various operations on that data. However it helps ot know what kind of data is stored and provide some context when working with the information. OpenTSDB's metadata is data about the data points. Much of it is user configurable to provide tie-ins with external tools such as search engines or issue tracking systems. This chapter describes various metadata available and what it's used for.
+The primary purpose of OpenTSDB is to store timeseries data points and allow for various operations on that data. However it helps to know what kind of data is stored and provide some context when working with the information. OpenTSDB's metadata is data about the data points. Much of it is user configurable to provide tie-ins with external tools such as search engines or issue tracking systems. This chapter describes various metadata available and what it's used for.
 
 UIDMeta
 ^^^^^^^
@@ -17,14 +17,18 @@ TSMeta
 
 Each timeseries in OpenTSDB is uniquely identified by the combination of it's metric UID and tag name/value UIDs, creating a TSUID as per :doc:`uids`. When a new timeseries is received, a TSMeta object can be recorded in the ``tsdb-uid`` table in a row identified by the TSUID. The meta object includes some immutable fields such as the ``tsuid``, ``metric``, ``tags``, ``lastReceived`` and ``created`` timestamp that reflects the time when the TSMeta was first received. Additionally some fields can be edited such as a ``description``, ``notes`` and others. See :doc:`../api_http/uid/tsmeta` for details.
 
-Tracking
-^^^^^^^^
+Enabling Metadata
+^^^^^^^^^^^^^^^^^
 
-If you want to use metadata in your OpenTSDB setup, you must explicitly enable real-time metadata tracking and/or use the CLI tools. In the configuration file, you can set ``tsd.core.meta.enable_tracking`` to ``true`` for a TSD and each time a new UID is assigned a UIDMeta object will be recorded. Every data point will also increment a counter in the ``tsdb-uid`` table that indicates a data point was received. The first time this counter is created, a new TSMeta object will be recorded.
+If you want to use metadata in your OpenTSDB setup, you must explicitly enable real-time metadata tracking and/or use the CLI tools. There are multiple options for meta data generation due to impacts on performance, so before you enable any of these settings, please test the impact on your TSDs before enabling the settings in production. 
 
-.. NOTE:: For extremely busy TSDs that are receiving many data points per second, you may want to leave meta tracking disabled to increase throughput. For most TSDs you shouldn't have a problem enabling this setting.
+Three options are available, starting with the least impact to the most.
 
-For situations where a TSD crashes or if you do not enable real-time tracking, you can periodically use the ``uid`` CLI tool and the ``metasync`` sub command to generate missing UIDMeta and TSMeta objects. See :doc:`cli/uid` for information.
+* ``tsd.core.meta.enable_tsuid_incrementing`` - When this setting is enabled, every data point written will increment a counter in the ``tsdb-meta`` table corresponding to the time series the data point belongs to. Future query optimization will make heavy use of this feature so we highly recommend that you enable it for all of your TSDs where data is inbound. 
+* ``tsd.core.meta.enable_realtime_uid`` - When enabled, any time a new metric, tag name or tag value is assigned a UID, a UIDMeta object is generated and optionally sent to the configured search plugin. Generally this incurs a small performance impact so we recommend enabling this setting as well.
+* ``tsd.core.meta.enable_realtime_ts`` - When enabled, any time a new time series arrives, a TSMeta object will be created and optionally sent to a configured search plugin. This option will also enabled the ``tsd.core.meta.enable_tsuid_incrementing`` setting even if it's explicitly set to ``false`` in the config. If you often push new time series to your TSDs, this option may incur a fair amount of overhead and require some garbage collection tuning. If you do not often push new time series, you should be able to enable this setting without a problem, but watch the memory usage of your TSDs.
+
+For situations where a TSD crashes before metadata can be written to storage or if you do not enable real-time tracking, you can periodically use the ``uid`` CLI tool and the ``metasync`` sub command to generate missing UIDMeta and TSMeta objects. See :doc:`cli/uid` for information.
 
 Annotations
 ^^^^^^^^^^^

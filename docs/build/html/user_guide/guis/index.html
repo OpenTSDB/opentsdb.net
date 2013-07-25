@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
     <link rel="up" title="User Guide" href="../index.html" />
-    <link rel="next" title="Writing Data" href="../writing.html" />
-    <link rel="prev" title="UIDs and TSUIDs" href="../uids.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="next" title="Plugins" href="../plugins.html" />
+    <link rel="prev" title="Trees" href="../trees.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -36,10 +36,10 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../writing.html" title="Writing Data"
+          <a href="../plugins.html" title="Plugins"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../uids.html" title="UIDs and TSUIDs"
+          <a href="../trees.html" title="Trees"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">User Guide</a> &raquo;</li> 
@@ -73,11 +73,11 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../uids.html"
-                        title="previous chapter">UIDs and TSUIDs</a></p>
+  <p class="topless"><a href="../trees.html"
+                        title="previous chapter">Trees</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../writing.html"
-                        title="next chapter">Writing Data</a></p>
+  <p class="topless"><a href="../plugins.html"
+                        title="next chapter">Plugins</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -144,9 +144,9 @@
 <p>This area is where you choose the metrics, optional tags, aggregation function and a possible down sampler for your graph. Along the top are a pair of blue tabs. Each graph can display multiple metrics and the tabs organize the different sub queries. Each graph requires at least one metric so you&#8217;ll choose that metric in the first tab. To add another metric to your graph, click the <tt class="docutils literal"><span class="pre">+</span></tt> tab and you&#8217;ll be able to setup another sub query. If you have configured multiple metrics, simply click on the tab that corresponds to the metric you want to modify. The tab will display a subset of the metric name it is associated with.</p>
 <p>The <strong>Metric</strong> box is where you&#8217;ll choose a metric. This field auto-completes as you type just like a modern web browser. Auto-complete is case sensitive so only metrics matching the case provided will be displayed. By default, only the 25 top matching entries will be returned so you may not see all of the possible choices as you type. Either click on the entry you want when it appears or keep typing until you have entire metric in the box.</p>
 <img alt="../../_images/gui_autocomplete.jpg" src="../../_images/gui_autocomplete.jpg" />
-<p>Recall from the <a class="reference internal" href="../query/index.html"><em>Queries</em></a> documentation that if you only provide a metric without any tags, <em>every time series with that metric</em> will be aggregated in the results. If you want to drill down, supply one or more <strong>Tags</strong> to filter or group the results. A new metric section will have two boxes next to <strong>Tags</strong>. The left box is for the tag name or <tt class="docutils literal"><span class="pre">tagk</span></tt> value, e.g. <tt class="docutils literal"><span class="pre">host</span></tt> or <tt class="docutils literal"><span class="pre">symbol</span></tt>. The right hand box is for the tag value or <tt class="docutils literal"><span class="pre">tagv</span></tt>, e.g. <tt class="docutils literal"><span class="pre">webserver01</span></tt> or <tt class="docutils literal"><span class="pre">goog</span></tt>. When you add a tag, another pair of boxes will appear so that you can keep adding tags to filter as much as necessary.</p>
+<p>Recall from the <a class="reference internal" href="../query/index.html"><em>Querying or Reading Data</em></a> documentation that if you only provide a metric without any tags, <em>every time series with that metric</em> will be aggregated in the results. If you want to drill down, supply one or more <strong>Tags</strong> to filter or group the results. A new metric section will have two boxes next to <strong>Tags</strong>. The left box is for the tag name or <tt class="docutils literal"><span class="pre">tagk</span></tt> value, e.g. <tt class="docutils literal"><span class="pre">host</span></tt> or <tt class="docutils literal"><span class="pre">symbol</span></tt>. The right hand box is for the tag value or <tt class="docutils literal"><span class="pre">tagv</span></tt>, e.g. <tt class="docutils literal"><span class="pre">webserver01</span></tt> or <tt class="docutils literal"><span class="pre">goog</span></tt>. When you add a tag, another pair of boxes will appear so that you can keep adding tags to filter as much as necessary.</p>
 <p>Both tag name and value boxes also auto-complete in the same way as the <strong>Metric</strong> box. However each auto-complete will show <em>all</em> of the results for the name or value, not just the values that would apply to a specific metric or tag name. In future versions we may be able to implement such a mapping feature but currently you&#8217;ll have to sort through all of the values.</p>
-<p>The tag value box can use grouping operators such as the <tt class="docutils literal"><span class="pre">*</span></tt> and the <tt class="docutils literal"><span class="pre">|</span></tt>. See <a class="reference internal" href="../query/index.html"><em>Queries</em></a> for details.</p>
+<p>The tag value box can use grouping operators such as the <tt class="docutils literal"><span class="pre">*</span></tt> and the <tt class="docutils literal"><span class="pre">|</span></tt>. See <a class="reference internal" href="../query/index.html"><em>Querying or Reading Data</em></a> for details.</p>
 <p>The <strong>Rate</strong> box allows you to convert all of the time series for the metric to a rate of change value. By default this option is turned off.</p>
 <p>For metrics or time series with different scales, you can select the <strong>Right Axis</strong> check box to add another axis to the right of the graph for the metric&#8217;s time series. This can make graphs much more readable if the scales differ greatly.</p>
 <p>The <strong>Aggregator</strong> box is a drop-down list of aggregation functions used to manipulate the data for multiple time series associated with the sub query. The default aggregator is <em>sum</em> but you can choose from a number of other options.</p>
@@ -234,10 +234,10 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../writing.html" title="Writing Data"
+          <a href="../plugins.html" title="Plugins"
              >next</a> |</li>
         <li class="right" >
-          <a href="../uids.html" title="UIDs and TSUIDs"
+          <a href="../trees.html" title="Trees"
              >previous</a> |</li>
         <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >User Guide</a> &raquo;</li> 

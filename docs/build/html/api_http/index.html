@@ -266,7 +266,7 @@
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <p>The HTTP API is RESTful in nature, meaning it does it&#8217;s best to adhere to the REST protocol by using HTTP verbs to determine a course of action. For example, a <tt class="docutils literal"><span class="pre">GET</span></tt> request should only return data, a <tt class="docutils literal"><span class="pre">PUT</span></tt> or <tt class="docutils literal"><span class="pre">POST</span></tt> should modify data and <tt class="docutils literal"><span class="pre">DELETE</span></tt> should remove it. Documentation will reflect what verbs can be used on an endpoint and what they do.</p>
-<p>However in some situations, verbs such as <tt class="docutils literal"><span class="pre">DELETE</span></tt> and <tt class="docutils literal"><span class="pre">PUT</span></tt> are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using <tt class="docutils literal"><span class="pre">GET</span></tt> and <tt class="docutils literal"><span class="pre">POST</span></tt> exclusively. Therefore, while the OpenTSDB API supports extended verbs, all requests can be performed with just <tt class="docutils literal"><span class="pre">GET</span></tt> and <tt class="docutils literal"><span class="pre">POST</span></tt> using the query string parameter <tt class="docutils literal"><span class="pre">method</span></tt>. The following table describes verb behavior and overrides.</p>
+<p>However in some situations, verbs such as <tt class="docutils literal"><span class="pre">DELETE</span></tt> and <tt class="docutils literal"><span class="pre">PUT</span></tt> are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using <tt class="docutils literal"><span class="pre">GET</span></tt> and <tt class="docutils literal"><span class="pre">POST</span></tt> exclusively. Therefore, while the OpenTSDB API supports extended verbs, most requests can be performed with just <tt class="docutils literal"><span class="pre">GET</span></tt> by adding the query string parameter <tt class="docutils literal"><span class="pre">method_override</span></tt>. This parameter allows clients to pass data for most API calls as query string values instead of body content. For example, you can delete an annotation by issuing a <tt class="docutils literal"><span class="pre">GET</span></tt> with a query string <tt class="docutils literal"><span class="pre">/api/annotation/start_time=1369141261&amp;tsuid=010101&amp;method_override=delete</span></tt>. The following table describes verb behavior and overrides.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -286,15 +286,15 @@
 </tr>
 <tr class="row-odd"><td>POST</td>
 <td>Used to update or create an object in OpenTSDB using the content body from the request. Will use a formatter to parse the content body</td>
-<td>method=post</td>
+<td>method_override=post</td>
 </tr>
 <tr class="row-even"><td>PUT</td>
 <td>Replace an entire object in the system with the provided content</td>
-<td>method=put</td>
+<td>method_override=put</td>
 </tr>
 <tr class="row-odd"><td>DELETE</td>
 <td>Used to delete data from the system</td>
-<td>method=delete</td>
+<td>method_override=delete</td>
 </tr>
 </tbody>
 </table>

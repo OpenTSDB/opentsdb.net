@@ -20,6 +20,7 @@ Contents
    api_http/index
    development/index
    faq
+   resources
    
 
 Indices and tables

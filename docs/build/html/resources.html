@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>What’s New &mdash; OpenTDSB 2.0 documentation</title>
+    <title>Additional Resources &mdash; OpenTDSB 2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,8 +23,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="index.html" />
-    <link rel="next" title="Installation" href="installation.html" />
-    <link rel="prev" title="Documentation for OpenTSDB 2.0" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="Frequently Asked Questions (FAQ)" href="faq.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -35,22 +34,25 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="installation.html" title="Installation"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Documentation for OpenTSDB 2.0"
+          <a href="faq.html" title="Frequently Asked Questions (FAQ)"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Additional Resources</a><ul>
+<li><a class="reference internal" href="#references-to-opentsdb">References to OpenTSDB</a></li>
+<li><a class="reference internal" href="#statistical-analysis-tools">Statistical Analysis Tools</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Documentation for OpenTSDB 2.0</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="installation.html"
-                        title="next chapter">Installation</a></p>
+  <p class="topless"><a href="faq.html"
+                        title="previous chapter">Frequently Asked Questions (FAQ)</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -72,26 +74,27 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="what-s-new">
-<h1>What&#8217;s New</h1>
-<p>OpenTSDB has a thriving community who contributed and requested a number of new features. 2.0 has the following new features:</p>
+  <div class="section" id="additional-resources">
+<h1>Additional Resources</h1>
+<div class="section" id="references-to-opentsdb">
+<h2>References to OpenTSDB</h2>
 <ul class="simple">
-<li>Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names ore values.</li>
-<li>Restful API - Provides access to all of OpenTSDB&#8217;s features as well as offering new options, defaulting to JSON</li>
-<li>Cross Origin Resource Sharing - For the API so you can make AJAX calls easily</li>
-<li>Store Data Via HTTP - Write data points over HTTP as an alternative to Telnet</li>
-<li>Configuration File - A key/value file shared by the TSD and command line tools</li>
-<li>Plugable Serializers - Enable different input and outputs for the API</li>
-<li>Annotations - Record meta data about specific time series or data points</li>
-<li>Meta Data - Record meta data for each time series or metrics, tag names and values</li>
-<li>Trees - Flatten metric and tag combinations into single names for navigation or use with other tools</li>
-<li>Search Plugins - Send meta data to search engines to delve into your data and figure out what&#8217;s in your database</li>
-<li>Real-Time Publishing Plugin - Send data to external systems as they arrive your TSD</li>
-<li>Ingest Plugins - Accept data points in different formats</li>
-<li>Millisecond Resolution - Optionally store data with millisecond precision</li>
-<li>Variable Length Encoding - Use less space in storage for smaller integer values</li>
+<li><a class="reference external" href="http://www.manning.com/dimidukkhurana/">HBase in Action</a> (Manning Publications) - Chapter 7: Hbase by Example: OpenTSDB</li>
+<li><a class="reference external" href="http://www.wrox.com/WileyCDA/WroxTitle/Professional-NoSQL.productCd-047094224X.html">Professional NoSQL</a> (Wrox Publishing) - Mentioned in Chapter 17: Tools and Utilities</li>
+<li><a class="reference external" href="http://www.youtube.com/watch?v=WlsyqhrhRZA">OSCon Data 2011</a> - Presentation from Benoit Sigoure</li>
+<li><a class="reference external" href="http://www.slideshare.net/geoffanderson/monitoring-mysql-with-opentsdb-19982758">Percona Live 2013</a> Presentation from Geoffrey Anderson</li>
+<li><a class="reference external" href="http://www.hbasecon.com/sessions/opentsdb-at-scale/">HBaseCon 2013</a> - Presentation from Jonathan Creasy and Geoffrey Anderson</li>
+<li><a class="reference external" href="http://strataconf.com/strata2011/public/schedule/detail/16996">Strata 2011</a> - Presentation by Benoit Sigoure</li>
 </ul>
-<p>More features are on the way. Help us out by sharing your ideas.</p>
+</div>
+<div class="section" id="statistical-analysis-tools">
+<h2>Statistical Analysis Tools</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.gnuplot.info/">GnuPlot</a> - Graphing library used by OpenTSDB</li>
+<li><a class="reference external" href="http://www.r-project.org/">R</a> - Statistical computing framework</li>
+<li><a class="reference external" href="http://www.scipy.org/">SciPy</a> - Python libraries for dealing with numbers (Pandas library has time series support)</li>
+</ul>
+</div>
 </div>
 
 
@@ -107,10 +110,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="installation.html" title="Installation"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Documentation for OpenTSDB 2.0"
+          <a href="faq.html" title="Frequently Asked Questions (FAQ)"
              >previous</a> |</li>
         <li><a href="index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>

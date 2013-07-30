@@ -4,7 +4,8 @@ What's New
 OpenTSDB has a thriving community who contributed and requested a number of new features. 2.0 has the following new features:
 
 * Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names ore values.
-* Restful API - Provides access to all of OpenTSDB's features as well as offering new options
+* Restful API - Provides access to all of OpenTSDB's features as well as offering new options, defaulting to JSON
+* Cross Origin Resource Sharing - For the API so you can make AJAX calls easily
 * Store Data Via HTTP - Write data points over HTTP as an alternative to Telnet
 * Configuration File - A key/value file shared by the TSD and command line tools
 * Plugable Serializers - Enable different input and outputs for the API

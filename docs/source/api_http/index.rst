@@ -101,16 +101,16 @@ Verbs
    
 The HTTP API is RESTful in nature, meaning it does it's best to adhere to the REST protocol by using HTTP verbs to determine a course of action. For example, a ``GET`` request should only return data, a ``PUT`` or ``POST`` should modify data and ``DELETE`` should remove it. Documentation will reflect what verbs can be used on an endpoint and what they do. 
 
-However in some situations, verbs such as ``DELETE`` and ``PUT`` are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using ``GET`` and ``POST`` exclusively. Therefore, while the OpenTSDB API supports extended verbs, all requests can be performed with just ``GET`` and ``POST`` using the query string parameter ``method``. The following table describes verb behavior and overrides.
+However in some situations, verbs such as ``DELETE`` and ``PUT`` are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using ``GET`` and ``POST`` exclusively. Therefore, while the OpenTSDB API supports extended verbs, most requests can be performed with just ``GET`` by adding the query string parameter ``method_override``. This parameter allows clients to pass data for most API calls as query string values instead of body content. For example, you can delete an annotation by issuing a ``GET`` with a query string ``/api/annotation/start_time=1369141261&tsuid=010101&method_override=delete``. The following table describes verb behavior and overrides.
 
 .. csv-table::
    :header: "Verb", "Description", "Override"
    :widths: 10, 70, 20
    
    "GET", "Used to retrieve data from OpenTSDB. Overrides can be provided to modify content. **Note**: Requests via GET can only use query string parameters; see the note below.", "N/A"
-   "POST", "Used to update or create an object in OpenTSDB using the content body from the request. Will use a formatter to parse the content body", "method=post"
-   "PUT", "Replace an entire object in the system with the provided content", "method=put"
-   "DELETE", "Used to delete data from the system", "method=delete"
+   "POST", "Used to update or create an object in OpenTSDB using the content body from the request. Will use a formatter to parse the content body", "method_override=post"
+   "PUT", "Replace an entire object in the system with the provided content", "method_override=put"
+   "DELETE", "Used to delete data from the system", "method_override=delete"
    
 If a method is not supported for a given API call, the TSD will return a 405 error.
 

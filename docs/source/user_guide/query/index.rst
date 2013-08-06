@@ -8,6 +8,7 @@ OpenTSDB offers a number of means to extract data such as CLI tools, an HTTP API
    
    dates
    timeseries
+   aggregators
    
 Query Components
 ^^^^^^^^^^^^^^^^
@@ -83,45 +84,15 @@ However if we have many web servers in the system, this could create a ton of re
 Aggregation
 ^^^^^^^^^^^
 
-A powerful feature of OpenTSDB is the ability to perform on-the-fly aggregations of multiple time series into a single set of data points. The original data is always available in storage but we can quickly extract the data in meaningful ways. Aggregation functions are means of merging two or more data points for a single time stamp into a single value. Functions currently included with OpenTSDB are:
-
-* Sum - Adds all data points together
-* Avg - Calculates the arithmetic mean across all data points, i.e. the sum of all values divided by the total number of values.
-* Max - Returns only the maximum value for all data points
-* Min - Returns only the minimum value for all data points
-* Dev - Returns the standard deviation across all data points
-
-Why is an aggregation fuction always required when making a query? Unfortunately the TSD doesn't know ahead of time whether your query will return a single time series or if it will match more than one. Thus some kind of aggregation function must be declared in the event multiple time series are found. The authors didn't want to presume a default so you are forced to choose one every time. However if only one time series is returned, the aggregation function won't modify the data if you *know* that your query will only match a single series, you can specify any function you like.
+A powerful feature of OpenTSDB is the ability to perform on-the-fly aggregations of multiple time series into a single set of data points. The original data is always available in storage but we can quickly extract the data in meaningful ways. Aggregation functions are means of merging two or more data points for a single time stamp into a single value. See :doc:`aggregators` for details.
 
 Interpolation
 ^^^^^^^^^^^^^
 
-When performing an aggregation, what happens if the time stamps of the data points for each time series fail to line up? Say we record the temperature every 5 minutes in different regions around the world. A sensor in Pairs may send a temperature of ``27c`` at ``1356998400``. Then a sensor in San Franciso may send a value of ``18c`` at ``1356998430``, 30 seconds later. Antartica may report ``-29c`` at ``1356998529``. If we run a query requesting the average temperature, we want all of the data points averaged together into a single point. This is where **interpolation** comes into play. Interpolation is a way of estimating the value of a data point at a specific time using known values. Without interpolation we would get three separate data points, each reflecting the original value. The following graphs illustrates this quite well. 
+When performing an aggregation, what happens if the time stamps of the data points for each time series fail to line up? Say we record the temperature every 5 minutes in different regions around the world. A sensor in Paris may send a temperature of ``27c`` at ``1356998400``. Then a sensor in San Franciso may send a value of ``18c`` at ``1356998430``, 30 seconds later. Antartica may report ``-29c`` at ``1356998529``. If we run a query requesting the average temperature, we want all of the data points averaged together into a single point. This is where **interpolation** comes into play. See :doc:`aggregators` for details.
 
-An imaginary metric named ``m`` is recorded in OpenTSDB. The "sum of m" is the blue line at the top resulting from a query like ``start=1h-ago&m=sum:m``. It's made of the sum of the red line for ``host=foo`` and the green line for ``host=bar``:
-
-.. image:: ../../images/with-lerp.png
-
-It seems intuitive from the image above that if you "stack up" the red line and the green line, you'd get the blue line. At any discrete point in time, the blue line has a value that is equal to the sum of the value of the red line and the value of the green line at that time. Without interpolation, you get something rather unintuitive that is harder to make sense of, and which is also a lot less meaningful and useful:
-
-.. image:: ../../images/without-lerp.png
-
-Notice how the blue line plumets down to the green data point at 18:46:48. No need to be a mathematician or to have taken advanced maths classes to see that interpolation is needed to properly aggregate multiple time series together and get meaningful results.
-
-At the moment OpenTSDB only supports **`linear interpolation <http://en.wikipedia.org/wiki/Linear_interpolation>`_** (sometimes shortened "lerp") for sake of simplicity. Patches are welcome for those who would like to add other interpolation methods. 
-
-Interpolation is only performed at query time when more than one time series are found to match a query. Many metrics collection systems interpolate on *write* so that you original value is never recorded. OpenTSDB stores your original value and lets you retreive it at any time.
-
-Here is another slightly more complicated example that came from the mailing list, depicting how multiple time series are aggregated by average:
-
-.. image:: ../../images/aggregation-average_sm.png
-   :target: ../../_images/aggregation_average.png
-   :alt: Click the image to enlarge.
-
-The thick blue line with triangles is the an aggregation with the ``avg`` function of multiple time series as per the query ``start=1h-ago&m=avg:duration_seconds``. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point. 
-
-Down Sampling
-^^^^^^^^^^^^^
+Downsampling
+^^^^^^^^^^^^
 
 OpenTSDB can ingest a large amount of data, even a data point every second for a given time series. Thus queries may return a large number of data points. Accessing the results of a query with a large number of points from the API can eat up bandwidth. High frequencies of data can easily overwhelm Javascript graphing libraries, hence the choice to use GnuPlot. Graphs created by the GUI can be difficult to read, resulting in thick lines such as the graph below:
 
@@ -142,7 +113,11 @@ Rate
 
 A number of data sources return values as constantly incrementing counters. One example is a web site hit counter. When you start a web server, it may have a hit counter of 0. After five minutes the value may be 1,024. After another five minutes it may be 2,048. The graph for a counter will be a somewhat straight line angling up to the right and isn't always very useful. OpenTSDB provides the **rate** key word that calculates the rate of change in values over time. This will transform counters into lines with spikes to show you when activity occurred and can be much more useful.
 
-The rate is the first derivative of the values. It's defined as (v2 - v1) / (t2 - t1). Therefore you will get the rate of change per second.
+The rate is the first derivative of the values. It's defined as (v2 - v1) / (t2 - t1). Therefore you will get the rate of change per second. Currently the rate of change between millisecond values defaults to a per second calculation. 
+
+OpenTSDB 2.0 provides support for special monotonically increasing counter data handling including the ability to set a "rollover" value and supress anomalous fluctuations. When the ``counterMax`` value is specified in a query, if a data point approaches this value and the point after is less than the previous, the max value will be used to calculate an accurate rate given the two points. For example, if we were recording an integer counter on 1 byte, the maximum value would be 65,535. If the value at ``t0`` is ``64000`` and the value at ``t1`` is ``1000``, the resulting rate would usually be calculated as ``-63000``. However we know that it's likely the counter rolled over so we can set the max to ``65535`` and now the calculation will be ``65535 - t0 + t1`` to give us ``2535``. 
+
+Systems that track data in counters often revert to 0 when restarted. When that happens and we could get a spurious result when using the max counter feature. For example, if the counter has reached ``2000`` at ``t0`` and someone reboots the server, the next value may be ``500`` at ``t1``. If we set our max to ``65535`` the result would be ``65535 - 2000 + 500`` to give us ``64035``. To avoid this, we can set the ``resetValue`` which will, when the rate exceedes this value, return a data point of ``0`` so as to avoid spikes in either direction. For the example above, if we know that our rate almost never exceeds 10,000, we could configure a ``resetValue`` of ``10001`` and when the data point above is calculated, it will return ``0`` instead of ``64035``. The default value of 0 means the reset value will be ignored, no rates will be supressed.
 
 Order of operations
 ^^^^^^^^^^^^^^^^^^^
@@ -150,7 +125,7 @@ Order of operations
 Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:
 
 #. Grouping
-#. Interpolation
 #. Down Sampling
+#. Interpolation
 #. Aggregation
 #. Rate Calculation

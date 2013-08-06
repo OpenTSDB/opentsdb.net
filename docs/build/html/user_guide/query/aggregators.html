@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Aggregators &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="next" title="UIDs and TSUIDs" href="../uids.html" />
+    <link rel="prev" title="Understanding Metrics and Time Series" href="timeseries.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../uids.html" title="UIDs and TSUIDs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="timeseries.html" title="Understanding Metrics and Time Series"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Aggregators</a><ul>
+<li><a class="reference internal" href="#aggregation">Aggregation</a><ul>
+<li><a class="reference internal" href="#interpolation">Interpolation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#downsampling">Downsampling</a></li>
+<li><a class="reference internal" href="#available-aggregators">Available Aggregators</a><ul>
+<li><a class="reference internal" href="#sum">Sum</a></li>
+<li><a class="reference internal" href="#min">Min</a></li>
+<li><a class="reference internal" href="#max">Max</a></li>
+<li><a class="reference internal" href="#avg">Avg</a></li>
+<li><a class="reference internal" href="#dev">Dev</a></li>
+<li><a class="reference internal" href="#zimsum">ZimSum</a></li>
+<li><a class="reference internal" href="#mimmin">MimMin</a></li>
+<li><a class="reference internal" href="#mimmax">MimMax</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="timeseries.html"
+                        title="previous chapter">Understanding Metrics and Time Series</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../uids.html"
+                        title="next chapter">UIDs and TSUIDs</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="aggregators">
+<h1>Aggregators</h1>
+<p>OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. But how do you merge individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different data series into one, giving you a choice of various mathematical operations. Since OpenTSDB doesn&#8217;t know whether or not a query will return multiple time series, an aggregation function is always requiried just in case.</p>
+<p>Aggregators have two methods of operation:</p>
+<div class="section" id="aggregation">
+<h2>Aggregation</h2>
+<p>Since OpenTSDB doesn&#8217;t know whether a query will return multiple time series until it scans through all of the data, an aggregation function must be specified for every query just in case. When more than one series is found, the two series are <strong>aggregated</strong> together into a single time series. For each timestamp in the different time series, the aggregator will perform it&#8217;s computation for each value in every time series at that timestamp. That is, the aggregator will work <em>across</em> all of the time series at each timestamp. The following table illustrates the <tt class="docutils literal"><span class="pre">sum</span></tt> aggregator as it works across time series <tt class="docutils literal"><span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">B</span></tt> to produce series <tt class="docutils literal"><span class="pre">Output</span></tt>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">series</th>
+<th class="head">ts0</th>
+<th class="head">ts0+10s</th>
+<th class="head">ts0+20s</th>
+<th class="head">ts0+30s</th>
+<th class="head">ts0+40s</th>
+<th class="head">ts0+50s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>5</td>
+<td>5</td>
+<td>10</td>
+<td>15</td>
+<td>20</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>10</td>
+<td>5</td>
+<td>20</td>
+<td>15</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>Output</td>
+<td>15</td>
+<td>10</td>
+<td>30</td>
+<td>30</td>
+<td>30</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>For timestamp <tt class="docutils literal"><span class="pre">ts0</span></tt> the data points for <tt class="docutils literal"><span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">B</span></tt> are summed, i.e. <tt class="docutils literal"><span class="pre">5</span> <span class="pre">+</span> <span class="pre">10</span> <span class="pre">==</span> <span class="pre">15</span></tt>. Next, the two values for <tt class="docutils literal"><span class="pre">ts1</span></tt> are summed together to get <tt class="docutils literal"><span class="pre">10</span></tt> and so on. Each aggregation function will perform a different mathematical operation.</p>
+<div class="section" id="interpolation">
+<h3>Interpolation</h3>
+<p>In the example above, both time series <tt class="docutils literal"><span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">B</span></tt> had data points at every time stamp, they lined up neatly. However what happens when two series do not line up? It can be difficult, and sometimes undesired, to synchronize all sources of data to write at the exact same time. For example, if we have 10,000 servers sending 100 system metrics every 5 minutes, that would be a burst of 10M data points in a single second. We would need a pretty beefy network and cluster to accommodate that traffic. Not to mention the system would be sitting idle for the rest of 5 minutes. Instead it makes much more sense to splay the writes over time so that we have an average of 3,333 writes per second to reduce our hardware and network requirements.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Missing Data</p>
+<p class="last">By &#8220;missing&#8221; we simply mean that a time series does not have a data point for the timestamp requested. Usually the data is simply time shifted before or after the requested timestamp, but it could actually be missing if the source or the TSD encountered an error and the data wasn&#8217;t recorded.</p>
+</div>
+<p>How do you <em>sum</em> or find the <em>avg</em> of a number and something that doesn&#8217;t exist? One option is to simply ignore the data points for all time series at the time stamp where any series is missing data. But if you have two time series and they are simply miss-aligned, your query would return an empty data set even though there is good data in storage, so that&#8217;s not very useful.</p>
+<p>Another option is to define a scalar value (e.g. <tt class="docutils literal"><span class="pre">0</span></tt> or the maximum value for a Long) to use whenever a data point is missing. OpenTSDB 2.0 provides a few aggregation methods that substitute a scalar value for missing data points. These are useful when working with distinct value time series such as the number of sales in at a given time.</p>
+<p>However sometimes it doesn&#8217;t make sense to define a scalar for missing data. Often you may be recording a monotonically increasing counter such as the number of bytes transmitted from a network interface. With a counter, we can use <strong>interpolation</strong> to make a guess as to what the value would be at that point in time. Interpolation takes two points and the time span between them to calculate a <em>best guess</em> value at the time stamp requested.</p>
+<p>Take a look at these two time series where the data is simply offset by 10 seconds:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">series</th>
+<th class="head">ts0</th>
+<th class="head">ts0+10s</th>
+<th class="head">ts0+20s</th>
+<th class="head">ts0+30s</th>
+<th class="head">ts0+40s</th>
+<th class="head">ts0+50s</th>
+<th class="head">ts0+60s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>na</td>
+<td>5</td>
+<td>na</td>
+<td>15</td>
+<td>na</td>
+<td>5</td>
+<td>na</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>10</td>
+<td>na</td>
+<td>20</td>
+<td>na</td>
+<td>10</td>
+<td>na</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>When OpenTSDB is calculating an aggregation it starts at the first data point found for any series, in this case it will be the data for <tt class="docutils literal"><span class="pre">B</span></tt> at <tt class="docutils literal"><span class="pre">ts0</span></tt>. We request a value for <tt class="docutils literal"><span class="pre">A</span></tt> at <tt class="docutils literal"><span class="pre">ts0</span></tt> but there isn&#8217;t any data there. We know that there is data for <tt class="docutils literal"><span class="pre">A</span></tt> at <tt class="docutils literal"><span class="pre">ts0+10s</span></tt> but since we don&#8217;t have any value before that, we can&#8217;t make a guess as to what it would be. Thus we simply return the value for <tt class="docutils literal"><span class="pre">B</span></tt>.</p>
+<p>Next we run across a value for <tt class="docutils literal"><span class="pre">A</span></tt> at time <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>. We request a value for <tt class="docutils literal"><span class="pre">ts0+10s</span></tt> from time series <tt class="docutils literal"><span class="pre">B</span></tt> but there isn&#8217;t one. But <tt class="docutils literal"><span class="pre">B</span></tt> knows there is a value at <tt class="docutils literal"><span class="pre">ts0+20s</span></tt> and we had a value at <tt class="docutils literal"><span class="pre">ts0</span></tt> so we can now calculate a guess for <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>. The formula for linear interpolation is <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">y0</span> <span class="pre">+</span> <span class="pre">(x</span> <span class="pre">-</span> <span class="pre">x0)</span> <span class="pre">*</span> <span class="pre">(y1</span> <span class="pre">-</span> <span class="pre">y0)</span> <span class="pre">/</span> <span class="pre">(x1</span> <span class="pre">-</span> <span class="pre">x0)</span></tt> where, for series <tt class="docutils literal"><span class="pre">B</span></tt>, <tt class="docutils literal"><span class="pre">y0</span> <span class="pre">=</span> <span class="pre">10</span></tt>, <tt class="docutils literal"><span class="pre">y1</span> <span class="pre">=</span> <span class="pre">20</span></tt>, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">ts0+10s</span></tt>, <tt class="docutils literal"><span class="pre">x0</span> <span class="pre">=</span> <span class="pre">ts0</span></tt> and <tt class="docutils literal"><span class="pre">x1</span> <span class="pre">=</span> <span class="pre">ts0+20s</span></tt> or <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">(10</span> <span class="pre">-</span> <span class="pre">0)</span> <span class="pre">*</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">10)</span> <span class="pre">/</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">0)</span></tt> Therefore <tt class="docutils literal"><span class="pre">B</span></tt> will give us a <em>guestimated</em> value of <tt class="docutils literal"><span class="pre">10</span></tt> at <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>.</p>
+<p>Iteration continues over every timestamp for which a data point is found for every series returned as a part of the query. The resulting series will look like this:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">series</th>
+<th class="head">ts0</th>
+<th class="head">ts0+10s</th>
+<th class="head">ts0+20s</th>
+<th class="head">ts0+30s</th>
+<th class="head">ts0+40s</th>
+<th class="head">ts0+50s</th>
+<th class="head">ts0+60s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>na</td>
+<td>5</td>
+<td>na</td>
+<td>15</td>
+<td>na</td>
+<td>5</td>
+<td>na</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>10</td>
+<td>na</td>
+<td>20</td>
+<td>na</td>
+<td>10</td>
+<td>na</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>Result</td>
+<td>10</td>
+<td>15</td>
+<td>30</td>
+<td>-7</td>
+<td>-2</td>
+<td>15</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>Note the values at <tt class="docutils literal"><span class="pre">ts0+30s</span></tt> and <tt class="docutils literal"><span class="pre">ts0+40s</span></tt>. Since the latter data point for each series is smaller than the previous, the interpolated value is negative.</p>
+<p><strong>More Examples:</strong>
+For the graphically inclined we have the following examples. An imaginary metric named <tt class="docutils literal"><span class="pre">m</span></tt> is recorded in OpenTSDB. The &#8220;sum of m&#8221; is the blue line at the top resulting from a query like <tt class="docutils literal"><span class="pre">start=1h-ago&amp;m=sum:m</span></tt>. It&#8217;s made of the sum of the red line for <tt class="docutils literal"><span class="pre">host=foo</span></tt> and the green line for <tt class="docutils literal"><span class="pre">host=bar</span></tt>:</p>
+<img alt="../../_images/with-lerp.png" src="../../_images/with-lerp.png" />
+<p>It seems intuitive from the image above that if you &#8220;stack up&#8221; the red line and the green line, you&#8217;d get the blue line. At any discrete point in time, the blue line has a value that is equal to the sum of the value of the red line and the value of the green line at that time. Without interpolation, you get something rather unintuitive that is harder to make sense of, and which is also a lot less meaningful and useful:</p>
+<img alt="../../_images/without-lerp.png" src="../../_images/without-lerp.png" />
+<p>Notice how the blue line plumets down to the green data point at 18:46:48. No need to be a mathematician or to have taken advanced maths classes to see that interpolation is needed to properly aggregate multiple time series together and get meaningful results.</p>
+<p>At the moment OpenTSDB only supports <strong>`linear interpolation &lt;http://en.wikipedia.org/wiki/Linear_interpolation&gt;`_</strong> (sometimes shortened &#8220;lerp&#8221;) for sake of simplicity. Patches are welcome for those who would like to add other interpolation methods.</p>
+<p>Interpolation is only performed at query time when more than one time series are found to match a query. Many metrics collection systems interpolate on <em>write</em> so that you original value is never recorded. OpenTSDB stores your original value and lets you retreive it at any time.</p>
+<p>Here is another slightly more complicated example that came from the mailing list, depicting how multiple time series are aggregated by average:</p>
+<a class="reference external image-reference" href="../../_images/aggregation_average.png"><img alt="Click the image to enlarge." src="../../_images/aggregation-average_sm.png" /></a>
+<p>The thick blue line with triangles is the an aggregation with the <tt class="docutils literal"><span class="pre">avg</span></tt> function of multiple time series as per the query <tt class="docutils literal"><span class="pre">start=1h-ago&amp;m=avg:duration_seconds</span></tt>. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point.</p>
+</div>
+</div>
+<div class="section" id="downsampling">
+<h2>Downsampling</h2>
+<p>The second method of operation for aggregation functions is <tt class="docutils literal"><span class="pre">downsampling</span></tt>. Since OpenTSDB stores data at the original resolution indefinitely, requesting data for a long time span can return millions of points. This can cause a burden on bandwidth or graphing libraries so it&#8217;s common to request data at a lower resolution for longer spans. Downsampling breaks the long span of data into smaller spans and merges the data for the smaller span into a single data point. Aggregation functions will perform the same calculation as for an aggregation process but instead of working across data points for mutliple time series at a single time stamp, downsampling works across multiple data points within a single time series over a given time span.</p>
+<p>For example, take series <tt class="docutils literal"><span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">B</span></tt> in the first table under <strong>Aggregation</strong>. The data points cover a 50 second time span. Let&#8217;s say we want to downsample that to 30 seconds. This will give us two data points for each series:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">series</th>
+<th class="head">ts0</th>
+<th class="head">ts0+10s</th>
+<th class="head">ts0+20s</th>
+<th class="head">ts0+30s</th>
+<th class="head">ts0+40s</th>
+<th class="head">ts0+50s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>5</td>
+<td>5</td>
+<td>10</td>
+<td>15</td>
+<td>20</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>A Downsampled</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>35</td>
+<td>&nbsp;</td>
+<td>25</td>
+</tr>
+<tr class="row-even"><td>B</td>
+<td>10</td>
+<td>5</td>
+<td>20</td>
+<td>15</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>B Downsampled</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>50</td>
+<td>&nbsp;</td>
+<td>10</td>
+</tr>
+<tr class="row-even"><td>Aggregated Result</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>85</td>
+<td>&nbsp;</td>
+<td>35</td>
+</tr>
+</tbody>
+</table>
+<p>The actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. Future versions of OpenTSDB will likely normalize this time on a well defined boundary.</p>
+<p>Note that when a query specifies a down sampling function and multiple time series are returned, downsampling occurs <strong>before</strong> aggregation. I.e. now that we have <tt class="docutils literal"><span class="pre">A</span> <span class="pre">Downsampled</span></tt> and <tt class="docutils literal"><span class="pre">B</span> <span class="pre">Downsampled</span></tt> we can aggregate the two series to come up with the aggregated result on the bottom line.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Aggregation functions return integer or double values based on the input data points. If both source values are integers in storage, the resulting calculations will be integers. This means any fractional values resulting from the computation will be lopped off, no rounding will occur. If either data point is a floating point value, the result will be a floating point.</p>
+</div>
+</div>
+<div class="section" id="available-aggregators">
+<h2>Available Aggregators</h2>
+<p>The following is a description of the aggregation functions available in OpenTSDB.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="40%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Aggregator</th>
+<th class="head">Description</th>
+<th class="head">Interpolation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>sum</td>
+<td>Adds the data points together</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>Selects the smallest data point</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>max</td>
+<td>Selects the largest data point</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>avg</td>
+<td>Averages the data points</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>dev</td>
+<td>Calculates the standard deviation</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>zimsum</td>
+<td>Adds the data points togeter</td>
+<td>Zero if missing</td>
+</tr>
+<tr class="row-even"><td>mimmin</td>
+<td>Selects the smallest data point</td>
+<td>Maximum if missing</td>
+</tr>
+<tr class="row-odd"><td>mimmax</td>
+<td>Selects the largest data point</td>
+<td>Minimum if missing</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="sum">
+<h3>Sum</h3>
+<p>Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it&#8217;s often the most useful when combining multiple time series such as guages or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at <tt class="docutils literal"><span class="pre">zimsum</span></tt></p>
+</div>
+<div class="section" id="min">
+<h3>Min</h3>
+<p>Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It&#8217;s useful for looking at the lower bounds of gauge metrics.</p>
+</div>
+<div class="section" id="max">
+<h3>Max</h3>
+<p>The inverse of <tt class="docutils literal"><span class="pre">min</span></tt>, it returns the largest data point from all of the time series or within a time span. This function will perform linear interpolation across time series. It&#8217;s useful for looking at the upper bounds of gauge metrics.</p>
+</div>
+<div class="section" id="avg">
+<h3>Avg</h3>
+<p>Calculates the average of all values across the time span or across multiple time series. This function will perform linear interpolation across time series. It&#8217;s useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.</p>
+</div>
+<div class="section" id="dev">
+<h3>Dev</h3>
+<p>Calculates the <a class="reference external" href="http://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> across a span or time series. This function will perform linear interpolation across time series. It&#8217;s useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.</p>
+</div>
+<div class="section" id="zimsum">
+<h3>ZimSum</h3>
+<p>Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does <em>not</em> perform interpolation, instead it substitues a <tt class="docutils literal"><span class="pre">0</span></tt> for missing data points. This can be useful when working with discrete values.</p>
+</div>
+<div class="section" id="mimmin">
+<h3>MimMin</h3>
+<p>The &#8220;maximum if missing minimum&#8221; function returns only the smallest data point from all of the time series or within the time span. This function will <em>not</em> perform interpolation, instead it will return the maximum value for the type of data specified if the value is missing. This will return the Long.MaxValue for integer points or Double.MaxValue for floating point values. See <a class="reference external" href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">Primitive Data Types</a> for details. It&#8217;s useful for looking at the lower bounds of gauge metrics.</p>
+</div>
+<div class="section" id="mimmax">
+<h3>MimMax</h3>
+<p>The &#8220;minimum if missing maximum&#8221; function returns only the largest data point from all of the time series or within the time span. This function will <em>not</em> perform interpolation, instead it will return the minimum value for the type of data specified if the value is missing. This will return the Long.MinValue for integer points or Double.MinValue for floating point values. See <a class="reference external" href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">Primitive Data Types</a> for details. It&#8217;s useful for looking at the upper bounds of gauge metrics.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../uids.html" title="UIDs and TSUIDs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="timeseries.html" title="Understanding Metrics and Time Series"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

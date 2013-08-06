@@ -133,8 +133,23 @@ Each query can retrieve one or sets of timeseries data, performing aggregation o
   "aggregator", "String", "Required", "The name of an aggregation function to use. See :doc:`../aggregators`", "", "sum"
   "metric", "String", "Required", "The name of a metric stored in the system", "", "sys.cpu.0"
   "rate", "Boolean", "Optional", "Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continously incrementing counter and you want to view the rate of change between data points.", "false", "true"
+  "rateOptions", "Map", "Optional", "Monotonically increasing counter handling options", "*See below*", "*See below*"
   "downsample", "String", "Optional", "An optional downsampling function to reduce the amount of data returned. See `/q <http://opentsdb.net/http-api.html#/q>`_", "", "5m-avg"
   "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. See `/q <http://opentsdb.net/http-api.html#/q>`_. Note that if no tags are specified, all metrics in the system will be aggregated into the results.", "", "*See Below*"
+
+*Rate Options*
+
+Additional fields in the ``rateOptions`` field include the following:
+
+.. csv-table::
+  :header: "Name", "Data Type", "Required", "Description", "Default", "Example"
+  :widths: 10, 10, 5, 50, 10, 15
+  
+  "counter", "Boolean", "Optional", "Whether or not the underlying data is a monotonically increasing counter that may roll over", "false", "true"
+  "counterMax", "Integer", "Optional", "A positive integer representing the maximum value for the counter.", "Java Long.MaxValue", "65535"
+  "resetValue", "Integer", "Optional", "An optional value that, when exceeded, will cause the aggregator to return a ``0`` instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.", "0", "65000"
+
+*Serializer Specific*
 
 Additionally, the JSON serializer allows some query string parameters that modify the output but have no effect on the data retrieved.
 

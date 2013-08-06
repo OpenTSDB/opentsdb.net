@@ -282,14 +282,14 @@
 <tr class="row-even"><td>start</td>
 <td>String, Integer</td>
 <td>Required</td>
-<td>The start time for the query. This can be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Queries</em></a> for details.</td>
+<td>The start time for the query. This can be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Querying or Reading Data</em></a> for details.</td>
 <td>&nbsp;</td>
 <td>1h-ago</td>
 </tr>
 <tr class="row-odd"><td>end</td>
 <td>String, Integer</td>
 <td>Optional</td>
-<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Queries</em></a> for details.</td>
+<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Querying or Reading Data</em></a> for details.</td>
 <td><em>current time</em></td>
 <td>1s-ago</td>
 </tr>
@@ -371,14 +371,21 @@
 <td>false</td>
 <td>true</td>
 </tr>
-<tr class="row-odd"><td>downsample</td>
+<tr class="row-odd"><td>rateOptions</td>
+<td>Map</td>
+<td>Optional</td>
+<td>Monotonically increasing counter handling options</td>
+<td><em>See below</em></td>
+<td><em>See below</em></td>
+</tr>
+<tr class="row-even"><td>downsample</td>
 <td>String</td>
 <td>Optional</td>
 <td>An optional downsampling function to reduce the amount of data returned. See <a class="reference external" href="http://opentsdb.net/http-api.html#/q">/q</a></td>
 <td>&nbsp;</td>
 <td>5m-avg</td>
 </tr>
-<tr class="row-even"><td>tags</td>
+<tr class="row-odd"><td>tags</td>
 <td>Map</td>
 <td>Optional</td>
 <td>To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. See <a class="reference external" href="http://opentsdb.net/http-api.html#/q">/q</a>. Note that if no tags are specified, all metrics in the system will be aggregated into the results.</td>
@@ -387,6 +394,51 @@
 </tr>
 </tbody>
 </table>
+<p><em>Rate Options</em></p>
+<p>Additional fields in the <tt class="docutils literal"><span class="pre">rateOptions</span></tt> field include the following:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="5%" />
+<col width="50%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>counter</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the underlying data is a monotonically increasing counter that may roll over</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>counterMax</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A positive integer representing the maximum value for the counter.</td>
+<td>Java Long.MaxValue</td>
+<td>65535</td>
+</tr>
+<tr class="row-even"><td>resetValue</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>An optional value that, when exceeded, will cause the aggregator to return a <tt class="docutils literal"><span class="pre">0</span></tt> instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.</td>
+<td>0</td>
+<td>65000</td>
+</tr>
+</tbody>
+</table>
+<p><em>Serializer Specific</em></p>
 <p>Additionally, the JSON serializer allows some query string parameters that modify the output but have no effect on the data retrieved.</p>
 <table border="1" class="docutils">
 <colgroup>

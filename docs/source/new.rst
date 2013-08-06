@@ -17,5 +17,8 @@ OpenTSDB has a thriving community who contributed and requested a number of new 
 * Ingest Plugins - Accept data points in different formats
 * Millisecond Resolution - Optionally store data with millisecond precision
 * Variable Length Encoding - Use less space in storage for smaller integer values
+* Non-Interpolating Aggregation Functions - For situations where you require raw data
+* Rate Counter Calculations - To handle roll-over and anamoly supression
+* Additional Statistics - Including the number of UIDs assigned and available
 
 More features are on the way. Help us out by sharing your ideas.

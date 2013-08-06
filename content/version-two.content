@@ -9,7 +9,7 @@ previous release though there maybe some slight changes in the HTTP and Java
 APIs. Below is a roadmap for the next release: </p>
 <h3>Timeline</h3>
 <ul>
-  <li>July 2013 - Initial Release Candidate</li>
+  <li>DONE: July 2013 - Initial Release Candidate <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.0.0RC1">GitHub</a></li>
   <li>August 2013 - Release Candidate 2</li>
   <li>October 2013 - Official Release</li>
 </ul>
@@ -19,9 +19,8 @@ we can get.</p>
 <p>These are just some of the improvements on the planning board:</p>
 <ul>
   <li>DONE: Improved (lock-less) UID assignment</li>
-  <li>Faster query speeds for complex or aggregated queries</li>
-  <li>More aggregators</li>
-  <li>Graphing options</li>
+  <li>DONE: Faster query speeds for complex or aggregated queries</li>
+  <li>DONE: More aggregators with interpolation bypass</li>
   <li>WIP: New website and documentation including a user guide</li>
 </ul>
 <h3>New Features</h3>
@@ -55,6 +54,7 @@ Features for 2.0 are essentially locked in at this time so that we can finish th
 <li>Rollups</li>
 <li>Last value queries</li>
 <li>Pluggable data abstraction layer that will allow the use of data stores other than HBase. Initially we'll release a Cassandra plugin</li>
+<li>More graphing options</li>
 </ul>
 </p>
 <h3>Documentation</h3>

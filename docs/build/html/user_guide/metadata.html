@@ -25,7 +25,7 @@
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Trees" href="trees.html" />
-    <link rel="prev" title="Plugins" href="plugins.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="UIDs and TSUIDs" href="uids.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -39,7 +39,7 @@
           <a href="trees.html" title="Trees"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="plugins.html" title="Plugins"
+          <a href="uids.html" title="UIDs and TSUIDs"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
@@ -59,8 +59,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="plugins.html"
-                        title="previous chapter">Plugins</a></p>
+  <p class="topless"><a href="uids.html"
+                        title="previous chapter">UIDs and TSUIDs</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="trees.html"
                         title="next chapter">Trees</a></p>
@@ -101,12 +101,17 @@
 <div class="section" id="enabling-metadata">
 <h2>Enabling Metadata</h2>
 <p>If you want to use metadata in your OpenTSDB setup, you must explicitly enable real-time metadata tracking and/or use the CLI tools. There are multiple options for meta data generation due to impacts on performance, so before you enable any of these settings, please test the impact on your TSDs before enabling the settings in production.</p>
-<p>Three options are available, starting with the least impact to the most.</p>
+<p>Four options are available, starting with the least impact to the most.</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_incrementing</span></tt> - When this setting is enabled, every data point written will increment a counter in the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table corresponding to the time series the data point belongs to. Future query optimization will make heavy use of this feature so we highly recommend that you enable it for all of your TSDs where data is inbound.</li>
-<li><tt class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_uid</span></tt> - When enabled, any time a new metric, tag name or tag value is assigned a UID, a UIDMeta object is generated and optionally sent to the configured search plugin. Generally this incurs a small performance impact so we recommend enabling this setting as well.</li>
+<li><tt class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_uid</span></tt> - When enabled, any time a new metric, tag name or tag value is assigned a UID, a UIDMeta object is generated and optionally sent to the configured search plugin. As UIDs are assigned fairly infrequently, this setting should not impact performance very much.</li>
+<li><tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></tt> - When enabled, every time a data point is recorded, a <tt class="docutils literal"><span class="pre">1</span></tt> is written to the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table with the timestamp of the given data point. Enabling this setting will generate twice the number of <em>puts</em> to storage and may require a greater amount of memory heap. For example a single TSD should be able to acheive 6,000 data points per second with about 2GB of heap.</li>
+<li><tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_incrementing</span></tt> - When this setting is enabled, every data point written will increment a counter in the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table corresponding to the time series the data point belongs to. As every data points spawns an increment request, this can generate a much larger load in a TSD and chew up heap space pretty quickly so only enable this if you can spread the load across multiple TSDs or your writes are fairly small. Enabling incrementing will override the <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></tt> setting. For example a single TSD should be able to acheive 3,000 data points per second with about 6GB of heap.</li>
 <li><tt class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></tt> - When enabled, any time a new time series arrives, a TSMeta object will be created and optionally sent to a configured search plugin. This option will also enabled the <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_incrementing</span></tt> setting even if it&#8217;s explicitly set to <tt class="docutils literal"><span class="pre">false</span></tt> in the config. If you often push new time series to your TSDs, this option may incur a fair amount of overhead and require some garbage collection tuning. If you do not often push new time series, you should be able to enable this setting without a problem, but watch the memory usage of your TSDs.</li>
 </ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Watch your JVM heap usage when enabling any of the real-time meta data settings.</p>
+</div>
 <p>For situations where a TSD crashes before metadata can be written to storage or if you do not enable real-time tracking, you can periodically use the <tt class="docutils literal"><span class="pre">uid</span></tt> CLI tool and the <tt class="docutils literal"><span class="pre">metasync</span></tt> sub command to generate missing UIDMeta and TSMeta objects. See <a class="reference internal" href="cli/uid.html"><em>uid</em></a> for information.</p>
 </div>
 <div class="section" id="annotations">
@@ -138,7 +143,7 @@
           <a href="trees.html" title="Trees"
              >next</a> |</li>
         <li class="right" >
-          <a href="plugins.html" title="Plugins"
+          <a href="uids.html" title="UIDs and TSUIDs"
              >previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >User Guide</a> &raquo;</li> 

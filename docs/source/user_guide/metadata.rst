@@ -22,11 +22,15 @@ Enabling Metadata
 
 If you want to use metadata in your OpenTSDB setup, you must explicitly enable real-time metadata tracking and/or use the CLI tools. There are multiple options for meta data generation due to impacts on performance, so before you enable any of these settings, please test the impact on your TSDs before enabling the settings in production. 
 
-Three options are available, starting with the least impact to the most.
+Four options are available, starting with the least impact to the most.
 
-* ``tsd.core.meta.enable_tsuid_incrementing`` - When this setting is enabled, every data point written will increment a counter in the ``tsdb-meta`` table corresponding to the time series the data point belongs to. Future query optimization will make heavy use of this feature so we highly recommend that you enable it for all of your TSDs where data is inbound. 
-* ``tsd.core.meta.enable_realtime_uid`` - When enabled, any time a new metric, tag name or tag value is assigned a UID, a UIDMeta object is generated and optionally sent to the configured search plugin. Generally this incurs a small performance impact so we recommend enabling this setting as well.
+* ``tsd.core.meta.enable_realtime_uid`` - When enabled, any time a new metric, tag name or tag value is assigned a UID, a UIDMeta object is generated and optionally sent to the configured search plugin. As UIDs are assigned fairly infrequently, this setting should not impact performance very much.
+* ``tsd.core.meta.enable_tsuid_tracking`` - When enabled, every time a data point is recorded, a ``1`` is written to the ``tsdb-meta`` table with the timestamp of the given data point. Enabling this setting will generate twice the number of *puts* to storage and may require a greater amount of memory heap. For example a single TSD should be able to acheive 6,000 data points per second with about 2GB of heap.
+* ``tsd.core.meta.enable_tsuid_incrementing`` - When this setting is enabled, every data point written will increment a counter in the ``tsdb-meta`` table corresponding to the time series the data point belongs to. As every data points spawns an increment request, this can generate a much larger load in a TSD and chew up heap space pretty quickly so only enable this if you can spread the load across multiple TSDs or your writes are fairly small. Enabling incrementing will override the ``tsd.core.meta.enable_tsuid_tracking`` setting. For example a single TSD should be able to acheive 3,000 data points per second with about 6GB of heap.
 * ``tsd.core.meta.enable_realtime_ts`` - When enabled, any time a new time series arrives, a TSMeta object will be created and optionally sent to a configured search plugin. This option will also enabled the ``tsd.core.meta.enable_tsuid_incrementing`` setting even if it's explicitly set to ``false`` in the config. If you often push new time series to your TSDs, this option may incur a fair amount of overhead and require some garbage collection tuning. If you do not often push new time series, you should be able to enable this setting without a problem, but watch the memory usage of your TSDs.
+
+.. WARNING:: 
+  Watch your JVM heap usage when enabling any of the real-time meta data settings. 
 
 For situations where a TSD crashes before metadata can be written to storage or if you do not enable real-time tracking, you can periodically use the ``uid`` CLI tool and the ``metasync`` sub command to generate missing UIDMeta and TSMeta objects. See :doc:`cli/uid` for information.
 

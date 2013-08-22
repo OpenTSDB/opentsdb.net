@@ -24,7 +24,7 @@ Storage
 
 By default, UIDs are encoded on 3 bytes in storage, giving a maximum unique ID of 16,777,215 for each UID type. This is done to reduce the amount of space taken up in storage and to reduce the memory footprint of a TSD. For the vast majority of users, 16 million unique metrics, 16 million unique tag names and 16 million unique tag values should be enough. But if you do need more of a particular type, you can modify the OpenTSDB source code and recompile with 4 bytes or more. 
 
-.. WARN:: If you do adjust the byte encoding number, you must start with a fresh ``tsdb`` and fresh ``tsdb-uid`` table, otherwise the results will be unexpected. If you have data in an existing setup, you must export it, drop all tables, create them from scratch and re-import the data.
+.. WARNING:: If you do adjust the byte encoding number, you must start with a fresh ``tsdb`` and fresh ``tsdb-uid`` table, otherwise the results will be unexpected. If you have data in an existing setup, you must export it, drop all tables, create them from scratch and re-import the data.
 
 Display
 -------

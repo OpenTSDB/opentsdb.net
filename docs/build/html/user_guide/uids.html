@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
-    <link rel="next" title="GUI" href="guis/index.html" />
-    <link rel="prev" title="Configuration" href="configuration.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="next" title="Metadata" href="metadata.html" />
+    <link rel="prev" title="Aggregators" href="query/aggregators.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -36,10 +36,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="guis/index.html" title="GUI"
+          <a href="metadata.html" title="Metadata"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="configuration.html" title="Configuration"
+          <a href="query/aggregators.html" title="Aggregators"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
@@ -65,11 +65,11 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="configuration.html"
-                        title="previous chapter">Configuration</a></p>
+  <p class="topless"><a href="query/aggregators.html"
+                        title="previous chapter">Aggregators</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="guis/index.html"
-                        title="next chapter">GUI</a></p>
+  <p class="topless"><a href="metadata.html"
+                        title="next chapter">Metadata</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -110,6 +110,10 @@
 <div class="section" id="storage">
 <h3>Storage</h3>
 <p>By default, UIDs are encoded on 3 bytes in storage, giving a maximum unique ID of 16,777,215 for each UID type. This is done to reduce the amount of space taken up in storage and to reduce the memory footprint of a TSD. For the vast majority of users, 16 million unique metrics, 16 million unique tag names and 16 million unique tag values should be enough. But if you do need more of a particular type, you can modify the OpenTSDB source code and recompile with 4 bytes or more.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you do adjust the byte encoding number, you must start with a fresh <tt class="docutils literal"><span class="pre">tsdb</span></tt> and fresh <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table, otherwise the results will be unexpected. If you have data in an existing setup, you must export it, drop all tables, create them from scratch and re-import the data.</p>
+</div>
 </div>
 <div class="section" id="display">
 <h3>Display</h3>
@@ -153,10 +157,10 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="guis/index.html" title="GUI"
+          <a href="metadata.html" title="Metadata"
              >next</a> |</li>
         <li class="right" >
-          <a href="configuration.html" title="Configuration"
+          <a href="query/aggregators.html" title="Aggregators"
              >previous</a> |</li>
         <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >User Guide</a> &raquo;</li> 

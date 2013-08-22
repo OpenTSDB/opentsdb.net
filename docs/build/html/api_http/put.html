@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
     <link rel="up" title="HTTP API" href="index.html" />
-    <link rel="next" title="/api/query" href="query.html" />
+    <link rel="next" title="/api/query" href="query/index.html" />
     <link rel="prev" title="/api/dropcaches" href="dropcaches.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -36,7 +36,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="query.html" title="/api/query"
+          <a href="query/index.html" title="/api/query"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="dropcaches.html" title="/api/dropcaches"
@@ -52,7 +52,8 @@
 <li><a class="reference internal" href="#">/api/put</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
-<li><a class="reference internal" href="#example-request">Example Request</a></li>
+<li><a class="reference internal" href="#example-single-data-point-put">Example Single Data Point Put</a></li>
+<li><a class="reference internal" href="#example-multiple-data-point-put">Example Multiple Data Point Put</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#response">Response</a><ul>
@@ -68,7 +69,7 @@
   <p class="topless"><a href="dropcaches.html"
                         title="previous chapter">/api/dropcaches</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="query.html"
+  <p class="topless"><a href="query/index.html"
                         title="next chapter">/api/query</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
@@ -158,10 +159,108 @@
 </tbody>
 </table>
 <p>If both <tt class="docutils literal"><span class="pre">detailed</span></tt> and <tt class="docutils literal"><span class="pre">summary</span></tt> are present in a query string, the API will respond with <tt class="docutils literal"><span class="pre">detailed</span></tt> information.</p>
-<div class="section" id="example-request">
-<h3>Example Request</h3>
-<p>Please see the serializer documentation for request information.</p>
-<p><a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
+<p>The fields and examples below refer to the default JSON serializer.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>metric</td>
+<td>String</td>
+<td>Required</td>
+<td>The name of the metric you are storing</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>sys.cpu.nice</td>
+</tr>
+<tr class="row-odd"><td>timestamp</td>
+<td>Integer</td>
+<td>Required</td>
+<td>A Unix epoch style timestamp in seconds or milliseconds. The timestamp must not contain non-numeric characters.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>1365465600</td>
+</tr>
+<tr class="row-even"><td>value</td>
+<td>Integer, Float, String</td>
+<td>Required</td>
+<td>The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: <a class="reference internal" href="../user_guide/writing.html"><em>Writing Data</em></a></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>42.5</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>Map</td>
+<td>Required</td>
+<td>A map of tag name/tag value pairs. At least one pair must be supplied.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>{&#8220;host&#8221;:&#8221;web01&#8221;}</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-single-data-point-put">
+<h3>Example Single Data Point Put</h3>
+<p>You can supply a single data point in a request:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-multiple-data-point-put">
+<h3>Example Multiple Data Point Put</h3>
+<p>Multiple data points must be encased in an array:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+           <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+           <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="response">
@@ -243,7 +342,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="query.html" title="/api/query"
+          <a href="query/index.html" title="/api/query"
              >next</a> |</li>
         <li class="right" >
           <a href="dropcaches.html" title="/api/dropcaches"

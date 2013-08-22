@@ -9,6 +9,7 @@ OpenTSDB offers a number of means to extract data such as CLI tools, an HTTP API
    dates
    timeseries
    aggregators
+   examples
    
 Query Components
 ^^^^^^^^^^^^^^^^

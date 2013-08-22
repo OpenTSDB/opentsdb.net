@@ -178,7 +178,7 @@ API Endpoints
    config
    dropcaches
    put
-   query
+   query/index
    search
    serializers
    stats

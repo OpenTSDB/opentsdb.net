@@ -32,13 +32,62 @@ Some query string parameters can be supplied that alter the response to a put re
 
 If both ``detailed`` and ``summary`` are present in a query string, the API will respond with ``detailed`` information.
 
-Example Request
-^^^^^^^^^^^^^^^
+The fields and examples below refer to the default JSON serializer.
 
-Please see the serializer documentation for request information.
-
-:doc:`serializers/index`
+.. csv-table::
+   :header: "Name", "Data Type", "Required", "Description", "Default", "QS", "RW", "Example"
+   :widths: 10, 5, 5, 45, 10, 5, 5, 15
    
+   "metric", "String", "Required", "The name of the metric you are storing", "", "", "W", "sys.cpu.nice"
+   "timestamp", "Integer", "Required", "A Unix epoch style timestamp in seconds or milliseconds. The timestamp must not contain non-numeric characters.", "", "", "W", "1365465600"
+   "value", "Integer, Float, String", "Required", "The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: :doc:`../../user_guide/writing`", "", "", "W", "42.5"
+   "tags", "Map", "Required", "A map of tag name/tag value pairs. At least one pair must be supplied.", "", "", "W", "{""host"":""web01""}"
+   
+Example Single Data Point Put
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can supply a single data point in a request:
+
+.. code-block :: javascript
+
+  {
+      "metric": "sys.cpu.nice",
+      "timestamp": 1346846400,
+      "value": 18,
+      "tags": {
+         "host": "web01",
+         "dc": "lga"
+      }
+  }
+  
+Example Multiple Data Point Put
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Multiple data points must be encased in an array:
+
+.. code-block :: javascript
+
+  [
+      {
+          "metric": "sys.cpu.nice",
+          "timestamp": 1346846400,
+          "value": 18,
+          "tags": {
+             "host": "web01",
+             "dc": "lga"
+          }
+      },
+      {
+          "metric": "sys.cpu.nice",
+          "timestamp": 1346846400,
+          "value": 9,
+          "tags": {
+             "host": "web02",
+             "dc": "lga"
+          }
+      }
+  ]
+
 Response
 --------
    

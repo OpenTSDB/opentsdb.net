@@ -26,7 +26,31 @@ Because we've worked hard to maintain backwards compatability, you can turn off 
 Compiling
 ^^^^^^^^^
 
-TODO
+Download the latest version using ``git clone`` command, then run the provided ``build.sh`` script.  
+
+This script helps run all the processes needed to compile OpenTSDB: it runs ``./bootstrap`` (only once, when you first check out the code), followed by ``./configure`` and ``make``. The output of the build process is put into a ``build`` folder::
+
+ git clone git://github.com/OpenTSDB/opentsdb.git
+ cd opentsdb
+ ./build.sh
+
+From there on, you can use the command-line tool by invoking ``./build/tsdb`` or you can run ``make install`` to install OpenTSDB on your system. Should you ever change your mind, there is also ``make uninstall``, so there are no strings attached.
+
+If it's the first time you run OpenTSDB with your HBase instance, you first need to create the necessary HBase tables::
+
+ env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/create_table.sh
+
+This will create two tables: ``tsdb`` and ``tsdb-uid``. If you're just evaluating OpenTSDB, don't worry about compression for now. In production / at scale, make sure you use ``COMPRESSION=lzo`` and have LZO enabled.
+
+Now start a TSD (Time Series Daemon)::
+
+ tsdtmp=${TMPDIR-'/tmp'}/tsd    # For best performance, make sure
+ mkdir -p "$tsdtmp"             # your temporary directory uses tmpfs
+ ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"
+
+If you're using a real HBase cluster, you will also need to pass the ``--zkquorum`` flag to specify the comma-separated list of hosts serving your ZooKeeper quorum. The ``--cachedir`` can be purged periodically, e.g. by a cron job.
+
+At this point you can access the TSD's web interface through http://127.0.0.1:4242 (if it's running on your local machine).
 
 Debian Package
 ^^^^^^^^^^^^^^
@@ -49,6 +73,6 @@ The Debian package will create the following directories:
 
 Installation includes an init script at ``/etc/init.d/opentsdb`` that can start, stop and restart OpenTSDB. Simply call ``service opentsdb start`` to start the tsd and ``service opentsdb stop`` to gracefully shutdown. Note after install, the tsd will not be running so that you can edit the configuration file. Edit the config file, then start the TSD.
 
-The Debian package also creates an ``opentsdb`` user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can't use the default locations, plesae change them in ``/etc/opentsdb/opentsdb.conf`` and ``/etc/opentsdb/logback.xml`` respectively and apply the proper permissions for the ``opentsdb`` user.
+The Debian package also creates an ``opentsdb`` user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can't use the default locations, please change them in ``/etc/opentsdb/opentsdb.conf`` and ``/etc/opentsdb/logback.xml`` respectively and apply the proper permissions for the ``opentsdb`` user.
 
 .. NOTE: The default temporary directory ``/tmp/opentsdb`` may fill up quickly if you use the TSD for graphing lots of queries. Consider adding ``/usr/share/opentsdb/tools/clean_cache.sh`` as a cron job to clean out old files, or move the temporary directory to a location with greater capacity.

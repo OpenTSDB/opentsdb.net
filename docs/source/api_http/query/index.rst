@@ -90,7 +90,7 @@ TSUID queries are simpler than Metric queries. Simply pass a list of one or more
 
 ::
 
-  tsuids=<aggregator>:<tsuid1>[,...<tsuidN>]
+  tsuid=<aggregator>:<tsuid1>[,...<tsuidN>]
   
 Example Query String Requests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -98,7 +98,7 @@ Example Query String Requests
 ::
 
   http://localhost:4242/api/query?start=1h-ago&m=sum:rate:proc.stat.cpu{host=foo,type=idle}
-  http://localhost:4242/api/query?start=1h-ago&tsuids=sum:000001000002000042,000001000002000043
+  http://localhost:4242/api/query?start=1h-ago&tsuid=sum:000001000002000042,000001000002000043
 
 Example Content Request
 ^^^^^^^^^^^^^^^^^^^^^^^

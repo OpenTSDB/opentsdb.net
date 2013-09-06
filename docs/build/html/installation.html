@@ -24,8 +24,20 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="index.html" />
     <link rel="next" title="User Guide" href="user_guide/index.html" />
-    <link rel="prev" title="Documentation for OpenTSDB 2.0" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="What’s New" href="new.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
   </head>
   <body>
     <div class="related">
@@ -38,7 +50,7 @@
           <a href="user_guide/index.html" title="User Guide"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for OpenTSDB 2.0"
+          <a href="new.html" title="What’s New"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -57,8 +69,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Documentation for OpenTSDB 2.0</a></p>
+  <p class="topless"><a href="new.html"
+                        title="previous chapter">What&#8217;s New</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="user_guide/index.html"
                         title="next chapter">User Guide</a></p>
@@ -104,7 +116,24 @@
 </div>
 <div class="section" id="compiling">
 <h2>Compiling</h2>
-<p>TODO</p>
+<p>Download the latest version using <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></tt> command, then run the provided <tt class="docutils literal"><span class="pre">build.sh</span></tt> script.</p>
+<p>This script helps run all the processes needed to compile OpenTSDB: it runs <tt class="docutils literal"><span class="pre">./bootstrap</span></tt> (only once, when you first check out the code), followed by <tt class="docutils literal"><span class="pre">./configure</span></tt> and <tt class="docutils literal"><span class="pre">make</span></tt>. The output of the build process is put into a <tt class="docutils literal"><span class="pre">build</span></tt> folder:</p>
+<div class="highlight-python"><pre>git clone git://github.com/OpenTSDB/opentsdb.git
+cd opentsdb
+./build.sh</pre>
+</div>
+<p>From there on, you can use the command-line tool by invoking <tt class="docutils literal"><span class="pre">./build/tsdb</span></tt> or you can run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">install</span></tt> to install OpenTSDB on your system. Should you ever change your mind, there is also <tt class="docutils literal"><span class="pre">make</span> <span class="pre">uninstall</span></tt>, so there are no strings attached.</p>
+<p>If it&#8217;s the first time you run OpenTSDB with your HBase instance, you first need to create the necessary HBase tables:</p>
+<div class="highlight-python"><pre>env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/create_table.sh</pre>
+</div>
+<p>This will create two tables: <tt class="docutils literal"><span class="pre">tsdb</span></tt> and <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt>. If you&#8217;re just evaluating OpenTSDB, don&#8217;t worry about compression for now. In production / at scale, make sure you use <tt class="docutils literal"><span class="pre">COMPRESSION=lzo</span></tt> and have LZO enabled.</p>
+<p>Now start a TSD (Time Series Daemon):</p>
+<div class="highlight-python"><pre>tsdtmp=${TMPDIR-'/tmp'}/tsd    # For best performance, make sure
+mkdir -p "$tsdtmp"             # your temporary directory uses tmpfs
+./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"</pre>
+</div>
+<p>If you&#8217;re using a real HBase cluster, you will also need to pass the <tt class="docutils literal"><span class="pre">--zkquorum</span></tt> flag to specify the comma-separated list of hosts serving your ZooKeeper quorum. The <tt class="docutils literal"><span class="pre">--cachedir</span></tt> can be purged periodically, e.g. by a cron job.</p>
+<p>At this point you can access the TSD&#8217;s web interface through <a class="reference external" href="http://127.0.0.1:4242">http://127.0.0.1:4242</a> (if it&#8217;s running on your local machine).</p>
 </div>
 <div class="section" id="debian-package">
 <h2>Debian Package</h2>
@@ -122,7 +151,7 @@
 <li>/var/log/opentsdb - Logs</li>
 </ul>
 <p>Installation includes an init script at <tt class="docutils literal"><span class="pre">/etc/init.d/opentsdb</span></tt> that can start, stop and restart OpenTSDB. Simply call <tt class="docutils literal"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">start</span></tt> to start the tsd and <tt class="docutils literal"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">stop</span></tt> to gracefully shutdown. Note after install, the tsd will not be running so that you can edit the configuration file. Edit the config file, then start the TSD.</p>
-<p>The Debian package also creates an <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can&#8217;t use the default locations, plesae change them in <tt class="docutils literal"><span class="pre">/etc/opentsdb/opentsdb.conf</span></tt> and <tt class="docutils literal"><span class="pre">/etc/opentsdb/logback.xml</span></tt> respectively and apply the proper permissions for the <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user.</p>
+<p>The Debian package also creates an <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can&#8217;t use the default locations, please change them in <tt class="docutils literal"><span class="pre">/etc/opentsdb/opentsdb.conf</span></tt> and <tt class="docutils literal"><span class="pre">/etc/opentsdb/logback.xml</span></tt> respectively and apply the proper permissions for the <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user.</p>
 </div>
 </div>
 
@@ -142,7 +171,7 @@
           <a href="user_guide/index.html" title="User Guide"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for OpenTSDB 2.0"
+          <a href="new.html" title="What’s New"
              >previous</a> |</li>
         <li><a href="index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>

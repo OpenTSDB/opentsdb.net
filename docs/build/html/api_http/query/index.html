@@ -27,6 +27,18 @@
     <link rel="next" title="/api/query/last" href="last.html" />
     <link rel="prev" title="/api/put" href="../put.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
   </head>
   <body>
     <div class="related">
@@ -336,13 +348,13 @@
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>
 <p>TSUID queries are simpler than Metric queries. Simply pass a list of one or more hexadecimal encoded TSUIDs separated by commas:</p>
-<div class="highlight-python"><pre>tsuids=&lt;aggregator&gt;:&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]</pre>
+<div class="highlight-python"><pre>tsuid=&lt;aggregator&gt;:&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]</pre>
 </div>
 </div>
 <div class="section" id="example-query-string-requests">
 <h3>Example Query String Requests</h3>
 <div class="highlight-python"><pre>http://localhost:4242/api/query?start=1h-ago&amp;m=sum:rate:proc.stat.cpu{host=foo,type=idle}
-http://localhost:4242/api/query?start=1h-ago&amp;tsuids=sum:000001000002000042,000001000002000043</pre>
+http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,000001000002000043</pre>
 </div>
 </div>
 <div class="section" id="example-content-request">

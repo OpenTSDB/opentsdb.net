@@ -116,55 +116,6 @@
 <div class="section" id="cli-parameters">
 <h2>CLI Parameters</h2>
 <p>Parameters specific to the UID utility include:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="50%" />
-<col width="10%" />
-<col width="20%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>&#8211;idwidth</td>
-<td>Integer</td>
-<td>Number of bytes on which the UniqueId is encoded. This allows for an override of the built in UID width.</td>
-<td>3</td>
-<td>&#8211;idwidth=4</td>
-</tr>
-<tr class="row-odd"><td>&#8211;ignore-case</td>
-<td>Flag</td>
-<td>Ignore case distinctions when matching on a regular expression using the <tt class="docutils literal"><span class="pre">grep</span></tt> sub command</td>
-<td>&nbsp;</td>
-<td>&#8211;ignore-case</td>
-</tr>
-<tr class="row-even"><td>&#8211;verbose</td>
-<td>Flag</td>
-<td>Print logging messages at level DEBUG and higher. The default is for ERROR and higher to be displayed.</td>
-<td>&nbsp;</td>
-<td>&#8211;verbose&#8221;</td>
-</tr>
-<tr class="row-odd"><td>-i</td>
-<td>Flag</td>
-<td>Short hand for the <tt class="docutils literal"><span class="pre">--ignore-case</span></tt> flag</td>
-<td>&nbsp;</td>
-<td>-i</td>
-</tr>
-<tr class="row-even"><td>-v</td>
-<td>Flag</td>
-<td>Short hand for the <tt class="docutils literal"><span class="pre">--verbose</span></tt> flag</td>
-<td>&nbsp;</td>
-<td>-v</td>
-</tr>
-</tbody>
-</table>
 <div class="section" id="lookup">
 <h3>Lookup</h3>
 <p>The lookup command is the default for <tt class="docutils literal"><span class="pre">uid</span></tt> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
@@ -390,7 +341,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2013, OpenTSDB.
-    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b1.Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>
 </html>

@@ -99,15 +99,21 @@
             
   <div class="section" id="configuration">
 <h1>Configuration</h1>
-<p>OpenTSDB can be configured via a file on the local system, via command line arguments or a combination or both.</p>
+<p>OpenTSDB can be configured via a file on the local system, via command line
+arguments or a combination or both.</p>
 <div class="section" id="configuration-file">
 <h2>Configuration File</h2>
-<p>The configuration file conforms to the Java properties specification. Configuration names are lower-case, dotted strings without spaces. Each name is followed by an equals sign, then the value for the property. All OpenTSDB properties start with &#8220;tsd.&#8221; Comments or inactive configuration lines are blocked by a hash symbol &#8220;#&#8221;. For example:</p>
+<p>The configuration file conforms to the Java properties specification.
+Configuration names are lower-case, dotted strings without spaces. Each name
+is followed by an equals sign, then the value for the property. All OpenTSDB
+properties start with &#8220;tsd.&#8221; Comments or inactive configuration lines are
+blocked by a hash symbol &#8220;#&#8221;. For example:</p>
 <div class="highlight-python"><pre># List of Zookeeper hosts that manage the HBase cluster
 tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 </div>
 <p>will configure the TSD to connect to &#8220;192.168.1.100&#8221; for HBase storage access.</p>
-<p>When combining configuration files and command line arguments, the order of processing is as follows:</p>
+<p>When combining configuration files and command line arguments, the order of
+processing is as follows:</p>
 <ol class="arabic simple">
 <li>Default values are loaded</li>
 <li>Configuration file values are loaded, overriding default values</li>
@@ -116,18 +122,26 @@ tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
 </div>
 <div class="section" id="file-locations">
 <h2>File Locations</h2>
-<p>You can use the <tt class="docutils literal"><span class="pre">--config</span></tt> command line argument to specify the full path to a configuration file. Otherwise if not specified, OpenTSDB and some of the commandline tools will attempt to search for a valid configuration file in the following locations:</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">--config</span></tt> command line argument to specify the full path to
+a configuration file. Otherwise if not specified, OpenTSDB and some of the
+command-line tools will attempt to search for a valid configuration file in
+the following locations:</p>
 <ul class="simple">
 <li>./opentsdb.conf</li>
 <li>/etc/opentsdb.conf</li>
 <li>/etc/opentsdb/opentsdb.conf</li>
 <li>/opt/opentsdb/opentsdb.conf</li>
 </ul>
-<p>In the event that a valid configuration file cannot be found and the required properties are not set, the TSD will not start. Please see the properties table below for a list of required configuration settings.</p>
+<p>In the event that a valid configuration file cannot be found and the required
+properties are not set, the TSD will not start. Please see the properties
+table below for a list of required configuration settings.</p>
 </div>
 <div class="section" id="properties">
 <h2>Properties</h2>
-<p>The following is a table of configuration options for all tools. When applicable, the corresponding command line override is provided. Please note that individual command line tools may have their own values so see their documentation for details.</p>
+<p>The following is a table of configuration options for all tools. When
+applicable, the corresponding command line override is provided. Please note
+that individual command line tools may have their own values so see their
+documentation for details.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -243,7 +257,7 @@ E.g. /tmp/opentsdb</td>
 <tr class="row-odd"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
-<td>Location of a directory where static files, such as javascript files for the web interface, are located.
+<td>Location of a directory where static files, such as JavaScript files for the web interface, are located.
 E.g. /opt/opentsdb/staticroot</td>
 <td>&nbsp;</td>
 <td>&#8211;staticroot</td>
@@ -251,7 +265,7 @@ E.g. /opt/opentsdb/staticroot</td>
 <tr class="row-even"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to use NIO or tradditional blocking IO</td>
+<td>Whether or not to use NIO or traditional blocking IO</td>
 <td>True</td>
 <td>&#8211;async-io</td>
 </tr>
@@ -301,7 +315,7 @@ E.g. 127.0.0.1</td>
 <tr class="row-odd"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The number fo asynchronous IO worker threads for Netty</td>
+<td>The number of asynchronous IO worker threads for Netty</td>
 <td><em>#CPU cores * 2</em></td>
 <td>&#8211;worker-threads</td>
 </tr>
@@ -345,7 +359,7 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <tr class="row-odd"><td>tsd.stats.canonical</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with &#8220;host=&lt;hostname&gt;&#8221; which is not gauranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the fqdn if found, otherwise it may return the IP. The stats output should be &#8220;fqdn=&lt;hostname&#8221;</td>
+<td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with &#8220;host=&lt;hostname&gt;&#8221; which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be &#8220;fqdn=&lt;hostname&#8221;</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
@@ -387,7 +401,7 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <tr class="row-odd"><td>tsd.storage.hbase.zk_quorum</td>
 <td>String</td>
 <td>Optional</td>
-<td>A space separated list of Zookeeper hosts to connect to, with or without port specifiers.
+<td>A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers.
 E.g. 192.168.1.1:2181 192.168.1.2:2181</td>
 <td>localhost</td>
 <td>&#8211;zkquorum</td>
@@ -448,7 +462,7 @@ E.g.:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, OpenTSDB.
-    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2b1.Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>
 </html>

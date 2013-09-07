@@ -79,7 +79,7 @@ The following is a table of configuration options for all tools. When applicable
    "tsd.storage.hbase.data_table", "String", "Optional", "Name of the HBase table where data points are stored", "tsdb", "--table"
    "tsd.storage.hbase.uid_table", "String", "Optional", "Name of the HBase table where UID information is stored", "tsdb-uid", "--uidtable"
    "tsd.storage.hbase.zk_basedir", "String", "Optional", "Path under which the znode for the -ROOT- region is located", "/hbase", "--zkbasedir"
-   "tsd.storage.hbase.zk_quorum", "String", "Optional", "A space separated list of Zookeeper hosts to connect to, with or without port specifiers.
+   "tsd.storage.hbase.zk_quorum", "String", "Optional", "A comma-separated list of Zookeeper hosts to connect to, with or without port specifiers.
    E.g. 192.168.1.1:2181 192.168.1.2:2181", "localhost", "--zkquorum"
    
 Data Types

@@ -278,7 +278,7 @@ Example Response
 DELETE
 ------
 
-Using the ``DELETE`` method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete was able to start. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the ``defintion`` flag in the query string with a value of ``true`` and the tree and rule definitions will be removed as well.
+Using the ``DELETE`` method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the ``defintion`` flag in the query string with a value of ``true`` and the tree and rule definitions will be removed as well.
 
 .. WARNING:: This method cannot be undone. Once executed, the purge will continue running unless the TSD is shutdown.
 

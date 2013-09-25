@@ -1,20 +1,44 @@
 /api/uid/tsmeta
 ===============
 
-This endpoint enables editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a *metric* and one or more *tag name/value* pairs. Some fields are set by the TSD but others can be set by the user. When using the ``POST`` method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the ``PUT`` method will overwrite all user mutable fields with given values or defaults if a given field is not provided.
+This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a *metric* and one or more *tag name/value* pairs. Some fields are set by the TSD but others can be set by the user. When using the ``POST`` method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the ``PUT`` method will overwrite all user mutable fields with given values or defaults if a given field is not provided.
 
 Please note that deleting a meta data entry will not delete the data points stored for the timeseries. Neither will it remove the UID assignments or associated UID meta objects. 
 
 Verbs
 -----
 
-* GET - Query string only
+* GET - Lookup one or more TS meta data
 * POST - Updates only the fields provided
 * PUT - Overwrites all user configurable meta data fields
 * DELETE - Deletes the TS meta data
 
-Requests
---------
+GET Requests
+------------
+
+A GET request can lookup the TS meta objects for one or more time series if they exist in the storage system. Two types of queries are supported: 
+
+* **tsuid** - A single hexadecimal TSUID may be supplied and a meta data object will be returned if located. The results will include a single object.
+* **metric** - *(Version 2.1)* Similar to a data point query, you can supply a metric and one or more tag pairs. Any TS meta data matching the query will be returned. The results will be an array of one or more objects. Only one metric query may be supplied per call and wild cards or grouping operators are not supported.
+
+Example TSUID GET Request
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+  
+  http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
+  
+Example Metric GET Request
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+  
+  http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&dc=lga
+
+POST/PUT Requests
+-----------------
+
+By default, you may only write data to a TS meta object if it already exists. TS meta data is created via the meta sync CLI command or in real-time as data points are written. If you attempt to write data to the tsmeta endpoint for a TSUID that does not exist, an error will be returned and no data will be saved.
 
 Fields that can be supplied with a request include:
 
@@ -37,12 +61,16 @@ Fields that can be supplied with a request include:
 
 .. WARNING:: If your request uses ``PUT``, any fields that you do not supply with the request will be overwritten with their default values. For example, the ``description`` field will be set to an emtpy string and the ``custom`` field will be reset to ``null``.
 
-Example GET Request
-^^^^^^^^^^^^^^^^^^^
+With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the ``tsuid`` field must be left empty. Additionally two query string parameters must be supplied:
 
+* **m** - A metric and tags similar to a GET request or data point query
+* **create** - A flag with a value of ``true``
+
+For example:
 ::
-  
-  http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
+ http://localhost:4242/api/uid/tsmeta?display_name=Testing&m=sys.cpu.nice{host=web01,dc=lga}&create=true&method_override=post
+
+If a TS meta object already exists in storage for the given metric and tags, the fields will be updated or overwritten.
 
 Example POST or PUT Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -50,7 +78,7 @@ Example POST or PUT Request
 *Query String:*
 ::
 
-  http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&method=post&display_name=System%20CPU%20Time
+  http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&method_override=post&display_name=System%20CPU%20Time
 
 *JSON Content:*
 
@@ -72,7 +100,7 @@ Example DELETE Request
 *Query String:*
 ::
 
-  http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&method=delete
+  http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&method_override=delete
 
 *JSON Content:*
 
@@ -85,7 +113,7 @@ Example DELETE Request
 Response
 --------
    
-A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full TS meta data object with any given changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a ``304`` without any body content. If the requested UID did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an error will be returned.
+A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full TS meta data object with any given changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a ``304`` without any body content. If the requested TSUID did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an error will be returned.
 
 All **Request** fields will be present in the response in addition to others:
 

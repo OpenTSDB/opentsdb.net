@@ -64,8 +64,12 @@
   <ul>
 <li><a class="reference internal" href="#">/api/uid/tsmeta</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
-<li><a class="reference internal" href="#requests">Requests</a><ul>
-<li><a class="reference internal" href="#example-get-request">Example GET Request</a></li>
+<li><a class="reference internal" href="#get-requests">GET Requests</a><ul>
+<li><a class="reference internal" href="#example-tsuid-get-request">Example TSUID GET Request</a></li>
+<li><a class="reference internal" href="#example-metric-get-request">Example Metric GET Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#post-put-requests">POST/PUT Requests</a><ul>
 <li><a class="reference internal" href="#example-post-or-put-request">Example POST or PUT Request</a></li>
 <li><a class="reference internal" href="#example-delete-request">Example DELETE Request</a></li>
 </ul>
@@ -107,19 +111,38 @@
             
   <div class="section" id="api-uid-tsmeta">
 <h1>/api/uid/tsmeta</h1>
-<p>This endpoint enables editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <tt class="docutils literal"><span class="pre">POST</span></tt> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <tt class="docutils literal"><span class="pre">PUT</span></tt> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
+<p>This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <tt class="docutils literal"><span class="pre">POST</span></tt> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <tt class="docutils literal"><span class="pre">PUT</span></tt> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
 <p>Please note that deleting a meta data entry will not delete the data points stored for the timeseries. Neither will it remove the UID assignments or associated UID meta objects.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET - Query string only</li>
+<li>GET - Lookup one or more TS meta data</li>
 <li>POST - Updates only the fields provided</li>
 <li>PUT - Overwrites all user configurable meta data fields</li>
 <li>DELETE - Deletes the TS meta data</li>
 </ul>
 </div>
-<div class="section" id="requests">
-<h2>Requests</h2>
+<div class="section" id="get-requests">
+<h2>GET Requests</h2>
+<p>A GET request can lookup the TS meta objects for one or more time series if they exist in the storage system. Two types of queries are supported:</p>
+<ul class="simple">
+<li><strong>tsuid</strong> - A single hexadecimal TSUID may be supplied and a meta data object will be returned if located. The results will include a single object.</li>
+<li><strong>metric</strong> - <em>(Version 2.1)</em> Similar to a data point query, you can supply a metric and one or more tag pairs. Any TS meta data matching the query will be returned. The results will be an array of one or more objects. Only one metric query may be supplied per call and wild cards or grouping operators are not supported.</li>
+</ul>
+<div class="section" id="example-tsuid-get-request">
+<h3>Example TSUID GET Request</h3>
+<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001</pre>
+</div>
+</div>
+<div class="section" id="example-metric-get-request">
+<h3>Example Metric GET Request</h3>
+<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga</pre>
+</div>
+</div>
+</div>
+<div class="section" id="post-put-requests">
+<h2>POST/PUT Requests</h2>
+<p>By default, you may only write data to a TS meta object if it already exists. TS meta data is created via the meta sync CLI command or in real-time as data points are written. If you attempt to write data to the tsmeta endpoint for a TSUID that does not exist, an error will be returned and no data will be saved.</p>
 <p>Fields that can be supplied with a request include:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -244,15 +267,19 @@
 <p class="first admonition-title">Warning</p>
 <p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
 </div>
-<div class="section" id="example-get-request">
-<h3>Example GET Request</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001</pre>
+<p>With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the <tt class="docutils literal"><span class="pre">tsuid</span></tt> field must be left empty. Additionally two query string parameters must be supplied:</p>
+<ul class="simple">
+<li><strong>m</strong> - A metric and tags similar to a GET request or data point query</li>
+<li><strong>create</strong> - A flag with a value of <tt class="docutils literal"><span class="pre">true</span></tt></li>
+</ul>
+<p>For example:</p>
+<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post</pre>
 </div>
-</div>
+<p>If a TS meta object already exists in storage for the given metric and tags, the fields will be updated or overwritten.</p>
 <div class="section" id="example-post-or-put-request">
 <h3>Example POST or PUT Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method=post&amp;display_name=System%20CPU%20Time</pre>
+<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time</pre>
 </div>
 <p><em>JSON Content:</em></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
@@ -270,7 +297,7 @@
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method=delete</pre>
+<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete</pre>
 </div>
 <p><em>JSON Content:</em></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
@@ -282,7 +309,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full TS meta data object with any given changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested UID did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
+<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full TS meta data object with any given changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested TSUID did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
 <table border="1" class="docutils">
 <colgroup>

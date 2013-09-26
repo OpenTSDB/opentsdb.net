@@ -34,7 +34,10 @@ The API documentation will display requests and responses using the JSON seriali
 Authentication/Permissions
 --------------------------
 
-As of yet, OpenTSDB lacks an authentication and access control system. Therefore no authentication is required when accessing the API. If you wish to limit access to OpenTSDB, uer network ACLs or firewalls to block access. NEVER run OpenTSDB on a machine with a public IP Address.
+As of yet, OpenTSDB lacks an authentication and access control system.
+Therefore no authentication is required when accessing the API. If you wish to
+limit access to OpenTSDB, use network ACLs or firewalls to block access.
+We do not recommend running OpenTSDB on a machine with a public IP Address.
 
 Response Codes
 --------------

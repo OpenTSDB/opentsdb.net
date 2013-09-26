@@ -6,7 +6,11 @@ The primary purpose of OpenTSDB is to store timeseries data points and allow for
 UIDMeta
 ^^^^^^^
 
-Every data point stored in OpenTSDB has at least three UIDs associated with it. There will always be a ``metric`` and one or more tag pairs consisting of a ``tagk`` or tag name, and a ``tagv`` or tag value. When a new name for orne of these UIDs comes into the system, a Unique ID is assigned so that there is always a UID name and numeric identifier pair. 
+Every data point stored in OpenTSDB has at least three UIDs associated with
+it. There will always be a ``metric`` and one or more tag pairs consisting of
+a ``tagk`` or tag name, and a ``tagv`` or tag value. When a new name for one
+of these UIDs comes into the system, a Unique ID is assigned so that there is
+always a UID name and numeric identifier pair.
 
 Each UID may also have a metadata entry recorded in the ``tsdb-uid`` table. Data available for each UID includes immutable fields such as the ``uid``, ``type``, ``name`` and ``created`` timestamp that reflects the time when the UID was first assigned. Additionaly some fields may be edited such as the ``description``, ``notes``, ``displayName`` and a set of ``custom`` key/value pairs to record extra information. For details on the fields, see the :doc:`../api_http/uid/uidmeta` endpoint.
 

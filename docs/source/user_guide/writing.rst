@@ -127,7 +127,7 @@ If you are importing data from another system or you need to backfill historical
 Write Performance
 ^^^^^^^^^^^^^^^^^
 
-OpenTSDB can scale to writing millions of data points per 'second' on commodity servers with regular spinning hard drives. However users who fir up a VM with HBase in stand-alone mode and try to slam millions of data points at a brand new TSD are disappointed when they can only write data in the hundreds of points per second. Here's what you need to do to scale for brand new installs or testing and for expanding existing systems.
+OpenTSDB can scale to writing millions of data points per 'second' on commodity servers with regular spinning hard drives. However users who fire up a VM with HBase in stand-alone mode and try to slam millions of data points at a brand new TSD are disappointed when they can only write data in the hundreds of points per second. Here's what you need to do to scale for brand new installs or testing and for expanding existing systems.
 
 UID Assignment
 --------------

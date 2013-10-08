@@ -112,7 +112,7 @@ now if you have a large site.
 
 <a name="collect"></a>
 <h3>Start collecting data</h3>
-So now that we have our 2 metrics, we can start sending data do the TSD.
+So now that we have our 2 metrics, we can start sending data to the TSD.
 Let's write a little shell script to collect some data off of MySQL and
 send it to the TSD (note: this is just an example, in practice you can
 use <a href="https://github.com/OpenTSDB/tcollector/blob/master/collectors/0/mysql.py">tcollector's MySQL collector</a>.):

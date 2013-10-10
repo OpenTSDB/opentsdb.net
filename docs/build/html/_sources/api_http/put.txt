@@ -28,7 +28,7 @@ Some query string parameters can be supplied that alter the response to a put re
    :widths: 10, 5, 5, 45, 10, 5, 5, 15
    
    "summary", "Present", "Optional", "Whether or not to return summary information", "false", "summary", "", "/api/put?summary"
-   "details", "Present", "Optional", "Whether or not to return detailed information", "false", "detailed", "", "/api/put?detailed"
+   "details", "Present", "Optional", "Whether or not to return detailed information", "false", "details", "", "/api/put?details"
 
 If both ``detailed`` and ``summary`` are present in a query string, the API will respond with ``detailed`` information.
 

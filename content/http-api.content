@@ -397,6 +397,7 @@ Defaults to 25.</li>
 HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: 111
+
 ["df.1kblocks.free","df.1kblocks.total","df.1kblocks.used","df.inodes.free","df.inodes.total","df.inodes.used"]
 </div>
 

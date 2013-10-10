@@ -372,20 +372,31 @@ performed in the <code>.META.</code> table.</li>
 
 <h3 id="/suggest">/suggest</h3>
 Provides suggestions for metric names, tag names, tag values.  Results are
-served in JSON.  This end point expects two query string parameters:
-<code>type</code>, the type of suggestion to provide, and <code>q</code>, a
-search string base the suggestions on.  <code>type</code> must have one of
-those 3 values:
+served in JSON, as a single list.
+<p>
+This end point requires two query string parameters:
 <ul>
-<li><code>metrics</code>: Provide suggestions for metric names.</li>
-<li><code>tagk</code>: Provide suggestions for tag names.</li>
-<li><code>tagv</code>: Provide suggestions for tag values.</li>
+  <li><code>type</code>, the type of suggestion to provide.
+  The type parameter must have one of these three values:
+  <ul>
+    <li><code>metrics</code>: Provide suggestions for metric names.</li>
+    <li><code>tagk</code>: Provide suggestions for tag names.</li>
+    <li><code>tagv</code>: Provide suggestions for tag values.</li>
+  </ul></li>
+  <li><code>q</code>, a search string base the suggestions on.</li>
 </ul>
+</p>
+<p>
+Optionally, this endpoint may also take the following parameter:
+<ul>
+<li><code>max</code>, the maximum number of suggestions to return.
+Defaults to 25.</li>
+</ul>
+</p>
 <div class="code"><i>GET /suggest?type=metrics&q=df</i>
 HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: 111
-
 ["df.1kblocks.free","df.1kblocks.total","df.1kblocks.used","df.inodes.free","df.inodes.total","df.inodes.used"]
 </div>
 

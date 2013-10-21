@@ -47,9 +47,9 @@ Take a look at these two time series where the data is simply offset by 10 secon
    
 When OpenTSDB is calculating an aggregation it starts at the first data point found for any series, in this case it will be the data for ``B`` at ``ts0``. We request a value for ``A`` at ``ts0`` but there isn't any data there. We know that there is data for ``A`` at ``ts0+10s`` but since we don't have any value before that, we can't make a guess as to what it would be. Thus we simply return the value for ``B``.
 
-Next we run across a value for ``A`` at time ``ts0+10s``. We request a value for ``ts0+10s`` from time series ``B`` but there isn't one. But ``B`` knows there is a value at ``ts0+20s`` and we had a value at ``ts0`` so we can now calculate a guess for ``ts0+10s``. The formula for linear interpolation is ``y = y0 + (x - x0) * (y1 - y0) / (x1 - x0)`` where, for series ``B``, ``y0 = 10``, ``y1 = 20``, ``x = ts0+10s``, ``x0 = ts0`` and ``x1 = ts0+20s`` or ``y = 10 + (10 - 0) * (20 - 10) / (20 - 0)`` Therefore ``B`` will give us a *guestimated* value of ``10`` at ``ts0+10s``.
+Next we run across a value for ``A`` at time ``ts0+10s``. We request a value for ``ts0+10s`` from time series ``B`` but there isn't one. But ``B`` knows there is a value at ``ts0+20s`` and we had a value at ``ts0`` so we can now calculate a guess for ``ts0+10s``. The formula for linear interpolation is ``y = y0 + (y1 - y0) * ((x - x0) / (x1 - x0))`` where, for series ``B``, ``y0 = 10``, ``y1 = 20``, ``x = ts0+10s (or 10)``, ``x0 = ts0 (or 0)`` and ``x1 = ts0+20s (or 20)``. Thus we have ``y = 10 + (20 - 10) * ((10 - 0) / (20 - 0)`` which will reduce to ``y = 10 + 10 * (10 / 20)`` further reducing to ``y = 10 + 10 * .5`` and ``y = 10 + 5``. Therefore ``B`` will give us a *guestimated* value of ``15`` at ``ts0+10s``.
 
-Iteration continues over every timestamp for which a data point is found for every series returned as a part of the query. The resulting series will look like this:
+Iteration continues over every timestamp for which a data point is found for every series returned as a part of the query. The resulting series, using the **sum** aggregator, will look like this:
 
 .. csv-table::
    :header: "series", "ts0", "ts0+10s", "ts0+20s", "ts0+30s", "ts0+40s", "ts0+50s", "ts0+60s"
@@ -57,7 +57,9 @@ Iteration continues over every timestamp for which a data point is found for eve
    
    "A", "na", "5", "na", "15", "na", "5", "na"
    "B", "10", "na", "20", "na", "10", "na", "20"
-   "Result", "10", "15", "30", "-7", "-2", "15", "20"
+   "Interpolated A", "na", "", "10", "", "10", "", ""
+   "Interpolated B", "", "15", "", "10", "", "15", "na"
+   "Summed Result", "10", "20", "30", "25", "20", "20", "20"
    
 Note the values at ``ts0+30s`` and ``ts0+40s``. Since the latter data point for each series is smaller than the previous, the interpolated value is negative.
 

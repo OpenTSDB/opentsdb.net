@@ -220,8 +220,8 @@
 </tbody>
 </table>
 <p>When OpenTSDB is calculating an aggregation it starts at the first data point found for any series, in this case it will be the data for <tt class="docutils literal"><span class="pre">B</span></tt> at <tt class="docutils literal"><span class="pre">ts0</span></tt>. We request a value for <tt class="docutils literal"><span class="pre">A</span></tt> at <tt class="docutils literal"><span class="pre">ts0</span></tt> but there isn&#8217;t any data there. We know that there is data for <tt class="docutils literal"><span class="pre">A</span></tt> at <tt class="docutils literal"><span class="pre">ts0+10s</span></tt> but since we don&#8217;t have any value before that, we can&#8217;t make a guess as to what it would be. Thus we simply return the value for <tt class="docutils literal"><span class="pre">B</span></tt>.</p>
-<p>Next we run across a value for <tt class="docutils literal"><span class="pre">A</span></tt> at time <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>. We request a value for <tt class="docutils literal"><span class="pre">ts0+10s</span></tt> from time series <tt class="docutils literal"><span class="pre">B</span></tt> but there isn&#8217;t one. But <tt class="docutils literal"><span class="pre">B</span></tt> knows there is a value at <tt class="docutils literal"><span class="pre">ts0+20s</span></tt> and we had a value at <tt class="docutils literal"><span class="pre">ts0</span></tt> so we can now calculate a guess for <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>. The formula for linear interpolation is <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">y0</span> <span class="pre">+</span> <span class="pre">(x</span> <span class="pre">-</span> <span class="pre">x0)</span> <span class="pre">*</span> <span class="pre">(y1</span> <span class="pre">-</span> <span class="pre">y0)</span> <span class="pre">/</span> <span class="pre">(x1</span> <span class="pre">-</span> <span class="pre">x0)</span></tt> where, for series <tt class="docutils literal"><span class="pre">B</span></tt>, <tt class="docutils literal"><span class="pre">y0</span> <span class="pre">=</span> <span class="pre">10</span></tt>, <tt class="docutils literal"><span class="pre">y1</span> <span class="pre">=</span> <span class="pre">20</span></tt>, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">ts0+10s</span></tt>, <tt class="docutils literal"><span class="pre">x0</span> <span class="pre">=</span> <span class="pre">ts0</span></tt> and <tt class="docutils literal"><span class="pre">x1</span> <span class="pre">=</span> <span class="pre">ts0+20s</span></tt> or <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">(10</span> <span class="pre">-</span> <span class="pre">0)</span> <span class="pre">*</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">10)</span> <span class="pre">/</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">0)</span></tt> Therefore <tt class="docutils literal"><span class="pre">B</span></tt> will give us a <em>guestimated</em> value of <tt class="docutils literal"><span class="pre">10</span></tt> at <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>.</p>
-<p>Iteration continues over every timestamp for which a data point is found for every series returned as a part of the query. The resulting series will look like this:</p>
+<p>Next we run across a value for <tt class="docutils literal"><span class="pre">A</span></tt> at time <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>. We request a value for <tt class="docutils literal"><span class="pre">ts0+10s</span></tt> from time series <tt class="docutils literal"><span class="pre">B</span></tt> but there isn&#8217;t one. But <tt class="docutils literal"><span class="pre">B</span></tt> knows there is a value at <tt class="docutils literal"><span class="pre">ts0+20s</span></tt> and we had a value at <tt class="docutils literal"><span class="pre">ts0</span></tt> so we can now calculate a guess for <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>. The formula for linear interpolation is <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">y0</span> <span class="pre">+</span> <span class="pre">(y1</span> <span class="pre">-</span> <span class="pre">y0)</span> <span class="pre">*</span> <span class="pre">((x</span> <span class="pre">-</span> <span class="pre">x0)</span> <span class="pre">/</span> <span class="pre">(x1</span> <span class="pre">-</span> <span class="pre">x0))</span></tt> where, for series <tt class="docutils literal"><span class="pre">B</span></tt>, <tt class="docutils literal"><span class="pre">y0</span> <span class="pre">=</span> <span class="pre">10</span></tt>, <tt class="docutils literal"><span class="pre">y1</span> <span class="pre">=</span> <span class="pre">20</span></tt>, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">ts0+10s</span> <span class="pre">(or</span> <span class="pre">10)</span></tt>, <tt class="docutils literal"><span class="pre">x0</span> <span class="pre">=</span> <span class="pre">ts0</span> <span class="pre">(or</span> <span class="pre">0)</span></tt> and <tt class="docutils literal"><span class="pre">x1</span> <span class="pre">=</span> <span class="pre">ts0+20s</span> <span class="pre">(or</span> <span class="pre">20)</span></tt>. Thus we have <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">10)</span> <span class="pre">*</span> <span class="pre">((10</span> <span class="pre">-</span> <span class="pre">0)</span> <span class="pre">/</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">0)</span></tt> which will reduce to <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">10</span> <span class="pre">*</span> <span class="pre">(10</span> <span class="pre">/</span> <span class="pre">20)</span></tt> further reducing to <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">10</span> <span class="pre">*</span> <span class="pre">.5</span></tt> and <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">5</span></tt>. Therefore <tt class="docutils literal"><span class="pre">B</span></tt> will give us a <em>guestimated</em> value of <tt class="docutils literal"><span class="pre">15</span></tt> at <tt class="docutils literal"><span class="pre">ts0+10s</span></tt>.</p>
+<p>Iteration continues over every timestamp for which a data point is found for every series returned as a part of the query. The resulting series, using the <strong>sum</strong> aggregator, will look like this:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="30%" />
@@ -263,13 +263,31 @@
 <td>na</td>
 <td>20</td>
 </tr>
-<tr class="row-even"><td>Result</td>
+<tr class="row-even"><td>Interpolated A</td>
+<td>na</td>
+<td>&nbsp;</td>
 <td>10</td>
+<td>&nbsp;</td>
+<td>10</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Interpolated B</td>
+<td>&nbsp;</td>
 <td>15</td>
+<td>&nbsp;</td>
+<td>10</td>
+<td>&nbsp;</td>
+<td>15</td>
+<td>na</td>
+</tr>
+<tr class="row-even"><td>Summed Result</td>
+<td>10</td>
+<td>20</td>
 <td>30</td>
-<td>-7</td>
-<td>-2</td>
-<td>15</td>
+<td>25</td>
+<td>20</td>
+<td>20</td>
 <td>20</td>
 </tr>
 </tbody>

@@ -1,6 +1,5 @@
-***
 uid
-***
+===
 
 The UID utility provides various functions to search or modify information in the ``tsdb-uid`` table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data. 
 
@@ -10,8 +9,8 @@ Use the UID utility with the command line:
 
   uid <subcommands> [arguments]
   
-CLI Parameters
-^^^^^^^^^^^^^^
+Common CLI Parameters
+^^^^^^^^^^^^^^^^^^^^^
 
 Parameters specific to the UID utility include:
 
@@ -26,7 +25,7 @@ Parameters specific to the UID utility include:
    "-v", "Flag", "Short hand for the ``--verbose`` flag", "", "-v"
 
 Lookup
-======
+^^^^^^
 
 The lookup command is the default for ``uid`` used to lookup the UID assigned to a name or the name assinged to a UID for a given type.
 
@@ -38,19 +37,19 @@ Command Format
   <kind> <UID>
 
 Example Command
-^^^^^^^^^^^^^^^
+---------------
 ::
 
   ./tsdb uid tagk
   
 Example Response
-^^^^^^^^^^^^^^
+---------------
 ::
 
   tagk host: [0, 0, 1]
 
 grep
-----
+^^^^
 
 The grep sub command performs a regular expression search for the given UID type and returns a list of all UID names that match the expression. Fields required for the grep command include:
 
@@ -62,19 +61,19 @@ The grep sub command performs a regular expression search for the given UID type
    "expression", "String", "The regex expression to search with", "", "disk.*write"
 
 Command Format
-^^^^^^^^^^^^^^
+--------------
 ::
 
   grep <kind> '<expression>'
 
 Example Command
-^^^^^^^^^^^^^^
+---------------
 ::
 
   ./tsdb uid grep metrics 'disk.*write'
   
 Example Response
-^^^^^^^^^^^^^^
+----------------
 ::
 
   metrics iostat.disk.msec_write: [0, 3, -67]
@@ -83,7 +82,7 @@ Example Response
   metrics iostat.disk.write_sectors: [0, 3, -68]
 
 assign
-------
+^^^^^^
 
 This sub command is used to assign IDs to new unique names for metrics, tag names or tag values. Supply a list of one or more values to assign UIDs and the list of assignments will be returned.
 
@@ -110,7 +109,7 @@ Example Response
 ----------------
 
 rename
-------
+^^^^^^
 
 Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned. 
 
@@ -140,10 +139,60 @@ Example Response
 ----------------
 
 fsck
-----
+^^^^
 
-TODO
+The UID FSCK command will scan the entire UID table for errors pertaining to name and UID mappings. By default, the run will scan every column in the table and log any errors that were found. With version 2.1 it is possible to fix errors in the table by passing the "fix" flag. UIDMeta objects are skipped during scanning. Possible errors include:
 
+.. csv-table::
+   :header: "Error", "Description", "Fix"
+   :widths: 33, 34, 33
+   
+   "Max ID for metrics is 42 but only 41 entries were found.  Maybe 1 IDs were deleted?", "This indicates one or more UIDs were not used for mapping entries. If a UID was deleted, this message is normal. If UIDs were not deleted, this can indicate wasted UIDs due to auto-assignments by TSDs where data was coming in too fast. Try assigning UIDs up-front as much as possible.", "No fix necessary"
+   "We found an ID of 42 for metrics but the max ID is only 41!  Future IDs may be double-assigned!", "If this happens it is usually due to a corruption and indicates the max ID row was not updated properly.", "Set the max ID row to the largest detected value"
+   "Invalid maximum ID for metrics: should be on 8 bytes", "Indicates a corruption in the max ID row.", "No fix yet."
+   "Forward metrics mapping is missing reverse mapping: foo -> 000001", "This may occur if a TSD crashes before the reverse map is written and would only prevent queries from executing against time series using the UID as they would not be able to lookukp the name.", "The fix is to restore the missing reverse map."
+   "Forward metrics mapping bar -> 000001 is different than reverse mapping: 000001 -> foo", "The reverse map points to a different name than the forward map and this should rarely happen. It will be paired with another message.", "Depends on the second message"
+   "Inconsistent forward metrics mapping bar -> 000001 vs bar -> foo / foo -> 000001", "With a forward/reverse miss-match, it is possible that a UID was assigned to multiple names for the same type. If this occurs, then data for two different names has been written to the same time series and that data is effectively corrupt.", "The fix is to delete the forward maps for all names that map to the same UID. Then the UID is given a new name that is a dot seperated concatenation of the previous names with an ""fsck"" prefix. E.g. in the example above we would have a new name of ""fsck.bar.foo"". This name may be used to access data from the corrupt time series. The next time data is written for the errant names, new UIDs will be assigned to each and new time series created."
+   "Duplicate forward metrics mapping bar -> 000002 and null -> foo", "In this case the UID was not used more than once but the reverse mapping was incorrect.", "The reverse map will be restored, in this case: 000002 -> bar"
+   "Reverse metrics mapping is missing forward mapping: bar -> 000002", "A reverse map was found without a forward map. The UID may have been deleted.", "Remove the reverse map"
+   "Inconsistent reverse metrics mapping 000003 -> foo vs 000001 -> foo / foo -> 000001", "If an orphaned reverse map points to a resolved forward map, this error occurs.", "Remove the reverse map"
+
+**Options**
+
+* fix - Attempts to fix errors per the table above
+* delete_unknown - Removes any columns in the UID table that do not belong to OpenTSDB
+
+Command Format
+--------------
+::
+
+  fsck [fix] [delete_unknown]
+  
+Example Command
+---------------
+::
+
+  ./tsdb uid fsck fix
+  
+Example Response
+----------------
+::
+
+  INFO  [main] UidManager: ----------------------------------
+  INFO  [main] UidManager: -    Running fsck in FIX mode    -
+  INFO  [main] UidManager: -      Remove Unknowns: false    -
+  INFO  [main] UidManager: ----------------------------------
+  INFO  [main] UidManager: Maximum ID for metrics: 2
+  INFO  [main] UidManager: Maximum ID for tagk: 4
+  INFO  [main] UidManager: Maximum ID for tagv: 2
+  ERROR [main] UidManager: Forward tagk mapping is missing reverse mapping: bar -> 000004
+  INFO  [main] UidManager: FIX: Restoring tagk reverse mapping: 000004 -> bar
+  ERROR [main] UidManager: Inconsistent reverse tagk mapping 000003 -> bar vs 000004 -> bar / bar -> 000004
+  INFO  [main] UidManager: FIX: Removed tagk reverse mapping: 000003 -> bar
+  ERROR [main] UidManager: tagk: Found 2 errors.
+  INFO  [main] UidManager: 17 KVs analyzed in 334ms (~50 KV/s)
+  WARN  [main] UidManager: 2 errors found.
+  
 metasync
 --------
 
@@ -166,7 +215,7 @@ Example Command
   ./tsdb uid metasync
   
 metapurge
----------
+^^^^^^^^^
 
 This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a ``metasync``.
 
@@ -183,7 +232,7 @@ Example Command
   ./tsdb uid metapurge
   
 treesync
---------
+^^^^^^^^
 
 Runs through the list of TSMeta objects in the UID table and processes each through all configured and enabled trees to compile branches. This command may be run at any time and will not affect existing objects.
 
@@ -200,7 +249,7 @@ Example Command
   ./tsdb uid treesync
 
 treepurge
----------
+^^^^^^^^^
 
 Removes all branches, collision, not matched data and optionally the tree definition itself for a given tree. Parameters include:
 

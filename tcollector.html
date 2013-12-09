@@ -64,7 +64,8 @@ Tcollector does several things for you:
 <li>Does all of the connection management work of sending data to the TSD</li>
 <li>You don't have to embed all of this code in every collector you write</li>
 <li>Does de-duplication of repeated values</li>
-<li>Handles all of the wire protocol work for you, as well as future enhancements</li>
+<li>Handles all of the wire protocol work for you, as well as future
+enhancements</li>
 </ul>
 
 <h3>Deduplication</h3>
@@ -88,28 +89,26 @@ to store repeated values.
 Collectors in tcollector can be written in any language.  They just need to
 be executable and output the data to stdout.  Tcollector will handle the rest.
 The collectors are placed in the <code>collectors</code> directory.  Tcollector
-iterates over every directory named with a number in that directory and runs all the collectors
-in each directory.  If you name the directory <code>60</code>, then tcollector
-will try to run every collector in that directory every 60 seconds.  Use
-the directory <code>0</code> for any collectors that are long-lived and run
-continuously.  Tcollector will read their output and respawn them if they die.
-Generally you want to write long-lived collectors since that has less overhead.
-OpenTSDB is designed to have lots of datapoints for each metric (for most metrics
-we send datapoints every 15 seconds).
+iterates over every directory named with a number in that directory and runs all
+the collectors in each directory.  If you name the directory <code>60</code>,
+then tcollector will try to run every collector in that directory every 60
+seconds. Use the directory <code>0</code> for any collectors that are long-lived
+and run continuously. Tcollector will read their output and respawn them if they
+die. Generally you want to write long-lived collectors since that has less
+overhead. OpenTSDB is designed to have lots of datapoints for each metric (for
+most metrics we send datapoints every 15 seconds).
 
-<p>If there any non-numeric named directories in the <code>collectors</code> directory,
-then they are ignored.  We've included a <code>lib</code> and <code>etc</code> directory
-for library and config data used by all collectors.
+<p>If there any non-numeric named directories in the <code>collectors</code>
+directory, then they are ignored.  We've included a <code>lib</code> and
+<code>etc</code> directory for library and config data used by all collectors.
 
 <h3>Installation of tcollector</h3>
 
 You need to clone tcollector from GitHub:
 <div class="code">git clone git://github.com/OpenTSDB/tcollector.git</div>
 
-and edit 'tcollector/startstop' script to set following variables:
-<div class="code">TSD_HOST=dns.name.of.tsd
-TCOLLECTOR_PATH=path/to/tcollector
-</div>
+and edit 'tcollector/startstop' script to set following variable:
+<div class="code">TSD_HOST=dns.name.of.tsd</div>
 
 <p>
 To avoid having to run <code>mkmetric</code> for every metric that
@@ -120,15 +119,15 @@ keep this flag in the long term, to avoid accidental metric creation.
 
 <h2>Collectors bundled with <code>tcollector</code></h2>
 
-The following are the collectors we've included as part of the base package, together
-with all of the metric names they report on and what they mean.  If you have any others
-you'd like to contribute, we'd love to hear about them so we can reference them or
-include them with your permission in a future release.
+The following are the collectors we've included as part of the base package,
+together with all of the metric names they report on and what they mean. If you
+have any others you'd like to contribute, we'd love to hear about them so we can
+reference them or include them with your permission in a future release.
 
-<h3><code>0/dfstat.py</code></h3>
+<h3>General collectors</h3>
 
-These stats are similar to ones provided by <code>/usr/bin/df</code> util
-
+<h4><code>0/dfstat.py</code></h4>
+<p>These stats are similar to ones provided by <code>/usr/bin/df</code> util.</p>
 <ul>
 <li><code>df.bytes.total</code> total size of data
 <li><code>df.bytes.used</code> bytes used
@@ -137,15 +136,17 @@ These stats are similar to ones provided by <code>/usr/bin/df</code> util
 <li><code>df.inodes.used</code> number of inodes used
 <li><code>df.inodes.free</code> number of inodes free
 </ul>
-These metrics include time series tagged with each mount point and the filesystem's fstype.
-This collector filters out any debugfs, devtmpfs, rpc_pipefs, rootfs filesystems, as well as any any
-mountpoints mounted under <code>/dev/</code>, <code>/lib/</code>, <code>/proc/</code>, and <code>/lib/</code>.
+These metrics include time series tagged with each mount point and the
+filesystem's fstype. This collector filters out any cgroup, debugfs, devtmpfs,
+rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted under
+<code>/dev/</code>, <code>/sys/</code>, <code>/proc/</code>, and
+<code>/lib/</code>.
 
-<p>With these tags you can select to graph just a specific filesystem, or all filesystems
-with a particular fstype (e.g. ext3).
+<p>With these tags you can select to graph just a specific filesystem, or all
+filesystems with a particular fstype (e.g. ext3).
 
-<h3><code>0/ifstat.py</code></h3>
-These stats are from <code>/proc/net/dev</code>
+<h4><code>0/ifstat.py</code></h4>
+<p>These stats are from <code>/proc/net/dev</code>.</p>
 <ul>
 <li><code>proc.net.bytes</code> (rate) Bytes in/out</li>
 <li><code>proc.net.packets</code> (rate) Packets in/out</li>
@@ -161,16 +162,16 @@ interfaces still keep counters on their child <code>eth<i>N</i></code>
 interfaces and we don't want to double-count a box's network traffic
 if you don't select on <code>iface=</code>.
 
-<h3><code>0/iostat.py</code></h3>
-<p>Data is from <code>/proc/diskstats</code>.
-</p>
+<h4><code>0/iostat.py</code></h4>
+<p>Data is from <code>/proc/diskstats</code>.</p>
 <ul>
 <li><code>iostat.disk.*</code> for per-disk stats</li>
 <li><code>iostat.part.*</code> for per-partition stats (see note
 below on different metrics, depending on if you have a 2.6 kernel
 before 2.6.25 or after.)</li>
 </ul>
-<p>See <a href="http://www.kernel.org/doc/Documentation/iostats.txt">iostats.txt</a>
+<p>
+See <a href="http://www.kernel.org/doc/Documentation/iostats.txt">iostats.txt</a>
 </p><code>/proc/diskstats</code> has 11 stats for a given physical device.
 These are all rate counters, except <code>ios_in_progress</code>.
 </p>
@@ -195,56 +196,55 @@ These are all rate counters, except <code>ios_in_progress</code>.
        .write_issued
        .write_sectors
 </pre>
-<p>For partitions, these <code>*_issued</code> are counters collected before requests are merged,
-so aren't the same as <code>*_requests</code> (which is post-merge, which more closely represents
-represents the actual number of disk transactions).
+<p>For partitions, these <code>*_issued</code> are counters collected before requests
+are merged, so aren't the same as <code>*_requests</code> (which is post-merge, which
+more closely represents represents the actual number of disk transactions).
 </p><p>Given that diskstats provides both per-disk and per-partition data, for
 TSDB purposes we put them under different metrics (versus the same
 metric and different tags).  Otherwise, if you look at a given metric, the data
 for a given box will be double-counted, since a given operation will increment
 both the disk series and the partition series.  To fix this, we output by-disk
-data to <code>iostat.disk.*</code> and by-partition data to <code>iostat.part.*</code>.
+data to <code>iostat.disk.*</code> and by-partition data to
+<code>iostat.part.*</code>.
 
-<h3><code>0/netstat.py</code></h3>
-
-Socket allocation and network statistics.
-
+<h4><code>0/netstat.py</code></h4>
+<p>Socket allocation and network statistics.</p>
 <p>Metrics from <code>/proc/net/sockstat</code>:
 <ul>
 <li><code>net.sockstat.num_sockets</code>:
-    Number of sockets allocated (only TCP).</li>
+    Number of sockets allocated (only TCP)</li>
 <li><code>net.sockstat.num_timewait</code>:
-    Number of TCP sockets currently in <code>TIME_WAIT</code> state.</li>
+    Number of TCP sockets currently in <code>TIME_WAIT</code> state</li>
 <li><code>net.sockstat.sockets_inuse</code>:
-    Number of sockets in use (TCP/UDP/raw).</li>
+    Number of sockets in use (TCP/UDP/raw)</li>
 <li><code>net.sockstat.num_orphans</code>:
-    Number of orphan TCP sockets (not attached to any file descriptor).</li>
+    Number of orphan TCP sockets (not attached to any file descriptor)</li>
 <li><code>net.sockstat.memory</code>:
-    Memory allocated for this socket type (in bytes).</li>
+    Memory allocated for this socket type (in bytes)</li>
 <li><code>net.sockstat.ipfragqueues</code>:
     Number of IP flows for which there are currently fragments queued for
-    reassembly.</li>
+    reassembly</li>
 </ul>
 
 <p>Metrics from <code>/proc/net/netstat</code> (<code>netstat -s</code> command):
 <ul>
 <li><code>net.stat.tcp.abort</code>:
     Number of connections that the kernel had to abort.
-    <code>type=memory</code> is especially bad, the kernel had to drop a connection
-    due to having too many orphaned sockets.  Other types are normal (e.g.
-    timeout).</li>
+    <code>type=memory</code> is especially bad, the kernel had to drop a
+    connection due to having too many orphaned sockets. Other types are normal
+    (e.g. timeout)</li>
 <li><code>net.stat.tcp.abort.failed</code>:
     Number of times the kernel failed to abort a connection because it didn't
-    even have enough memory to reset it (bad).</li>
+    even have enough memory to reset it (bad)</li>
 <li><code>net.stat.tcp.congestion.recovery</code>:
     Number of times the kernel detected spurious retransmits and was able to
-    recover part or all of the CWND.</li>
+    recover part or all of the CWND</li>
 <li><code>net.stat.tcp.delayedack</code>:
     Number of delayed ACKs sent of different types.</li>
 <li><code>net.stat.tcp.failed_accept</code>:
     Number of times a connection had to be dropped after the 3WHS.
-    <code>reason=full_acceptq</code> indicates that the application isn't accepting
-    connections fast enough.  You should see SYN cookies too.</li>
+    <code>reason=full_acceptq</code> indicates that the application isn't
+    accepting connections fast enough.  You should see SYN cookies too</li>
 <li><code>net.stat.tcp.invalid_sack</code>:
     Number of invalid SACKs we saw of diff types.
     (requires Linux v2.6.24-rc1 or newer)</li>
@@ -252,20 +252,41 @@ Socket allocation and network statistics.
     Number of times a socket entered the "memory pressure" mode (not great).</li>
 <li><code>net.stat.tcp.memory.prune</code>:
     Number of times a socket had to discard received data due to low memory
-    conditions (bad).</li>
+    conditions (bad)</li>
 <li><code>net.stat.tcp.packetloss.recovery</code>:
     Number of times we recovered from packet loss by type of recovery (e.g.
-    fast retransmit vs SACK).</li>
+    fast retransmit vs SACK)</li>
 <li><code>net.stat.tcp.receive.queue.full</code>:
     Number of times a received packet had to be dropped because the socket's
     receive queue was full. (requires Linux v2.6.34-rc2 or newer)</li>
 <li><code>net.stat.tcp.reording</code>:
-    Number of times we detected re-ordering and how.</li>
+    Number of times we detected re-ordering and how</li>
 <li><code>net.stat.tcp.syncookies</code>:
-    SYN cookies (both sent &amp; received).</li>
+    SYN cookies (both sent &amp; received)</li>
 </ul>
 
-<h3><code>0/procnettcp.py</code></h3>
+<h4><code>0/nfsstat.py</code></h4>
+<p>These stats are from <code>/proc/net/rpc/nfs</code>.</p>
+
+<ul>
+<li><code>nfs.client.rpc.stats</code> RPC stats counter</li> It tagged with the
+type (<code>type=</code>) of operation. There are 3 operations:
+<code>authrefrsh</code> - number of times the authentication information
+refreshed, <code>calls</code> - number of calls conducted, and
+<code>retrans</code> - number of retransmissions
+
+<li><code>nfs.client.rpc</code> RPC calls counter</li>
+It tagged with the version (<code>version=</code>) of NFS server that conducted
+the operation, and name of operation (<code>op=</code>)
+<p>
+Description of operations can be found at appropriate RFC:
+NFS ver. 3 <a href="http://tools.ietf.org/html/rfc1813">RFC1813</a>,
+NFS ver. 4 <a href="http://tools.ietf.org/html/rfc3530">RFC3530</a>,
+NFS ver. 4.1 <a href="http://tools.ietf.org/html/rfc5661">RFC5661</a>.
+</p>
+</ul>
+
+<h4><code>0/procnettcp.py</code></h4>
 
 These stats are all from <code>/proc/net/tcp{,6}</code>. (Note if
 IPv6 is enabled, some IPv4 connections seem to get put into
@@ -295,46 +316,280 @@ does dedup this down very well, as only 3 of the 10 TCP states are
 generally ever seen.  On a typical server this can dedup down to
 under 10 values per interval.
 
-<h3><code>0/procstats.py</code></h3>
-<p>Miscellaneous stats from <code>/proc</code>
-</p>
+<h4><code>0/procstats.py</code></h4>
+<p>Miscellaneous stats from <code>/proc</code>.</p>
 <ul><li><code>proc.stat.cpu</code>  (rate) CPU counters (jiffies),
 tagged by cpu type (type=user, nice, system, idle, iowait, irq,
 softirq, etc).  As a rate they should aggregate up to approximately
 100*numcpu per host.  Best viewed as type=* or maybe
-type={user|nice|system|iowait|irq} .
-</li><li><code>proc.stat.intr</code>  (rate) Number of interrupts
-</li><li><code>proc.stat.ctxt</code>  (rate) Number of context switches
+type={user|nice|system|iowait|irq}
+</li><li><code>proc.stat.intr</code> (rate) Number of interrupts
+</li><li><code>proc.stat.ctxt</code> (rate) Number of context switches
 </li></ul>
-<p>See <a href="http://www.linuxhowtos.org/System/procstat.htm">http://www.linuxhowtos.org/System/procstat.htm</a>
-</p>
+<p>See <a href="http://www.linuxhowtos.org/System/procstat.htm">
+http://www.linuxhowtos.org/System/procstat.htm</a></p>
 <ul>
-<li><code>proc.vmstat.*</code>A subset of VM Stats from
-<code>/proc/vmstat</code> (mix of rate and non-rate)  See <a
-href="http://www.linuxinsight.com/proc_vmstat.html">http://www.linuxinsight.com/proc_vmstat.html</a></li>
-<li><code>proc.meminfo.*</code>  Memory usage stats from
+<li><code>proc.vmstat.*</code> A subset of VM Stats from
+<code>/proc/vmstat</code> (mix of rate and non-rate)
+See <a href="http://www.linuxinsight.com/proc_vmstat.html">
+http://www.linuxinsight.com/proc_vmstat.html</a></li>
+<li><code>proc.meminfo.*</code> Memory usage stats from
 <code>/proc/meminfo</code>. See the
-<a href="http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=blob;f=Documentation/filesystems/proc.txt;hb=HEAD">Linux
-kernel documentation</a></li>
-<li><code>proc.loadavg.*</code>  1min, 5min, 15min, runnable, total_threads
+<a href="http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=blob;f=Documentation/filesystems/proc.txt;hb=HEAD">
+Linux kernel documentation</a></li>
+<li><code>proc.loadavg.*</code> 1min, 5min, 15min, runnable, total_threads
 metrics from <code>/proc/loadavg</code></li>
-<li><code>proc.uptime.total</code>   (rate) Seconds since boot</li>
-<li><code>proc.uptime.now</code>  (rate) Seconds since boot that the system has been idle</li>
+<li><code>proc.uptime.total</code> (rate) Seconds since boot</li>
+<li><code>proc.uptime.now</code> (rate) Seconds since boot that the system has
+been idle</li>
 <li><code>proc.kernel.entropy_avail</code>: Amount of entropy (in bits)
 available in the input pool (the one that's cryptographically strong and
 backing <code>/dev/random</code> among other things).  Watch this value on
 your frontend servers that do SSL unwrapping, if it gets too low, your SSL
-performance will suffer.</li>
+performance will suffer</li>
 <li><code>sys.numa.zoneallocs</code>: Number of pages allocated from the
-preferred node (<code>type=hit</code>) or not (<code>type=miss</code>).</li>
+preferred node (<code>type=hit</code>) or not (<code>type=miss</code>)</li>
 <li><code>sys.numa.foreign_allocs</code>: Number of pages this node allocated
-because the preferred node didn't have a free page to accommodate the request.</li>
+because the preferred node didn't have a free page to accommodate the
+request</li>
 <li><code>sys.numa.allocation</code>: Number of pages allocated locally
 (<code>type=local</code>) or remotely (<code>type=remote</code>) for processes
-executing on this node.</li>
+executing on this node</li>
 <li><code>sys.numa.interleave</code>: Number of pages allocated successfully
-by the interleave strategy.</li>
+by the interleave strategy</li>
 </ul>
+
+<h4><code>0/smart-stats.py</code></h4>
+<p>Stats from SMART disks.</p>
+<ul>
+<li><code>smart.raw_read_error_rate</code> Data related to the rate of hardware
+read errors that occurred when reading data from a disk surface.
+The raw value has different structure for different vendors and is often not
+meaningful as a decimal number. (vendor specific)</li>
+<li><code>smart.throughput_performance</code> Overall throughput performance of
+a hard disk drive</li>
+<li><code>smart.spin_up_time</code> Average time of spindle spin up (from zero
+RPM to fully operational [millisecs])</li>
+<li><code>smart.start_stop_count</code> A tally of spindle start/stop cycles</li>
+<li><code>smart.reallocated_sector_ct</code> Count of reallocated sectors</li>
+<li><code>smart.seek_error_rate</code> Rate of seek errors of the magnetic heads.
+(vendor specific)</li>
+<li><code>smart.seek_time_performance</code> Average performance of seek
+operations of the magnetic heads</li>
+<li><code>smart.power_on_hours</code> Count of hours in power-on state, shows
+total count of hours (or minutes, or seconds) in power-on state.
+(vendor specific)</li>
+<li><code>smart.spin_retry_count</code> Count of retry of spin start
+attempts</li>
+<li><code>smart.recalibration_retries</code> The count that recalibration was
+requested (under the condition that the first attempt was unsuccessful)</li>
+<li><code>smart.power_cycle_count</code> The count of full hard disk power
+on/off cycles</li>
+<li><code>smart.soft_read_error_rate</code> Uncorrected read errors reported to
+the operating system</li>
+<li><code>smart.program_fail_count_chip</code> Total number of Flash program
+operation failures since the drive was deployed</li>
+<li><code>smart.erase_fail_count_chip</code> "Pre-Fail" Attribute</li>
+<li><code>smart.wear_leveling_count</code> The maximum number of erase
+operations performed on a single flash memory block</li>
+<li><code>smart.used_rsvd_blk_cnt_chip</code> The number of a chip’s used
+reserved blocks</li>
+<li><code>smart.used_rsvd_blk_cnt_tot</code> "Pre-Fail" Attribute (at least HP
+devices)</li>
+<li><code>smart.unused_rsvd_blk_cnt_tot</code> "Pre-Fail" Attribute (at least
+Samsung devices)</li>
+<li><code>smart.program_fail_cnt_total</code> Total number of Flash program
+operation failures since the drive was deployed</li>
+<li><code>smart.erase_fail_count_total</code> "Pre-Fail" Attribute</li>
+<li><code>smart.runtime_bad_block</code> The total count of all
+read/program/erase failures</li>
+<li><code>smart.end_to_end_error</code> The count of parity errors which occur
+in the data path to the media via the drive's cache RAM (at least
+Hewlett-Packard)</li>
+<li><code>smart.reported_uncorrect</code> The count of errors that could not be
+recovered using hardware ECC</li>
+<li><code>smart.command_timeout</code> The count of aborted operations due to
+HDD timeout</li>
+<li><code>smart.high_fly_writes</code> HDD producers implement a Fly Height
+Monitor that attempts to provide additional protections for write operations by
+detecting when a recording head is flying outside its normal operating range.
+If an unsafe fly height condition is encountered, the write process is stopped,
+and the information is rewritten or reallocated to a safe region of the hard
+drive. This attribute indicates the count of these errors detected over the
+lifetime of the drive</li>
+<li><code>smart.airflow_temperature_celsius</code> Airflow temperature</li>
+<li><code>smart.g_sense_error_rate</code> The count of errors resulting from
+externally induced shock & vibration</li>
+<li><code>smart.power-off_retract_count</code> The count of times the heads
+are loaded off the media</li>
+<li><code>smart.load_cycle_count</code> Count of load/unload cycles into head
+landing zone position</li>
+<li><code>smart.temperature_celsius</code> Current internal temperature</li>
+<li><code>smart.hardware_ecc_recovered</code> The count of errors that were
+recovered using hardware ECC</li>
+<li><code>smart.reallocated_event_count</code> Count of remap operations. The
+raw value of this attribute shows the total count of attempts to transfer data
+from reallocated sectors to a spare area</li>
+<li><code>smart.current_pending_sector</code> Count of "unstable" sectors
+(waiting to be remapped, because of unrecoverable read errors)</li>
+<li><code>smart.offline_uncorrectable</code> The total count of uncorrectable
+errors when reading/writing a sector</li>
+<li><code>smart.udma_crc_error_count</code> The count of errors in data
+transfer via the interface cable as determined by ICRC (Interface Cyclic
+Redundancy Check)</li>
+<li><code>smart.write_error_rate</code> The total count of errors when writing
+a sector</li>
+<li><code>smart.media_wearout_indicator</code> The normalized value of 100
+(when the SSD is new) and declines to a minimum value of 1</li>
+<li><code>smart.transfer_error_rate</code> Count of times the link is reset
+during a data transfer</li>
+<li><code>smart.total_lba_writes</code> Total count of LBAs written</li>
+<li><code>smart.total_lba_read</code> Total count of LBAs read</li>
+</ul>
+
+<p>
+Description of metrics can be found at:
+<a href="https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes">
+S.M.A.R.T. article on wikipedia</a>.
+The best way to understand/find metric is to look at producer's specification.
+</p>
+
+<h3>Other collectors</h3>
+
+<h4><code>0/couchbase.py</code></h4>
+<p>Stats from couchbase (document-oriented NoSQL database).</p>
+<p>
+All metrics are tagged with name of related bucket(<code>bucket=</code>). A
+bucket is a logical grouping of physical resources within a cluster of
+Couchbase Servers. They can be used by multiple client applications across a
+cluster. Buckets provide a secure mechanism for organizing, managing, and
+analyzing data storage resources.
+</p>
+<p>
+Refer to the following cbstats documentation for metrics description:
+<a href="http://docs.couchbase.com/couchbase-manual-2.1/#cbstats-tool">
+Cbstats documentation</a>
+</p>
+
+<h4><code>0/elasticsearch.py</code></h4>
+<p>Stats from Elastic Search (search and analytics engine).</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster.html">
+ElasticSearch cluster APIs</a>
+</p>
+
+<h4><code>0/hadoop_datanode_jmx.py</code></h4>
+<p>Stats from Hadoop (framework for the distributed processing), DataNode
+stats.</p>
+<p>
+Following metrics are disabled at the collector by default: revision, hdfsUser,
+hdfsDate, hdfsUrl, date, hdfsRevision, user, hdfsVersion, url, version,
+NamenodeAddress, Version, RpcPort, HttpPort, CurrentThreadCpuTime,
+CurrentThreadUserTime, StorageInfo, VolumeInfo.
+</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://hbase.apache.org/book.html#hbase_metrics">
+Hbase metrics</a>
+</p>
+
+<h4><code>0/haproxy.py</code></h4>
+<p>Stats from Haproxy (TCP/HTTP load balancer).</p>
+<ul>
+<li><code>haproxy.current_sessions</code> Current number of sessions.</li>
+<li><code>haproxy.session_rate</code> Number of new sessions per second.</li>
+</ul>
+<p>
+All metrics are tagged with server (<code>server=</code>) and cluster
+(<code>cluster=</code>).
+</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://haproxy.1wt.eu/download/1.4/doc/configuration.txt">
+Haproxy configuration</a> # section 9.2.Unix Socket commands
+</p>
+
+<h4><code>0/hbase_regionserver_jmx.py</code></h4>
+<p>Stats from Hadoop (framework for the distributed processing), RegionServer
+stats.</p>
+<p>
+Following metrics are disabled at the collector by default: revision, hdfsUser,
+hdfsDate, hdfsUrl, date, hdfsRevision, user, hdfsVersion, url, version,
+Version, RpcPort, HttpPort,HeapMemoryUsage, NonHeapMemoryUsage.
+</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://hbase.apache.org/book.html#hbase_metrics">Hbase metrics</a>
+</p>
+
+<h4><code>0/mongo.py</code></h4>
+<p>Stats from Mongo (document NoSQL database).</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://docs.mongodb.org/manual/reference/server-status/">
+Mongo DB server-status</a>
+</p>
+
+<h4><code>0/mysql.py</code></h4>
+<p>Stats from MySQL (relational database).</p>
+<p>
+Refer to the following documentation for metrics description:
+InnoDB <a href="http://dev.mysql.com/doc/refman/5.0/en/innodb-monitors.html">
+Innodb monitors</a>,
+Global <a href="http://dev.mysql.com/doc/refman/5.0/en/show-status.html">
+Show status</a>,
+Engine <a href="http://dev.mysql.com/doc/refman/5.1/en/show-engine.html">
+Show engine</a>,
+Slave <a href="http://dev.mysql.com/doc/refman/5.0/en/show-slave-status.html">
+Show slave status</a>,
+Process list <a href="http://dev.mysql.com/doc/refman/5.0/en/show-processlist.html">
+Show process list</a>
+</p>
+
+<h4><code>0/postgresql.py</code></h4>
+<p>Stats from PostgreSQL (relational database).</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://www.postgresql.org/docs/9.2/static/monitoring-stats.html">
+PostgreSQL monitoring stats</a>
+</p>
+
+<h4><code>0/redis-stats.py</code></h4>
+<p>Stats from Redis (key-value store).</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://redis.io/commands/INFO">Redis info comands</a>
+</p>
+
+<h4><code>0/riak.py</code></h4>
+<p>Stats from Riak (document NoSQL database).</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://docs.basho.com/riak/latest/ops/running/stats-and-monitoring/#Statistics-from-Riak">
+Riak statistics</a>
+</p>
+
+<h4><code>0/varnishstat.py</code></h4>
+<p>Stats from Varnish (HTTP accelerator).</p>
+<p>
+By default all metrics collected, it can be changed by editing "vstats" array
+of the collector.
+</p>
+<p>
+Refer to the following documentation for metrics description: run
+"varnishstat -l" to have lists the available metrics.<br/>
+</p>
+
+<h4><code>0/zookeeper.py</code></h4>
+<p>Stats from Zookeeper (centralized service for distributed synchronization).
+</p>
+<p>
+Refer to the following documentation for metrics description:
+<a href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_zkCommands">
+Zookeeper commands</a>
+</p>
+
 </section>
 <footer>
 &copy; 2010&ndash;2013 The OpenTSDB Authors.

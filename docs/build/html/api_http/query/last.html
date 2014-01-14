@@ -194,20 +194,23 @@
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><pre>timeseries=&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN&gt;]}]</pre>
+<div class="highlight-python"><div class="highlight"><pre>timeseries=&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN&gt;]}]
+</pre></div>
 </div>
 <p>It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators.</p>
 </div>
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>
 <p>TSUID queries are simpler than Metric queries. Simply pass a list of one or more hexadecimal encoded TSUIDs separated by commas:</p>
-<div class="highlight-python"><pre>tsuids=&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]</pre>
+<div class="highlight-python"><div class="highlight"><pre>tsuids=&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-query-string-requests">
 <h3>Example Query String Requests</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/query/last?timeseries=proc.stat.cpu{host=foo,type=idle}&amp;?timeseries=proc.stat.mem{host=foo,type=idle}
-http://localhost:4242/api/query/last?tsuids=000001000002000003,000001000002000004&amp;back_scan=24&amp;resolve=true</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/query/last?timeseries=proc.stat.cpu{host=foo,type=idle}&amp;?timeseries=proc.stat.mem{host=foo,type=idle}
+http://localhost:4242/api/query/last?tsuids=000001000002000003,000001000002000004&amp;back_scan=24&amp;resolve=true
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-content-request">

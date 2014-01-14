@@ -1,10 +1,20 @@
 /api/annotation
 ===============
 
-This endpoint provides a means of adding, editing or deleting annotations stored in the OpenTSDB backend. Annotations are very basic objects used to record a note of an arbitrary event at some point, optionally associated with a timeseries. Annotations are not meant to be used as a tracking or event based system, rather they are useful for providing links to such systems by displaying a notice on graphs or via API query calls.
+These endpoints provides a means of adding, editing or deleting annotations stored in the OpenTSDB backend. Annotations are very basic objects used to record a note of an arbitrary event at some point, optionally associated with a timeseries. Annotations are not meant to be used as a tracking or event based system, rather they are useful for providing links to such systems by displaying a notice on graphs or via API query calls.
 
 When creating, modifying or deleting annotations, all changes will be propagated to the search plugin if configured.
 
+Annotation API Endpoints
+------------------------
+
+.. toctree::
+   :maxdepth: 1
+   
+   bulk
+   
+The default ``/annotation`` endpoint deals with one notation at a time. The ``/annotation/bulk`` endpoint allows for adding or updating multiple annotations at a time.
+   
 Verbs
 -----
 
@@ -57,7 +67,7 @@ Example POST Request
 Response
 --------
    
-A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full rule object with optional requested changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a ``304`` without any body content. If the requested tree or rule did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied a ``400`` error will be returned.
+A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full object with the requested changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a ``304`` without any body content. If the requested annotation did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied a ``400`` error will be returned.
 
 Example Response
 ^^^^^^^^^^^^^^^^

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/annotation &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="HTTP API" href="../index.html" />
+    <link rel="next" title="/api/annotation/bulk" href="bulk.html" />
+    <link rel="prev" title="/api/aggregators" href="../aggregators.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bulk.html" title="/api/annotation/bulk"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../aggregators.html" title="/api/aggregators"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/annotation</a><ul>
+<li><a class="reference internal" href="#annotation-api-endpoints">Annotation API Endpoints</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-get-request">Example GET Request</a></li>
+<li><a class="reference internal" href="#example-post-request">Example POST Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../aggregators.html"
+                        title="previous chapter">/api/aggregators</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bulk.html"
+                        title="next chapter">/api/annotation/bulk</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-annotation">
+<h1>/api/annotation</h1>
+<p>These endpoints provides a means of adding, editing or deleting annotations stored in the OpenTSDB backend. Annotations are very basic objects used to record a note of an arbitrary event at some point, optionally associated with a timeseries. Annotations are not meant to be used as a tracking or event based system, rather they are useful for providing links to such systems by displaying a notice on graphs or via API query calls.</p>
+<p>When creating, modifying or deleting annotations, all changes will be propagated to the search plugin if configured.</p>
+<div class="section" id="annotation-api-endpoints">
+<h2>Annotation API Endpoints</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bulk.html">/api/annotation/bulk</a></li>
+</ul>
+</div>
+<p>The default <tt class="docutils literal"><span class="pre">/annotation</span></tt> endpoint deals with one notation at a time. The <tt class="docutils literal"><span class="pre">/annotation/bulk</span></tt> endpoint allows for adding or updating multiple annotations at a time.</p>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET - Retrieve a single annotation</li>
+<li>POST - Create or modify an annotation</li>
+<li>PUT - Create or replace an annotation</li>
+<li>DELETE - Delete an annotation</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>All annotations are identified by the <tt class="docutils literal"><span class="pre">startTime</span></tt> field and optionally the <tt class="docutils literal"><span class="pre">tsuid</span></tt> field. Each note can be global, meaning it is associated with all timeseries, or it can be local, meaning it&#8217;s associated with a specific tsuid. If the tsuid is not supplied or has an empty value, the annotation is considered to be a global note.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>startTime</td>
+<td>Integer</td>
+<td>Required</td>
+<td>A Unix epoch timestamp, in seconds, marking the time when the annotation event should be recorded</td>
+<td>&nbsp;</td>
+<td>start_time</td>
+<td>RW</td>
+<td>1369141261</td>
+</tr>
+<tr class="row-odd"><td>endTime</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>An optional end time for the event if it has completed or been resolved</td>
+<td>0</td>
+<td>end_time</td>
+<td>RW</td>
+<td>1369141262</td>
+</tr>
+<tr class="row-even"><td>tsuid</td>
+<td>String</td>
+<td>Optional</td>
+<td>A TSUID if the annotation is associated with a timeseries. This may be null or empty if the note was for a global event</td>
+<td>&nbsp;</td>
+<td>tsuid</td>
+<td>RW</td>
+<td>000001000001000001</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>String</td>
+<td>Optional</td>
+<td>A brief description of the event. As this may appear on GnuPlot graphs, the description should be very short, ideally less than 25 characters.</td>
+<td>&nbsp;</td>
+<td>description</td>
+<td>RW</td>
+<td>Network Outage</td>
+</tr>
+<tr class="row-even"><td>notes</td>
+<td>String</td>
+<td>Optional</td>
+<td>Detailed notes about the event</td>
+<td>&nbsp;</td>
+<td>notes</td>
+<td>RW</td>
+<td>Switch #5 died and was replaced</td>
+</tr>
+<tr class="row-odd"><td>custom</td>
+<td>Map</td>
+<td>Optional</td>
+<td>A key/value map to store custom fields and values</td>
+<td>null</td>
+<td>&nbsp;</td>
+<td>RW</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Custom fields cannot be passed via query string. You must use the <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> verbs.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+</div>
+<div class="section" id="example-get-request">
+<h3>Example GET Request</h3>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/annotation?start_time=1369141261&amp;tsuid=000001000001000001
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-post-request">
+<h3>Example POST Request</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full object with the requested changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested annotation did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1369141261</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bulk.html" title="/api/annotation/bulk"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../aggregators.html" title="/api/aggregators"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

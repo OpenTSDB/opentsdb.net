@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -183,7 +182,8 @@ directory, then they are ignored.  We&#8217;ve included a <tt class="docutils li
 <div class="section" id="installation-of-tcollector">
 <h2>Installation of tcollector</h2>
 <p>You need to clone tcollector from GitHub:</p>
-<div class="highlight-python"><pre>git clone git://github.com/OpenTSDB/tcollector.git</pre>
+<div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/OpenTSDB/tcollector.git
+</pre></div>
 </div>
 <p>and edit &#8216;tcollector/startstop&#8217; script to set following variable:
 <tt class="docutils literal"><span class="pre">TSD_HOST=dns.name.of.tsd</span></tt></p>
@@ -305,7 +305,7 @@ on if you have a 2.6 kernel before 2.6.25 or after.)</p>
 <p>See <a class="reference external" href="http://www.kernel.org/doc/Documentation/iostats.txt">iostats.txt</a></p>
 <p><tt class="docutils literal"><span class="pre">/proc/diskstats</span></tt> has 11 stats for a given physical device.
 These are all rate counters, except <tt class="docutils literal"><span class="pre">ios_in_progress</span></tt>.</p>
-<div class="highlight-python"><pre>.read_requests       Number of reads completed
+<div class="highlight-python"><div class="highlight"><pre>.read_requests       Number of reads completed
 .read_merged         Number of reads merged
 .read_sectors        Number of sectors read
 .msec_read           Time in msec spent reading
@@ -315,17 +315,19 @@ These are all rate counters, except <tt class="docutils literal"><span class="pr
 .msec_write          Time in msec spent writing
 .ios_in_progress     Number of I/O operations in progress
 .msec_total          Time in msec doing I/O
-.msec_weighted_total Weighted time doing I/O (multiplied by ios_in_progress)</pre>
+.msec_weighted_total Weighted time doing I/O (multiplied by ios_in_progress)
+</pre></div>
 </div>
 <p>in 2.6.25 and later, by-partition stats are reported the same as disks.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">in 2.6 before 2.6.25, partitions have only 4 stats per partition</p>
 </div>
-<div class="highlight-python"><pre>.read_issued
+<div class="highlight-python"><div class="highlight"><pre>.read_issued
 .read_sectors
 .write_issued
-.write_sectors</pre>
+.write_sectors
+</pre></div>
 </div>
 <p>For partitions, these <tt class="docutils literal"><span class="pre">*_issued</span></tt> are counters collected before requests are
 merged, so aren&#8217;t the same as <tt class="docutils literal"><span class="pre">*_requests</span></tt> (which is post-merge, which

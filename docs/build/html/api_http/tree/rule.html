@@ -278,7 +278,8 @@
 <p>A <tt class="docutils literal"><span class="pre">GET</span></tt> request requires a specific tree ID, rule level and order. Otherwise a <tt class="docutils literal"><span class="pre">400</span></tt> will be returned. To fetch all of the rules for a tree, use the <tt class="docutils literal"><span class="pre">/api/tree</span></tt> endpoint with a <a href="#id3"><span class="problematic" id="id4">``</span></a>treeId&#8217; value.</p>
 <div class="section" id="example-get-query">
 <h3>Example GET Query</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
@@ -306,7 +307,8 @@
 <p>Using the <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> methods, you can create a new rule or edit an existing rule. New rules require a <tt class="docutils literal"><span class="pre">type</span></tt> value. Existing trees require a valid <tt class="docutils literal"><span class="pre">treeId</span></tt> ID and any fields that require modification. A successful request will return the modified rule object. Note that if a rule exists at the given level and order, any changes will be merged with or overwrite the existing rule.</p>
 <div class="section" id="example-query-string-request">
 <h3>Example Query String Request</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=.&amp;method=post</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=.&amp;method=post
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-content-request">
@@ -351,7 +353,8 @@
 </div>
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;method=delete</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;method=delete
+</pre></div>
 </div>
 </div>
 </div>

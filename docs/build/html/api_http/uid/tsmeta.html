@@ -131,12 +131,14 @@
 </ul>
 <div class="section" id="example-tsuid-get-request">
 <h3>Example TSUID GET Request</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-metric-get-request">
 <h3>Example Metric GET Request</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga
+</pre></div>
 </div>
 </div>
 </div>
@@ -273,13 +275,15 @@
 <li><strong>create</strong> - A flag with a value of <tt class="docutils literal"><span class="pre">true</span></tt></li>
 </ul>
 <p>For example:</p>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post
+</pre></div>
 </div>
 <p>If a TS meta object already exists in storage for the given metric and tags, the fields will be updated or overwritten.</p>
 <div class="section" id="example-post-or-put-request">
 <h3>Example POST or PUT Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time
+</pre></div>
 </div>
 <p><em>JSON Content:</em></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
@@ -297,7 +301,8 @@
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-python"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete
+</pre></div>
 </div>
 <p><em>JSON Content:</em></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>

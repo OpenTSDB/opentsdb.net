@@ -330,7 +330,7 @@ var Search = {
           objectterms.push(tmp[i].toLowerCase());
       }
 
-      if ($u.indexOf(stopwords, tmp[i]) != -1 || tmp[i].match(/^\d+$/) ||
+      if ($u.indexOf(stopwords, tmp[i].toLowerCase()) != -1 || tmp[i].match(/^\d+$/) ||
           tmp[i] === "") {
         // skip this "word"
         continue;
@@ -550,7 +550,7 @@ var Search = {
     for (i = 0; i < searchterms.length; i++) {
       var word = searchterms[i];
       // no match but word was a required one
-      if (!(files = terms[word]))
+      if ((files = terms[word]) === undefined)
         break;
       if (files.length === undefined) {
         files = [files];

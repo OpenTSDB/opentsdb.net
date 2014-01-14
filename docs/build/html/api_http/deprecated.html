@@ -116,7 +116,8 @@
 <h2>/aggregators (<strong>Deprecated</strong>)</h2>
 <p>Returns a list of available aggregation functions in JSON format only. Other formats are ignored. This method does not accept any query string parameters.</p>
 <p>Example Request:</p>
-<div class="highlight-python"><pre>http://localhost:4242/aggregators</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/aggregators
+</pre></div>
 </div>
 <p>Example Response:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&quot;min&quot;</span><span class="p">,</span><span class="s">&quot;sum&quot;</span><span class="p">,</span><span class="s">&quot;max&quot;</span><span class="p">,</span><span class="s">&quot;avg&quot;</span><span class="p">]</span>
@@ -161,7 +162,8 @@
 </ul>
 <p>Both parameters are required or you will receive an exception.</p>
 <p>Example Request:</p>
-<div class="highlight-python"><pre>http://localhost:4242/suggest?type=metrics&amp;q=df</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/suggest?type=metrics&amp;q=df
+</pre></div>
 </div>
 <p>Example Response:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>

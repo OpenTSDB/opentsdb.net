@@ -108,7 +108,8 @@
 <li><p class="first">Within the <tt class="docutils literal"><span class="pre">META-INF</span></tt> directory, create a file named <tt class="docutils literal"><span class="pre">MANIFEST.MF</span></tt>. Again some IDEs can generate this automatically.</p>
 </li>
 <li><p class="first">Edit the <tt class="docutils literal"><span class="pre">MANIFEST.MF</span></tt> file and add:</p>
-<div class="highlight-python"><pre>Manifest-Version: 1.0</pre>
+<div class="highlight-python"><div class="highlight"><pre>Manifest-Version: 1.0
+</pre></div>
 </div>
 <p>making sure to end with a blank line. You can add more manifest information if you like. This is the bare minimum to satisfy plugin requirements.</p>
 </li>
@@ -137,10 +138,12 @@ NOTE: If you have widely different implementations, start a different project an
 </ul>
 </li>
 <li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you&#8217;re going command line, try this:</p>
-<div class="highlight-python"><pre>jar cvmf &lt;path to MANIFEST.MF&gt; &lt;plugin jar name&gt; &lt;list of class files&gt;</pre>
+<div class="highlight-python"><div class="highlight"><pre>jar cvmf &lt;path to MANIFEST.MF&gt; &lt;plugin jar name&gt; &lt;list of class files&gt;
+</pre></div>
 </div>
 <p>Where the <tt class="docutils literal"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></tt> includes the services file that you created above. E.g.:</p>
-<div class="highlight-python"><pre>jar cvmf META-INF/MANIFEST.MF searchplugin.jar ../bin/net/opentsdb/search/myplugin.class META-INF/services/net.opentsdb.search.SearchPlugin</pre>
+<div class="highlight-python"><div class="highlight"><pre>jar cvmf META-INF/MANIFEST.MF searchplugin.jar ../bin/net/opentsdb/search/myplugin.class META-INF/services/net.opentsdb.search.SearchPlugin
+</pre></div>
 </div>
 </li>
 </ul>

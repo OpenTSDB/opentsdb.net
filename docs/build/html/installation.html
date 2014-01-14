@@ -118,19 +118,22 @@
 <h2>Compiling</h2>
 <p>Download the latest version using <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></tt> command, then run the provided <tt class="docutils literal"><span class="pre">build.sh</span></tt> script.</p>
 <p>This script helps run all the processes needed to compile OpenTSDB: it runs <tt class="docutils literal"><span class="pre">./bootstrap</span></tt> (only once, when you first check out the code), followed by <tt class="docutils literal"><span class="pre">./configure</span></tt> and <tt class="docutils literal"><span class="pre">make</span></tt>. The output of the build process is put into a <tt class="docutils literal"><span class="pre">build</span></tt> folder:</p>
-<div class="highlight-python"><pre>git clone git://github.com/OpenTSDB/opentsdb.git
+<div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/OpenTSDB/opentsdb.git
 cd opentsdb
-./build.sh</pre>
+./build.sh
+</pre></div>
 </div>
 <p>From there on, you can use the command-line tool by invoking <tt class="docutils literal"><span class="pre">./build/tsdb</span></tt> or you can run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">install</span></tt> to install OpenTSDB on your system. Should you ever change your mind, there is also <tt class="docutils literal"><span class="pre">make</span> <span class="pre">uninstall</span></tt>, so there are no strings attached.</p>
 <p>If it&#8217;s the first time you run OpenTSDB with your HBase instance, you first need to create the necessary HBase tables:</p>
-<div class="highlight-python"><pre>env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/create_table.sh</pre>
+<div class="highlight-python"><div class="highlight"><pre>env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/create_table.sh
+</pre></div>
 </div>
 <p>This will create two tables: <tt class="docutils literal"><span class="pre">tsdb</span></tt> and <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt>. If you&#8217;re just evaluating OpenTSDB, don&#8217;t worry about compression for now. In production / at scale, make sure you use <tt class="docutils literal"><span class="pre">COMPRESSION=lzo</span></tt> and have LZO enabled.</p>
 <p>Now start a TSD (Time Series Daemon):</p>
-<div class="highlight-python"><pre>tsdtmp=${TMPDIR-'/tmp'}/tsd    # For best performance, make sure
-mkdir -p "$tsdtmp"             # your temporary directory uses tmpfs
-./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp"</pre>
+<div class="highlight-python"><div class="highlight"><pre>tsdtmp=${TMPDIR-&#39;/tmp&#39;}/tsd    # For best performance, make sure
+mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
+./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir=&quot;$tsdtmp&quot;
+</pre></div>
 </div>
 <p>If you&#8217;re using a real HBase cluster, you will also need to pass the <tt class="docutils literal"><span class="pre">--zkquorum</span></tt> flag to specify the comma-separated list of hosts serving your ZooKeeper quorum. The <tt class="docutils literal"><span class="pre">--cachedir</span></tt> can be purged periodically, e.g. by a cron job.</p>
 <p>At this point you can access the TSD&#8217;s web interface through <a class="reference external" href="http://127.0.0.1:4242">http://127.0.0.1:4242</a> (if it&#8217;s running on your local machine).</p>

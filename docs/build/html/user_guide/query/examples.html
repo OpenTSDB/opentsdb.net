@@ -236,7 +236,8 @@
 <div class="section" id="under-the-hood">
 <h2>Under the Hood</h2>
 <p>You may want to read up on how OpenTSDB stores timeseries data here: <a class="reference internal" href="../backends/index.html"><em>Storage</em></a>. Otherwise, remember that each row in storage has a unique key formatted:</p>
-<div class="highlight-python"><pre>&lt;metricID&gt;&lt;normalized_timestamp&gt;&lt;tagkID1&gt;&lt;tagvID1&gt;[...&lt;tagkIDN&gt;&lt;tagvIDN&gt;]</pre>
+<div class="highlight-python"><div class="highlight"><pre>&lt;metricID&gt;&lt;normalized_timestamp&gt;&lt;tagkID1&gt;&lt;tagvID1&gt;[...&lt;tagkIDN&gt;&lt;tagvIDN&gt;]
+</pre></div>
 </div>
 <p>The data table above would be stored as:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="mo">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mo">0101</span>
@@ -267,7 +268,8 @@
 </div>
 <div class="section" id="query-1-all-time-series-for-a-metric">
 <h2>Query 1 - All Time Series for a Metric</h2>
-<div class="highlight-python"><pre>m=sum:cpu.system</pre>
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system
+</pre></div>
 </div>
 <p>This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID <tt class="docutils literal"><span class="pre">01</span></tt> between &lt;start&gt; and &lt;end&gt;. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
@@ -297,7 +299,8 @@
 <div class="section" id="query-2-filter-on-a-tag">
 <h2>Query 2 - Filter on a Tag</h2>
 <p>Usually aggregating all of the time series for a metric isn&#8217;t particularly useful. Instead we can drill down a little by filtering for time series that contain a specific tagk/tagv pair combination. Simply put the pair in curly braces:</p>
-<div class="highlight-python"><pre>m=sum:cpu.system{host=web1}</pre>
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web1}
+</pre></div>
 </div>
 <p>This will return an aggregate of time series #1, #4, #5 and #6 since they&#8217;re the only series that include <tt class="docutils literal"><span class="pre">host=web1</span></tt>.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
@@ -324,7 +327,8 @@
 <div class="section" id="query-3-specific-time-series">
 <h2>Query 3 - Specific Time Series</h2>
 <p>What if you want a specific timeseries? You have to include every tag and coresponding value.</p>
-<div class="highlight-python"><pre>m=sum:cpu.system{host=web1,dc=lax}</pre>
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web1,dc=lax}
+</pre></div>
 </div>
 <p>This will return the data from timeseries #6 only.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
@@ -353,7 +357,8 @@
 <div class="section" id="query-4-tsuid-query">
 <h2>Query 4 - TSUID Query</h2>
 <p>If you know the exact TSUID of the timeseries that you want to retrieve, you can simply pass it in like so:</p>
-<div class="highlight-python"><pre>tsuids=sum:0102040102</pre>
+<div class="highlight-python"><div class="highlight"><pre>tsuids=sum:0102040102
+</pre></div>
 </div>
 <p>The results will be the data points that you requested.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
@@ -378,7 +383,8 @@
 <div class="section" id="query-5-multi-tsuid-query">
 <h2>Query 5 - Multi-TSUID Query</h2>
 <p>You can also aggregate multiple TSUIDs in the same query, provided they share the same metric. If you attempt to aggregate multiple metrics, the API will issue an error.</p>
-<div class="highlight-python"><pre>tsuids=sum:0102040101,0102050101</pre>
+<div class="highlight-python"><div class="highlight"><pre>tsuids=sum:0102040101,0102050101
+</pre></div>
 </div>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
@@ -403,7 +409,8 @@
 </div>
 <div class="section" id="query-6-grouping">
 <h2>Query 6 - Grouping</h2>
-<div class="highlight-python"><pre>m=sum:cpu.system{host=*}</pre>
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=*}
+</pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">*</span></tt> (asterisk) is a grouping operator that will return a data set for each unique value of the tag name given. Every timeseries that includes the given metric and the given tag name, regardless of other tags or values, will be included in the results. After the individual timeseries results are grouped, they&#8217;ll be aggregated and returned.</p>
 <p>In this example, we will have 3 groups returned:</p>
@@ -484,7 +491,8 @@
 <div class="section" id="query-7-group-and-filter">
 <h2>Query 7 - Group and Filter</h2>
 <p>Note that the in example #2, the <tt class="docutils literal"><span class="pre">web1</span></tt> group included the odd-ball timeseries #4 and #5. We can filter those out by specifying a second tag ala:</p>
-<div class="highlight-python"><pre>m=sum:cpu.nice{host=*,dc=dal}</pre>
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.nice{host=*,dc=dal}
+</pre></div>
 </div>
 <p>Now we&#8217;ll only get results for #1 - #3, but we lose the <tt class="docutils literal"><span class="pre">dc=lax</span></tt> values.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
@@ -537,7 +545,8 @@
 <div class="section" id="query-8-grouping-with-or">
 <h2>Query 8 - Grouping With OR</h2>
 <p>The <tt class="docutils literal"><span class="pre">*</span></tt> operator is greedy and will return <em>all</em> values that are assigned to a tag name. If you only want a few tag values, you can use the <tt class="docutils literal"><span class="pre">|</span></tt> (pipe) operator instead.</p>
-<div class="highlight-python"><pre>m=sum:cpu.nice{host=web1|web2}</pre>
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.nice{host=web1|web2}
+</pre></div>
 </div>
 <p>This will find all of the timeseries that include &#8220;host&#8221; values for &#8220;web1&#8221; OR &#8220;web2&#8221;, then group them by value, similar to the <tt class="docutils literal"><span class="pre">*</span></tt> operator. Our groups, this time, will look like this:</p>
 <table border="1" class="docutils">

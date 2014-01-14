@@ -108,8 +108,9 @@ Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
 properties start with &#8220;tsd.&#8221; Comments or inactive configuration lines are
 blocked by a hash symbol &#8220;#&#8221;. For example:</p>
-<div class="highlight-python"><pre># List of Zookeeper hosts that manage the HBase cluster
-tsd.storage.hbase.zk_quorum - 192.168.1.100</pre>
+<div class="highlight-python"><div class="highlight"><pre># List of Zookeeper hosts that manage the HBase cluster
+tsd.storage.hbase.zk_quorum - 192.168.1.100
+</pre></div>
 </div>
 <p>will configure the TSD to connect to &#8220;192.168.1.100&#8221; for HBase storage access.</p>
 <p>When combining configuration files and command line arguments, the order of
@@ -425,11 +426,13 @@ E.g. 192.168.1.1:2181 192.168.1.2:2181</td>
 <ul>
 <li><p class="first">Special characters must be escaped with a backslash include: <tt class="docutils literal"><span class="pre">#</span></tt>, <tt class="docutils literal"><span class="pre">!</span></tt>, <tt class="docutils literal"><span class="pre">=</span></tt>, and <tt class="docutils literal"><span class="pre">:</span></tt>
 E.g.:</p>
-<div class="highlight-python"><pre>my.property = Hello World\!</pre>
+<div class="highlight-python"><div class="highlight"><pre>my.property = Hello World\!
+</pre></div>
 </div>
 </li>
 <li><p class="first">Unicode characters must be escaped with their hexadecimal representation, e.g.:</p>
-<div class="highlight-python"><pre>my.property = \u0009</pre>
+<div class="highlight-python"><div class="highlight"><pre>my.property = \u0009
+</pre></div>
 </div>
 </li>
 </ul>

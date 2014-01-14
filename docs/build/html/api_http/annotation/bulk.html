@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/annotation/bulk &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="/api/annotation" href="index.html" />
+    <link rel="next" title="/api/config" href="../config.html" />
+    <link rel="prev" title="/api/annotation" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../config.html" title="/api/config"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="/api/annotation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">/api/annotation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/annotation/bulk</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-post-request">Example POST Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">/api/annotation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../config.html"
+                        title="next chapter">/api/config</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-annotation-bulk">
+<h1>/api/annotation/bulk</h1>
+<p><em>NOTE: (Version 2.1)</em>
+The bulk endpoint enables adding or updating multiple annotations in a single call. Annotations must be sent over PUT or POST as content data. Query string requests are not supported. Each annotation is processed individually and synchronized with the backend. If one of the annotations has an error, such as a missing field, an exception will be returned and some of the annotations may not be written to storage. In such an event, the errant annotation should be fixed and all annotations sent again.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>POST - Create or modify an annotation</li>
+<li>PUT - Create or replace an annotation</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Fields for annotations are documented at <a class="reference internal" href="index.html"><em>/api/annotation</em></a></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+</div>
+<div class="section" id="example-post-request">
+<h3>Example POST Request</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;000001000001000002&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Second annotation on different TSUID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;Additional details&quot;</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response to a <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the list of annotations after synchronization (i.e. if issuing a <tt class="docutils literal"><span class="pre">POST</span></tt> call, existing objects will be merged with the new objects). If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned along with the specific annotation that caused the error in the <tt class="docutils literal"><span class="pre">details</span></tt> field of the error object.</p>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+  <span class="p">{</span>
+      <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1369141261</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+      <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000002&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Second annotation on different TSUID&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;Additional details&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1369141261</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../config.html" title="/api/config"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="/api/annotation"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" >/api/annotation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

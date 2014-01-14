@@ -177,7 +177,7 @@ API Endpoints
    
    s
    aggregators
-   annotation
+   annotation/index
    config
    dropcaches
    put

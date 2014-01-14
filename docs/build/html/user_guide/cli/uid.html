@@ -153,73 +153,27 @@
 <div class="section" id="common-cli-parameters">
 <h2>Common CLI Parameters</h2>
 <p>Parameters specific to the UID utility include:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="50%" />
-<col width="10%" />
-<col width="20%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>&#8211;idwidth</td>
-<td>Integer</td>
-<td>Number of bytes on which the UniqueId is encoded. This allows for an override of the built in UID width.</td>
-<td>3</td>
-<td>&#8211;idwidth=4</td>
-</tr>
-<tr class="row-odd"><td>&#8211;ignore-case</td>
-<td>Flag</td>
-<td>Ignore case distinctions when matching on a regular expression using the <tt class="docutils literal"><span class="pre">grep</span></tt> sub command</td>
-<td>&nbsp;</td>
-<td>&#8211;ignore-case</td>
-</tr>
-<tr class="row-even"><td>&#8211;verbose</td>
-<td>Flag</td>
-<td>Print logging messages at level DEBUG and higher. The default is for ERROR and higher to be displayed.</td>
-<td>&nbsp;</td>
-<td>&#8211;verbose&#8221;</td>
-</tr>
-<tr class="row-odd"><td>-i</td>
-<td>Flag</td>
-<td>Short hand for the <tt class="docutils literal"><span class="pre">--ignore-case</span></tt> flag</td>
-<td>&nbsp;</td>
-<td>-i</td>
-</tr>
-<tr class="row-even"><td>-v</td>
-<td>Flag</td>
-<td>Short hand for the <tt class="docutils literal"><span class="pre">--verbose</span></tt> flag</td>
-<td>&nbsp;</td>
-<td>-v</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="section" id="lookup">
 <h2>Lookup</h2>
 <p>The lookup command is the default for <tt class="docutils literal"><span class="pre">uid</span></tt> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
 <div class="section" id="command-format">
 <h3>Command Format</h3>
-<div class="highlight-python"><pre>&lt;kind&gt; &lt;name&gt;
-&lt;kind&gt; &lt;UID&gt;</pre>
+<div class="highlight-python"><div class="highlight"><pre>&lt;kind&gt; &lt;name&gt;
+&lt;kind&gt; &lt;UID&gt;
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-command">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid tagk</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid tagk
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-python"><pre>tagk host: [0, 0, 1]</pre>
+<div class="highlight-python"><div class="highlight"><pre>tagk host: [0, 0, 1]
+</pre></div>
 </div>
 </div>
 </div>
@@ -265,15 +219,17 @@
 </div>
 <div class="section" id="id2">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid grep metrics 'disk.*write'</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid grep metrics &#39;disk.*write&#39;
+</pre></div>
 </div>
 </div>
 <div class="section" id="id3">
 <h3>Example Response</h3>
-<div class="highlight-python"><pre>metrics iostat.disk.msec_write: [0, 3, -67]
+<div class="highlight-python"><div class="highlight"><pre>metrics iostat.disk.msec_write: [0, 3, -67]
 metrics iostat.disk.write_merged: [0, 3, -69]
 metrics iostat.disk.write_requests: [0, 3, -70]
-metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
+metrics iostat.disk.write_sectors: [0, 3, -68]
+</pre></div>
 </div>
 </div>
 </div>
@@ -309,12 +265,14 @@ metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
 </table>
 <div class="section" id="id4">
 <h3>Command Format</h3>
-<div class="highlight-python"><pre>assign &lt;kind&gt; &lt;name&gt; [&lt;name&gt;...]</pre>
+<div class="highlight-python"><div class="highlight"><pre>assign &lt;kind&gt; &lt;name&gt; [&lt;name&gt;...]
+</pre></div>
 </div>
 </div>
 <div class="section" id="id5">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid assign metrics disk.d0 disk.d1 disk.d2 disk.d3</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid assign metrics disk.d0 disk.d1 disk.d2 disk.d3
+</pre></div>
 </div>
 </div>
 <div class="section" id="id6">
@@ -362,12 +320,14 @@ metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
 </table>
 <div class="section" id="id7">
 <h3>Command Format</h3>
-<div class="highlight-python"><pre>assign &lt;kind&gt; &lt;name&gt; &lt;newname&gt;</pre>
+<div class="highlight-python"><div class="highlight"><pre>assign &lt;kind&gt; &lt;name&gt; &lt;newname&gt;
+</pre></div>
 </div>
 </div>
 <div class="section" id="id8">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid rename disk.d0 disk.d0.bytes_read</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid rename disk.d0 disk.d0.bytes_read
+</pre></div>
 </div>
 </div>
 <div class="section" id="id9">
@@ -441,12 +401,13 @@ metrics iostat.disk.write_sectors: [0, 3, -68]</pre>
 </div>
 <div class="section" id="id11">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid fsck fix</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid fsck fix
+</pre></div>
 </div>
 </div>
 <div class="section" id="id12">
 <h3>Example Response</h3>
-<div class="highlight-python"><pre>INFO  [main] UidManager: ----------------------------------
+<div class="highlight-python"><div class="highlight"><pre>INFO  [main] UidManager: ----------------------------------
 INFO  [main] UidManager: -    Running fsck in FIX mode    -
 INFO  [main] UidManager: -      Remove Unknowns: false    -
 INFO  [main] UidManager: ----------------------------------
@@ -459,7 +420,8 @@ ERROR [main] UidManager: Inconsistent reverse tagk mapping 000003 -&gt; bar vs 0
 INFO  [main] UidManager: FIX: Removed tagk reverse mapping: 000003 -&gt; bar
 ERROR [main] UidManager: tagk: Found 2 errors.
 INFO  [main] UidManager: 17 KVs analyzed in 334ms (~50 KV/s)
-WARN  [main] UidManager: 2 errors found.</pre>
+WARN  [main] UidManager: 2 errors found.
+</pre></div>
 </div>
 </div>
 <div class="section" id="metasync">
@@ -475,7 +437,8 @@ WARN  [main] UidManager: 2 errors found.</pre>
 </div>
 <div class="section" id="id14">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid metasync</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid metasync
+</pre></div>
 </div>
 </div>
 </div>
@@ -490,7 +453,8 @@ WARN  [main] UidManager: 2 errors found.</pre>
 </div>
 <div class="section" id="id16">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid metapurge</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid metapurge
+</pre></div>
 </div>
 </div>
 </div>
@@ -505,7 +469,8 @@ WARN  [main] UidManager: 2 errors found.</pre>
 </div>
 <div class="section" id="id18">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid treesync</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid treesync
+</pre></div>
 </div>
 </div>
 </div>
@@ -547,7 +512,8 @@ WARN  [main] UidManager: 2 errors found.</pre>
 </div>
 <div class="section" id="id20">
 <h3>Example Command</h3>
-<div class="highlight-python"><pre>./tsdb uid treepurge 1</pre>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid treepurge 1
+</pre></div>
 </div>
 </div>
 </div>

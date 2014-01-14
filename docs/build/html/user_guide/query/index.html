@@ -187,10 +187,11 @@
 <div class="section" id="tags">
 <h2>Tags</h2>
 <p>Every time series is comprised of a metric and one or more tag name/value pairs. Since tags are optional in queries, if you request only the metric name, then every metric with any number or value of tags will be returned in the aggregated results. For example, if we have a stored data set:</p>
-<div class="highlight-python"><pre>sys.cpu.user host=webserver01,cpu=0  1356998400  1
+<div class="highlight-python"><div class="highlight"><pre>sys.cpu.user host=webserver01,cpu=0  1356998400  1
 sys.cpu.user host=webserver01,cpu=1  1356998400  4
 sys.cpu.user host=webserver02,cpu=0  1356998400  2
-sys.cpu.user host=webserver02,cpu=1  1356998400  1</pre>
+sys.cpu.user host=webserver02,cpu=1  1356998400  1
+</pre></div>
 </div>
 <p>and simply craft a query <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user</span></tt>, we will get a value of <tt class="docutils literal"><span class="pre">8</span></tt> at <tt class="docutils literal"><span class="pre">1356998400</span></tt> that incorporates all 4 time series.</p>
 <p>If we want to aggregate the results for a specific group, we can filter on the <tt class="docutils literal"><span class="pre">host</span></tt> tag. The query <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01}</span></tt> will return a value of <tt class="docutils literal"><span class="pre">5</span></tt>, incorporating only the time series where <tt class="docutils literal"><span class="pre">host=webserver01</span></tt>. To drill down to a specific time series, you must include all of the tags for the series, e.g. <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01,cpu=0}</span></tt> will return <tt class="docutils literal"><span class="pre">1</span></tt>.</p>
@@ -207,12 +208,13 @@ sys.cpu.user host=webserver02,cpu=1  1356998400  1</pre>
 <li><strong>|</strong> - The pipe will return a separate result <em>only</em> for the exact tag values specified</li>
 </ul>
 <p>Let&#8217;s take the following data set as an example:</p>
-<div class="highlight-python"><pre>sys.cpu.user host=webserver01,cpu=0  1356998400  1
+<div class="highlight-python"><div class="highlight"><pre>sys.cpu.user host=webserver01,cpu=0  1356998400  1
 sys.cpu.user host=webserver01,cpu=1  1356998400  4
 sys.cpu.user host=webserver02,cpu=0  1356998400  2
 sys.cpu.user host=webserver02,cpu=1  1356998400  1
 sys.cpu.user host=webserver03,cpu=0  1356998400  5
-sys.cpu.user host=webserver03,cpu=1  1356998400  3</pre>
+sys.cpu.user host=webserver03,cpu=1  1356998400  3
+</pre></div>
 </div>
 <p>If we want to query for the average CPU time across each server we can craft a query like <tt class="docutils literal"><span class="pre">start=1356998400&amp;m=avg:sys.cpu.user{host=*}</span></tt>. This will give us three results:</p>
 <ol class="arabic simple">

@@ -341,20 +341,23 @@
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><pre>m=&lt;aggregator&gt;:[rate[,counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]:][&lt;down_sampler&gt;:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1 &amp;| grouping_operator&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN &amp;| grouping_operator&gt;]}]</pre>
+<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[,counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]:][&lt;down_sampler&gt;:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1 &amp;| grouping_operator&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN &amp;| grouping_operator&gt;]}]
+</pre></div>
 </div>
 <p>It can be a little daunting at first but you can break it down into components. If you&#8217;re ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><em>Query Examples</em></a>.</p>
 </div>
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>
 <p>TSUID queries are simpler than Metric queries. Simply pass a list of one or more hexadecimal encoded TSUIDs separated by commas:</p>
-<div class="highlight-python"><pre>tsuid=&lt;aggregator&gt;:&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]</pre>
+<div class="highlight-python"><div class="highlight"><pre>tsuid=&lt;aggregator&gt;:&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-query-string-requests">
 <h3>Example Query String Requests</h3>
-<div class="highlight-python"><pre>http://localhost:4242/api/query?start=1h-ago&amp;m=sum:rate:proc.stat.cpu{host=foo,type=idle}
-http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,000001000002000043</pre>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/query?start=1h-ago&amp;m=sum:rate:proc.stat.cpu{host=foo,type=idle}
+http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,000001000002000043
+</pre></div>
 </div>
 </div>
 <div class="section" id="example-content-request">

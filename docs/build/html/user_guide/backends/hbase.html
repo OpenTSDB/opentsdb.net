@@ -124,14 +124,16 @@
 </pre></div>
 </div>
 <p>where:</p>
-<div class="highlight-python"><pre>00000150E22700000001000001
-'----''------''----''----'
-metric  time   tagk  tagv</pre>
+<div class="highlight-python"><div class="highlight"><pre>00000150E22700000001000001
+&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;
+metric  time   tagk  tagv
+</pre></div>
 </div>
 <p>This represents a single metric but four time series across three hours. Note how there is one time series with two sets of tags:</p>
-<div class="highlight-python"><pre>00000150E22700000001000001000002000004
-'----''------''----''----''----''----'
-metric  time   tagk  tagv  tagk  tagv</pre>
+<div class="highlight-python"><div class="highlight"><pre>00000150E22700000001000001000002000004
+&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;
+metric  time   tagk  tagv  tagk  tagv
+</pre></div>
 </div>
 <p>Tag names (tagk) are sorted alphabetically before storage, so the &#8220;host&#8221; tag will always appear first in the row key/TSUID ahead of &#8220;owner&#8221;.</p>
 </div>

@@ -108,8 +108,9 @@
 <div class="section" id="your-first-datapoints">
 <h2>Your first datapoints</h2>
 <p>Without going into too much detail on how collectors send data to the TSD , you write a collector that periodically sends the current value of these datapoints for each server to the TSD. So the TSD can aggregate the data from multiple hosts, you tag each value with a &#8220;host&#8221; tag. So, if you have web servers A, B, C, etc, they each periodically send something like this to the TSD:</p>
-<div class="highlight-python"><pre>put http.hits 1234567890 34877 host=A
-put proc.loadavg.1min 1234567890 1.35 host=A</pre>
+<div class="highlight-python"><div class="highlight"><pre>put http.hits 1234567890 34877 host=A
+put proc.loadavg.1min 1234567890 1.35 host=A
+</pre></div>
 </div>
 <p>Here &#8220;1234567890&#8221; is the current epoch time (date +%s) in seconds (OpenTSDB does resolution down to the second only at this time). The next number is the value of the metric at this time. This is data from host A, so it&#8217;s tagged with <tt class="docutils literal"><span class="pre">host=A</span></tt>. Data from host B would be tagged with <tt class="docutils literal"><span class="pre">host=B</span></tt>, and so forth. Over time, you&#8217;ll get a bunch of time series stored in OpenTSDB.</p>
 </div>

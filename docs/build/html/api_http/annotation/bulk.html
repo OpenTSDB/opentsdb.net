@@ -65,11 +65,14 @@
 <li><a class="reference internal" href="#">/api/annotation/bulk</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
-<li><a class="reference internal" href="#example-post-request">Example POST Request</a></li>
+<li><a class="reference internal" href="#example-post-put-request">Example POST/PUT Request</a></li>
+<li><a class="reference internal" href="#example-delete-qs-request">Example DELETE QS Request</a></li>
+<li><a class="reference internal" href="#example-delete-request">Example DELETE Request</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#response">Response</a><ul>
-<li><a class="reference internal" href="#example-response">Example Response</a></li>
+<li><a class="reference internal" href="#example-post-put-response">Example POST/PUT Response</a></li>
+<li><a class="reference internal" href="#example-delete-response">Example DELETE Response</a></li>
 </ul>
 </li>
 </ul>
@@ -106,23 +109,87 @@
   <div class="section" id="api-annotation-bulk">
 <h1>/api/annotation/bulk</h1>
 <p><em>NOTE: (Version 2.1)</em>
-The bulk endpoint enables adding or updating multiple annotations in a single call. Annotations must be sent over PUT or POST as content data. Query string requests are not supported. Each annotation is processed individually and synchronized with the backend. If one of the annotations has an error, such as a missing field, an exception will be returned and some of the annotations may not be written to storage. In such an event, the errant annotation should be fixed and all annotations sent again.</p>
+The bulk endpoint enables adding, updating or deleting multiple annotations in a single call. Annotation updates must be sent over PUT or POST as content data. Query string requests are not supported for <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">GET</span></tt>. Each annotation is processed individually and synchronized with the backend. If one of the annotations has an error, such as a missing field, an exception will be returned and some of the annotations may not be written to storage. In such an event, the errant annotation should be fixed and all annotations sent again.</p>
+<p>Annotations may also be deleted in bulk for a specified time span. If you supply a list of of one or more TSUIDs, annotations with a <tt class="docutils literal"><span class="pre">start</span> <span class="pre">time</span></tt> that falls within the specified timespan and belong to those TSUIDs will be removed. Alternatively the <tt class="docutils literal"><span class="pre">global</span></tt> flag can be set and any global annoations (those not associated with a time series) will be deleted within the range.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>POST - Create or modify an annotation</li>
-<li>PUT - Create or replace an annotation</li>
+<li>POST - Create or modify annotations</li>
+<li>PUT - Create or replace annotations</li>
+<li>DELETE - Delete annotations within a time range</li>
 </ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>Fields for annotations are documented at <a class="reference internal" href="index.html"><em>/api/annotation</em></a></p>
+<p>Fields for posting or updating annotations are documented at <a class="reference internal" href="index.html"><em>/api/annotation</em></a></p>
+<p>Fields for a bulk delete request are defined below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>startTime</td>
+<td>Integer</td>
+<td>Required</td>
+<td>A timestamp for the start of the request. The timestamp may be relative or absolute as per <a class="reference internal" href="../../user_guide/query/dates.html"><em>Dates and Times</em></a>.</td>
+<td>&nbsp;</td>
+<td>start_time</td>
+<td>RO</td>
+<td>1369141261</td>
+</tr>
+<tr class="row-odd"><td>endTime</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>An optional end time for the event if it has completed or been resolved. The timestamp may be relative or absolute as per <a class="reference internal" href="../../user_guide/query/dates.html"><em>Dates and Times</em></a>.</td>
+<td>&nbsp;</td>
+<td>end_time</td>
+<td>RO</td>
+<td>1369141262</td>
+</tr>
+<tr class="row-even"><td>tsuids</td>
+<td>Array</td>
+<td>Optional</td>
+<td>A list of TSUIDs with annotations that should be deleted. This may be empty or null (for JSON) in which case the <tt class="docutils literal"><span class="pre">global</span></tt> flag should be set. When using the query string, separate TSUIDs with commas.</td>
+<td>&nbsp;</td>
+<td>tsuids</td>
+<td>RO</td>
+<td>000001000001000001, 000001000001000002</td>
+</tr>
+<tr class="row-odd"><td>global</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not global annotations should be deleted for the range</td>
+<td>false</td>
+<td>global</td>
+<td>RO</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
 </div>
-<div class="section" id="example-post-request">
-<h3>Example POST Request</h3>
+<div class="section" id="example-post-put-request">
+<h3>Example POST/PUT Request</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
   <span class="p">{</span>
     <span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
@@ -144,12 +211,33 @@ The bulk endpoint enables adding or updating multiple annotations in a single ca
 </pre></div>
 </div>
 </div>
+<div class="section" id="example-delete-qs-request">
+<h3>Example DELETE QS Request</h3>
+<div class="highlight-python"><div class="highlight"><pre>/api/annotation/bulk?start_time=1d-ago&amp;end_time=1h-ago&amp;method_override=delete&amp;tsuids=000001000001000001,000001000001000002
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-delete-request">
+<h3>Example DELETE Request</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;000001000001000002&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;global&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1389740544690</span><span class="p">,</span>
+    <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">1389823344698</span><span class="p">,</span>
+    <span class="s2">&quot;totalDeleted&quot;</span><span class="o">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the list of annotations after synchronization (i.e. if issuing a <tt class="docutils literal"><span class="pre">POST</span></tt> call, existing objects will be merged with the new objects). If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned along with the specific annotation that caused the error in the <tt class="docutils literal"><span class="pre">details</span></tt> field of the error object.</p>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+<p>A successful response to a <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the list of annotations after synchronization (i.e. if issuing a <tt class="docutils literal"><span class="pre">POST</span></tt> call, existing objects will be merged with the new objects). Delete requests will return an object with the delete query and a <tt class="docutils literal"><span class="pre">totalDeleted</span></tt> field with an integer number reflecting the total number of annotations deleted. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned along with the specific annotation that caused the error in the <tt class="docutils literal"><span class="pre">details</span></tt> field of the error object.</p>
+<div class="section" id="example-post-put-response">
+<h3>Example POST/PUT Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
   <span class="p">{</span>
       <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
@@ -171,6 +259,21 @@ The bulk endpoint enables adding or updating multiple annotations in a single ca
       <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1369141261</span>
   <span class="p">}</span>
 <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-delete-response">
+<h3>Example DELETE Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;000001000001000002&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;global&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1389740544690</span><span class="p">,</span>
+    <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">1389823344698</span><span class="p">,</span>
+    <span class="s2">&quot;totalDeleted&quot;</span><span class="o">:</span> <span class="mi">42</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>

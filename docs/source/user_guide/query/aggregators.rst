@@ -60,8 +60,6 @@ Iteration continues over every timestamp for which a data point is found for eve
    "Interpolated A", "na", "", "10", "", "10", "", ""
    "Interpolated B", "", "15", "", "10", "", "15", "na"
    "Summed Result", "10", "20", "30", "25", "20", "20", "20"
-   
-Note the values at ``ts0+30s`` and ``ts0+40s``. Since the latter data point for each series is smaller than the previous, the interpolated value is negative.
 
 **More Examples:**
 For the graphically inclined we have the following examples. An imaginary metric named ``m`` is recorded in OpenTSDB. The "sum of m" is the blue line at the top resulting from a query like ``start=1h-ago&m=sum:m``. It's made of the sum of the red line for ``host=foo`` and the green line for ``host=bar``:

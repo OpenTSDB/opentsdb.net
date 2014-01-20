@@ -292,7 +292,6 @@
 </tr>
 </tbody>
 </table>
-<p>Note the values at <tt class="docutils literal"><span class="pre">ts0+30s</span></tt> and <tt class="docutils literal"><span class="pre">ts0+40s</span></tt>. Since the latter data point for each series is smaller than the previous, the interpolated value is negative.</p>
 <p><strong>More Examples:</strong>
 For the graphically inclined we have the following examples. An imaginary metric named <tt class="docutils literal"><span class="pre">m</span></tt> is recorded in OpenTSDB. The &#8220;sum of m&#8221; is the blue line at the top resulting from a query like <tt class="docutils literal"><span class="pre">start=1h-ago&amp;m=sum:m</span></tt>. It&#8217;s made of the sum of the red line for <tt class="docutils literal"><span class="pre">host=foo</span></tt> and the green line for <tt class="docutils literal"><span class="pre">host=bar</span></tt>:</p>
 <img alt="../../_images/with-lerp.png" src="../../_images/with-lerp.png" />

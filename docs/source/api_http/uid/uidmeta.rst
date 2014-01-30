@@ -83,14 +83,14 @@ Example DELETE Request
 Response
 --------
    
-A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full UID meta data object with any given changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a ``304`` without any body content. If the requested UID did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an error will be returned.
+A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full UID meta data object with any given changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a ``304`` without any body content. If the requested UID did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an error will be returned.
 
 All **Request** fields will be present in the response in addition to a couple of others:
 
 .. csv-table::
    :header: "Name", "Data Type", "Description", "Example"
    :widths: 10, 10, 60, 20
-   
+   re
    "name", "String", "The name of the UID as given when the data point was stored or the UID assigned", "sys.cpu.0"
    "created", "Integer", "A Unix epoch timestamp in seconds when the UID was first created. If the meta data was not stored when the UID was assigned, this value may be 0.", "1350425579"
 

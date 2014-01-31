@@ -90,7 +90,7 @@ All **Request** fields will be present in the response in addition to a couple o
 .. csv-table::
    :header: "Name", "Data Type", "Description", "Example"
    :widths: 10, 10, 60, 20
-   
+   re
    "name", "String", "The name of the UID as given when the data point was stored or the UID assigned", "sys.cpu.0"
    "created", "Integer", "A Unix epoch timestamp in seconds when the UID was first created. If the meta data was not stored when the UID was assigned, this value may be 0.", "1350425579"
 

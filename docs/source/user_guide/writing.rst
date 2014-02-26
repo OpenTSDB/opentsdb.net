@@ -76,7 +76,7 @@ Metric and tags are not limited in length, though you should try to keep the val
 Integer Values
 --------------
 
-If the value from a ``put`` command is parsed without a decimal point, it will be treated as a signed integer. Currently all integers are stored on 8 bytes with planned support for variable length encoding in the future. This means a data point can have a minimum value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807 (inclusive). Integers cannot have commas or any character other than digits and the dash (for negative values). E.g. if you wanted to store the maximum value, it would have to be provided in the form ``9223372036854775807``.
+If the value from a ``put`` command is parsed without a decimal point, it will be treated as a signed integer. Integers are stored, unsigned, with variable length encoding so that a data point may take as little as 1 byte of space or up to 8 bytes. This means a data point can have a minimum value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807 (inclusive). Integers cannot have commas or any character other than digits and the dash (for negative values). E.g. if you wanted to store the maximum value, it would have to be provided in the form ``9223372036854775807``.
 
 Floating Point Values
 ---------------------

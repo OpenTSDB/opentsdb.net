@@ -60,6 +60,15 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">query</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#output-format">Output Format</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="import.html"
                         title="previous chapter">import</a></p>
@@ -89,7 +98,132 @@
             
   <div class="section" id="query">
 <h1>query</h1>
-<p>TODO</p>
+<p>The query command line tool is meant to be a quick debugging tool for extracting data from OpenTSDB. The HTTP API will usually be much quicker when querying data as it incorprates caches and open connections to storage. Results are printed to stdout in a text format with one data point per line.</p>
+<p>Note that a query may return data points before and after the timespan requested. These are used in downsampling and graphing.</p>
+<div class="section" id="parameters">
+<h2>Parameters</h2>
+<div class="highlight-bash"><div class="highlight"><pre>query <span class="o">[</span>Gnuplot opts<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> &lt;aggregator&gt; <span class="o">[</span>rate<span class="o">]</span> <span class="o">[</span>counter,max,reset<span class="o">]</span> <span class="o">[</span>downsample FUNC N<span class="o">]</span> &lt;metric&gt; <span class="o">[</span>&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span> <span class="o">[</span>...&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span> <span class="o">[</span>...queries<span class="o">]</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="5%" />
+<col width="40%" />
+<col width="5%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Gnuplot opts</td>
+<td>Strings</td>
+<td>Optional values used to generate Gnuplot scripts and graphs. Note that the actual graph PNG will not be generated, only the files (written to the temp directory)</td>
+<td>&nbsp;</td>
+<td>+wxh=1286x836</td>
+</tr>
+<tr class="row-odd"><td>START-DATE</td>
+<td>String or Integer</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
+<td>&nbsp;</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-even"><td>END-DATE</td>
+<td>String or Integer</td>
+<td>Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
+<td>Current timestamp</td>
+<td>2014/01/01-00:00:00</td>
+</tr>
+<tr class="row-odd"><td>aggregator</td>
+<td>String</td>
+<td>A function to use when multiple timeseries are included in the results</td>
+<td>&nbsp;</td>
+<td>sum</td>
+</tr>
+<tr class="row-even"><td>rate</td>
+<td>String</td>
+<td>The literal <tt class="docutils literal"><span class="pre">rate</span></tt> if the timeseries represents a counter and the results should be returned as delta per second</td>
+<td>&nbsp;</td>
+<td>rate</td>
+</tr>
+<tr class="row-odd"><td>counter</td>
+<td>String</td>
+<td>Optional literal <tt class="docutils literal"><span class="pre">counter</span></tt> that indicates the underlying data is a monotonically increasong counter that may roll over</td>
+<td>&nbsp;</td>
+<td>counter</td>
+</tr>
+<tr class="row-even"><td>max</td>
+<td>Integer</td>
+<td>A positive integer representing the maximum value for the counter</td>
+<td>Java Long.MaxValue</td>
+<td>65535</td>
+</tr>
+<tr class="row-odd"><td>resetValue</td>
+<td>Integer</td>
+<td>An optional value that, when exceeded, will cause the aggregator to return a 0 instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.</td>
+<td>&nbsp;</td>
+<td>65000</td>
+</tr>
+<tr class="row-even"><td>downsample FUNC N</td>
+<td>String</td>
+<td>Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal <tt class="docutils literal"><span class="pre">downsample</span></tt> followed by an aggregation function name and a relative timespan</td>
+<td>&nbsp;</td>
+<td>downsample avg 15m</td>
+</tr>
+<tr class="row-odd"><td>metric</td>
+<td>String</td>
+<td>Required name of a metric to query for</td>
+<td>&nbsp;</td>
+<td>sys.cpu.user</td>
+</tr>
+<tr class="row-even"><td>tagk=tagv</td>
+<td>String</td>
+<td>Optional pairs of tag names and tag values</td>
+<td>&nbsp;</td>
+<td>host=web01</td>
+</tr>
+<tr class="row-odd"><td>additional queries</td>
+<td>String</td>
+<td>Optional additional queries to execute. Each query must follow the same format starting with an aggregator. All queries share the same start and end times.</td>
+<td>&nbsp;</td>
+<td>sum tsd.hbase.rpcs type=scan</td>
+</tr>
+</tbody>
+</table>
+<p>For more details on querying, please see <a class="reference internal" href="../query/index.html"><em>Querying or Reading Data</em></a>.</p>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>query 1h-ago now sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>scan
+</pre></div>
+</div>
+</div>
+<div class="section" id="output-format">
+<h2>Output Format</h2>
+<p>Data is printed to stdout with one data point per line. If one or more Gnuplot options were specified, then scripts and data files for each query will be written to the configured temporary directory.</p>
+<blockquote>
+<div>&lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; {&lt;tagk=tagv&gt;[,..&lt;tagkN=tagvN&gt;]}</div></blockquote>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>metric</strong> Is the name of the metric queried</li>
+<li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
+<li><strong>value</strong> Is the data point value</li>
+<li><strong>tagk=tagv</strong> Is a list of common tag name and value pairs for all timeseries represented in the query</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>tsd.hbase.rpcs 1393376401000 28067146491 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+tsd.hbase.rpcs 1393376461000 28067526510 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+tsd.hbase.rpcs 1393376521000 28067826659 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+tsd.hbase.rpcs 1393376581000 28068126093 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

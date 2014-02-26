@@ -103,11 +103,11 @@
 <p>By default, static files will be returned with a header telling clients to cache them for 1 year. Any file that contains <tt class="docutils literal"><span class="pre">nocache</span></tt> in the name (e.g. <tt class="docutils literal"><span class="pre">queryui.nocache.js</span></tt>, the idiom used by GWT) will not include the cache header.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The TSD will attempt to return the correct <strong>Content-Type</strong> header for the requested file. However the TSD code doesn&#8217;t support very many formats at this time, just HTML, JSON, Javascript and PNG. Let us know what formats you need or issue a pull request with your patches.</p>
+<p class="last">The TSD will attempt to return the correct <strong>Content-Type</strong> header for the requested file. However the TSD code doesn't support very many formats at this time, just HTML, JSON, Javascript and PNG. Let us know what formats you need or issue a pull request with your patches.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The code for this endpoint is very simple and does not include any security. Thus you should make sure that permissions on your static root directory are secure so that users can&#8217;t write malicious files and serve them out of OpenTSDB. Users shouldn&#8217;t be able to write files via OpenTSDB, but take precautions just to be safe.</p>
+<p class="last">The code for this endpoint is very simple and does not include any security. Thus you should make sure that permissions on your static root directory are secure so that users can't write malicious files and serve them out of OpenTSDB. Users shouldn't be able to write files via OpenTSDB, but take precautions just to be safe.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>

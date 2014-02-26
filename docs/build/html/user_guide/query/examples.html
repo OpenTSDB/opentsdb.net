@@ -106,7 +106,7 @@
             
   <div class="section" id="query-examples">
 <h1>Query Examples</h1>
-<p>The following is a list of example queries using an example data set. We&#8217;ll illustrate a number of common query types that may be encountered so you can get an understanding of how the query system works. Each time series in the example set has only a single data point stored and the UIDs have been truncated to a single byte to make it easier to read. The example queries are all <em>Metric</em> queries from the HTTP API and only show the <tt class="docutils literal"><span class="pre">m=</span></tt> component. See <a class="reference internal" href="../../api_http/query/index.html"><em>/api/query</em></a> for details. If you are using a CLI tool, the query format will differ slightly so read the documentation for the particular command.</p>
+<p>The following is a list of example queries using an example data set. We'll illustrate a number of common query types that may be encountered so you can get an understanding of how the query system works. Each time series in the example set has only a single data point stored and the UIDs have been truncated to a single byte to make it easier to read. The example queries are all <em>Metric</em> queries from the HTTP API and only show the <tt class="docutils literal"><span class="pre">m=</span></tt> component. See <a class="reference internal" href="../../api_http/query/index.html"><em>/api/query</em></a> for details. If you are using a CLI tool, the query format will differ slightly so read the documentation for the particular command.</p>
 <div class="section" id="sample-data">
 <h2>Sample Data</h2>
 <p><strong>Time Series</strong></p>
@@ -230,7 +230,7 @@
 </table>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This isn&#8217;t necesarily the best way to setup your metrics and tags, rather it&#8217;s meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.</p>
+<p class="last">This isn't necesarily the best way to setup your metrics and tags, rather it's meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.</p>
 </div>
 </div>
 <div class="section" id="under-the-hood">
@@ -251,11 +251,11 @@
 <span class="mo">02</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mo">02040102</span>
 </pre></div>
 </div>
-<p>When you query OpenTSDB, here&#8217;s what happens under the hood.</p>
+<p>When you query OpenTSDB, here's what happens under the hood.</p>
 <ul class="simple">
-<li>The query is parsed and verified to make sure that the format is correct and that the metrics, tag names and tag values exist. If a single metric, tag name or value doesn&#8217;t exist in the system, it will kick back an error.</li>
+<li>The query is parsed and verified to make sure that the format is correct and that the metrics, tag names and tag values exist. If a single metric, tag name or value doesn't exist in the system, it will kick back an error.</li>
 <li>Then it sets up a scanner for the underlying storage system.<ul>
-<li>If the query doesn&#8217;t have any tags or tag values, then it will grab any rows of data that match <tt class="docutils literal"><span class="pre">&lt;metricID&gt;&lt;timestamp&gt;</span></tt>, so if you have a ton of time series for a particular metric, this could be many, many rows.</li>
+<li>If the query doesn't have any tags or tag values, then it will grab any rows of data that match <tt class="docutils literal"><span class="pre">&lt;metricID&gt;&lt;timestamp&gt;</span></tt>, so if you have a ton of time series for a particular metric, this could be many, many rows.</li>
 <li>If the query does have one or more tags defined, then it will still scan all of the rows matching <tt class="docutils literal"><span class="pre">&lt;metricID&gt;&lt;timestamp&gt;</span></tt>, but also perform a regex to return only the rows that contain the requested tag.</li>
 </ul>
 </li>
@@ -298,11 +298,11 @@
 </div>
 <div class="section" id="query-2-filter-on-a-tag">
 <h2>Query 2 - Filter on a Tag</h2>
-<p>Usually aggregating all of the time series for a metric isn&#8217;t particularly useful. Instead we can drill down a little by filtering for time series that contain a specific tagk/tagv pair combination. Simply put the pair in curly braces:</p>
+<p>Usually aggregating all of the time series for a metric isn't particularly useful. Instead we can drill down a little by filtering for time series that contain a specific tagk/tagv pair combination. Simply put the pair in curly braces:</p>
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web1}
 </pre></div>
 </div>
-<p>This will return an aggregate of time series #1, #4, #5 and #6 since they&#8217;re the only series that include <tt class="docutils literal"><span class="pre">host=web1</span></tt>.</p>
+<p>This will return an aggregate of time series #1, #4, #5 and #6 since they're the only series that include <tt class="docutils literal"><span class="pre">host=web1</span></tt>.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
@@ -351,7 +351,7 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This is where a tagging scheme will stand or fall. Let&#8217;s say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 <tt class="docutils literal"><span class="pre">m=sum:cpu.system{host=web1}</span></tt> thinking that it will return just the data from #4, but as we saw, you&#8217;ll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you&#8217;ve already commited, you can use TSUID queries.</p>
+<p class="last">This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 <tt class="docutils literal"><span class="pre">m=sum:cpu.system{host=web1}</span></tt> thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.</p>
 </div>
 </div>
 <div class="section" id="query-4-tsuid-query">
@@ -412,7 +412,7 @@
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=*}
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">*</span></tt> (asterisk) is a grouping operator that will return a data set for each unique value of the tag name given. Every timeseries that includes the given metric and the given tag name, regardless of other tags or values, will be included in the results. After the individual timeseries results are grouped, they&#8217;ll be aggregated and returned.</p>
+<p>The <tt class="docutils literal"><span class="pre">*</span></tt> (asterisk) is a grouping operator that will return a data set for each unique value of the tag name given. Every timeseries that includes the given metric and the given tag name, regardless of other tags or values, will be included in the results. After the individual timeseries results are grouped, they'll be aggregated and returned.</p>
 <p>In this example, we will have 3 groups returned:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -436,7 +436,7 @@
 </tr>
 </tbody>
 </table>
-<p>TSDB found 7 total timeseries that included the &#8220;host&#8221; tag. There were 3 unique values for that tag (web1, web2, and web3).</p>
+<p>TSDB found 7 total timeseries that included the &quot;host&quot; tag. There were 3 unique values for that tag (web1, web2, and web3).</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
@@ -494,7 +494,7 @@
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.nice{host=*,dc=dal}
 </pre></div>
 </div>
-<p>Now we&#8217;ll only get results for #1 - #3, but we lose the <tt class="docutils literal"><span class="pre">dc=lax</span></tt> values.</p>
+<p>Now we'll only get results for #1 - #3, but we lose the <tt class="docutils literal"><span class="pre">dc=lax</span></tt> values.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
@@ -548,7 +548,7 @@
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.nice{host=web1|web2}
 </pre></div>
 </div>
-<p>This will find all of the timeseries that include &#8220;host&#8221; values for &#8220;web1&#8221; OR &#8220;web2&#8221;, then group them by value, similar to the <tt class="docutils literal"><span class="pre">*</span></tt> operator. Our groups, this time, will look like this:</p>
+<p>This will find all of the timeseries that include &quot;host&quot; values for &quot;web1&quot; OR &quot;web2&quot;, then group them by value, similar to the <tt class="docutils literal"><span class="pre">*</span></tt> operator. Our groups, this time, will look like this:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="50%" />

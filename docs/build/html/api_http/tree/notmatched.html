@@ -110,7 +110,7 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If <tt class="docutils literal"><span class="pre">storeFailures</span></tt> is diabled for the tree, this endpoint will not return any data. Not Matched entries will still appear in the TSD&#8217;s logs.</p>
+<p class="last">If <tt class="docutils literal"><span class="pre">storeFailures</span></tt> is diabled for the tree, this endpoint will not return any data. Not Matched entries will still appear in the TSD's logs.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -167,7 +167,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response will return a map of key/value pairs where the unrecorded TSUID as the key and a message about which rule failed to match as the value. The response will only return not matched entries that were found. If one or more of the TSUIDs requested did not result in a not matched entry, it will not be returned with the result. This may mean that the TSMeta has not been processed yet. Note that if no failed matches have occurred or the tree hasn&#8217;t processed any data yet, the result set will be empty. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+<p>A successful response will return a map of key/value pairs where the unrecorded TSUID as the key and a message about which rule failed to match as the value. The response will only return not matched entries that were found. If one or more of the TSUIDs requested did not result in a not matched entry, it will not be returned with the result. This may mean that the TSMeta has not been processed yet. Note that if no failed matches have occurred or the tree hasn't processed any data yet, the result set will be empty. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <blockquote>

@@ -97,7 +97,7 @@
   <div class="section" id="plugins">
 <h1>Plugins</h1>
 <p>OpenTSDB implements a very simple plugin model to extend the application. Plugins use the <em>service</em> and <em>service provider</em> facilities built into Java 1.6 that allows for dynamically loading JAR files and instantiating plugin implementations after OpenTSDB has been started. While not as flexible as many framework implementations, all we need to do is load a plugin on startup, initialize the implementation, and start passing data to or through it.</p>
-<p>To create a plugin, all you have to do is extend one of the <em>abstract</em> plugin classes, write a service description/manifest, compile, drop your JAR (along with any dependencies needed) into the OpenTSDB plugin folder, edit the TSD config and restart. That&#8217;s all there is to it. No fancy frameworks, no worrying about loading and unloading at strange times, etc.</p>
+<p>To create a plugin, all you have to do is extend one of the <em>abstract</em> plugin classes, write a service description/manifest, compile, drop your JAR (along with any dependencies needed) into the OpenTSDB plugin folder, edit the TSD config and restart. That's all there is to it. No fancy frameworks, no worrying about loading and unloading at strange times, etc.</p>
 <div class="section" id="manifest">
 <h2>Manifest</h2>
 <p>A plugin JAR requires a manifest with a special <em>services</em> folder and file to enable the <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to load it properly. Here are the steps for creating the proper files:</p>
@@ -137,7 +137,7 @@ NOTE: If you have widely different implementations, start a different project an
 </li>
 </ul>
 </li>
-<li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you&#8217;re going command line, try this:</p>
+<li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you're going command line, try this:</p>
 <div class="highlight-python"><div class="highlight"><pre>jar cvmf &lt;path to MANIFEST.MF&gt; &lt;plugin jar name&gt; &lt;list of class files&gt;
 </pre></div>
 </div>

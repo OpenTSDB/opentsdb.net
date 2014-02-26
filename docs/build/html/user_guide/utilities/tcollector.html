@@ -131,7 +131,7 @@
 <p><a class="reference external" href="https://github.com/OpenTSDB/tcollector/">tcollector</a> is a client-side
 process that gathers data from local collectors and pushes the data to
 OpenTSDB. You run it on all your hosts, and it does the work of sending each
-host&#8217;s data to the TSD.</p>
+host's data to the TSD.</p>
 <p>OpenTSDB is designed to make it easy to collect and write data to it.
 It has a simple protocol, simple enough for even a shell script to start
 sending data. However, to do so reliably and consistently is a bit harder.
@@ -141,18 +141,18 @@ collectors stay running?  This is where tcollector comes in.</p>
 <ul class="simple">
 <li>Runs all of your data collectors and gathers their data</li>
 <li>Does all of the connection management work of sending data to the TSD</li>
-<li>You don&#8217;t have to embed all of this code in every collector you write</li>
+<li>You don't have to embed all of this code in every collector you write</li>
 <li>Does de-duplication of repeated values</li>
 <li>Handles all of the wire protocol work for you, as well as future enhancements</li>
 </ul>
 <div class="section" id="deduplication">
 <h2>Deduplication</h2>
 <p>Typically you want to gather data about everything in your system.
-This generates a lot of datapoints, the majority of which don&#8217;t
+This generates a lot of datapoints, the majority of which don't
 change very often over time (if ever).  However, you want fine-grained
 resolution when they do change.  Tcollector remembers the last value
 and timestamp that was sent for all of the time series for all of
-the collectors it manages.  If the value doesn&#8217;t change between sample
+the collectors it manages.  If the value doesn't change between sample
 intervals, it suppresses sending that datapoint.  Once the value does change
 (or 10 minutes have passed), it sends the last suppressed value and timestamp,
 plus the current value and timestamp.  In this way all of your graphs and
@@ -176,7 +176,7 @@ die. Generally you want to write long-lived collectors since that has less
 overhead. OpenTSDB is designed to have lots of datapoints for each metric (for
 most metrics we send datapoints every 15 seconds).</p>
 <p>If there any non-numeric named directories in the <tt class="docutils literal"><span class="pre">collectors</span></tt>
-directory, then they are ignored.  We&#8217;ve included a <tt class="docutils literal"><span class="pre">lib</span></tt> and
+directory, then they are ignored.  We've included a <tt class="docutils literal"><span class="pre">lib</span></tt> and
 <tt class="docutils literal"><span class="pre">etc</span></tt> directory for library and config data used by all collectors.</p>
 </div>
 <div class="section" id="installation-of-tcollector">
@@ -185,19 +185,19 @@ directory, then they are ignored.  We&#8217;ve included a <tt class="docutils li
 <div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/OpenTSDB/tcollector.git
 </pre></div>
 </div>
-<p>and edit &#8216;tcollector/startstop&#8217; script to set following variable:
+<p>and edit 'tcollector/startstop' script to set following variable:
 <tt class="docutils literal"><span class="pre">TSD_HOST=dns.name.of.tsd</span></tt></p>
 <p>To avoid having to run <tt class="docutils literal"><span class="pre">mkmetric</span></tt> for every metric that
 tcollector tracks you can to start TSD with the <tt class="docutils literal"><span class="pre">--auto-metric</span></tt>
-flag.  This is useful to get started quickly, but it&#8217;s not recommended to
+flag.  This is useful to get started quickly, but it's not recommended to
 keep this flag in the long term, to avoid accidental metric creation.</p>
 </div>
 </div>
 <div class="section" id="collectors-bundled-with-tcollector">
 <h1>Collectors bundled with <tt class="docutils literal"><span class="pre">tcollector</span></tt></h1>
-<p>The following are the collectors we&#8217;ve included as part of the base package,
+<p>The following are the collectors we've included as part of the base package,
 together with all of the metric names they report on and what they mean. If you
-have any others you&#8217;d like to contribute, we&#8217;d love to hear about them so we can
+have any others you'd like to contribute, we'd love to hear about them so we can
 reference them or include them with your permission in a future release.</p>
 <div class="section" id="general-collectors">
 <h2>General collectors</h2>
@@ -243,7 +243,7 @@ reference them or include them with your permission in a future release.</p>
 </li>
 </ul>
 <p>These metrics include time series tagged with each mount point and the
-filesystem&#8217;s fstype. This collector filters out any cgroup, debugfs, devtmpfs,
+filesystem's fstype. This collector filters out any cgroup, debugfs, devtmpfs,
 rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted under
 <tt class="docutils literal"><span class="pre">/dev/</span></tt>, <tt class="docutils literal"><span class="pre">/sys/</span></tt>, <tt class="docutils literal"><span class="pre">/proc/</span></tt>, and <tt class="docutils literal"><span class="pre">/lib/</span></tt>.</p>
 <p>With these tags you can select to graph just a specific filesystem, or all
@@ -281,8 +281,8 @@ filesystems with a particular fstype (e.g. ext3).</p>
 <p>These are interface counters, tagged with the interface, <tt class="docutils literal"><span class="pre">iface=</span></tt>, and
 <tt class="docutils literal"><span class="pre">direction=</span></tt> in or out. Only <tt class="docutils literal"><span class="pre">ethN</span></tt> interfaces are tracked. We
 intentionally exclude <tt class="docutils literal"><span class="pre">bondN</span></tt> interfaces, because bonded interfaces
-still keep counters on their child <tt class="docutils literal"><span class="pre">ethN</span></tt> interfaces and we don&#8217;t want
-to double-count a box&#8217;s network traffic if you don&#8217;t select on <tt class="docutils literal"><span class="pre">iface=</span></tt>.</p>
+still keep counters on their child <tt class="docutils literal"><span class="pre">ethN</span></tt> interfaces and we don't want
+to double-count a box's network traffic if you don't select on <tt class="docutils literal"><span class="pre">iface=</span></tt>.</p>
 </div>
 <div class="section" id="iostat-py">
 <h3><tt class="docutils literal"><span class="pre">0/iostat.py</span></tt></h3>
@@ -330,7 +330,7 @@ These are all rate counters, except <tt class="docutils literal"><span class="pr
 </pre></div>
 </div>
 <p>For partitions, these <tt class="docutils literal"><span class="pre">*_issued</span></tt> are counters collected before requests are
-merged, so aren&#8217;t the same as <tt class="docutils literal"><span class="pre">*_requests</span></tt> (which is post-merge, which
+merged, so aren't the same as <tt class="docutils literal"><span class="pre">*_requests</span></tt> (which is post-merge, which
 more closely represents represents the actual number of disk transactions).</p>
 <p>Given that diskstats provides both per-disk and per-partition data, for
 TSDB purposes we put them under different metrics (versus the same
@@ -395,7 +395,7 @@ connection due to having too many orphaned sockets. Other types are normal
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">net.stat.tcp.abort.failed</span></tt></dt>
-<dd><p class="first last">Number of times the kernel failed to abort a connection because it didn&#8217;t
+<dd><p class="first last">Number of times the kernel failed to abort a connection because it didn't
 even have enough memory to reset it (bad)</p>
 </dd>
 </dl>
@@ -416,7 +416,7 @@ recover part or all of the CWND</p>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">net.stat.tcp.failed_accept</span></tt></dt>
 <dd><p class="first last">Number of times a connection had to be dropped after the 3WHS.
-<tt class="docutils literal"><span class="pre">reason=full_acceptq</span></tt> indicates that the application isn&#8217;t
+<tt class="docutils literal"><span class="pre">reason=full_acceptq</span></tt> indicates that the application isn't
 accepting connections fast enough.  You should see SYN cookies too</p>
 </dd>
 </dl>
@@ -430,7 +430,7 @@ accepting connections fast enough.  You should see SYN cookies too</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">net.stat.tcp.memory.pressure</span></tt></dt>
-<dd><p class="first last">Number of times a socket entered the &#8220;memory pressure&#8221; mode (not great).</p>
+<dd><p class="first last">Number of times a socket entered the &quot;memory pressure&quot; mode (not great).</p>
 </dd>
 </dl>
 </li>
@@ -450,7 +450,7 @@ fast retransmit vs SACK)</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">net.stat.tcp.receive.queue.full</span></tt></dt>
-<dd><p class="first last">Number of times a received packet had to be dropped because the socket&#8217;s
+<dd><p class="first last">Number of times a received packet had to be dropped because the socket's
 receive queue was full. (requires Linux v2.6.34-rc2 or newer)</p>
 </dd>
 </dl>
@@ -520,7 +520,7 @@ system.</p>
 subtotals. TSD will automatically total these up when displaying the graph,
 but you can drill down for each possible total or a particular one.  Each
 connection is broken down with a tag for <tt class="docutils literal"><span class="pre">user=username</span></tt> (with a fixed list
-of users we care about or put under &#8220;other&#8221; if not in the list). It is also
+of users we care about or put under &quot;other&quot; if not in the list). It is also
 broken down into state with <tt class="docutils literal"><span class="pre">state=</span></tt>, (established, time_wait, etc). It is
 also broken down into services with &lt;code&gt;service=&lt;/code&gt; (http, mysql,
 memcache, etc) Note that once a connection is closed, Linux seems to forget
@@ -595,7 +595,7 @@ See <a class="reference external" href="http://www.linuxinsight.com/proc_vmstat.
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">proc.kernel.entropy_avail</span></tt></dt>
 <dd><p class="first last">Amount of entropy (in bits) available in the  input pool
-(the one that&#8217;s cryptographically strong and backing <tt class="docutils literal"><span class="pre">/dev/random</span></tt>
+(the one that's cryptographically strong and backing <tt class="docutils literal"><span class="pre">/dev/random</span></tt>
 among other things). Watch this value on your frontend servers that do
 SSL unwrapping, if it gets too low, your SSL performance will suffer</p>
 </dd>
@@ -610,7 +610,7 @@ SSL unwrapping, if it gets too low, your SSL performance will suffer</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">sys.numa.foreign_allocs</span></tt></dt>
-<dd><p class="first last">Number of pages this node allocated because the preferred node didn&#8217;t
+<dd><p class="first last">Number of pages this node allocated because the preferred node didn't
 have a free page to accommodate the request</p>
 </dd>
 </dl>
@@ -721,7 +721,7 @@ deployed</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">smart.erase_fail_count_chip</span></tt></dt>
-<dd><p class="first last">&#8220;Pre-Fail&#8221; Attribute</p>
+<dd><p class="first last">&quot;Pre-Fail&quot; Attribute</p>
 </dd>
 </dl>
 </li>
@@ -739,13 +739,13 @@ deployed</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">smart.used_rsvd_blk_cnt_tot</span></tt></dt>
-<dd><p class="first last">&#8220;Pre-Fail&#8221; Attribute (at least HP devices)</p>
+<dd><p class="first last">&quot;Pre-Fail&quot; Attribute (at least HP devices)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">smart.unused_rsvd_blk_cnt_tot</span></tt></dt>
-<dd><p class="first last">&#8220;Pre-Fail&#8221; Attribute (at least Samsung devices)</p>
+<dd><p class="first last">&quot;Pre-Fail&quot; Attribute (at least Samsung devices)</p>
 </dd>
 </dl>
 </li>
@@ -757,7 +757,7 @@ deployed</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">smart.erase_fail_count_total</span></tt></dt>
-<dd><p class="first last">&#8220;Pre-Fail&#8221; Attribute</p>
+<dd><p class="first last">&quot;Pre-Fail&quot; Attribute</p>
 </dd>
 </dl>
 </li>
@@ -770,7 +770,7 @@ deployed</p>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">smart.end_to_end_error</span></tt></dt>
 <dd><p class="first last">The count of parity errors which occur in the data path to the media via
-the drive&#8217;s cache RAM (at least Hewlett-Packard)</p>
+the drive's cache RAM (at least Hewlett-Packard)</p>
 </dd>
 </dl>
 </li>
@@ -843,7 +843,7 @@ count of attempts to transfer data from reallocated sectors to a spare area</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="docutils literal"><span class="pre">smart.current_pending_sector</span></tt></dt>
-<dd><p class="first last">Count of &#8220;unstable&#8221; sectors (waiting to be remapped, because of
+<dd><p class="first last">Count of &quot;unstable&quot; sectors (waiting to be remapped, because of
 unrecoverable read errors)</p>
 </dd>
 </dl>
@@ -895,7 +895,7 @@ value of 1</p>
 </ul>
 <p>Description of metrics can be found at:
 <a class="reference external" href="https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes">S.M.A.R.T. article on wikipedia</a>.
-The best way to understand/find metric is to look at producer&#8217;s specification.</p>
+The best way to understand/find metric is to look at producer's specification.</p>
 </div>
 </div>
 <div class="section" id="other-collectors">
@@ -996,10 +996,10 @@ Process list <a class="reference external" href="ahref=&quot;http://dev.mysql.co
 <div class="section" id="varnishstat-py">
 <h3><tt class="docutils literal"><span class="pre">0/varnishstat.py</span></tt></h3>
 <p>Stats from Varnish (HTTP accelerator).</p>
-<p>By default all metrics collected, it can be changed by editing &#8220;vstats&#8221; array
+<p>By default all metrics collected, it can be changed by editing &quot;vstats&quot; array
 of the collector.</p>
 <p>Refer to the following documentation for metrics description: run
-&#8220;varnishstat -l&#8221; to have lists the available metrics.</p>
+&quot;varnishstat -l&quot; to have lists the available metrics.</p>
 </div>
 <div class="section" id="zookeeper-py">
 <h3><tt class="docutils literal"><span class="pre">0/zookeeper.py</span></tt></h3>

@@ -60,6 +60,22 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">scan</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#raw-output">Raw Output</a><ul>
+<li><a class="reference internal" href="#row-key-format">Row Key Format</a></li>
+<li><a class="reference internal" href="#single-data-point-column-format">Single Data Point Column Format</a></li>
+<li><a class="reference internal" href="#compacted-column-format">Compacted Column Format</a></li>
+<li><a class="reference internal" href="#annotation-column-format">Annotation Column Format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#import-format">Import Format</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="fsck.html"
                         title="previous chapter">fsck</a></p>
@@ -89,7 +105,175 @@
             
   <div class="section" id="scan">
 <h1>scan</h1>
-<p>TODO</p>
+<p>The scan command is useful for debugging and exporting data points. Provide a start time, optional end time and one or more queries and the response will be raw byte data from storage or data points in a text format acceptable for use with the <strong>import</strong> command. Scan also provides a rudimentary means of deleting data. The scan command accepts common CLI arguments. Data is emitted to standard out.</p>
+<p>Note that while queries require an aggregator, it is effectively ignored. If a query encompasses many time series, the scan output may be extremely large so be careful when crafting queries.</p>
+<div class="section" id="parameters">
+<h2>Parameters</h2>
+<div class="highlight-bash"><div class="highlight"><pre>scan <span class="o">[</span>--delete|--import<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="5%" />
+<col width="40%" />
+<col width="5%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>--delete</td>
+<td>Flag</td>
+<td>Optional flag that deletes data in any row that matches the query. See warning below.</td>
+<td>Not set</td>
+<td>--delete</td>
+</tr>
+<tr class="row-odd"><td>--import</td>
+<td>flag</td>
+<td>Optional flag that outputs results in a text format useful for importing or storing as a backup.</td>
+<td>Not set</td>
+<td>--import</td>
+</tr>
+<tr class="row-even"><td>START-DATE</td>
+<td>String or Integer</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
+<td>&nbsp;</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-odd"><td>END-DATE</td>
+<td>String or Integer</td>
+<td>Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
+<td>Current timestamp</td>
+<td>2014/01/01-00:00:00</td>
+</tr>
+<tr class="row-even"><td>query</td>
+<td>String</td>
+<td>One or more command line queries</td>
+<td>&nbsp;</td>
+<td>sum tsd.hbase.rpcs type=put</td>
+</tr>
+</tbody>
+</table>
+<p>Example
+.. code-block :: bash</p>
+<blockquote>
+<div>scan --import 1h-ago now sum tsd.hbase.rpcs type=put sum tsd.hbase.rpcs type=scan</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>If you include the <tt class="docutils literal"><span class="pre">--delete</span></tt> flag, <strong>ALL</strong> data in 'any' row that matches on the query will be deleted permanently. Rows are separated on 1 hour boundaries so that if you issued a scan command with a start and end time that covered 10 minutes within a single hour, the entire hour of data will be deleted.</p>
+<p class="last">Deletions will also delete any Annotations or non-TSDB related data in a row.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The scan command returns data on row boundaries (1 hour) so results may include data previous to and after the specified start and end times.</p>
+</div>
+</div>
+<div class="section" id="raw-output">
+<h2>Raw Output</h2>
+<p>The default output for <tt class="docutils literal"><span class="pre">scan</span></tt> is a raw dump of the rows and columns that match the given queries. This is useful in debugging situations such as data point collisions or encoding issues. As the output includes raw byte arrays and the format changes slightly depending on the data, it is not easily machine paresable.</p>
+<p>Row keys, column qualifiers and column values are emitted as Java byte arrays. These are surrounded by square brackets and individual bytes are represented as signed integers (as Java does not have native unsigned ints). Row keys are printed first followed by a new line. Then each column is printed on it's own row and is indented with two spaces to indicate it belongs to the previous row. If a compacted column is found, the raw data and number of compacted values is printed followed by a new line. Each compacted data point is printed on it's own indented line. Annotations are also emitted in raw mode.</p>
+<p>The various formats are listed below. The <tt class="docutils literal"><span class="pre">\t</span></tt> expression represents a tab. <tt class="docutils literal"><span class="pre">space</span></tt> indicates a space character.</p>
+<div class="section" id="row-key-format">
+<h3>Row Key Format</h3>
+<blockquote>
+<div>[&lt;row key&gt;] &lt;metric name&gt; &lt;row timestamp&gt; (&lt;datetime&gt;) &lt;tag/value pairs&gt;</div></blockquote>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>row key</strong> Is the raw byte array of the row key</li>
+<li><strong>metric name</strong> Is the decoded name of the metric the row represents</li>
+<li><strong>row timestamp</strong> Is the base timestamp of the row in seconds (on 1 hour boundaries)</li>
+<li><strong>datetime</strong> Is the system default formatted human readable timestamp</li>
+<li><strong>tag/value pairs</strong> Are the tags associated with the time series</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div>[0, 0, 1, 80, -30, 39, 0, 0, 0, 1, 0, 0, 1] sys.cpu.user 1356998400 (Mon Dec 31 19:00:00 EST 2012) {host=web01}</div></blockquote>
+</div>
+<div class="section" id="single-data-point-column-format">
+<h3>Single Data Point Column Format</h3>
+<blockquote>
+<div>&lt;two spaces&gt;[&lt;qualifier&gt;]t[&lt;value&gt;]t&lt;offset&gt;t&lt;l|f&gt;t&lt;timestamp&gt;t(&lt;datetime&gt;)</div></blockquote>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>qualifier</strong> Is the raw byte array of the column qualifier</li>
+<li><strong>value</strong> Is the raw byte array of the column value</li>
+<li><strong>offset</strong> Is the number of seconds or milliseconds (based on timestamp) of offset from the row base timestamp</li>
+<li><strong>l|f</strong> Is either <tt class="docutils literal"><span class="pre">l</span></tt> to indicate the value is an Integer (Java Long) or <tt class="docutils literal"><span class="pre">f</span></tt> for a floating point value.</li>
+<li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
+<li><strong>datetime</strong> Is the system default formatted human readable timestamp</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div>[0, 17]       [0, 17] [1, 1]  1       l       1356998401      (Mon Dec 31 19:00:01 EST 2012)</div></blockquote>
+</div>
+<div class="section" id="compacted-column-format">
+<h3>Compacted Column Format</h3>
+<blockquote>
+<div>&lt;two spaces&gt;[&lt;qualifier&gt;]t[&lt;value&gt;] = &lt;number of datapoints&gt; values:</div></blockquote>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>qualifier</strong> Is the raw byte array of the column qualifier</li>
+<li><strong>value</strong> Is the raw byte array of the column value</li>
+<li><strong>number of datapoints</strong> Is the number of data points in the compacted column</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div>[-16, 0, 0, 7, -16, 0, 2, 7, -16, 0, 1, 7]    [0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 6, 0] = 3 values:</div></blockquote>
+<p>Each data point within the compacted column follows the same format as a single column with the addition of two spaces of indentation.</p>
+</div>
+<div class="section" id="annotation-column-format">
+<h3>Annotation Column Format</h3>
+<blockquote>
+<div>&lt;two spaces&gt;[&lt;qualifier&gt;]t[&lt;value&gt;]t&lt;offset&gt;t&lt;JSON&gt;t&lt;timestamp&gt;t(&lt;datetime&gt;)</div></blockquote>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>qualifier</strong> Is the raw byte array of the column qualifier</li>
+<li><strong>value</strong> Is the raw byte array of the column value</li>
+<li><strong>offset</strong> Is the number of seconds or milliseconds (based on timestamp) of offset from the row base timestamp</li>
+<li><strong>JSON</strong> Is the decoded JSON data stored in the column</li>
+<li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
+<li><strong>datetime</strong> Is the system default formatted human readable timestamp</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div>[1, 0, 0]     [123, 34...]    0       {&quot;tsuid&quot;:&quot;000001000001000001&quot;,&quot;startTime&quot;:1356998400,&quot;endTime&quot;:0,&quot;description&quot;:&quot;Annotation on seconds&quot;,&quot;notes&quot;:&quot;&quot;,&quot;custom&quot;:null}        1356998416000   (Mon Dec 31 19:00:16 EST 2012)</div></blockquote>
+</div>
+</div>
+<div class="section" id="import-format">
+<h2>Import Format</h2>
+<p>The import format is the same as a Telnet style <tt class="docutils literal"><span class="pre">put</span></tt> command.
+..</p>
+<blockquote>
+<div>&lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; &lt;tagk=tagv&gt;[...&lt;tagk=tagv&gt;]</div></blockquote>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>metric</strong> Is the name of the metric as a string</li>
+<li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
+<li><strong>value</strong> Is the value of the data point</li>
+<li><strong>tagk=tagv</strong> Are tag name/value pairs separated by spaces</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div>sys.cpu.user 1356998400 42 host=web01 cpu=0
+sys.cpu.user 1356998401 24 host=web01 cpu=0</div></blockquote>
+</div>
 </div>
 
 

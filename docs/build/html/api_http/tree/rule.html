@@ -117,7 +117,7 @@
 <p>Each rule in a tree is an individual object in storage, thus the <tt class="docutils literal"><span class="pre">/api/tree/rule</span></tt> endpoint allows for easy modification of a single rule in the set. Rules are addressed by their <tt class="docutils literal"><span class="pre">tree</span></tt> ID, <tt class="docutils literal"><span class="pre">level</span></tt> and <tt class="docutils literal"><span class="pre">order</span></tt> and all requests require these three parameters.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If a manual tree synchronization is running somewhere or there is a large number of TSMeta objects being created or edited, the tree rule may be cached and modifications to a tree&#8217;s rule set may take some time to propagate. If you make any modifications to the rule set, other than to meta information such as the <tt class="docutils literal"><span class="pre">description</span></tt> and <tt class="docutils literal"><span class="pre">notes</span></tt>, you may want to flush the tree data and perform a manual synchronization so that branches and leaves reflect the new rules.</p>
+<p class="last">If a manual tree synchronization is running somewhere or there is a large number of TSMeta objects being created or edited, the tree rule may be cached and modifications to a tree's rule set may take some time to propagate. If you make any modifications to the rule set, other than to meta information such as the <tt class="docutils literal"><span class="pre">description</span></tt> and <tt class="docutils literal"><span class="pre">notes</span></tt>, you may want to flush the tree data and perform a manual synchronization so that branches and leaves reflect the new rules.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -184,7 +184,7 @@
 <tr class="row-odd"><td>description</td>
 <td>String</td>
 <td>Optional</td>
-<td>A brief description of the rule&#8217;s purpose</td>
+<td>A brief description of the rule's purpose</td>
 <td>&nbsp;</td>
 <td>description</td>
 <td>RW</td>
@@ -266,7 +266,7 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When supplying a <tt class="docutils literal"><span class="pre">separator</span></tt> or a <tt class="docutils literal"><span class="pre">regex</span></tt> value, you must supply a valid regular expression. For separators, the most common use is to split dotted metrics into branches. E.g. you may want &#8220;sys.cpu.0.user&#8221; to be split into &#8220;sys&#8221;, &#8220;cpu&#8221;, &#8220;0&#8221; and &#8220;user&#8221; branches. You cannot supply just a &#8221;.&#8221; for the separator value as that will not match properly. Instead, escape the period via &#8221;.&#8221;. Note that if you are supplying JSON via a POST request, you must escape the backslash as well and supply &#8220;\.&#8221;. GET request responses will escape all backslashes.</p>
+<p class="last">When supplying a <tt class="docutils literal"><span class="pre">separator</span></tt> or a <tt class="docutils literal"><span class="pre">regex</span></tt> value, you must supply a valid regular expression. For separators, the most common use is to split dotted metrics into branches. E.g. you may want &quot;sys.cpu.0.user&quot; to be split into &quot;sys&quot;, &quot;cpu&quot;, &quot;0&quot; and &quot;user&quot; branches. You cannot supply just a &quot;.&quot; for the separator value as that will not match properly. Instead, escape the period via &quot;.&quot;. Note that if you are supplying JSON via a POST request, you must escape the backslash as well and supply &quot;\.&quot;. GET request responses will escape all backslashes.</p>
 </div>
 </div>
 <div class="section" id="response">
@@ -275,7 +275,7 @@
 </div>
 <div class="section" id="get">
 <h2>GET</h2>
-<p>A <tt class="docutils literal"><span class="pre">GET</span></tt> request requires a specific tree ID, rule level and order. Otherwise a <tt class="docutils literal"><span class="pre">400</span></tt> will be returned. To fetch all of the rules for a tree, use the <tt class="docutils literal"><span class="pre">/api/tree</span></tt> endpoint with a <a href="#id3"><span class="problematic" id="id4">``</span></a>treeId&#8217; value.</p>
+<p>A <tt class="docutils literal"><span class="pre">GET</span></tt> request requires a specific tree ID, rule level and order. Otherwise a <tt class="docutils literal"><span class="pre">400</span></tt> will be returned. To fetch all of the rules for a tree, use the <tt class="docutils literal"><span class="pre">/api/tree</span></tt> endpoint with a <a href="#id3"><span class="problematic" id="id4">``</span></a>treeId' value.</p>
 <div class="section" id="example-get-query">
 <h3>Example GET Query</h3>
 <div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0

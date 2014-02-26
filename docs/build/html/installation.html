@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="index.html" />
     <link rel="next" title="User Guide" href="user_guide/index.html" />
-    <link rel="prev" title="What’s New" href="new.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="What&#39;s New" href="new.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -50,7 +50,7 @@
           <a href="user_guide/index.html" title="User Guide"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="new.html" title="What’s New"
+          <a href="new.html" title="What&#39;s New"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>
@@ -70,7 +70,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="new.html"
-                        title="previous chapter">What&#8217;s New</a></p>
+                        title="previous chapter">What's New</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="user_guide/index.html"
                         title="next chapter">User Guide</a></p>
@@ -100,8 +100,8 @@
 <p>OpenTSDB is currently only available via GIT but you can compile and generate packages for distribution throughout your environment.</p>
 <div class="section" id="upgrading">
 <h2>Upgrading</h2>
-<p>OpenTSDB 2.0 is fully backwards compatible with 1.x data. We&#8217;ve taken great pains to make sure you can download 2.0, compile, stop your old TSD and start the new one. You don&#8217;t <em>have</em> to change a thing. Your existing tools will read and write to the TSD without a problem.</p>
-<p>While you can start a 2.0 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <tt class="docutils literal"><span class="pre">./src/opentsdb.conf</span></tt>. Or if you install from a package, you&#8217;ll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> for details.</p>
+<p>OpenTSDB 2.0 is fully backwards compatible with 1.x data. We've taken great pains to make sure you can download 2.0, compile, stop your old TSD and start the new one. You don't <em>have</em> to change a thing. Your existing tools will read and write to the TSD without a problem.</p>
+<p>While you can start a 2.0 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <tt class="docutils literal"><span class="pre">./src/opentsdb.conf</span></tt>. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> for details.</p>
 <p>You do not have to upgrade all of your TSDs to 2.0 at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.</p>
 <p>If you do perform a rolling upgrade where you have multiple TSDs, heed the following warning:</p>
 <div class="admonition warning">
@@ -112,7 +112,7 @@
 </div>
 <div class="section" id="downgrading">
 <h2>Downgrading</h2>
-<p>Because we&#8217;ve worked hard to maintain backwards compatability, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later.</p>
+<p>Because we've worked hard to maintain backwards compatability, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later.</p>
 </div>
 <div class="section" id="compiling">
 <h2>Compiling</h2>
@@ -124,19 +124,19 @@ cd opentsdb
 </pre></div>
 </div>
 <p>From there on, you can use the command-line tool by invoking <tt class="docutils literal"><span class="pre">./build/tsdb</span></tt> or you can run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">install</span></tt> to install OpenTSDB on your system. Should you ever change your mind, there is also <tt class="docutils literal"><span class="pre">make</span> <span class="pre">uninstall</span></tt>, so there are no strings attached.</p>
-<p>If it&#8217;s the first time you run OpenTSDB with your HBase instance, you first need to create the necessary HBase tables:</p>
+<p>If it's the first time you run OpenTSDB with your HBase instance, you first need to create the necessary HBase tables:</p>
 <div class="highlight-python"><div class="highlight"><pre>env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/create_table.sh
 </pre></div>
 </div>
-<p>This will create two tables: <tt class="docutils literal"><span class="pre">tsdb</span></tt> and <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt>. If you&#8217;re just evaluating OpenTSDB, don&#8217;t worry about compression for now. In production / at scale, make sure you use <tt class="docutils literal"><span class="pre">COMPRESSION=lzo</span></tt> and have LZO enabled.</p>
+<p>This will create two tables: <tt class="docutils literal"><span class="pre">tsdb</span></tt> and <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt>. If you're just evaluating OpenTSDB, don't worry about compression for now. In production / at scale, make sure you use <tt class="docutils literal"><span class="pre">COMPRESSION=lzo</span></tt> and have LZO enabled.</p>
 <p>Now start a TSD (Time Series Daemon):</p>
 <div class="highlight-python"><div class="highlight"><pre>tsdtmp=${TMPDIR-&#39;/tmp&#39;}/tsd    # For best performance, make sure
 mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
 ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir=&quot;$tsdtmp&quot;
 </pre></div>
 </div>
-<p>If you&#8217;re using a real HBase cluster, you will also need to pass the <tt class="docutils literal"><span class="pre">--zkquorum</span></tt> flag to specify the comma-separated list of hosts serving your ZooKeeper quorum. The <tt class="docutils literal"><span class="pre">--cachedir</span></tt> can be purged periodically, e.g. by a cron job.</p>
-<p>At this point you can access the TSD&#8217;s web interface through <a class="reference external" href="http://127.0.0.1:4242">http://127.0.0.1:4242</a> (if it&#8217;s running on your local machine).</p>
+<p>If you're using a real HBase cluster, you will also need to pass the <tt class="docutils literal"><span class="pre">--zkquorum</span></tt> flag to specify the comma-separated list of hosts serving your ZooKeeper quorum. The <tt class="docutils literal"><span class="pre">--cachedir</span></tt> can be purged periodically, e.g. by a cron job.</p>
+<p>At this point you can access the TSD's web interface through <a class="reference external" href="http://127.0.0.1:4242">http://127.0.0.1:4242</a> (if it's running on your local machine).</p>
 </div>
 <div class="section" id="debian-package">
 <h2>Debian Package</h2>
@@ -146,7 +146,7 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
 <li>/etc/opentsdb - Configuration files</li>
 <li>/tmp/opentsdb - Temporary cache files</li>
 <li>/usr/share/opentsdb - Application files</li>
-<li>/usr/share/opentsdb/bin - The &#8220;tsdb&#8221; startup script that launches a TSD or commandline tools</li>
+<li>/usr/share/opentsdb/bin - The &quot;tsdb&quot; startup script that launches a TSD or commandline tools</li>
 <li>/usr/share/opentsdb/lib - Java JAR library files</li>
 <li>/usr/share/opentsdb/plugins - Location for plugin files and dependencies</li>
 <li>/usr/share/opentsdb/static - Static files for the GUI</li>
@@ -154,7 +154,7 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
 <li>/var/log/opentsdb - Logs</li>
 </ul>
 <p>Installation includes an init script at <tt class="docutils literal"><span class="pre">/etc/init.d/opentsdb</span></tt> that can start, stop and restart OpenTSDB. Simply call <tt class="docutils literal"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">start</span></tt> to start the tsd and <tt class="docutils literal"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">stop</span></tt> to gracefully shutdown. Note after install, the tsd will not be running so that you can edit the configuration file. Edit the config file, then start the TSD.</p>
-<p>The Debian package also creates an <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can&#8217;t use the default locations, please change them in <tt class="docutils literal"><span class="pre">/etc/opentsdb/opentsdb.conf</span></tt> and <tt class="docutils literal"><span class="pre">/etc/opentsdb/logback.xml</span></tt> respectively and apply the proper permissions for the <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user.</p>
+<p>The Debian package also creates an <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can't use the default locations, please change them in <tt class="docutils literal"><span class="pre">/etc/opentsdb/opentsdb.conf</span></tt> and <tt class="docutils literal"><span class="pre">/etc/opentsdb/logback.xml</span></tt> respectively and apply the proper permissions for the <tt class="docutils literal"><span class="pre">opentsdb</span></tt> user.</p>
 </div>
 </div>
 
@@ -174,7 +174,7 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
           <a href="user_guide/index.html" title="User Guide"
              >next</a> |</li>
         <li class="right" >
-          <a href="new.html" title="What’s New"
+          <a href="new.html" title="What&#39;s New"
              >previous</a> |</li>
         <li><a href="index.html">OpenTDSB 2.0 documentation</a> &raquo;</li> 
       </ul>

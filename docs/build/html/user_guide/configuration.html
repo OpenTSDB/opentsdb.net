@@ -106,13 +106,13 @@ arguments or a combination or both.</p>
 <p>The configuration file conforms to the Java properties specification.
 Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
-properties start with &#8220;tsd.&#8221; Comments or inactive configuration lines are
-blocked by a hash symbol &#8220;#&#8221;. For example:</p>
+properties start with &quot;tsd.&quot; Comments or inactive configuration lines are
+blocked by a hash symbol &quot;#&quot;. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre># List of Zookeeper hosts that manage the HBase cluster
 tsd.storage.hbase.zk_quorum - 192.168.1.100
 </pre></div>
 </div>
-<p>will configure the TSD to connect to &#8220;192.168.1.100&#8221; for HBase storage access.</p>
+<p>will configure the TSD to connect to &quot;192.168.1.100&quot; for HBase storage access.</p>
 <p>When combining configuration files and command line arguments, the order of
 processing is as follows:</p>
 <ol class="arabic simple">
@@ -165,9 +165,9 @@ documentation for details.</p>
 <tr class="row-even"><td>tsd.core.auto_create_metrics</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn&#8217;t match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.</td>
+<td>Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn't match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.</td>
 <td>False</td>
-<td>&#8211;auto-metric</td>
+<td>--auto-metric</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.meta.enable_realtime_ts</td>
 <td>Boolean</td>
@@ -186,7 +186,7 @@ documentation for details.</p>
 <tr class="row-odd"><td>tsd.core.meta.enable_tsuid_incrementing</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a> (Overrides &#8220;tsd.core.meta.enable_tsuid_tracking&#8221;)</td>
+<td>Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a> (Overrides &quot;tsd.core.meta.enable_tsuid_tracking&quot;)</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
@@ -225,7 +225,7 @@ E.g. America/Los_Angeles</td>
 <td>The full path to a location where temporary files can be written.
 E.g. /tmp/opentsdb</td>
 <td>&nbsp;</td>
-<td>&#8211;cachedir</td>
+<td>--cachedir</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.request.cors_domains</td>
 <td>String</td>
@@ -261,21 +261,21 @@ E.g. /tmp/opentsdb</td>
 <td>Location of a directory where static files, such as JavaScript files for the web interface, are located.
 E.g. /opt/opentsdb/staticroot</td>
 <td>&nbsp;</td>
-<td>&#8211;staticroot</td>
+<td>--staticroot</td>
 </tr>
 <tr class="row-even"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or traditional blocking IO</td>
 <td>True</td>
-<td>&#8211;async-io</td>
+<td>--async-io</td>
 </tr>
 <tr class="row-odd"><td>tsd.network.backlog</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the &#8216;somaxconn&#8217; kernel setting or set by Netty to 3072.</td>
+<td>The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the 'somaxconn' kernel setting or set by Netty to 3072.</td>
 <td>See Description</td>
-<td>&#8211;backlog</td>
+<td>--backlog</td>
 </tr>
 <tr class="row-even"><td>tsd.network.bind</td>
 <td>String</td>
@@ -283,7 +283,7 @@ E.g. /opt/opentsdb/staticroot</td>
 <td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
 E.g. 127.0.0.1</td>
 <td>0.0.0.0</td>
-<td>&#8211;bind</td>
+<td>--bind</td>
 </tr>
 <tr class="row-odd"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
@@ -297,7 +297,7 @@ E.g. 127.0.0.1</td>
 <td>Required</td>
 <td>The TCP port to use for accepting connections</td>
 <td>&nbsp;</td>
-<td>&#8211;port</td>
+<td>--port</td>
 </tr>
 <tr class="row-odd"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>
@@ -318,7 +318,7 @@ E.g. 127.0.0.1</td>
 <td>Optional</td>
 <td>The number of asynchronous IO worker threads for Netty</td>
 <td><em>#CPU cores * 2</em></td>
-<td>&#8211;worker-threads</td>
+<td>--worker-threads</td>
 </tr>
 <tr class="row-even"><td>tsd.rpc.plugins</td>
 <td>String</td>
@@ -360,7 +360,7 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <tr class="row-odd"><td>tsd.stats.canonical</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with &#8220;host=&lt;hostname&gt;&#8221; which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be &#8220;fqdn=&lt;hostname&#8221;</td>
+<td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with &quot;host=&lt;hostname&gt;&quot; which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be &quot;fqdn=&lt;hostname&quot;</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
@@ -376,28 +376,28 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>Optional</td>
 <td>How often, in milliseconds, to flush the data point storage write buffer</td>
 <td>1000</td>
-<td>&#8211;flush-interval</td>
+<td>--flush-interval</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.hbase.data_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where data points are stored</td>
 <td>tsdb</td>
-<td>&#8211;table</td>
+<td>--table</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.hbase.uid_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where UID information is stored</td>
 <td>tsdb-uid</td>
-<td>&#8211;uidtable</td>
+<td>--uidtable</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.hbase.zk_basedir</td>
 <td>String</td>
 <td>Optional</td>
 <td>Path under which the znode for the -ROOT- region is located</td>
 <td>/hbase</td>
-<td>&#8211;zkbasedir</td>
+<td>--zkbasedir</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.hbase.zk_quorum</td>
 <td>String</td>
@@ -405,7 +405,7 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers.
 E.g. 192.168.1.1:2181 192.168.1.2:2181</td>
 <td>localhost</td>
-<td>&#8211;zkquorum</td>
+<td>--zkquorum</td>
 </tr>
 </tbody>
 </table>
@@ -440,7 +440,7 @@ E.g.:</p>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When a configuration setting with the string &#8220;pass&#8221; is printed to the log or returning from an API call, the value for that property will be replaced with &#8220;********&#8221;. This is a trivial means of obfuscating passwords.</p>
+<p class="last">When a configuration setting with the string &quot;pass&quot; is printed to the log or returning from an API call, the value for that property will be replaced with &quot;********&quot;. This is a trivial means of obfuscating passwords.</p>
 </div>
 </div>
 </div>

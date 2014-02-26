@@ -229,7 +229,7 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>W</td>
-<td>{&#8220;host&#8221;:&#8221;web01&#8221;}</td>
+<td>{&quot;host&quot;:&quot;web01&quot;}</td>
 </tr>
 </tbody>
 </table>
@@ -278,7 +278,7 @@
 <div class="section" id="response">
 <h2>Response</h2>
 <p>By default, the put endpoint will respond with a <tt class="docutils literal"><span class="pre">204</span></tt> HTTP status code and no content if all data points were stored successfully. If one or more datapoints had an error, the API will return a <tt class="docutils literal"><span class="pre">400</span></tt> with an error message in the content.</p>
-<p>For debugging purposes, you can ask for the response to include a summary of how many data points were stored successfully and failed, or get details about what data points could not be stored and why so that you can fix your client code. Also, errors with a data point will be logged in the TSD&#8217;s log file so you can look there for issues.</p>
+<p>For debugging purposes, you can ask for the response to include a summary of how many data points were stored successfully and failed, or get details about what data points could not be stored and why so that you can fix your client code. Also, errors with a data point will be logged in the TSD's log file so you can look there for issues.</p>
 <p>Fields present in <tt class="docutils literal"><span class="pre">summary</span></tt> or <tt class="docutils literal"><span class="pre">detailed</span></tt> responses include:</p>
 <table border="1" class="docutils">
 <colgroup>

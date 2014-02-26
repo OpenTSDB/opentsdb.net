@@ -137,16 +137,16 @@
 <tr class="row-odd"><td>formatters</td>
 <td>Array&lt;String&gt;</td>
 <td>An array of methods or endpoints that the serializer implements to convert response data. These usually map to an endpoint such as <tt class="docutils literal"><span class="pre">/api/suggest</span></tt> mapping to <tt class="docutils literal"><span class="pre">Suggest</span></tt>. If the serializer does not implement a certain method, the default formatter will respond. Each name also ends with the API version supported, e.g. <tt class="docutils literal"><span class="pre">V1</span></tt> will support version 1 API calls.</td>
-<td>&#8220;Error&#8221;,&#8221;Suggest&#8221;</td>
+<td>&quot;Error&quot;,&quot;Suggest&quot;</td>
 </tr>
 <tr class="row-even"><td>parsers</td>
 <td>Array&lt;String&gt;</td>
 <td>An array of methods or endpoints that the serializer implements to parse user input in the HTTP request body. These usually map to an endpoint such as <tt class="docutils literal"><span class="pre">/api/suggest</span></tt> will map to <tt class="docutils literal"><span class="pre">Suggest</span></tt>. If a serializer does not implement a parser, the default serializer will be used. Each name also ends with the API version supported, e.g. <tt class="docutils literal"><span class="pre">V1</span></tt> will support version 1 API calls.</td>
-<td>&#8220;Suggest&#8221;,&#8221;Put&#8221;</td>
+<td>&quot;Suggest&quot;,&quot;Put&quot;</td>
 </tr>
 </tbody>
 </table>
-<p>This endpoint should always return data with the JSON serializer as the default. If you think the TSD should have other formatters listed, check the plugin documentation to make sure you have the proper plugin and it&#8217;s located in the right directory.</p>
+<p>This endpoint should always return data with the JSON serializer as the default. If you think the TSD should have other formatters listed, check the plugin documentation to make sure you have the proper plugin and it's located in the right directory.</p>
 </div>
 <div class="section" id="example-response">
 <h2>Example Response</h2>

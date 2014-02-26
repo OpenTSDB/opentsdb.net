@@ -336,7 +336,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </div>
 <div class="section" id="fsck">
 <h2>fsck</h2>
-<p>The UID FSCK command will scan the entire UID table for errors pertaining to name and UID mappings. By default, the run will scan every column in the table and log any errors that were found. With version 2.1 it is possible to fix errors in the table by passing the &#8220;fix&#8221; flag. UIDMeta objects are skipped during scanning. Possible errors include:</p>
+<p>The UID FSCK command will scan the entire UID table for errors pertaining to name and UID mappings. By default, the run will scan every column in the table and log any errors that were found. With version 2.1 it is possible to fix errors in the table by passing the &quot;fix&quot; flag. UIDMeta objects are skipped during scanning. Possible errors include:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="33%" />
@@ -372,7 +372,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </tr>
 <tr class="row-odd"><td>Inconsistent forward metrics mapping bar -&gt; 000001 vs bar -&gt; foo / foo -&gt; 000001</td>
 <td>With a forward/reverse miss-match, it is possible that a UID was assigned to multiple names for the same type. If this occurs, then data for two different names has been written to the same time series and that data is effectively corrupt.</td>
-<td>The fix is to delete the forward maps for all names that map to the same UID. Then the UID is given a new name that is a dot seperated concatenation of the previous names with an &#8220;fsck&#8221; prefix. E.g. in the example above we would have a new name of &#8220;fsck.bar.foo&#8221;. This name may be used to access data from the corrupt time series. The next time data is written for the errant names, new UIDs will be assigned to each and new time series created.</td>
+<td>The fix is to delete the forward maps for all names that map to the same UID. Then the UID is given a new name that is a dot seperated concatenation of the previous names with an &quot;fsck&quot; prefix. E.g. in the example above we would have a new name of &quot;fsck.bar.foo&quot;. This name may be used to access data from the corrupt time series. The next time data is written for the errant names, new UIDs will be assigned to each and new time series created.</td>
 </tr>
 <tr class="row-even"><td>Duplicate forward metrics mapping bar -&gt; 000002 and null -&gt; foo</td>
 <td>In this case the UID was not used more than once but the reverse mapping was incorrect.</td>

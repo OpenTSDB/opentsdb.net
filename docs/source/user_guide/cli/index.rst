@@ -25,7 +25,7 @@ All command line utilities share some common command line parameters:
    :header: "Name", "Data Type", "Description", "Default", "Example"
    :widths: 15, 5, 40, 5, 35
    
-   "--config", "String", "The full or relative path to an OpenTSDB :doc:`configuration` file. If this parameter is not provided, the command will attempt to load the default config file.", "See :doc:`configuration`", "--config=/usr/local/tempconfig.conf"
+   "--config", "String", "The full or relative path to an OpenTSDB :doc:`../configuration` file. If this parameter is not provided, the command will attempt to load the default config file.", "See :doc:`../configuration`", "--config=/usr/local/tempconfig.conf"
    "--table", "String", "Name of the HBase table where datapoints are stored", "tsdb", "--table=prod-tsdb"
    "--uidtable", "String", "Name of the HBase table where UID information is stored", "tsdb-uid", "--uidtable=prod-tsdb-uid"
    "--zkbasedir", "String", "Path under which is the znode for the -ROOT- region", "/hbase", "--zkbasedir=/prod/hbase"

@@ -60,6 +60,15 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">mkmetric</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#response">Response</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="uid.html"
                         title="previous chapter">uid</a></p>
@@ -89,7 +98,28 @@
             
   <div class="section" id="mkmetric">
 <h1>mkmetric</h1>
-<p>TODO</p>
+<p>mkmetric is a shortcut to the <tt class="docutils literal"><span class="pre">uid</span> <span class="pre">assign</span> <span class="pre">metrics</span> <span class="pre">&lt;metric&gt;</span></tt> command where you can provide multiple metric names in a single call and UIDs will be assigned or retrieved. If any of the metrics already exist, the assigned UID will be returned.</p>
+<div class="section" id="parameters">
+<h2>Parameters</h2>
+<div class="highlight-bash"><div class="highlight"><pre>mkmetric metric <span class="o">[</span>metrics<span class="o">]</span>
+</pre></div>
+</div>
+<p>Simply supply one or more space separate metric names in the call.</p>
+<p>Example</p>
+<div class="highlight-bash"><div class="highlight"><pre>mkmetric sys.cpu.user sys.cpu.nice sys.cpu.idle
+</pre></div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is the literal &quot;metrics&quot; followed by the name of the metric and a Java formatted byte array representing the UID assigned or retrieved for each metric, one per line.</p>
+<p>Example</p>
+<div class="highlight-bash"><div class="highlight"><pre>metrics sys.cpu.user: <span class="o">[</span>0, 0, -58<span class="o">]</span>
+metrics sys.cpu.nice: <span class="o">[</span>0, 0, -57<span class="o">]</span>
+metrics sys.cpu.idle: <span class="o">[</span>0, 0, -59<span class="o">]</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

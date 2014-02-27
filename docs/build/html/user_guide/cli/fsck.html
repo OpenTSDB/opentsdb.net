@@ -60,6 +60,22 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">fsck</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#results">Results</a><ul>
+<li><a class="reference internal" href="#no-data">No Data</a></li>
+<li><a class="reference internal" href="#compacted-column-error">Compacted Column Error</a></li>
+<li><a class="reference internal" href="#value-too-long">Value Too Long</a></li>
+<li><a class="reference internal" href="#old-version-floats">Old Version Floats</a></li>
+<li><a class="reference internal" href="#duplicate-timestamps">Duplicate Timestamps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="query.html"
                         title="previous chapter">query</a></p>
@@ -89,7 +105,132 @@
             
   <div class="section" id="fsck">
 <h1>fsck</h1>
-<p>TODO</p>
+<p>Similar to a file system check, the fsck command will scan and, optionally, attempt to repair problems with data points in OpenTSDB's data table. The fsck command only operates on the <tt class="docutils literal"><span class="pre">tsdb</span></tt> storage table, scanning any rows of data that match on the given query. Since data tables can be incredibly large, fsck requires a query with a specific timespan so as to avoid taking hours or days to complete.</p>
+<p>By default, running fsck will only report errors found by the query. No changes are made to the underlying data unless you supply the <tt class="docutils literal"><span class="pre">--fix</span></tt> flag. Not all errors can be repaired automatically.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Running fsck with <tt class="docutils literal"><span class="pre">--fix</span></tt> may delete data points and deleted data is unrecoverable unless you restore from a backup. (or perform some HBase trickery to restore the data before a major compaction)</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters</h2>
+<div class="highlight-bash"><div class="highlight"><pre>fsck <span class="o">[</span>--fix<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="5%" />
+<col width="40%" />
+<col width="5%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>--fix</td>
+<td>Flag</td>
+<td>Optional flag that will repair errors found within the query span.</td>
+<td>Not set</td>
+<td>--fix</td>
+</tr>
+<tr class="row-odd"><td>START-DATE</td>
+<td>String or Integer</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
+<td>&nbsp;</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-even"><td>END-DATE</td>
+<td>String or Integer</td>
+<td>Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
+<td>Current timestamp</td>
+<td>2014/01/01-00:00:00</td>
+</tr>
+<tr class="row-odd"><td>query</td>
+<td>String</td>
+<td>One or more command line queries</td>
+<td>&nbsp;</td>
+<td>sum tsd.hbase.rpcs type=put</td>
+</tr>
+</tbody>
+</table>
+<p>Example</p>
+<div class="highlight-bash"><div class="highlight"><pre>fsck 1h-ago now sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>scan
+</pre></div>
+</div>
+</div>
+<div class="section" id="results">
+<h2>Results</h2>
+<p>The results will be printed to standard out with information about what errors were found, how many columns and rows were analyzed and how many errors, if any, were found. Not all errors can be fixed automatically but require user intervention. Below are some examples and whether they can be fixed or not.</p>
+<p>When errors are found the output will list the key (k), qualifier (q) and value (v) as hex encoded byte arrays. If you wish to delete the column, use HBase shell and supply the key and qualifier. If using the HBase shell, insert <tt class="docutils literal"><span class="pre">\x</span></tt> at the beggining and after every other character. E.g. transform the qualifier <tt class="docutils literal"><span class="pre">00070027</span></tt> to <tt class="docutils literal"><span class="pre">\x00\x07\x00\x27</span></tt>.</p>
+<div class="section" id="no-data">
+<h3>No Data</h3>
+<p>In this situation, no data was found for the given query so there were no errors to repair.</p>
+<div class="highlight-bash"><div class="highlight"><pre>0 KVs <span class="o">(</span>in 0 rows<span class="o">)</span> analyzed in 238ms <span class="o">(</span>~0 KV/s<span class="o">)</span>
+No error found.
+</pre></div>
+</div>
+</div>
+<div class="section" id="compacted-column-error">
+<h3>Compacted Column Error</h3>
+<p>If a compacted column is found that is unparseable or the value  does not end with a zero, an unrecoverable error will be logged. This may mean that data points were dropped or that the value is completely invalid. Instead of deleting the column automatically, the error is flagged and must be removed manually.</p>
+<div class="highlight-bash"><div class="highlight"><pre>18:13:35.979 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - The last byte of a compacted should be 0 or 1. Either this value is corrupted or it was written by a future version of OpenTSDB.
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;00070027&#39;</span> v <span class="s1">&#39;00000000000000040000000000000005&#39;</span><span class="o">]</span>
+1 KVs <span class="o">(</span>in 1 rows<span class="o">)</span> analyzed in 230ms <span class="o">(</span>~4 KV/s<span class="o">)</span>
+Found 1 errors.
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you other kinds of data in the same column family and table as OpenTSDB (not recommended!) those data may appear as compacted column errors.</p>
+</div>
+</div>
+<div class="section" id="value-too-long">
+<h3>Value Too Long</h3>
+<p>This may occur if a value is recorded on greater than 8 bytes for a single data point column. Individual data points are stored on 2 or 4 byte qualifiers. his error cannot be fixed automatically.</p>
+<div class="highlight-bash"><div class="highlight"><pre>18:19:51.007 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - Value more than 8 byte long with a 2-byte qualifier.
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;0027&#39;</span> v <span class="s1">&#39;000000000000000005&#39;</span><span class="o">]</span>
+2 KVs <span class="o">(</span>in 1 rows<span class="o">)</span> analyzed in 227ms <span class="o">(</span>~8 KV/s<span class="o">)</span>
+Found 1 errors.
+</pre></div>
+</div>
+</div>
+<div class="section" id="old-version-floats">
+<h3>Old Version Floats</h3>
+<p>Early OpenTSDB versions had a bug in the floating point value storage. This error can be fixed automatically without loss of data. However if the invalid data was compacted, the data cannot be parsed properly and an error will be recorded.</p>
+<div class="highlight-bash"><div class="highlight"><pre>18:43:35.297 [main] ERROR net.opentsdb.tools.Fsck - Floating point value with 0xFF most significant bytes, probably caused by sign extension bug present in revisions [96908436..607256fc].
+      [k &#39;00000150E22700000001000001&#39; q &#39;002B&#39; v &#39;FFFFFFFF43FA6666&#39;]
+2 KVs (in 1 rows) analyzed in 239ms (~8 KV/s)
+Found 1 errors.
+1 of these errors are automatically correctable, re-run with --fix.
+Make sure you understand the errors above and you know what you&#39;re doing before using --fix.
+</pre></div>
+</div>
+</div>
+<div class="section" id="duplicate-timestamps">
+<h3>Duplicate Timestamps</h3>
+<p>Due to the use of encoding length and type for datapoints in qualifiers, it's possible to record a data point for the same timestamp with two different qualifiers. For example if you post an integer value for time 1 and then post a float value for time 1, two different columns will be created. At query time, an exception will be thrown as TSD does not know which value is the correct one. If fsck is run with the fix flag, the <strong>oldest</strong> value <tt class="docutils literal"><span class="pre">or</span></tt> the <strong>compacted</strong> value will be maintained and other values deleted.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Future versions of OpenTSDB may include the option of choosing the value with the most recent write timestamp. However implementation is tricky due to compaction.</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>18:55:02.247 [main] ERROR net.opentsdb.tools.Fsck - More than one column had a value for the same timestamp: timestamp: (1356998400000)
+  [0, 7]
+  [0, 11]
+
+2 KVs (in 1 rows) analyzed in 229ms (~8 KV/s)
+Found 1 errors.
+1 of these errors are automatically correctable, re-run with --fix.
+Make sure you understand the errors above and you know what you&#39;re doing before using --fix.
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 

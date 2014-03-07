@@ -1,5 +1,4 @@
-<!--title: Overview-->
-<section id="overview">
+
 <h2 class="setup">How does OpenTSDB work?</h2>
 OpenTSDB requires you to run one or more <strong>Time Series Daemons
 (TSDs)</strong>.  Each TSD is independent.  There is no master, no shared
@@ -60,4 +59,3 @@ that point.
 With the tags in the example above, it will be easy to create graphs and
 dashboards that show the network activity of MySQL on a per host and/or per
 schema basis.
-</section>

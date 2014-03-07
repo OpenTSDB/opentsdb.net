@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>OpenTSDB - A Distributed, Scalable Monitoring System</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/justified-nav.css" rel="stylesheet">
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-18339382-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body>
+     <div class="container">
+       <h1><a href="#">OpenTSDB</a></h1>
+       
+     <div class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Overview</a></li>
+              <li><a href="#">Download</a></li>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="jumbotron">
+  <h1>The Scalable Time Series Database</h1>
+  <p>Store and server massive amounts of time series data without losing granularity.</p>
+  <p><a class="btn btn-primary btn-lg" role="button" href="#">Download 2.0.0</a></p>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h3><i class="glyphicon glyphicon-arrow-down"></i> Store</h3>
+        <ul>
+          <li>Data is stored exactly as you give it</li>
+          <li>Write with millisecond precision</li>
+          <li>Keep raw data forever</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h3><i class="glyphicon glyphicon-cloud"></i> Scale</h3>
+        <ul>
+          <li>Runs on Hadoop and Hbase</li>
+          <li>Scales to millions of writes per second</li>
+          <li>Add capacity by adding nodes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h3><i class="glyphicon glyphicon-stats"></i> Read</h3>
+        <ul>
+          <li>Generate graphs from the GUI</li>
+          <li>Pull from the HTTP API</li>
+          <li>Choose an open source front-end</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="intro">
+<h2 class="intro">What's OpenTSDB?</h2>
+<p>
+
+<div class="bs-example">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img data-src="holder.js/900x500/auto/#777:#555/text:First slide" alt="First slide">
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide">
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x500/auto/#555:#333/text:Third slide" alt="Third slide">
+        </div>
+      </div>
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+  </div><!-- /example -->
+  
+  
+<strong>OpenTSDB is a distributed, scalable Time Series Database
+(TSDB)</strong> written on top of <a href="http://hbase.org">HBase</a>.
+OpenTSDB was written to address a common need: store, index and serve
+metrics collected from computer systems (network gear, operating systems,
+applications) at a large scale, and make this data easily accessible and
+graphable.
+<p>
+Thanks to HBase's scalability, OpenTSDB allows you to <strong>collect many
+thousands of metrics from thousands of hosts and applications</strong>, at a
+high rate (every few seconds).  OpenTSDB will never delete or downsample data
+and can easily store billions of data points.  As a matter of fact,
+<a href="http://www.stumbleupon.com">StumbleUpon</a> uses it to keep track of
+hundred of thousands of time series and collects over 1 billion data
+points per day in their main production datacenter.  Other sites such as
+<a href="https://www.box.com/">Box</a> or
+<a href="http://www.tumblr.com/">Tumblr</a> are pushing tens of billions of
+data points per day.
+<p>
+Imagine having the ability to quickly plot a graph showing the number of
+<code>DELETE</code> statements going to your MySQL database along with the
+number of slow queries and temporary files created, and correlate this with
+the 99th percentile of your service's latency.  OpenTSDB makes generating such
+graphs on the fly a trivial operation, while manipulating millions of
+data point for very <strong>fine grained, real-time monitoring</strong>.
+<div style="float:left;margin-right:20px;text-align:right;font-size:small;margin-bottom:10px;margin-left:-30px">
+<a href="img/tsd-sample.png"><img id="sample-graph" src="img/tsd-sample-small.png"/></a><br/>
+<small>15464 points retrieved, 932 points plotted in 100ms</small><br/>
+Generating custom graphs and correlating events is easy.</div>
+<p>
+We have found this tremendously helpful to:
+<ul style="margin-left:175px">
+<li>Get real-time state information about our infrastructure and services.</li>
+<li>Understand outages or how complex systems interact together.</li>
+<li>Measure SLAs (availability, latency, etc.)</li>
+<li>Tune our applications and databases for maximum performance.</li>
+<li>Do capacity planning.</li>
+</ul>
+<p>
+OpenTSDB is free software and
+<a href="https://github.com/OpenTSDB/opentsdb">is available</a> under the
+LGPLv2.1+ license.
+<p>
+Join the OpenTSDB mailing list:
+<a href="http://groups.google.com/group/opentsdb">opentsdb<!--fuckSPAM-->@googlegroups.com</a>
+<hr/>
+<p>
+2013-11-08: OpenTSDB 2.0.0 RC 2 has been released. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.0.0RC2">GitHub</a> and help us find bugs! Checkout the <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.
+</p>
+<hr/>
+<p>
+2013-08-05: OpenTSDB 2.0.0 RC 1 has been released. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.0.0RC1">GitHub</a> and help us find bugs! Checkout the new <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.
+</p>
+<hr/>
+2013-06-19: Thanks to everyone who attended <a href="http://www.hbasecon.com/">HBaseCon</a> and to Jonathan Creasy and Geoff Anderson of Box for their <a href="http://www.hbasecon.com/sessions/opentsdb-at-scale/">OpenTSDB @scale presentation</a>! OpenTSDB was everywhere, from the keynote, to graphs showing up in slides during various talks. Visit the <a href="http://www.hbasecon.com/schedule/">HBaseCon site</a> for videos and slides. And thank you to the folks from Turn who dropped by our little meetup with cool updates to the UI.
+<hr/>
+<p> 2013-03-12: We're hard at work on OpenTSDB v2.0. Read the <a href="version-two.html">roadmap</a> and contribute your ideas.</p>
+<hr/>
+<p>
+2013-03-08:
+<a href="https://code.google.com/p/opentsdb/downloads/detail?name=opentsdb-1.1.0.tar.gz">OpenTSDB v1.1.0</a>
+has been released.  Read the
+<a
+href="https://groups.google.com/d/msg/opentsdb/UE98_5EV8h0/RUCTPHaJqBoJ">announcement</a>.
+<hr/>
+<p>
+2013-02-16: The second release candidate of OpenTSDB v1.1.0 is available.
+Read the
+<a href="https://groups.google.com/d/topic/opentsdb/canl1y38u8Q/discussion">announcement</a>.
+</p>
+<hr/>
+<p>
+2013-02-14: <a href="https://github.com/OpenTSDB/asynchbase/">AsyncHBase</a>
+v1.4.1 was
+<a href="https://groups.google.com/d/topic/asynchbase/xkENbFS1ch0/discussion">released</a>.
+<hr/>
+<p>
+Watch the video of the talk on <a href="http://vimeo.com/59416985">"OpenTSDB
+at Box"</a>, given at the
+<a href="http://www.meetup.com/San-Francisco-Metrics-Meetup/events/98875712/">January
+SF Metrics Meetup</a>.
+<hr/>
+<p>
+2013-01-20: The first release candidate of OpenTSDB v1.1.0 is available.
+Read the
+<a href="https://groups.google.com/d/topic/opentsdb/EAZM21tsgro/discussion">announcement</a>.
+<hr/>
+<p>
+Thanks to those who attended the
+<a href="http://www-conf.slac.stanford.edu/xldb2012/lightening_abstracts.asp#BSigoure">lightening talk</a>
+and subsequent poster session about OpenTSDB at
+<a href="http://www-conf.slac.stanford.edu/xldb2012/">XLDB</a>, on September
+11, 2012 at Stanford University. Watch the talk on <a href="http://www.youtube.com/watch?v=xmC7UsKf9UQ">YouTube</a>.
+<hr/>
+<p>
+Thanks to those who attended <a href="http://www.hbasecon.com/">HBaseCon</a>
+on May 22, 2012 in San Francisco,
+<a href="/misc/opentsdb-hbasecon.pdf">here are the slides</a> of the talk on
+<!--No longer valid <a href="http://www.hbasecon.com/sessions/lessons-learned-from-opentsdb/">-->
+Lessons Learned from OpenTSDB<!--</a>-->.
+<hr/>
+<p>
+December 23, 2011:
+<a href="https://groups.google.com/forum/#!topic/opentsdb/bG6ARrNjEcs">OpenTSDB
+1.0.0 has been released</a>!
+<hr/>
+<p>
+<div style="float:right">
+<a href="http://www.oscon.com/oscon2011/public/schedule/detail/19785"><img
+src="http://assets.en.oreilly.com/1/event/61/oscon2011_data_speaking_210x60.gif"
+width="210" height="60" border="0" alt="OSCON Data 2011" title="OSCON Data 2011"/></a>
+</div>
+Missed the
+<a href="http://www.oscon.com/oscon2011/public/schedule/detail/19785">talk on
+OpenTSDB</a> at <a href="http://www.oscon.com/oscon2011/public/content/data">OSCON
+Data</a>?  <a href="/misc/opentsdb-oscon.pdf">Get the slides</a>.
+<p/>
+You can also watch the
+<a href="http://www.youtube.com/watch?v=WlsyqhrhRZA">talk online on YouTube</a>.
+<hr/>
+<p>
+This site isn't very pretty, you can improve it by
+<a href="https://github.com/OpenTSDB/opentsdb.net">forking it on GitHub</a>.
+</section>
+      <div class="footer">
+        <p>&copy; 2010 - 2014 The OpenTSDB Authors</p>
+      </div>
+    </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

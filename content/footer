@@ -1,4 +1,11 @@
-<footer>
-&copy; 2010&ndash;2013 The OpenTSDB Authors.
-</footer>
-</section></body></html>
+      <hr>
+      <div class="footer">
+        <p><a href="https://groups.google.com/forum/#!forum/opentsdb"><i class="glyphicon glyphicon-envelope"></i> Mailing List</a>  | <i class="glyphicon glyphicon-user"></i> IRC: Freenode #opentsdb  |  &copy; 2010 - 2014 The OpenTSDB Authors</p>
+      </div>
+    </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

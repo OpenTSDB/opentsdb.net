@@ -21,4 +21,4 @@ OpenTSDB has a thriving community who contributed and requested a number of new 
 * Rate Counter Calculations - To handle roll-over and anamoly supression
 * Additional Statistics - Including the number of UIDs assigned and available
 
-More features are on the way. Help us out by sharing your ideas.
+Thank you to everyone who has contributed to |version|. Help us out by sharing your ideas and code at `GitHub <https://github.com/OpenTSDB>`_

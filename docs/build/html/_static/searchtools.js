@@ -4,7 +4,7 @@
  *
  * Sphinx JavaScript utilties for the full-text search.
  *
- * :copyright: Copyright 2007-2013 by the Sphinx team, see AUTHORS.
+ * :copyright: Copyright 2007-2014 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
  */
@@ -336,7 +336,7 @@ var Search = {
         continue;
       }
       // stem the word
-      var word = stemmer.stemWord(tmp[i]).toLowerCase();
+      var word = stemmer.stemWord(tmp[i].toLowerCase());
       var toAppend;
       // select the correct list
       if (word[0] == '-') {

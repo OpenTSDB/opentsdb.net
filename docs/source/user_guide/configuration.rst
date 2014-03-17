@@ -10,13 +10,13 @@ Configuration File
 The configuration file conforms to the Java properties specification.
 Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
-properties start with "tsd." Comments or inactive configuration lines are
-blocked by a hash symbol "#". For example::
+properties start with ``tsd.`` Comments or inactive configuration lines are
+blocked by a hash symbol ``#``. For example::
 
   # List of Zookeeper hosts that manage the HBase cluster
   tsd.storage.hbase.zk_quorum - 192.168.1.100
   
-will configure the TSD to connect to "192.168.1.100" for HBase storage access.
+will configure the TSD to connect to Zookeeper on ``192.168.1.100``.
 
 When combining configuration files and command line arguments, the order of
 processing is as follows:
@@ -87,14 +87,14 @@ documentation for details.
    "tsd.search.enable", "Boolean", "Optional", "Whether or not to enable search functionality. If true, you must supply a valid ``tsd.search.plugin`` class name", "False", ""
    "tsd.search.plugin", "String", "Optional", "The class name of a search plugin to instantiate. If ``tsd.search.enable`` is set to false, this value is ignored.
    E.g. net.opentsdb.search.ElasticSearch", "", ""
-   "tsd.stats.canonical", "Boolean", "Optional", "Whether or not the FQDN should be returned with statistics requests. The default stats are returned with ""host=<hostname>"" which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be ""fqdn=<hostname""", "false", ""
+   "tsd.stats.canonical", "Boolean", "Optional", "Whether or not the FQDN should be returned with statistics requests. The default stats are returned with ``host=<hostname>`` which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be ``fqdn=<hostname>``", "false", ""
    "tsd.storage.enable_compaction", "Boolean", "Optional", "Whether or not to enable compactions", "True", ""
    "tsd.storage.flush_interval", "Integer", "Optional", "How often, in milliseconds, to flush the data point storage write buffer", "1000", "--flush-interval"
    "tsd.storage.hbase.data_table", "String", "Optional", "Name of the HBase table where data points are stored", "tsdb", "--table"
    "tsd.storage.hbase.uid_table", "String", "Optional", "Name of the HBase table where UID information is stored", "tsdb-uid", "--uidtable"
    "tsd.storage.hbase.zk_basedir", "String", "Optional", "Path under which the znode for the -ROOT- region is located", "/hbase", "--zkbasedir"
    "tsd.storage.hbase.zk_quorum", "String", "Optional", "A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers.
-   E.g. 192.168.1.1:2181 192.168.1.2:2181", "localhost", "--zkquorum"
+   E.g. ``192.168.1.1:2181, 192.168.1.2:2181``", "localhost", "--zkquorum"
    
 Data Types
 ^^^^^^^^^^

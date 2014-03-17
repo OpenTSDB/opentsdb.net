@@ -106,13 +106,13 @@ arguments or a combination or both.</p>
 <p>The configuration file conforms to the Java properties specification.
 Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
-properties start with &quot;tsd.&quot; Comments or inactive configuration lines are
-blocked by a hash symbol &quot;#&quot;. For example:</p>
+properties start with <tt class="docutils literal"><span class="pre">tsd.</span></tt> Comments or inactive configuration lines are
+blocked by a hash symbol <tt class="docutils literal"><span class="pre">#</span></tt>. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre># List of Zookeeper hosts that manage the HBase cluster
 tsd.storage.hbase.zk_quorum - 192.168.1.100
 </pre></div>
 </div>
-<p>will configure the TSD to connect to &quot;192.168.1.100&quot; for HBase storage access.</p>
+<p>will configure the TSD to connect to Zookeeper on <tt class="docutils literal"><span class="pre">192.168.1.100</span></tt>.</p>
 <p>When combining configuration files and command line arguments, the order of
 processing is as follows:</p>
 <ol class="arabic simple">
@@ -360,7 +360,7 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <tr class="row-odd"><td>tsd.stats.canonical</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with &quot;host=&lt;hostname&gt;&quot; which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be &quot;fqdn=&lt;hostname&quot;</td>
+<td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with <tt class="docutils literal"><span class="pre">host=&lt;hostname&gt;</span></tt> which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be <tt class="docutils literal"><span class="pre">fqdn=&lt;hostname&gt;</span></tt></td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
@@ -403,7 +403,7 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers.
-E.g. 192.168.1.1:2181 192.168.1.2:2181</td>
+E.g. <tt class="docutils literal"><span class="pre">192.168.1.1:2181,</span> <span class="pre">192.168.1.2:2181</span></tt></td>
 <td>localhost</td>
 <td>--zkquorum</td>
 </tr>

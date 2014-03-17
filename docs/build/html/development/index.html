@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
-    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="next" title="General Development" href="development.html" />
     <link rel="prev" title="/api/version" href="../api_http/version.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
@@ -47,7 +47,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="contributing.html" title="Contributing"
+          <a href="development.html" title="General Development"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../api_http/version.html" title="/api/version"
@@ -57,12 +57,21 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Development</a><ul>
+<li><a class="reference internal" href="#guidelines">Guidelines</a></li>
+<li><a class="reference internal" href="#details">Details</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="../api_http/version.html"
                         title="previous chapter">/api/version</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="contributing.html"
-                        title="next chapter">Contributing</a></p>
+  <p class="topless"><a href="development.html"
+                        title="next chapter">General Development</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -86,13 +95,47 @@
             
   <div class="section" id="development">
 <h1>Development</h1>
-<p>TODO</p>
+<p>OpenTSDB has a strong and growing base of users running TSDs in production. There are also a number of talented developers creating tools for OpenTSDB or contributing code directly to the project. If you are interested in helping, by adding new features, fixing bugs, adding tools or simply updating documentation, please read the guidelines below. Then sign the contributors agreement and send us a pull request!</p>
+<div class="section" id="guidelines">
+<h2>Guidelines</h2>
+<ul class="simple">
+<li>Please file <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">issues on GitHub</a> after checking to see if anyone has posted a bug already. Make sure your bug reports contain enough details so they can be easily understood by others and quickly fixed.</li>
+<li>Read the Development page for tips</li>
+<li>The best way to contribute code is to fork the main repo and <a class="reference external" href="https://help.github.com/articles/using-pull-requests">send a pull request</a> on GitHub.<ul>
+<li>Bug fixes should be done in the <tt class="docutils literal"><span class="pre">master</span></tt> branch</li>
+<li>New features or major changes should be done in the <tt class="docutils literal"><span class="pre">next</span></tt> branch</li>
+</ul>
+</li>
+<li>Alternatively, you can send a plain-text patch to the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">mailing list</a>.</li>
+<li>Before your code changes can be included, please file the <a class="reference external" href="https://docs.google.com/spreadsheet/embeddedform?formkey=dFNiOFROLXJBbFBmMkQtb1hNMWhUUnc6MQ">Contribution License Agreement</a>.</li>
+<li>Unlike, say, the Apache Software Foundation, we do not require every single code change to be attached to an issue. Feel free to send as many small fixes as you want.</li>
+<li>Please break down your changes into as many small commits as possible.</li>
+<li>Please <em>respect the coding style of the code</em> you're changing.<ul>
+<li>Indent code with 2 spaces, no tabs</li>
+<li>Keep code to 80 columns</li>
+<li>Curly brace on the same line as <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">for</span></tt>, <tt class="docutils literal"><span class="pre">while</span></tt>, etc</li>
+<li>Variables need descriptive names <tt class="docutils literal"><span class="pre">like_this</span></tt> (instead of the typical Java style of <tt class="docutils literal"><span class="pre">likeThis</span></tt>)</li>
+<li>Methods named <tt class="docutils literal"><span class="pre">likeThis()</span></tt> starting with lower case letters</li>
+<li>Classes named <tt class="docutils literal"><span class="pre">LikeThis</span></tt>, starting with upper case letters</li>
+<li>Use the <tt class="docutils literal"><span class="pre">final</span></tt> keyword as much as you can, particularly in method parameters and returns statements.</li>
+<li>Avoid checked exceptions as much as possible</li>
+<li>Always provide the most restrictive visibility to classes and members</li>
+<li>Javadoc all of your classes and methods. Some folks make use the Java API directly and we'll build docs for the site, so the more the merrier</li>
+<li>Don't add dependencies to the core OpenTSDB library unless absolutely necessary</li>
+<li>Add unit tests for any classes/methods you create and verify that your change doesn't break existing unit tests. We know UTs aren't fun, but they are useful</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="details">
+<h2>Details</h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">General Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="http_api.html">HTTP API</a></li>
 </ul>
+</div>
 </div>
 </div>
 
@@ -109,7 +152,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="contributing.html" title="Contributing"
+          <a href="development.html" title="General Development"
              >next</a> |</li>
         <li class="right" >
           <a href="../api_http/version.html" title="/api/version"

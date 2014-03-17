@@ -55,6 +55,10 @@
   </ol>
   <div class="carousel-inner">
     <div class="text-center item active">
+      <a href="http://www.hbasecon.com/"><img src="http://hbasecon.com/images/logo.jpg" class="center-block"/></a>
+      <p><b>2014-03-17</b> - <a href="http://www.hbasecon.com/">HBaseCon 2014</a> is just around the corner. We will be presenting on OpenTSDB 2.0 so be sure to sign up and attend!</p>
+    </div>
+    <div class="text-center item">
       <h3>OpenTSDB 2.0 RC2</h3>
       <p><b>2013-11-08</b> - OpenTSDB 2.0.0 RC 2 has been released. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.0.0RC2">GitHub</a> and help us find bugs! Checkout the <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p>  
       <!--</div></div>-->
@@ -62,10 +66,6 @@
     <div class="text-center item">
       <h3>OpenTSDB 2.0 RC1</h3>
       <p><b>2013-08-05</b> - OpenTSDB 2.0.0 RC 1 has been released. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.0.0RC1">GitHub</a> and help us find bugs! Checkout the new <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p> 
-    </div>
-    <div class="text-center item">
-      <h3>HBaseCon 2013</h3>
-      <p><b>2013-06-19</b> - Thanks to everyone who attended <a href="http://www.hbasecon.com/">HBaseCon</a> and to Jonathan Creasy and Geoff Anderson of Box for their <a href="http://www.hbasecon.com/sessions/opentsdb-at-scale/">OpenTSDB @scale presentation</a>! OpenTSDB was everywhere, from the keynote, to graphs showing up in slides during various talks. Visit the <a href="http://www.hbasecon.com/schedule/">HBaseCon site</a> for videos and slides. And thank you to the folks from Turn who dropped by our little meetup with cool updates to the UI.</p>
     </div>
   </div>
   <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">

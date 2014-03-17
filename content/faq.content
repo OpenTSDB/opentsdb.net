@@ -1,5 +1,4 @@
 <!--title: FAQ-->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
 <script src="misc/toc.js" type="text/javascript"></script>
 <section id="FAQ">
 <div id="toc"></div>
@@ -16,10 +15,6 @@ considered
 <a href="https://issues.apache.org/jira/browse/HBASE-1295">experimental</a>
 and is being actively developed at StumbleUpon with help from the rest
 of the HBase community.
-<p>
-Right now the TSD doesn't provide any assistance to use multiple HBase
-clusters together at the same time, so you can't easily plot time series
-that come from different data centers.  This will be fixed.
 
 <h4>How much <em>write</em> throughput can I get with OpenTSDB?</h4>
 It depends mostly on two things:
@@ -31,11 +26,12 @@ core on an old dual-core Intel Xeon CPU from 2006.  More modern CPUs will get
 you more throughput.
 
 <h4>How much <em>read</em> throughput can I get with OpenTSDB?</h4>
-This is not very well documented right now.  The answer certainly depends on
-the size of the queries (e.g. generating graphs with many millions of data
-points are more expensive than if they only have a few tens of thousands,
-obviously).  The read path has plenty of room for optimizations and the TSD
-only does some very basic caching right now.
+Read throughput varies depending on the cardinality of a metric (how many 
+distinct time series exist), the time span and the number of data points retreived. 
+Lower cardinality with fewer data points will execute much quicker than higher
+cardinality and greater data point queries. Most queries for the last day of data
+will return in less than a second with low cardinality. However huge queries can
+run for multiple seconds. We're working to optimze the query path.
 
 <h4>What type of hardware should I run the TSDs on?</h4>
 There are no strict requirements.  The recommended configuration, however, is
@@ -43,29 +39,23 @@ a 4-core machine with at least 4GB of RAM, and a <code>tmpfs</code> partition
 for the cache directory used by the TSD.  Having more RAM helps the TSD ride
 over transient HBase outages by allowing it to buffer more incoming data
 before getting to the point where it must start discarding data.
+<p>
+HBase region servers are usually beefy machines and many OpenTSDB users run
+their TSDs on the same machines, granted there is enough memory for both processes.
 
 <h4>How much disk space do I need?</h4>
-The answer depends mostly on the average number of tags per data point.  At
-StumbleUpon, we use 4.5 tags on average and our 100+ billion data points take
-only just over a terabyte of disk space (pre-HDFS 3x replication).  We use
-<a href="setup-hbase.html#lzo">LZO</a> which is
-extremely recommended in a production setting.  In our case, each data point
+The answer depends mostly on the average number of tags per data point. 
+StumbleUpon uses 4.5 tags on average and 100+ billion data points take
+only just over a terabyte of disk space (pre-HDFS 3x replication).  Enabling compression 
+with <a href="setup-hbase.html#lzo">LZO</a> or Snappy is
+extremely recommended in a production setting.  In Stumbleupon's case, each data point
 ends up taking about 12 bytes of disk space (or actually 36 if you include the
 3x replication factor of HDFS).  We also find that, on average, LZO is able to
-achieve a compression factor of 4.2x on our table, but your mileage will vary.
+achieve a compression factor of 4.2x on the TSD table, but your mileage will vary.
 Without LZO, a data point costs roughly: 16 bytes of HBase overhead, 3 bytes
 for the metric, 4 bytes for the timestamp, 6 bytes per tag, 2 bytes of
-OpenTSDB overhead, 8 bytes for the value.
-<p>
-We expect that those storage costs, even though they're already pretty low,
-will come down significantly.  Right now all the values are stored on 8 bytes,
-but the storage format was designed to support variable-length encoding.  This
-simply hasn't been implemented yet.
-<p>
-In addition to variable-length encoding, a new backwards-compatible storage
-format has been designed but not implemented yet either.   We expect that this
-new format will reduce the storage requirements by 5x assuming that data
-points come 15 seconds apart on average (our default interval at StumbleUpon).
+OpenTSDB overhead, up to 8 bytes for the value. Integers are stored with variable
+length encoding and can consume 1, 2, 4 or 8 bytes.
 
 <a name="reliability"></a><h2>Reliability</h2>
 <h4>What are the Single Points of Failure of OpenTSDB?</h4>
@@ -87,18 +77,20 @@ have any SPoF.</small>
 
 <h4>What are the failure modes of OpenTSDB?</h4>
 The TSD eventually becomes unhealthy when HBase itself is down or broken for
-an extended period of time.  Right now, the TSD doesn't handle very well
-prolonged HBase outages and will discard incoming data points once its buffers
-are full if it's unable to flush them to HBase.  This is going to be improved.
+an extended period of time.  Right now, the TSD doesn't handle 
+prolonged HBase outages very well and will discard incoming data points once its buffers
+are full if it's unable to flush them to HBase.  Future versions will temporarily store
+data to local disk when it is unabel to reach HBase.
 <p>
-At StumbleUpon we've had a number of cases where a collector that runs on
+StumbleUpon has had a number of cases where a collector that runs on
 hundreds of machines goes crazy and generate a DDoS on the TSDs.  The TSD
 doesn't do a good job at handling such DDoS situations by penalizing offending
 clients, so its performance will degrade once the machine it's running on is
 unable to keep up with the load.
 
 <h4>What is the recommended deployment for OpenTSDB?</h4>
-We recommend that you run multiple TSDs.  At StumbleUpon, we found it useful
+We recommend that you run multiple TSDs behind a load balancer such as Varnish, 
+HAProxy or DNS round robin. StumbleUpon found it useful
 to dedicate one or more TSDs for read queries (human users using the web UI to
 generate graphs or to view dashboards) and let other TSDs handle the write
 queries (new data points coming in from production machines).  For the
@@ -123,7 +115,8 @@ performance.
 
 <a name="datamodel"></a><h2>Data Model</h2>
 <h4>How can I increment a counter in OpenTSDB?</h4>
-OpenTSDB doesn't work with counters.  It simply records <code>(timestamp,
+OpenTSDB does not have a counter feature at this time, though work is underway.  
+Currently OpenTSDB simply records <code>(timestamp,
 value)</code> pairs.  Data points are independent from each other.  Say you
 want to keep track of clicks on an ad in OpenTSDB.  You wouldn't send a "+1"
 to the TSD for every click.  Instead, if your application doesn't already
@@ -133,27 +126,24 @@ query the TSD and ask for the rate of change of the counter, which will give
 you clicks per second.
 
 <h4>Can I store sub-second precision timestamps in OpenTSDB?</h4>
-No.  Right now timestamps are encoded on 4 bytes so this is not possible.
-Note that this is not typically needed for OpenTSDB's main use case, which
-consists in monitoring large clusters of commodity machines.  If you think
-you really need sub-second precision, please reach out to our mailing list
-for advices:
-<a href="http://groups.google.com/group/opentsdb">opentsdb<!--fuckSPAM-->@googlegroups.com</a>
+As of version 2.0 you can store data with millisecond timestamps. However 
+we recommend you avoid storing a data point at each millisecond as this will
+slow down queries dramatically. See 
+<a href="docs/build/html/user_guide/query/dates.html">Dates and Times</a> 
+for details.
 
 <h4>Can I use another storage backend than HBase?</h4>
-No.  OpenTSDB was designed specifically for a storage backend that follows
+Not at this time.  OpenTSDB was designed specifically for a storage backend that follows
 the <a href="http://labs.google.com/papers/bigtable.html">Bigtable</a> data
 model (a distributed, strongly consistent, sorted multi-dimensional hash map).
-At the time of writing, HBase is the only such system that's both open-source
+At the time OpenTSDB was written, HBase is the only such system that's both open-source
 and usable in production, so the code was written specifically for HBase.
 Technically it would be feasible to port the code to other systems that follow
 the Bigtable data model.  Systems that differ by not storing data in a sorted
 fashion (such as distributed hash tables) or that do not offer a strong
 consistency guarantee will simply not work with the current design.
 <p>
-edit (Q1'13): Due to popular demand, the next major version of OpenTSDB
-is likely to contain an interface behind which calls to HBase will be
-abstracted away, in order to allow integration with other storage backends.
+We're looking at adding support for Cassandra now that it implements counters.
 
 <a name="misc"></a><h2>Misc</h2>
 <h4>How do the TSDs handle DST changes or leap seconds?</h4>
@@ -164,7 +154,7 @@ so all your timestamps will be based on
 you will not be affected by timezone adjustments or DST changes on your
 machines.
 <p>
-The TSD always renders timestamps in local time, to make it easier for us
+The TSD always renders timestamps in local time when using the GUI, to make it easier for us
 human to understand and correlate events based on the timezone we live in.
 So you should to make sure you give the TSD the correct timezone setting
 (e.g. via the <a href="cli.html#Overriding_the_timezone_of_the_TSD"><code>TZ</code> environment variable</a>).
@@ -201,7 +191,8 @@ Please contribute to help make the UI sexier.
 <h4>Can I use OpenTSDB to generate graphs for my customers / end-users?</h4>
 Yes, but you have to be careful with that.  OpenTSDB was written for internal
 use only, to help engineers and operations staff understand and manage large
-computer systems.  It hasn't been through any security review.
+computer systems.  It hasn't been through any security review and does not 
+included authentication.
 <p>
 We don't recommend that you give direct access to the TSD to untrusted users.
 If you really want to leverage the TSD's graphing features, we recommend that
@@ -222,16 +213,16 @@ to plot your own graphs or make your own processing, you will also need the
 extra data to get the correct behavior near the edges.
 <p>
 The amount of extra data that OpenTSDB attempts to retrieve is proportional to
-the time span covered by your query.  It is a known usability issue that
-sometimes it will return too much excessive data, when less data is actually
-required to correctly plot the edges of the graph.  This is being fixed.
+the time span covered by your query.  The 2.0 HTTP API will only return data within 
+the requested time span.
 
 <h4>I don't understand the data points returned for my query</h4>
 Sometimes the results to a query don't match people's expectations.  This is
 often because it's not necesssarily quite obvious what steps are involved in
 a query, why OpenTSDB uses interpolation, when do aggregators kick in.
-There is now a dedicated page to explain this:
-<a href="query-execution.html">OpenTSDB query execution</a>.
+Please see the documentation for 
+<a href="http://opentsdb.net/docs/build/html/user_guide/query/aggregators.html">Aggregators</a> 
+for details.
 
 <a name="meta"></a><h2>Meta</h2>
 
@@ -242,6 +233,12 @@ exists in Java.  Eventually, however, OpenTSDB started to use another
 alternative library to access HBase
 (<a href="http://github.com/OpenTSDB/asynchbase">asynchbase</a>)
 but sadly this one too is in Java.
+
+<h4>Why HBase and not Cassandra</h4>
+Early on Cassandra didn't support atomic operations required in the assignment of UIDs.  
+Now that Cassandra has such features, including counters, it would be possible to copy
+the HBase schema in Cassandra, though there are some differences to work through and
+an asynchronous driver may need to be developed.
 
 <h4>Has OpenTSDB anything to do with OpenBSD?</h4>
 While the author of OpenTSDB admires the work done on OpenBSD, the fact that

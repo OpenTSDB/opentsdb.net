@@ -19,7 +19,6 @@ Contents
    user_guide/index
    api_http/index
    development/index
-   faq
    resources
    
 

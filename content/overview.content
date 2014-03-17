@@ -1,37 +1,46 @@
 
-<h2 class="setup">How does OpenTSDB work?</h2>
-OpenTSDB requires you to run one or more <strong>Time Series Daemons
-(TSDs)</strong>.  Each TSD is independent.  There is no master, no shared
-state.  The TSD uses <a href="http://hbase.org">HBase</a> to store and
-retrieve time-series data.  Users of the TSD never need to access HBase
-directly.  You can communicate with the TSD via a simple telnet-style
-protocol, and via HTTP.  An additional proper binary RPC protocol is in the
-works.  All communications happen on the same port (the TSD figures out the
-protocol of the client by looking at the first few bytes it receives).
+<h2>How does OpenTSDB work?</h2>
+OpenTSDB consists of a <strong>Time Series Daemon
+(TSD)</strong> as well as set of command line utilities.  Interaction with OpenTSDB is
+primarily achieved by running one or more of the TSDs. Each TSD is independent.  
+There is no master, no shared state so you can run as many TSDs as required to handle any
+load you throw at it.  Each TSD uses the open source database 
+<a href="http://hbase.org">HBase</a> to store and retrieve time-series data.  
+The HBase schema is highly optimized for fast aggregations of similar time series to 
+minimize storage space.  Users of the TSD never need to access HBase directly.  
+You can communicate with the TSD via a simple telnet-style
+protocol, an HTTP API or a simple built-in GUI.  All communications happen on the 
+same port (the TSD figures out the protocol of the client by looking at the first 
+few bytes it receives).
 <p>
 <img src="img/tsdb-architecture.png" alt="OpenTSDB architecture"/>
 <p>
-You need to write little scripts that collect data from your systems (e.g.
+<h2>Writing</h2>
+The first step in using OpenTSDB is to send time series data to the TSDs. A number of 
+<a href="docs/build/html/resources.html#clients">tools</a> exist to pull data from various
+sources into OpenTSDB. If you can't find a tool for your needs, you may need to write 
+scripts that collect data from your systems (e.g.
 by reading interesting metrics from <code>/proc</code> on Linux, collecting
 counters from your network gear via SNMP, or other interesting data from your
 applications, via JMX for instance for Java applications) and push data points
-to one of the TSDs every few seconds.
+to one of the TSDs periodically.
 <p>
 <a href="http://www.stumbleupon.com">StumbleUpon</a> wrote a Python framework
 called
 <a href="https://github.com/OpenTSDB/tcollector"><strong><code>tcollector</code></strong></a>
-that we use to collect
+that is used to collect
 thousand of metrics from Linux 2.6, Apache's HTTPd, MySQL, HBase, memcached,
-Varnish and more.  This framework comes with a number of Linux collectors and
-an HBase collector, and we're planning on releasing more collectors later
-so <a href="http://groups.google.com/group/opentsdb">stay tuned</a>.
+Varnish and more.  This low-impact framework includes a number useful collectors 
+and the community is constantly providing more. Alternative frameworks with OpenTSDB
+support include COllectd, Statsd and the Coda Hale metrics emitter.</a>.
 <p>
-In OpenTSDB, a data point is made of:
+In OpenTSDB, a time series data point consists of:
 <ul>
 <li>A metric name.</li>
-<li>A UNIX timestamp (seconds since <a href="http://en.wikipedia.org/wiki/Unix_epoch">Epoch</a>).</li>
-<li>A value (64 bit integer or double-precision floating point value).</li>
-<li>A set of tags (key-value pairs) that annotate this data point.</li>
+<li>A UNIX timestamp (seconds or millisecinds since 
+<a href="http://en.wikipedia.org/wiki/Unix_epoch">Epoch</a>).</li>
+<li>A value (64 bit integer or single-precision floating point value).</li>
+<li>A set of tags (key-value pairs) that describe the time series the point belongs to.</li>
 </ul>
 Tags allow you to separate similar data points from different sources or
 related entities, so you can easily graph them individually or in groups.
@@ -40,22 +49,39 @@ name of the machine that produced it as well as name of the cluster or
 pool the machine belongs to.  This allows you to easily make dashboards
 that show the state of your service on a per-server basis as well as
 dashboards that show an aggregated state across logical pools of servers.
-<div class="code">mysql.bytes_received 1287333217  327810227706 schema=foo host=db1
-mysql.bytes_sent     1287333217 6604859181710 schema=foo host=db1
-mysql.bytes_received 1287333232  327812421706 schema=foo host=db1
-mysql.bytes_sent     1287333232 6604901075387 schema=foo host=db1
-mysql.bytes_received 1287333321  340899533915 schema=foo host=db2
+
+<div class="panel panel-default">
+  <div class="panel-body">
+mysql.bytes_received 1287333217  327810227706 schema=foo host=db1<br>
+mysql.bytes_sent     1287333217 6604859181710 schema=foo host=db1<br>
+mysql.bytes_received 1287333232  327812421706 schema=foo host=db1<br>
+mysql.bytes_sent     1287333232 6604901075387 schema=foo host=db1<br>
+mysql.bytes_received 1287333321  340899533915 schema=foo host=db2<br>
 mysql.bytes_sent     1287333321 5506469130707 schema=foo host=db2
+  </div>
 </div>
 This examples contains 6 data points that belong to 4 different time series.
 Each different combination of metric and tags makes up a different time
 series.  All of the 4 time series are for one of two metrics
 <code>mysql.bytes_received</code> or <code>mysql.bytes_sent</code>.
-A data point must have at least one tag.  It is not recommended to have
+A data point must have at least one tag and every time series for a metric
+should have the same number of tags.  It is not recommended to have
 more than 6-7 tags per data point, as the cost associated with storing
 new data points quickly becomes dominated by the number of tags beyond
 that point.
 <p>
 With the tags in the example above, it will be easy to create graphs and
 dashboards that show the network activity of MySQL on a per host and/or per
-schema basis.
+schema basis. New to OpenTSDB 2.0 is the ability to store non-numeric annotations 
+along with data points for tracking meta-data, quality metrics or other types
+of information.
+
+<h2>Reading</h2>
+Time series data is usually consumed in the format of a line graph. Thus OpenTSDB 
+offers a built-in, simple user interface for selecting one or more metrics and tags 
+to generate a graph as an image. Alternatively an HTTP API is available to tie 
+OpenTSDB into external systems such as monitoring frameworks, dashboards, statistics
+packages or automation tools.
+<p>
+Take a look at the <a href="docs/build/html/resources.html#clients">resources</a> 
+page for tools contributed by the community for working with OpenTSDB.

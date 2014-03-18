@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>HBase &mdash; OpenTDSB 2.0 documentation</title>
+    <title>HBase Schema &mdash; OpenTDSB 2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -62,12 +62,25 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">HBase</a><ul>
+<li><a class="reference internal" href="#">HBase Schema</a><ul>
 <li><a class="reference internal" href="#data-table-schema">Data Table Schema</a><ul>
-<li><a class="reference internal" href="#row-key">Row Key</a></li>
-<li><a class="reference internal" href="#columns">Columns</a></li>
+<li><a class="reference internal" href="#data-point-columns">Data Point Columns</a></li>
+<li><a class="reference internal" href="#compactions">Compactions</a></li>
+<li><a class="reference internal" href="#annotations-or-other-objects">Annotations or Other Objects</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#uid-table-schema">UID Table Schema</a><ul>
+<li><a class="reference internal" href="#id-column-family"><tt class="docutils literal"><span class="pre">id</span></tt> Column Family</a></li>
+<li><a class="reference internal" href="#name-column-family"><tt class="docutils literal"><span class="pre">name</span></tt> Column Family</a></li>
+<li><a class="reference internal" href="#uid-assignment-row">UID Assignment Row</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#meta-table-schema">Meta Table Schema</a><ul>
+<li><a class="reference internal" href="#tsmeta-column">TSMeta Column</a></li>
+<li><a class="reference internal" href="#ts-counter-column"><tt class="docutils literal"><span class="pre">ts_counter</span></tt> Column</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tree-table-schema">Tree Table Schema</a></li>
 </ul>
 </li>
 </ul>
@@ -99,14 +112,12 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="hbase">
-<h1>HBase</h1>
+  <div class="section" id="hbase-schema">
+<h1>HBase Schema</h1>
 <div class="section" id="data-table-schema">
 <h2>Data Table Schema</h2>
-<p>All OpenTSDB data points are stored in a single, massive table. This is to take advantage of HBases ordering and region distribution. All values are stored in the <tt class="docutils literal"><span class="pre">t</span></tt> column family.</p>
-<div class="section" id="row-key">
-<h3>Row Key</h3>
-<p>Row keys are byte arrays comprised of the metric UID, a base timestamp and the UID for tagk/v pairs:  <tt class="docutils literal"><span class="pre">&lt;metric_uid&gt;&lt;timestamp&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></tt>. By default, UIDs are encoded on 3 bytes.</p>
+<p>All OpenTSDB data points are stored in a single, massive table, named <tt class="docutils literal"><span class="pre">tsdb</span></tt> by default. This is to take advantage of HBases ordering and region distribution. All values are stored in the <tt class="docutils literal"><span class="pre">t</span></tt> column family.</p>
+<p><strong>Row Key</strong> - Row keys are byte arrays comprised of the metric UID, a base timestamp and the UID for tagk/v pairs:  <tt class="docutils literal"><span class="pre">&lt;metric_uid&gt;&lt;timestamp&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></tt>. By default, UIDs are encoded on 3 bytes.</p>
 <p>The timestamp is a Unix epoch value in seconds encoded on 4 bytes. Rows are broken up into hour increments, reflected by the timestamp in each row. Thus each timestamp will be normalized to an hour value, e.g. <em>2013-01-01 08:00:00</em>. This is to avoid stuffing too many data points in a single row that would affect region distribution. Also, since HBase sorts on the row key, data for the same metric and time bucket, but with different tags, will be grouped together for efficient queries.</p>
 <p>Some example row keys, represented as hex are:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="mf">00000150E22700000001000001</span>
@@ -136,29 +147,76 @@ metric  time   tagk  tagv  tagk  tagv
 </pre></div>
 </div>
 <p>Tag names (tagk) are sorted alphabetically before storage, so the &quot;host&quot; tag will always appear first in the row key/TSUID ahead of &quot;owner&quot;.</p>
-</div>
-<div class="section" id="columns">
-<h3>Columns</h3>
-<p>There are currently three types of columns in the data table. All column qualifiers are byte arrays. In general, data point qualifiers will always have an even number of bytes while meta data have odd numbers.</p>
-<p><strong>Data Points</strong></p>
+<div class="section" id="data-point-columns">
+<h3>Data Point Columns</h3>
 <p>By far the most common column are data points. These are the actual values recorded when data is sent to the TSD for storage.</p>
-<p>Qualifier:</p>
-<p>The qualifier is comprised of 2 bytes that encode an offset from the row's base time and flags to determine if the value is an integer or a decimal value. The first 12 bits of the qualifer represent an integer that is a delta from the timestamp in the row key. For example, if the row key is normalized to <tt class="docutils literal"><span class="pre">1292148000</span></tt> and a data point comes in for <tt class="docutils literal"><span class="pre">1292148123</span> <span class="pre">``,</span> <span class="pre">the</span> <span class="pre">recorded</span> <span class="pre">delta</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">``123</span></tt>. The last 4 bits are flags that describe the data. <tt class="docutils literal"><span class="pre">0100</span></tt> means the column value is an 8 byte, signed integer. <tt class="docutils literal"><span class="pre">1011</span></tt> indicates the column value is a 4 byte floating point value TODO ____floatToRawIntBits____ So the qualifier for the data point at <tt class="docutils literal"><span class="pre">1292148123</span></tt> with an integer value of 42 would have a qualifier of <tt class="docutils literal"><span class="pre">0000011110110100</span></tt> or <tt class="docutils literal"><span class="pre">07B4</span></tt> in hex.</p>
-<p>Value:</p>
-<p>8 or 4 bytes encoded as indicated by the qualifier flag. E.g. our integer of <tt class="docutils literal"><span class="pre">42</span></tt> would be encoded as <tt class="docutils literal"><span class="pre">0000002A</span></tt>.</p>
-<p><strong>Compactions</strong></p>
-<p>If compactions have been enabled for a TSD, a row may be compacted after it's base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.</p>
-<p>Qualifier:</p>
-<p>The qualifier for a compacted column will always be an even number of bytes and is simply a concatenation of the qualifiers for every data point that was in the row. Since we know each data point qualifier is 2 bytes, it's simple to split this up. A qualifier in hex with 2 data points may look like <tt class="docutils literal"><span class="pre">07B407D4</span></tt>.</p>
-<p>Value:</p>
-<p>The value is also a concatenation of all of the individual data points. The qualifier is split first and the flags for each data point determine if the parser consumes 4 or 8 bytes</p>
-<p><strong>Annotations</strong></p>
-<p>A row may have annotations, notes about the timeseries represented by the row.</p>
-<p>Qualifier:</p>
-<p>The qualifier is on 3 bytes with the first byte an ID that denotes the column as a qualifier. The first byte will always have a hex value of <tt class="docutils literal"><span class="pre">01</span></tt>. The second two bytes encode the timestamp delta, in seconds, from the row base time in a manner similar to a data point, though without the flags. Thus if we record an annotation at <tt class="docutils literal"><span class="pre">1292148123</span></tt>, the delta will be <tt class="docutils literal"><span class="pre">123</span></tt> and the qualifier, in hex, will be <tt class="docutils literal"><span class="pre">01007B</span></tt>.</p>
-<p>Value:</p>
-<p>Annotation values are UTF-8 encoded JSON objects. Do not modify this value directly. The order of the fields is important, affecting CAS calls.</p>
+<p><strong>Column Qualifiers</strong> - The qualifier is comprised of 2 or 4 bytes that encode an offset from the row's base time and flags to determine if the value is an integer or a decimal value. Qualifiers encode an offset from the row base time as well as the format and length of the data stored.</p>
+<p>Columns with 2 byte qualifiers have an offset in seconds. The first 12 bits of the qualifer represent an integer that is a delta from the timestamp in the row key. For example, if the row key is normalized to <tt class="docutils literal"><span class="pre">1292148000</span></tt> and a data point comes in for <tt class="docutils literal"><span class="pre">1292148123</span></tt>, the recorded delta will be <tt class="docutils literal"><span class="pre">123</span></tt>. The last 4 bits are format flags</p>
+<p>Columns with 4 byte qualifiers have an offset in milliseconds. The first 4 <em>bits</em> of the qualifier will always be set to <tt class="docutils literal"><span class="pre">1</span></tt> or <tt class="docutils literal"><span class="pre">F</span></tt> in hex. The next 22 bits encode the offset in milliseconds as an unsigned integer. The next 2 bits are reserved and the final 4 bits are format flags.</p>
+<p>The last 4 bits of either column type describe the data stored. The first bit is a flag that indicates whether or not the value is an integer or floating point. A value of 0 indicates an integer, 1 indicates a float. The last 3 bits indicate the length of the data, offset by 1. A value of <tt class="docutils literal"><span class="pre">000</span></tt> indicates a 1 byte value while <tt class="docutils literal"><span class="pre">010</span></tt> indicates a 2 byte value. The length must reflect a value of 1, 2, 4 or 8. Anything else indicates an error.</p>
+<p>For example, <tt class="docutils literal"><span class="pre">0100</span></tt> means the column value is an 8 byte, signed integer. <tt class="docutils literal"><span class="pre">1011</span></tt> indicates the column value is a 4 byte floating point value So the qualifier for the data point at <tt class="docutils literal"><span class="pre">1292148123</span></tt> with an integer value of 4294967296 would have a qualifier of <tt class="docutils literal"><span class="pre">0000011110110100</span></tt> or <tt class="docutils literal"><span class="pre">07B4</span></tt> in hex.</p>
+<p><strong>Column Values</strong> - 1 to 8 bytes encoded as indicated by the qualifier flag.</p>
 </div>
+<div class="section" id="compactions">
+<h3>Compactions</h3>
+<p>If compactions have been enabled for a TSD, a row may be compacted after it's base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The OpenTSDB compaction process is entirely separate in scope and definition than the HBase idea of compactions.</p>
+</div>
+<p><strong>Column Qualifiers</strong> - The qualifier for a compacted column will always be an even number of bytes and is simply a concatenation of the qualifiers for every data point that was in the row. Since we know each data point qualifier is 2 bytes, it's simple to split this up. A qualifier in hex with 2 data points may look like <tt class="docutils literal"><span class="pre">07B407D4</span></tt>.</p>
+<p><strong>Column Values</strong> - The value is also a concatenation of all of the individual data points. The qualifier is split first and the flags for each data point determine if the parser consumes 4 or 8 bytes</p>
+</div>
+<div class="section" id="annotations-or-other-objects">
+<h3>Annotations or Other Objects</h3>
+<p>A row may store notes about the timeseries inline with the datapoints. Objects differ from data points by having an odd number of bytes in the qualifier.</p>
+<p><strong>Column Qualifiers</strong> - The qualifier is on 3 or 5 bytes with the first byte an ID that denotes the column as a qualifier. The first byte will always have a hex value of <tt class="docutils literal"><span class="pre">01</span></tt> for annotations (future object types will have a different prefix). The remaining bytes encode the timestamp delta from the row base time in a manner similar to a data point, though without the flags. If the qualifier is 3 bytes in length, the offset is in seconds. If the qualifier is 5 bytes in length, the offset is in milliseconds. Thus if we record an annotation at <tt class="docutils literal"><span class="pre">1292148123</span></tt>, the delta will be <tt class="docutils literal"><span class="pre">123</span></tt> and the qualifier, in hex, will be <tt class="docutils literal"><span class="pre">01007B</span></tt>.</p>
+<p><strong>Column Values</strong> - Annotation values are UTF-8 encoded JSON objects. Do not modify this value directly. The order of the fields is important, affecting CAS calls.</p>
+</div>
+</div>
+<div class="section" id="uid-table-schema">
+<h2>UID Table Schema</h2>
+<p>A separate, smaller table called <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> stores UID mappings, both forward and reverse. Two columns exist, one named <tt class="docutils literal"><span class="pre">name</span></tt> that maps a UID to a string and another <tt class="docutils literal"><span class="pre">id</span></tt> mapping strings to UIDs. Each row in the column family will have at least one of three columns with mapping values. The standard column qualifiers are:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">metrics</span></tt> for mapping metric names to UIDs</li>
+<li><tt class="docutils literal"><span class="pre">tagk</span></tt> for mapping tag names to UIDs</li>
+<li><tt class="docutils literal"><span class="pre">tagv</span></tt> for mapping tag values to UIDs.</li>
+</ul>
+<p>The <tt class="docutils literal"><span class="pre">name</span></tt> family may also contain additional meta-data columns if configured.</p>
+<div class="section" id="id-column-family">
+<h3><tt class="docutils literal"><span class="pre">id</span></tt> Column Family</h3>
+<p><strong>Row Key</strong> - This will be the string assigned to the UID. E.g. for a metric we may have a value of <tt class="docutils literal"><span class="pre">sys.cpu.user</span></tt> or for a tag value it may be <tt class="docutils literal"><span class="pre">42</span></tt>.</p>
+<p><strong>Column Qualifiers</strong> - One of the standard column types above.</p>
+<p><strong>Column Value</strong> - An unsigned integer encoded on 3 bytes by default reflecting the UID assigned to the string for the column type. If the UID length has been changed in the source code, the width may vary.</p>
+</div>
+<div class="section" id="name-column-family">
+<h3><tt class="docutils literal"><span class="pre">name</span></tt> Column Family</h3>
+<p><strong>Row Key</strong> - The unsigned integer UID encoded on 3 bytes by default. If the UID length has been changed in the source code, the width may be different.</p>
+<p><strong>Column Qualifiers</strong> - One of the standard column types above OR one of <tt class="docutils literal"><span class="pre">metrics_meta</span></tt>, <tt class="docutils literal"><span class="pre">tagk_meta</span></tt> or <tt class="docutils literal"><span class="pre">tagv_meta</span></tt>.</p>
+<p><strong>Column Value</strong> - For the standard qualifiers above, the string assigned to the UID. For a <tt class="docutils literal"><span class="pre">*_meta</span></tt> column, the value will be a UTF-8 encoded, JSON formatted UIDMeta Object as a string. Do not modify the column value outside of OpenTSDB. The order of the fields is important, affecting CAS calls.</p>
+</div>
+<div class="section" id="uid-assignment-row">
+<h3>UID Assignment Row</h3>
+<p>Within the <tt class="docutils literal"><span class="pre">id</span></tt> column family is a row with a single byte key of <tt class="docutils literal"><span class="pre">\x00</span></tt>. This is the UID row that is incremented for the proper column type (metrics, tagk or tagv) when a new UID is assigned. The column values are 8 byte signed integers and reflect the maximum UID assigned for each type. On assignment, OpenTSDB calls HBase's atomic increment command on the proper column to fetch a new UID.</p>
+</div>
+</div>
+<div class="section" id="meta-table-schema">
+<h2>Meta Table Schema</h2>
+<p>This table is an index of the different time series stored in OpenTSDB and can contain meta-data for each series as well as the number of data points stored for each series. Note that data will only be written to this table if OpenTSDB has been configured to track meta-data or the user creates a TSMeta object via the API. Only one column family is used, the <tt class="docutils literal"><span class="pre">name</span></tt> family and currently there are two types of columns, the meta column and the counter column.</p>
+<p><strong>Row Key</strong> - This is the same as a data point table row key without the timestamp. E.g. <tt class="docutils literal"><span class="pre">&lt;metric_uid&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></tt>. It is shared for all column types.</p>
+<div class="section" id="tsmeta-column">
+<h3>TSMeta Column</h3>
+<p>These columns store UTF-8 encoded, JSON formatted objects similar to UIDMeta objects. The qualifier is always <tt class="docutils literal"><span class="pre">ts_meta</span></tt>. Do not modify these column values outside of OpenTSDB or it may break CAS calls.</p>
+</div>
+<div class="section" id="ts-counter-column">
+<h3><tt class="docutils literal"><span class="pre">ts_counter</span></tt> Column</h3>
+<p>These columns are atomic incrementers that count the number of data points stored for a time series. The qualifier is <tt class="docutils literal"><span class="pre">ts_counter</span></tt> and the value is an 8 byte signed integer.</p>
+</div>
+</div>
+<div class="section" id="tree-table-schema">
+<h2>Tree Table Schema</h2>
+<p>This table behaves as an index, organizing time series into a heirarchichal structure similar to a file system for use with tools such as Graphite.</p>
+<p>TODO</p>
 </div>
 </div>
 

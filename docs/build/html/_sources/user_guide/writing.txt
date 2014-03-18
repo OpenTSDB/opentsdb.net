@@ -16,9 +16,10 @@ OpenTSDB handles things a bit differently by introducing the idea of 'tags'. Eac
 
 Take the previous example where the metric was ``webserver01.sys.cpu.0.user``. In OpenTSDB, this may become ``sys.cpu.user host=webserver01, cpu=0``. Now if we want the data for an individual core, we can craft a query like ``sum:sys.cpu.user{host=webserver01,cpu=42}``. If we want all of the cores, we simply drop the cpu tag and ask for ``sum:sys.cpu.user{host=webserver01}``. This will give us the aggregated results for all 64 cores. If we want the results for all 1,000 servers, we simply request ``sum:sys.cpu.user``. The underlying data schema will store all of the ``sys.cpu.user`` time series next to each other so that aggregating the individual values is very fast and efficient. OpenTSDB was designed to make these aggregate queries as fast as possible since most users start out at a high level, then drill down for detailed information.
 
-.. _tag_issues:
+Aggregations
+------------
 
-While the tagging system is flexible, some problems can arise if you don't understand how the querying side of OpenTSDB, hence the need for some forethought. Take the example query above: ``sum:sys.cpu.user{host=webserver01}``. We recorded 64 unique time series for ``webserver01``, one time series for each of the CPU cores. When we issues that query, all of the time series for metric ``sys.cpu.user`` with the tag ``host=webserver01`` were retrieved, averaged and returned as one series of numbers. Lets say the resulting average was ``50`` for timestamp ``1356998400``. Now we were migrating from another system to OpenTSDB and had a process that pre-aggregated all 64 cores so that we could quickly get the average value and simply wrote a new time series "sys.cpu.user host=webserver01``. If we run the same query, we'll get a value of ``100`` at ``1356998400``. What happened? OpenTSDB aggregated all 64 time series 'and' the pre-aggregated time series to get to that 100. In storage, we would have something like this:
+While the tagging system is flexible, some problems can arise if you don't understand how the querying side of OpenTSDB, hence the need for some forethought. Take the example query above: ``sum:sys.cpu.user{host=webserver01}``. We recorded 64 unique time series for ``webserver01``, one time series for each of the CPU cores. When we issues that query, all of the time series for metric ``sys.cpu.user`` with the tag ``host=webserver01`` were retrieved, averaged and returned as one series of numbers. Lets say the resulting average was ``50`` for timestamp ``1356998400``. Now we were migrating from another system to OpenTSDB and had a process that pre-aggregated all 64 cores so that we could quickly get the average value and simply wrote a new time series ``sys.cpu.user host=webserver01``. If we run the same query, we'll get a value of ``100`` at ``1356998400``. What happened? OpenTSDB aggregated all 64 time series *and* the pre-aggregated time series to get to that 100. In storage, we would have something like this:
 ::
 
   sys.cpu.user host=webserver01        1356998400  50
@@ -29,17 +30,49 @@ While the tagging system is flexible, some problems can arise if you don't under
   ...
   sys.cpu.user host=webserver01,cpu=63 1356998400  1
   
-OpenTSDB will 'automatically' aggregate 'all' of the time series for the metric in a query if no tags are given. If one or more tags are definied, the aggregate will 'include all' time series that match on that tag, regardless of other tags. With the query ``sum:sys.cpu.user{host=webserver01}``, we would include ``sys.cpu.user host=webserver01,cpu=0`` as well as ``sys.cpu.user host=webserver01,cpu=0,manufacturer=Intel``, ``sys.cpu.user host=webserver01,foo=bar`` and ``sys.cpu.user host=webserver01,cpu=0,datacenter=lax,department=ops``. The moral of this example is: be careful about your naming schema.
+OpenTSDB will *automatically* aggregate *all* of the time series for the metric in a query if no tags are given. If one or more tags are definied, the aggregate will 'include all' time series that match on that tag, regardless of other tags. With the query ``sum:sys.cpu.user{host=webserver01}``, we would include ``sys.cpu.user host=webserver01,cpu=0`` as well as ``sys.cpu.user host=webserver01,cpu=0,manufacturer=Intel``, ``sys.cpu.user host=webserver01,foo=bar`` and ``sys.cpu.user host=webserver01,cpu=0,datacenter=lax,department=ops``. The moral of this example is: *be careful with your naming schema*.
 
-While OpenTSDB's aggregations are pretty fast, sometimes they aren't fast enough and you may indeed want to pre-aggregate something. For example, if you have many thousands of hosts, it would take a while to aggregate the CPU time across all of those servers. If you want to record and query just the pre-aggregated value separately, simply use a different metric. For example: ``sys.cpu.user.avg host=webserver01`` or ``sys.cpu.user.sum host=webserver01``. Now you can query the pre-aggregate for just that one server or you could even aggregate the pre-aggregates for all of your servers with ``avg:sys.cpu.user.avg``.
+Timeseries Cardinality
+----------------------
 
-When you design your naming schema, keep these in mind:
+A critical aspect to your naming schema to cover before writing any production data is to consider the cardinality of timeseries. Cardinality is defined as the number of unique items in a set. In OpenTSDB's case, this means the number of items associated with a metric, i.e. all of the possible tag name and value combinations, as well as the number of unique metric names, tag names and tag values. Cardinality is important for two reasons outlined below.
 
-* Be consistent with your naming
-* Use the same number and type of tags for each metric
-* Think about the most common queries you'll be executing
+**Limitied Unique IDs (UIDs)** 
+
+There is a limited number of unique IDs to assign for each metric, tag name and tag value. By default this are just over 16 million possible IDs for per type. If, for example, you ran a very popular web service and tried to track the IP address of clients as a tag, e.g. ``web.app.hits clientip=192.168.1.1``, you may quickly run into the UID assignment limit as there are over 4 billion possible IP version 4 addresses. (Additionally, in this particular example, you would wind up creating very spares time series as the user at address ``192.168.1.1`` may only use your app every few days, once a month or one time ever.)
+
+The UID limit is usually not an issue, however. A tag value is assigned a UID that is completely disassociated from it's tag name. If you use numeric identifiers for tag values, the numer is assigned a UID once and can be used with many tag names. For example, if we assign a UID to the number ``2``, we could store timeseries with the tag pairs ``cpu=2``, ``interface=2``, ``hdd=2`` and ``fan=2`` while consuming only 1 tag value UID (``1``) and 4 tag name UIDs (``cpu``, ``interface``, ``hdd`` and ``fan``).
+
+If you think that the UID limit may impact you, first think about the queries that you want to execute. If we look at the ``web.app.hits`` example, usually you only care about the total number of hits to your service and rarely need to drill down to a specific IP address. In that case, you may want to store the IP address as an annotation. That way you could still benefit from low cardinality but if you need to, you could search the results for that particular IP using external scripts. (future version of OpenTSDB will likely support annotation queries).
+
+If you desperately need more than 16 million values, you can change the number of bytes that UIDs are encoded on up to a maximum of 8 bytes (the default is 3). You can edit the source, modify the value for the type you need more values of, and recompile.
+
+.. Warning:: If you do change the limit, you must start with a fresh data and UID table. Any data written with a default TSD will be incompatible with the change, so make sure all of your TSDs run the same code. See the ``TSDB.java`` file for the values to change.
+
+**Query Speed**
+
+Cardinality also affects the query speed a great deal, hence we want you to think about the queries you will be performing the most and optimize your naming schema for those. OpenTSDB creates a new row per timeseries per hour. If we have the timeseries ``sys.cpu.user host=webserver01,cpu=0`` with data written every second for 1 day, that would result in 24 rows of data. However if we have 8 possible CPU cores for that host, now we have 192 rows of data. This looks good because we can get easily a sum or average of CPU  usage across all cores by issuing a query like ``start=1d-ago&m=avg:sys.cpu.user{host=webserver01}``.
+
+However what if we have 20,000 hosts, each with 8 cores? Now we will have 3.8 million rows per day due to a high cardinality of host values. Queries for the average core usage on host ``webserver01`` will be slower as it must pick out 192 rows out of 3.8 million. 
+
+The benefits of this schema are that you have very deep granularity in your data, i.e. the usage per core. You can also easily craft a query to get the average usage across all cores an all hosts: ``start=1d-ago&m=avg:sys.cpu.user``. However queries against that particular metric will take longer to run as there are more rows to sift through.
+
+Here are some common means of dealing with cardinality:
+
+**Pre-Aggregate** - In the example above with ``sys.cpu.user``, you generally care about the average usage on the host, not the usage per core. While the data collector may send a separate value per core with the tagging schema above, the collector could also send one extra data point such as ``sys.cpu.user.avg host=webserver01``. Now you have a completely separate timeseries that would only have 24 rows per day and with 20K hosts, only 480K rows to sift through. Queries will be much more responsive for the per-host average and you still have per-core data to drill down too separately.
+
+**Shift to Metric** - What if you really only care about the metrics for a particular host and don't need to aggregate across hosts? In that case you can shift the hostname to the metric. Our previous example becomes ``sys.cpu.user.websvr01 cpu=0``. Queries against this schema are very fast as there would only be 192 rows per day for the metric. However to aggregate across hosts you would have to execute mutliple queries and aggregate outside of OpenTSDB. (Future work will include this capability).
+
+Naming Conclusion
+-----------------
+
+When you design your naming schema, keep these suggestions in mind:
+
+* Be consistent with your naming to reduce duplication. Always use the same case for metrics, tag names and values.
+* Use the same number and type of tags for each metric. E.g. don't store ``my.metric host=foo`` and ``my.metric datacenter=lga``.
+* Think about the most common queries you'll be executing and optimize your schema for those queries
 * Think about how you may want to drill down when querying
-* Don't use too many tags, keep it to a fairly small number
+* Don't use too many tags, keep it to a fairly small number, usually up to 4 or 5 tags. (by default you are limited to 8)
 
 Data Specification
 ^^^^^^^^^^^^^^^^^^

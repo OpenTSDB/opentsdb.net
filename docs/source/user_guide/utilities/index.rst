@@ -9,3 +9,5 @@ This page lists some of the utilities or projects included with OpenTSDB or main
    tcollector
    clean_cache
    tsddrain
+   varnish
+   nagios

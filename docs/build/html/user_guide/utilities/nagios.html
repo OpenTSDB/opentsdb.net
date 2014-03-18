@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Alerting with Nagios &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="Utilities" href="index.html" />
+    <link rel="next" title="Logging" href="../logging.html" />
+    <link rel="prev" title="Load Balancing with Varnish" href="varnish.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../logging.html" title="Logging"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="varnish.html" title="Load Balancing with Varnish"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Alerting with Nagios</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#nagios-setup">Nagios Setup</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="varnish.html"
+                        title="previous chapter">Load Balancing with Varnish</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../logging.html"
+                        title="next chapter">Logging</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="alerting-with-nagios">
+<h1>Alerting with Nagios</h1>
+<p>OpenTSDB is great, but it's not (yet) a full monitoring platform. Now that you have a bunch of metrics in OpenTSDB, you want to start sending alerts when thresholds are getting too high. It's easy!</p>
+<p>In the <tt class="docutils literal"><span class="pre">tools</span></tt> directory is a Python script <tt class="docutils literal"><span class="pre">check_tsd</span></tt>. This script queries OpenTSDB and returns Nagios compatible output that gives you OK/WARNING/CRITICAL state.</p>
+<div class="section" id="parameters">
+<h2>Parameters</h2>
+<div class="highlight-python"><div class="highlight"><pre>Options:
+  -h, --help            show this help message and exit
+  -H HOST, --host=HOST  Hostname to use to connect to the TSD.
+  -p PORT, --port=PORT  Port to connect to the TSD instance on.
+  -m METRIC, --metric=METRIC
+                        Metric to query.
+  -t TAG, --tag=TAG     Tags to filter the metric on.
+  -d SECONDS, --duration=SECONDS
+                        How far back to look for data.
+  -D METHOD, --downsample=METHOD
+                        Downsample the data over the duration via avg, min,
+                        sum, or max.
+  -a METHOD, --aggregator=METHOD
+                        Aggregation method: avg, min, sum (default), max.
+  -x METHOD, --method=METHOD
+                        Comparison method for -w/-c: gt, ge, lt, le, eq, ne.
+  -w THRESHOLD, --warning=THRESHOLD
+                        Threshold for warning.  Uses the comparison method.
+  -c THRESHOLD, --critical=THRESHOLD
+                        Threshold for critical.  Uses the comparison method.
+  -v, --verbose         Be more verbose.
+  -T SECONDS, --timeout=SECONDS
+                        How long to wait for the response from TSD.
+  -E, --no-result-ok    Return OK when TSD query returns no result.
+  -I SECONDS, --ignore-recent=SECONDS
+                        Ignore data points that are that are that recent.
+</pre></div>
+</div>
+</div>
+<div class="section" id="nagios-setup">
+<h2>Nagios Setup</h2>
+<p>Drop the script into your Nagios path and set up a command like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>define command{
+        command_name check_tsd
+        command_line $USER1$/check_tsd -H $HOSTADDRESS$ $ARG1$
+}
+</pre></div>
+</div>
+<p>Then define a host in nagios for your TSD server(s). You can give it a check_command that is guaranteed to always return something if the backend is healthy.</p>
+<div class="highlight-python"><div class="highlight"><pre>define host{
+        host_name               tsd
+        address                 tsd
+        check_command           check_tsd!-d 60 -m rate:tsd.rpc.received -t type=put -x lt -c 1
+        [...]
+}
+</pre></div>
+</div>
+<p>Then define some service checks for the things you want to monitor.</p>
+<div class="highlight-python"><div class="highlight"><pre>define service{
+        host_name                       tsd
+        service_description             Apache too many internal errors
+        check_command                   check_tsd!-d 300 -m rate:apache.stats.hits -t status=500 -w 1 -c 2
+        [...]
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../logging.html" title="Logging"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="varnish.html" title="Load Balancing with Varnish"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

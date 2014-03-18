@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Load Balancing with Varnish &mdash; OpenTDSB 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTDSB 2.0 documentation" href="../../index.html" />
+    <link rel="up" title="Utilities" href="index.html" />
+    <link rel="next" title="Logging" href="../logging.html" />
+    <link rel="prev" title="tsddrain.py" href="tsddrain.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../logging.html" title="Logging"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tsddrain.html" title="tsddrain.py"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tsddrain.html"
+                        title="previous chapter">tsddrain.py</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../logging.html"
+                        title="next chapter">Logging</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="load-balancing-with-varnish">
+<h1>Load Balancing with Varnish</h1>
+<p><a class="reference external" href="https://www.varnish-cache.org/">Varnish</a> is a powerful HTTP load balancer (reverse proxy), which is also very good at caching. When running multiple TSDs, Varnish comes in handy to distribute the HTTP traffic across the TSDs. Bear in mind that write traffic doesn't use the HTTP protocol by default, and as such you can only use Varnish for read queries. Using Varnish will help you easily scale the amount of read capacity of your TSD cluster.</p>
+<p>The following is a sample Varnish configuration recommended for use with OpenTSDB. It uses a slightly custom load balancing strategy to achieve optimal cache hit rate at the TSD level. This configuration requires at least Varnish 2.1.0 to run, but using Varnish 3.0 or above is strongly recommended.</p>
+<p>This sample configuration is for 2 backends, named <tt class="docutils literal"><span class="pre">foo</span></tt> and <tt class="docutils literal"><span class="pre">bar</span></tt>. You need to substitute at least the host names.</p>
+<div class="highlight-python"><div class="highlight"><pre># VCL configuration for OpenTSDB.
+
+backend foo {
+    .host = &quot;foo&quot;;
+    .port = &quot;4242&quot;;
+    .probe = {
+        .url = &quot;/version&quot;;
+        .interval = 30s;
+        .timeout = 10s;
+        .window = 5;
+        .threshold = 3;
+    }
+}
+
+backend bar {
+    .host = &quot;bar&quot;;
+    .port = &quot;4242&quot;;
+    .probe = {
+        .url = &quot;/version&quot;;
+        .interval = 30s;
+        .timeout = 10s;
+        .window = 5;
+        .threshold = 3;
+    }
+}
+
+# The `client&#39; director will select a backend based on `client.identity&#39;.
+# It&#39;s normally used to implement session stickiness but here we abuse it
+# to try to send pairs of requests to the same TSD, in order to achieve a
+# higher cache hit rate.  The UI sends queries first with a &quot;&amp;json&quot; at the
+# end, in order to get meta-data back about the results, and then it sends
+# the same query again with &quot;&amp;png&quot;.  If the second query goes to a different
+# TSD, then that TSD will have to fetch the data from HBase again.  Whereas
+# if it goes to the same TSD that served the &quot;&amp;json&quot; query, it&#39;ll hit the
+# cache of that TSD and produce the PNG directly without using HBase.
+#
+# Note that we cannot use the `hash&#39; director here, because otherwise Varnish
+# would hash both the &quot;&amp;json&quot; and the &quot;&amp;png&quot; requests identically, and it
+# would thus serve a cached JSON response to a &quot;&amp;png&quot; request.
+director tsd client {
+    { .backend = foo; .weight = 100; }
+    { .backend = bar; .weight = 100; }
+}
+
+sub vcl_recv {
+    set req.backend = tsd;
+    # Make sure we hit the same backend based on the URL requested,
+    # but ignore some parameters before hashing the URL.
+    set client.identity = regsuball(req.url, &quot;&amp;(o|ignore|png|json|html|y2?range|y2?label|y2?log|key|nokey)\b(=[^&amp;]*)?&quot;, &quot;&quot;);
+}
+
+sub vcl_hash {
+    # Remove the `ignore&#39; parameter from the URL we hash, so that two
+    # identical requests modulo that parameter will hit Varnish&#39;s cache.
+    hash_data(regsuball(req.url, &quot;&amp;ignore\b(=[^&amp;]*)?&quot;, &quot;&quot;));
+    if (req.http.host) {
+        hash_data(req.http.host);
+    } else {
+        hash_data(server.ip);
+    }
+    return (hash);
+}
+</pre></div>
+</div>
+<p>On many Linux distros (including Debian and Ubuntu), you need to put the configuration above in <tt class="docutils literal"><span class="pre">/etc/varnish/default.vcl</span></tt>. We also recommend tweaking the command-line parameters of <tt class="docutils literal"><span class="pre">varnishd</span></tt> in order to use a memory-backed cache of about 1GB if you can afford it. On Debian/Ubuntu systems, this is done by editing <tt class="docutils literal"><span class="pre">/etc/default/varnish</span></tt> to make sure that <tt class="docutils literal"><span class="pre">-s</span> <span class="pre">malloc,1G</span></tt> is passed to <tt class="docutils literal"><span class="pre">varnishd</span></tt>.</p>
+<p>Read more about Varnish:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.varnish-cache.org/docs/trunk/reference/vcl.html">The VCL configuration language</a></li>
+<li><a class="reference external" href="http://www.varnish-cache.org/trac/wiki/BackendPolling">Health checking backends</a></li>
+<li><a class="reference external" href="http://www.varnish-cache.org/trac/wiki/LoadBalancing">Tweaking the load balancing strategy</a></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">if you're using Varnish 2.x (which is not recommended as we would strongly encourage you to migrate to 3.x) you have to replace each function call <tt class="docutils literal"><span class="pre">hash_data(foo);</span></tt> to set <tt class="docutils literal"><span class="pre">req.hash</span> <span class="pre">+=</span> <span class="pre">foo;</span></tt> in the VCL configuration above.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../logging.html" title="Logging"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tsddrain.html" title="tsddrain.py"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

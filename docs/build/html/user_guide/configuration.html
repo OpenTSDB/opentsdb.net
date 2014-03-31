@@ -109,7 +109,7 @@ is followed by an equals sign, then the value for the property. All OpenTSDB
 properties start with <tt class="docutils literal"><span class="pre">tsd.</span></tt> Comments or inactive configuration lines are
 blocked by a hash symbol <tt class="docutils literal"><span class="pre">#</span></tt>. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre># List of Zookeeper hosts that manage the HBase cluster
-tsd.storage.hbase.zk_quorum - 192.168.1.100
+tsd.storage.hbase.zk_quorum = 192.168.1.100
 </pre></div>
 </div>
 <p>will configure the TSD to connect to Zookeeper on <tt class="docutils literal"><span class="pre">192.168.1.100</span></tt>.</p>

@@ -16,11 +16,11 @@ Sample Data
    "2", "sys.cpu.system", "dc=dal host=web02", "0102040102"
    "3", "sys.cpu.system", "dc=dal host=web03", "0102040103"
    "4", "sys.cpu.system", "host=web01", "010101"
-   "5", "sys.cpu.system", "host=web01 owner=jdoe", "0102040101"
-   "6", "sys.cpu.system", "dc=lax host=web01", "0102040101"
-   "7", "sys.cpu.system", "dc=lax host=web01", "0102040101"
-   "8", "sys.cpu.user", "dc=dal host=web01", "0102040101"
-   "9", "sys.cpu.user", "dc=dal host=web01", "0102040101"
+   "5", "sys.cpu.system", "host=web01 owner=jdoe", "0101010306"
+   "6", "sys.cpu.system", "dc=lax host=web01", "0102050101"
+   "7", "sys.cpu.system", "dc=lax host=web02", "0102050102"
+   "8", "sys.cpu.user", "dc=dal host=web01", "0202040101"
+   "9", "sys.cpu.user", "dc=dal host=web02", "0202040102"
    
 **UIDs**
 
@@ -88,7 +88,7 @@ Query 1 - All Time Series for a Metric
 
   m=sum:cpu.system
   
-This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID ``01`` between <start> and <end>. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.
+This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID ``01`` between *<start>* and *<end>*. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.
 
 .. code-block :: javascript
 

@@ -148,27 +148,27 @@
 <tr class="row-even"><td>5</td>
 <td>sys.cpu.system</td>
 <td>host=web01 owner=jdoe</td>
-<td>0102040101</td>
+<td>0101010306</td>
 </tr>
 <tr class="row-odd"><td>6</td>
 <td>sys.cpu.system</td>
 <td>dc=lax host=web01</td>
-<td>0102040101</td>
+<td>0102050101</td>
 </tr>
 <tr class="row-even"><td>7</td>
 <td>sys.cpu.system</td>
-<td>dc=lax host=web01</td>
-<td>0102040101</td>
+<td>dc=lax host=web02</td>
+<td>0102050102</td>
 </tr>
 <tr class="row-odd"><td>8</td>
 <td>sys.cpu.user</td>
 <td>dc=dal host=web01</td>
-<td>0102040101</td>
+<td>0202040101</td>
 </tr>
 <tr class="row-even"><td>9</td>
 <td>sys.cpu.user</td>
-<td>dc=dal host=web01</td>
-<td>0102040101</td>
+<td>dc=dal host=web02</td>
+<td>0202040102</td>
 </tr>
 </tbody>
 </table>
@@ -271,7 +271,7 @@
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system
 </pre></div>
 </div>
-<p>This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID <tt class="docutils literal"><span class="pre">01</span></tt> between &lt;start&gt; and &lt;end&gt;. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.</p>
+<p>This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID <tt class="docutils literal"><span class="pre">01</span></tt> between <em>&lt;start&gt;</em> and <em>&lt;end&gt;</em>. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>

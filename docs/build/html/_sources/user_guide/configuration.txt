@@ -14,7 +14,7 @@ properties start with ``tsd.`` Comments or inactive configuration lines are
 blocked by a hash symbol ``#``. For example::
 
   # List of Zookeeper hosts that manage the HBase cluster
-  tsd.storage.hbase.zk_quorum - 192.168.1.100
+  tsd.storage.hbase.zk_quorum = 192.168.1.100
   
 will configure the TSD to connect to Zookeeper on ``192.168.1.100``.
 

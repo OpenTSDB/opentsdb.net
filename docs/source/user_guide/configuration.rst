@@ -91,8 +91,8 @@ documentation for details.
    "tsd.storage.enable_compaction", "Boolean", "Optional", "Whether or not to enable compactions", "True", ""
    "tsd.storage.flush_interval", "Integer", "Optional", "How often, in milliseconds, to flush the data point storage write buffer", "1000", "--flush-interval"
    "tsd.storage.hbase.data_table", "String", "Optional", "Name of the HBase table where data points are stored", "tsdb", "--table"
-   "tsd.storage.hbase.tree_table", "String", "Optional", "Name of the HBase table where tree data are stored", "tsdb-tree", "";
-   "tsd.storage.hbase.meta_table", "String", "Optional", "Name of the HBase table where meta data are stored", "tsdb-meta", "";
+      "tsd.storage.hbase.meta_table", "String", "Optional", "Name of the HBase table where meta data are stored", "tsdb-meta", ""
+   "tsd.storage.hbase.tree_table", "String", "Optional", "Name of the HBase table where tree data are stored", "tsdb-tree", ""
    "tsd.storage.hbase.uid_table", "String", "Optional", "Name of the HBase table where UID information is stored", "tsdb-uid", "--uidtable"
    "tsd.storage.hbase.zk_basedir", "String", "Optional", "Path under which the znode for the -ROOT- region is located", "/hbase", "--zkbasedir"
    "tsd.storage.hbase.zk_quorum", "String", "Optional", "A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers.

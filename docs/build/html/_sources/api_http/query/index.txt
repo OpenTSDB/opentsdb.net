@@ -61,7 +61,7 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
 
 *Rate Options*
 
-Additional fields in the ``rateOptions`` field include the following:
+When passing rate options in a query string, the options must be enclosed in curly braces. For example:  ``m=sum:rate{counter,,1000}:if.octets.in``. If you wish to use the default ``counterMax`` but do want to supply a ``resetValue``, you must add two commas as in the previous example. Additional fields in the ``rateOptions`` object include the following:
 
 .. csv-table::
   :header: "Name", "Data Type", "Required", "Description", "Default", "Example"
@@ -79,7 +79,7 @@ The full specification for a metric query string sub query is as follows:
 
 ::
 
-  m=<aggregator>:[rate[,counter[,<counter_max>[,<reset_value>]]]:][<down_sampler>:]<metric_name>[{<tag_name1>=<tag_value1 &| grouping_operator>[,...<tag_nameN>=<tag_valueN &| grouping_operator>]}]
+  m=<aggregator>:[rate[{counter[,<counter_max>[,<reset_value>]]]}:][<down_sampler>:]<metric_name>[{<tag_name1>=<tag_value1 &| grouping_operator>[,...<tag_nameN>=<tag_valueN &| grouping_operator>]}]
   
 It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see :doc:`../../user_guide/query/examples`.
 

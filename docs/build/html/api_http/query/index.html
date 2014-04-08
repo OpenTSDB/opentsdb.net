@@ -292,7 +292,7 @@
 </tbody>
 </table>
 <p><em>Rate Options</em></p>
-<p>Additional fields in the <tt class="docutils literal"><span class="pre">rateOptions</span></tt> field include the following:</p>
+<p>When passing rate options in a query string, the options must be enclosed in curly braces. For example:  <tt class="docutils literal"><span class="pre">m=sum:rate{counter,,1000}:if.octets.in</span></tt>. If you wish to use the default <tt class="docutils literal"><span class="pre">counterMax</span></tt> but do want to supply a <tt class="docutils literal"><span class="pre">resetValue</span></tt>, you must add two commas as in the previous example. Additional fields in the <tt class="docutils literal"><span class="pre">rateOptions</span></tt> object include the following:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -339,7 +339,7 @@
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[,counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]:][&lt;down_sampler&gt;:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1 &amp;| grouping_operator&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN &amp;| grouping_operator&gt;]}]
+<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1 &amp;| grouping_operator&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN &amp;| grouping_operator&gt;]}]
 </pre></div>
 </div>
 <p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><em>Query Examples</em></a>.</p>

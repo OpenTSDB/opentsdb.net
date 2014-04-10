@@ -1,0 +1,11 @@
+net.opentsdb
+net.opentsdb.core
+net.opentsdb.graph
+net.opentsdb.meta
+net.opentsdb.search
+net.opentsdb.stats
+net.opentsdb.tools
+net.opentsdb.tree
+net.opentsdb.tsd
+net.opentsdb.uid
+net.opentsdb.utils

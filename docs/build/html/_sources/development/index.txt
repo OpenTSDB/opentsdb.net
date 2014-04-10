@@ -3,6 +3,8 @@ Development
 
 OpenTSDB has a strong and growing base of users running TSDs in production. There are also a number of talented developers creating tools for OpenTSDB or contributing code directly to the project. If you are interested in helping, by adding new features, fixing bugs, adding tools or simply updating documentation, please read the guidelines below. Then sign the contributors agreement and send us a pull request!
 
+If you are looking to integrate OpenTSDB with your application, the compiled JAVA library has a consistent and well documented API. Please see `JAVA API Documentation <http://opentsdb.net/docs/javadoc/index.html>`_.
+
 Guidelines
 ^^^^^^^^^^
 

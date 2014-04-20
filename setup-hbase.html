@@ -1,209 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Setup HBase - OpenTSDB - A Distributed, Scalable Monitoring System</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/otsdb-bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/custom.css" rel="stylesheet">
-
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-18339382-1']);
-      _gaq.push(['_setDomainName', 'none']);
-      _gaq.push(['_setAllowLinker', true]);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-  </head>
-
-  <body>
-     <div class="container">
-       <h1><a href="http://www.opentsdb.net/">OpenTSDB</a></h1>
-       
-     <div class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="overview.html">Overview</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Download</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
-              <li><a href="docs/build/html/index.html">Documentation</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-            </ul>
-          </div>
-        </div>
-      </div><section id="setuphbase">
-<h2>Setup HBase</h2>
-In order to use OpenTSDB, you need to have
-<a href="http://hbase.org">HBase</a> up and running.
-This page will help you get started with a simple, single-node HBase
-setup, which is good enough to evaluate OpenTSDB or monitor small
-installations.  If you need scalability and reliability, you will
-need to setup a full HBase cluster.
-<p>
-You can copy-paste all the following instructions directly into a terminal.
-
-<a name="singlenode"></a>
-<h3>Setup a single-node HBase instance</h3>
-If you already have an HBase cluster,
-<a href="getting-started.html">skip this step</a>.
-If you're gonna be using less than 5-10 nodes, stick to a single node.
-Deploying HBase on a single node is easy and can help get you started
-with OpenTSDB quickly.  You can always scale to a real cluster and migrate
-your data later.
-<p>
-<div class="code">wget http://www.apache.org/dist/hbase/hbase-0.94.12/hbase-0.94.12.tar.gz
-tar xfz hbase-0.94.12.tar.gz
-cd hbase-0.94.12
-</div>
-At this point, you are ready to start HBase (without HDFS) on a single
-node.  But before starting it, I recommend using the following configuration:
-<div class="code">hbase_rootdir=${TMPDIR-'/tmp'}/tsdhbase
-iface=lo`uname | sed -n s/Darwin/0/p`
-cat &gt;conf/hbase-site.xml &lt;&lt;EOF
-&lt;?xml version="1.0"?&gt;
-&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;
-&lt;configuration&gt;
-  &lt;property&gt;
-    &lt;name&gt;hbase.rootdir&lt;/name&gt;
-    &lt;value&gt;file:///$hbase_rootdir/hbase-\${user.name}/hbase&lt;/value&gt;
-  &lt;/property&gt;
-  &lt;property&gt;
-    &lt;name&gt;hbase.zookeeper.dns.interface&lt;/name&gt;
-    &lt;value&gt;$iface&lt;/value&gt;
-  &lt;/property&gt;
-  &lt;property&gt;
-    &lt;name&gt;hbase.regionserver.dns.interface&lt;/name&gt;
-    &lt;value&gt;$iface&lt;/value&gt;
-  &lt;/property&gt;
-  &lt;property&gt;
-    &lt;name&gt;hbase.master.dns.interface&lt;/name&gt;
-    &lt;value&gt;$iface&lt;/value&gt;
-  &lt;/property&gt;
-&lt;/configuration&gt;
-EOF
-</div>
-Make sure to adjust the value of <code>hbase_rootdir</code> if you want HBase
-to store its data in somewhere more durable than a temporary directory.  The
-default is to use <code>/tmp</code>, which means you'll lose all your data
-whenever your server reboots.  The remaining settings are less important
-and simply force HBase to stick to the loopback interface (<code>lo0</code>
-on Mac OS X, or just <code>lo</code> on Linux), which simplifies things when
-you're just testing HBase on a single node.
-<a name="lzo"></a>
-<p>
-Now start HBase:
-<div class="code">./bin/start-hbase.sh</div>
-
-<a name="lzo"></a>
-<h3>Using LZO</h3>
-There is no reason to not use LZO with HBase.  Except in rare cases, the CPU
-cycles spent on doing LZO compression / decompression pay for themselves by
-saving you time wasted doing more I/O.  This is certainly true for OpenTSDB
-where LZO can easily compress OpenTSDB's binary data by 3 to 4x.  Installing
-LZO is simple and is done as follows.
-
-<h4>Pre-requisites</h4>
-In order to build <code>hadoop-lzo</code>, you need to have Ant installed as
-well as liblzo2 with development headers:
-<div class="code">apt-get install ant liblzo2-dev              # Debian/Ubuntu
-yum install ant ant-nodeps lzo-devel.x86_64  # RedHat/CentOS/Fedora
-brew install lzo                             # Mac OS X</div>
-
-<h4>Compile &amp; Deploy</h4>
-Thanks to our friends at Cloudera for maintaining the Hadoop-LZO package:
-<div class="code">git clone git://github.com/cloudera/hadoop-lzo.git
-cd hadoop-lzo
-CLASSPATH=<i>path/to</i>/hadoop-core-1.0.4.jar CFLAGS=-m64 CXXFLAGS=-m64 ant compile-native tar
-hbasedir=<i>path/to/hbase</i>
-mkdir -p $hbasedir/lib/native
-cp build/hadoop-lzo-0.4.14/hadoop-lzo-0.4.14.jar $hbasedir/lib
-cp -a build/hadoop-lzo-0.4.14/lib/native/* $hbasedir/lib/native
-</div>
-Restart HBase and make sure you create your tables with
-<code>COMPRESSION => 'LZO'</code>
-
-<p>
-Common gotchas:
-<ul>
-<li>Where to find <code>hadoop-core-1.0.4.jar</code>?  On a normal, production
-HBase install, it will be under HBase's <code>lib/</code> directory.  In your
-development environment it may be stashed under HBase's <code>target/</code>
-directory, use <code>find</code> to locate it.</li>
-<li>On Mac OS X, you may get <code>error: Native java headers not found. Is
-$JAVA_HOME set correctly?</code> when <code>configure</code> is looking for
-<code>jni.h</code>, in which case you need to insert
-<code>CPPFLAGS=-I/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers</code>
-before <code>CLASSPATH</code> on the 3rd command above (the one that invokes
-<code>ant</code>).</li>
-<li>On RedHat/CentOS/Fedora you may have to specify where Java is, by adding
-<code>JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk.x86_64</code> (or similar)
-to the <code>ant</code> command-line, before the <code>CLASSPATH</code>.</li>
-<li>On RedHat/CentOS/Fedora, if you get the weird error message that "Cause:
-the class org.apache.tools.ant.taskdefs.optional.Javah was not found." then
-you need to install the <code>ant-nodeps</code> package.</li>
-<li>The build may fail with <code>[javah] Error: Class
-org.apache.hadoop.conf.Configuration could not be found.</code> in which case
-you need to apply
-<a href="https://github.com/abrock/hadoop-lzo/commit/38823ca5a308710d4d9ee5e2e52d4d1a07f714b7">this change</a>
-to <code>build.xml</code></li>
-<li>On Ubuntu, the build may fail to compile the code with
-<code>LzoCompressor.c:125:37: error: expected expression before ','
-token</code>.  As per
-<a href="https://issues.apache.org/jira/browse/HADOOP-2009">HADOOP-2009</a>
-the solution is to add <code>LDFLAGS='-Wl,--no-as-needed'</code> to the
-command-line.</li>
-</ul>
-
-<a name="hbasescaleup"></a>
-<h3>Migrating to a real HBase cluster</h3>
-TBD.  In short:
-<ul>
-<li>Shut down all your TSDs.</li>
-<li>Shut down your single-node HBase cluster.</li>
-<li>Copy the directories named <code>tsdb</code> and <code>tsdb-uid</code>
-from your local filesystem to the HDFS cluster backing up your real HBase
-cluster.</li>
-<li>Run <code>./bin/hbase org.jruby.Main ./bin/add_table.rb
-<i>/hdfs/path/to/hbase/<b>tsdb</b></i></code> and again for the
-<code>tsdb-uid</code> directory.</li>
-<li>Restart your real HBase cluster (sorry).</li>
-<li>Restart your TSDs after making sure they now use your real HBase
-cluster.</li>
-</ul>
-
-<a name="hbaseprod"></a>
-<h3>Putting HBase in production</h3>
-TBD.  In short:
-<ul>
-<li>Stay on a single node unless you can deploy HBase on at least 5 machines,
-preferably at least 10.</li>
-<li>Make sure you have <a href="#lzo">LZO installed</a>
-and make sure it's enabled for the tables used by OpenTSDB.</li>
-<li>TBD...</li>
-</ul>
-</section>
-      <hr>
-      <div class="footer">
-        <p><a href="https://groups.google.com/forum/#!forum/opentsdb"><i class="glyphicon glyphicon-envelope"></i> Mailing List</a>  | <i class="glyphicon glyphicon-user"></i> IRC: Freenode #opentsdb  |  &copy; 2010 - 2014 The OpenTSDB Authors</p>
-      </div>
-    </div> <!-- /container -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0;url=http://opentsdb.net/docs/build/html/installation.html#id1">
+        <script type="text/javascript">
+            window.location.href = "http://opentsdb.net/docs/build/html/installation.html#id1"
+        </script>
+        <title>Setting up HBase - OpenTSDB - A Distributed, Scalable Monitoring System</title>
+        <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-18339382-1']);
+        _gaq.push(['_setDomainName', 'none']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    </head>
+    <body>
+      <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+      This page has been deprecated. If you are not redirected automatically, follow the <a href='http://opentsdb.net/docs/build/html/installation.html#id1'>link</a>
   </body>
 </html>

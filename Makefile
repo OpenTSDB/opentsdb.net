@@ -1,21 +1,7 @@
 SITE_HTML = \
-  cli.html	\
-  contributing.html	\
-  development.html	\
   faq.html	\
-  getting-started.html	\
-  http-api.html	\
   index.html	\
-  manual.html	\
-  metrics.html	\
-  nagios.html	\
   overview.html	\
-  query-execution.html	\
-  schema.html	\
-  setup-hbase.html	\
-  tcollector.html	\
-  varnish.html	\
-  version-two.html	\
 
 CONTENT_DIR = content
 CONTENT_HEADER = $(CONTENT_DIR)/header

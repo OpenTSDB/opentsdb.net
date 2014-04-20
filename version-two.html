@@ -1,126 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Development - OpenTSDB - A Distributed, Scalable Monitoring System</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/otsdb-bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/custom.css" rel="stylesheet">
-
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-18339382-1']);
-      _gaq.push(['_setDomainName', 'none']);
-      _gaq.push(['_setAllowLinker', true]);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-  </head>
-
-  <body>
-     <div class="container">
-       <h1><a href="http://www.opentsdb.net/">OpenTSDB</a></h1>
-       
-     <div class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="overview.html">Overview</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Download</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
-              <li><a href="docs/build/html/index.html">Documentation</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-            </ul>
-          </div>
-        </div>
-      </div><section id="Development">
-<h2>OpenTSDB 2.0 Roadmap</h2>
-<p>The OpenTSDB community has been growing and many developers have
-contributed patches, new features and ideas to the project. We are proud to
-start development on version 2.0 that will integrate many of these features
-in the official repository. 2.0 will maintain backwards compatibility with the
-previous release though there maybe some slight changes in the HTTP and Java
-APIs. Below is a roadmap for the next release: </p>
-<h3>Timeline</h3>
-<ul>
-  <li>DONE: July 2013 - Initial Release Candidate <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.0.0RC1">GitHub</a></li>
-  <li>August 2013 - Release Candidate 2</li>
-  <li>October 2013 - Official Release</li>
-</ul>
-<p>We'll do our best to hit these dates and can certainly use all of the help
-we can get.</p>
-<h3>Improvements</h3>
-<p>These are just some of the improvements on the planning board:</p>
-<ul>
-  <li>DONE: Improved (lock-less) UID assignment</li>
-  <li>DONE: Faster query speeds for complex or aggregated queries</li>
-  <li>DONE: More aggregators with interpolation bypass</li>
-  <li>WIP: New website and documentation including a user guide</li>
-</ul>
-<h3>New Features</h3>
-
-Some of the new features we're planning to integrate include:
-
-<ul>
-<li>DONE: A configuration file for storing properties</li>
-<li>DONE: Full RESTful HTTP API that provides access to all of OpenTSDB's features including storing data points via HTTP</li>
-<li>DONE: Pluggable data formatters that can accept or emit data in various formats. The default will be JSON though implementations could be created for XML, ProtoBuf or others</li>
-<li>DONE: Annotations that allow tracking of events associated with a particular timeseries or global notes tied to a timestamp</li>
-<li>DONE: Metadata for timeseries, metrics, tag names and tag values so you can find out what is stored in OpenTSDB and add your own notes</li>
-<li>DONE: Metadata trees that organize timeseries into a directory like structure</li>
-<li>DONE: Pluggable search abstraction layer to publish metadata and annotations to your search engine of choice, such as Elastic Search</li>
-<li>DONE: Millisecond timestamp support, enabled as an option for users who need greater resolution</li>
-<li>DONE: Pluggable real-time publisher to push incoming data out to systems such as RabbitMQ or Memcache</li>
-<li>Debian (DONE), CentOS and FreeBSD packages with init scripts</li>
-</ul>
-<h3>Requests</h3>
-<p>Have a feature you would like to see in OpenTSDB? Check the
-<a href="https://github.com/OpenTSDB/opentsdb/issues?state=open">Issues</a> list
-to see if someone is working on it or already posted a request. Also post a
-notice to the <a href="http://groups.google.com/group/opentsdb">Users Group</a>.
-</p>
-<p>
-Features for 2.0 are essentially locked in at this time so that we can finish the code and focus on bug hunting. Features we'll work on for 2.1 or later include:
-<ul>
-<li>Increment call to add or subtract from a specified data point</li>
-<li>Query language</li>
-<li>Top N queries</li>
-<li>Rollups</li>
-<li>Last value queries</li>
-<li>Pluggable data abstraction layer that will allow the use of data stores other than HBase. Initially we'll release a Cassandra plugin</li>
-<li>More graphing options</li>
-</ul>
-</p>
-<h3>Documentation</h3>
-<p>As work progresses on 2.0, we'll update the <a href="docs/build/html/index.html">documentation here.</a> If you would like to contribute to the docs, fork the <a href="https://github.com/OpenTSDB/opentsdb.net">opentsdb.net</a> project on github and edit the Sphinx source files, compile the HTML and issue a pull request. We're also looking for anyhone who has design chops to help make the website and new documentation pretty, so if you're interested, please contact us.
-</p>
-<h3>Contributions</h3>
-<p>We need all of the help we can get so post your thoughts to the users
-group, then read the <a href="development.html">Development</a> guide and
-<a href="contributing.html">Contributing</a> page.  Create a fork in GitHub and
-publish your changes to the &quot;next&quot; branch. Issue a pull request and
-we'll try and fit it in.</p>
-</section>
-      <hr>
-      <div class="footer">
-        <p><a href="https://groups.google.com/forum/#!forum/opentsdb"><i class="glyphicon glyphicon-envelope"></i> Mailing List</a>  | <i class="glyphicon glyphicon-user"></i> IRC: Freenode #opentsdb  |  &copy; 2010 - 2014 The OpenTSDB Authors</p>
-      </div>
-    </div> <!-- /container -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0;url=http://opentsdb.net/docs/build/html/new.html">
+        <script type="text/javascript">
+            window.location.href = "http://opentsdb.net/docs/build/html/new.html"
+        </script>
+        <title>Version Two - OpenTSDB - A Distributed, Scalable Monitoring System</title>
+        <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-18339382-1']);
+        _gaq.push(['_setDomainName', 'none']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    </head>
+    <body>
+      <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+      This page has been deprecated. If you are not redirected automatically, follow the <a href='http://opentsdb.net/docs/build/html/new.html'>link</a>
   </body>
 </html>

@@ -1,224 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Schema - OpenTSDB - A Distributed, Scalable Monitoring System</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/otsdb-bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/custom.css" rel="stylesheet">
-
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-18339382-1']);
-      _gaq.push(['_setDomainName', 'none']);
-      _gaq.push(['_setAllowLinker', true]);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-  </head>
-
-  <body>
-     <div class="container">
-       <h1><a href="http://www.opentsdb.net/">OpenTSDB</a></h1>
-       
-     <div class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="overview.html">Overview</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Download</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
-              <li><a href="docs/build/html/index.html">Documentation</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-            </ul>
-          </div>
-        </div>
-      </div><section id="schema">
-<h2>Schema</h2>
-
-Each data point is stored independently in its own cell in HBase.  The row key
-is composite and is made of: the metric ID, a timestamp, the tags.  Each tag
-is made of a tag name ID and a tag value ID.
-
-<p/>
-For instance, if you have the following data point:
-<div class="code">myservice.latency.avg 1292148123 42 reqtype=foo host=web42
-</div>
-And the metric ID for <code>myservice.latency.avg</code> is
-<code>[0, 0, -69]</code>, the tag name ID for <code>reqtype</code> is
-<code>[0, 0, 1]</code>, the tag value ID for <code>foo</code> is
-<code>[0, 1, 11]</code>, the tag name ID for <code>host</code> is
-<code>[0, 0, 2]</code> and the tag value ID for <code>web42</code> is
-<code>[0, -7, 42]</code>, then you'd have the following row key:
-<div class="code"><!--
-     -->[0, 0, -69, 77, 4, -99, 32, 0, 0, 1, 0, 1, 11, 0, 0, 2, 0, -7, 42]
-<!-- --> `-------'  `------------'  `-----'  `------'  `-----'  `-------'
-<!-- --> metric ID  base timestamp  name ID  value ID  name ID  value ID
-<!-- -->                            `---------------'  `---------------'
-<!-- -->                                first tag         second tag
-</div>
-(note that the bytes for the timestamp are <code>[77, 4, -99, 32]</code> =
-1292148000, because timestamps in the row key are rounded down to a
-<a href="https://github.com/OpenTSDB/opentsdb/blob/25078599673e357c20f3ca0b354079141aaf1345/src/core/Const.java#L38">60
-minute</a> boundary)
-
-<p/>
-Then the column qualifier for the value is on 2 bytes (16 bits).  The
-first 12 bits are used to store an integer which is a delta in seconds
-from the timestamp in the row key, and the remaining
-<a href="https://github.com/OpenTSDB/opentsdb/blob/b2b9fac7e378b22f2e038bfb69f9baf724db782e/src/core/Const.java#L26">4 bits</a>
-are flags.  In the example above, the data point is at time 1292148123 but
-the timestamp in the row key is 1292148000, so the delta is 123.  The 4 bits
-of flag are used as follows: the first bit indicates whether the value is an
-integer value or a floating point value
-(<a href="https://github.com/OpenTSDB/opentsdb/blob/b2b9fac7e378b22f2e038bfb69f9baf724db782e/src/core/Const.java#L29"><code>Const.FLAG_FLOAT</code></a>),
-the remaining 3 bits aren't really used at this time (as of 2010-12-21), but
-they're reserved for variable-length encoding in the future.
-<p/>
-The value in the cell is the value of the data point itself, on 8 bytes.
-
-<p/>
-The code that adds new data to HBase is in
-<a href="https://github.com/OpenTSDB/opentsdb/blob/master/src/core/IncomingDataPoints.java#L35"><code>core.IncomingDataPoints</code></a>,
-so you can refer to this if you want to get down to the implementation
-details.  You can also examine the raw contents of your table using the
-<code>scan</code> <a href="cli.html">command-line tool</a>, for instance:
-<div class="code">$ ./tsdb scan 2010/11/07-23:00 sum test
-[0, 0, -69, 76, -41, -97, -16, 0, 0, 1, 0, 0, -15] test 1289199600 (Sun Nov 07 23:00:00 PST 2010) {host=face}
-  [1, 23] [0, 0, 0, 0, 0, 0, 108, 61]   17      l 27709 1289199617 (Sun Nov 07 23:00:17 PST 2010)
-  [1, 39] [0, 0, 0, 0, 0, 0, 48, 125]   18      l 12413 1289199618 (Sun Nov 07 23:00:18 PST 2010)
-  [4, 39] [0, 0, 0, 0, 0, 0, 108, 61]   66      l 27709 1289199666 (Sun Nov 07 23:01:06 PST 2010)
-  [4, 55] [0, 0, 0, 0, 0, 0, 48, 125]   67      l 12413 1289199667 (Sun Nov 07 23:01:07 PST 2010)
-  [5, 7] [0, 0, 0, 0, 0, 0, 108, 61]    80      l 27709 1289199680 (Sun Nov 07 23:01:20 PST 2010)
-  [5, 23] [0, 0, 0, 0, 0, 0, 48, 125]   81      l 12413 1289199681 (Sun Nov 07 23:01:21 PST 2010)
-  [5, -121] [0, 0, 0, 0, 0, 0, 108, 61] 88      l 27709 1289199688 (Sun Nov 07 23:01:28 PST 2010)
-  [5, -105] [0, 0, 0, 0, 0, 0, 48, 125] 89      l 12413 1289199689 (Sun Nov 07 23:01:29 PST 2010)
-  [6, 39] [0, 0, 0, 0, 0, 0, 108, 61]   98      l 27709 1289199698 (Sun Nov 07 23:01:38 PST 2010)
-  [6, 55] [0, 0, 0, 0, 0, 0, 48, 125]   99      l 12413 1289199699 (Sun Nov 07 23:01:39 PST 2010)
-  [6, -89] [0, 0, 0, 0, 0, 0, 108, 61]  106     l 27709 1289199706 (Sun Nov 07 23:01:46 PST 2010)
-  [6, -73] [0, 0, 0, 0, 0, 0, 48, 125]  107     l 12413 1289199707 (Sun Nov 07 23:01:47 PST 2010)
-  [7, 71] [0, 0, 0, 0, 0, 0, 108, 61]   116     l 27709 1289199716 (Sun Nov 07 23:01:56 PST 2010)
-  [7, 87] [0, 0, 0, 0, 0, 0, 48, 125]   117     l 12413 1289199717 (Sun Nov 07 23:01:57 PST 2010)
-[0, 0, -69, 76, -41, -94, 72, 0, 0, 1, 0, 0, -15] test 1289200200 (Sun Nov 07 23:10:00 PST 2010) {host=face}
-  [3, -89] [0, 0, 0, 0, 0, 0, 108, 61]  58      l 27709 1289200258 (Sun Nov 07 23:10:58 PST 2010)
-  [3, -73] [0, 0, 0, 0, 0, 0, 48, 125]  59      l 12413 1289200259 (Sun Nov 07 23:10:59 PST 2010)
-</div>
-This output shows us the contents of 2 rows for the metric <code>test</code>
-with a single tag <code>host=foo</code>, for a total of 14 + 2 = 16 data
-points.  Each line that's indented by 2 spaces is a data point (stored in
-its own cell in HBase).  The first 2-byte array is the qualifier, then the
-8-byte array is the value.  The following integer is the delta decoded from
-the qualifier, and then <code>l</code> indicates an integer value vs
-<code>f</code> that indicates a floating point value.  Then there's the
-value, and the timestamp of this value (which is equal to the base time
-encoded in the row key + the delta) and the human readable version of the
-timestamp.
-
-<h3 id="reduced-overhead">Reducing HBase overhead</h3>
-Note: As of OpenTSDB 1.0.0, this feature is disabled by default.  It will be
-enabled by default in release 1.1.0.
-
-<p/>
-The problem with HBase's implementation is that every single cell also
-stores the row key and a bunch of other redundant information.  In the
-example above with 2 rows and 16 cells, the 13-byte row key is stored
-16 times both on disk and in memory.  This leads to several scalability
-problems, especially due to memory pressure inside Region Servers and
-the increased number of objects that HBase has to handle.
-
-<p/>
-The idea here is simply to re-compact rows in background so that all the
-values in a row would end up in one big cell, instead of being in many
-individual cells.  For instance, this row containing 2 values:
-<div class="code">$ ./tsdb scan 2010/11/07-23:00 sum test
-[0, 0, -69, 76, -41, -94, 72, 0, 0, 1, 0, 0, -15] test 1289200200 (Sun Nov 07 23:10:00 PST 2010) {host=face}
-  [3, -89] [108, 61]  58      l 27709 1289200258 (Sun Nov 07 23:10:58 PST 2010)
-  [3, -73] [48, 125]  59      l 12413 1289200259 (Sun Nov 07 23:10:59 PST 2010)
-</div>
-Could be stored like so instead:
-<div class="code">$ ./tsdb scan 2010/11/07-23:00 sum test
-[0, 0, -69, 76, -41, -94, 72, 0, 0, 1, 0, 0, -15] test 1289200200 (Sun Nov 07 23:10:00 PST 2010) {host=face}
-  [3, -89, 3, -73] [108, 61, 48, 125]  58      l 27709 1289200258 (Sun Nov 07 23:10:58 PST 2010)
-                                       59      l 12413 1289200259 (Sun Nov 07 23:10:59 PST 2010)
-</div>
-Where both values are grouped together in a single cell.  The TSD can
-continuously re-compact values in background.  New data points are still
-need to be written to their own cell though, because HBase doesn't have
-an "atomic append" operation, and doing read-modify-write is a lot more
-expensive than just adding a new cell.  After a certain amount of time,
-we know that a given row will probably not be changed ever again, so we
-can do a single read-modify-write-delete to compact all the cells in that
-row into a single bigger cell.
-
-<p/>
-This change can dramatically increase the speed of read queries as it forces
-HBase to look at far fewer objects when scanning the table.  It also improves
-memory usage in HBase, thus allowing for a better cache hit rate.
-
-<p/>
-To enable TSD compactions, add the following line to your
-<code>tsdb.local</code>, in the same directory as the <code>tsdb</code>
-executable script:
-<div class="code">JVMARGS="$JVMARGS -Dtsd.feature.compactions=true"
-</div>
-If you wish to disable compactions, just set the value to <code>false</code>.
-
-<h2 id="upcoming-changes">Upcoming changes</h2>
-The following schema changes have been planned for Q1 2012:
-<ul>
-<li>Variable length encoding of all values.</li>
-<li>Run-length encoding for duplicate values.</li>
-</ul>
-The newer TSDs will always be able to understand the current format
-anyway, so no need to rewrite their entire TSDB table and no downtime
-required to rollout the change.
-
-<h3 id="vint">Variable length encoding</h3>
-Both integer value and floating point values will be encoded on a variable
-number of bytes (from 1 to 8).  For integer values, this is fairly
-straightforward, using something inspired from
-<a href="http://code.google.com/apis/protocolbuffers/docs/encoding.html#varints">Google's
-<code>VarInt</code></a> or <code>GroupVarInt</code>.  For floating point
-values, it's not as simple, but one possible candidate is an IEEE 754 style
-encoding on fewer bytes with an acceptable upper bound on the loss of
-precision.  2-byte floating point values are commonly known as "half
-precision", but the idea can be used with any number of bytes (2 to 8).
-With a single byte, a fixed-point representation can cover more useful
-values than a floating-point one.
-
-<p/>
-Unlike Google's implementation though, the size of the values will be stored
-in the qualifier, where there are 3 bits reserved already, as opposed to
-being stored inside the value itself.  This will make decoding values faster
-as it will require fewer bit shifts (compared to regular <code>VarInt</code>
-at least).
-
-<h3 id="rle">Run-Length Encoding (RLE)</h3>
-<a href="http://en.wikipedia.org/wiki/Run-length_encoding">RLE</a> can be
-used to very compactly store deltas.  This can be used for time deltas in
-the column qualifiers as well as to store duplicate values.
-
-</section>
-      <hr>
-      <div class="footer">
-        <p><a href="https://groups.google.com/forum/#!forum/opentsdb"><i class="glyphicon glyphicon-envelope"></i> Mailing List</a>  | <i class="glyphicon glyphicon-user"></i> IRC: Freenode #opentsdb  |  &copy; 2010 - 2014 The OpenTSDB Authors</p>
-      </div>
-    </div> <!-- /container -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0;url=http://opentsdb.net/docs/build/html/user_guide/backends/hbase.html">
+        <script type="text/javascript">
+            window.location.href = "http://opentsdb.net/docs/build/html/user_guide/backends/hbase.html"
+        </script>
+        <title>Schema - OpenTSDB - A Distributed, Scalable Monitoring System</title>
+        <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-18339382-1']);
+        _gaq.push(['_setDomainName', 'none']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    </head>
+    <body>
+      <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+      This page has been deprecated. If you are not redirected automatically, follow the <a href='http://opentsdb.net/docs/build/html/user_guide/backends/hbase.html'>link</a>
   </body>
 </html>

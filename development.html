@@ -1,198 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Development - OpenTSDB - A Distributed, Scalable Monitoring System</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/otsdb-bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/custom.css" rel="stylesheet">
-
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-18339382-1']);
-      _gaq.push(['_setDomainName', 'none']);
-      _gaq.push(['_setAllowLinker', true]);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-  </head>
-
-  <body>
-     <div class="container">
-       <h1><a href="http://www.opentsdb.net/">OpenTSDB</a></h1>
-       
-     <div class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="overview.html">Overview</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Download</a></li>
-              <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
-              <li><a href="docs/build/html/index.html">Documentation</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-            </ul>
-          </div>
-        </div>
-      </div><section id="Development">
-<h2>Development</h2>
-OpenTSDB isn't laid out like a typical Java project, instead it's a bit more
-like a C or C++ environment. This page is to help folks who want to modify
-OpenTSDB and provide updates back to the community.
-
-<h2>Build System</h2>
-<p>
-There are almost as many build systems as there are developers so it's
-impossible to satisfy everyone no matter which system or layout is chosen.
-Autotools and GNU Make were chosen early on for OpenTSDB because of their
-flexibility, portability, and especially speed and popular usage. It's not the
-easiest to configure but for our needs, it's really not too difficult.  We'll
-spell out what you need to change below and give tips for IDE users who want
-to setup an environment.
-
-Note that the build script can now compile a <code>pom.xml</code> file for
-compiling with Maven.  However you still have to modify
-<code>Makefile.am</code> if you add / remove classes or dependencies and such.
-</p>
-
-<h3>Building</h3>
-<p>
-OpenTSDB is built using the standard <code>./configure &amp;&amp; make</code>
-model that is most commonly employed by open-source projects.  Fresh working
-copies checked out from Git must first be <code>./bootstrap</code>ed.
-<p>
-Alternatively, there is a <code>build.sh</code> script you can run that makes
-as it takes care of all the steps for you.  You can give it a Make target in
-argument, e.g. <code>./build.sh distcheck</code> (the default target is "all").
-
-<h3>Adding a Dependency</h3>
-
-Please try your best not to.  We're extremely picky on the dependencies and
-will require a code review before we start depending on a new library.  The
-goal isn't to re-invent the wheel either, but we are very mindful about the
-number and quality of dependent libraries we pull in.
-<p>
-If you absolutely must add a new dependency, here are the steps:
-
-<ul>
-<li>Find the canonical source to download the dependent JAR file</li>
-<li>Find or create the proper directory under <code>third_party/</code></li>
-<li>In that directory, create a <code><i>depdencency.jar</i>.md5</code> file</li>
-<li>Paste the MD5 hash of the entire jar in that file and save it</li>
-<li>Create or edit the <code>include.mk</code> file and copy the header info from another directory's file
-  <ul>
-    <li>Add a &quot;&lt;DEPENDENCY&gt;_VERSION := &lt;version&gt;&quot; e.g. &quot;JACKSON_VERSION := 1.9.4&quot;</li>
-    <li>Add a &quot;&lt;DEPENDENCY&gt; := third_parth/&lt;DIR&gt;/&lt;dependency&gt;$(&lt;DEPENDENCY&gt;_VERSION).jar&quot; line e.g. &quot;JACKSON_CORE := third_party/jackson/jackson-core-lgpl-$(JACKSON_CORE_VERSION).jar&quot;</li>
-    <li>Add the canonical source URL in the format &quot;&lt;DEPENDENCY&gt;_BASE_URL := &lt;URL&gt;&quot; e.g. &quot;JACKSON_CORE_BASE_URL := http://repository.codehaus.org/org/codehaus/jackson/jackson-core-lgpl/$(JACKSON_VERSION)&quot; and note that the JAR name will be appended to the end of the URL</li>
-    <li>Add the following lines:<br />
-      $(&lt;DEPENDENCY&gt;): $(J&lt;DEPENDENCY&gt;).md5<br />
-      set dummy &quot;$(&lt;DEPENDENCY&gt;_BASE_URL)&quot; &quot;$(&lt;DEPENDENCY&gt;)&quot;; shift; $(FETCH_DEPENDENCY)<br />
-      e.g.<br />
-      $(JACKSON_CORE): $(JACKSON_CORE).md5<br />
-      set dummy &quot;$(JACKSON_CORE_BASE_URL)&quot; &quot;$(JACKSON_CORE)&quot;; shift; $(FETCH_DEPENDENCY)</li>
-    <li>Add a line &quot;THIRD_PARTY += $(&lt;DEPENDENCY&gt;)&quot; e.g. &quot;THIRD_PARTY += $(JACKSON_CORE) &quot;</li>
-    </ul>
-</li>
-<li>Next, back in the <code>third_party/</code> directory, edit the &quot;include.mk&quot; file and if you added a new directory for your dependency, insert a reference to the .mk file in the proper alphabetical position.</li>
-<li>Edit <code>Makefile.am</code>:
-  <ul>
-    <li>Find the &quot;tsdb_DEPS = \&quot; line</li>
-    <li>Add your new dependency in the proper alphabetical position in the format &quot;$(&lt;DEPENDENCY&gt;)&quot;, e.g. &quot;$(JACKSON_CORE&gt;&quot;. Note that if you put it the middle of the list, you must finish with the line continuation character, the backslash &quot;\&quot;. If your dependency goes at the end, do not add the backslash.</li>
-    <li>Note: If the dependency is only used for unit tests, then add it to the &quot;test_DEPS = \&quot; list</li>
-    <li>Find the &quot;pom.xml: pom.xml.in Makefile&quot; line in the file</li>
-    <li>Add a sed line such as &quot;-e 's/@&lt;DEPENDENCY&gt;_VERSION@/$(&lt;DEPENDENCY&gt;_VERSION)/' \&quot; e.g. &quot;-e 's/@JACKSON_VERSION@/$(JACKSON_VERSION)/' \&quot;</li>
-    <li>Note: Unit test dependencies go here as well as regular items</li>
-    </ul>
-</li>
-<li>Edit <code>pom.xml.in</code>:
-  <ul>
-    <li>Find the <code>&lt;dependencies&gt;</code> XML section</li>
-    <li>Copy and paste an existing dependency section and modify it for your variables</li>
-    </ul>
-</li>
-</ul>
-<p>
-Now run a build via <code>./build.sh</code> and verify that it fetches your
-dependency and builds without errors. Then run <code>./build.sh pom.xml</code>
-to verify that the POM is compiled properly and run a <code>mvn compile</code>
-to verify the Maven build works correctly.
-</p>
-<h3>Adding/Removing/Moving a Class</h3>
-<p>This is much easier than dealing with a dependency. You only need to modify
-<code>Makefile.am</code> and edit the <code>tsdb_SRC := \</code> or the
-<code>test_SRC := \</code> lists. If you're adding a class, put it in the
-proper alphabetical position and account for the proper directory and class
-name. It is case sensitive so make sure to get that right. If removing a
-class, just delete the line. If moving a class, add the new line and delete
-the old one. Be careful to handle the line continuation &quot;\&quot;
-backslashes. The last class in each list should NOT end with a backslash, the
-rest need it.</p>
-<p>
-After editing, rebuild with <code>./build.sh</code> and verify that your class
-was compiled and included properly.
-</p>
-
-<h2>IDEs</h2>
-<p>Many devs use an IDE to work on JAVA projects and despite OpenTSDB's
-non-java-standard directory layout, working with an IDE is pretty easy. Here
-are some steps to get up and running with Eclipse though they should work with
-other environments.</p>
-<ol>
-  <li>Cone the GIT repo to a location such as <code>/home/$USER/opentsdb</code></li>
-  <li>Build the repo with <code>./build.sh</code> from the directory</li>
-  <li>Fire up Eclipse or your favorite IDE</li>
-  <li>Create a new JAVA project with a name like &quot;opentsdb_dev&quot; so that it winds up in &quot;/home/$USER/opentsdb_dev&quot;</li>
-  <li>Your dev directory should now have a &quot;./src&quot; directory</li>
-  <li>Create a &quot;net&quot; directory under &quot;./src&quot; so that you have &quot;./src/net&quot; (some IDEs may create a &quot;./src/java&quot; dir, so add &quot;./src/java/net&quot;)</li>
-  <li>Create a symlink to the GIT repo's &quot;./src&quot; directory from &quot;./src/net/opentsdb&quot;. E.g. &quot;ln -s /home/$USER/opentsdb/src /home/$USER/opentsdb_dev/src/net/opentdsb&quot;</li>
-  <li>Also, create a &quot;tsd&quot; directory under &quot;./src&quot; so that you have &quot;./src/tsd&quot;</li>
-  <li>Create a symlink to the GIT repo's &quot;./src/tsd/client&quot; directory from &quot;./src/tsd/client&quot;. E.g. &quot;ln -s /home/$USER/opentsdb/src/tsd/client /home/$USER/opentsdb_dev/src/tsd/client&quot;<br />
-  </li>
-  <li>If your IDE didn't, create a &quot;./test&quot; directory under your dev project folder. This will be used for unit tests.</li>
-  <li>Add a &quot;net&quot; directory under &quot;./test&quot; so you have &quot;./test/net&quot;</li>
-  <li>Create a symlink to the GIT repo's &quot;./test&quot; directory from &quot;./test/net/opentsdb&quot;. E.g. &quot;ln -s /home/$USER/opentsdb/test /home/$USER/opentsdb_dev/test/net/opentdsb&quot;</li>
-  <li>Refresh the directory lists in Eclipse and you should see all of the source files</li>
-  <li>Right click the &quot;net.opentsdb.tsd.client&quot; package under SRC and select &quot;Build Path&quot; then &quot;Exclude&quot; from the menu</li>
-  <li>Now add the downloaded dependencies by clicking Project -&gt; Properties, click the &quot;Java Build Path&quot; menu item and click &quot;Add External JARs&quot; button. </li>
-  <li>Do that for each of the dependencies that were downloaded by the build script</li>
-  <li>Copy the file &quot;./build/src/BuildData.java&quot; from the GIT repo, post build, to your &quot;./src/net/opentsdb/&quot; directory</li>
-  <li>Now click Run (or Debug) -&gt; Manage Configurations</li>
-  <li>Under Java Application, right click and select New from the pop-up</li>
-  <li>Under the Main tab, brows to your &quot;opentsdb_dev&quot; project</li>
-  <li>For the Main Class, search for &quot;net.opentsdb.tools.TSDMain&quot;</li>
-  <li>Under Arguments, add the runtime arguments to select your Zookeeper quorum and the static and cache directories</li>
-  <li>Run or Debug it and hopefully it worked</li>
-</ol>
-<p>Now edit away and when you're ready to publish changes, follow the
-directions above about modifying the build system (if necessary), publish to
-your own GitHub fork, and issue a pull request.</p>
-<p>NOTE: This won't compile the GWT UI. If you want to do UI work and have
-made changes, recompile OpenTSDB or export it as a JAR from your IDE, then
-execute the following command (assuming the directory structure above):</p>
-<p><code>java -cp
-&quot;&lt;PATH_TO&gt;gwt-dev-2.4.0.jar;&lt;PATH_TO&gt;gwt-user-2.4.0.jar;&lt;PATH_TO&gt;tsdb-1.1.0.jar;/home/$USER/opentsdb/src/net/opentsdb;/home/$USER/opentsdb/src&quot;
-com.google.gwt.dev.Compiler -ea -war &lt;PATH_TO_STATIC_DIRECTORY&gt;
-tsd.Queryui</code></p>
-</section>
-      <hr>
-      <div class="footer">
-        <p><a href="https://groups.google.com/forum/#!forum/opentsdb"><i class="glyphicon glyphicon-envelope"></i> Mailing List</a>  | <i class="glyphicon glyphicon-user"></i> IRC: Freenode #opentsdb  |  &copy; 2010 - 2014 The OpenTSDB Authors</p>
-      </div>
-    </div> <!-- /container -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0;url=http://opentsdb.net/docs/build/html/development/index.html">
+        <script type="text/javascript">
+            window.location.href = "http://opentsdb.net/docs/build/html/development/index.html"
+        </script>
+        <title>Development - OpenTSDB - A Distributed, Scalable Monitoring System</title>
+        <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-18339382-1']);
+        _gaq.push(['_setDomainName', 'none']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    </head>
+    <body>
+      <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+      This page has been deprecated. If you are not redirected automatically, follow the <a href='http://opentsdb.net/docs/build/html/development/index.html'>link</a>
   </body>
 </html>

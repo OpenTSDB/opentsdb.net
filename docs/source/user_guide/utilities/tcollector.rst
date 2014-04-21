@@ -486,7 +486,7 @@ version, NamenodeAddress, Version, RpcPort, HttpPort, CurrentThreadCpuTime,
 CurrentThreadUserTime, StorageInfo, VolumeInfo.
 
 Refer to the following documentation for metrics description:
-`Hbase metrics <http://hbase.apache.org/book.html#hbase_metrics>`_.
+`HBase metrics <http://hbase.apache.org/book.html#hbase_metrics>`_.
 
 
 ``0/haproxy.py``
@@ -517,7 +517,7 @@ hdfsDate, hdfsUrl, date, hdfsRevision, user, hdfsVersion, url, version,
 Version, RpcPort, HttpPort,HeapMemoryUsage, NonHeapMemoryUsage.
 
 Refer to the following documentation for metrics description:
-`Hbase metrics <http://hbase.apache.org/book.html#hbase_metrics>`_.
+`HBase metrics <http://hbase.apache.org/book.html#hbase_metrics>`_.
 
 
 ``0/mongo.py``

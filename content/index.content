@@ -23,7 +23,7 @@
       <div class="caption">
         <h3><i class="glyphicon glyphicon-cloud"></i> Scale</h3>
         <ul>
-          <li>Runs on Hadoop and Hbase</li>
+          <li>Runs on Hadoop and HBase</li>
           <li>Scales to millions of writes per second</li>
           <li>Add capacity by adding nodes</li>
         </ul>

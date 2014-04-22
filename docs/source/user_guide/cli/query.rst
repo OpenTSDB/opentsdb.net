@@ -9,7 +9,7 @@ Parameters
 ^^^^^^^^^^
 .. code-block :: bash
 
-  query [Gnuplot opts] START-DATE [END-DATE] <aggregator> [rate] [counter,max,reset] [downsample FUNC N] <metric> [<tagk=tagv>] [...<tagk=tagv>] [...queries]
+  query [Gnuplot opts] START-DATE [END-DATE] <aggregator> [rate] [counter,max,reset] [downsample N FUNC] <metric> [<tagk=tagv>] [...<tagk=tagv>] [...queries]
 
 .. csv-table::
    :header: "Name", "Data Type", "Description", "Default", "Example"
@@ -23,7 +23,7 @@ Parameters
    "counter", "String", "Optional literal ``counter`` that indicates the underlying data is a monotonically increasong counter that may roll over", "", "counter"
    "max", "Integer", "A positive integer representing the maximum value for the counter", "Java Long.MaxValue", "65535"
    "resetValue", "Integer", "An optional value that, when exceeded, will cause the aggregator to return a 0 instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.", "", "65000"
-   "downsample FUNC N", "String", "Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal ``downsample`` followed by an aggregation function name and a relative timespan", "", "downsample avg 15m"
+   "downsample N FUNC", "String", "Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal ``downsample`` followed by a timespan in milliseconds and an aggregation function name", "", "downsample 300000 avg"
    "metric", "String", "Required name of a metric to query for", "", "sys.cpu.user"
    "tagk=tagv", "String", "Optional pairs of tag names and tag values", "", "host=web01"
    "additional queries", "String", "Optional additional queries to execute. Each query must follow the same format starting with an aggregator. All queries share the same start and end times.", "", "sum tsd.hbase.rpcs type=scan"

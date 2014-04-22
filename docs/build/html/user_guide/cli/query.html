@@ -102,7 +102,7 @@
 <p>Note that a query may return data points before and after the timespan requested. These are used in downsampling and graphing.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
-<div class="highlight-bash"><div class="highlight"><pre>query <span class="o">[</span>Gnuplot opts<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> &lt;aggregator&gt; <span class="o">[</span>rate<span class="o">]</span> <span class="o">[</span>counter,max,reset<span class="o">]</span> <span class="o">[</span>downsample FUNC N<span class="o">]</span> &lt;metric&gt; <span class="o">[</span>&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span> <span class="o">[</span>...&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span> <span class="o">[</span>...queries<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre>query <span class="o">[</span>Gnuplot opts<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> &lt;aggregator&gt; <span class="o">[</span>rate<span class="o">]</span> <span class="o">[</span>counter,max,reset<span class="o">]</span> <span class="o">[</span>downsample N FUNC<span class="o">]</span> &lt;metric&gt; <span class="o">[</span>&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span> <span class="o">[</span>...&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span> <span class="o">[</span>...queries<span class="o">]</span>
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -170,11 +170,11 @@
 <td>&nbsp;</td>
 <td>65000</td>
 </tr>
-<tr class="row-even"><td>downsample FUNC N</td>
+<tr class="row-even"><td>downsample N FUNC</td>
 <td>String</td>
-<td>Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal <tt class="docutils literal"><span class="pre">downsample</span></tt> followed by an aggregation function name and a relative timespan</td>
+<td>Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal <tt class="docutils literal"><span class="pre">downsample</span></tt> followed by a timespan in milliseconds and an aggregation function name</td>
 <td>&nbsp;</td>
-<td>downsample avg 15m</td>
+<td>downsample 300000 avg</td>
 </tr>
 <tr class="row-odd"><td>metric</td>
 <td>String</td>

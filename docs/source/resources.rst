@@ -40,7 +40,7 @@ Clients
 References to OpenTSDB
 ^^^^^^^^^^^^^^^^^^^^^^
 
-* `HBase in Action <http://www.manning.com/dimidukkhurana/>`_ (Manning Publications) - Chapter 7: Hbase by Example: OpenTSDB
+* `HBase in Action <http://www.manning.com/dimidukkhurana/>`_ (Manning Publications) - Chapter 7: HBase by Example: OpenTSDB
 * `Professional NoSQL <http://www.wrox.com/WileyCDA/WroxTitle/Professional-NoSQL.productCd-047094224X.html>`_ (Wrox Publishing) - Mentioned in Chapter 17: Tools and Utilities
 * `OSCon Data 2011 <http://www.youtube.com/watch?v=WlsyqhrhRZA>`_ - Presentation from Benoit Sigoure
 * `Percona Live 2013 <http://www.slideshare.net/geoffanderson/monitoring-mysql-with-opentsdb-19982758>`_ Presentation from Geoffrey Anderson

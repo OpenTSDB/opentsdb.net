@@ -234,7 +234,7 @@ Example POST Create Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
   
-  http://localhost:4242/api/tree?name=Network%20Tree&method=post
+  http://localhost:4242/api/tree?name=Network%20Tree&method_override=post
 
 
 Example Response
@@ -257,7 +257,7 @@ Example POST Edit Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
 
-  http://localhost:4242/api/tree?treeId=3&description=Network%20Device%20Information&method=post
+  http://localhost:4242/api/tree?treeId=3&description=Network%20Device%20Information&method_override=post
   
 Example Response
 ^^^^^^^^^^^^^^^^
@@ -288,5 +288,5 @@ Example DELETE Request
 ^^^^^^^^^^^^^^^^^^^^^^
 ::
 
-  http://localhost:4242/api/tree?tree=1&method=delete
+  http://localhost:4242/api/tree?tree=1&method_override=delete
   

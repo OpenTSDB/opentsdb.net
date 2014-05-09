@@ -32,7 +32,7 @@ Example POST Request
 ^^^^^^^^^^^^^^^^^^^^
 .. code-block :: javascript
   
-  http://localhost:4242/api/tree/rule?treeId=1&level=0&order=0&type=METRIC&separator=.&method=post
+  http://localhost:4242/api/tree/rule?treeId=1&level=0&order=0&type=METRIC&separator=.&method_override=post
 
 
 Example Content Request
@@ -77,4 +77,4 @@ Example DELETE Request
 ^^^^^^^^^^^^^^^^^^^^^^
 ::
 
-  http://localhost:4242/api/tree/rules?treeId=1&method=delete
+  http://localhost:4242/api/tree/rules?treeId=1&method_override=delete

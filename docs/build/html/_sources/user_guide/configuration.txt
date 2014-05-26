@@ -66,6 +66,7 @@ documentation for details.
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written.
    E.g. /tmp/opentsdb", "", "--cachedir"
    "tsd.http.request.cors_domains", "String", "Optional", "A comma separated list of domain names to allow access to OpenTSDB when the ``Origin`` header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard ``*`` and specific domains at the same time.", "", ""
+   "tsd.http.request.cors_headers *(2.1)*", "String", "Optional", "A comma separated list of headers sent to clients when executing a CORs request. The literal value of this option will be passed to clients.", "Authorization, Content-Type, Accept, Origin, User-Agent, DNT, Cache-Control, X-Mx-ReqToken, Keep-Alive, X-Requested-With, If-Modified-Since", ""
    "tsd.http.request.enable_chunked", "Boolean", "Optional", "Whether or not to enable incoming chunk support for the HTTP RPC", "false", ""
    "tsd.http.request.max_chunk", "Integer", "Optional", "The maximum chunk size to support for incoming HTTP requests.", "4096", ""
    "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""
@@ -89,6 +90,7 @@ documentation for details.
    E.g. net.opentsdb.search.ElasticSearch", "", ""
    "tsd.stats.canonical", "Boolean", "Optional", "Whether or not the FQDN should be returned with statistics requests. The default stats are returned with ``host=<hostname>`` which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be ``fqdn=<hostname>``", "false", ""
    "tsd.storage.enable_compaction", "Boolean", "Optional", "Whether or not to enable compactions", "True", ""
+   "tsd.storage.fix_duplicates *(2.1)*", "Boolean", "Optional", "Whether or not to accept the last written value when parsing data points with duplicate timestamps. When enabled in conjunction with compactions, a compacted column will be written with the latest data points.", "False", ""
    "tsd.storage.flush_interval", "Integer", "Optional", "How often, in milliseconds, to flush the data point storage write buffer", "1000", "--flush-interval"
    "tsd.storage.hbase.data_table", "String", "Optional", "Name of the HBase table where data points are stored", "tsdb", "--table"
       "tsd.storage.hbase.meta_table", "String", "Optional", "Name of the HBase table where meta data are stored", "tsdb-meta", ""

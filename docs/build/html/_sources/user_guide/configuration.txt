@@ -68,7 +68,7 @@ documentation for details.
    "tsd.http.request.cors_domains", "String", "Optional", "A comma separated list of domain names to allow access to OpenTSDB when the ``Origin`` header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard ``*`` and specific domains at the same time.", "", ""
    "tsd.http.request.cors_headers *(2.1)*", "String", "Optional", "A comma separated list of headers sent to clients when executing a CORs request. The literal value of this option will be passed to clients.", "Authorization, Content-Type, Accept, Origin, User-Agent, DNT, Cache-Control, X-Mx-ReqToken, Keep-Alive, X-Requested-With, If-Modified-Since", ""
    "tsd.http.request.enable_chunked", "Boolean", "Optional", "Whether or not to enable incoming chunk support for the HTTP RPC", "false", ""
-   "tsd.http.request.max_chunk", "Integer", "Optional", "The maximum chunk size to support for incoming HTTP requests.", "4096", ""
+   "tsd.http.request.max_chunk", "Integer", "Optional", "The maximum request body size to support for incoming HTTP requests when chunking is enabled.", "4096", ""
    "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as JavaScript files for the web interface, are located.
    E.g. /opt/opentsdb/staticroot", "", "--staticroot"

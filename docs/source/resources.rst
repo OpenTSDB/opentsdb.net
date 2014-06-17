@@ -11,6 +11,7 @@ Front Ends
 * `Opentsdb-Dashboard <https://github.com/clover/opentsdb-dashboard>`_ - An HBase based dashboard system for OpenTSDB 1.x from Clover.
 * `TSDash <https://github.com/facebook/tsdash>`_ - A Java based UI and dashboard from Facebook.
 * `OpenTSDB Dashboard <https://github.com/turn/opentsdb-dashboard>`_ - A JQuery based dashboard from Turn.
+* `Grafana <http://grafana.org>`_ - A dashboard and graph editor with OpenTSDB support.
 
 Utilities
 ^^^^^^^^^

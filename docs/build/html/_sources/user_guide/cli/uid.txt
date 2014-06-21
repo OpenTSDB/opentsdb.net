@@ -40,13 +40,15 @@ Example Command
 ---------------
 ::
 
-  ./tsdb uid tagk
+  ./tsdb uid tagk host
   
 Example Response
 ---------------
 ::
 
   tagk host: [0, 0, 1]
+
+Where ``[0, 0, 1]`` is the UID of the value as a signed byte array.
 
 grep
 ^^^^

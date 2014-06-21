@@ -40,7 +40,7 @@ Example Command
 ---------------
 ::
 
-  ./tsdb uid tagk
+  ./tsdb uid tagk host
   
 Example Response
 ---------------

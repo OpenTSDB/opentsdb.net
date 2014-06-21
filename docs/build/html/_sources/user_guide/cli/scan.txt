@@ -21,7 +21,8 @@ Parameters
    "END-DATE", "String or Integer", "Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See :doc:`../query/dates` for details", "Current timestamp", "2014/01/01-00:00:00"
    "query", "String", "One or more command line queries", "", "sum tsd.hbase.rpcs type=put"
 
-Example 
+Example:
+
 .. code-block :: bash
 
   scan --import 1h-ago now sum tsd.hbase.rpcs type=put sum tsd.hbase.rpcs type=scan
@@ -47,7 +48,8 @@ The various formats are listed below. The ``\t`` expression represents a tab. ``
 
 Row Key Format
 --------------
-..
+
+.. code-block :: bash
 
   [<row key>] <metric name> <row timestamp> (<datetime>) <tag/value pairs>
   
@@ -61,13 +63,14 @@ Where:
   
 Example:
 
-..
+.. code-block :: bash
 
   [0, 0, 1, 80, -30, 39, 0, 0, 0, 1, 0, 0, 1] sys.cpu.user 1356998400 (Mon Dec 31 19:00:00 EST 2012) {host=web01}
 
 Single Data Point Column Format
 -------------------------------
-..
+
+.. code-block :: bash
 
   <two spaces>[<qualifier>]\t[<value>]\t<offset>\t<l|f>\t<timestamp>\t(<datetime>)
 
@@ -82,13 +85,14 @@ Where:
   
 Example:
 
-..
+.. code-block :: bash
 
   [0, 17]	[0, 17]	[1, 1]	1	l	1356998401	(Mon Dec 31 19:00:01 EST 2012)
   
 Compacted Column Format
 -----------------------
-..
+
+.. code-block :: bash
 
   <two spaces>[<qualifier>]\t[<value>] = <number of datapoints> values:
 
@@ -100,7 +104,7 @@ Where:
   
 Example:
 
-..
+.. code-block :: bash
 
   [-16, 0, 0, 7, -16, 0, 2, 7, -16, 0, 1, 7]	[0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 6, 0] = 3 values:
   
@@ -108,7 +112,8 @@ Each data point within the compacted column follows the same format as a single 
 
 Annotation Column Format
 ------------------------
-..
+
+.. code-block :: bash
 
   <two spaces>[<qualifier>]\t[<value>]\t<offset>\t<JSON\>\t<timestamp\>\t(<datetime>)
 
@@ -123,7 +128,7 @@ Where:
   
 Example:
 
-..
+.. code-block :: bash
 
   [1, 0, 0]	[123, 34...]	0	{"tsuid":"000001000001000001","startTime":1356998400,"endTime":0,"description":"Annotation on seconds","notes":"","custom":null}	1356998416000	(Mon Dec 31 19:00:16 EST 2012)
   
@@ -131,7 +136,8 @@ Import Format
 ^^^^^^^^^^^^^
 
 The import format is the same as a Telnet style ``put`` command. 
-..
+
+.. code-block :: bash
 
   <metric> <timestamp> <value> <tagk=tagv>[...<tagk=tagv>]
   
@@ -144,7 +150,7 @@ Where:
   
 Example:
 
-..
+.. code-block :: bash
 
   sys.cpu.user 1356998400 42 host=web01 cpu=0
   sys.cpu.user 1356998401 24 host=web01 cpu=0

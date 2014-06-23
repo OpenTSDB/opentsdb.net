@@ -1,13 +1,14 @@
 /api/search
 ==========
 
-This endpoint provides a basic means of searching using an optionally configured search plugin. Parameters used include a string query as well as a limit and start index for paging through results. It is up to each plugin to implement this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen. 
+This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the ``tsdb-meta`` table when enabled. Optionally, a search plugin can be installed to send and retreive information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen. 
 
-.. NOTE:: If the plugin is not configured or enabled, the search endpoint will always return an exception.
+.. NOTE:: If the plugin is not configured or enabled, endpoints other than ``/api/search/lookup`` will return an exception.
 
 Search API Endpoints
 --------------------
 
+* :doc:`lookup`
 * /api/search/tsmeta - :ref:`tsmeta_endpoint`
 * /api/search/tsmeta_summary - :ref:`tsmeta_summary_endpoint`
 * /api/search/tsuids - :ref:`tsuids_endpoint`
@@ -29,9 +30,11 @@ Parameters used by the search endpoint include:
    :header: "Name", "Data Type", "Required", "Description", "Default", "QS", "RW", "Example"
    :widths: 10, 5, 5, 45, 10, 5, 5, 15
 
-   "query", "String", "Required", "The string based query to pass to the search engine. This will be parsed by the engine or plugin to perform the actual search. Allowable values depends on the plugin.", "", "query", "", "name:sys.cpu.\*"
-   "limit", "Integer", "Optional", "Limits the number of results returned per query so as not to override the TSD or search engine. Allowable values depends on the plugin.", "25", "limit", "", "100"
-   "startIndex", "Integer", "Optional", "Used in combination with the ``limit`` value to page through results. Allowable values depends on the plugin.", "0", "start_index", "", "42"
+   "query", "String", "Optional", "The string based query to pass to the search engine. This will be parsed by the engine or plugin to perform the actual search. Allowable values depends on the plugin. Ignored for lookups.", "", "query", "", "name:sys.cpu.\*"
+   "limit", "Integer", "Optional", "Limits the number of results returned per query so as not to override the TSD or search engine. Allowable values depends on the plugin. Ignored for lookups.", "25", "limit", "", "100"
+   "startIndex", "Integer", "Optional", "Used in combination with the ``limit`` value to page through results. Allowable values depends on the plugin. Ignored for lookups.", "0", "start_index", "", "42"
+   "metric", "String", "Optional", "The name of a metric or a wildcard for lookup queries", "\*", "metric", "", "tsd.hbase.rpcs"
+   "tags", "Array", "Optional", "One or more key/value objects with tag names and/or tag values for lookup queries. See :doc:`lookup`", "", "tags", "", "See :doc:`lookup`"
 
 Example Request
 ^^^^^^^^^^^^^^^
@@ -64,6 +67,8 @@ Depending on the endpoint called, the output will change slightly. However commo
   "query", "String", "The query string submitted. May be altered by the plugin", "name:sys.cpu.\*"
   "limit", "Integer", "The maximum number of items returned in the result set. Note that the actual number returned may be less than the limit.", "25"
   "startIndex", "Integer", "The starting index for the current result set as provided in the query", "0"
+  "metric", "String", "The metric used for the lookup", "*"
+  "tags", "Array", "The list of tag pairs used for lookup queries. May be an empty list.", "[ ]"
   "time", "Integer", "The amount of time it took, in milliseconds, to complete the query", "120"
   "totalResults", "Integer", "The total number of results matched by the query", "1024"
   "results", "Array", "The result set. The format depends on the endpoint requested.", "*See Below*"
@@ -82,6 +87,8 @@ The TSMeta endpoint returns a list of matching TSMeta objects.
   {
       "type": "TSMETA",
       "query": "name:*",
+      "metric": "*",
+      "tags": [],
       "limit": 2,
       "time": 675,
       "results": [
@@ -194,6 +201,8 @@ The TSMeta Summary endpoint returns just the basic information associated with a
   {
       "type": "TSMETA_SUMMARY",
       "query": "name:*",
+      "metric": "*",
+      "tags": [],
       "limit": 3,
       "time": 565,
       "results": [
@@ -235,6 +244,8 @@ The TSUIDs endpoint returns a list of TSUIDS that match the query. The search is
   {
       "type": "TSUIDS",
       "query": "name:*",
+      "metric": "*",
+      "tags": [],
       "limit": 3,
       "time": 517,
       "results": [
@@ -258,6 +269,8 @@ The UIDMeta endpoint returns a list of UIDMeta objects that match the query.
   {
       "type": "UIDMETA",
       "query": "name:*",
+      "metric": "*",
+      "tags": [],
       "limit": 3,
       "time": 517,
       "results": [
@@ -308,6 +321,8 @@ The Annotation endpoint returns a list of Annotation objects that match the quer
   {
       "type": "ANNOTATION",
       "query": "description:*",
+      "metric": "*",
+      "tags": [],
       "limit": 25,
       "time": 80,
       "results": [

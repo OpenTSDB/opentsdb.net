@@ -182,7 +182,7 @@ API Endpoints
    dropcaches
    put
    query/index
-   search
+   search/index
    serializers
    stats
    suggest

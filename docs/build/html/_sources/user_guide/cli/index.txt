@@ -12,6 +12,7 @@ OpenTSDB consists of a single JAR file that uses a shell script to determine wha
    query
    fsck
    scan
+   search
    tsd
    
 Accessing a CLI tool is performed from the location of the ``tsdb`` file, built after compiling OpenTSDB. By default the tsdb file will be located in the ``build`` directory so you may access it via ``./build/tsdb``. Provide the name of the CLI utility as in ``./build/tsdb tsd``.

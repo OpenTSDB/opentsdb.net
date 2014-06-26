@@ -54,7 +54,9 @@ documentation for details.
    :header: "Property", "Type", "Required", "Description", "Default", "CLI"
    :widths: 20, 5, 5, 55, 5, 10
 
-   "tsd.core.auto_create_metrics", "Boolean", "Optional", "Whether or not new, incoming metrics will automatically create a new UID. When false, a metric that doesn't match an existing UID will be rejected and will not be written to storage. Tag names and tag values are always created automatically.", "False", "--auto-metric"
+   "tsd.core.auto_create_metrics", "Boolean", "Optional", "Whether or not a data point with a new metric will assign a UID to the metric. When false, a data point with a metric that is not in the database will be rejected and an exception will be thrown.", "False", "--auto-metric"
+   "tsd.core.auto_create_tagks *(2.1)*", "Boolean", "Optional", "Whether or not a data point with a new tag name will assign a UID to the tagk. When false, a data point with a tag name that is not in the database will be rejected and an exception will be thrown.", "True", ""
+   "tsd.core.auto_create_tagvs *(2.1)*", "Boolean", "Optional", "Whether or not a data point with a new tag value will assign a UID to the tagv. When false, a data point with a tag value that is not in the database will be rejected and an exception will be thrown.", "True", ""
    "tsd.core.meta.enable_realtime_ts", "Boolean", "Optional", "Whether or not to enable real-time TSMeta object creation. See :doc:`../user_guide/metadata`", "False", ""
    "tsd.core.meta.enable_realtime_uid", "Boolean", "Optional", "Whether or not to enable real-time UIDMeta object creation. See :doc:`../user_guide/metadata`", "False", ""
    "tsd.core.meta.enable_tsuid_incrementing", "Boolean", "Optional", "Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See :doc:`../user_guide/metadata` (Overrides ""tsd.core.meta.enable_tsuid_tracking"")", "False", ""

@@ -99,15 +99,19 @@ OpenTSDB can ingest a large amount of data, even a data point every second for a
 
 .. image:: ../../images/gui_downsampling_off.jpg
 
-Down sampling can be used at query time to reduce the number of data points returned so that you can extract better information from a graph or pass less data over a connection. Down sampling requires an **aggregation** function and a **time interval**. The aggregation function is used to compute a new data point across all of the data points in the specified interval with the proper mathematical function. For example, if the aggregation ``sum`` is used, then all of the data points within the interval will be added together into a new value. If ``avg`` is chosen, then the average of all data points within the interval will be returned. 
+Down sampling can be used at query time to reduce the number of data points returned so that you can extract better information from a graph or pass less data over a connection. Down sampling requires an **aggregation** function and a **time interval**. The aggregation function is used to compute a new data point across all of the data points in the specified interval with the proper mathematical function. For example, if the aggregation ``sum`` is used, then all of the data points within the interval will be summed together into a single value. If ``avg`` is chosen, then the average of all data points within the interval will be returned. 
 
 Intervals are specified by a number and a unit of time. For example, ``30m`` will aggregate data points every 30 minutes. ``1h`` will aggregate across an hour. See :doc:`dates` for valid relative time units. Do not add the ``-ago`` to a down sampling query. 
-
-.. NOTE:: When down sampling a time series with irregularly spaced data points, the average of all time stamps in the interval will be used to calculate a new time stamp for the down sampled data point. This means a graph may show varying gaps between values. Future versions of OpenTSDB may normalize the timestamp on even boundaries.
 
 Using down sampling we can cleanup the previous graph to arrive at something much more useful:
 
 .. image:: ../../images/gui_downsampling_on.jpg
+
+As of 2.1, downsampled timestamps are normalized based on the remainder of the original data point timestamp divided by the downsampling interval in milliseconds, i.e. the modulus. In Java the code is ``timestamp - (timestamp % interval_ms)``. For example, given a timestamp of ``1388550980000``, or ``1/1/2014 04:36:20 UTC`` and an hourly interval that equates to 3600000 milliseconds, the resulting timestamp will be rounded to ``1388548800000``. All data points between 4 and 5 UTC will wind up in the 4 AM bucket. If you query for a day's worth of data downsampling on 1 hour, you will receive 24 data points (assuming there is data for all 24 hours). 
+
+Normalization works very well for common queries such as a day's worth of data downsampled to 1 minute or 1 hour. However if you try to downsample on an odd interval, such as 36 minutes, then the timestamps may look a little strange due to the nature of the modulus calculation. Given an interval of 36 minutes and our example above, the interval would be ``2160000`` milliseconds and the resulting timestamp ``1388549520`` or ``04:12:00 UTC``. All data points between ``04:12`` and ``04:48`` would wind up in a single bucket. Also note that OpenTSDB cannot currently normalize on non-UTC times and it cannot normalize on weekly or monthly boundaries.
+
+.. NOTE:: Previous to 2.1, timestamps were not normalized. The buckets were calculated based on the starting time of the first data point retreived for each series, then the series went through interpolation. This means a graph may show varying gaps between values and return more values than expected.
 
 Rate
 ^^^^

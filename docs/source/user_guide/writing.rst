@@ -141,6 +141,8 @@ There are currently three main methods to get data into OpenTSDB: Telnet API, HT
 
 .. WARNING:: Don't try to write directly to the underlying storage system, e.g. HBase. Just don't. It'll get messy quickly.
 
+.. NOTE:: If the ``tsd.mode`` is set to ``ro`` instead of ``rw``, the TSD will not accept data points through RPC calls. Telnet style calls will throw an exception and calls to the HTTP endpoint will return a 404 error. However it is still possible to write via the JAVA API when the mode is set to read only.
+
 Telnet
 ------
 

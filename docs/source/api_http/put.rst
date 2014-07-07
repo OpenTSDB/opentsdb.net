@@ -13,6 +13,8 @@ Another recommendation is to enable keep-alives on your HTTP client so that you 
 
 .. NOTE:: When using HTTP for puts, you may need to enable support for chunks if your HTTP client automatically breaks large requests into smaller packets. For example, CURL will break up messages larger than 2 or 3 data points and by default, OpenTSDB disables chunk support. Enable it by setting ``tsd.http.request.enable_chunked`` to true in the config file.
 
+.. NOTE:: If the ``tsd.mode`` is set to ``ro``, the ``/api/put`` endpoint will be unavailable and all calls will return a 404 error.
+
 Verbs
 -----
 

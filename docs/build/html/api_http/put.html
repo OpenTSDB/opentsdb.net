@@ -118,6 +118,10 @@
 <p class="first admonition-title">Note</p>
 <p class="last">When using HTTP for puts, you may need to enable support for chunks if your HTTP client automatically breaks large requests into smaller packets. For example, CURL will break up messages larger than 2 or 3 data points and by default, OpenTSDB disables chunk support. Enable it by setting <tt class="docutils literal"><span class="pre">tsd.http.request.enable_chunked</span></tt> to true in the config file.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the <tt class="docutils literal"><span class="pre">tsd.mode</span></tt> is set to <tt class="docutils literal"><span class="pre">ro</span></tt>, the <tt class="docutils literal"><span class="pre">/api/put</span></tt> endpoint will be unavailable and all calls will return a 404 error.</p>
+</div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">

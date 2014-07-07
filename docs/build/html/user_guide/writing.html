@@ -244,6 +244,10 @@ sys.cpu.user host=webserver01,cpu=63 1356998400  1
 <p class="first admonition-title">Warning</p>
 <p class="last">Don't try to write directly to the underlying storage system, e.g. HBase. Just don't. It'll get messy quickly.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the <tt class="docutils literal"><span class="pre">tsd.mode</span></tt> is set to <tt class="docutils literal"><span class="pre">ro</span></tt> instead of <tt class="docutils literal"><span class="pre">rw</span></tt>, the TSD will not accept data points through RPC calls. Telnet style calls will throw an exception and calls to the HTTP endpoint will return a 404 error. However it is still possible to write via the JAVA API when the mode is set to read only.</p>
+</div>
 <div class="section" id="telnet">
 <h3>Telnet</h3>
 <p>The easiest way to get started with OpenTSDB is to open up a terminal or telnet client, connect to your TSD and issue a <tt class="docutils literal"><span class="pre">put</span></tt> command and hit 'enter'. If you are writing a program, simply open a socket, print the string command with a new line and send the packet. The telnet command format is:</p>

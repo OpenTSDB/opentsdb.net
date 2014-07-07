@@ -62,6 +62,8 @@ documentation for details.
    "tsd.core.meta.enable_tsuid_incrementing", "Boolean", "Optional", "Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See :doc:`../user_guide/metadata` (Overrides ""tsd.core.meta.enable_tsuid_tracking"")", "False", ""
    "tsd.core.meta.enable_tsuid_tracking", "Boolean", "Optional", "Whether or not to enable tracking of TSUIDs by storing a ``1`` with the current timestamp every time a data point is recorded. See :doc:`../user_guide/metadata`", "False", ""
    "tsd.core.plugin_path", "String", "Optional", "A path to search for plugins when the TSD starts. If the path is invalid, the TSD will fail to start. Plugins can still be enabled if they are in the class path.", "", ""
+   "tsd.core.preload_uid_cache *(2.1)*", "Boolean", "Optional", "Enables pre-population of the UID caches when starting a TSD.", "False", ""
+   "tsd.core.preload_uid_cache.max_entries *(2.1)*", "Integer", "Optional", "The number of rows to scan for UID pre-loading.", "300,000", ""
    "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.
    E.g. America/Los_Angeles", "System Configured", ""
    "tsd.core.tree.enable_processing", "Boolean", "Optional", "Whether or not to enable processing new/edited TSMeta through tree rule sets", "false", ""
@@ -74,6 +76,7 @@ documentation for details.
    "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as JavaScript files for the web interface, are located.
    E.g. /opt/opentsdb/staticroot", "", "--staticroot"
+   "tsd.mode *(2.1)*", "String", "Optional", "Whether or not the TSD will allow writing data points. Must be either ``rw`` to allow writing data or ``ro`` to block writes", "rw", ""
    "tsd.network.async_io", "Boolean", "Optional", "Whether or not to use NIO or traditional blocking IO", "True", "--async-io"
    "tsd.network.backlog", "Integer", "Optional", "The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the 'somaxconn' kernel setting or set by Netty to 3072.", "See Description", "--backlog"
    "tsd.network.bind", "String", "Optional", "An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
@@ -83,6 +86,7 @@ documentation for details.
    "tsd.network.reuse_address", "Boolean", "Optional", "Whether or not to allow reuse of the bound port within Netty", "True", ""
    "tsd.network.tcp_no_delay", "Boolean", "Optional", "Whether or not to disable TCP buffering before sending data", "True", ""
    "tsd.network.worker_threads", "Integer", "Optional", "The number of asynchronous IO worker threads for Netty", "*#CPU cores \* 2*", "--worker-threads"
+   "tsd.no_diediedie *(2.1)*", "Boolean", "Optional", "Enable or disable the ``diediedie`` HTML and ASCII commands to shutdown a TSD.", "False", ""
    "tsd.rpc.plugins", "String", "Optional", "A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.", "", ""
    "tsd.rtpublisher.enable", "Boolean", "Optional", "Whether or not to enable a real time publishing plugin. If true, you must supply a valid ``tsd.rtpublisher.plugin`` class name", "False", ""
    "tsd.rtpublisher.plugin", "String", "Optional", "The class name of a real time publishing plugin to instantiate. If ``tsd.rtpublisher.enable`` is set to false, this value is ignored.

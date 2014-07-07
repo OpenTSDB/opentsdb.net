@@ -218,6 +218,20 @@ documentation for details.</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
+<tr class="row-even"><td>tsd.core.preload_uid_cache <em>(2.1)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Enables pre-population of the UID caches when starting a TSD.</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.preload_uid_cache.max_entries <em>(2.1)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The number of rows to scan for UID pre-loading.</td>
+<td>300,000</td>
+<td>&nbsp;</td>
+</tr>
 <tr class="row-even"><td>tsd.core.timezone</td>
 <td>String</td>
 <td>Optional</td>
@@ -284,21 +298,28 @@ E.g. /opt/opentsdb/staticroot</td>
 <td>&nbsp;</td>
 <td>--staticroot</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.async_io</td>
+<tr class="row-odd"><td>tsd.mode <em>(2.1)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>Whether or not the TSD will allow writing data points. Must be either <tt class="docutils literal"><span class="pre">rw</span></tt> to allow writing data or <tt class="docutils literal"><span class="pre">ro</span></tt> to block writes</td>
+<td>rw</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or traditional blocking IO</td>
 <td>True</td>
 <td>--async-io</td>
 </tr>
-<tr class="row-even"><td>tsd.network.backlog</td>
+<tr class="row-odd"><td>tsd.network.backlog</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the 'somaxconn' kernel setting or set by Netty to 3072.</td>
 <td>See Description</td>
 <td>--backlog</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.bind</td>
+<tr class="row-even"><td>tsd.network.bind</td>
 <td>String</td>
 <td>Optional</td>
 <td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
@@ -306,40 +327,47 @@ E.g. 127.0.0.1</td>
 <td>0.0.0.0</td>
 <td>--bind</td>
 </tr>
-<tr class="row-even"><td>tsd.network.keep_alive</td>
+<tr class="row-odd"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.port</td>
+<tr class="row-even"><td>tsd.network.port</td>
 <td>Integer</td>
 <td>Required</td>
 <td>The TCP port to use for accepting connections</td>
 <td>&nbsp;</td>
 <td>--port</td>
 </tr>
-<tr class="row-even"><td>tsd.network.reuse_address</td>
+<tr class="row-odd"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow reuse of the bound port within Netty</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
+<tr class="row-even"><td>tsd.network.tcp_no_delay</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to disable TCP buffering before sending data</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.network.worker_threads</td>
+<tr class="row-odd"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number of asynchronous IO worker threads for Netty</td>
 <td><em>#CPU cores * 2</em></td>
 <td>--worker-threads</td>
+</tr>
+<tr class="row-even"><td>tsd.no_diediedie <em>(2.1)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Enable or disable the <tt class="docutils literal"><span class="pre">diediedie</span></tt> HTML and ASCII commands to shutdown a TSD.</td>
+<td>False</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>tsd.rpc.plugins</td>
 <td>String</td>

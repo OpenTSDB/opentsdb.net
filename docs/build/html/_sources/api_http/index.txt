@@ -6,7 +6,7 @@ OpenTSDB provides an HTTP based application programming interface to enable inte
 Overview
 --------
 
-The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though plugable ``formatters`` may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.
+The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though pluggable ``formatters`` may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.
 
 Version 1.X to 2.x
 ------------------
@@ -16,7 +16,7 @@ OpenTSDB 1.x had a simple HTTP API that provided access to common behaviors such
 Serializers
 -----------
 
-2.0 introduces plugable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read :doc:`serializers/index`
+2.0 introduces pluggable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read :doc:`serializers/index`
 
 All API calls use the default JSON serializer unless overridden by query string or ``Content-Type`` header. To override:
 

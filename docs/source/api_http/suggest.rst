@@ -17,7 +17,7 @@ Requests
    :widths: 10, 5, 5, 45, 10, 5, 5, 15
    
    "type", "String", "Required", "The type of data to auto complete on. Must be one of the following: **metrics**, **tagk** or **tagv**", "", "type", "", "metrics"
-   "q", "String", "Required", "A string to match on for the given type", "", "q", "", "web"
+   "q", "String", "Optional", "A string to match on for the given type", "", "q", "", "web"
    "max", "Integer", "Optional", "The maximum number of suggested results to return. Must be greater than 0", "25", "max", "", "10"
 
 Example Request

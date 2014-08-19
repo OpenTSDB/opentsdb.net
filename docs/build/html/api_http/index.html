@@ -112,7 +112,7 @@
 <p>OpenTSDB provides an HTTP based application programming interface to enable integration with external systems. Almost all OpenTSDB features are accessiable via the API such as querying timeseries data, managing metadata and storing data points. Please read this entire page for important information about standard API behavior before investigating individual endpoints.</p>
 <div class="section" id="overview">
 <h2>Overview</h2>
-<p>The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though plugable <tt class="docutils literal"><span class="pre">formatters</span></tt> may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.</p>
+<p>The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though pluggable <tt class="docutils literal"><span class="pre">formatters</span></tt> may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.</p>
 </div>
 <div class="section" id="version-1-x-to-2-x">
 <h2>Version 1.X to 2.x</h2>
@@ -120,7 +120,7 @@
 </div>
 <div class="section" id="serializers">
 <h2>Serializers</h2>
-<p>2.0 introduces plugable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read <a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
+<p>2.0 introduces pluggable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read <a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
 <p>All API calls use the default JSON serializer unless overridden by query string or <tt class="docutils literal"><span class="pre">Content-Type</span></tt> header. To override:</p>
 <ul>
 <li><p class="first"><strong>Query String</strong> - Supply a parameter such as <tt class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></tt> where <tt class="docutils literal"><span class="pre">&lt;serializer_name&gt;</span></tt> is the hard-coded name of the serializer as shown in the <tt class="docutils literal"><span class="pre">/api/serializers</span></tt> <tt class="docutils literal"><span class="pre">serializer</span></tt> output field.</p>

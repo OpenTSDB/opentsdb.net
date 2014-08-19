@@ -8,7 +8,7 @@ OpenTSDB has a thriving community who contributed and requested a number of new 
 * Cross Origin Resource Sharing - For the API so you can make AJAX calls easily
 * Store Data Via HTTP - Write data points over HTTP as an alternative to Telnet
 * Configuration File - A key/value file shared by the TSD and command line tools
-* Plugable Serializers - Enable different inputs and outputs for the API
+* Pluggable Serializers - Enable different inputs and outputs for the API
 * Annotations - Record meta data about specific time series or data points
 * Meta Data - Record meta data for each time series, metrics, tag names, or values
 * Trees - Flatten metric and tag combinations into a single name for navigation or usage with different tools

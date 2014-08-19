@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/config &mdash; OpenTDSB 2.0 documentation</title>
+    <title>/api/config &mdash; OpenTSDB 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="top" title="OpenTSDB 2.0 documentation" href="../index.html" />
     <link rel="up" title="HTTP API" href="index.html" />
     <link rel="next" title="/api/dropcaches" href="dropcaches.html" />
     <link rel="prev" title="/api/annotation/bulk" href="annotation/bulk.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -53,7 +53,7 @@
         <li class="right" >
           <a href="annotation/bulk.html" title="/api/annotation/bulk"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">OpenTSDB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
@@ -126,59 +126,49 @@
 <div class="section" id="response">
 <h2>Response</h2>
 <p>The response is a hash map of configuration properties and values.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">When a configuration setting with the string &quot;pass&quot; is found, the value for that property will be replaced with &quot;********&quot;. This is a trivial means of obfuscating passwords.</p>
-</div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s2">&quot;tsd.core.auto_create_metrics&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.core.meta.enable_realtime_ts&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.core.meta.enable_realtime_uid&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.core.meta.enable_tsuid_incrementing&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.core.meta.enable_tsuid_tracking&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.core.plugin_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/opentsdb/plugins&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.core.tree.enable_processing&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.http.cachedir&quot;</span><span class="o">:</span> <span class="s2">&quot;/tmp/opentsdb&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.http.request.cors_domains&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.http.request.enable_chunked&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.elasticsearch.tsmeta_type&quot;</span><span class="o">:</span> <span class="s2">&quot;tsmetadata&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.flush_interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.tcp_no_delay&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.tree.indexer.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.staticroot&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/opentsdb/staticroot/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.bind&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.worker_threads&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.hbase.zk_quorum&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.port&quot;</span><span class="o">:</span> <span class="s2">&quot;4242&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rpcplugin.DummyRPCPlugin.port&quot;</span><span class="o">:</span> <span class="s2">&quot;42&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.elasticsearch.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.async_io&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.plugin&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.RabbitMQPublisher&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.enableindexer&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.user&quot;</span><span class="o">:</span> <span class="s2">&quot;guest&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.search.plugin&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.search.ElasticSearch&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.tree.enable_processing&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.stats.canonical&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.cachedir&quot;</span><span class="o">:</span> <span class="s2">&quot;/tmp/opentsdb/&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsd.http.request.max_chunk&quot;</span><span class="o">:</span> <span class="s2">&quot;16384&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsd.http.show_stack_trace&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.http.staticroot&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/opentsdb/staticroot/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.auto_create_metrics&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.enable_compaction&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.pass&quot;</span><span class="o">:</span> <span class="s2">&quot;guest&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.meta.enable_tracking&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsd.mq.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.network.async_io&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.network.bind&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.network.keep_alive&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.network.port&quot;</span><span class="o">:</span> <span class="s2">&quot;4242&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.network.reuse_address&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.network.tcp_no_delay&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.network.worker_threads&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rpc.plugins&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.DummyRpcPlugin&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rpcplugin.DummyRPCPlugin.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rpcplugin.DummyRPCPlugin.port&quot;</span><span class="o">:</span> <span class="s2">&quot;42&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rtpublisher.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rtpublisher.plugin&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.RabbitMQPublisher&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.pass&quot;</span><span class="o">:</span> <span class="s2">&quot;********&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.rtpublisher.rabbitmq.user&quot;</span><span class="o">:</span> <span class="s2">&quot;guest&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsd.rtpublisher.rabbitmq.vhost&quot;</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.search.elasticsearch.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.search.elasticsearch.tsmeta_type&quot;</span><span class="o">:</span> <span class="s2">&quot;tsmetadata&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.search.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.search.enableindexer&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.search.plugin&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.search.ElasticSearch&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.search.tree.indexer.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.stats.canonical&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.storage.enable_compaction&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.storage.flush_interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsd.storage.hbase.data_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.storage.hbase.meta_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-meta&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.storage.hbase.tree_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-tree&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsd.storage.hbase.uid_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-uid&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.http.request.enable_chunked&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.core.plugin_path&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/opentsdb/plugins&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsd.storage.hbase.zk_basedir&quot;</span><span class="o">:</span> <span class="s2">&quot;/hbase&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tsd.storage.hbase.zk_quorum&quot;</span><span class="o">:</span> <span class="s2">&quot;127.0.0.1&quot;</span>
-
+    <span class="s2">&quot;tsd.rtpublisher.enable&quot;</span><span class="o">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rpcplugin.DummyRPCPlugin.hosts&quot;</span><span class="o">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.storage.hbase.tree_table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-tree&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.keep_alive&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.network.reuse_address&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsd.rpc.plugins&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.DummyRpcPlugin&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -204,7 +194,7 @@
         <li class="right" >
           <a href="annotation/bulk.html" title="/api/annotation/bulk"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">OpenTSDB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>

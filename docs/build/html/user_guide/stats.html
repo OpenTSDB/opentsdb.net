@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Stats &mdash; OpenTDSB 2.0 documentation</title>
+    <title>Stats &mdash; OpenTSDB 2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTDSB 2.0 documentation" href="../index.html" />
+    <link rel="top" title="OpenTSDB 2.0 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Definitions" href="definitions.html" />
     <link rel="prev" title="Plugins" href="plugins.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -53,7 +53,7 @@
         <li class="right" >
           <a href="plugins.html" title="Plugins"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">OpenTSDB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>
@@ -88,8 +88,8 @@
             
   <div class="section" id="stats">
 <h1>Stats</h1>
-<p>OpenTSDB offers a number of metrics about it's performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accesible from the GUI via the &quot;Stats&quot; tab, from the Http API at <tt class="docutils literal"><span class="pre">/api/stats</span></tt> or the legacy API at <tt class="docutils literal"><span class="pre">/stats</span></tt>.</p>
-<p>All stats include a <tt class="docutils literal"><span class="pre">host</span></tt> tag that includes the name of the host where the TSD is running. If the <tt class="docutils literal"><span class="pre">tsd.stats.canonical</span></tt> configuration flag is set, this will change to <tt class="docutils literal"><span class="pre">fqdn</span></tt> and the TSD will try to resolve it's host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
+<p>OpenTSDB offers a number of metrics about its performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accesible from the GUI via the &quot;Stats&quot; tab, from the Http API at <tt class="docutils literal"><span class="pre">/api/stats</span></tt> or the legacy API at <tt class="docutils literal"><span class="pre">/stats</span></tt>.</p>
+<p>All stats include a <tt class="docutils literal"><span class="pre">host</span></tt> tag that includes the name of the host where the TSD is running. If the <tt class="docutils literal"><span class="pre">tsd.stats.canonical</span></tt> configuration flag is set, this will change to <tt class="docutils literal"><span class="pre">fqdn</span></tt> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -107,7 +107,7 @@
 <tbody valign="top">
 <tr class="row-even"><td>tsd.connectionmgr.connections</td>
 <td>type=open</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The number of currently open Telnet and HTTP connections.</td>
 </tr>
 <tr class="row-odd"><td>tsd.connectionmgr.connections</td>
@@ -137,62 +137,62 @@
 </tr>
 <tr class="row-even"><td>tsd.http.latency_50pct</td>
 <td>type=all</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 50th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.latency_75pct</td>
 <td>type=all</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 75th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.http.latency_90pct</td>
 <td>type=all</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 90th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.latency_95pct</td>
 <td>type=all</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer HTTP requests for the 95th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.http.latency_50pct</td>
 <td>type=graph</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 50th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.latency_75pct</td>
 <td>type=graph</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 75th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.http.latency_90pct</td>
 <td>type=graph</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 90th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.latency_95pct</td>
 <td>type=graph</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to answer graphing requests for the 95th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.http.latency_50pct</td>
 <td>type=gnuplot</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 50th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.latency_75pct</td>
 <td>type=gnuplot</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 75th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.http.latency_90pct</td>
 <td>type=gnuplot</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 90th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.latency_95pct</td>
 <td>type=gnuplot</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 95th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.http.graph.requests</td>
@@ -317,42 +317,42 @@
 </tr>
 <tr class="row-even"><td>tsd.hbase.latency_50pct</td>
 <td>method=put</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 50th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.latency_75pct</td>
 <td>method=put</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 75th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.hbase.latency_90pct</td>
 <td>method=put</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 90th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.latency_95pct</td>
 <td>method=put</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Put call for the 95th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.hbase.latency_50pct</td>
 <td>method=scan</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 50th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.latency_75pct</td>
 <td>method=scan</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 75th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.hbase.latency_90pct</td>
 <td>method=scan</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 90th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.latency_95pct</td>
 <td>method=scan</td>
-<td>Guage</td>
+<td>Gauge</td>
 <td>The time it took, in milliseconds, to execute a Scan call for the 95th percentile cases</td>
 </tr>
 <tr class="row-even"><td>tsd.hbase.root_lookups</td>
@@ -466,7 +466,7 @@
         <li class="right" >
           <a href="plugins.html" title="Plugins"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTDSB 2.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">OpenTSDB 2.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >User Guide</a> &raquo;</li> 
       </ul>
     </div>

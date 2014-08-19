@@ -1,9 +1,9 @@
 Stats
 =====
 
-OpenTSDB offers a number of metrics about it's performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accesible from the GUI via the "Stats" tab, from the Http API at ``/api/stats`` or the legacy API at ``/stats``.
+OpenTSDB offers a number of metrics about its performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accesible from the GUI via the "Stats" tab, from the Http API at ``/api/stats`` or the legacy API at ``/stats``.
 
-All stats include a ``host`` tag that includes the name of the host where the TSD is running. If the ``tsd.stats.canonical`` configuration flag is set, this will change to ``fqdn`` and the TSD will try to resolve it's host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.
+All stats include a ``host`` tag that includes the name of the host where the TSD is running. If the ``tsd.stats.canonical`` configuration flag is set, this will change to ``fqdn`` and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.
 
 .. csv-table::
    :header: "Metric", "Tags", "Type", "Description"

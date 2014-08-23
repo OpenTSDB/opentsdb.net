@@ -129,6 +129,24 @@ Query String Vs. Body Content
 
 Most of the API endpoints support query string parameters, particularly those that fetch data from the system. However due to the complexities of encoding some characters, and particularly Unicode, all endpoints also support access via POST content using formatters. The default format is JSON so clients can use their favorite means of generating a JSON object and send it to the OpenTSDB API via a ``POST`` request. ``POST`` requests will generally provided greater flexibility in the fields offered and fully Unicode support than query strings. 
 
+Compressed Requests
+-------------------
+
+The API can accept body content that has been compressed. Make sure to set the ``Content-Encoding`` header to ``gzip`` and pass the binary encoded data over the wire. This is particularly useful for posting data points to the ``/api/put`` endpoint. An example using curl:
+
+.. code-block :: javascript
+
+	$ gzip -9c clear-32k.json > gzip-32k.json
+
+	$ file gzip-32k.json 
+	gzip-32k.json: gzip compressed data, was "clear-32k.json", from Unix, last modified: Thu Jan 16 15:31:55 2014
+
+	$ ls -l gzip-32k.json 
+	-rw-r--r-- 1 root root 1666 févr.  4 09:57 gzip-32k.json
+
+	$ curl -X POST --data-binary "@gzip-32k.json" --header "Content-Type: application/json" --header "Content-Encoding: gzip" http://mytsdb1:4242/api/put?details 
+	{"errors":[],"failed":0,"success":280}
+
 CORS
 ----
 

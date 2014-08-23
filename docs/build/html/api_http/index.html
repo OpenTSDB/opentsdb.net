@@ -72,6 +72,7 @@
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#api-versioning">API Versioning</a></li>
 <li><a class="reference internal" href="#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li><a class="reference internal" href="#compressed-requests">Compressed Requests</a></li>
 <li><a class="reference internal" href="#cors">CORS</a></li>
 <li><a class="reference internal" href="#documentation">Documentation</a></li>
 <li><a class="reference internal" href="#deprecated-api">Deprecated API</a></li>
@@ -324,6 +325,22 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <div class="section" id="query-string-vs-body-content">
 <h2>Query String Vs. Body Content</h2>
 <p>Most of the API endpoints support query string parameters, particularly those that fetch data from the system. However due to the complexities of encoding some characters, and particularly Unicode, all endpoints also support access via POST content using formatters. The default format is JSON so clients can use their favorite means of generating a JSON object and send it to the OpenTSDB API via a <tt class="docutils literal"><span class="pre">POST</span></tt> request. <tt class="docutils literal"><span class="pre">POST</span></tt> requests will generally provided greater flexibility in the fields offered and fully Unicode support than query strings.</p>
+</div>
+<div class="section" id="compressed-requests">
+<h2>Compressed Requests</h2>
+<p>The API can accept body content that has been compressed. Make sure to set the <tt class="docutils literal"><span class="pre">Content-Encoding</span></tt> header to <tt class="docutils literal"><span class="pre">gzip</span></tt> and pass the binary encoded data over the wire. This is particularly useful for posting data points to the <tt class="docutils literal"><span class="pre">/api/put</span></tt> endpoint. An example using curl:</p>
+<div class="highlight-javascript"><div class="highlight"><pre>$ gzip -9c clear-32k.json &gt; gzip-32k.json
+
+$ file gzip-32k.json
+gzip-32k.json: gzip compressed data, was &quot;clear-32k.json&quot;, from Unix, last modified: Thu Jan 16 15:31:55 2014
+
+$ ls -l gzip-32k.json
+-rw-r--r-- 1 root root 1666 févr.  4 09:57 gzip-32k.json
+
+$ curl -X POST --data-binary &quot;@gzip-32k.json&quot; --header &quot;Content-Type: application/json&quot; --header &quot;Content-Encoding: gzip&quot; http://mytsdb1:4242/api/put?details
+{&quot;errors&quot;:[],&quot;failed&quot;:0,&quot;success&quot;:280}
+</pre></div>
+</div>
 </div>
 <div class="section" id="cors">
 <h2>CORS</h2>

@@ -13,9 +13,9 @@ If you don't know the exact timestamp to request you can submit a time in the pa
 * m - Minutes
 * h - Hours
 * d - Days (24 hours)
-* w - Weeks (14 days)
+* w - Weeks (7 days)
 * n - Months (30 days)
-* y - Years ( 365 days)
+* y - Years (365 days)
 
 .. NOTE:: Relative times do not account for leap seconds, leap years or time zones. They simply calculate the number of seconds in the past from the current time.
 

@@ -10,7 +10,7 @@ Docker Images
 Front Ends
 ^^^^^^^^^^
 
-* `Shadow Wolf <https://github.com/box/StatusWolf>`_ - A PHP and MySQL based dashboard for creating and storing dynamic custom graphs with OpenTSDB data including anonmaly detection.
+* `Status Wolf <https://github.com/box/StatusWolf>`_ - A PHP and MySQL based dashboard for creating and storing dynamic custom graphs with OpenTSDB data including anonmaly detection.
 * `Metrilyx <https://github.com/Ticketmaster/metrilyx-2.0>`_ - A Python and Django based dashboard system with dynamic graphs from Ticketmaster.
 * `Opentsdb-Dashboard <https://github.com/clover/opentsdb-dashboard>`_ - An HBase based dashboard system for OpenTSDB 1.x from Clover.
 * `TSDash <https://github.com/facebook/tsdash>`_ - A Java based UI and dashboard from Facebook.

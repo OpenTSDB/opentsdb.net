@@ -29,6 +29,9 @@
   </head>
 
   <body>
+    <a href="https://github.com/OpenTSDB/opentsdb">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+    </a>
      <div class="container">
        <h1><a href="http://www.opentsdb.net/">OpenTSDB</a></h1>
        
@@ -126,7 +129,7 @@ The TSD eventually becomes unhealthy when HBase itself is down or broken for
 an extended period of time.  Right now, the TSD doesn't handle 
 prolonged HBase outages very well and will discard incoming data points once its buffers
 are full if it's unable to flush them to HBase.  Future versions will temporarily store
-data to local disk when it is unabel to reach HBase.
+data to local disk when it is unable to reach HBase.
 <p>
 StumbleUpon has had a number of cases where a collector that runs on
 hundreds of machines goes crazy and generate a DDoS on the TSDs.  The TSD
@@ -367,7 +370,7 @@ and
 </section>
       <hr>
       <div class="footer">
-        <p><a href="https://groups.google.com/forum/#!forum/opentsdb"><i class="glyphicon glyphicon-envelope"></i> Mailing List</a>  | <i class="glyphicon glyphicon-user"></i> IRC: Freenode #opentsdb  |  &copy; 2010 - 2014 The OpenTSDB Authors</p>
+        <p><a href="https://groups.google.com/forum/#!forum/opentsdb"><i class="glyphicon glyphicon-envelope"></i> Mailing List</a>  | <i class="glyphicon glyphicon-user"></i> IRC: Freenode #opentsdb  |  &copy; 2010 - 2014 The OpenTSDB Authors | Travis CI Status: <img src="https://travis-ci.org/OpenTSDB/opentsdb.svg?branch=master">
       </div>
     </div> <!-- /container -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

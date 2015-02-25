@@ -12,15 +12,15 @@ Sample Data
    :header: "TS#", "Metric", "Tags", "TSUID"
    :widths: 10, 20, 50, 20
    
-   "1", "sys.cpu.system", "dc=dal host=web01", "0102040101"
-   "2", "sys.cpu.system", "dc=dal host=web02", "0102040102"
-   "3", "sys.cpu.system", "dc=dal host=web03", "0102040103"
+   "1", "sys.cpu.system", "dc=dal host=web1", "0102040101"
+   "2", "sys.cpu.system", "dc=dal host=web2", "0102040102"
+   "3", "sys.cpu.system", "dc=dal host=web3", "0102040103"
    "4", "sys.cpu.system", "host=web01", "010101"
    "5", "sys.cpu.system", "host=web01 owner=jdoe", "0101010306"
-   "6", "sys.cpu.system", "dc=lax host=web01", "0102050101"
-   "7", "sys.cpu.system", "dc=lax host=web02", "0102050102"
-   "8", "sys.cpu.user", "dc=dal host=web01", "0202040101"
-   "9", "sys.cpu.user", "dc=dal host=web02", "0202040102"
+   "6", "sys.cpu.system", "dc=lax host=web1", "0102050101"
+   "7", "sys.cpu.system", "dc=lax host=web2", "0102050102"
+   "8", "sys.cpu.user", "dc=dal host=web1", "0202040101"
+   "9", "sys.cpu.user", "dc=dal host=web2", "0202040102"
    
 **UIDs**
 

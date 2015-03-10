@@ -71,7 +71,7 @@ If you need to distribute OpenTSDB to machines without an Internet connection, c
 Source Layout
 -------------
 
-There are two main branches in the GIT repo. The ``master`` branch is the latest stable release along with any bug fixes that have been committed between releases. Currently, the ``master`` branch is OpenTSDB 1.0. The ``next`` branch is the next major or minor version of OpenTSDB with new features and development. When ``next`` is stable, it will be merged into ``master``. Currently the ``next`` branch is 2.0.0. Additional branches may be present and are used for testing or developing specific features.
+There are two main branches in the GIT repo. The ``master`` branch is the latest stable release along with any bug fixes that have been committed between releases. Currently, the ``master`` branch is OpenTSDB 2.0.1. The ``next`` branch is the next major or minor version of OpenTSDB with new features and development. When ``next`` is stable, it will be merged into ``master``. Currently the ``next`` branch is 2.1.0 RC 1. Additional branches may be present and are used for testing or developing specific features.
 
 Debian Package
 --------------

@@ -54,11 +54,11 @@
     <li data-target="#carousel-example-generic" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner">
-    <div class="text-center item">
-      <h3>OpenTSDB 2.0.1</h3>
-      <p><b>2014-11-09</b> - OpenTSDB 2.0.1 has been released with a number of bug fixes. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.0.1">GitHub</a>. Checkout the <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p>  
-    </div>
     <div class="text-center item active">
+      <h3>HBase Con 2015</h3>
+      <p><b>2015-03-10</b> - Join us at <a href="http://hbasecon.com/">HBase Con 2015</a> in San Franciso on May 7th for a talk about OpenTSDB 2.x.</p>  
+    </div>
+    <div class="text-center item">
       <h3>OpenTSDB 2.1 RC1</h3>
       <p><b>2014-11-09</b> - OpenTSDB 2.1.0 RC 1 has been released with new features. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.1.0RC1">GitHub</a> and help us find bugs! Checkout the new <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p> 
     </div>

@@ -153,7 +153,7 @@ The **No Key** check box will hide the key altogether.
 Style Tab
 ---------
 
-The style tab currently has a single box, the **Smooth** check box. With this checked, the data point characters will be removed from the graph showing the lines only. Some users prefer this over the default.
+The style tab currently has a single box, the **Smooth** check box. With this checked, the data point characters will be removed from the graph (showing the lines only) and the data will be smoothed with splines (at least three points need to be plotted). Some users prefer this over the default.
 
 .. image:: ../../images/gui_smooth.png
 

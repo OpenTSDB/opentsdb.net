@@ -47,7 +47,12 @@ The collectors are placed in the ``collectors`` directory.  Tcollector
 iterates over every directory named with a number in that directory and runs all
 the collectors in each directory.  If you name the directory ``60``,
 then tcollector will try to run every collector in that directory every 60
-seconds. Use the directory ``0`` for any collectors that are long-lived
+seconds. The shortest supported interval is 15 seconds, you should use a
+long-running collector in the 0 folder for intervals shorter than 15 seconds.
+TCollector will sleep for 15 seconds after each time it runs the collectors
+so intervals of 15 seconds are the only actually supported intervals. For example,
+this would allow you to run a collector every 15, 30, 45, 60, 75, or 90 seconds,
+but not 80 or 55 seconds. Use the directory ``0`` for any collectors that are long-lived
 and run continuously. Tcollector will read their output and respawn them if they
 die. Generally you want to write long-lived collectors since that has less
 overhead. OpenTSDB is designed to have lots of datapoints for each metric (for

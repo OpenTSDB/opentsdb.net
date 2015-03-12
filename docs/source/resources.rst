@@ -6,6 +6,7 @@ These are just some of the awesome front-ends, utilities, libraries and resource
 Docker Images
 ^^^^^^^^^^^^^
 * `petergrace/opentsdb-docker <https://registry.hub.docker.com/u/petergrace/opentsdb-docker/>`_ - A prebuilt Docker image with HBase and OpenTSDB already configured and ready to run!  If you have Docker installed, execute ``docker run -d -p 4242:4242 petergrace/opentsdb-docker`` to create an opentsdb instance running on port 4242.
+* `opower/opentsdb <https://registry.hub.docker.com/u/opower/opentsdb/>`_ - A Docker image containing OpenTSDB, HBase, and tcollector. Comes in both 2.0.1 and 2.1 versions (latest defaults to 2.1). Execute ``docker run -d -p 4242:4242 opower/opentsdb`` to create an OpenTSDB instance running on port 4242.
 
 Front Ends
 ^^^^^^^^^^
@@ -38,6 +39,7 @@ Clients
 
 * `R Client <https://github.com/holstius/opentsdbr>`_ - A client to pull data from OpenTSDB into R.
 * `Erlang Client <https://github.com/bradfordw/gen_opentsdb>`_ - A simple client to publish data to a TSD from Erlang.
+* `time-series <https://github.com/opower/time-series>`_ - A Ruby client that supports both reading and writing to OpenTSDB 2.x - contains support for synthetic time series calculations.
 * `Ruby <https://github.com/j05h/continuum>`_ - A read-only client for querying data from the 1.x API.
 * `Ruby <https://github.com/johnewart/ruby-opentsdb>`_ A write-only client for pushing data to a TSD.
 * `Go <https://github.com/bzub/go-opentsdb>`_ - Work with OpenTSDB data in Go.

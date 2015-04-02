@@ -32,6 +32,7 @@ Utilities
 * `Chef Cookbook <https://github.com/looztra/opentsdb-cookbook>`_ - Deploy from source via Chef
 * `Coda Hale Metrics Reporter <https://github.com/sps/metrics-opentsdb>`_ - Writes data to OpenTSDB from the Java Metrics library.
 * `Alternative Coda Hale Metrics Reporter <https://github.com/stuart-warren/metrics-opentsdb>`_ - Writes data to OpenTSDB from the Java Metrics library.
+* `opentsdb-snmp <https://github.com/frogmaster/opentsdb-snmp>`_ - Fetches data from SNMP enabled devices and writes to OpenTSDB.
 
 Clients
 ^^^^^^^

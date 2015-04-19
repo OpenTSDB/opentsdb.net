@@ -58,7 +58,7 @@ Iteration continues over every timestamp for which a data point is found for eve
    "A", "na", "5", "na", "15", "na", "5", "na"
    "B", "10", "na", "20", "na", "10", "na", "20"
    "Interpolated A", "na", "", "10", "", "10", "", ""
-   "Interpolated B", "", "15", "", "10", "", "15", "na"
+   "Interpolated B", "", "15", "", "15", "", "15", "na"
    "Summed Result", "10", "20", "30", "25", "20", "20", "20"
 
 **More Examples:**

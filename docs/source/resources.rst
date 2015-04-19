@@ -3,6 +3,10 @@ Additional Resources
 
 These are just some of the awesome front-ends, utilities, libraries and resources created by the OpenTSDB community. Please let us know if you have a project you'd like to see listed and if you don't see something you need, search for it on Github (new projects are popping up all the time) or your favorite search engine.
 
+Monitoring
+^^^^^^^^^^
+* `Bosun <https://bosun.org/>`_ - A monitoring and alerting system built on OpenTSDB from the folks at `Stack Exchange <http://stackexchange.com/>`_. 
+
 Docker Images
 ^^^^^^^^^^^^^
 * `petergrace/opentsdb-docker <https://registry.hub.docker.com/u/petergrace/opentsdb-docker/>`_ - A prebuilt Docker image with HBase and OpenTSDB already configured and ready to run!  If you have Docker installed, execute ``docker run -d -p 4242:4242 petergrace/opentsdb-docker`` to create an opentsdb instance running on port 4242.

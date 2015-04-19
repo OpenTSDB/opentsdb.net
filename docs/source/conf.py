@@ -43,7 +43,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'OpenTSDB'
-copyright = u'2014, OpenTSDB'
+copyright = u'2015, OpenTSDB'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

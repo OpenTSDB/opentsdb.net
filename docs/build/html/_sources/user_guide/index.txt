@@ -20,3 +20,4 @@ These pages serve as a user and administration guide. We highly recommend that y
    cli/index
    utilities/index
    logging
+   troubleshooting

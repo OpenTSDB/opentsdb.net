@@ -48,6 +48,7 @@ Clients
 * `Ruby <https://github.com/j05h/continuum>`_ - A read-only client for querying data from the 1.x API.
 * `Ruby <https://github.com/johnewart/ruby-opentsdb>`_ A write-only client for pushing data to a TSD.
 * `Go <https://github.com/bzub/go-opentsdb>`_ - Work with OpenTSDB data in Go.
+* `Potsdb <https://pypi.python.org/pypi/potsdb>`_ - A Python client for writing data
 
 References to OpenTSDB
 ^^^^^^^^^^^^^^^^^^^^^^

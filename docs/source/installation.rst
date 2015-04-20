@@ -41,7 +41,7 @@ Before proceeding with OpenTSDB, make certain that Zookeeper is accessible. One 
 
 If you can't connect to Zookeeper, check IPs and name resolution. HBase can be finicky.
 
-If HBase is running, you can choose to install OpenTSDB from a package (Debian is the only one available at this time) or from source using GIT or a source tarball.
+If HBase is running, you can choose to install OpenTSDB from a package (available under `Releases <https://github.com/OpenTSDB/opentsdb/releases>`_ in Github) or from source using GIT or a source tarball.
 
 Compiling From Source
 ---------------------

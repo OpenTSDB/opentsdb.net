@@ -108,7 +108,10 @@
   <div class="section" id="api-uid-uidmeta">
 <h1>/api/uid/uidmeta</h1>
 <p>This endpoint enables editing or deleting UID meta data information, that is meta data associated with <em>metrics</em>, <em>tag names</em> and <em>tag values</em>. Some fields are set by the TSD but others can be set by the user. When using the <tt class="docutils literal"><span class="pre">POST</span></tt> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <tt class="docutils literal"><span class="pre">PUT</span></tt> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
-<p>Please note that deleting a meta data entry will not delete the UID assignment nor will it delete any data points or associated timeseries information. Deletion only removes the specified meta data object.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Deleting a meta data entry will not delete the UID assignment nor will it delete any data points or associated timeseries information. Deletion only removes the specified meta data object, not the actual value. If you query for the same UID, you'll see the default meta data with empty fields.</p>
+</div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">

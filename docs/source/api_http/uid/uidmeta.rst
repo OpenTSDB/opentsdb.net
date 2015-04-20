@@ -3,7 +3,7 @@
 
 This endpoint enables editing or deleting UID meta data information, that is meta data associated with *metrics*, *tag names* and *tag values*. Some fields are set by the TSD but others can be set by the user. When using the ``POST`` method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the ``PUT`` method will overwrite all user mutable fields with given values or defaults if a given field is not provided.
 
-Please note that deleting a meta data entry will not delete the UID assignment nor will it delete any data points or associated timeseries information. Deletion only removes the specified meta data object.
+.. NOTE:: Deleting a meta data entry will not delete the UID assignment nor will it delete any data points or associated timeseries information. Deletion only removes the specified meta data object, not the actual value. If you query for the same UID, you'll see the default meta data with empty fields.
 
 Verbs
 -----

@@ -28,6 +28,7 @@ Utilities
 * `opentsdbjsonproxy <https://github.com/noca/opentsdbjsonproxy>`_ - An HTTP proxy to convert 1.x ASCII output from the ``/q`` endpoint to JSON for use with High Charts or other libraries.
 * `Collectd-opentsdb <https://github.com/auxesis/collectd-opentsdb>`_ - A Collectd plugin to emmit stats to a TSD.
 * `Collectd-opentsdb Java <https://github.com/dotcloud/collectd-opentsdb>`_ - A Collectd plugin to that uses the OpenTSDB Java API to push data to a TSD.
+* `TSD_proxy` <https://github.com/aravind/tsd_proxy>`_ - A buffering write proxy for OpenTSDB and alternate DBs.
 * `Vacuumetrix <https://github.com/99designs/vacuumetrix>`_ - Utility to pull data from various cloud services or APIs and store the results in backends such as Graphite, Ganglia and OpenTSDB.
 * `JuJu Deployment Charm <https://github.com/charms/opentsdb>`_ - Utility to compile OpenTSDB from GIT and deploy on a cluster.
 * `Statsd Publisher <https://github.com/danslimmon/statsd-opentsdb-backend>`_ - A statsd backend to publish data to a TSD.
@@ -48,7 +49,8 @@ Clients
 * `Ruby <https://github.com/j05h/continuum>`_ - A read-only client for querying data from the 1.x API.
 * `Ruby <https://github.com/johnewart/ruby-opentsdb>`_ A write-only client for pushing data to a TSD.
 * `Go <https://github.com/bzub/go-opentsdb>`_ - Work with OpenTSDB data in Go.
-* `Potsdb <https://pypi.python.org/pypi/potsdb>`_ - A Python client for writing data
+* `Potsdb <https://pypi.python.org/pypi/potsdb>`_ - A Python client for writing data.
+* `vert.x OpenTsDb <https://github.com/cyngn/vertx-opentsdb>`_ - A library to write data to OpenTSDB from Vert.x.
 
 References to OpenTSDB
 ^^^^^^^^^^^^^^^^^^^^^^

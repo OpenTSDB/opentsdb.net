@@ -66,7 +66,7 @@ Example Query String Requests
 
 ::
 
-  http://localhost:4242/api/query/last?timeseries=proc.stat.cpu{host=foo,type=idle}&?timeseries=proc.stat.mem{host=foo,type=idle}
+  http://localhost:4242/api/query/last?timeseries=proc.stat.cpu{host=foo,type=idle}&timeseries=proc.stat.mem{host=foo,type=idle}
   http://localhost:4242/api/query/last?tsuids=000001000002000003,000001000002000004&back_scan=24&resolve=true
 
 Example Content Request

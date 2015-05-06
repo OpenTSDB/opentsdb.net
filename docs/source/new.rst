@@ -1,7 +1,20 @@
 What's New
 ==========
 
-OpenTSDB has a thriving community who contributed and requested a number of new features. 2.0 has the following new features:
+OpenTSDB has a thriving community who contributed and requested a number of new features. 
+
+2.1
+---
+
+* Downsampling - Timestamps are now aligned on modulus boundaries, reducing the need to interpolation across series.
+* Last Data Point API - Query for the last data point for specific time series within a certain time window
+* Duplicates - Handle duplicate data points at query time or during FSCK
+* FSCK - An updated FSCK utility that iterates over the main data table, finding and fixing errors
+* Read/Write Modes - Block assigning UIDs on individual TSDs for backup clusters
+* UID Cache - Preload portions of the UID table on startup to improve writes
+
+2.0
+---
 
 * Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names, or values
 * Restful API - Provides access to all of OpenTSDB's features as well as offering new options, defaulting to JSON

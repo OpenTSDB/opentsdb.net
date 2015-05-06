@@ -57,6 +57,15 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What's New</a><ul>
+<li><a class="reference internal" href="#id1">2.1</a></li>
+<li><a class="reference internal" href="#id2">2.0</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Documentation for OpenTSDB 2.0</a></p>
@@ -86,7 +95,20 @@
             
   <div class="section" id="what-s-new">
 <h1>What's New</h1>
-<p>OpenTSDB has a thriving community who contributed and requested a number of new features. 2.0 has the following new features:</p>
+<p>OpenTSDB has a thriving community who contributed and requested a number of new features.</p>
+<div class="section" id="id1">
+<h2>2.1</h2>
+<ul class="simple">
+<li>Downsampling - Timestamps are now aligned on modulus boundaries, reducing the need to interpolation across series.</li>
+<li>Last Data Point API - Query for the last data point for specific time series within a certain time window</li>
+<li>Duplicates - Handle duplicate data points at query time or during FSCK</li>
+<li>FSCK - An updated FSCK utility that iterates over the main data table, finding and fixing errors</li>
+<li>Read/Write Modes - Block assigning UIDs on individual TSDs for backup clusters</li>
+<li>UID Cache - Preload portions of the UID table on startup to improve writes</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>2.0</h2>
 <ul class="simple">
 <li>Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names, or values</li>
 <li>Restful API - Provides access to all of OpenTSDB's features as well as offering new options, defaulting to JSON</li>
@@ -107,6 +129,7 @@
 <li>Additional Statistics - Including the number of UIDs assigned and available</li>
 </ul>
 <p>Thank you to everyone who has contributed to 2.0. Help us out by sharing your ideas and code at <a class="reference external" href="https://github.com/OpenTSDB">GitHub</a></p>
+</div>
 </div>
 
 

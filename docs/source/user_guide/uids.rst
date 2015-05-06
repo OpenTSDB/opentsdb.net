@@ -41,7 +41,7 @@ This question is asked often enough it's worth laying out the reasons here. Look
 Raw Names
 ^^^^^^^^^
 
-Since OpenTSDB uses HBase as the storage layer, you could use strings as the row key. Following the current schema, you may have a row key that looked like ``sys.cpu.0.user 1292148000 host=websv01.lga.mysite.com owner=operations``. Ordering would be similar to the existing schema, but now you're using up 72 bytes of storage each hour instead of 40. Additionally, the row key must be written and returned with every query to HBase, so you're increasing your network usage as well. So resorting to UIDs can help save space.
+Since OpenTSDB uses HBase as the storage layer, you could use strings as the row key. Following the current schema, you may have a row key that looked like ``sys.cpu.0.user 1292148000 host=websv01.lga.mysite.com owner=operations``. Ordering would be similar to the existing schema, but now you're using up 70 bytes of storage each hour instead of 19. Additionally, the row key must be written and returned with every query to HBase, so you're increasing your network usage as well. So resorting to UIDs can help save space.
 
 Hashes
 ^^^^^^

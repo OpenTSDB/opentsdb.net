@@ -3,7 +3,7 @@ Trees
 
 Along with metadata, OpenTSDB 2.0 introduces the concept of **trees**, a hierarchical method of organizing timeseries into an easily navigable structure that can be browsed similar to a file system on a computer. Users can define a number of trees with various rule sets that organize TSMeta objects into a tree structure. Then users can browse the resulting tree via an HTTP API endpoint. See :doc:`../api_http/tree/index` for details.
 
-Tree Termanology
+Tree Terminology
 ^^^^^^^^^^^^^^^^
 
 * **Branch** - Each branch is one node of a tree. It contains a list of child branches and leaves as well as a list of parent branches.

@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <h1>The Scalable Time Series Database</h1>
   <p>Store and serve massive amounts of time series data without losing granularity.</p>
-  <p><a class="btn btn-primary btn-lg" role="button" href="https://github.com/OpenTSDB/opentsdb/releases">Download 2.0.1</a></p>
+  <p><a class="btn btn-primary btn-lg" role="button" href="https://github.com/OpenTSDB/opentsdb/releases">Download 2.1.0</a></p>
 </div>
 
 <div class="row">
@@ -55,8 +55,8 @@
   </ol>
   <div class="carousel-inner">
     <div class="text-center item">
-      <h3>OpenTSDB 2.1 RC2</h3>
-      <p><b>2015-04-06</b> - OpenTSDB 2.1.0 RC 2 has been released with new features. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.1.0RC2">GitHub</a> and help us find bugs! Checkout the new <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p> 
+      <h3>OpenTSDB 2.1.0</h3>
+      <p><b>2015-05-06</b> - OpenTSDB 2.1.0 has been released with new features. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.1.0RC2">GitHub</a> and help us find bugs! Checkout the new <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p> 
     </div>
     <div class="text-center item">
       <h3>Logo Contest</h3>

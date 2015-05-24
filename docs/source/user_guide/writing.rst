@@ -1,7 +1,7 @@
 Writing Data
 ============
 
-You may want to jump right in and start throwing data into your TSD, but to really take advantage of OpenTSDB's power and flexibility, you may want to pause and think about your naming schema. After you've done that, you can procede to pushing data over the Telnet or HTTP APIs, or use an existing tool with OpenTSDB support such as 'tcollector'.
+You may want to jump right in and start throwing data into your TSD, but to really take advantage of OpenTSDB's power and flexibility, you may want to pause and think about your naming schema. After you've done that, you can proceed to pushing data over the Telnet or HTTP APIs, or use an existing tool with OpenTSDB support such as 'tcollector'.
 
 Naming Schema
 ^^^^^^^^^^^^^
@@ -61,7 +61,7 @@ Here are some common means of dealing with cardinality:
 
 **Pre-Aggregate** - In the example above with ``sys.cpu.user``, you generally care about the average usage on the host, not the usage per core. While the data collector may send a separate value per core with the tagging schema above, the collector could also send one extra data point such as ``sys.cpu.user.avg host=webserver01``. Now you have a completely separate timeseries that would only have 24 rows per day and with 20K hosts, only 480K rows to sift through. Queries will be much more responsive for the per-host average and you still have per-core data to drill down to separately.
 
-**Shift to Metric** - What if you really only care about the metrics for a particular host and don't need to aggregate across hosts? In that case you can shift the hostname to the metric. Our previous example becomes ``sys.cpu.user.websvr01 cpu=0``. Queries against this schema are very fast as there would only be 192 rows per day for the metric. However to aggregate across hosts you would have to execute mutliple queries and aggregate outside of OpenTSDB. (Future work will include this capability).
+**Shift to Metric** - What if you really only care about the metrics for a particular host and don't need to aggregate across hosts? In that case you can shift the hostname to the metric. Our previous example becomes ``sys.cpu.user.websvr01 cpu=0``. Queries against this schema are very fast as there would only be 192 rows per day for the metric. However to aggregate across hosts you would have to execute multiple queries and aggregate outside of OpenTSDB. (Future work will include this capability).
 
 Naming Conclusion
 -----------------
@@ -128,7 +128,7 @@ Unlike other solutions, OpenTSDB allows for writing data for a given time series
 Duplicate Data Points
 ---------------------
 
-Writing data points in OpenTSDB is generally idempotent within an hour of the original write. This means  you can write the value ``42`` at timestamp ``1356998400`` and then write ``42`` again for the same time and nothing bad will happen. However if you have compactions enabled to reduce storage consumption and write the same data point after the row of data has been compacted, an exception may be returned when you query over that row. If you attempt to write two different values with the same timestamp, a duplicate data point exception may be thrown during query time. This is due to a difference in encoding integers on 1, 2, 4 or 8 bytes and floating point numbers. If the first value was an integer and the second a floating point, the duplicate error will always be thrown. However if both values were floats or they were both integers that could be encoded on the same length, then the original value may be overwritten if a compaction has not occured on the row.
+Writing data points in OpenTSDB is generally idempotent within an hour of the original write. This means  you can write the value ``42`` at timestamp ``1356998400`` and then write ``42`` again for the same time and nothing bad will happen. However if you have compactions enabled to reduce storage consumption and write the same data point after the row of data has been compacted, an exception may be returned when you query over that row. If you attempt to write two different values with the same timestamp, a duplicate data point exception may be thrown during query time. This is due to a difference in encoding integers on 1, 2, 4 or 8 bytes and floating point numbers. If the first value was an integer and the second a floating point, the duplicate error will always be thrown. However if both values were floats or they were both integers that could be encoded on the same length, then the original value may be overwritten if a compaction has not occurred on the row.
 
 In most situations, if a duplicate data point is written it is usually an indication that something went wrong with the data source such as a process restarting unexpectedly or a bug in a script. OpenTSDB will fail "safe" by throwing an exception when you query over a row with one or more duplicates so you can down the issue.
 
@@ -184,6 +184,24 @@ Therefore, we recommend that you 'pre-assign' UID to as many metrics, tag keys a
 
 .. NOTE:: If you restart a TSD, it will have to lookup the UID for every metric and tag so performance will be a little slow until the cache is filled.
 
+Random Metric UID Assignment
+----------------------------
+
+With 2.2 you can randomly assign UIDs to metrics for better region server write distribution. Because metric UIDs are located at the start of the row key, if a new set of busy metric are created, all writes for those metric will be on the same server until the region splits. With random UID generation enabled, the new metrics will be distributed across the key space and likely to wind up in different regions on different servers. 
+
+Random metric generation can be enabled or disabled at any time by modifying the ''tsd.core.uid.random_metrics'' flag and data is backwards compatible all the way back to OpenTSDB 1.0. However it is recommended that you pre-split your TSDB data table according to the full metric UID space. E.g. if you use the default UID size in OpenTSDB, UIDs are 3 bytes wide, thus you can have 16,777,215 values. If you already have data in your TSDB table and choose to enable random UIDs, you may want to create new regions.
+
+When generating random IDs, TSDB will try up to 10 times to assign a UID without a collision. Thus as the number of assigned metrics increases so too will the number of collisions and the likely hood that a data point may be dropped due to retries. If you enable random IDs and keep adding more metrics then you may want to increase the number of bytes on metric UIDs. Note that the UID change is not backwards compatible so you have to create a new table and migrate your old data.
+
+Salting
+-------
+
+In 2.2 salting is supported to greatly increase write distribution across region servers. When enabled, a configured number of bytes are prepended to each row key. Each metric and combination of tags is then hashed into one "bucket", the ID of which is written to the salt bytes. Distribution is improved particularly for high-cardinality metrics (those with a large number of tag combinations) as the time series are split across the configured bucket count, thus routed to different regions and different servers. For example, without salting, a metric with 1 million series will be written to a single region on a single server. With salting enabled and a bucket size of 20, the series will be split across 20 regions (and 20 servers if the cluster has that many hosts) where each region has 50,000 series.
+
+.. WARNING:: Because salting modifies the storage format, you cannot enable or disable salting at whim. If you have existing data, you must start a new data table and migrate data from the old table into the new one. Salted data cannot be read from previous versions of OpenTSDB.
+
+To enable salting you must recompile OpenTSDB after modifying the ''SALT_WIDTH'' and ''SALT_BUCKETS'' variables in the ''src/core/Const.java'' file. We recommend setting the salt width to ''1'' and determine the number of buckets based on a factor of the number of region servers in your cluster. Note that at query time, the TSD will fire ''SALT_BUCKETS'' number of scanners to fetch data. The proper number of salt buckets must be determined through experimentation as at some point query performance may suffer due to having too many scanners open and collating the results. In the future the salt width and buckets may be configurable but we didn't want folks changing settings on accident and losing data.
+
 Pre-Split HBase Regions
 -----------------------
 
@@ -204,7 +222,7 @@ HBase will run in stand-alone mode where it will use the local file system for s
 
 However if you want serious throughput and scalability you have to setup a Hadoop and HBase cluster with multiple servers. In a distributed setup HDFS manages region files, automatically distributing copies to different servers for fault tolerance. HBase assigns regions to different servers and OpenTSDB's client will send data points to the specific server where they will be stored. You're now spreading operations amongst multiple servers, increasing performance and storage. If you need even more throughput or storage, just add nodes or disks.
 
-There are a number of ways to setup a Hadoop/HBase cluster and a ton of various tuning tweaks to make, so Google around and ask user groups for advice. Some general recomendations include:
+There are a number of ways to setup a Hadoop/HBase cluster and a ton of various tuning tweaks to make, so Google around and ask user groups for advice. Some general recommendations include:
 
 * Dedicate a pair of high memory, low disk space servers for the Name Node. Set them up for high availability using something like Heartbeat and Pacemaker.
 * Setup Zookeeper on at least 3 servers for fault tolerance. They must have a lot of RAM and a fairly fast disk for log writing. On small clusters, these can run on the Name node servers.
@@ -221,11 +239,11 @@ A single TSD can handle thousands of writes per second. But if you have many sou
 Persistent Connections
 ----------------------
 
-Enable keep alives in the TSDs and make sure that any applications you are using to send time series data keep their connections open instead of opening and closing for every write. See :doc:`configuration` for details.
+Enable keep-alives in the TSDs and make sure that any applications you are using to send time series data keep their connections open instead of opening and closing for every write. See :doc:`configuration` for details.
 
 Disable Meta Data and Real Time Publishing
 ------------------------------------------
 
 OpenTSDB 2.0 introduced meta data for tracking the kinds of data in the system. When tracking is enabled, a counter is incremented for every data point written and new UIDs or time series will generate meta data. The data may be pushed to a search engine or passed through tree generation code. These processes require greater memory in the TSD and may affect throughput. Tracking is disabled by default so test it out before enabling the feature.
 
-2.0 also introduced a real-time publishing plugin where incoming data points can be emitted to another destination immediately after they're queued for storage. This is diabled by default so test any plugins you are interested in before deploying in production.
+2.0 also introduced a real-time publishing plugin where incoming data points can be emitted to another destination immediately after they're queued for storage. This is disabled by default so test any plugins you are interested in before deploying in production.

@@ -67,6 +67,7 @@ documentation for details.
    "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.
    E.g. America/Los_Angeles", "System Configured", ""
    "tsd.core.tree.enable_processing", "Boolean", "Optional", "Whether or not to enable processing new/edited TSMeta through tree rule sets", "false", ""
+   "tsd.core.uid.random_metrics *(2.2)*", "Boolean", "Optional", "Whether or not to randomly assign UIDs to new metrics as they are created", "false", ""
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written.
    E.g. /tmp/opentsdb", "", "--cachedir"
    "tsd.http.request.cors_domains", "String", "Optional", "A comma separated list of domain names to allow access to OpenTSDB when the ``Origin`` header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard ``*`` and specific domains at the same time.", "", ""

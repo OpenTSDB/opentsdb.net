@@ -70,11 +70,11 @@ It seems intuitive from the image above that if you "stack up" the red line and 
 
 .. image:: ../../images/without-lerp.png
 
-Notice how the blue line plumets down to the green data point at 18:46:48. No need to be a mathematician or to have taken advanced maths classes to see that interpolation is needed to properly aggregate multiple time series together and get meaningful results.
+Notice how the blue line drops down to the green data point at 18:46:48. No need to be a mathematician or to have taken advanced maths classes to see that interpolation is needed to properly aggregate multiple time series together and get meaningful results.
 
 At the moment OpenTSDB only supports **`linear interpolation <http://en.wikipedia.org/wiki/Linear_interpolation>`_** (sometimes shortened "lerp") for sake of simplicity. Patches are welcome for those who would like to add other interpolation methods. 
 
-Interpolation is only performed at query time when more than one time series are found to match a query. Many metrics collection systems interpolate on *write* so that you original value is never recorded. OpenTSDB stores your original value and lets you retreive it at any time.
+Interpolation is only performed at query time when more than one time series are found to match a query. Many metrics collection systems interpolate on *write* so that you original value is never recorded. OpenTSDB stores your original value and lets you retrieve it at any time.
 
 Here is another slightly more complicated example that came from the mailing list, depicting how multiple time series are aggregated by average:
 
@@ -87,7 +87,7 @@ The thick blue line with triangles is the an aggregation with the ``avg`` functi
 Downsampling
 ^^^^^^^^^^^^
 
-The second method of operation for aggregation functions is ``downsampling``. Since OpenTSDB stores data at the original resolution indefinitely, requesting data for a long time span can return millions of points. This can cause a burden on bandwidth or graphing libraries so it's common to request data at a lower resolution for longer spans. Downsampling breaks the long span of data into smaller spans and merges the data for the smaller span into a single data point. Aggregation functions will perform the same calculation as for an aggregation process but instead of working across data points for mutliple time series at a single time stamp, downsampling works across multiple data points within a single time series over a given time span.
+The second method of operation for aggregation functions is ``downsampling``. Since OpenTSDB stores data at the original resolution indefinitely, requesting data for a long time span can return millions of points. This can cause a burden on bandwidth or graphing libraries so it's common to request data at a lower resolution for longer spans. Downsampling breaks the long span of data into smaller spans and merges the data for the smaller span into a single data point. Aggregation functions will perform the same calculation as for an aggregation process but instead of working across data points for multiple time series at a single time stamp, downsampling works across multiple data points within a single time series over a given time span.
 
 For example, take series ``A`` and ``B`` in the first table under **Aggregation**. The data points cover a 50 second time span. Let's say we want to downsample that to 30 seconds. This will give us two data points for each series:
 
@@ -194,7 +194,7 @@ Calculates various percentiles. When used to aggregate multiple series, the func
 Sum
 ---
 
-Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it's often the most useful when combining multiple time series such as guages or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at ``zimsum``
+Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it's often the most useful when combining multiple time series such as gauges or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at ``zimsum``
 
 ZimSum
 ------

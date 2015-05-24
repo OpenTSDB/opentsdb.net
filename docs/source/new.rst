@@ -3,6 +3,19 @@ What's New
 
 OpenTSDB has a thriving community who contributed and requested a number of new features. 
 
+2.2
+---
+
+Currently in the "next" branch on Github.
+
+* Appends - Support writing all data points for an hour in a single column. This saves the need for TSD compactions and reduces network traffic at query time.
+* Salting - Enables greater distribution of writes for high cardinality metrics as well as asynchronous scanning for improved query speed. (Non backwards compatible)
+* Random Metric UIDs - Enables better distribution of writes when creating new metrics
+* Storage Exception Plugins - Enables various handling of data points when HBase is unavailable
+* Secure AsyncHBase - Access HBase clusters requiring Kerberos or simple authentication along with optional encryption.
+* Fill Policy - Enable emitting NaNs or Nulls via the JSON query endpoint when data points are "missing"
+* Count and Percentiles - New aggregator functions
+
 2.1
 ---
 

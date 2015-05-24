@@ -108,14 +108,10 @@
             
   <div class="section" id="api-query-last">
 <h1>/api/query/last</h1>
+<p>This endpoint (2.1 and later) provides support for accessing the latest value of individual time series. It provides an optimization over a regular query when only the last data point is required. Locating the last point can be done with the timestamp of the meta data counter or by scanning backwards from the current system time.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This feature is currently slated for release with OpenTSDB 2.1.</p>
-</div>
-<p>This endpoint provides support for accessing the latest value of individual time series. It provides an optimization over a regular query when only the last data point is required. Locating the last point can be done with the timestamp of the meta data counter or by scanning backwards from the current system time.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In order for this endpoint to function, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><em>Metadata</em></a>.</p>
+<p class="last">In order for this endpoint to function with metric string queries, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><em>Metadata</em></a>. Queries using TSUIDs can be executed without a meta data table using the back scan parameter.</p>
 </div>
 <p>Similar to the standard query endpoint, there are two methods to use in selecting which time series should return data:</p>
 <ul class="simple">

@@ -69,14 +69,17 @@
 </li>
 <li><a class="reference internal" href="#downsampling">Downsampling</a></li>
 <li><a class="reference internal" href="#available-aggregators">Available Aggregators</a><ul>
-<li><a class="reference internal" href="#sum">Sum</a></li>
-<li><a class="reference internal" href="#min">Min</a></li>
-<li><a class="reference internal" href="#max">Max</a></li>
 <li><a class="reference internal" href="#avg">Avg</a></li>
+<li><a class="reference internal" href="#count">Count</a></li>
 <li><a class="reference internal" href="#dev">Dev</a></li>
-<li><a class="reference internal" href="#zimsum">ZimSum</a></li>
+<li><a class="reference internal" href="#estimated-percentiles">Estimated Percentiles</a></li>
+<li><a class="reference internal" href="#max">Max</a></li>
 <li><a class="reference internal" href="#mimmin">MimMin</a></li>
 <li><a class="reference internal" href="#mimmax">MimMax</a></li>
+<li><a class="reference internal" href="#min">Min</a></li>
+<li><a class="reference internal" href="#percentiles">Percentiles</a></li>
+<li><a class="reference internal" href="#sum">Sum</a></li>
+<li><a class="reference internal" href="#zimsum">ZimSum</a></li>
 </ul>
 </li>
 </ul>
@@ -112,7 +115,7 @@
             
   <div class="section" id="aggregators">
 <h1>Aggregators</h1>
-<p>OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. But how do you merge individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different data series into one, giving you a choice of various mathematical operations. Since OpenTSDB doesn't know whether or not a query will return multiple time series, an aggregation function is always requiried just in case.</p>
+<p>OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. But how do you merge individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different data series into one, giving you a choice of various mathematical operations. Since OpenTSDB doesn't know whether or not a query will return multiple time series, an aggregation function is always required just in case.</p>
 <p>Aggregators have two methods of operation:</p>
 <div class="section" id="aggregation">
 <h2>Aggregation</h2>
@@ -395,9 +398,73 @@ For the graphically inclined we have the following examples. An imaginary metric
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>sum</td>
-<td>Adds the data points together</td>
+<tr class="row-even"><td>avg</td>
+<td>Averages the data points</td>
 <td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>count</td>
+<td>The number of raw data points in the set</td>
+<td>Zero if missing</td>
+</tr>
+<tr class="row-even"><td>dev</td>
+<td>Calculates the standard deviation</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>ep50r3</td>
+<td>Calculates the estimated 50th percentile with the R-3 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>ep50r7</td>
+<td>Calculates the estimated 50th percentile with the R-7 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>ep75r3</td>
+<td>Calculates the estimated 75th percentile with the R-3 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>ep75r7</td>
+<td>Calculates the estimated 75th percentile with the R-7 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>ep90r3</td>
+<td>Calculates the estimated 90th percentile with the R-3 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>ep90r7</td>
+<td>Calculates the estimated 90th percentile with the R-7 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>ep95r3</td>
+<td>Calculates the estimated 95th percentile with the R-3 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>ep95r7</td>
+<td>Calculates the estimated 95th percentile with the R-7 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>ep99r3</td>
+<td>Calculates the estimated 99th percentile with the R-3 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>ep99r7</td>
+<td>Calculates the estimated 99th percentile with the R-7 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>ep999r3</td>
+<td>Calculates the estimated 999th percentile with the R-3 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>ep999r7</td>
+<td>Calculates the estimated 999th percentile with the R-7 method *</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>mimmin</td>
+<td>Selects the smallest data point</td>
+<td>Maximum if missing</td>
+</tr>
+<tr class="row-even"><td>mimmax</td>
+<td>Selects the largest data point</td>
+<td>Minimum if missing</td>
 </tr>
 <tr class="row-odd"><td>min</td>
 <td>Selects the smallest data point</td>
@@ -407,51 +474,60 @@ For the graphically inclined we have the following examples. An imaginary metric
 <td>Selects the largest data point</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-odd"><td>avg</td>
-<td>Averages the data points</td>
+<tr class="row-odd"><td>p50</td>
+<td>Calculates the 50th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-even"><td>dev</td>
-<td>Calculates the standard deviation</td>
+<tr class="row-even"><td>p75</td>
+<td>Calculates the 75th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-odd"><td>zimsum</td>
-<td>Adds the data points togeter</td>
+<tr class="row-odd"><td>p90</td>
+<td>Calculates the 90th percentile</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>p95</td>
+<td>Calculates the 95th percentile</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>p99</td>
+<td>Calculates the 99th percentile</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>p999</td>
+<td>Calculates the 999th percentile</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-odd"><td>sum</td>
+<td>Adds the data points together</td>
+<td>Linear Interpolation</td>
+</tr>
+<tr class="row-even"><td>zimsum</td>
+<td>Adds the data points together</td>
 <td>Zero if missing</td>
-</tr>
-<tr class="row-even"><td>mimmin</td>
-<td>Selects the smallest data point</td>
-<td>Maximum if missing</td>
-</tr>
-<tr class="row-odd"><td>mimmax</td>
-<td>Selects the largest data point</td>
-<td>Minimum if missing</td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="sum">
-<h3>Sum</h3>
-<p>Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it's often the most useful when combining multiple time series such as guages or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at <tt class="docutils literal"><span class="pre">zimsum</span></tt></p>
-</div>
-<div class="section" id="min">
-<h3>Min</h3>
-<p>Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It's useful for looking at the lower bounds of gauge metrics.</p>
-</div>
-<div class="section" id="max">
-<h3>Max</h3>
-<p>The inverse of <tt class="docutils literal"><span class="pre">min</span></tt>, it returns the largest data point from all of the time series or within a time span. This function will perform linear interpolation across time series. It's useful for looking at the upper bounds of gauge metrics.</p>
-</div>
+<p>* For percentile calculations, see the <a class="reference external" href="http://en.wikipedia.org/wiki/Quantile">Wikipedia</a> article. For high cardinality calculations, using the estimated percentiles may be more performant.</p>
 <div class="section" id="avg">
 <h3>Avg</h3>
 <p>Calculates the average of all values across the time span or across multiple time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.</p>
+</div>
+<div class="section" id="count">
+<h3>Count</h3>
+<p>Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted.</p>
 </div>
 <div class="section" id="dev">
 <h3>Dev</h3>
 <p>Calculates the <a class="reference external" href="http://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> across a span or time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.</p>
 </div>
-<div class="section" id="zimsum">
-<h3>ZimSum</h3>
-<p>Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does <em>not</em> perform interpolation, instead it substitues a <tt class="docutils literal"><span class="pre">0</span></tt> for missing data points. This can be useful when working with discrete values.</p>
+<div class="section" id="estimated-percentiles">
+<h3>Estimated Percentiles</h3>
+<p>Calculates various percentiles using a choice of algorithms. These are useful for series with many data points as some data may be kicked out of the calculation. When used to aggregate multiple series, the function will perform linear interpolation. See <a class="reference external" href="http://en.wikipedia.org/wiki/Quantile">Wikipedia</a> for details. Implementation is through the <a class="reference external" href="http://commons.apache.org/proper/commons-math/">Apache Math library.</a></p>
+</div>
+<div class="section" id="max">
+<h3>Max</h3>
+<p>The inverse of <tt class="docutils literal"><span class="pre">min</span></tt>, it returns the largest data point from all of the time series or within a time span. This function will perform linear interpolation across time series. It's useful for looking at the upper bounds of gauge metrics.</p>
 </div>
 <div class="section" id="mimmin">
 <h3>MimMin</h3>
@@ -460,6 +536,22 @@ For the graphically inclined we have the following examples. An imaginary metric
 <div class="section" id="mimmax">
 <h3>MimMax</h3>
 <p>The &quot;minimum if missing maximum&quot; function returns only the largest data point from all of the time series or within the time span. This function will <em>not</em> perform interpolation, instead it will return the minimum value for the type of data specified if the value is missing. This will return the Long.MinValue for integer points or Double.MinValue for floating point values. See <a class="reference external" href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">Primitive Data Types</a> for details. It's useful for looking at the upper bounds of gauge metrics.</p>
+</div>
+<div class="section" id="min">
+<h3>Min</h3>
+<p>Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It's useful for looking at the lower bounds of gauge metrics.</p>
+</div>
+<div class="section" id="percentiles">
+<h3>Percentiles</h3>
+<p>Calculates various percentiles. When used to aggregate multiple series, the function will perform linear interpolation. Implementation is through the <a class="reference external" href="http://commons.apache.org/proper/commons-math/">Apache Math library.</a></p>
+</div>
+<div class="section" id="sum">
+<h3>Sum</h3>
+<p>Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it's often the most useful when combining multiple time series such as guages or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at <tt class="docutils literal"><span class="pre">zimsum</span></tt></p>
+</div>
+<div class="section" id="zimsum">
+<h3>ZimSum</h3>
+<p>Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does <em>not</em> perform interpolation, instead it substitues a <tt class="docutils literal"><span class="pre">0</span></tt> for missing data points. This can be useful when working with discrete values.</p>
 </div>
 </div>
 </div>

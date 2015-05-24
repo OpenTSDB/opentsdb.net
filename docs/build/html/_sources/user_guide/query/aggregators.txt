@@ -1,7 +1,7 @@
 Aggregators
 ===========
 
-OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. But how do you merge individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different data series into one, giving you a choice of various mathematical operations. Since OpenTSDB doesn't know whether or not a query will return multiple time series, an aggregation function is always requiried just in case.
+OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. But how do you merge individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different data series into one, giving you a choice of various mathematical operations. Since OpenTSDB doesn't know whether or not a query will return multiple time series, an aggregation function is always required just in case.
 
 Aggregators have two methods of operation:
 
@@ -116,44 +116,60 @@ The following is a description of the aggregation functions available in OpenTSD
    :header: "Aggregator", "Description", "Interpolation"
    :widths: 20, 40, 40
    
-   "sum", "Adds the data points together", "Linear Interpolation"
-   "min", "Selects the smallest data point", "Linear Interpolation"
-   "max", "Selects the largest data point", "Linear Interpolation"
    "avg", "Averages the data points", "Linear Interpolation"
+   "count", "The number of raw data points in the set", "Zero if missing"
    "dev", "Calculates the standard deviation", "Linear Interpolation"
-   "zimsum", "Adds the data points togeter", "Zero if missing"
+   "ep50r3", "Calculates the estimated 50th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep50r7", "Calculates the estimated 50th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep75r3", "Calculates the estimated 75th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep75r7", "Calculates the estimated 75th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep90r3", "Calculates the estimated 90th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep90r7", "Calculates the estimated 90th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep95r3", "Calculates the estimated 95th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep95r7", "Calculates the estimated 95th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep99r3", "Calculates the estimated 99th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep99r7", "Calculates the estimated 99th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep999r3", "Calculates the estimated 999th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep999r7", "Calculates the estimated 999th percentile with the R-7 method \*", "Linear Interpolation"
    "mimmin", "Selects the smallest data point", "Maximum if missing"
    "mimmax", "Selects the largest data point", "Minimum if missing"
+   "min", "Selects the smallest data point", "Linear Interpolation"
+   "max", "Selects the largest data point", "Linear Interpolation"
+   "p50", "Calculates the 50th percentile", "Linear Interpolation"
+   "p75", "Calculates the 75th percentile", "Linear Interpolation"
+   "p90", "Calculates the 90th percentile", "Linear Interpolation"
+   "p95", "Calculates the 95th percentile", "Linear Interpolation"
+   "p99", "Calculates the 99th percentile", "Linear Interpolation"
+   "p999", "Calculates the 999th percentile", "Linear Interpolation"
+   "sum", "Adds the data points together", "Linear Interpolation"
+   "zimsum", "Adds the data points together", "Zero if missing"
 
-Sum
----
-
-Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it's often the most useful when combining multiple time series such as guages or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at ``zimsum``
-
-Min
----
-
-Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It's useful for looking at the lower bounds of gauge metrics.
-
-Max
----
-
-The inverse of ``min``, it returns the largest data point from all of the time series or within a time span. This function will perform linear interpolation across time series. It's useful for looking at the upper bounds of gauge metrics.
+\* For percentile calculations, see the `Wikipedia <http://en.wikipedia.org/wiki/Quantile>`_ article. For high cardinality calculations, using the estimated percentiles may be more performant.
 
 Avg
 ---
 
 Calculates the average of all values across the time span or across multiple time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.
 
+Count
+-----
+
+Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted.
+
 Dev
 ---
 
 Calculates the `standard deviation <http://en.wikipedia.org/wiki/Standard_deviation>`_ across a span or time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.
 
-ZimSum
-------
+Estimated Percentiles
+---------------------
 
-Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitues a ``0`` for missing data points. This can be useful when working with discrete values.
+Calculates various percentiles using a choice of algorithms. These are useful for series with many data points as some data may be kicked out of the calculation. When used to aggregate multiple series, the function will perform linear interpolation. See `Wikipedia <http://en.wikipedia.org/wiki/Quantile>`_ for details. Implementation is through the `Apache Math library. <http://commons.apache.org/proper/commons-math/>`_ 
+
+Max
+---
+
+The inverse of ``min``, it returns the largest data point from all of the time series or within a time span. This function will perform linear interpolation across time series. It's useful for looking at the upper bounds of gauge metrics.
 
 MimMin
 ------
@@ -164,3 +180,23 @@ MimMax
 ------
 
 The "minimum if missing maximum" function returns only the largest data point from all of the time series or within the time span. This function will *not* perform interpolation, instead it will return the minimum value for the type of data specified if the value is missing. This will return the Long.MinValue for integer points or Double.MinValue for floating point values. See `Primitive Data Types  <http://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html>`_ for details. It's useful for looking at the upper bounds of gauge metrics.
+
+Min
+---
+
+Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It's useful for looking at the lower bounds of gauge metrics.
+
+Percentiles
+-----------
+
+Calculates various percentiles. When used to aggregate multiple series, the function will perform linear interpolation. Implementation is through the `Apache Math library. <http://commons.apache.org/proper/commons-math/>`_ 
+
+Sum
+---
+
+Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it's often the most useful when combining multiple time series such as guages or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at ``zimsum``
+
+ZimSum
+------
+
+Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitues a ``0`` for missing data points. This can be useful when working with discrete values.

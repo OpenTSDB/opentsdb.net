@@ -68,6 +68,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#downsampling">Downsampling</a></li>
+<li><a class="reference internal" href="#fill-policies">Fill Policies</a></li>
 <li><a class="reference internal" href="#available-aggregators">Available Aggregators</a><ul>
 <li><a class="reference internal" href="#avg">Avg</a></li>
 <li><a class="reference internal" href="#count">Count</a></li>
@@ -306,6 +307,10 @@ For the graphically inclined we have the following examples. An imaginary metric
 <p>Here is another slightly more complicated example that came from the mailing list, depicting how multiple time series are aggregated by average:</p>
 <a class="reference external image-reference" href="../../_images/aggregation_average.png"><img alt="Click the image to enlarge." src="../../_images/aggregation-average_sm.png" /></a>
 <p>The thick blue line with triangles is the an aggregation with the <tt class="docutils literal"><span class="pre">avg</span></tt> function of multiple time series as per the query <tt class="docutils literal"><span class="pre">start=1h-ago&amp;m=avg:duration_seconds</span></tt>. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Aggregation functions return integer or double values based on the input data points. If both source values are integers in storage, the resulting calculations will be integers. This means any fractional values resulting from the computation will be lopped off, no rounding will occur. If either data point is a floating point value, the result will be a floating point. However if downsampling or rates are enabled, the result will always be a float.</p>
+</div>
 </div>
 </div>
 <div class="section" id="downsampling">
@@ -377,10 +382,89 @@ For the graphically inclined we have the following examples. An imaginary metric
 </table>
 <p>The actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. Future versions of OpenTSDB will likely normalize this time on a well defined boundary.</p>
 <p>Note that when a query specifies a down sampling function and multiple time series are returned, downsampling occurs <strong>before</strong> aggregation. I.e. now that we have <tt class="docutils literal"><span class="pre">A</span> <span class="pre">Downsampled</span></tt> and <tt class="docutils literal"><span class="pre">B</span> <span class="pre">Downsampled</span></tt> we can aggregate the two series to come up with the aggregated result on the bottom line.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Aggregation functions return integer or double values based on the input data points. If both source values are integers in storage, the resulting calculations will be integers. This means any fractional values resulting from the computation will be lopped off, no rounding will occur. If either data point is a floating point value, the result will be a floating point.</p>
 </div>
+<div class="section" id="fill-policies">
+<h2>Fill Policies</h2>
+<p>With version 2.2 you can specify a fill policy when downsampling to substitute values for use in cross-series aggregations when data points are &quot;missing&quot;. Because OpenTSDB does not impose constraints on time alignment or when values are supposed to exist, such constraints must be specified at query time. At serialization time, if all series are missing values for an expected timestamp, nothing is emitted. For example, if a series is writing data every minute from T0 to T4, but for some reason the source fails to write data at T3, only 4 values will be serialized when the user may expect 5. With fill policies you can now choose what value is emitted for T3.</p>
+<p>When aggregating multiple series OpenTSDB generally performs linear interpolation when a series is missing a value at a timestamp present in one or more other series. Some aggregators substitute specific values such as zero, min or max values. With fill policies you can modify aggregation behavior by flagging a missing value as a NaN or a scalar such as zero. When a NaN is emitted for a series, it is skipped for all calculations. For example, if a query asks for the average of a metric and one or more series are missing values, substituting a 0 would drive down the average and lerping introduces non-extant values. However with NaNs we can flag the value as missing and skip it in the calculation.</p>
+<p>Available polices include:</p>
+<ul class="simple">
+<li>None - The default behavior that does not emit missing values during serialization and performs linear interpolation (or otherwise specified interpolation) when aggregating series.</li>
+<li>NaN - Emits a <tt class="docutils literal"><span class="pre">NaN</span></tt> in the serialization output when all values are missing in a series. Skips series in aggregations when the value is missing.</li>
+<li>Null - Same behavior as NaN except that during serialization it emits a <tt class="docutils literal"><span class="pre">null</span></tt> instead of a <tt class="docutils literal"><span class="pre">NaN</span></tt>.</li>
+<li>Zero - Substitutes a zero when a timestamp is missing. The zero value will be incorporated in aggregated results.</li>
+</ul>
+<p>An example with the NaN fill policy and downsampling on 10 seconds:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">series</th>
+<th class="head">ts0</th>
+<th class="head">ts0+10s</th>
+<th class="head">ts0+20s</th>
+<th class="head">ts0+30s</th>
+<th class="head">ts0+40s</th>
+<th class="head">ts0+50s</th>
+<th class="head">ts0+60s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>15</td>
+<td>na</td>
+<td>5</td>
+<td>na</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>10</td>
+<td>na</td>
+<td>20</td>
+<td>na</td>
+<td>na</td>
+<td>na</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>Interpolated A</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>&nbsp;</td>
+<td>NaN</td>
+<td>&nbsp;</td>
+<td>NaN</td>
+</tr>
+<tr class="row-odd"><td>Interpolated B</td>
+<td>&nbsp;</td>
+<td>NaN</td>
+<td>&nbsp;</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Summed Result</td>
+<td>10</td>
+<td>NaN</td>
+<td>20</td>
+<td>15</td>
+<td>NaN</td>
+<td>5</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="available-aggregators">
 <h2>Available Aggregators</h2>

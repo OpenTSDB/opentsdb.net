@@ -84,6 +84,8 @@ Here is another slightly more complicated example that came from the mailing lis
 
 The thick blue line with triangles is the an aggregation with the ``avg`` function of multiple time series as per the query ``start=1h-ago&m=avg:duration_seconds``. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point. 
 
+.. NOTE:: Aggregation functions return integer or double values based on the input data points. If both source values are integers in storage, the resulting calculations will be integers. This means any fractional values resulting from the computation will be lopped off, no rounding will occur. If either data point is a floating point value, the result will be a floating point. However if downsampling or rates are enabled, the result will always be a float.
+
 Downsampling
 ^^^^^^^^^^^^
 
@@ -105,8 +107,32 @@ The actual time stamps for the new data points will be an average of the time st
 
 Note that when a query specifies a down sampling function and multiple time series are returned, downsampling occurs **before** aggregation. I.e. now that we have ``A Downsampled`` and ``B Downsampled`` we can aggregate the two series to come up with the aggregated result on the bottom line.
 
-.. NOTE:: Aggregation functions return integer or double values based on the input data points. If both source values are integers in storage, the resulting calculations will be integers. This means any fractional values resulting from the computation will be lopped off, no rounding will occur. If either data point is a floating point value, the result will be a floating point.
+Fill Policies
+^^^^^^^^^^^^^
 
+With version 2.2 you can specify a fill policy when downsampling to substitute values for use in cross-series aggregations when data points are "missing". Because OpenTSDB does not impose constraints on time alignment or when values are supposed to exist, such constraints must be specified at query time. At serialization time, if all series are missing values for an expected timestamp, nothing is emitted. For example, if a series is writing data every minute from T0 to T4, but for some reason the source fails to write data at T3, only 4 values will be serialized when the user may expect 5. With fill policies you can now choose what value is emitted for T3.
+
+When aggregating multiple series OpenTSDB generally performs linear interpolation when a series is missing a value at a timestamp present in one or more other series. Some aggregators substitute specific values such as zero, min or max values. With fill policies you can modify aggregation behavior by flagging a missing value as a NaN or a scalar such as zero. When a NaN is emitted for a series, it is skipped for all calculations. For example, if a query asks for the average of a metric and one or more series are missing values, substituting a 0 would drive down the average and lerping introduces non-extant values. However with NaNs we can flag the value as missing and skip it in the calculation.
+
+Available polices include:
+
+* None - The default behavior that does not emit missing values during serialization and performs linear interpolation (or otherwise specified interpolation) when aggregating series.
+* NaN - Emits a ``NaN`` in the serialization output when all values are missing in a series. Skips series in aggregations when the value is missing.
+* Null - Same behavior as NaN except that during serialization it emits a ``null`` instead of a ``NaN``.
+* Zero - Substitutes a zero when a timestamp is missing. The zero value will be incorporated in aggregated results.
+
+An example with the NaN fill policy and downsampling on 10 seconds:
+
+.. csv-table::
+   :header: "series", "ts0", "ts0+10s", "ts0+20s", "ts0+30s", "ts0+40s", "ts0+50s", "ts0+60s"
+   :widths: 30, 10, 10, 10, 10, 10, 10, 10
+   
+   "A", "na", "na", "na", "15", "na", "5", "na"
+   "B", "10", "na", "20", "na", "na", "na", "20"
+   "Interpolated A", "NaN", "NaN", "NaN", "", "NaN", "", "NaN"
+   "Interpolated B", "", "NaN", "", "NaN", "NaN", "NaN", ""
+   "Summed Result", "10", "NaN", "20", "15", "NaN", "5", "20"
+   
 Available Aggregators
 ^^^^^^^^^^^^^^^^^^^^^
 

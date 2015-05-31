@@ -2,7 +2,7 @@
   padding: 30px;
   margin-bottom: 30px;
   color: #ffffff;
-  background-color: #40788f;
+  background-color: #1979a0;
 }
 .navbar-default {
   background-color: #253544;
@@ -38,4 +38,22 @@
 .navbar-default .navbar-nav > .disabled > a:focus {
   color: #cccccc;
   background-color: transparent;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #8cc541;
+  border-color: #78a936;
+}
+
+.glyphicon-stats:before {
+  color: #78a936;
+}
+
+.glyphicon-cloud:before {
+  color: #1979a0;
+}
+
+.glyphicon-pencil:before {
+  color: #78a936;
 }

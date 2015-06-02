@@ -1,7 +1,7 @@
 HTTP API
 ========
 
-OpenTSDB provides an HTTP based application programming interface to enable integration with external systems. Almost all OpenTSDB features are accessiable via the API such as querying timeseries data, managing metadata and storing data points. Please read this entire page for important information about standard API behavior before investigating individual endpoints.
+OpenTSDB provides an HTTP based application programming interface to enable integration with external systems. Almost all OpenTSDB features are accessible via the API such as querying timeseries data, managing metadata and storing data points. Please read this entire page for important information about standard API behavior before investigating individual endpoints.
 
 Overview
 --------
@@ -61,10 +61,10 @@ Common error response codes include:
    "400", "Information provided by the API user, via a query string or content data, was in error or missing. This will usually include information in the error body about what parameter caused the issue. Correct the data and try again."
    "404", "The requested endpoint or file was not found. This is usually related to the static file endpoint."
    "405", "The requested verb or method was not allowed. Please see the documentation for the endpoint you are attempting to access"
-   "406", "The request could not generate a response in the format specified. For example, if you ask for a PNG file of the ``logs`` endpoing, you will get a 406 response since log entries cannot be converted to a PNG image (easily)"
+   "406", "The request could not generate a response in the format specified. For example, if you ask for a PNG file of the ``logs`` endpoint, you will get a 406 response since log entries cannot be converted to a PNG image (easily)"
    "408", "The request has timed out. This may be due to a timeout fetching data from the underlying storage system or other issues"
    "413", "The results returned from a query may be too large for the server's buffers to handle. This can happen if you request a lot of raw data from OpenTSDB. In such cases break your query up into smaller queries and run each individually"
-   "500", "An internal error occured within OpenTSDB. Make sure all of the systems OpenTSDB depends on are accessible and check the bug list for issues"
+   "500", "An internal error occurred within OpenTSDB. Make sure all of the systems OpenTSDB depends on are accessible and check the bug list for issues"
    "501", "The requested feature has not been implemented yet. This may appear with formatters or when calling methods that depend on plugins"
    "503", "A temporary overload has occurred. Check with other users/applications that are interacting with OpenTSDB and determine if you need to reduce requests or scale your system."
    
@@ -122,7 +122,7 @@ If a method is not supported for a given API call, the TSD will return a 405 err
 API Versioning
 ---------------
 
-OpenTSDB 2.0's API call calls are versioned so that users can upgrade with gauranteed backwards compatability. To access a specific API version, you craft a URL such as ``/api/v<version>/<endpoint>`` such as ``/api/v2/suggest``. This will access version 2 of the ``suggest`` endpoint. Versioning starts at 1 for OpenTSDB 2.0.0. Requests for a version that does not exist will result in calls to the latest version. Also, if you do not supply an explicit version, such as ``/api/suggest``, the latest version will be used.
+OpenTSDB 2.0's API call calls are versioned so that users can upgrade with guaranteed backwards compatibility. To access a specific API version, you craft a URL such as ``/api/v<version>/<endpoint>`` such as ``/api/v2/suggest``. This will access version 2 of the ``suggest`` endpoint. Versioning starts at 1 for OpenTSDB 2.0.0. Requests for a version that does not exist will result in calls to the latest version. Also, if you do not supply an explicit version, such as ``/api/suggest``, the latest version will be used.
 
 Query String Vs. Body Content
 -----------------------------
@@ -156,14 +156,14 @@ When a ``GET``, ``POST``, ``PUT`` or ``DELETE`` request arrives with the ``Origi
 
 If the ``Origin`` domain did not match a domain in the configured list, the response will be a 200 status code and an Error (see above) for the content body stating that access was denied, regardless of whether the request was a preflight or a regular request. The request will not be processed any further.
 
-By default, the ``tsd.http.request.cors_domains`` list is empty and CORS is diabled. Requests are passed through without appending CORS specific headers. If an ``Options`` request arrives, it will receive a 405 error message.
+By default, the ``tsd.http.request.cors_domains`` list is empty and CORS is disabled. Requests are passed through without appending CORS specific headers. If an ``Options`` request arrives, it will receive a 405 error message.
 
 .. NOTE:: Do not rely on CORS for security. It is exceedingly easy to spoof a domain in an HTTP request and OpenTSDB does not perform reverse lookups or domain validation. CORS is only implemented as a means to make it easier JavaScript developers to work with the API.
 
 Documentation
 -------------
 
-The documentation for each endpoint listed below will contain details about how to use that endpoint. Eahc page will contain a description of the endpoint, what verbs are supported, the fields in a request, fields in a respone and examples. 
+The documentation for each endpoint listed below will contain details about how to use that endpoint. Each page will contain a description of the endpoint, what verbs are supported, the fields in a request, fields in a response and examples. 
 
 Request Parameters are a list of field names that you can pass in with your request. Each table has the following information:
 

@@ -107,7 +107,7 @@
             
   <div class="section" id="api-search">
 <h1>/api/search</h1>
-<p>This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table when enabled. Optionally, a search plugin can be installed to send and retreive information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen.</p>
+<p>This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table when enabled. Optionally, a search plugin can be installed to send and retrieve information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If the plugin is not configured or enabled, endpoints other than <tt class="docutils literal"><span class="pre">/api/search/lookup</span></tt> will return an exception.</p>

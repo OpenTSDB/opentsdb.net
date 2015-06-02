@@ -1,7 +1,7 @@
 JSON Serializer
 ===============
 
-The default OpenTSDB serializer parses and returns JSON formatted data. Below you'll find details about the serializer and request parameters that affect only the the JSON serializer. If the serializer has extra parameters for a specific endpoint, they'll be listed below.
+The default OpenTSDB serializer parses and returns JSON formatted data. Below you'll find details about the serializer and request parameters that affect only the JSON serializer. If the serializer has extra parameters for a specific endpoint, they'll be listed below.
 
 Serializer Name
 ---------------

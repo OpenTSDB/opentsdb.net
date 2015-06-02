@@ -1,7 +1,7 @@
 Deprecated HTTP API
 ===================
 
-Version 1.0 of OpenTSDB included a rudimentary HTTP API that allowed for queyring data, suggesting metric or tag names and a means of accessing static files. The 1.0 API has been carried over to 2.0 for backwards compatability though most of the calls have been deprecated. Below is a list of the different endpoints and how to use them.
+Version 1.0 of OpenTSDB included a rudimentary HTTP API that allowed for querying data, suggesting metric or tag names and a means of accessing static files. The 1.0 API has been carried over to 2.0 for backwards compatibility though most of the calls have been deprecated. Below is a list of the different endpoints and how to use them.
 
 .. WARNING:: Version 3.0 may discard these deprecated methods so if you are developing tools against the HTTP API, make sure to use the 2.0 version.
 
@@ -12,7 +12,7 @@ Generalities
 
 Most of the endpoints can return data in one or more of the following formats:
 
-* Plain Test - Or ASCII, the default for many requests will return a simple plage of data with the Content-Type ``text/plain``
+* Plain Test - Or ASCII, the default for many requests will return a simple page of data with the Content-Type ``text/plain``
 * HTML - If a request is bad or there was an exception, the response will often be in HTML, hard-coded and not using templates
 * JSON - Many calls can respond in a JSON format when the ``json`` query string parameter is appended
 * PNG - Some requests, including exceptions and errors, can generate an image file. In these cases, an error is sent to GnuPlot and the resulting empty graph with a title consisting of the message is returned. Append the parameter ``png`` to the query string.
@@ -24,7 +24,7 @@ Selecting a different output format is done with the ``png`` or ``json`` query s
 /
 -
 
-Requests the root which is the GWT generated OpenTSDB GUI. This endpoing only returns HTML and cannot return other data.
+Requests the root which is the GWT generated OpenTSDB GUI. This endpoint only returns HTML and cannot return other data.
 
 /aggregators (**Deprecated**)
 -----------------------------

@@ -88,7 +88,7 @@
             
   <div class="section" id="stats">
 <h1>Stats</h1>
-<p>OpenTSDB offers a number of metrics about its performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accesible from the GUI via the &quot;Stats&quot; tab, from the Http API at <tt class="docutils literal"><span class="pre">/api/stats</span></tt> or the legacy API at <tt class="docutils literal"><span class="pre">/stats</span></tt>.</p>
+<p>OpenTSDB offers a number of metrics about its performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accessible from the GUI via the &quot;Stats&quot; tab, from the Http API at <tt class="docutils literal"><span class="pre">/api/stats</span></tt> or the legacy API at <tt class="docutils literal"><span class="pre">/stats</span></tt>.</p>
 <p>All stats include a <tt class="docutils literal"><span class="pre">host</span></tt> tag that includes the name of the host where the TSD is running. If the <tt class="docutils literal"><span class="pre">tsd.stats.canonical</span></tt> configuration flag is set, this will change to <tt class="docutils literal"><span class="pre">fqdn</span></tt> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
 <table border="1" class="docutils">
 <colgroup>

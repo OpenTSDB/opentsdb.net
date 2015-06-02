@@ -38,7 +38,7 @@ A metric is simply the name of a quantitative measurement. Metrics include thing
 * snow accumulation in a region
 
 .. NOTE::  
-  Notice that the ``metric`` did not include a specific number or a time. That is becaue a ``metric`` is just a label of what you are measuring. The actual measurements are called ``datapoints``, as you'll see later.
+  Notice that the ``metric`` did not include a specific number or a time. That is because a ``metric`` is just a label of what you are measuring. The actual measurements are called ``datapoints``, as you'll see later.
 
 Unfortunately OpenTSDB requires metrics to be named as a single, long word without spaces. Thus metrics are usually recorded using "dotted notation". For example, the metrics above would have names like:
 

@@ -6,7 +6,7 @@
 Documentation for OpenTSDB |version|
 ====================================
 
-Welcome to OpenTSDB |version|, the scalable, distributed time series database. We recommend that you start with the :doc:`user_guide/index` then test your understanding with an :doc:`installation` and read on the :doc:`api_http/index` if you need to develope against it.
+Welcome to OpenTSDB |version|, the scalable, distributed time series database. We recommend that you start with the :doc:`user_guide/index` then test your understanding with an :doc:`installation` and read on the :doc:`api_http/index` if you need to develop against it.
 
 Contents
 ========

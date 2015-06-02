@@ -248,14 +248,14 @@
 </pre></div>
 </div>
 <p><strong>Full Table</strong></p>
-<div class="highlight-bash"><div class="highlight"><pre>fsck --full-scan --threads<span class="o">=</span>8 --fix --resolve-duplicates --compact
+<div class="highlight-bash"><div class="highlight"><pre>fsck --full-scan --threads<span class="o">=</span><span class="m">8</span> --fix --resolve-duplicates --compact
 </pre></div>
 </div>
 </div>
 <div class="section" id="full-table-vs-queries">
 <h2>Full Table Vs Queries</h2>
-<p>Using the <tt class="docutils literal"><span class="pre">--full-scan</span></tt> flag, the entire OpenTSDB <tt class="docutils literal"><span class="pre">tsdb</span></tt> data table will be scanned. By default the utility will launch <tt class="docutils literal"><span class="pre">2</span> <span class="pre">x</span> <span class="pre">CPU</span> <span class="pre">core</span></tt> threads for optimal performance. Data is stored with the metric UID as the start of each row key so the utility will determine the maximum metric UID and split up the main data table equally among threads. If your data is distributed among metrics fairly evenly, then each thread should complete in roughly the same amount of time. However some metrics usually have more data or time series than others so these threads may be running much longer than others. Future updates to OpenTSDB will be able to divy up the workload in a more efficient manner.</p>
-<p>Alternatively you can spcify a CLI query to fsck over a smaller timespan and look at a specific metric or time series. These queries will almost always complete much faster than a full scan and will uncover similar issues. However orphaned metrics will not found as the query will only operate on known time series. Orphans where tag names or values have been deleted will still be found.</p>
+<p>Using the <tt class="docutils literal"><span class="pre">--full-scan</span></tt> flag, the entire OpenTSDB <tt class="docutils literal"><span class="pre">tsdb</span></tt> data table will be scanned. By default the utility will launch <tt class="docutils literal"><span class="pre">2</span> <span class="pre">x</span> <span class="pre">CPU</span> <span class="pre">core</span></tt> threads for optimal performance. Data is stored with the metric UID as the start of each row key so the utility will determine the maximum metric UID and split up the main data table equally among threads. If your data is distributed among metrics fairly evenly, then each thread should complete in roughly the same amount of time. However some metrics usually have more data or time series than others so these threads may be running much longer than others. Future updates to OpenTSDB will be able to divvy up the workload in a more efficient manner.</p>
+<p>Alternatively you can specify a CLI query to fsck over a smaller timespan and look at a specific metric or time series. These queries will almost always complete much faster than a full scan and will uncover similar issues. However orphaned metrics will not found as the query will only operate on known time series. Orphans where tag names or values have been deleted will still be found.</p>
 <p>Regardless of the method used, fsck only looks at the most recent column value in HBase. If the table is configured to store multiple versions, older versions of a column are ignored.</p>
 </div>
 <div class="section" id="results">
@@ -293,7 +293,7 @@
 2014-07-07 13:09:16,366 INFO  [main] Fsck: Completed fsck in [1] seconds
 </pre></div>
 </div>
-<p>For the most part, these statistics should be self-explanatory. <tt class="docutils literal"><span class="pre">Key</span> <span class="pre">Values</span> <span class="pre">Processed</span></tt> indicates the number of individual columns in HBase. <tt class="docutils literal"><span class="pre">VLE</span></tt> referse to <tt class="docutils literal"><span class="pre">variable</span> <span class="pre">length</span> <span class="pre">encoding</span></tt>.</p>
+<p>For the most part, these statistics should be self-explanatory. <tt class="docutils literal"><span class="pre">Key</span> <span class="pre">Values</span> <span class="pre">Processed</span></tt> indicates the number of individual columns in HBase. <tt class="docutils literal"><span class="pre">VLE</span></tt> refers to <tt class="docutils literal"><span class="pre">variable</span> <span class="pre">length</span> <span class="pre">encoding</span></tt>.</p>
 <p>During a run, progress will be reported every 5 seconds so that you know the utility is still working. You should see lines similar to the following:</p>
 <div class="highlight-python"><div class="highlight"><pre>10:14:00.518 INFO  [Fsck.run] - Processed 47689680000 rows, 449891670779 valid datapoints
 10:14:01.518 INFO  [Fsck.run] - Processed 47689730000 rows, 449892264237 valid datapoints
@@ -347,7 +347,7 @@
 <div class="section" id="compacted-last-byte-error">
 <h3>Compacted Last Byte Error</h3>
 <p>The last byte of a compacted value is for storing meta data. It will usually be <tt class="docutils literal"><span class="pre">0</span></tt> if all of the data points are encoded in seconds or milliseconds. If there is a mixture of seconds and milliseconds will be set to <tt class="docutils literal"><span class="pre">1</span></tt>. If the value is something else then it may be from a future version of OpenTSDB or the column may be invalid.</p>
-<div class="highlight-bash"><div class="highlight"><pre>18:13:35.979 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - The last byte of a compacted should be 0 or 1. Either this value is corrupted or it was written by a future version of OpenTSDB.
+<div class="highlight-bash"><div class="highlight"><pre>18:13:35.979 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - The last byte of a compacted should be <span class="m">0</span> or 1. Either this value is corrupted or it was written by a future version of OpenTSDB.
       <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;00070027&#39;</span> v <span class="s1">&#39;00000000000000040000000000000005&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
@@ -356,7 +356,7 @@
 </div>
 <div class="section" id="value-too-long-or-short">
 <h3>Value Too Long Or Short</h3>
-<p>This may occur if a value is recorded on greater than 8 bytes for a single data point column. Individual data points are stored on 2 or 4 byte qualifiers. This error cannot happen for a data point within a compacted column. If it was compacted, the column would throw a bad compacted column error as it wouldn't be parseable.</p>
+<p>This may occur if a value is recorded on greater than 8 bytes for a single data point column. Individual data points are stored on 2 or 4 byte qualifiers. This error cannot happen for a data point within a compacted column. If it was compacted, the column would throw a bad compacted column error as it wouldn't be parsable.</p>
 <div class="highlight-bash"><div class="highlight"><pre>2014-07-07 14:50:44,022 ERROR <span class="o">[</span>Fsck <span class="c">#0] Fsck: This floating point value must be encoded either on 4 or 8 bytes, but it&#39;s on 9 bytes.</span>
       <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;F000020B&#39;</span> v <span class="s1">&#39;000000000000000005&#39;</span><span class="o">]</span>
 </pre></div>

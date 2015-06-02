@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="stats.html" title="/api/stats"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -81,7 +81,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="tree/index.html"
                         title="next chapter">/api/tree</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -100,11 +100,11 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-suggest">
 <h1>/api/suggest</h1>
-<p>This endpoint provides a means of implementing an &quot;auto-complete&quot; call that can be accessed repeatedly as a user types a request in a GUI. It does not offer full text searching or wildcards, rather it simply matches the entire string passed in the query on the first characters of the stored data. For example, passing a query of <tt class="docutils literal"><span class="pre">type=metrics&amp;q=sys</span></tt> will return the top 25 metrics in the system that start with <tt class="docutils literal"><span class="pre">sys</span></tt>. Matching is case sensitive, so <tt class="docutils literal"><span class="pre">sys</span></tt> will not match <tt class="docutils literal"><span class="pre">System.CPU</span></tt>. Results are sorted alphabetically.</p>
+<p>This endpoint provides a means of implementing an &quot;auto-complete&quot; call that can be accessed repeatedly as a user types a request in a GUI. It does not offer full text searching or wildcards, rather it simply matches the entire string passed in the query on the first characters of the stored data. For example, passing a query of <code class="docutils literal"><span class="pre">type=metrics&amp;q=sys</span></code> will return the top 25 metrics in the system that start with <code class="docutils literal"><span class="pre">sys</span></code>. Matching is case sensitive, so <code class="docutils literal"><span class="pre">sys</span></code> will not match <code class="docutils literal"><span class="pre">System.CPU</span></code>. Results are sorted alphabetically.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
@@ -207,7 +207,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -219,8 +219,8 @@
         <li class="right" >
           <a href="stats.html" title="/api/stats"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

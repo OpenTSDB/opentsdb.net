@@ -1,7 +1,7 @@
 Plugins
 =======
 
-OpenTSDB 2.0 introduced a plugin framework, allowing varous contributors to quickly and easily customize their TSDs. This document gives you an overview of the plugin system and will link to some available implementations.
+OpenTSDB 2.0 introduced a plugin framework, allowing various contributors to quickly and easily customize their TSDs. This document gives you an overview of the plugin system and will link to some available implementations.
 
 General
 ^^^^^^^
@@ -30,7 +30,7 @@ Plugins and their dependencies can be pretty chatty so you may want to tweak you
 Serializers
 ^^^^^^^^^^^
 
-The HTTP API provides a plugin interface for serializing and deserializing data in formats other than the default JSON formats. These plugins do not require a plugin name or enable flag in the configuraiton file. Instead simply drop the plugin in the plugin directory and it will be loaded when the TSD is launched. More than one serializer plugin can be loaded on startup. Serializer plugins may require configuration properties, so check the documentation before using them.
+The HTTP API provides a plugin interface for serializing and deserializing data in formats other than the default JSON formats. These plugins do not require a plugin name or enable flag in the configuration file. Instead simply drop the plugin in the plugin directory and it will be loaded when the TSD is launched. More than one serializer plugin can be loaded on startup. Serializer plugins may require configuration properties, so check the documentation before using them.
 
 Plugins
 -------
@@ -61,7 +61,7 @@ Plugins
 RPC
 ^^^
 
-Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the ``tsd.rpc.plugins`` configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.
+Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcached or any other means of storing information. More than one plugin can be loaded at a time via the ``tsd.rpc.plugins`` configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.
 
 Plugins
 -------

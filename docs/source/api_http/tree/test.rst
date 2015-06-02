@@ -1,7 +1,7 @@
 /api/tree/test
 ==============
 
-For debugging a rule set, the test endpoint can be used to run a TSMeta object through a tree's rules and determine where in the heirarchy the leaf would appear. Or find out why a timeseries failed to match on a rule set or collided with an existing timeseries. The only method supported is ``GET`` and no changes will be made to the actual tree in storage when using this endpoint.
+For debugging a rule set, the test endpoint can be used to run a TSMeta object through a tree's rules and determine where in the hierarchy the leaf would appear. Or find out why a timeseries failed to match on a rule set or collided with an existing timeseries. The only method supported is ``GET`` and no changes will be made to the actual tree in storage when using this endpoint.
 
 The ``messages`` field of the response contains information about what occurred during processing. If the TSUID did not exist or an error occurred, the reason will be found in this field. During processing, each rule that the TSMeta is processed through will generate a message. If a rule matched on the TSMeta successfully or failed, the reason will be recorded.
    
@@ -20,7 +20,7 @@ The following fields are required for this endpoint.
   :widths: 10, 5, 5, 45, 10, 5, 5, 15
 
   "treeId", "Integer", "Required", "The ID of the tree to pass the TSMeta objects through", "", "treeid", "", "1"
-  "tsuids", "String", "Required", "A list of one or more TSUIDs to fetch TSMeta for. If requesting testing of more than one TSUID, they should be separted by a comma.", "", "tsuids", "", "000001000001000001,00000200000200002" 
+  "tsuids", "String", "Required", "A list of one or more TSUIDs to fetch TSMeta for. If requesting testing of more than one TSUID, they should be separated by a comma.", "", "tsuids", "", "000001000001000001,00000200000200002" 
    
 Response
 --------

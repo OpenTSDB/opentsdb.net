@@ -12,7 +12,7 @@ There's a bunch of things in here that we've introduced so far. To help you unde
 Your first datapoints
 ---------------------
 
-Without going into too much detail on how collectors send data to the TSD , you write a collector that periodically sends the current value of these datapoints for each server to the TSD. So the TSD can aggregate the data from multiple hosts, you tag each value with a "host" tag. So, if you have web servers A, B, C, etc, they each periodically send something like this to the TSD:
+Without going into too much detail on how collectors send data to the TSD , you write a collector that periodically sends the current value of these datapoints for each server to the TSD. So the TSD can aggregate the data from multiple hosts, you tag each value with a "host" tag. So, if you have web servers A, B, C, etc., they each periodically send something like this to the TSD:
 
 ::
 

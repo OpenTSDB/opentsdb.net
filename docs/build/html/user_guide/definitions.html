@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="stats.html" title="Stats"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -80,7 +80,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="backends/index.html"
                         title="next chapter">Storage</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -99,7 +99,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="definitions">
 <h1>Definitions</h1>
@@ -111,7 +111,7 @@
 <li>The number of unique time series for a given metric</li>
 <li>The number of unique tag values associated with a tag name</li>
 </ul>
-<p>Due to the nature of the OpenTSDB storage schema, metrics with higher cardinality may take longer return results during query execution than those with lower cardinality. E.g. we may have metric <tt class="docutils literal"><span class="pre">foo</span></tt> with the tag name <tt class="docutils literal"><span class="pre">datacenter</span></tt> and there are 100 possible values for datacenter. Then we have metric <tt class="docutils literal"><span class="pre">bar</span></tt> with the tag <tt class="docutils literal"><span class="pre">host</span></tt> and 50,000 possible values for host. Metric <tt class="docutils literal"><span class="pre">bar</span></tt> has a higher cardinality than <tt class="docutils literal"><span class="pre">foo</span></tt>: 50,000 possible time series for <tt class="docutils literal"><span class="pre">bar</span></tt> an only 100 for <tt class="docutils literal"><span class="pre">foo</span></tt>.</p>
+<p>Due to the nature of the OpenTSDB storage schema, metrics with higher cardinality may take longer return results during query execution than those with lower cardinality. E.g. we may have metric <code class="docutils literal"><span class="pre">foo</span></code> with the tag name <code class="docutils literal"><span class="pre">datacenter</span></code> and there are 100 possible values for datacenter. Then we have metric <code class="docutils literal"><span class="pre">bar</span></code> with the tag <code class="docutils literal"><span class="pre">host</span></code> and 50,000 possible values for host. Metric <code class="docutils literal"><span class="pre">bar</span></code> has a higher cardinality than <code class="docutils literal"><span class="pre">foo</span></code>: 50,000 possible time series for <code class="docutils literal"><span class="pre">bar</span></code> an only 100 for <code class="docutils literal"><span class="pre">foo</span></code>.</p>
 </div>
 <div class="section" id="compaction">
 <h2>Compaction</h2>
@@ -137,7 +137,7 @@
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Notice that the <tt class="docutils literal"><span class="pre">metric</span></tt> did not include a specific number or a time. That is becaue a <tt class="docutils literal"><span class="pre">metric</span></tt> is just a label of what you are measuring. The actual measurements are called <tt class="docutils literal"><span class="pre">datapoints</span></tt>, as you'll see later.</p>
+<p class="last">Notice that the <code class="docutils literal"><span class="pre">metric</span></code> did not include a specific number or a time. That is because a <code class="docutils literal"><span class="pre">metric</span></code> is just a label of what you are measuring. The actual measurements are called <code class="docutils literal"><span class="pre">datapoints</span></code>, as you'll see later.</p>
 </div>
 <p>Unfortunately OpenTSDB requires metrics to be named as a single, long word without spaces. Thus metrics are usually recorded using &quot;dotted notation&quot;. For example, the metrics above would have names like:</p>
 <ul class="simple">
@@ -148,12 +148,12 @@
 </div>
 <div class="section" id="tags">
 <h2>Tags</h2>
-<p>A <tt class="docutils literal"><span class="pre">metric</span></tt> should be descriptive of what is being measured, but with OpenTSDB, it should not be too specific. Instead, it is better to use <tt class="docutils literal"><span class="pre">tags</span></tt> to differentiate and organize different items that may share a common metric. Tags are pairs of words that provide a means of associating a metric with a specific item. Each pair consists of a <tt class="docutils literal"><span class="pre">tagk</span></tt> that represents the group or category of the following <tt class="docutils literal"><span class="pre">tagv</span></tt> that represents a specific item, object, location or other noun.</p>
+<p>A <code class="docutils literal"><span class="pre">metric</span></code> should be descriptive of what is being measured, but with OpenTSDB, it should not be too specific. Instead, it is better to use <code class="docutils literal"><span class="pre">tags</span></code> to differentiate and organize different items that may share a common metric. Tags are pairs of words that provide a means of associating a metric with a specific item. Each pair consists of a <code class="docutils literal"><span class="pre">tagk</span></code> that represents the group or category of the following <code class="docutils literal"><span class="pre">tagv</span></code> that represents a specific item, object, location or other noun.</p>
 <p>Expanding on the metric examples above:</p>
 <ul class="simple">
-<li>A business may have four employees, Sue, John, Kelly and Paul. Therefore we may configure a <tt class="docutils literal"><span class="pre">tagk</span></tt> of <tt class="docutils literal"><span class="pre">employee</span></tt> with their names as the <tt class="docutils literal"><span class="pre">tagv</span></tt>. These would be recorded as <tt class="docutils literal"><span class="pre">employee=sue</span></tt>, <tt class="docutils literal"><span class="pre">employee=john</span></tt> etc.</li>
-<li>Webservers usually have many files so we could have a <tt class="docutils literal"><span class="pre">tagk</span></tt> of <tt class="docutils literal"><span class="pre">file</span></tt> to arrive at <tt class="docutils literal"><span class="pre">file=logo.jpg</span></tt> or <tt class="docutils literal"><span class="pre">file=index.php</span></tt></li>
-<li>Snow falls in many regions so we may record a <tt class="docutils literal"><span class="pre">tagk</span></tt> of <tt class="docutils literal"><span class="pre">region</span></tt> to get <tt class="docutils literal"><span class="pre">region=new_england</span></tt> or <tt class="docutils literal"><span class="pre">region=north_west</span></tt></li>
+<li>A business may have four employees, Sue, John, Kelly and Paul. Therefore we may configure a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">employee</span></code> with their names as the <code class="docutils literal"><span class="pre">tagv</span></code>. These would be recorded as <code class="docutils literal"><span class="pre">employee=sue</span></code>, <code class="docutils literal"><span class="pre">employee=john</span></code> etc.</li>
+<li>Webservers usually have many files so we could have a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">file</span></code> to arrive at <code class="docutils literal"><span class="pre">file=logo.jpg</span></code> or <code class="docutils literal"><span class="pre">file=index.php</span></code></li>
+<li>Snow falls in many regions so we may record a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">region</span></code> to get <code class="docutils literal"><span class="pre">region=new_england</span></code> or <code class="docutils literal"><span class="pre">region=north_west</span></code></li>
 </ul>
 </div>
 <div class="section" id="time-series">
@@ -166,7 +166,7 @@
 </div>
 <div class="section" id="value">
 <h2>Value</h2>
-<p>A value represents the actual numeric measurement of the given metric. One of our employees, Sue, worked 8 hours yesterday, thus the value would be <tt class="docutils literal"><span class="pre">8</span></tt>. There were 1,024 downloads of <tt class="docutils literal"><span class="pre">logo.jpg</span></tt> from our webserver in the past hour. And 12 inches of snow fell in New England today.</p>
+<p>A value represents the actual numeric measurement of the given metric. One of our employees, Sue, worked 8 hours yesterday, thus the value would be <code class="docutils literal"><span class="pre">8</span></code>. There were 1,024 downloads of <code class="docutils literal"><span class="pre">logo.jpg</span></code> from our webserver in the past hour. And 12 inches of snow fell in New England today.</p>
 </div>
 </div>
 
@@ -176,7 +176,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -188,8 +188,8 @@
         <li class="right" >
           <a href="stats.html" title="Stats"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

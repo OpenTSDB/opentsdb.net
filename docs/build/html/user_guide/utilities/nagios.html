@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="varnish.html" title="Load Balancing with Varnish"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -75,7 +75,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="../logging.html"
                         title="next chapter">Logging</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -94,12 +94,12 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="alerting-with-nagios">
 <h1>Alerting with Nagios</h1>
 <p>OpenTSDB is great, but it's not (yet) a full monitoring platform. Now that you have a bunch of metrics in OpenTSDB, you want to start sending alerts when thresholds are getting too high. It's easy!</p>
-<p>In the <tt class="docutils literal"><span class="pre">tools</span></tt> directory is a Python script <tt class="docutils literal"><span class="pre">check_tsd</span></tt>. This script queries OpenTSDB and returns Nagios compatible output that gives you OK/WARNING/CRITICAL state.</p>
+<p>In the <code class="docutils literal"><span class="pre">tools</span></code> directory is a Python script <code class="docutils literal"><span class="pre">check_tsd</span></code>. This script queries OpenTSDB and returns Nagios compatible output that gives you OK/WARNING/CRITICAL state.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
 <div class="highlight-python"><div class="highlight"><pre>Options:
@@ -167,7 +167,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -179,9 +179,9 @@
         <li class="right" >
           <a href="varnish.html" title="Load Balancing with Varnish"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Utilities</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

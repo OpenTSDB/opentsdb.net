@@ -43,7 +43,7 @@ Sample Data
    "lax", "05"
    "doe", "06"
    
-.. WARNING:: This isn't necesarily the best way to setup your metrics and tags, rather it's meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.
+.. WARNING:: This isn't necessarily the best way to setup your metrics and tags, rather it's meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.
 
 Under the Hood
 --------------
@@ -88,7 +88,7 @@ Query 1 - All Time Series for a Metric
 
   m=sum:cpu.system
   
-This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID ``01`` between *<start>* and *<end>*. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.
+This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID ``01`` between *<start>* and *<end>*. The result will be a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.
 
 .. code-block :: javascript
 
@@ -149,7 +149,7 @@ This will return an aggregate of time series #1, #4, #5 and #6 since they're the
 Query 3 - Specific Time Series
 ------------------------------
 
-What if you want a specific timeseries? You have to include every tag and coresponding value.
+What if you want a specific timeseries? You have to include every tag and corresponding value.
 
 ::
 
@@ -176,7 +176,7 @@ This will return the data from timeseries #6 only.
       }
   ]
   
-.. WARNING:: This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 ``m=sum:cpu.system{host=web1}`` thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.
+.. WARNING:: This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 ``m=sum:cpu.system{host=web1}`` thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurrence, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already committed, you can use TSUID queries.
 
 Query 4 - TSUID Query
 ---------------------

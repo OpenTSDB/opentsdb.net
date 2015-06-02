@@ -78,7 +78,7 @@ Time Section
 
 .. image:: ../../images/gui_time.jpg
 
-The time secion determines the timespan for all metrics and time series in your graph. The **Frome** time determines when your graph will start and the **End** time determines when it will stop. Both fields must be filled out for a query to execute. Times may be in human readable, absolute format or a relative format. See :doc:`../query/dates` for details. 
+The time section determines the timespan for all metrics and time series in your graph. The **Frome** time determines when your graph will start and the **End** time determines when it will stop. Both fields must be filled out for a query to execute. Times may be in human readable, absolute format or a relative format. See :doc:`../query/dates` for details. 
 
 Clicking a time box will pop-up a utility to help you choose a time. Use the arrows at the top left of the box to navigate through the months, then click on a date. The relative links in the upper right are helpers to jump forward or backward 1 minute, 10 minutes, 1 hour, 1 day, 1 week or 30 days. The *now* link will update the time to the current time on your local system. The **HH** buttons let you choose an hour along with *AM* or *PM*. The MM buttons let you choose a normalized minute. You can also cut and paste a time into the any of the boxes or edit the times directly.
 
@@ -121,7 +121,7 @@ Axes Tab
 
 This area deals with altering the Y axes of the graph. **Y** settings affect the axis on the left and **Y2** settings affect the axis on the right. Y2 settings are only enabled if at least one of the metrics has had the **Right Axis** check box checked.
 
-The **Label** box will add the specified text to the graph alon the left or right Y axis. By default, no label is provided since OpenTSDB doesn't know what you're graphing.
+The **Label** box will add the specified text to the graph along the left or right Y axis. By default, no label is provided since OpenTSDB doesn't know what you're graphing.
 
 The **Format** box can alter the numbers on the Y axis according to a custom algorithm or formatting. This can be useful to convert numbers to or from scientific notation and adjusting the scale for gigabytes if the data comes in as bytes. For example, you can supply a value of ``%0.0f Reqs`` and it will change the axis to show an integer value at each step with the string *Reqs* after it as in the following example.
 
@@ -140,7 +140,7 @@ The **Log Scale** check box will set a base ten log scale on the Y axis. An exam
 Key Tab
 -------
 
-The top half of the key tab's section deals with the location of the graph key. This is a series of buttons layed out to show you where the key will appear. A box surrounds some of the buttons indicating that the key will appear inside of the graph's box, overlaying the data. The default location is the top right inside of the graph box. Simply select a button to move the key box.
+The top half of the key tab's section deals with the location of the graph key. This is a series of buttons laid out to show you where the key will appear. A box surrounds some of the buttons indicating that the key will appear inside of the graph's box, overlaying the data. The default location is the top right inside of the graph box. Simply select a button to move the key box.
 
 .. image:: ../../images/gui_key_above.png
 

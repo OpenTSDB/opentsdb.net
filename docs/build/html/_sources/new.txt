@@ -44,7 +44,7 @@ Currently in the "next" branch on Github.
 * Millisecond Resolution - Optionally store data with millisecond precision
 * Variable Length Encoding - Use less storage space for smaller integer values
 * Non-Interpolating Aggregation Functions - For situations where you require raw data
-* Rate Counter Calculations - Handle roll-over and anomaly supression
+* Rate Counter Calculations - Handle roll-over and anomaly suppression
 * Additional Statistics - Including the number of UIDs assigned and available
 
 Thank you to everyone who has contributed to |version|. Help us out by sharing your ideas and code at `GitHub <https://github.com/OpenTSDB>`_

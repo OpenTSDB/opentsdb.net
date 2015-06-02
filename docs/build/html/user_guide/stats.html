@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="plugins.html" title="Plugins"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="plugins.html"
@@ -65,7 +65,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="definitions.html"
                         title="next chapter">Definitions</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -84,12 +84,12 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="stats">
 <h1>Stats</h1>
-<p>OpenTSDB offers a number of metrics about its performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accesible from the GUI via the &quot;Stats&quot; tab, from the Http API at <tt class="docutils literal"><span class="pre">/api/stats</span></tt> or the legacy API at <tt class="docutils literal"><span class="pre">/stats</span></tt>.</p>
-<p>All stats include a <tt class="docutils literal"><span class="pre">host</span></tt> tag that includes the name of the host where the TSD is running. If the <tt class="docutils literal"><span class="pre">tsd.stats.canonical</span></tt> configuration flag is set, this will change to <tt class="docutils literal"><span class="pre">fqdn</span></tt> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
+<p>OpenTSDB offers a number of metrics about its performance. These can easily be published right back into OpenTSDB at any interval you like. Stats are accessible from the GUI via the &quot;Stats&quot; tab, from the Http API at <code class="docutils literal"><span class="pre">/api/stats</span></code> or the legacy API at <code class="docutils literal"><span class="pre">/stats</span></code>.</p>
+<p>All stats include a <code class="docutils literal"><span class="pre">host</span></code> tag that includes the name of the host where the TSD is running. If the <code class="docutils literal"><span class="pre">tsd.stats.canonical</span></code> configuration flag is set, this will change to <code class="docutils literal"><span class="pre">fqdn</span></code> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -208,7 +208,7 @@
 <tr class="row-even"><td>tsd.rpc.received</td>
 <td>type=put</td>
 <td>Counter</td>
-<td>The total number of <tt class="docutils literal"><span class="pre">put</span></tt> requests for writing data points</td>
+<td>The total number of <code class="docutils literal"><span class="pre">put</span></code> requests for writing data points</td>
 </tr>
 <tr class="row-odd"><td>tsd.rpc.errors</td>
 <td>type=hbase_errors</td>
@@ -218,7 +218,7 @@
 <tr class="row-even"><td>tsd.rpc.errors</td>
 <td>type=invalid_values</td>
 <td>Counter</td>
-<td>The total number of RPC errors caused invalid <tt class="docutils literal"><span class="pre">put</span></tt> values from user requests, such as a string instead of a number</td>
+<td>The total number of RPC errors caused invalid <code class="docutils literal"><span class="pre">put</span></code> values from user requests, such as a string instead of a number</td>
 </tr>
 <tr class="row-odd"><td>tsd.rpc.errors</td>
 <td>type=illegal_arguments</td>
@@ -228,7 +228,7 @@
 <tr class="row-even"><td>tsd.rpc.errors</td>
 <td>type=unknown_metrics</td>
 <td>Counter</td>
-<td>The total number of RPC errors caused by attempts to <tt class="docutils literal"><span class="pre">put</span></tt> a metric without an assigned UID. This only increments if <em>auto metrics</em> is disabled.</td>
+<td>The total number of RPC errors caused by attempts to <code class="docutils literal"><span class="pre">put</span></code> a metric without an assigned UID. This only increments if <em>auto metrics</em> is disabled.</td>
 </tr>
 <tr class="row-odd"><td>tsd.uid.cache-hit</td>
 <td>kind=metrics</td>
@@ -454,7 +454,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -466,8 +466,8 @@
         <li class="right" >
           <a href="plugins.html" title="Plugins"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

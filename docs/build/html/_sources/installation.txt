@@ -64,7 +64,7 @@ Download the latest version using ``git clone`` command or download a release fr
  cd opentsdb
  ./build.sh
 
-If compilation was successfuly, you should have a tsdb jar file in ``./build`` along with a ``tsdb`` script. You can now execute command-line tool by invoking ``./build/tsdb`` or you can run ``make install`` to install OpenTSDB on your system. Should you ever change your mind, there is also ``make uninstall``, so there are no strings attached.
+If compilation was successfully, you should have a tsdb jar file in ``./build`` along with a ``tsdb`` script. You can now execute command-line tool by invoking ``./build/tsdb`` or you can run ``make install`` to install OpenTSDB on your system. Should you ever change your mind, there is also ``make uninstall``, so there are no strings attached.
 
 If you need to distribute OpenTSDB to machines without an Internet connection, call ``./build.sh dist`` to wrap the build directory into a tarball that you can then copy to additional machines.
 
@@ -83,7 +83,7 @@ The Debian package will create the following directories:
 * /etc/opentsdb - Configuration files
 * /tmp/opentsdb - Temporary cache files
 * /usr/share/opentsdb - Application files
-* /usr/share/opentsdb/bin - The "tsdb" startup script that launches a TSD or commandline tools
+* /usr/share/opentsdb/bin - The "tsdb" startup script that launches a TSD or command line tools
 * /usr/share/opentsdb/lib - Java JAR library files
 * /usr/share/opentsdb/plugins - Location for plugin files and dependencies
 * /usr/share/opentsdb/static - Static files for the GUI
@@ -143,7 +143,7 @@ OpenTSDB |version| is fully backwards compatible with 1.x data. We've taken grea
   
 where ``COMPRESSION`` is the same as your existing production table compression format. 
 
-While you can start a |version| TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at ``./src/opentsdb.conf``. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See :doc:`user_guide/configuration` for details.
+While you can start a |version| TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at ``./src/opentsdb.conf``. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accessible via command line and the file is shared with CLI tools. See :doc:`user_guide/configuration` for details.
 
 You do not have to upgrade all of your TSDs to |version| at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs. 
 
@@ -156,4 +156,4 @@ Before upgrading to 2.x, you may want to upgrade all of your TSDs to OpenTSDB 1.
 Downgrading
 ^^^^^^^^^^^
 
-Because we've worked hard to maintain backwards compatability, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the ``tsdb-tree`` and ``tsdb-meta`` tables if you so desire.
+Because we've worked hard to maintain backwards compatibility, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the ``tsdb-tree`` and ``tsdb-meta`` tables if you so desire.

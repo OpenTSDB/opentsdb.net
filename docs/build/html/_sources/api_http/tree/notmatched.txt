@@ -5,7 +5,7 @@ When processing a TSMeta, if the tree has ``strictMatch`` enabled and the meta f
 
 .. NOTE:: Calling this endpoint without a list of one or more TSUIDs will return all non-matched TSUIDs in the tree. If you have a large number of timeseries in your system, the response can potentially be very large. Thus it is best to use this endpoint with specific TSUIDs.
 
-.. NOTE:: If ``storeFailures`` is diabled for the tree, this endpoint will not return any data. Not Matched entries will still appear in the TSD's logs.
+.. NOTE:: If ``storeFailures`` is disabled for the tree, this endpoint will not return any data. Not Matched entries will still appear in the TSD's logs.
 
 Verbs
 -----
@@ -22,7 +22,7 @@ The following fields are used for this endpoint
   :widths: 10, 5, 5, 45, 10, 5, 5, 15
 
   "treeId", "Integer", "Required", "The ID of the tree to pass the TSMeta objects through", "", "treeid", "", "1"
-  "tsuids", "String", "Required", "A list of one or more TSUIDs to search for not-matched entries. If requesting testing of more than one TSUID, they should be separted by a comma.", "", "tsuids", "", "000001000001000001,00000200000200002" 
+  "tsuids", "String", "Required", "A list of one or more TSUIDs to search for not-matched entries. If requesting testing of more than one TSUID, they should be separated by a comma.", "", "tsuids", "", "000001000001000001,00000200000200002" 
    
 Response
 --------

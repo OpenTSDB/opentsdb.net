@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="search/index.html" title="/api/search"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -76,7 +76,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="stats.html"
                         title="next chapter">/api/stats</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -95,7 +95,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-serializers">
 <h1>/api/serializers</h1>
@@ -131,17 +131,17 @@
 <tbody valign="top">
 <tr class="row-even"><td>serializer</td>
 <td>String</td>
-<td>The name of the serializer, suitable for use in the query string <tt class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></tt> parameter</td>
+<td>The name of the serializer, suitable for use in the query string <code class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></code> parameter</td>
 <td>xml</td>
 </tr>
 <tr class="row-odd"><td>formatters</td>
 <td>Array&lt;String&gt;</td>
-<td>An array of methods or endpoints that the serializer implements to convert response data. These usually map to an endpoint such as <tt class="docutils literal"><span class="pre">/api/suggest</span></tt> mapping to <tt class="docutils literal"><span class="pre">Suggest</span></tt>. If the serializer does not implement a certain method, the default formatter will respond. Each name also ends with the API version supported, e.g. <tt class="docutils literal"><span class="pre">V1</span></tt> will support version 1 API calls.</td>
+<td>An array of methods or endpoints that the serializer implements to convert response data. These usually map to an endpoint such as <code class="docutils literal"><span class="pre">/api/suggest</span></code> mapping to <code class="docutils literal"><span class="pre">Suggest</span></code>. If the serializer does not implement a certain method, the default formatter will respond. Each name also ends with the API version supported, e.g. <code class="docutils literal"><span class="pre">V1</span></code> will support version 1 API calls.</td>
 <td>&quot;Error&quot;,&quot;Suggest&quot;</td>
 </tr>
 <tr class="row-even"><td>parsers</td>
 <td>Array&lt;String&gt;</td>
-<td>An array of methods or endpoints that the serializer implements to parse user input in the HTTP request body. These usually map to an endpoint such as <tt class="docutils literal"><span class="pre">/api/suggest</span></tt> will map to <tt class="docutils literal"><span class="pre">Suggest</span></tt>. If a serializer does not implement a parser, the default serializer will be used. Each name also ends with the API version supported, e.g. <tt class="docutils literal"><span class="pre">V1</span></tt> will support version 1 API calls.</td>
+<td>An array of methods or endpoints that the serializer implements to parse user input in the HTTP request body. These usually map to an endpoint such as <code class="docutils literal"><span class="pre">/api/suggest</span></code> will map to <code class="docutils literal"><span class="pre">Suggest</span></code>. If a serializer does not implement a parser, the default serializer will be used. Each name also ends with the API version supported, e.g. <code class="docutils literal"><span class="pre">V1</span></code> will support version 1 API calls.</td>
 <td>&quot;Suggest&quot;,&quot;Put&quot;</td>
 </tr>
 </tbody>
@@ -179,7 +179,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -191,8 +191,8 @@
         <li class="right" >
           <a href="search/index.html" title="/api/search"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

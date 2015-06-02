@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="mkmetric.html" title="mkmetric"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -75,7 +75,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="query.html"
                         title="next chapter">query</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -94,11 +94,11 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="import">
 <h1>import</h1>
-<p>The import command enables bulk loading of time series data into OpenTSDB. You provide one or more files and OpenTSDB will parse and load the data. Data must be formatted in the Telnet <tt class="docutils literal"><span class="pre">put</span></tt> style with one data point per line in a text file. Each file may optionally be compressed with GZip and if so, must end with the <tt class="docutils literal"><span class="pre">.gz</span></tt> extension.</p>
+<p>The import command enables bulk loading of time series data into OpenTSDB. You provide one or more files and OpenTSDB will parse and load the data. Data must be formatted in the Telnet <code class="docutils literal"><span class="pre">put</span></code> style with one data point per line in a text file. Each file may optionally be compressed with GZip and if so, must end with the <code class="docutils literal"><span class="pre">.gz</span></code> extension.</p>
 <p>For more information on storing data in OpenTSDB, please see <a class="reference internal" href="../writing.html"><em>Writing Data</em></a></p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
@@ -113,7 +113,7 @@
 </div>
 <div class="section" id="input-format">
 <h2>Input Format</h2>
-<p>The format is the same as the Telnet <tt class="docutils literal"><span class="pre">put</span></tt> interface.</p>
+<p>The format is the same as the Telnet <code class="docutils literal"><span class="pre">put</span></code> interface.</p>
 <blockquote>
 <div>&lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; &lt;tagk=tagv&gt; [&lt;tagkN=tagvN&gt;]</div></blockquote>
 <p>Where:</p>
@@ -122,7 +122,7 @@
 <li><strong>metric</strong> Is the name of the metric. Note that the metric name may not include spaces.</li>
 <li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
 <li><strong>value</strong> Is the value to store</li>
-<li><strong>tagk=tagv</strong> Is a pair of one or more space sparate tag name and value pairs. Note that the tags may not have spaces in them.</li>
+<li><strong>tagk=tagv</strong> Is a pair of one or more space separated tag name and value pairs. Note that the tags may not have spaces in them.</li>
 </ul>
 </div></blockquote>
 <p>Example:</p>
@@ -147,7 +147,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -159,9 +159,9 @@
         <li class="right" >
           <a href="mkmetric.html" title="mkmetric"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

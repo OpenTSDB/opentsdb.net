@@ -54,9 +54,9 @@ Examples
 Full Table Vs Queries
 ^^^^^^^^^^^^^^^^^^^^^
 
-Using the ``--full-scan`` flag, the entire OpenTSDB ``tsdb`` data table will be scanned. By default the utility will launch ``2 x CPU core`` threads for optimal performance. Data is stored with the metric UID as the start of each row key so the utility will determine the maximum metric UID and split up the main data table equally among threads. If your data is distributed among metrics fairly evenly, then each thread should complete in roughly the same amount of time. However some metrics usually have more data or time series than others so these threads may be running much longer than others. Future updates to OpenTSDB will be able to divy up the workload in a more efficient manner.
+Using the ``--full-scan`` flag, the entire OpenTSDB ``tsdb`` data table will be scanned. By default the utility will launch ``2 x CPU core`` threads for optimal performance. Data is stored with the metric UID as the start of each row key so the utility will determine the maximum metric UID and split up the main data table equally among threads. If your data is distributed among metrics fairly evenly, then each thread should complete in roughly the same amount of time. However some metrics usually have more data or time series than others so these threads may be running much longer than others. Future updates to OpenTSDB will be able to divvy up the workload in a more efficient manner.
 
-Alternatively you can spcify a CLI query to fsck over a smaller timespan and look at a specific metric or time series. These queries will almost always complete much faster than a full scan and will uncover similar issues. However orphaned metrics will not found as the query will only operate on known time series. Orphans where tag names or values have been deleted will still be found.
+Alternatively you can specify a CLI query to fsck over a smaller timespan and look at a specific metric or time series. These queries will almost always complete much faster than a full scan and will uncover similar issues. However orphaned metrics will not found as the query will only operate on known time series. Orphans where tag names or values have been deleted will still be found.
 
 Regardless of the method used, fsck only looks at the most recent column value in HBase. If the table is configured to store multiple versions, older versions of a column are ignored.
 
@@ -98,7 +98,7 @@ The results will be logged with settings in the ``logback.xml`` file. For long f
   2014-07-07 13:09:16,366 INFO  [main] Fsck: Total Errors Fixed: 0
   2014-07-07 13:09:16,366 INFO  [main] Fsck: Completed fsck in [1] seconds
 
-For the most part, these statistics should be self-explanatory. ``Key Values Processed`` indicates the number of individual columns in HBase. ``VLE`` referse to ``variable length encoding``. 
+For the most part, these statistics should be self-explanatory. ``Key Values Processed`` indicates the number of individual columns in HBase. ``VLE`` refers to ``variable length encoding``. 
 
 During a run, progress will be reported every 5 seconds so that you know the utility is still working. You should see lines similar to the following:
 
@@ -182,7 +182,7 @@ Currently this is not repaired. You can manually set the last byte to 0 or 1 to 
 Value Too Long Or Short
 -----------------------
 
-This may occur if a value is recorded on greater than 8 bytes for a single data point column. Individual data points are stored on 2 or 4 byte qualifiers. This error cannot happen for a data point within a compacted column. If it was compacted, the column would throw a bad compacted column error as it wouldn't be parseable.
+This may occur if a value is recorded on greater than 8 bytes for a single data point column. Individual data points are stored on 2 or 4 byte qualifiers. This error cannot happen for a data point within a compacted column. If it was compacted, the column would throw a bad compacted column error as it wouldn't be parsable.
 
 .. code-block :: bash
 

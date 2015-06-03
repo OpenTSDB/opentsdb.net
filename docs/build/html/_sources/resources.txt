@@ -26,7 +26,7 @@ Utilities
 ^^^^^^^^^
 
 * `opentsdbjsonproxy <https://github.com/noca/opentsdbjsonproxy>`_ - An HTTP proxy to convert 1.x ASCII output from the ``/q`` endpoint to JSON for use with High Charts or other libraries.
-* `Collectd-opentsdb <https://github.com/auxesis/collectd-opentsdb>`_ - A Collectd plugin to emmit stats to a TSD.
+* `Collectd-opentsdb <https://github.com/auxesis/collectd-opentsdb>`_ - A Collectd plugin to emit stats to a TSD.
 * `Collectd-opentsdb Java <https://github.com/dotcloud/collectd-opentsdb>`_ - A Collectd plugin to that uses the OpenTSDB Java API to push data to a TSD.
 * `TSD_proxy` <https://github.com/aravind/tsd_proxy>`_ - A buffering write proxy for OpenTSDB and alternate DBs.
 * `Vacuumetrix <https://github.com/99designs/vacuumetrix>`_ - Utility to pull data from various cloud services or APIs and store the results in backends such as Graphite, Ganglia and OpenTSDB.

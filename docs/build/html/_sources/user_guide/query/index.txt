@@ -35,7 +35,7 @@ Absolute time stamps are supported in human readable format or Unix style intege
 
 While OpenTSDB can store data with millisecond resolution, most queries will return the data with second resolution to provide backwards compatibility for existing tools. Unless a down sampling algorithm has been specified with a query, the data will automatically be down sampled to 1 second using the same aggregation function specified in a query. This way, if multiple data points are stored for a given second, they will be aggregated and returned in a normal query correctly.
 
-To extract data with millisecond resolution, use the ``/api/query`` endpoint and specify the ``msResolution`` JSON parameter or ``ms`` query string flag and it will bypass down sampling (unless specified) and return all timestamps in Unix epoch millisecond resolution. Also, the ``scan`` commandline utility will return the timestamp as written in storage.
+To extract data with millisecond resolution, use the ``/api/query`` endpoint and specify the ``msResolution`` JSON parameter or ``ms`` query string flag and it will bypass down sampling (unless specified) and return all timestamps in Unix epoch millisecond resolution. Also, the ``scan`` command line utility will return the timestamp as written in storage.
 
 Tags
 ^^^^
@@ -111,7 +111,7 @@ As of 2.1, downsampled timestamps are normalized based on the remainder of the o
 
 Normalization works very well for common queries such as a day's worth of data downsampled to 1 minute or 1 hour. However if you try to downsample on an odd interval, such as 36 minutes, then the timestamps may look a little strange due to the nature of the modulus calculation. Given an interval of 36 minutes and our example above, the interval would be ``2160000`` milliseconds and the resulting timestamp ``1388549520`` or ``04:12:00 UTC``. All data points between ``04:12`` and ``04:48`` would wind up in a single bucket. Also note that OpenTSDB cannot currently normalize on non-UTC times and it cannot normalize on weekly or monthly boundaries.
 
-.. NOTE:: Previous to 2.1, timestamps were not normalized. The buckets were calculated based on the starting time of the first data point retreived for each series, then the series went through interpolation. This means a graph may show varying gaps between values and return more values than expected.
+.. NOTE:: Previous to 2.1, timestamps were not normalized. The buckets were calculated based on the starting time of the first data point retrieved for each series, then the series went through interpolation. This means a graph may show varying gaps between values and return more values than expected.
 
 Rate
 ^^^^

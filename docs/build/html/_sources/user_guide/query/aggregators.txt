@@ -82,7 +82,7 @@ Here is another slightly more complicated example that came from the mailing lis
    :target: ../../_images/aggregation_average.png
    :alt: Click the image to enlarge.
 
-The thick blue line with triangles is the an aggregation with the ``avg`` function of multiple time series as per the query ``start=1h-ago&m=avg:duration_seconds``. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point. 
+The thick blue line with triangles is an aggregation with the ``avg`` function of multiple time series as per the query ``start=1h-ago&m=avg:duration_seconds``. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point. 
 
 .. NOTE:: Aggregation functions return integer or double values based on the input data points. If both source values are integers in storage, the resulting calculations will be integers. This means any fractional values resulting from the computation will be lopped off, no rounding will occur. If either data point is a floating point value, the result will be a floating point. However if downsampling or rates are enabled, the result will always be a float.
 
@@ -225,4 +225,4 @@ Calculates the sum of all data points from all of the time series or within the 
 ZimSum
 ------
 
-Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitues a ``0`` for missing data points. This can be useful when working with discrete values.
+Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitutes a ``0`` for missing data points. This can be useful when working with discrete values.

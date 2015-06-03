@@ -117,7 +117,7 @@
             
   <div class="section" id="api-tree">
 <h1>/api/tree</h1>
-<p>Trees are meta data used to organize time series in a heirarchical structure for browsing similar to a typical file system. A number of endpoints under the <tt class="docutils literal"><span class="pre">/tree</span></tt> root allow working with various tree related data:</p>
+<p>Trees are meta data used to organize time series in a hierarchical structure for browsing similar to a typical file system. A number of endpoints under the <tt class="docutils literal"><span class="pre">/tree</span></tt> root allow working with various tree related data:</p>
 <div class="section" id="tree-api-endpoints">
 <h2>Tree API Endpoints</h2>
 <div class="toctree-wrapper compound">
@@ -130,7 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="test.html">/api/tree/test</a></li>
 </ul>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">/tree</span></tt> endpoint allows for creating or modifying a tree definition. Tree definitions include configuration and meta data accessible via this endpoint, as well as the rule set accessiable via <tt class="docutils literal"><span class="pre">/tree/rule</span></tt> or <tt class="docutils literal"><span class="pre">/tree/rules</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">/tree</span></tt> endpoint allows for creating or modifying a tree definition. Tree definitions include configuration and meta data accessible via this endpoint, as well as the rule set accessible via <tt class="docutils literal"><span class="pre">/tree/rule</span></tt> or <tt class="docutils literal"><span class="pre">/tree/rules</span></tt>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">When creating a tree it will have the <tt class="docutils literal"><span class="pre">enabled</span></tt> field set to <tt class="docutils literal"><span class="pre">false</span></tt> by default. After creating a tree you should add rules then use the <tt class="docutils literal"><span class="pre">tree/test</span></tt> endpoint with a few TSUIDs to make sure the resulting tree will be what you expected. After you have verified the results, you can set the <tt class="docutils literal"><span class="pre">enabled</span></tt> field to <tt class="docutils literal"><span class="pre">true</span></tt> and new TSMeta objects or a tree synchronization will start to populate branches.</p>
@@ -248,7 +248,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return tree objects with optinally requested changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return tree objects with optionally requested changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -493,14 +493,14 @@
 </div>
 <div class="section" id="delete">
 <h2>DELETE</h2>
-<p>Using the <tt class="docutils literal"><span class="pre">DELETE</span></tt> method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the <tt class="docutils literal"><span class="pre">defintion</span></tt> flag in the query string with a value of <tt class="docutils literal"><span class="pre">true</span></tt> and the tree and rule definitions will be removed as well.</p>
+<p>Using the <tt class="docutils literal"><span class="pre">DELETE</span></tt> method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the <tt class="docutils literal"><span class="pre">definition</span></tt> flag in the query string with a value of <tt class="docutils literal"><span class="pre">true</span></tt> and the tree and rule definitions will be removed as well.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This method cannot be undone. Once executed, the purge will continue running unless the TSD is shutdown.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Before executing a <tt class="docutils literal"><span class="pre">DELETE</span></tt> query, you should make sure that a manual tree syncronization is not running somehwere on your data. If it is, there may be some orphaned branches or leaves stored during the purge. Use the _____ CLi tool sometime after the delete to cleanup left over branches or leaves.</p>
+<p class="last">Before executing a <tt class="docutils literal"><span class="pre">DELETE</span></tt> query, you should make sure that a manual tree synchronization is not running somewhere on your data. If it is, there may be some orphaned branches or leaves stored during the purge. Use the _____ CLI tool sometime after the delete to cleanup left over branches or leaves.</p>
 </div>
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>

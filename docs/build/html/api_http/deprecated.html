@@ -90,7 +90,7 @@
             
   <div class="section" id="deprecated-http-api">
 <h1>Deprecated HTTP API</h1>
-<p>Version 1.0 of OpenTSDB included a rudimentary HTTP API that allowed for queyring data, suggesting metric or tag names and a means of accessing static files. The 1.0 API has been carried over to 2.0 for backwards compatability though most of the calls have been deprecated. Below is a list of the different endpoints and how to use them.</p>
+<p>Version 1.0 of OpenTSDB included a rudimentary HTTP API that allowed for querying data, suggesting metric or tag names and a means of accessing static files. The 1.0 API has been carried over to 2.0 for backwards compatibility though most of the calls have been deprecated. Below is a list of the different endpoints and how to use them.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Version 3.0 may discard these deprecated methods so if you are developing tools against the HTTP API, make sure to use the 2.0 version.</p>
@@ -100,7 +100,7 @@
 <h2>Generalities</h2>
 <p>Most of the endpoints can return data in one or more of the following formats:</p>
 <ul class="simple">
-<li>Plain Test - Or ASCII, the default for many requests will return a simple plage of data with the Content-Type <tt class="docutils literal"><span class="pre">text/plain</span></tt></li>
+<li>Plain Test - Or ASCII, the default for many requests will return a simple page of data with the Content-Type <tt class="docutils literal"><span class="pre">text/plain</span></tt></li>
 <li>HTML - If a request is bad or there was an exception, the response will often be in HTML, hard-coded and not using templates</li>
 <li>JSON - Many calls can respond in a JSON format when the <tt class="docutils literal"><span class="pre">json</span></tt> query string parameter is appended</li>
 <li>PNG - Some requests, including exceptions and errors, can generate an image file. In these cases, an error is sent to GnuPlot and the resulting empty graph with a title consisting of the message is returned. Append the parameter <tt class="docutils literal"><span class="pre">png</span></tt> to the query string.</li>
@@ -110,7 +110,7 @@
 </div>
 <div class="section" id="id1">
 <h2>/</h2>
-<p>Requests the root which is the GWT generated OpenTSDB GUI. This endpoing only returns HTML and cannot return other data.</p>
+<p>Requests the root which is the GWT generated OpenTSDB GUI. This endpoint only returns HTML and cannot return other data.</p>
 </div>
 <div class="section" id="aggregators-deprecated">
 <h2>/aggregators (<strong>Deprecated</strong>)</h2>

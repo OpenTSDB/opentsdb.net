@@ -40,7 +40,7 @@ Example:
 Raw Output
 ^^^^^^^^^^
 
-The default output for ``scan`` is a raw dump of the rows and columns that match the given queries. This is useful in debugging situations such as data point collisions or encoding issues. As the output includes raw byte arrays and the format changes slightly depending on the data, it is not easily machine paresable.
+The default output for ``scan`` is a raw dump of the rows and columns that match the given queries. This is useful in debugging situations such as data point collisions or encoding issues. As the output includes raw byte arrays and the format changes slightly depending on the data, it is not easily machine parsable.
 
 Row keys, column qualifiers and column values are emitted as Java byte arrays. These are surrounded by square brackets and individual bytes are represented as signed integers (as Java does not have native unsigned ints). Row keys are printed first followed by a new line. Then each column is printed on it's own row and is indented with two spaces to indicate it belongs to the previous row. If a compacted column is found, the raw data and number of compacted values is printed followed by a new line. Each compacted data point is printed on it's own indented line. Annotations are also emitted in raw mode.
 

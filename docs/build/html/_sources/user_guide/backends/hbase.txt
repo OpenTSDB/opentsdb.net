@@ -4,7 +4,7 @@ HBase Schema
 Data Table Schema
 ^^^^^^^^^^^^^^^^^
 
-All OpenTSDB data points are stored in a single, massive table, named ``tsdb`` by default. This is to take advantage of HBases ordering and region distribution. All values are stored in the ``t`` column family.
+All OpenTSDB data points are stored in a single, massive table, named ``tsdb`` by default. This is to take advantage of HBase's ordering and region distribution. All values are stored in the ``t`` column family.
 
 **Row Key** - Row keys are byte arrays comprised of the metric UID, a base timestamp and the UID for tagk/v pairs:  ``<metric_uid><timestamp><tagk1><tagv1>[...<tagkN><tagvN>]``. By default, UIDs are encoded on 3 bytes. 
 
@@ -52,7 +52,7 @@ By far the most common column are data points. These are the actual values recor
 
 **Column Qualifiers** - The qualifier is comprised of 2 or 4 bytes that encode an offset from the row's base time and flags to determine if the value is an integer or a decimal value. Qualifiers encode an offset from the row base time as well as the format and length of the data stored.
 
-Columns with 2 byte qualifiers have an offset in seconds. The first 12 bits of the qualifer represent an integer that is a delta from the timestamp in the row key. For example, if the row key is normalized to ``1292148000`` and a data point comes in for ``1292148123``, the recorded delta will be ``123``. The last 4 bits are format flags
+Columns with 2 byte qualifiers have an offset in seconds. The first 12 bits of the qualifier represent an integer that is a delta from the timestamp in the row key. For example, if the row key is normalized to ``1292148000`` and a data point comes in for ``1292148123``, the recorded delta will be ``123``. The last 4 bits are format flags
 
 Columns with 4 byte qualifiers have an offset in milliseconds. The first 4 *bits* of the qualifier will always be set to ``1`` or ``F`` in hex. The next 22 bits encode the offset in milliseconds as an unsigned integer. The next 2 bits are reserved and the final 4 bits are format flags.
 
@@ -139,7 +139,7 @@ These columns are atomic incrementers that count the number of data points store
 Tree Table Schema
 ^^^^^^^^^^^^^^^^^
 
-This table behaves as an index, organizing time series into a heirarchichal structure similar to a file system for use with tools such as Graphite or other dashboards. A tree is defined by a set of rules that process a TSMeta object to determine where in the heirarchy, if at all, a time series should appear. 
+This table behaves as an index, organizing time series into a hierarchical structure similar to a file system for use with tools such as Graphite or other dashboards. A tree is defined by a set of rules that process a TSMeta object to determine where in the hierarchy, if at all, a time series should appear. 
 
 Each tree is assigned a Unique ID consisting of an unsigned integer starting with ``1`` for the first tree. All rows related to a tree are prefixed with this ID encoded as a two byte array. E.g. ``\x00\x01`` for UID ``1``.
 
@@ -150,7 +150,7 @@ Tree definition rows are keyed with the ID of the tree on two bytes. Columns per
 
 Two special rows may be included. They are keyed on ``<tree ID>\x01`` for the ``collisions`` row and ``<tree ID>\x02`` for the ``not matched`` row. These are generated during tree processing and will be described later.
 
-The remaining rows are branch and leaf rows containing information about the hierarchy. The rows are keyed on ``<tree ID><branch ID>`` where the ``branch ID`` is a concatenataion of hashes of the branch display names. For example, if we have a flattened branch ``dal.web01.myapp.bytes_sent`` where each branch name is separated by a period, we would have 3 levels of branching. ``dal``, ``web01`` and ``myapp``. The leaf would be named ``bytes_sent`` and links to a TSUID. Hashing each branch name in Java returns a 4 byte integer and converting to hex for readability yields:
+The remaining rows are branch and leaf rows containing information about the hierarchy. The rows are keyed on ``<tree ID><branch ID>`` where the ``branch ID`` is a concatenation of hashes of the branch display names. For example, if we have a flattened branch ``dal.web01.myapp.bytes_sent`` where each branch name is separated by a period, we would have 3 levels of branching. ``dal``, ``web01`` and ``myapp``. The leaf would be named ``bytes_sent`` and links to a TSUID. Hashing each branch name in Java returns a 4 byte integer and converting to hex for readability yields:
 
 * ``dal`` = \x00\x01\x83\x8F 
 * ``web01`` = \x06\xBC\x4C\x55
@@ -171,7 +171,7 @@ In the tree row there are 0 or more rule columns that define a specific processi
 Tree Collision Column
 ---------------------
 
-If collision storage is enabled for a tree, a column is recorded for each time series that would have created a leaf that was already created for a previous time series. These columns are used to debug rule sets and only appear rin the collision row for a tree. The qualifier is of the format ``tree_collision:<tsuid>`` where the TSUID is a byte array representing the time series identifier. This allows for a simple ``getRequest`` call to determine if a particular time series did not appear in a tree due to a collision. The value of a colission column is the byte array of the TSUID that was recorded as a leaf.
+If collision storage is enabled for a tree, a column is recorded for each time series that would have created a leaf that was already created for a previous time series. These columns are used to debug rule sets and only appear in the collision row for a tree. The qualifier is of the format ``tree_collision:<tsuid>`` where the TSUID is a byte array representing the time series identifier. This allows for a simple ``getRequest`` call to determine if a particular time series did not appear in a tree due to a collision. The value of a collision column is the byte array of the TSUID that was recorded as a leaf.
 
 Not Matched Column
 ------------------
@@ -181,7 +181,7 @@ Similar to collisions, when enabled for a tree, a column can be recorded for eac
 Branch Column
 -------------
 
-Branch columns have the qualifier ``branch`` and contain a UTF-8 JSON encoded object describing the current branch and any child branches that may exist. A branch column may appear in any row except the collision or not matched columns. Branches in the tree definition row are the ``root`` branch and link to the first level of child branches. These links are used to traverse the heirarchy.
+Branch columns have the qualifier ``branch`` and contain a UTF-8 JSON encoded object describing the current branch and any child branches that may exist. A branch column may appear in any row except the collision or not matched columns. Branches in the tree definition row are the ``root`` branch and link to the first level of child branches. These links are used to traverse the hierarchy.
 
 Leaf Column
 -----------

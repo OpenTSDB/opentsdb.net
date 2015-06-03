@@ -97,7 +97,7 @@
             
   <div class="section" id="cli-tools">
 <h1>CLI Tools</h1>
-<p>OpenTSDB consists of a single JAR file that uses a shell script to determine what actiosn the user wants to take. While the most common action is to start the TSD with the <tt class="docutils literal"><span class="pre">tsd</span></tt> command so that it can run all the time and process RPCs, other commands are available to work with OpenTSDB data. These commands include:</p>
+<p>OpenTSDB consists of a single JAR file that uses a shell script to determine what actions the user wants to take. While the most common action is to start the TSD with the <tt class="docutils literal"><span class="pre">tsd</span></tt> command so that it can run all the time and process RPCs, other commands are available to work with OpenTSDB data. These commands include:</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="uid.html">uid</a></li>
@@ -171,7 +171,7 @@
 <p>If, for example, your ZooKeeper quorum is behind the DNS name &quot;zookeeper.example.com&quot; (a name with 5 A records), instead of always passing <tt class="docutils literal"><span class="pre">--zkquorum=zookeeper.example.com</span></tt> to the CLI tool each time you use it, you can create <tt class="docutils literal"><span class="pre">./tsdb.local</span></tt> with the following contents:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
 <span class="nv">MY_ARGS</span><span class="o">=</span><span class="s1">&#39;--zkquorum=zookeeper&#39;</span>
-<span class="nb">set </span>x <span class="nv">$MY_ARGS</span> <span class="s2">&quot;$@&quot;</span>
+<span class="nb">set </span>x <span class="nv">$MY_ARGS</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
 <span class="nb">shift</span>
 </pre></div>
 </div>
@@ -186,14 +186,14 @@
 <p>Here is an example that is recommended for production use:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">GCARGS</span><span class="o">=</span><span class="s2">&quot;-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps\</span>
 <span class="s2"> -XX:+PrintTenuringDistribution -Xloggc:/tmp/tsd-gc-`date +%s`.log&quot;</span>
-<span class="k">if </span><span class="nb">test</span> -t 0; <span class="k">then</span> <span class="c"># if stdin is a tty, don&#39;t turn on GC logging.</span>
+<span class="k">if</span> <span class="nb">test</span> -t 0<span class="p">;</span> <span class="k">then</span> <span class="c"># if stdin is a tty, don&#39;t turn on GC logging.</span>
   <span class="nv">GCARGS</span><span class="o">=</span>
 <span class="k">fi</span>
 <span class="c"># The Sun JDK caches all name resolution results forever, which is stupid.</span>
 <span class="c"># This forces you to restart your application if any of the backends change</span>
 <span class="c"># IP. Instead tell it to cache names for only 10 minutes at most.</span>
 <span class="nv">FIX_DNS</span><span class="o">=</span><span class="s1">&#39;-Dsun.net.inetaddr.ttl=600&#39;</span>
-<span class="nv">JVMARGS</span><span class="o">=</span><span class="s2">&quot;$JVMARGS $GCARGS $FIX_DNS&quot;</span>
+<span class="nv">JVMARGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JVMARGS</span><span class="s2"> </span><span class="nv">$GCARGS</span><span class="s2"> </span><span class="nv">$FIX_DNS</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 </div>

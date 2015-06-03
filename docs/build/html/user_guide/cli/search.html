@@ -109,7 +109,7 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Available in 2.1</p>
 </div>
-<p>The search command allows for searching OpenTSDB to reteive a list of time series or associated meta data. Search does not return actual data points or time series objects stored in the data table. Use the query tools to access that data. Currently only the <tt class="docutils literal"><span class="pre">lookup</span></tt> command is implemented.</p>
+<p>The search command allows for searching OpenTSDB to retrieve a list of time series or associated meta data. Search does not return actual data points or time series objects stored in the data table. Use the query tools to access that data. Currently only the <tt class="docutils literal"><span class="pre">lookup</span></tt> command is implemented.</p>
 <div class="section" id="lookup">
 <h2>Lookup</h2>
 <p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <tt class="docutils literal"><span class="pre">host=web01</span></tt> you can execute a lookup to find out.</p>
@@ -173,7 +173,7 @@
 </div>
 <div class="section" id="output">
 <h3>Output</h3>
-<p>During a lookup, the results will be printed to standard out. Note that if you have logging enabled, messages may be interspersed with the results. Set the logging level to WARN or ERROR in the <tt class="docutils literal"><span class="pre">logback.xml</span></tt> configuration to supress these warnings. You may want to run the lookup in the background and capture standard out to a file, particularly when running lookups against the data table as these may take a long time to complete.</p>
+<p>During a lookup, the results will be printed to standard out. Note that if you have logging enabled, messages may be interspersed with the results. Set the logging level to WARN or ERROR in the <tt class="docutils literal"><span class="pre">logback.xml</span></tt> configuration to suppress these warnings. You may want to run the lookup in the background and capture standard out to a file, particularly when running lookups against the data table as these may take a long time to complete.</p>
 <div class="highlight-bash"><div class="highlight"><pre>&lt;tsuid&gt; &lt;metric name&gt; &lt;tag/value pairs&gt;
 </pre></div>
 </div>

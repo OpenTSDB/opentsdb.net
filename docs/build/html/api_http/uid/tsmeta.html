@@ -267,7 +267,7 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+<p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an empty string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
 </div>
 <p>With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the <tt class="docutils literal"><span class="pre">tsuid</span></tt> field must be left empty. Additionally two query string parameters must be supplied:</p>
 <ul class="simple">
@@ -314,7 +314,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full TS meta data object with any given changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested TSUID did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
+<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full TS meta data object with any given changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested TSUID did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -348,7 +348,7 @@
 </tr>
 <tr class="row-odd"><td>lastReceived</td>
 <td>Integer</td>
-<td>A Unix epoch timestamp, in seconds, when a data point was last recieved. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.</td>
+<td>A Unix epoch timestamp, in seconds, when a data point was last received. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.</td>
 <td>1350425579</td>
 </tr>
 <tr class="row-even"><td>totalDatapoints</td>

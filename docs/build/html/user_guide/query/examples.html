@@ -230,7 +230,7 @@
 </table>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This isn't necesarily the best way to setup your metrics and tags, rather it's meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.</p>
+<p class="last">This isn't necessarily the best way to setup your metrics and tags, rather it's meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.</p>
 </div>
 </div>
 <div class="section" id="under-the-hood">
@@ -271,7 +271,7 @@
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system
 </pre></div>
 </div>
-<p>This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID <tt class="docutils literal"><span class="pre">01</span></tt> between <em>&lt;start&gt;</em> and <em>&lt;end&gt;</em>. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.</p>
+<p>This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID <tt class="docutils literal"><span class="pre">01</span></tt> between <em>&lt;start&gt;</em> and <em>&lt;end&gt;</em>. The result will be a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
@@ -326,7 +326,7 @@
 </div>
 <div class="section" id="query-3-specific-time-series">
 <h2>Query 3 - Specific Time Series</h2>
-<p>What if you want a specific timeseries? You have to include every tag and coresponding value.</p>
+<p>What if you want a specific timeseries? You have to include every tag and corresponding value.</p>
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web1,dc=lax}
 </pre></div>
 </div>
@@ -351,7 +351,7 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 <tt class="docutils literal"><span class="pre">m=sum:cpu.system{host=web1}</span></tt> thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.</p>
+<p class="last">This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 <tt class="docutils literal"><span class="pre">m=sum:cpu.system{host=web1}</span></tt> thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurrence, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already committed, you can use TSUID queries.</p>
 </div>
 </div>
 <div class="section" id="query-4-tsuid-query">

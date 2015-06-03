@@ -245,7 +245,7 @@
 <div class="section" id="display-formatter">
 <h3>Display Formatter</h3>
 <p>Occasionally the data extracted from a tag or metric may not be very descriptive. For example, an application may output a timeseries with a tag pair such as &quot;port=80&quot; or &quot;port=443&quot;. With a standard rule that matched on the tagk value &quot;port&quot;, we would have two branches with the names &quot;80&quot; and &quot;443&quot;. The uninitiated may not know what these numbers mean. Thus users can define a token based formatter that will alter the output of the branch to display useful information. For example, we could declare a formatter of &quot;{tag_name}: {value}&quot; and the branches will now display &quot;port: 80&quot; and &quot;port: 443&quot;.</p>
-<p>Tokens are case sensitive and must appear only one time per formatter. They must also appear exactly as deliniated in the table below:</p>
+<p>Tokens are case sensitive and must appear only one time per formatter. They must also appear exactly as delineated in the table below:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="22%" />
@@ -280,13 +280,13 @@
 </div>
 <div class="section" id="regex-rules">
 <h3>Regex Rules</h3>
-<p>In some situations, you may want to extract only a component of a metric, tag or custom value to use for grouping. For example, if you have computers in mutiple data centers with fully qualified domain names that incorporate the name of the DC, but not all metrics include a DC tag, you could use a regex to extract the DC for grouping.</p>
+<p>In some situations, you may want to extract only a component of a metric, tag or custom value to use for grouping. For example, if you have computers in multiple data centers with fully qualified domain names that incorporate the name of the DC, but not all metrics include a DC tag, you could use a regex to extract the DC for grouping.</p>
 <p>The <tt class="docutils literal"><span class="pre">regex</span></tt> rule parameter must be set with a valid regular expression that includes one or more extraction operators, i.e. the parentheses. If the regex matches on the value provided, the extracted data will be used to build the branch or leaf. If more than one extractions are provided in the regex, you can use the <tt class="docutils literal"><span class="pre">regex_group_index</span></tt> parameter to choose which extracted value to use. The index is 0 based and defaults to 0, so if you want to choose the output of the second extraction, you would set this index to 1. If the regex does not match on the value or the extraction fails to return a valid string, the rule will be considered a no match.</p>
 <p>For example, if we have a host tagk with a tagv of <tt class="docutils literal"><span class="pre">web1.nyc.mysite.com</span></tt>, we could use a regex similar to <tt class="docutils literal"><span class="pre">.*\.(.*)\..*\..*</span></tt> to extract the &quot;nyc&quot; portion of the FQDN and group all of the servers in the &quot;nyc&quot; data center under the &quot;nyc&quot; branch.</p>
 </div>
 <div class="section" id="separator-rules">
 <h3>Separator Rules</h3>
-<p>The metrics for a number of systems are generally strings with a separator, such as a period, to deliniate components of the metric. For example, &quot;sys.cpu.0.user&quot;. To build a useful tree, you can use a separator rule that will break apart the string based on a character sequence and create a branch or leaf from each individual value. Setting the separator to &quot;.&quot; for the previous example would yield three branches &quot;sys&quot;, &quot;cpu&quot;, &quot;0&quot; and one leaf &quot;user&quot;.</p>
+<p>The metrics for a number of systems are generally strings with a separator, such as a period, to delineate components of the metric. For example, &quot;sys.cpu.0.user&quot;. To build a useful tree, you can use a separator rule that will break apart the string based on a character sequence and create a branch or leaf from each individual value. Setting the separator to &quot;.&quot; for the previous example would yield three branches &quot;sys&quot;, &quot;cpu&quot;, &quot;0&quot; and one leaf &quot;user&quot;.</p>
 </div>
 <div class="section" id="order-of-precedence">
 <h3>Order of Precedence</h3>
@@ -307,7 +307,7 @@
 <li>Create a new tree via the HTTP API</li>
 <li>Assign one or more rules to the tree via the HTTP API</li>
 <li>Test the rules with some TSMeta objects via the HTTP API</li>
-<li>After veryfing the branches would appear correctly, set the tree's <tt class="docutils literal"><span class="pre">enable</span></tt> flat to <tt class="docutils literal"><span class="pre">true</span></tt></li>
+<li>After verifying the branches would appear correctly, set the tree's <tt class="docutils literal"><span class="pre">enable</span></tt> flat to <tt class="docutils literal"><span class="pre">true</span></tt></li>
 <li>Run the <tt class="docutils literal"><span class="pre">uid</span></tt> tool with the <tt class="docutils literal"><span class="pre">treesync</span></tt> sub command to synchronize existing TSMeta objects in the tree</li>
 </ol>
 <div class="admonition note">
@@ -316,7 +316,7 @@
 </div>
 <div class="section" id="rule-processing-order">
 <h3>Rule Processing Order</h3>
-<p>A tree will usually have more than one rule in order for the resulting tree to be useful. As noted above, rules are organized into levels and orders. A TSMeta is processed through the rule set starting at level 0 and order 0. Processing proceedes through the rules on a level in increasing order. After the first rule on a level that successfully matches on the TSMeta data, processing skips to the next level. This means that rules on a level are effectively <a href="#id1"><span class="problematic" id="id2">``</span></a>or``ed. If level 0 has rules at order 0, 1, 2 and 3, and the TSMeta matches on the rule with an order of 1, the rules with order 2 and 3 will be skipped.</p>
+<p>A tree will usually have more than one rule in order for the resulting tree to be useful. As noted above, rules are organized into levels and orders. A TSMeta is processed through the rule set starting at level 0 and order 0. Processing proceeds through the rules on a level in increasing order. After the first rule on a level that successfully matches on the TSMeta data, processing skips to the next level. This means that rules on a level are effectively <a href="#id1"><span class="problematic" id="id2">``</span></a>or``ed. If level 0 has rules at order 0, 1, 2 and 3, and the TSMeta matches on the rule with an order of 1, the rules with order 2 and 3 will be skipped.</p>
 <p>When editing rules, it may happen that some levels or orders are skipped or left empty. In these situations, processing simply skips the empty locations. You should do your best to keep things organized properly but the rule processor is a little forgiving.</p>
 </div>
 <div class="section" id="strict-matching">
@@ -449,8 +449,8 @@
 </tr>
 </tbody>
 </table>
-<p>The goal for this set of rules is to order our timeseres by data center, then host, then by metric. Our company may have thousands of servers around the world so it doesn't make sense to display all of them in one branch of the tree, rather we want to group them by data center and let users drill down as needed.</p>
-<p>In our example data, we had some old timeseries that didn't have a <tt class="docutils literal"><span class="pre">dc</span></tt> tag name. However the <tt class="docutils literal"><span class="pre">host</span></tt> tag does have a fully qualified domain name with the data center name embedded. Thus the first level of our rule set has two rules. The first will look for a <tt class="docutils literal"><span class="pre">dc</span></tt> tag, and if found, it will use that tag's value and the second rule is skipped. If the <tt class="docutils literal"><span class="pre">dc</span></tt> tag does not exist, then the second rule will scan the <tt class="docutils literal"><span class="pre">host</span></tt> tag's value and attempt to extract the data center name from the FQDN. The second level has one rule and that is used to group on the value of the <tt class="docutils literal"><span class="pre">host</span></tt> tag so that all metrics belonging to that host can be displayed in branches beneath it. The final level has the metric rule that includes a separator to further group the timeseries by the data contained. Since we have multiple CPU and application metrics, all deliniated by a period, it makes sense to add a separator at this point.</p>
+<p>The goal for this set of rules is to order our timeseries by data center, then host, then by metric. Our company may have thousands of servers around the world so it doesn't make sense to display all of them in one branch of the tree, rather we want to group them by data center and let users drill down as needed.</p>
+<p>In our example data, we had some old timeseries that didn't have a <tt class="docutils literal"><span class="pre">dc</span></tt> tag name. However the <tt class="docutils literal"><span class="pre">host</span></tt> tag does have a fully qualified domain name with the data center name embedded. Thus the first level of our rule set has two rules. The first will look for a <tt class="docutils literal"><span class="pre">dc</span></tt> tag, and if found, it will use that tag's value and the second rule is skipped. If the <tt class="docutils literal"><span class="pre">dc</span></tt> tag does not exist, then the second rule will scan the <tt class="docutils literal"><span class="pre">host</span></tt> tag's value and attempt to extract the data center name from the FQDN. The second level has one rule and that is used to group on the value of the <tt class="docutils literal"><span class="pre">host</span></tt> tag so that all metrics belonging to that host can be displayed in branches beneath it. The final level has the metric rule that includes a separator to further group the timeseries by the data contained. Since we have multiple CPU and application metrics, all delineated by a period, it makes sense to add a separator at this point.</p>
 <div class="section" id="result">
 <h3>Result</h3>
 <p>The resulting tree would look like this:</p>

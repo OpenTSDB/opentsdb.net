@@ -92,7 +92,7 @@ Display Formatter
 
 Occasionally the data extracted from a tag or metric may not be very descriptive. For example, an application may output a timeseries with a tag pair such as "port=80" or "port=443". With a standard rule that matched on the tagk value "port", we would have two branches with the names "80" and "443". The uninitiated may not know what these numbers mean. Thus users can define a token based formatter that will alter the output of the branch to display useful information. For example, we could declare a formatter of "{tag_name}: {value}" and the branches will now display "port: 80" and "port: 443".
 
-Tokens are case sensitive and must appear only one time per formatter. They must also appear exactly as deliniated in the table below:
+Tokens are case sensitive and must appear only one time per formatter. They must also appear exactly as delineated in the table below:
 
 .. csv-table::
    :header: "Token", "Description", "Applicable Rule Type"
@@ -106,7 +106,7 @@ Tokens are case sensitive and must appear only one time per formatter. They must
 Regex Rules
 -----------
 
-In some situations, you may want to extract only a component of a metric, tag or custom value to use for grouping. For example, if you have computers in mutiple data centers with fully qualified domain names that incorporate the name of the DC, but not all metrics include a DC tag, you could use a regex to extract the DC for grouping.
+In some situations, you may want to extract only a component of a metric, tag or custom value to use for grouping. For example, if you have computers in multiple data centers with fully qualified domain names that incorporate the name of the DC, but not all metrics include a DC tag, you could use a regex to extract the DC for grouping.
 
 The ``regex`` rule parameter must be set with a valid regular expression that includes one or more extraction operators, i.e. the parentheses. If the regex matches on the value provided, the extracted data will be used to build the branch or leaf. If more than one extractions are provided in the regex, you can use the ``regex_group_index`` parameter to choose which extracted value to use. The index is 0 based and defaults to 0, so if you want to choose the output of the second extraction, you would set this index to 1. If the regex does not match on the value or the extraction fails to return a valid string, the rule will be considered a no match.
 
@@ -115,7 +115,7 @@ For example, if we have a host tagk with a tagv of ``web1.nyc.mysite.com``, we c
 Separator Rules
 ---------------
 
-The metrics for a number of systems are generally strings with a separator, such as a period, to deliniate components of the metric. For example, "sys.cpu.0.user". To build a useful tree, you can use a separator rule that will break apart the string based on a character sequence and create a branch or leaf from each individual value. Setting the separator to "." for the previous example would yield three branches "sys", "cpu", "0" and one leaf "user".
+The metrics for a number of systems are generally strings with a separator, such as a period, to delineate components of the metric. For example, "sys.cpu.0.user". To build a useful tree, you can use a separator rule that will break apart the string based on a character sequence and create a branch or leaf from each individual value. Setting the separator to "." for the previous example would yield three branches "sys", "cpu", "0" and one leaf "user".
 
 Order of Precedence
 -------------------
@@ -138,7 +138,7 @@ The general process for creating and building a tree is as follows:
 #. Create a new tree via the HTTP API
 #. Assign one or more rules to the tree via the HTTP API
 #. Test the rules with some TSMeta objects via the HTTP API
-#. After veryfing the branches would appear correctly, set the tree's ``enable`` flat to ``true``
+#. After verifying the branches would appear correctly, set the tree's ``enable`` flat to ``true``
 #. Run the ``uid`` tool with the ``treesync`` sub command to synchronize existing TSMeta objects in the tree
 
 .. NOTE:: When you create a new tree, it will be disabled by default so TSMeta objects will not be processed through the rule set. This is so you have time to configure the rule set and test it to verify that the tree would be built as you expect it to.
@@ -146,7 +146,7 @@ The general process for creating and building a tree is as follows:
 Rule Processing Order
 ---------------------
 
-A tree will usually have more than one rule in order for the resulting tree to be useful. As noted above, rules are organized into levels and orders. A TSMeta is processed through the rule set starting at level 0 and order 0. Processing proceedes through the rules on a level in increasing order. After the first rule on a level that successfully matches on the TSMeta data, processing skips to the next level. This means that rules on a level are effectively ``or``ed. If level 0 has rules at order 0, 1, 2 and 3, and the TSMeta matches on the rule with an order of 1, the rules with order 2 and 3 will be skipped.
+A tree will usually have more than one rule in order for the resulting tree to be useful. As noted above, rules are organized into levels and orders. A TSMeta is processed through the rule set starting at level 0 and order 0. Processing proceeds through the rules on a level in increasing order. After the first rule on a level that successfully matches on the TSMeta data, processing skips to the next level. This means that rules on a level are effectively ``or``ed. If level 0 has rules at order 0, 1, 2 and 3, and the TSMeta matches on the rule with an order of 1, the rules with order 2 and 3 will be skipped.
 
 When editing rules, it may happen that some levels or orders are skipped or left empty. In these situations, processing simply skips the empty locations. You should do your best to keep things organized properly but the rule processor is a little forgiving.
 
@@ -199,9 +199,9 @@ Now let's setup a tree with ``strictMatching`` disabled and the following rules:
    "1", "0", "TagK", "host", "", "\\\\."
    "2", "0", "Metric", "", "", "\\\\."
 
-The goal for this set of rules is to order our timeseres by data center, then host, then by metric. Our company may have thousands of servers around the world so it doesn't make sense to display all of them in one branch of the tree, rather we want to group them by data center and let users drill down as needed.
+The goal for this set of rules is to order our timeseries by data center, then host, then by metric. Our company may have thousands of servers around the world so it doesn't make sense to display all of them in one branch of the tree, rather we want to group them by data center and let users drill down as needed.
 
-In our example data, we had some old timeseries that didn't have a ``dc`` tag name. However the ``host`` tag does have a fully qualified domain name with the data center name embedded. Thus the first level of our rule set has two rules. The first will look for a ``dc`` tag, and if found, it will use that tag's value and the second rule is skipped. If the ``dc`` tag does not exist, then the second rule will scan the ``host`` tag's value and attempt to extract the data center name from the FQDN. The second level has one rule and that is used to group on the value of the ``host`` tag so that all metrics belonging to that host can be displayed in branches beneath it. The final level has the metric rule that includes a separator to further group the timeseries by the data contained. Since we have multiple CPU and application metrics, all deliniated by a period, it makes sense to add a separator at this point.
+In our example data, we had some old timeseries that didn't have a ``dc`` tag name. However the ``host`` tag does have a fully qualified domain name with the data center name embedded. Thus the first level of our rule set has two rules. The first will look for a ``dc`` tag, and if found, it will use that tag's value and the second rule is skipped. If the ``dc`` tag does not exist, then the second rule will scan the ``host`` tag's value and attempt to extract the data center name from the FQDN. The second level has one rule and that is used to group on the value of the ``host`` tag so that all metrics belonging to that host can be displayed in branches beneath it. The final level has the metric rule that includes a separator to further group the timeseries by the data contained. Since we have multiple CPU and application metrics, all delineated by a period, it makes sense to add a separator at this point.
 
 Result
 ------

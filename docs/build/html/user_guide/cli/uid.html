@@ -156,7 +156,7 @@
 </div>
 <div class="section" id="lookup">
 <h2>Lookup</h2>
-<p>The lookup command is the default for <tt class="docutils literal"><span class="pre">uid</span></tt> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
+<p>The lookup command is the default for <tt class="docutils literal"><span class="pre">uid</span></tt> used to lookup the UID assigned to a name or the name assigned to a UID for a given type.</p>
 <div class="section" id="command-format">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre>&lt;kind&gt; &lt;name&gt;
@@ -363,7 +363,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <td>No fix yet.</td>
 </tr>
 <tr class="row-odd"><td>Forward metrics mapping is missing reverse mapping: foo -&gt; 000001</td>
-<td>This may occur if a TSD crashes before the reverse map is written and would only prevent queries from executing against time series using the UID as they would not be able to lookukp the name.</td>
+<td>This may occur if a TSD crashes before the reverse map is written and would only prevent queries from executing against time series using the UID as they would not be able to lookup the name.</td>
 <td>The fix is to restore the missing reverse map.</td>
 </tr>
 <tr class="row-even"><td>Forward metrics mapping bar -&gt; 000001 is different than reverse mapping: 000001 -&gt; foo</td>
@@ -372,7 +372,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </tr>
 <tr class="row-odd"><td>Inconsistent forward metrics mapping bar -&gt; 000001 vs bar -&gt; foo / foo -&gt; 000001</td>
 <td>With a forward/reverse miss-match, it is possible that a UID was assigned to multiple names for the same type. If this occurs, then data for two different names has been written to the same time series and that data is effectively corrupt.</td>
-<td>The fix is to delete the forward maps for all names that map to the same UID. Then the UID is given a new name that is a dot seperated concatenation of the previous names with an &quot;fsck&quot; prefix. E.g. in the example above we would have a new name of &quot;fsck.bar.foo&quot;. This name may be used to access data from the corrupt time series. The next time data is written for the errant names, new UIDs will be assigned to each and new time series created.</td>
+<td>The fix is to delete the forward maps for all names that map to the same UID. Then the UID is given a new name that is a dot separated concatenation of the previous names with an &quot;fsck&quot; prefix. E.g. in the example above we would have a new name of &quot;fsck.bar.foo&quot;. This name may be used to access data from the corrupt time series. The next time data is written for the errant names, new UIDs will be assigned to each and new time series created.</td>
 </tr>
 <tr class="row-even"><td>Duplicate forward metrics mapping bar -&gt; 000002 and null -&gt; foo</td>
 <td>In this case the UID was not used more than once but the reverse mapping was incorrect.</td>

@@ -31,7 +31,7 @@ Display
 
 UIDs can be displayed in a few ways. The most common method is via the HTTP API where the 3 bytes of UID data are encoded as a hexadecimal string. For example, the UID of ``1`` would be written in binary as ``000000000000000000000001``. As an array of unsigned byte values, you could imagine it as ``[0, 0, 1]``. Encoded as a hex string, the value would be ``000001`` where the string is padded with 0s for each byte. The UID of 255 would result in a hex value of ``0000FF`` (or as a byte array, ``[0, 0, 255]``. To convert between a decimal UID to a hex, use any kind of hex conversion tool you prefer and put 0s in front of the resulting value until you have a total of 6 characters. To convert from a hex UID to decimal, simply drop any 0s from the front, then use a tool to convert the hex string to a decimal.
 
-In some CLI tools and log files, a UID may be displayed as an array of signed bytes (thanks to Java) such as the above example of ``[0, 0, 1]`` or ``[0, 0, -28]``. To convert from this signed array to an an array of unsigned bytes, then to hex. For example, ``-28`` would be binary ``10011100`` which results in a decimal value of ``156`` and a hex value of ``9C``.
+In some CLI tools and log files, a UID may be displayed as an array of signed bytes (thanks to Java) such as the above example of ``[0, 0, 1]`` or ``[0, 0, -28]``. To convert from this signed array to an array of unsigned bytes, then to hex. For example, ``-28`` would be binary ``10011100`` which results in a decimal value of ``156`` and a hex value of ``9C``.
 
 Why UIDs?
 ---------

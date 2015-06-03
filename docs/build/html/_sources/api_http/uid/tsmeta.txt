@@ -59,7 +59,7 @@ Fields that can be supplied with a request include:
 
 .. NOTE:: Custom fields cannot be passed via query string. You must use the ``POST`` or ``PUT`` verbs.
 
-.. WARNING:: If your request uses ``PUT``, any fields that you do not supply with the request will be overwritten with their default values. For example, the ``description`` field will be set to an emtpy string and the ``custom`` field will be reset to ``null``.
+.. WARNING:: If your request uses ``PUT``, any fields that you do not supply with the request will be overwritten with their default values. For example, the ``description`` field will be set to an empty string and the ``custom`` field will be reset to ``null``.
 
 With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the ``tsuid`` field must be left empty. Additionally two query string parameters must be supplied:
 
@@ -113,7 +113,7 @@ Example DELETE Request
 Response
 --------
    
-A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full TS meta data object with any given changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a ``304`` without any body content. If the requested TSUID did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an error will be returned.
+A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full TS meta data object with any given changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a ``304`` without any body content. If the requested TSUID did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an error will be returned.
 
 All **Request** fields will be present in the response in addition to others:
 
@@ -124,7 +124,7 @@ All **Request** fields will be present in the response in addition to others:
    "metric", "UIDMeta", "A UID meta data object representing information about the UID", "*See Below*"
    "tags", "Array of UIDMeta", "A list of tag name / tag value UID meta data objects associated with the timeseries. The ``tagk`` UID will be first followed by it's corresponding ``tagv`` object.", "*See Below*"
    "created", "Integer", "A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the :doc:`../../user_guide/cli/uid` utility to synchronize meta data.", "1350425579"
-   "lastReceived", "Integer", "A Unix epoch timestamp, in seconds, when a data point was last recieved. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.", "1350425579"
+   "lastReceived", "Integer", "A Unix epoch timestamp, in seconds, when a data point was last received. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.", "1350425579"
    "totalDatapoints", "Integer", "The total number of data points recorded for the timeseries. NOTE: This may not be accurate unless you have enabled metadata tracking since creating the TSDB tables.", "3242322"
 
 Example Response

@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="index.html" title="/api/uid"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/uid</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -82,7 +82,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="tsmeta.html"
                         title="next chapter">/api/uid/tsmeta</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -101,7 +101,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-uid-assign">
 <h1>/api/uid/assign</h1>
@@ -168,7 +168,7 @@
 </tr>
 </tbody>
 </table>
-<p>When making a query string request, multiple names for a given type can be supplied in a comma separated fashion. E.g. <tt class="docutils literal"><span class="pre">metric=sys.cpu.0,sys.cpu.1,sys.cpu.2,sys.cpu.3</span></tt>. Naming conventions apply: see _______.</p>
+<p>When making a query string request, multiple names for a given type can be supplied in a comma separated fashion. E.g. <code class="docutils literal"><span class="pre">metric=sys.cpu.0,sys.cpu.1,sys.cpu.2,sys.cpu.3</span></code>. Naming conventions apply: see _______.</p>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
@@ -197,7 +197,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The response will contain a map of successful assignments along with the hex encoded UID value. If one or more values were not assigned, a separate map will contain a list of the values and the reason why they were not assigned. Maps with the type name and <tt class="docutils literal"><span class="pre">&lt;type&gt;_errors</span></tt> will be generated only if one or more values for that type were provided.</p>
+<p>The response will contain a map of successful assignments along with the hex encoded UID value. If one or more values were not assigned, a separate map will contain a list of the values and the reason why they were not assigned. Maps with the type name and <code class="docutils literal"><span class="pre">&lt;type&gt;_errors</span></code> will be generated only if one or more values for that type were provided.</p>
 <p>When all values are assigned, the endpoint returns a 200 status code but if any value failed assignment, it will return a 400.</p>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
@@ -230,7 +230,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -242,9 +242,9 @@
         <li class="right" >
           <a href="index.html" title="/api/uid"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/uid</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

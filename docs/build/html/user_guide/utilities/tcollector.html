@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="index.html" title="Utilities"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -68,31 +68,31 @@
 <li><a class="reference internal" href="#installation-of-tcollector">Installation of tcollector</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#collectors-bundled-with-tcollector">Collectors bundled with <tt class="docutils literal"><span class="pre">tcollector</span></tt></a><ul>
+<li><a class="reference internal" href="#collectors-bundled-with-tcollector">Collectors bundled with <code class="docutils literal"><span class="pre">tcollector</span></code></a><ul>
 <li><a class="reference internal" href="#general-collectors">General collectors</a><ul>
-<li><a class="reference internal" href="#dfstat-py"><tt class="docutils literal"><span class="pre">0/dfstat.py</span></tt></a></li>
-<li><a class="reference internal" href="#ifstat-py"><tt class="docutils literal"><span class="pre">0/ifstat.py</span></tt></a></li>
-<li><a class="reference internal" href="#iostat-py"><tt class="docutils literal"><span class="pre">0/iostat.py</span></tt></a></li>
-<li><a class="reference internal" href="#netstat-py"><tt class="docutils literal"><span class="pre">0/netstat.py</span></tt></a></li>
-<li><a class="reference internal" href="#nfsstat-py"><tt class="docutils literal"><span class="pre">0/nfsstat.py</span></tt></a></li>
-<li><a class="reference internal" href="#procnettcp-py"><tt class="docutils literal"><span class="pre">0/procnettcp.py</span></tt></a></li>
-<li><a class="reference internal" href="#procstats-py"><tt class="docutils literal"><span class="pre">0/procstats.py</span></tt></a></li>
-<li><a class="reference internal" href="#smart-stats-py"><tt class="docutils literal"><span class="pre">0/smart-stats.py</span></tt></a></li>
+<li><a class="reference internal" href="#dfstat-py"><code class="docutils literal"><span class="pre">0/dfstat.py</span></code></a></li>
+<li><a class="reference internal" href="#ifstat-py"><code class="docutils literal"><span class="pre">0/ifstat.py</span></code></a></li>
+<li><a class="reference internal" href="#iostat-py"><code class="docutils literal"><span class="pre">0/iostat.py</span></code></a></li>
+<li><a class="reference internal" href="#netstat-py"><code class="docutils literal"><span class="pre">0/netstat.py</span></code></a></li>
+<li><a class="reference internal" href="#nfsstat-py"><code class="docutils literal"><span class="pre">0/nfsstat.py</span></code></a></li>
+<li><a class="reference internal" href="#procnettcp-py"><code class="docutils literal"><span class="pre">0/procnettcp.py</span></code></a></li>
+<li><a class="reference internal" href="#procstats-py"><code class="docutils literal"><span class="pre">0/procstats.py</span></code></a></li>
+<li><a class="reference internal" href="#smart-stats-py"><code class="docutils literal"><span class="pre">0/smart-stats.py</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#other-collectors">Other collectors</a><ul>
-<li><a class="reference internal" href="#couchbase-py"><tt class="docutils literal"><span class="pre">0/couchbase.py</span></tt></a></li>
-<li><a class="reference internal" href="#elasticsearch-py"><tt class="docutils literal"><span class="pre">0/elasticsearch.py</span></tt></a></li>
-<li><a class="reference internal" href="#hadoop-datanode-jmx-py"><tt class="docutils literal"><span class="pre">0/hadoop_datanode_jmx.py</span></tt></a></li>
-<li><a class="reference internal" href="#haproxy-py"><tt class="docutils literal"><span class="pre">0/haproxy.py</span></tt></a></li>
-<li><a class="reference internal" href="#hbase-regionserver-jmx-py"><tt class="docutils literal"><span class="pre">0/hbase_regionserver_jmx.py</span></tt></a></li>
-<li><a class="reference internal" href="#mongo-py"><tt class="docutils literal"><span class="pre">0/mongo.py</span></tt></a></li>
-<li><a class="reference internal" href="#mysql-py"><tt class="docutils literal"><span class="pre">0/mysql.py</span></tt></a></li>
-<li><a class="reference internal" href="#postgresql-py"><tt class="docutils literal"><span class="pre">0/postgresql.py</span></tt></a></li>
-<li><a class="reference internal" href="#redis-stats-py"><tt class="docutils literal"><span class="pre">0/redis-stats.py</span></tt></a></li>
-<li><a class="reference internal" href="#riak-py"><tt class="docutils literal"><span class="pre">0/riak.py</span></tt></a></li>
-<li><a class="reference internal" href="#varnishstat-py"><tt class="docutils literal"><span class="pre">0/varnishstat.py</span></tt></a></li>
-<li><a class="reference internal" href="#zookeeper-py"><tt class="docutils literal"><span class="pre">0/zookeeper.py</span></tt></a></li>
+<li><a class="reference internal" href="#couchbase-py"><code class="docutils literal"><span class="pre">0/couchbase.py</span></code></a></li>
+<li><a class="reference internal" href="#elasticsearch-py"><code class="docutils literal"><span class="pre">0/elasticsearch.py</span></code></a></li>
+<li><a class="reference internal" href="#hadoop-datanode-jmx-py"><code class="docutils literal"><span class="pre">0/hadoop_datanode_jmx.py</span></code></a></li>
+<li><a class="reference internal" href="#haproxy-py"><code class="docutils literal"><span class="pre">0/haproxy.py</span></code></a></li>
+<li><a class="reference internal" href="#hbase-regionserver-jmx-py"><code class="docutils literal"><span class="pre">0/hbase_regionserver_jmx.py</span></code></a></li>
+<li><a class="reference internal" href="#mongo-py"><code class="docutils literal"><span class="pre">0/mongo.py</span></code></a></li>
+<li><a class="reference internal" href="#mysql-py"><code class="docutils literal"><span class="pre">0/mysql.py</span></code></a></li>
+<li><a class="reference internal" href="#postgresql-py"><code class="docutils literal"><span class="pre">0/postgresql.py</span></code></a></li>
+<li><a class="reference internal" href="#redis-stats-py"><code class="docutils literal"><span class="pre">0/redis-stats.py</span></code></a></li>
+<li><a class="reference internal" href="#riak-py"><code class="docutils literal"><span class="pre">0/riak.py</span></code></a></li>
+<li><a class="reference internal" href="#varnishstat-py"><code class="docutils literal"><span class="pre">0/varnishstat.py</span></code></a></li>
+<li><a class="reference internal" href="#zookeeper-py"><code class="docutils literal"><span class="pre">0/zookeeper.py</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -105,7 +105,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="clean_cache.html"
                         title="next chapter">clean_cache.sh</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -124,7 +124,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="tcollector">
 <h1>TCollector</h1>
@@ -166,23 +166,23 @@ free to store repeated values.</p>
 <h2>Collecting lots of metrics with tcollector</h2>
 <p>Collectors in tcollector can be written in any language.  They just need to
 be executable and output the data to stdout.  Tcollector will handle the rest.
-The collectors are placed in the <tt class="docutils literal"><span class="pre">collectors</span></tt> directory.  Tcollector
+The collectors are placed in the <code class="docutils literal"><span class="pre">collectors</span></code> directory.  Tcollector
 iterates over every directory named with a number in that directory and runs all
-the collectors in each directory.  If you name the directory <tt class="docutils literal"><span class="pre">60</span></tt>,
+the collectors in each directory.  If you name the directory <code class="docutils literal"><span class="pre">60</span></code>,
 then tcollector will try to run every collector in that directory every 60
 seconds. The shortest supported interval is 15 seconds, you should use a
 long-running collector in the 0 folder for intervals shorter than 15 seconds.
 TCollector will sleep for 15 seconds after each time it runs the collectors
 so intervals of 15 seconds are the only actually supported intervals. For example,
 this would allow you to run a collector every 15, 30, 45, 60, 75, or 90 seconds,
-but not 80 or 55 seconds. Use the directory <tt class="docutils literal"><span class="pre">0</span></tt> for any collectors that are long-lived
+but not 80 or 55 seconds. Use the directory <code class="docutils literal"><span class="pre">0</span></code> for any collectors that are long-lived
 and run continuously. Tcollector will read their output and respawn them if they
 die. Generally you want to write long-lived collectors since that has less
 overhead. OpenTSDB is designed to have lots of datapoints for each metric (for
 most metrics we send datapoints every 15 seconds).</p>
-<p>If there any non-numeric named directories in the <tt class="docutils literal"><span class="pre">collectors</span></tt>
-directory, then they are ignored.  We've included a <tt class="docutils literal"><span class="pre">lib</span></tt> and
-<tt class="docutils literal"><span class="pre">etc</span></tt> directory for library and config data used by all collectors.</p>
+<p>If there any non-numeric named directories in the <code class="docutils literal"><span class="pre">collectors</span></code>
+directory, then they are ignored.  We've included a <code class="docutils literal"><span class="pre">lib</span></code> and
+<code class="docutils literal"><span class="pre">etc</span></code> directory for library and config data used by all collectors.</p>
 </div>
 <div class="section" id="installation-of-tcollector">
 <h2>Installation of tcollector</h2>
@@ -191,15 +191,15 @@ directory, then they are ignored.  We've included a <tt class="docutils literal"
 </pre></div>
 </div>
 <p>and edit 'tcollector/startstop' script to set following variable:
-<tt class="docutils literal"><span class="pre">TSD_HOST=dns.name.of.tsd</span></tt></p>
-<p>To avoid having to run <tt class="docutils literal"><span class="pre">mkmetric</span></tt> for every metric that
-tcollector tracks you can to start TSD with the <tt class="docutils literal"><span class="pre">--auto-metric</span></tt>
+<code class="docutils literal"><span class="pre">TSD_HOST=dns.name.of.tsd</span></code></p>
+<p>To avoid having to run <code class="docutils literal"><span class="pre">mkmetric</span></code> for every metric that
+tcollector tracks you can to start TSD with the <code class="docutils literal"><span class="pre">--auto-metric</span></code>
 flag.  This is useful to get started quickly, but it's not recommended to
 keep this flag in the long term, to avoid accidental metric creation.</p>
 </div>
 </div>
 <div class="section" id="collectors-bundled-with-tcollector">
-<h1>Collectors bundled with <tt class="docutils literal"><span class="pre">tcollector</span></tt></h1>
+<h1>Collectors bundled with <code class="docutils literal"><span class="pre">tcollector</span></code></h1>
 <p>The following are the collectors we've included as part of the base package,
 together with all of the metric names they report on and what they mean. If you
 have any others you'd like to contribute, we'd love to hear about them so we can
@@ -207,41 +207,41 @@ reference them or include them with your permission in a future release.</p>
 <div class="section" id="general-collectors">
 <h2>General collectors</h2>
 <div class="section" id="dfstat-py">
-<h3><tt class="docutils literal"><span class="pre">0/dfstat.py</span></tt></h3>
-<p>These stats are similar to ones provided by <tt class="docutils literal"><span class="pre">/usr/bin/df</span></tt> util.</p>
+<h3><code class="docutils literal"><span class="pre">0/dfstat.py</span></code></h3>
+<p>These stats are similar to ones provided by <code class="docutils literal"><span class="pre">/usr/bin/df</span></code> util.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">df.bytes.total</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">df.bytes.total</span></code></dt>
 <dd><p class="first last">total size of data</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">df.bytes.used</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">df.bytes.used</span></code></dt>
 <dd><p class="first last">bytes used</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">df.bytes.free</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">df.bytes.free</span></code></dt>
 <dd><p class="first last">bytes free</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">df.inodes.total</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">df.inodes.total</span></code></dt>
 <dd><p class="first last">total number of inodes</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">df.inodes.used</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">df.inodes.used</span></code></dt>
 <dd><p class="first last">number of inodes used</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">df.inodes.free</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">df.inodes.free</span></code></dt>
 <dd><p class="first last">number of inodes free</p>
 </dd>
 </dl>
@@ -250,57 +250,57 @@ reference them or include them with your permission in a future release.</p>
 <p>These metrics include time series tagged with each mount point and the
 filesystem's fstype. This collector filters out any cgroup, debugfs, devtmpfs,
 rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted under
-<tt class="docutils literal"><span class="pre">/dev/</span></tt>, <tt class="docutils literal"><span class="pre">/sys/</span></tt>, <tt class="docutils literal"><span class="pre">/proc/</span></tt>, and <tt class="docutils literal"><span class="pre">/lib/</span></tt>.</p>
+<code class="docutils literal"><span class="pre">/dev/</span></code>, <code class="docutils literal"><span class="pre">/sys/</span></code>, <code class="docutils literal"><span class="pre">/proc/</span></code>, and <code class="docutils literal"><span class="pre">/lib/</span></code>.</p>
 <p>With these tags you can select to graph just a specific filesystem, or all
 filesystems with a particular fstype (e.g. ext3).</p>
 </div>
 <div class="section" id="ifstat-py">
-<h3><tt class="docutils literal"><span class="pre">0/ifstat.py</span></tt></h3>
-<p>These stats are from <tt class="docutils literal"><span class="pre">/proc/net/dev</span></tt>.</p>
+<h3><code class="docutils literal"><span class="pre">0/ifstat.py</span></code></h3>
+<p>These stats are from <code class="docutils literal"><span class="pre">/proc/net/dev</span></code>.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.net.bytes</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.net.bytes</span></code></dt>
 <dd><p class="first last">(rate) Bytes in/out</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.net.packets</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.net.packets</span></code></dt>
 <dd><p class="first last">(rate) Packets in/out</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.net.errs</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.net.errs</span></code></dt>
 <dd><p class="first last">(rate) Packet errors in/out</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.net.dropped</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.net.dropped</span></code></dt>
 <dd><p class="first last">(rate) Dropped packets in/out</p>
 </dd>
 </dl>
 </li>
 </ul>
-<p>These are interface counters, tagged with the interface, <tt class="docutils literal"><span class="pre">iface=</span></tt>, and
-<tt class="docutils literal"><span class="pre">direction=</span></tt> in or out. Only <tt class="docutils literal"><span class="pre">ethN</span></tt> interfaces are tracked. We
-intentionally exclude <tt class="docutils literal"><span class="pre">bondN</span></tt> interfaces, because bonded interfaces
-still keep counters on their child <tt class="docutils literal"><span class="pre">ethN</span></tt> interfaces and we don't want
-to double-count a box's network traffic if you don't select on <tt class="docutils literal"><span class="pre">iface=</span></tt>.</p>
+<p>These are interface counters, tagged with the interface, <code class="docutils literal"><span class="pre">iface=</span></code>, and
+<code class="docutils literal"><span class="pre">direction=</span></code> in or out. Only <code class="docutils literal"><span class="pre">ethN</span></code> interfaces are tracked. We
+intentionally exclude <code class="docutils literal"><span class="pre">bondN</span></code> interfaces, because bonded interfaces
+still keep counters on their child <code class="docutils literal"><span class="pre">ethN</span></code> interfaces and we don't want
+to double-count a box's network traffic if you don't select on <code class="docutils literal"><span class="pre">iface=</span></code>.</p>
 </div>
 <div class="section" id="iostat-py">
-<h3><tt class="docutils literal"><span class="pre">0/iostat.py</span></tt></h3>
-<p>Data is from <tt class="docutils literal"><span class="pre">/proc/diskstats</span></tt>.</p>
+<h3><code class="docutils literal"><span class="pre">0/iostat.py</span></code></h3>
+<p>Data is from <code class="docutils literal"><span class="pre">/proc/diskstats</span></code>.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">iostat.disk.*</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">iostat.disk.*</span></code></dt>
 <dd><p class="first last">per-disk stats</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">iostat.part.*</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">iostat.part.*</span></code></dt>
 <dd><p class="first last">per-partition stats (see note below on different metrics, depending
 on if you have a 2.6 kernel before 2.6.25 or after.)</p>
 </dd>
@@ -308,8 +308,8 @@ on if you have a 2.6 kernel before 2.6.25 or after.)</p>
 </li>
 </ul>
 <p>See <a class="reference external" href="http://www.kernel.org/doc/Documentation/iostats.txt">iostats.txt</a></p>
-<p><tt class="docutils literal"><span class="pre">/proc/diskstats</span></tt> has 11 stats for a given physical device.
-These are all rate counters, except <tt class="docutils literal"><span class="pre">ios_in_progress</span></tt>.</p>
+<p><code class="docutils literal"><span class="pre">/proc/diskstats</span></code> has 11 stats for a given physical device.
+These are all rate counters, except <code class="docutils literal"><span class="pre">ios_in_progress</span></code>.</p>
 <div class="highlight-python"><div class="highlight"><pre>.read_requests       Number of reads completed
 .read_merged         Number of reads merged
 .read_sectors        Number of sectors read
@@ -334,63 +334,63 @@ These are all rate counters, except <tt class="docutils literal"><span class="pr
 .write_sectors
 </pre></div>
 </div>
-<p>For partitions, these <tt class="docutils literal"><span class="pre">*_issued</span></tt> are counters collected before requests are
-merged, so aren't the same as <tt class="docutils literal"><span class="pre">*_requests</span></tt> (which is post-merge, which
+<p>For partitions, these <code class="docutils literal"><span class="pre">*_issued</span></code> are counters collected before requests are
+merged, so aren't the same as <code class="docutils literal"><span class="pre">*_requests</span></code> (which is post-merge, which
 more closely represents represents the actual number of disk transactions).</p>
 <p>Given that diskstats provides both per-disk and per-partition data, for
 TSDB purposes we put them under different metrics (versus the same
 metric and different tags).  Otherwise, if you look at a given metric, the data
 for a given box will be double-counted, since a given operation will increment
 both the disk series and the partition series.  To fix this, we output by-disk
-data to <tt class="docutils literal"><span class="pre">iostat.disk.*</span></tt> and by-partition data to <tt class="docutils literal"><span class="pre">iostat.part.*</span></tt>.</p>
+data to <code class="docutils literal"><span class="pre">iostat.disk.*</span></code> and by-partition data to <code class="docutils literal"><span class="pre">iostat.part.*</span></code>.</p>
 </div>
 <div class="section" id="netstat-py">
-<h3><tt class="docutils literal"><span class="pre">0/netstat.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/netstat.py</span></code></h3>
 <p>Socket allocation and network statistics.</p>
-<p>Metrics from <tt class="docutils literal"><span class="pre">/proc/net/sockstat</span></tt>.</p>
+<p>Metrics from <code class="docutils literal"><span class="pre">/proc/net/sockstat</span></code>.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.sockstat.num_sockets</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.sockstat.num_sockets</span></code></dt>
 <dd><p class="first last">Number of sockets allocated (only TCP)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.sockstat.num_timewait</span></tt></dt>
-<dd><p class="first last">Number of TCP sockets currently in <tt class="docutils literal"><span class="pre">TIME_WAIT</span></tt> state</p>
+<dt><code class="docutils literal"><span class="pre">net.sockstat.num_timewait</span></code></dt>
+<dd><p class="first last">Number of TCP sockets currently in <code class="docutils literal"><span class="pre">TIME_WAIT</span></code> state</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.sockstat.sockets_inuse</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.sockstat.sockets_inuse</span></code></dt>
 <dd><p class="first last">Number of sockets in use (TCP/UDP/raw)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.sockstat.num_orphans</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.sockstat.num_orphans</span></code></dt>
 <dd><p class="first last">Number of orphan TCP sockets (not attached to any file descriptor)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.sockstat.memory</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.sockstat.memory</span></code></dt>
 <dd><p class="first last">Memory allocated for this socket type (in bytes)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.sockstat.ipfragqueues</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.sockstat.ipfragqueues</span></code></dt>
 <dd><p class="first last">Number of IP flows for which there are currently fragments queued for
 reassembly</p>
 </dd>
 </dl>
 </li>
 </ul>
-<p>Metrics from <tt class="docutils literal"><span class="pre">/proc/net/netstat</span></tt> (<tt class="docutils literal"><span class="pre">netstat</span> <span class="pre">-s</span></tt> command).</p>
+<p>Metrics from <code class="docutils literal"><span class="pre">/proc/net/netstat</span></code> (<code class="docutils literal"><span class="pre">netstat</span> <span class="pre">-s</span></code> command).</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.abort</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.abort</span></code></dt>
 <dd><p class="first last">Number of connections that the kernel had to abort.
 &lt;code&gt;type=memory&lt;/code&gt; is especially bad, the kernel had to drop a
 connection due to having too many orphaned sockets. Other types are normal
@@ -399,75 +399,75 @@ connection due to having too many orphaned sockets. Other types are normal
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.abort.failed</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.abort.failed</span></code></dt>
 <dd><p class="first last">Number of times the kernel failed to abort a connection because it didn't
 even have enough memory to reset it (bad)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.congestion.recovery</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.congestion.recovery</span></code></dt>
 <dd><p class="first last">Number of times the kernel detected spurious retransmits and was able to
 recover part or all of the CWND</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.delayedack</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.delayedack</span></code></dt>
 <dd><p class="first last">Number of delayed ACKs sent of different types.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.failed_accept</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.failed_accept</span></code></dt>
 <dd><p class="first last">Number of times a connection had to be dropped after the 3WHS.
-<tt class="docutils literal"><span class="pre">reason=full_acceptq</span></tt> indicates that the application isn't
+<code class="docutils literal"><span class="pre">reason=full_acceptq</span></code> indicates that the application isn't
 accepting connections fast enough.  You should see SYN cookies too</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.invalid_sack</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.invalid_sack</span></code></dt>
 <dd><p class="first last">Number of invalid SACKs we saw of diff types.
 (requires Linux v2.6.24-rc1 or newer)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.memory.pressure</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.memory.pressure</span></code></dt>
 <dd><p class="first last">Number of times a socket entered the &quot;memory pressure&quot; mode (not great).</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.memory.prune</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.memory.prune</span></code></dt>
 <dd><p class="first last">Number of times a socket had to discard received data due to low memory
 conditions (bad)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.packetloss.recovery</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.packetloss.recovery</span></code></dt>
 <dd><p class="first last">Number of times we recovered from packet loss by type of recovery (e.g.
 fast retransmit vs SACK)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.receive.queue.full</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.receive.queue.full</span></code></dt>
 <dd><p class="first last">Number of times a received packet had to be dropped because the socket's
 receive queue was full. (requires Linux v2.6.34-rc2 or newer)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.reording</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.reording</span></code></dt>
 <dd><p class="first last">Number of times we detected re-ordering and how</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">net.stat.tcp.syncookies</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">net.stat.tcp.syncookies</span></code></dt>
 <dd><p class="first last">SYN cookies (both sent &amp;amp; received)</p>
 </dd>
 </dl>
@@ -475,39 +475,39 @@ receive queue was full. (requires Linux v2.6.34-rc2 or newer)</p>
 </ul>
 </div>
 <div class="section" id="nfsstat-py">
-<h3><tt class="docutils literal"><span class="pre">0/nfsstat.py</span></tt></h3>
-<p>These stats are from <tt class="docutils literal"><span class="pre">/proc/net/rpc/nfs</span></tt>.</p>
+<h3><code class="docutils literal"><span class="pre">0/nfsstat.py</span></code></h3>
+<p>These stats are from <code class="docutils literal"><span class="pre">/proc/net/rpc/nfs</span></code>.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">nfs.client.rpc.stats</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">nfs.client.rpc.stats</span></code></dt>
 <dd><p class="first last">RPC stats counter</p>
 </dd>
 </dl>
 </li>
 </ul>
 <p>It tagged with the type (&lt;code&gt;type=&lt;/code&gt;) of operation. There are 3
-operations: <tt class="docutils literal"><span class="pre">authrefrsh</span></tt> - number of times the authentication information
-refreshed, <tt class="docutils literal"><span class="pre">calls</span></tt> - number of calls conducted, and <tt class="docutils literal"><span class="pre">retrans</span></tt> - number
+operations: <code class="docutils literal"><span class="pre">authrefrsh</span></code> - number of times the authentication information
+refreshed, <code class="docutils literal"><span class="pre">calls</span></code> - number of calls conducted, and <code class="docutils literal"><span class="pre">retrans</span></code> - number
 of retransmissions</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">nfs.client.rpc</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">nfs.client.rpc</span></code></dt>
 <dd><p class="first last">RPC calls counter</p>
 </dd>
 </dl>
 </li>
 </ul>
-<p>It tagged with the version (<tt class="docutils literal"><span class="pre">version=</span></tt>) of NFS server that conducted
-the operation, and name of operation (<tt class="docutils literal"><span class="pre">op=</span></tt>)</p>
+<p>It tagged with the version (<code class="docutils literal"><span class="pre">version=</span></code>) of NFS server that conducted
+the operation, and name of operation (<code class="docutils literal"><span class="pre">op=</span></code>)</p>
 <p>Description of operations can be found at appropriate RFC:
 NFS ver. 3 <a class="reference external" href="http://tools.ietf.org/html/rfc1813">RFC1813</a>,
 NFS ver. 4 <a class="reference external" href="http://tools.ietf.org/html/rfc3530">RFC3530</a>,
 NFS ver. 4.1 <a class="reference external" href="http://tools.ietf.org/html/rfc5661">RFC5661</a>.</p>
 </div>
 <div class="section" id="procnettcp-py">
-<h3><tt class="docutils literal"><span class="pre">0/procnettcp.py</span></tt></h3>
-<p>These stats are all from <tt class="docutils literal"><span class="pre">/proc/net/tcp{,6}</span></tt>. (Note if IPv6 is enabled,
-some IPv4 connections seem to get put into <tt class="docutils literal"><span class="pre">/proc/net/tcp6</span></tt>). Collector
+<h3><code class="docutils literal"><span class="pre">0/procnettcp.py</span></code></h3>
+<p>These stats are all from <code class="docutils literal"><span class="pre">/proc/net/tcp{,6}</span></code>. (Note if IPv6 is enabled,
+some IPv4 connections seem to get put into <code class="docutils literal"><span class="pre">/proc/net/tcp6</span></code>). Collector
 sleeps 60 seconds in between intervals. Due in part to a kernel performance
 issue in older kernels and in part due to systems with many TCP connections,
 this collector can take sometimes 5 minutes or more to run one interval, so
@@ -515,7 +515,7 @@ the frequency of datapoints can be highly variable depending on the
 system.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.net.tcp</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.net.tcp</span></code></dt>
 <dd><p class="first last">Number of TCP connections</p>
 </dd>
 </dl>
@@ -524,9 +524,9 @@ system.</p>
 <p>For each run of the collector, we classify each connection and generate
 subtotals. TSD will automatically total these up when displaying the graph,
 but you can drill down for each possible total or a particular one.  Each
-connection is broken down with a tag for <tt class="docutils literal"><span class="pre">user=username</span></tt> (with a fixed list
+connection is broken down with a tag for <code class="docutils literal"><span class="pre">user=username</span></code> (with a fixed list
 of users we care about or put under &quot;other&quot; if not in the list). It is also
-broken down into state with <tt class="docutils literal"><span class="pre">state=</span></tt>, (established, time_wait, etc). It is
+broken down into state with <code class="docutils literal"><span class="pre">state=</span></code>, (established, time_wait, etc). It is
 also broken down into services with &lt;code&gt;service=&lt;/code&gt; (http, mysql,
 memcache, etc) Note that once a connection is closed, Linux seems to forget
 who opened/handled the connection. For connections in time_wait, for example,
@@ -538,11 +538,11 @@ states are generally ever seen. On a typical server this can dedup down to
 under 10 values per interval.</p>
 </div>
 <div class="section" id="procstats-py">
-<h3><tt class="docutils literal"><span class="pre">0/procstats.py</span></tt></h3>
-<p>Miscellaneous stats from <tt class="docutils literal"><span class="pre">/proc</span></tt>.</p>
+<h3><code class="docutils literal"><span class="pre">0/procstats.py</span></code></h3>
+<p>Miscellaneous stats from <code class="docutils literal"><span class="pre">/proc</span></code>.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.stat.cpu</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.stat.cpu</span></code></dt>
 <dd><p class="first last">(rate) CPU counters (jiffies), tagged by cpu type
 (type=user, nice, system, idle, iowait, irq, softirq, etc). As a rate
 they should aggregate up to approximately 100*numcpu per host. Best
@@ -551,13 +551,13 @@ viewed as type=* or maybe type={user|nice|system|iowait|irq}</p>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.stat.intr</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.stat.intr</span></code></dt>
 <dd><p class="first last">(rate) Number of interrupts</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.stat.ctxt</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.stat.ctxt</span></code></dt>
 <dd><p class="first last">(rate) Number of context switches</p>
 </dd>
 </dl>
@@ -566,69 +566,69 @@ viewed as type=* or maybe type={user|nice|system|iowait|irq}</p>
 <p>See <a class="reference external" href="http://www.linuxhowtos.org/System/procstat.htm">http://www.linuxhowtos.org/System/procstat.htm</a></p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.vmstat.*</span></tt></dt>
-<dd><p class="first last">A subset of VM Stats from <tt class="docutils literal"><span class="pre">/proc/vmstat</span></tt> (mix of rate  and non-rate).
+<dt><code class="docutils literal"><span class="pre">proc.vmstat.*</span></code></dt>
+<dd><p class="first last">A subset of VM Stats from <code class="docutils literal"><span class="pre">/proc/vmstat</span></code> (mix of rate  and non-rate).
 See <a class="reference external" href="http://www.linuxinsight.com/proc_vmstat.html">http://www.linuxinsight.com/proc_vmstat.html</a> .</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.meminfo.*</span></tt></dt>
-<dd><p class="first last">Memory usage stats from <tt class="docutils literal"><span class="pre">/proc/meminfo</span></tt>. See the
+<dt><code class="docutils literal"><span class="pre">proc.meminfo.*</span></code></dt>
+<dd><p class="first last">Memory usage stats from <code class="docutils literal"><span class="pre">/proc/meminfo</span></code>. See the
 <a class="reference external" href="http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=blob;f=Documentation/filesystems/proc.txt;hb=HEAD">Linux kernel documentation</a></p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.loadavg.*</span></tt></dt>
-<dd><p class="first last">1min, 5min, 15min, runnable, total_threads metrics from <tt class="docutils literal"><span class="pre">/proc/loadavg</span></tt></p>
+<dt><code class="docutils literal"><span class="pre">proc.loadavg.*</span></code></dt>
+<dd><p class="first last">1min, 5min, 15min, runnable, total_threads metrics from <code class="docutils literal"><span class="pre">/proc/loadavg</span></code></p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.uptime.total</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.uptime.total</span></code></dt>
 <dd><p class="first last">(rate) Seconds since boot</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.uptime.now</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.uptime.now</span></code></dt>
 <dd><p class="first last">(rate) Seconds since boot that the system has been idle</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">proc.kernel.entropy_avail</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">proc.kernel.entropy_avail</span></code></dt>
 <dd><p class="first last">Amount of entropy (in bits) available in the  input pool
-(the one that's cryptographically strong and backing <tt class="docutils literal"><span class="pre">/dev/random</span></tt>
+(the one that's cryptographically strong and backing <code class="docutils literal"><span class="pre">/dev/random</span></code>
 among other things). Watch this value on your frontend servers that do
 SSL unwrapping, if it gets too low, your SSL performance will suffer</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">sys.numa.zoneallocs</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">sys.numa.zoneallocs</span></code></dt>
 <dd><p class="first last">Number of pages allocated from the preferred node
-(<tt class="docutils literal"><span class="pre">type=hit</span></tt>) or not (<tt class="docutils literal"><span class="pre">type=miss</span></tt>)</p>
+(<code class="docutils literal"><span class="pre">type=hit</span></code>) or not (<code class="docutils literal"><span class="pre">type=miss</span></code>)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">sys.numa.foreign_allocs</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">sys.numa.foreign_allocs</span></code></dt>
 <dd><p class="first last">Number of pages this node allocated because the preferred node didn't
 have a free page to accommodate the request</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">sys.numa.allocation</span></tt></dt>
-<dd><p class="first last">Number of pages allocated locally (<tt class="docutils literal"><span class="pre">type=local</span></tt>) or remotely
-(<tt class="docutils literal"><span class="pre">type=remote</span></tt>) for processes executing on this node</p>
+<dt><code class="docutils literal"><span class="pre">sys.numa.allocation</span></code></dt>
+<dd><p class="first last">Number of pages allocated locally (<code class="docutils literal"><span class="pre">type=local</span></code>) or remotely
+(<code class="docutils literal"><span class="pre">type=remote</span></code>) for processes executing on this node</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">sys.numa.interleave</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">sys.numa.interleave</span></code></dt>
 <dd><p class="first last">Number of pages allocated successfully by the interleave strategy</p>
 </dd>
 </dl>
@@ -636,11 +636,11 @@ have a free page to accommodate the request</p>
 </ul>
 </div>
 <div class="section" id="smart-stats-py">
-<h3><tt class="docutils literal"><span class="pre">0/smart-stats.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/smart-stats.py</span></code></h3>
 <p>Stats from SMART disks.</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.raw_read_error_rate</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.raw_read_error_rate</span></code></dt>
 <dd><p class="first last">Data related to the rate of hardware read  errors that occurred when
 reading data from a disk surface. The raw value has different structure
 for different vendors and is often not meaningful as a decimal number.
@@ -649,150 +649,150 @@ for different vendors and is often not meaningful as a decimal number.
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.throughput_performance</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.throughput_performance</span></code></dt>
 <dd><p class="first last">Overall throughput performance of a hard disk drive</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.spin_up_time</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.spin_up_time</span></code></dt>
 <dd><p class="first last">Average time of spindle spin up (from zero RPM to fully operational
 [millisecs])</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.start_stop_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.start_stop_count</span></code></dt>
 <dd><p class="first last">A tally of spindle start/stop cycles</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.reallocated_sector_ct</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.reallocated_sector_ct</span></code></dt>
 <dd><p class="first last">Count of reallocated sectors</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.seek_error_rate</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.seek_error_rate</span></code></dt>
 <dd><p class="first last">Rate of seek errors of the magnetic heads. (vendor specific)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.seek_time_performance</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.seek_time_performance</span></code></dt>
 <dd><p class="first last">Average performance of seek operations of the magnetic heads</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.power_on_hours</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.power_on_hours</span></code></dt>
 <dd><p class="first last">Count of hours in power-on state, shows total count of hours
 (or minutes, or seconds) in power-on state. (vendor specific)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.spin_retry_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.spin_retry_count</span></code></dt>
 <dd><p class="first last">Count of retry of spin start attempts</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.recalibration_retries</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.recalibration_retries</span></code></dt>
 <dd><p class="first last">The count that recalibration was requested (under the condition
 that the first attempt was unsuccessful)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.power_cycle_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.power_cycle_count</span></code></dt>
 <dd><p class="first last">The count of full hard disk power on/off cycles</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.soft_read_error_rate</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.soft_read_error_rate</span></code></dt>
 <dd><p class="first last">Uncorrected read errors reported to the operating system</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.program_fail_count_chip</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.program_fail_count_chip</span></code></dt>
 <dd><p class="first last">Total number of Flash program operation failures since the drive was
 deployed</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.erase_fail_count_chip</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.erase_fail_count_chip</span></code></dt>
 <dd><p class="first last">&quot;Pre-Fail&quot; Attribute</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.wear_leveling_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.wear_leveling_count</span></code></dt>
 <dd><p class="first last">The maximum number of erase operations performed on a single flash memory block</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.used_rsvd_blk_cnt_chip</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.used_rsvd_blk_cnt_chip</span></code></dt>
 <dd><p class="first last">The number of a chip’s used reserved blocks</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.used_rsvd_blk_cnt_tot</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.used_rsvd_blk_cnt_tot</span></code></dt>
 <dd><p class="first last">&quot;Pre-Fail&quot; Attribute (at least HP devices)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.unused_rsvd_blk_cnt_tot</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.unused_rsvd_blk_cnt_tot</span></code></dt>
 <dd><p class="first last">&quot;Pre-Fail&quot; Attribute (at least Samsung devices)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.program_fail_cnt_total</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.program_fail_cnt_total</span></code></dt>
 <dd><p class="first last">Total number of Flash program operation failures since the drive was deployed</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.erase_fail_count_total</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.erase_fail_count_total</span></code></dt>
 <dd><p class="first last">&quot;Pre-Fail&quot; Attribute</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.runtime_bad_block</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.runtime_bad_block</span></code></dt>
 <dd><p class="first last">The total count of all read/program/erase failures</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.end_to_end_error</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.end_to_end_error</span></code></dt>
 <dd><p class="first last">The count of parity errors which occur in the data path to the media via
 the drive's cache RAM (at least Hewlett-Packard)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.reported_uncorrect</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.reported_uncorrect</span></code></dt>
 <dd><p class="first last">The count of errors that could not be recovered using hardware ECC</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.command_timeout</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.command_timeout</span></code></dt>
 <dd><p class="first last">The count of aborted operations due to HDD timeout</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.high_fly_writes</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.high_fly_writes</span></code></dt>
 <dd><p class="first last">HDD producers implement a Fly Height Monitor that attempts to provide
 additional protections for write operations by detecting when a recording
 head is flying outside its normal operating range. If an unsafe fly height
@@ -804,95 +804,95 @@ of the drive</p>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.airflow_temperature_celsius</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.airflow_temperature_celsius</span></code></dt>
 <dd><p class="first last">Airflow temperature</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.g_sense_error_rate</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.g_sense_error_rate</span></code></dt>
 <dd><p class="first last">The count of errors resulting from externally induced shock &amp; vibration</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.power-off_retract_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.power-off_retract_count</span></code></dt>
 <dd><p class="first last">The count of times the heads are loaded off the media</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.load_cycle_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.load_cycle_count</span></code></dt>
 <dd><p class="first last">Count of load/unload cycles into head landing zone position</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.temperature_celsius</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.temperature_celsius</span></code></dt>
 <dd><p class="first last">Current internal temperature</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.hardware_ecc_recovered</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.hardware_ecc_recovered</span></code></dt>
 <dd><p class="first last">The count of errors that were recovered using hardware ECC</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.reallocated_event_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.reallocated_event_count</span></code></dt>
 <dd><p class="first last">Count of remap operations. The raw value of this attribute shows the total
 count of attempts to transfer data from reallocated sectors to a spare area</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.current_pending_sector</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.current_pending_sector</span></code></dt>
 <dd><p class="first last">Count of &quot;unstable&quot; sectors (waiting to be remapped, because of
 unrecoverable read errors)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.offline_uncorrectable</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.offline_uncorrectable</span></code></dt>
 <dd><p class="first last">The total count of uncorrectable errors when reading/writing a sector</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.udma_crc_error_count</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.udma_crc_error_count</span></code></dt>
 <dd><p class="first last">The count of errors in data transfer via the interface cable as determined
 by ICRC (Interface Cyclic Redundancy Check)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.write_error_rate</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.write_error_rate</span></code></dt>
 <dd><p class="first last">The total count of errors when writing a sector</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.media_wearout_indicator</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.media_wearout_indicator</span></code></dt>
 <dd><p class="first last">The normalized value of 100 (when the SSD is new) and declines to a minimum
 value of 1</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.transfer_error_rate</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.transfer_error_rate</span></code></dt>
 <dd><p class="first last">Count of times the link is reset during a data transfer</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.total_lba_writes</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.total_lba_writes</span></code></dt>
 <dd><p class="first last">Total count of LBAs written</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">smart.total_lba_read</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">smart.total_lba_read</span></code></dt>
 <dd><p class="first last">Total count of LBAs read</p>
 </dd>
 </dl>
@@ -906,9 +906,9 @@ The best way to understand/find metric is to look at producer's specification.</
 <div class="section" id="other-collectors">
 <h2>Other collectors</h2>
 <div class="section" id="couchbase-py">
-<h3><tt class="docutils literal"><span class="pre">0/couchbase.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/couchbase.py</span></code></h3>
 <p>Stats from couchbase (document-oriented NoSQL database).</p>
-<p>All metrics are tagged with name of related bucket(<tt class="docutils literal"><span class="pre">bucket=</span></tt>). A bucket is
+<p>All metrics are tagged with name of related bucket(<code class="docutils literal"><span class="pre">bucket=</span></code>). A bucket is
 a logical grouping of physical resources within a cluster of Couchbase
 Servers. They can be used by multiple client applications across a cluster.
 Buckets provide a secure mechanism for organizing, managing, and analyzing
@@ -917,13 +917,13 @@ data storage resources.</p>
 <a class="reference external" href="http://docs.couchbase.com/couchbase-manual-2.1/#cbstats-tool">Cbstats documentation</a>.</p>
 </div>
 <div class="section" id="elasticsearch-py">
-<h3><tt class="docutils literal"><span class="pre">0/elasticsearch.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/elasticsearch.py</span></code></h3>
 <p>Stats from Elastic Search (search and analytics engine).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster.html">ElasticSearch cluster APIs</a>.</p>
 </div>
 <div class="section" id="hadoop-datanode-jmx-py">
-<h3><tt class="docutils literal"><span class="pre">0/hadoop_datanode_jmx.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/hadoop_datanode_jmx.py</span></code></h3>
 <p>Stats from Hadoop (framework for the distributed processing), DataNode stats.</p>
 <p>Following metrics are disabled at the collector by default: revision,
 hdfsUser, hdfsDate, hdfsUrl, date, hdfsRevision, user, hdfsVersion, url,
@@ -933,29 +933,29 @@ CurrentThreadUserTime, StorageInfo, VolumeInfo.</p>
 <a class="reference external" href="http://hbase.apache.org/book.html#hbase_metrics">HBase metrics</a>.</p>
 </div>
 <div class="section" id="haproxy-py">
-<h3><tt class="docutils literal"><span class="pre">0/haproxy.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/haproxy.py</span></code></h3>
 <p>Stats from Haproxy (TCP/HTTP load balancer).</p>
 <ul>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">haproxy.current_sessions</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">haproxy.current_sessions</span></code></dt>
 <dd><p class="first last">Current number of sessions</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><tt class="docutils literal"><span class="pre">haproxy.session_rate</span></tt></dt>
+<dt><code class="docutils literal"><span class="pre">haproxy.session_rate</span></code></dt>
 <dd><p class="first last">Number of new sessions per second</p>
 </dd>
 </dl>
 </li>
 </ul>
-<p>All metrics are tagged with server (<tt class="docutils literal"><span class="pre">server=</span></tt>) and cluster (<tt class="docutils literal"><span class="pre">cluster=</span></tt>).</p>
+<p>All metrics are tagged with server (<code class="docutils literal"><span class="pre">server=</span></code>) and cluster (<code class="docutils literal"><span class="pre">cluster=</span></code>).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://haproxy.1wt.eu/download/1.4/doc/configuration.txt">Haproxy configuration</a>
 # section 9.2.Unix Socket commands</p>
 </div>
 <div class="section" id="hbase-regionserver-jmx-py">
-<h3><tt class="docutils literal"><span class="pre">0/hbase_regionserver_jmx.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/hbase_regionserver_jmx.py</span></code></h3>
 <p>Stats from Hadoop (framework for the distributed processing), RegionServer
 stats.</p>
 <p>Following metrics are disabled at the collector by default: revision, hdfsUser,
@@ -965,13 +965,13 @@ Version, RpcPort, HttpPort,HeapMemoryUsage, NonHeapMemoryUsage.</p>
 <a class="reference external" href="http://hbase.apache.org/book.html#hbase_metrics">HBase metrics</a>.</p>
 </div>
 <div class="section" id="mongo-py">
-<h3><tt class="docutils literal"><span class="pre">0/mongo.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/mongo.py</span></code></h3>
 <p>Stats from Mongo (document NoSQL database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://docs.mongodb.org/manual/reference/server-status/">Mongo DB server-status</a>.</p>
 </div>
 <div class="section" id="mysql-py">
-<h3><tt class="docutils literal"><span class="pre">0/mysql.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/mysql.py</span></code></h3>
 <p>Stats from MySQL (relational database).</p>
 <p>Refer to the following documentation for metrics description:
 InnoDB <a class="reference external" href="http://dev.mysql.com/doc/refman/5.0/en/innodb-monitors.html">Innodb monitors</a>,
@@ -981,25 +981,25 @@ Slave <a class="reference external" href="http://dev.mysql.com/doc/refman/5.0/en
 Process list <a class="reference external" href="ahref=&quot;http://dev.mysql.com/doc/refman/5.0/en/show-processlist.html&quot;">Show process list</a>.</p>
 </div>
 <div class="section" id="postgresql-py">
-<h3><tt class="docutils literal"><span class="pre">0/postgresql.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/postgresql.py</span></code></h3>
 <p>Stats from PostgreSQL (relational database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://www.postgresql.org/docs/9.2/static/monitoring-stats.html">PostgreSQL monitoring stats</a>.</p>
 </div>
 <div class="section" id="redis-stats-py">
-<h3><tt class="docutils literal"><span class="pre">0/redis-stats.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/redis-stats.py</span></code></h3>
 <p>Stats from Redis (key-value store).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://redis.io/commands/INFO">Redis info comands</a>.</p>
 </div>
 <div class="section" id="riak-py">
-<h3><tt class="docutils literal"><span class="pre">0/riak.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/riak.py</span></code></h3>
 <p>Stats from Riak (document NoSQL database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://docs.basho.com/riak/latest/ops/running/stats-and-monitoring/#Statistics-from-Riak">Riak statistics</a>.</p>
 </div>
 <div class="section" id="varnishstat-py">
-<h3><tt class="docutils literal"><span class="pre">0/varnishstat.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/varnishstat.py</span></code></h3>
 <p>Stats from Varnish (HTTP accelerator).</p>
 <p>By default all metrics collected, it can be changed by editing &quot;vstats&quot; array
 of the collector.</p>
@@ -1007,7 +1007,7 @@ of the collector.</p>
 &quot;varnishstat -l&quot; to have lists the available metrics.</p>
 </div>
 <div class="section" id="zookeeper-py">
-<h3><tt class="docutils literal"><span class="pre">0/zookeeper.py</span></tt></h3>
+<h3><code class="docutils literal"><span class="pre">0/zookeeper.py</span></code></h3>
 <p>Stats from Zookeeper (centralized service for distributed synchronization).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_zkCommands">Zookeeper admin commands</a>.</p>
@@ -1021,7 +1021,7 @@ of the collector.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1033,9 +1033,9 @@ of the collector.</p>
         <li class="right" >
           <a href="index.html" title="Utilities"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Utilities</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

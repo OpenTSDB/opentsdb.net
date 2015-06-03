@@ -39,8 +39,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -52,10 +52,10 @@
         <li class="right" >
           <a href="../api_http/version.html" title="/api/version"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -72,7 +72,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="development.html"
                         title="next chapter">General Development</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -91,7 +91,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="development">
 <h1>Development</h1>
@@ -103,8 +103,8 @@
 <li>Please file <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">issues on GitHub</a> after checking to see if anyone has posted a bug already. Make sure your bug reports contain enough details so they can be easily understood by others and quickly fixed.</li>
 <li>Read the Development page for tips</li>
 <li>The best way to contribute code is to fork the main repo and <a class="reference external" href="https://help.github.com/articles/using-pull-requests">send a pull request</a> on GitHub.<ul>
-<li>Bug fixes should be done in the <tt class="docutils literal"><span class="pre">master</span></tt> branch</li>
-<li>New features or major changes should be done in the <tt class="docutils literal"><span class="pre">next</span></tt> branch</li>
+<li>Bug fixes should be done in the <code class="docutils literal"><span class="pre">master</span></code> branch</li>
+<li>New features or major changes should be done in the <code class="docutils literal"><span class="pre">next</span></code> branch</li>
 </ul>
 </li>
 <li>Alternatively, you can send a plain-text patch to the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">mailing list</a>.</li>
@@ -114,11 +114,11 @@
 <li>Please <em>respect the coding style of the code</em> you're changing.<ul>
 <li>Indent code with 2 spaces, no tabs</li>
 <li>Keep code to 80 columns</li>
-<li>Curly brace on the same line as <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">for</span></tt>, <tt class="docutils literal"><span class="pre">while</span></tt>, etc</li>
-<li>Variables need descriptive names <tt class="docutils literal"><span class="pre">like_this</span></tt> (instead of the typical Java style of <tt class="docutils literal"><span class="pre">likeThis</span></tt>)</li>
-<li>Methods named <tt class="docutils literal"><span class="pre">likeThis()</span></tt> starting with lower case letters</li>
-<li>Classes named <tt class="docutils literal"><span class="pre">LikeThis</span></tt>, starting with upper case letters</li>
-<li>Use the <tt class="docutils literal"><span class="pre">final</span></tt> keyword as much as you can, particularly in method parameters and returns statements.</li>
+<li>Curly brace on the same line as <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">for</span></code>, <code class="docutils literal"><span class="pre">while</span></code>, etc</li>
+<li>Variables need descriptive names <code class="docutils literal"><span class="pre">like_this</span></code> (instead of the typical Java style of <code class="docutils literal"><span class="pre">likeThis</span></code>)</li>
+<li>Methods named <code class="docutils literal"><span class="pre">likeThis()</span></code> starting with lower case letters</li>
+<li>Classes named <code class="docutils literal"><span class="pre">LikeThis</span></code>, starting with upper case letters</li>
+<li>Use the <code class="docutils literal"><span class="pre">final</span></code> keyword as much as you can, particularly in method parameters and returns statements.</li>
 <li>Avoid checked exceptions as much as possible</li>
 <li>Always provide the most restrictive visibility to classes and members</li>
 <li>Javadoc all of your classes and methods. Some folks make use the Java API directly and we'll build docs for the site, so the more the merrier</li>
@@ -146,7 +146,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -158,7 +158,7 @@
         <li class="right" >
           <a href="../api_http/version.html" title="/api/version"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,7 +1,7 @@
 query
 =====
 
-The query command line tool is meant to be a quick debugging tool for extracting data from OpenTSDB. The HTTP API will usually be much quicker when querying data as it incorprates caches and open connections to storage. Results are printed to stdout in a text format with one data point per line.
+The query command line tool is meant to be a quick debugging tool for extracting data from OpenTSDB. The HTTP API will usually be much quicker when querying data as it incorporates caches and open connections to storage. Results are printed to stdout in a text format with one data point per line.
 
 Note that a query may return data points before and after the timespan requested. These are used in downsampling and graphing.
 
@@ -20,7 +20,7 @@ Parameters
    "END-DATE", "String or Integer", "Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See :doc:`../query/dates` for details", "Current timestamp", "2014/01/01-00:00:00"
    "aggregator", "String", "A function to use when multiple timeseries are included in the results", "", "sum"
    "rate", "String", "The literal ``rate`` if the timeseries represents a counter and the results should be returned as delta per second", "", "rate"
-   "counter", "String", "Optional literal ``counter`` that indicates the underlying data is a monotonically increasong counter that may roll over", "", "counter"
+   "counter", "String", "Optional literal ``counter`` that indicates the underlying data is a monotonically increasing counter that may roll over", "", "counter"
    "max", "Integer", "A positive integer representing the maximum value for the counter", "Java Long.MaxValue", "65535"
    "resetValue", "Integer", "An optional value that, when exceeded, will cause the aggregator to return a 0 instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.", "", "65000"
    "downsample N FUNC", "String", "Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal ``downsample`` followed by a timespan in milliseconds and an aggregation function name", "", "downsample 300000 avg"

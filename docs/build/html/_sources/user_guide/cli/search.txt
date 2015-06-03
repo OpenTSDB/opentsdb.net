@@ -5,7 +5,7 @@ search
 
   Available in 2.1
 
-The search command allows for searching OpenTSDB to reteive a list of time series or associated meta data. Search does not return actual data points or time series objects stored in the data table. Use the query tools to access that data. Currently only the ``lookup`` command is implemented.
+The search command allows for searching OpenTSDB to retrieve a list of time series or associated meta data. Search does not return actual data points or time series objects stored in the data table. Use the query tools to access that data. Currently only the ``lookup`` command is implemented.
 
 Lookup
 ^^^^^^
@@ -53,7 +53,7 @@ Example Command
 Output
 --------------
 
-During a lookup, the results will be printed to standard out. Note that if you have logging enabled, messages may be interspersed with the results. Set the logging level to WARN or ERROR in the ``logback.xml`` configuration to supress these warnings. You may want to run the lookup in the background and capture standard out to a file, particularly when running lookups against the data table as these may take a long time to complete.
+During a lookup, the results will be printed to standard out. Note that if you have logging enabled, messages may be interspersed with the results. Set the logging level to WARN or ERROR in the ``logback.xml`` configuration to suppress these warnings. You may want to run the lookup in the background and capture standard out to a file, particularly when running lookups against the data table as these may take a long time to complete.
 
 .. code-block :: bash
 

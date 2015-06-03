@@ -93,4 +93,4 @@ Log to Rotating File
     </encoder>
   </appender>
   
-This appender will write to a log file called ``/var/log/opentsdb/opentsdb.log``. When the file reaches 128MB in size, it will rotate the log to ``opentsdb.log.1`` and start a new ``opentsdb.log`` file. Once the new log fills up, it bumps ``.1`` to ``.2``, ``.log`` to ``.1`` and creates a new one. It repeats this until there are four log files in total. The next time the log fills up, the last log is deleted. This way you are gauranteed to only use up to 512MB of disk space. Many other appenders are available so see what fits your needs the best.
+This appender will write to a log file called ``/var/log/opentsdb/opentsdb.log``. When the file reaches 128MB in size, it will rotate the log to ``opentsdb.log.1`` and start a new ``opentsdb.log`` file. Once the new log fills up, it bumps ``.1`` to ``.2``, ``.log`` to ``.1`` and creates a new one. It repeats this until there are four log files in total. The next time the log fills up, the last log is deleted. This way you are guaranteed to only use up to 512MB of disk space. Many other appenders are available so see what fits your needs the best.

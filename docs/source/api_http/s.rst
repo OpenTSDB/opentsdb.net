@@ -1,7 +1,7 @@
 /s
 ==
 
-This endpoint was introduced in 1.0 as a means of accessing static files on the local system. ``/s`` will be maintained in the future and will not be deprecated. The static root is definied in the config file as ``tsd.http.staticroot`` or CLI via ``--staticroot``.
+This endpoint was introduced in 1.0 as a means of accessing static files on the local system. ``/s`` will be maintained in the future and will not be deprecated. The static root is defined in the config file as ``tsd.http.staticroot`` or CLI via ``--staticroot``.
 
 By default, static files will be returned with a header telling clients to cache them for 1 year. Any file that contains ``nocache`` in the name (e.g. ``queryui.nocache.js``, the idiom used by GWT) will not include the cache header.
 

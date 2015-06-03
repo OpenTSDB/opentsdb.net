@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="guis/index.html" title="GUI"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -92,7 +92,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="stats.html"
                         title="next chapter">Stats</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -111,19 +111,19 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="plugins">
 <h1>Plugins</h1>
-<p>OpenTSDB 2.0 introduced a plugin framework, allowing varous contributors to quickly and easily customize their TSDs. This document gives you an overview of the plugin system and will link to some available implementations.</p>
+<p>OpenTSDB 2.0 introduced a plugin framework, allowing various contributors to quickly and easily customize their TSDs. This document gives you an overview of the plugin system and will link to some available implementations.</p>
 <div class="section" id="general">
 <h2>General</h2>
 <p>Plugins are loaded at run time by a TSD or command line utility. Once the program or daemon is running, plugin configurations cannot be changed. You must restart the program for changes to take effect.</p>
-<p>Plugins are JAR files that must be downloaded to a directory accessible by OpenTSDB. Once a directory is created, it must be specified in the <tt class="docutils literal"><span class="pre">opentsdb.conf</span></tt> config file via the <tt class="docutils literal"><span class="pre">tsd.core.plugin_path</span></tt> property. If the plugin has dependency JARs that were not compiled into the plugin and are not located in the standard class path, they must be copied to this plugin directory as well.</p>
-<p>Once the JARs are in place, they must be selected in the configuration file for the type of plugin specified. Usually this will be the fully qualified Java class name such as &quot;net.opentsdb.search.ElasticSearch&quot;. Each plugin should have an &quot;enabled&quot; property as well that must be set to <tt class="docutils literal"><span class="pre">true</span></tt> for the plugin to be loaded. Plugins may also have configuration settings that must be added to the <tt class="docutils literal"><span class="pre">opentsdb.conf</span></tt> file before they can operate properly. See your plugin's documentation. See <a class="reference internal" href="configuration.html"><em>Configuration</em></a> for details.</p>
+<p>Plugins are JAR files that must be downloaded to a directory accessible by OpenTSDB. Once a directory is created, it must be specified in the <code class="docutils literal"><span class="pre">opentsdb.conf</span></code> config file via the <code class="docutils literal"><span class="pre">tsd.core.plugin_path</span></code> property. If the plugin has dependency JARs that were not compiled into the plugin and are not located in the standard class path, they must be copied to this plugin directory as well.</p>
+<p>Once the JARs are in place, they must be selected in the configuration file for the type of plugin specified. Usually this will be the fully qualified Java class name such as &quot;net.opentsdb.search.ElasticSearch&quot;. Each plugin should have an &quot;enabled&quot; property as well that must be set to <code class="docutils literal"><span class="pre">true</span></code> for the plugin to be loaded. Plugins may also have configuration settings that must be added to the <code class="docutils literal"><span class="pre">opentsdb.conf</span></code> file before they can operate properly. See your plugin's documentation. See <a class="reference internal" href="configuration.html"><em>Configuration</em></a> for details.</p>
 <p>When starting a TSD or CLI tool, a number of errors may prevent a successful launch due to plugin issues. If something happens you should see an exception in the logs related to a plugin. Some things to troubleshoot include:</p>
 <ul class="simple">
-<li>Make sure the <tt class="docutils literal"><span class="pre">tsd.core.plugin_path</span></tt> is configured</li>
+<li>Make sure the <code class="docutils literal"><span class="pre">tsd.core.plugin_path</span></code> is configured</li>
 <li>Check that the path is readable for the user OpenTSDB is running under, i.e. check permissions</li>
 <li>Check for typos in the config file. Case matters for plugin names.</li>
 <li>The plugin may not have access to the dependencies it needs. If it has dependencies that are not included with OpenTSDB or packaged into it's own JAR you need to drop the dependencies in the plugin path.</li>
@@ -140,7 +140,7 @@
 </div>
 <div class="section" id="serializers">
 <h2>Serializers</h2>
-<p>The HTTP API provides a plugin interface for serializing and deserializing data in formats other than the default JSON formats. These plugins do not require a plugin name or enable flag in the configuraiton file. Instead simply drop the plugin in the plugin directory and it will be loaded when the TSD is launched. More than one serializer plugin can be loaded on startup. Serializer plugins may require configuration properties, so check the documentation before using them.</p>
+<p>The HTTP API provides a plugin interface for serializing and deserializing data in formats other than the default JSON formats. These plugins do not require a plugin name or enable flag in the configuration file. Instead simply drop the plugin in the plugin directory and it will be loaded when the TSD is launched. More than one serializer plugin can be loaded on startup. Serializer plugins may require configuration properties, so check the documentation before using them.</p>
 <div class="section" id="id1">
 <h3>Plugins</h3>
 <p>No implementations, aside from the default, at this time.</p>
@@ -148,7 +148,7 @@
 </div>
 <div class="section" id="search">
 <h2>Search</h2>
-<p>OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The <tt class="docutils literal"><span class="pre">tsd.search.plugin</span></tt> property lets you select a search plugin and <tt class="docutils literal"><span class="pre">tsd.search.enable</span></tt> will start sending data and queries. Search plugins will be loaded by TSDs and select command line tools such as the UID Manager tool.</p>
+<p>OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The <code class="docutils literal"><span class="pre">tsd.search.plugin</span></code> property lets you select a search plugin and <code class="docutils literal"><span class="pre">tsd.search.enable</span></code> will start sending data and queries. Search plugins will be loaded by TSDs and select command line tools such as the UID Manager tool.</p>
 <div class="section" id="id2">
 <h3>Plugins</h3>
 <ul class="simple">
@@ -158,7 +158,7 @@
 </div>
 <div class="section" id="real-time-publishing">
 <h2>Real Time Publishing</h2>
-<p>Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The <tt class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></tt> property lets you select a plugin and <tt class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></tt> will start sending data.</p>
+<p>Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The <code class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></code> property lets you select a plugin and <code class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></code> will start sending data.</p>
 <div class="section" id="id3">
 <h3>Plugins</h3>
 <ul class="simple">
@@ -169,7 +169,7 @@
 </div>
 <div class="section" id="rpc">
 <h2>RPC</h2>
-<p>Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the <tt class="docutils literal"><span class="pre">tsd.rpc.plugins</span></tt> configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.</p>
+<p>Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcached or any other means of storing information. More than one plugin can be loaded at a time via the <code class="docutils literal"><span class="pre">tsd.rpc.plugins</span></code> configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.</p>
 <div class="section" id="id4">
 <h3>Plugins</h3>
 <p>No implementations at this time.</p>
@@ -183,7 +183,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -195,8 +195,8 @@
         <li class="right" >
           <a href="guis/index.html" title="GUI"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

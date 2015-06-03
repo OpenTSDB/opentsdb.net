@@ -163,7 +163,7 @@ Each ``put`` can only send a single data point. Don't forget the newline charact
 Http API
 --------
 
-As of version 2.0, data can be sent over HTTP in formats supported by 'Serializer' plugins. Multiple, un-related data points can be sent in a single HTTP POST request to save bandwidth. See the :doc:`../api_http/put` for details.
+As of version 2.0, data can be sent over HTTP in formats supported by 'Serializer' plugins. Multiple, unrelated data points can be sent in a single HTTP POST request to save bandwidth. See the :doc:`../api_http/put` for details.
 
 Batch Import
 ------------

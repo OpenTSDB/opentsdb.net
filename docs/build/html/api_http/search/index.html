@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="../query/last.html" title="/api/query/last"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -84,7 +84,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="../serializers.html"
                         title="next chapter">/api/serializers</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -103,24 +103,24 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-search">
 <h1>/api/search</h1>
-<p>This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table when enabled. Optionally, a search plugin can be installed to send and retreive information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen.</p>
+<p>This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table when enabled. Optionally, a search plugin can be installed to send and retrieve information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If the plugin is not configured or enabled, endpoints other than <tt class="docutils literal"><span class="pre">/api/search/lookup</span></tt> will return an exception.</p>
+<p class="last">If the plugin is not configured or enabled, endpoints other than <code class="docutils literal"><span class="pre">/api/search/lookup</span></code> will return an exception.</p>
 </div>
 <div class="section" id="search-api-endpoints">
 <h2>Search API Endpoints</h2>
 <ul class="simple">
 <li><a class="reference internal" href="lookup.html"><em>/api/search/lookup</em></a></li>
-<li>/api/search/tsmeta - <a class="reference internal" href="#tsmeta-endpoint"><em>TSMETA Response</em></a></li>
-<li>/api/search/tsmeta_summary - <a class="reference internal" href="#tsmeta-summary-endpoint"><em>TSMETA_SUMMARY Response</em></a></li>
-<li>/api/search/tsuids - <a class="reference internal" href="#tsuids-endpoint"><em>TSUIDS Response</em></a></li>
-<li>/api/search/uidmeta - <a class="reference internal" href="#uidmeta-endpoint"><em>UIDMETA Response</em></a></li>
-<li>/api/search/annotation - <a class="reference internal" href="#annotation-endpoint"><em>Annotation Response</em></a></li>
+<li>/api/search/tsmeta - <a class="reference internal" href="#tsmeta-endpoint"><span>TSMETA Response</span></a></li>
+<li>/api/search/tsmeta_summary - <a class="reference internal" href="#tsmeta-summary-endpoint"><span>TSMETA_SUMMARY Response</span></a></li>
+<li>/api/search/tsuids - <a class="reference internal" href="#tsuids-endpoint"><span>TSUIDS Response</span></a></li>
+<li>/api/search/uidmeta - <a class="reference internal" href="#uidmeta-endpoint"><span>UIDMETA Response</span></a></li>
+<li>/api/search/annotation - <a class="reference internal" href="#annotation-endpoint"><span>Annotation Response</span></a></li>
 </ul>
 </div>
 <div class="section" id="verbs">
@@ -177,7 +177,7 @@
 <tr class="row-even"><td>startIndex</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>Used in combination with the <tt class="docutils literal"><span class="pre">limit</span></tt> value to page through results. Allowable values depends on the plugin. Ignored for lookups.</td>
+<td>Used in combination with the <code class="docutils literal"><span class="pre">limit</span></code> value to page through results. Allowable values depends on the plugin. Ignored for lookups.</td>
 <td>0</td>
 <td>start_index</td>
 <td>&nbsp;</td>
@@ -287,7 +287,7 @@
 </tr>
 </tbody>
 </table>
-<p>This endpoint will almost always return a <tt class="docutils literal"><span class="pre">200</span></tt> with content body. If the query doesn't match any results, the <tt class="docutils literal"><span class="pre">results</span></tt> field will be an empty array and <tt class="docutils literal"><span class="pre">totalResults</span></tt> will be 0. If an error occurs, such as the plugin being disabled or not configured, an exception will be returned.</p>
+<p>This endpoint will almost always return a <code class="docutils literal"><span class="pre">200</span></code> with content body. If the query doesn't match any results, the <code class="docutils literal"><span class="pre">results</span></code> field will be an empty array and <code class="docutils literal"><span class="pre">totalResults</span></code> will be 0. If an error occurs, such as the plugin being disabled or not configured, an exception will be returned.</p>
 </div>
 <div class="section" id="tsmeta-response">
 <span id="tsmeta-endpoint"></span><h2>TSMETA Response</h2>
@@ -544,7 +544,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -556,8 +556,8 @@
         <li class="right" >
           <a href="../query/last.html" title="/api/query/last"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

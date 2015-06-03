@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="uid.html" title="uid"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -75,7 +75,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="import.html"
                         title="next chapter">import</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -94,11 +94,11 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="mkmetric">
 <h1>mkmetric</h1>
-<p>mkmetric is a shortcut to the <tt class="docutils literal"><span class="pre">uid</span> <span class="pre">assign</span> <span class="pre">metrics</span> <span class="pre">&lt;metric&gt;</span></tt> command where you can provide multiple metric names in a single call and UIDs will be assigned or retrieved. If any of the metrics already exist, the assigned UID will be returned.</p>
+<p>mkmetric is a shortcut to the <code class="docutils literal"><span class="pre">uid</span> <span class="pre">assign</span> <span class="pre">metrics</span> <span class="pre">&lt;metric&gt;</span></code> command where you can provide multiple metric names in a single call and UIDs will be assigned or retrieved. If any of the metrics already exist, the assigned UID will be returned.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
 <div class="highlight-bash"><div class="highlight"><pre>mkmetric metric <span class="o">[</span>metrics<span class="o">]</span>
@@ -128,7 +128,7 @@ metrics sys.cpu.idle: <span class="o">[</span>0, 0, -59<span class="o">]</span>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -140,9 +140,9 @@ metrics sys.cpu.idle: <span class="o">[</span>0, 0, -59<span class="o">]</span>
         <li class="right" >
           <a href="uid.html" title="uid"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

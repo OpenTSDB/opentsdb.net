@@ -38,8 +38,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -48,10 +48,10 @@
         <li class="right" >
           <a href="development/http_api.html" title="HTTP API"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -70,7 +70,7 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="development/http_api.html"
                         title="previous chapter">HTTP API</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -89,7 +89,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="additional-resources">
 <h1>Additional Resources</h1>
@@ -103,8 +103,8 @@
 <div class="section" id="docker-images">
 <h2>Docker Images</h2>
 <ul class="simple">
-<li><a class="reference external" href="https://registry.hub.docker.com/u/petergrace/opentsdb-docker/">petergrace/opentsdb-docker</a> - A prebuilt Docker image with HBase and OpenTSDB already configured and ready to run!  If you have Docker installed, execute <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">petergrace/opentsdb-docker</span></tt> to create an opentsdb instance running on port 4242.</li>
-<li><a class="reference external" href="https://registry.hub.docker.com/u/opower/opentsdb/">opower/opentsdb</a> - A Docker image containing OpenTSDB, HBase, and tcollector. Comes in both 2.0.1 and 2.1 versions (latest defaults to 2.1). Execute <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opower/opentsdb</span></tt> to create an OpenTSDB instance running on port 4242.</li>
+<li><a class="reference external" href="https://registry.hub.docker.com/u/petergrace/opentsdb-docker/">petergrace/opentsdb-docker</a> - A prebuilt Docker image with HBase and OpenTSDB already configured and ready to run!  If you have Docker installed, execute <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">petergrace/opentsdb-docker</span></code> to create an opentsdb instance running on port 4242.</li>
+<li><a class="reference external" href="https://registry.hub.docker.com/u/opower/opentsdb/">opower/opentsdb</a> - A Docker image containing OpenTSDB, HBase, and tcollector. Comes in both 2.0.1 and 2.1 versions (latest defaults to 2.1). Execute <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opower/opentsdb</span></code> to create an OpenTSDB instance running on port 4242.</li>
 </ul>
 </div>
 <div class="section" id="front-ends">
@@ -121,8 +121,8 @@
 <div class="section" id="utilities">
 <h2>Utilities</h2>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/noca/opentsdbjsonproxy">opentsdbjsonproxy</a> - An HTTP proxy to convert 1.x ASCII output from the <tt class="docutils literal"><span class="pre">/q</span></tt> endpoint to JSON for use with High Charts or other libraries.</li>
-<li><a class="reference external" href="https://github.com/auxesis/collectd-opentsdb">Collectd-opentsdb</a> - A Collectd plugin to emmit stats to a TSD.</li>
+<li><a class="reference external" href="https://github.com/noca/opentsdbjsonproxy">opentsdbjsonproxy</a> - An HTTP proxy to convert 1.x ASCII output from the <code class="docutils literal"><span class="pre">/q</span></code> endpoint to JSON for use with High Charts or other libraries.</li>
+<li><a class="reference external" href="https://github.com/auxesis/collectd-opentsdb">Collectd-opentsdb</a> - A Collectd plugin to emit stats to a TSD.</li>
 <li><a class="reference external" href="https://github.com/dotcloud/collectd-opentsdb">Collectd-opentsdb Java</a> - A Collectd plugin to that uses the OpenTSDB Java API to push data to a TSD.</li>
 <li><cite>TSD_proxy</cite> &lt;<a class="reference external" href="https://github.com/aravind/tsd_proxy">https://github.com/aravind/tsd_proxy</a>&gt;`_ - A buffering write proxy for OpenTSDB and alternate DBs.</li>
 <li><a class="reference external" href="https://github.com/99designs/vacuumetrix">Vacuumetrix</a> - Utility to pull data from various cloud services or APIs and store the results in backends such as Graphite, Ganglia and OpenTSDB.</li>
@@ -177,7 +177,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -186,7 +186,7 @@
         <li class="right" >
           <a href="development/http_api.html" title="HTTP API"
              >previous</a> |</li>
-        <li><a href="index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,7 +1,7 @@
 tsddrain.py
 ===========
 
-This is a simple utility for consuming data points from collectors while a TSD, HBase or HDFS is underoing maintenance. The script should be run on the same port as a TSD and accepts data in the ``put`` Telnet style. Data points are then written directly to disk in a format that can be used with the :doc:`../cli/import` command once HBase is back up.
+This is a simple utility for consuming data points from collectors while a TSD, HBase or HDFS is undergoing maintenance. The script should be run on the same port as a TSD and accepts data in the ``put`` Telnet style. Data points are then written directly to disk in a format that can be used with the :doc:`../cli/import` command once HBase is back up.
 
 Parameters
 ^^^^^^^^^^
@@ -26,7 +26,7 @@ Example
 Results
 ^^^^^^^
 
-On succesfully binding to the default IPv4 address ``0.0.0.0`` and port it will simply print out the line below and start writing. When you're ready to resume using a TSD, simply kill the process.
+On successfully binding to the default IPv4 address ``0.0.0.0`` and port it will simply print out the line below and start writing. When you're ready to resume using a TSD, simply kill the process.
 
 .. code-block :: bash
 

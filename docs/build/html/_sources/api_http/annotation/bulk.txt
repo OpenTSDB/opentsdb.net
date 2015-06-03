@@ -4,7 +4,7 @@
 *NOTE: (Version 2.1)*
 The bulk endpoint enables adding, updating or deleting multiple annotations in a single call. Annotation updates must be sent over PUT or POST as content data. Query string requests are not supported for ``POST`` or ``GET``. Each annotation is processed individually and synchronized with the backend. If one of the annotations has an error, such as a missing field, an exception will be returned and some of the annotations may not be written to storage. In such an event, the errant annotation should be fixed and all annotations sent again.
 
-Annotations may also be deleted in bulk for a specified time span. If you supply a list of of one or more TSUIDs, annotations with a ``start time`` that falls within the specified timespan and belong to those TSUIDs will be removed. Alternatively the ``global`` flag can be set and any global annoations (those not associated with a time series) will be deleted within the range.
+Annotations may also be deleted in bulk for a specified time span. If you supply a list of of one or more TSUIDs, annotations with a ``start time`` that falls within the specified timespan and belong to those TSUIDs will be removed. Alternatively the ``global`` flag can be set and any global annotations (those not associated with a time series) will be deleted within the range.
 
 Verbs
 -----

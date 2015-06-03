@@ -1,7 +1,7 @@
 /api/tree
 =========
 
-Trees are meta data used to organize time series in a heirarchical structure for browsing similar to a typical file system. A number of endpoints under the ``/tree`` root allow working with various tree related data:
+Trees are meta data used to organize time series in a hierarchical structure for browsing similar to a typical file system. A number of endpoints under the ``/tree`` root allow working with various tree related data:
 
 Tree API Endpoints
 ------------------
@@ -16,7 +16,7 @@ Tree API Endpoints
    rules
    test
    
-The ``/tree`` endpoint allows for creating or modifying a tree definition. Tree definitions include configuration and meta data accessible via this endpoint, as well as the rule set accessiable via ``/tree/rule`` or ``/tree/rules``. 
+The ``/tree`` endpoint allows for creating or modifying a tree definition. Tree definitions include configuration and meta data accessible via this endpoint, as well as the rule set accessible via ``/tree/rule`` or ``/tree/rules``. 
 
 .. NOTE:: When creating a tree it will have the ``enabled`` field set to ``false`` by default. After creating a tree you should add rules then use the ``tree/test`` endpoint with a few TSUIDs to make sure the resulting tree will be what you expected. After you have verified the results, you can set the ``enabled`` field to ``true`` and new TSMeta objects or a tree synchronization will start to populate branches.
 
@@ -49,7 +49,7 @@ The following fields can be used for all tree endpoint requests:
 Response
 --------
 
-A successful response to a ``GET``, ``POST`` or ``PUT`` request will return tree objects with optinally requested changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a ``304`` without any body content. If the requested tree did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an ``400`` error will be returned.
+A successful response to a ``GET``, ``POST`` or ``PUT`` request will return tree objects with optionally requested changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a ``304`` without any body content. If the requested tree did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied an ``400`` error will be returned.
 
 All **Request** fields will be present in the response in addition to others:
 
@@ -278,11 +278,11 @@ Example Response
 DELETE
 ------
 
-Using the ``DELETE`` method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the ``defintion`` flag in the query string with a value of ``true`` and the tree and rule definitions will be removed as well.
+Using the ``DELETE`` method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the ``definition`` flag in the query string with a value of ``true`` and the tree and rule definitions will be removed as well.
 
 .. WARNING:: This method cannot be undone. Once executed, the purge will continue running unless the TSD is shutdown.
 
-.. NOTE:: Before executing a ``DELETE`` query, you should make sure that a manual tree syncronization is not running somehwere on your data. If it is, there may be some orphaned branches or leaves stored during the purge. Use the _____ CLi tool sometime after the delete to cleanup left over branches or leaves.
+.. NOTE:: Before executing a ``DELETE`` query, you should make sure that a manual tree synchronization is not running somewhere on your data. If it is, there may be some orphaned branches or leaves stored during the purge. Use the _____ CLI tool sometime after the delete to cleanup left over branches or leaves.
 
 Example DELETE Request
 ^^^^^^^^^^^^^^^^^^^^^^

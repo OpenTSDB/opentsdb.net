@@ -33,7 +33,7 @@ Where:
   * **metric** Is the name of the metric. Note that the metric name may not include spaces.
   * **timestamp** Is the absolute timestamp of the data point in seconds or milliseconds
   * **value** Is the value to store
-  * **tagk=tagv** Is a pair of one or more space sparate tag name and value pairs. Note that the tags may not have spaces in them.
+  * **tagk=tagv** Is a pair of one or more space separated tag name and value pairs. Note that the tags may not have spaces in them.
 
 Example:
 

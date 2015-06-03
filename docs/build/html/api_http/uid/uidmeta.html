@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="tsmeta.html" title="/api/uid/tsmeta"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/uid</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -84,7 +84,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="../version.html"
                         title="next chapter">/api/version</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -103,11 +103,11 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-uid-uidmeta">
 <h1>/api/uid/uidmeta</h1>
-<p>This endpoint enables editing or deleting UID meta data information, that is meta data associated with <em>metrics</em>, <em>tag names</em> and <em>tag values</em>. Some fields are set by the TSD but others can be set by the user. When using the <tt class="docutils literal"><span class="pre">POST</span></tt> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <tt class="docutils literal"><span class="pre">PUT</span></tt> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
+<p>This endpoint enables editing or deleting UID meta data information, that is meta data associated with <em>metrics</em>, <em>tag names</em> and <em>tag values</em>. Some fields are set by the TSD but others can be set by the user. When using the <code class="docutils literal"><span class="pre">POST</span></code> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <code class="docutils literal"><span class="pre">PUT</span></code> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Deleting a meta data entry will not delete the UID assignment nor will it delete any data points or associated timeseries information. Deletion only removes the specified meta data object, not the actual value. If you query for the same UID, you'll see the default meta data with empty fields.</p>
@@ -159,7 +159,7 @@
 <tr class="row-odd"><td>type</td>
 <td>String</td>
 <td>Required</td>
-<td>The type of UID, must be <tt class="docutils literal"><span class="pre">metric</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>The type of UID, must be <code class="docutils literal"><span class="pre">metric</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
 <td>&nbsp;</td>
 <td>type</td>
 <td>RO</td>
@@ -205,11 +205,11 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Custom fields cannot be passed via query string. You must use the <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> verbs.</p>
+<p class="last">Custom fields cannot be passed via query string. You must use the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> verbs.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+<p class="last">If your request uses <code class="docutils literal"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal"><span class="pre">description</span></code> field will be set to an empty string and the <code class="docutils literal"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal"><span class="pre">null</span></code>.</p>
 </div>
 <div class="section" id="example-get-request">
 <h3>Example GET Request</h3>
@@ -254,7 +254,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full UID meta data object with any given changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested UID did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
+<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full UID meta data object with any given changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested UID did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to a couple of others:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -311,7 +311,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -323,9 +323,9 @@
         <li class="right" >
           <a href="tsmeta.html" title="/api/uid/tsmeta"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/uid</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

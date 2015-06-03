@@ -23,7 +23,7 @@ The following fields can be used for all rule endpoint requests:
    :widths: 10, 5, 5, 45, 10, 5, 5, 15
    
    "treeId", "Integer", "Required", "The tree the requested rule belongs to", "", "treeid", "RO", "1"
-   "level", "Integer", "Required", "The level in the rule heirarchy where the rule resides. Must be 0 or greater.", "0", "level", "RW", "2"
+   "level", "Integer", "Required", "The level in the rule hierarchy where the rule resides. Must be 0 or greater.", "0", "level", "RW", "2"
    "order", "Integer", "Required", "The order within a level where the rule resides. Must be 0 or greater.", "0", "order", "RW", "1"
    "description", "String", "Optional", "A brief description of the rule's purpose", "", "description", "RW", "Split the metric by dot"
    "notes", "String", "Optional", "Detailed notes about the rule", "", "notes", "RW", ""
@@ -40,7 +40,7 @@ The following fields can be used for all rule endpoint requests:
 Response
 --------
 
-A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full rule object with optional requested changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a ``304`` without any body content. If the requested tree or rule did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied a ``400`` error will be returned.
+A successful response to a ``GET``, ``POST`` or ``PUT`` request will return the full rule object with optional requested changes. Successful ``DELETE`` calls will return with a ``204`` status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a ``304`` without any body content. If the requested tree or rule did not exist in the system, a ``404`` will be returned with an error message. If invalid data was supplied a ``400`` error will be returned.
 
 GET
 ---

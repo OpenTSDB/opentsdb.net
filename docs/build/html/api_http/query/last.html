@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="index.html" title="/api/query"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -85,7 +85,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="../search/index.html"
                         title="next chapter">/api/search</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -104,7 +104,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-query-last">
 <h1>/api/query/last</h1>
@@ -120,8 +120,8 @@
 </ul>
 <p>Additionally there are two ways to find the last data point for each time series located:</p>
 <ul class="simple">
-<li><strong>Counter Method</strong> - The default is to lookup the data point counter in the meta data table for each time series. This counter records the time when the latest data point was written by a TSD. The endpoint looks up the timestamp and scans the proper data row, fetching the last point in the row. This will work most of the time, however please be aware that if you backfill older data (via an import or simplly putting a data point with an old timestamp) the counter column timestamp may not be accurate. This method is best used for continously updated data.</li>
-<li><strong>Back Scan</strong> - Alternatively you can specify a number of hours to scan back in time starting at the current system time of the TSD where the query is being executed. For example, if you specify a back scan time of 24 hours, the TSD will first look for data in the row with the current hour. If that row is empty, it will look for data one hour before that. It will keep doing that until it finds a data point or it exceedes the hour limit. This method is useful if you often write data points out of order in time. Also note that the larger the backscan value, the longer it may take for queries to complete as they may scan further back in time for data.</li>
+<li><strong>Counter Method</strong> - The default is to lookup the data point counter in the meta data table for each time series. This counter records the time when the latest data point was written by a TSD. The endpoint looks up the timestamp and scans the proper data row, fetching the last point in the row. This will work most of the time, however please be aware that if you backfill older data (via an import or simply putting a data point with an old timestamp) the counter column timestamp may not be accurate. This method is best used for continuously updated data.</li>
+<li><strong>Back Scan</strong> - Alternatively you can specify a number of hours to scan back in time starting at the current system time of the TSD where the query is being executed. For example, if you specify a back scan time of 24 hours, the TSD will first look for data in the row with the current hour. If that row is empty, it will look for data one hour before that. It will keep doing that until it finds a data point or it exceeds the hour limit. This method is useful if you often write data points out of order in time. Also note that the larger the backscan value, the longer it may take for queries to complete as they may scan further back in time for data.</li>
 </ul>
 <p>All queries will return results only for time series that matched the query and for which a data point was found. The results are a list of individual data points per time series. Aggregation cannot be performed on individual data points as the timestamps may not align and the TSD will only return a single point so interpolation is impossible.</p>
 <div class="section" id="verbs">
@@ -237,7 +237,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output will be an array of 0 or more data points depending on the data that was found. If a data point for a particular time series was not located within the time specified, it will not appear in the output. Output fields depend on whether or not the <tt class="docutils literal"><span class="pre">resolve</span></tt> flag was set.</p>
+<p>The output will be an array of 0 or more data points depending on the data that was found. If a data point for a particular time series was not located within the time specified, it will not appear in the output. Output fields depend on whether or not the <code class="docutils literal"><span class="pre">resolve</span></code> flag was set.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -250,10 +250,10 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>metric</td>
-<td>Name of the metric for the time series. Only returned if <tt class="docutils literal"><span class="pre">resolve</span></tt> was set to true.</td>
+<td>Name of the metric for the time series. Only returned if <code class="docutils literal"><span class="pre">resolve</span></code> was set to true.</td>
 </tr>
 <tr class="row-odd"><td>tags</td>
-<td>A list of tags for the time series. Only returned if <tt class="docutils literal"><span class="pre">resolve</span></tt> was set to true.</td>
+<td>A list of tags for the time series. Only returned if <code class="docutils literal"><span class="pre">resolve</span></code> was set to true.</td>
 </tr>
 <tr class="row-even"><td>timestamp</td>
 <td>A Unix epoch timestamp, in milliseconds, when the data point was written</td>
@@ -266,7 +266,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 </tr>
 </tbody>
 </table>
-<p>Unless there was an error with the query, you will generally receive a <tt class="docutils literal"><span class="pre">200</span></tt> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
+<p>Unless there was an error with the query, you will generally receive a <code class="docutils literal"><span class="pre">200</span></code> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
 </pre></div>
 </div>
@@ -320,7 +320,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -332,9 +332,9 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
         <li class="right" >
           <a href="index.html" title="/api/query"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

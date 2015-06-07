@@ -7,26 +7,26 @@
     
     <title>/api/config &mdash; OpenTSDB 2.1 documentation</title>
     
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../index.html" />
-    <link rel="up" title="HTTP API" href="index.html" />
-    <link rel="next" title="/api/dropcaches" href="dropcaches.html" />
-    <link rel="prev" title="/api/annotation/bulk" href="annotation/bulk.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
-<link href="../_static/solarized-dark.css" rel="stylesheet">
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="up" title="HTTP API" href="../index.html" />
+    <link rel="next" title="/api/config/filters" href="filters.html" />
+    <link rel="prev" title="/api/annotation/bulk" href="../annotation/bulk.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-18339382-1']);
@@ -45,23 +45,24 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="dropcaches.html" title="/api/dropcaches"
+          <a href="filters.html" title="/api/config/filters"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="annotation/bulk.html" title="/api/annotation/bulk"
+          <a href="../annotation/bulk.html" title="/api/annotation/bulk"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/api/config</a><ul>
+<li><a class="reference internal" href="#conf-api-endpoints">Conf API Endpoints</a></li>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
 <li><a class="reference internal" href="#example-request">Example Request</a></li>
@@ -76,14 +77,14 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="annotation/bulk.html"
+  <p class="topless"><a href="../annotation/bulk.html"
                         title="previous chapter">/api/annotation/bulk</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="dropcaches.html"
-                        title="next chapter">/api/dropcaches</a></p>
+  <p class="topless"><a href="filters.html"
+                        title="next chapter">/api/config/filters</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -105,6 +106,14 @@
   <div class="section" id="api-config">
 <h1>/api/config</h1>
 <p>This endpoint returns information about the running configuration of the TSD. It is read only and cannot be used to set configuration options.</p>
+<div class="section" id="conf-api-endpoints">
+<h2>Conf API Endpoints</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">/api/config/filters</a></li>
+</ul>
+</div>
+</div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
@@ -186,16 +195,16 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="dropcaches.html" title="/api/dropcaches"
+          <a href="filters.html" title="/api/config/filters"
              >next</a> |</li>
         <li class="right" >
-          <a href="annotation/bulk.html" title="/api/annotation/bulk"
+          <a href="../annotation/bulk.html" title="/api/annotation/bulk"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

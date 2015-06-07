@@ -3,6 +3,15 @@
 
 This endpoint returns information about the running configuration of the TSD. It is read only and cannot be used to set configuration options.
 
+
+Conf API Endpoints
+------------------
+
+.. toctree::
+   :maxdepth: 1
+   
+   filters
+
 Verbs
 -----
 

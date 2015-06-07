@@ -196,7 +196,7 @@ API Endpoints
    s
    aggregators
    annotation/index
-   config
+   config/index
    dropcaches
    put
    query/index

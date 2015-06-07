@@ -57,7 +57,8 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
   "rate", "Boolean", "Optional", "Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continously incrementing counter and you want to view the rate of change between data points.", "false", "true"
   "rateOptions", "Map", "Optional", "Monotonically increasing counter handling options", "*See below*", "*See below*"
   "downsample", "String", "Optional", "An optional downsampling function to reduce the amount of data returned.", "", "5m-avg"
-  "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Note that if no tags are specified, all metrics in the system will be aggregated into the results.", "", "*See Below*"
+  "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. *Deprecated in 2.2*", "", "*See Below*"
+  "filters *(2.2)*", "List", "Optional", "Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.", "", "*See Below*"
 
 *Rate Options*
 
@@ -71,6 +72,35 @@ When passing rate options in a query string, the options must be enclosed in cur
   "counterMax", "Integer", "Optional", "A positive integer representing the maximum value for the counter.", "Java Long.MaxValue", "65535"
   "resetValue", "Integer", "Optional", "An optional value that, when exceeded, will cause the aggregator to return a ``0`` instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.", "0", "65000"
 
+*Filters*
+
+New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see :doc:`../config/filters`. For descriptions of the built-in filters see :doc:`../../user_guide/query/filters`. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are *ANDed* together e.g. if we have two filters ``host=literal_or(web01)`` and ``host=literal_or(web02)`` the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:
+
+.. csv-table::
+  :header: "Name", "Data Type", "Required", "Description", "Default", "Example"
+  :widths: 10, 10, 5, 50, 10, 15
+  
+  "type", "String", "Required", "The name of the filter to invoke. See :doc:`../config/filters`", "", "regexp"
+  "tagk", "String", "Required", "The tag key to invoke the filter on", "", "host"
+  "filter", "String", "Required", "The filter expression to evaluate and depends on the filter being used", "", "web.*.mysite.com"
+  "groupBy", "Boolean", "Optional", "Whether or not to group the results by each value matched by the filter. By default all values matching the filter will be aggregated into a single series.", "false", "true"
+
+For URI queries, the type precedes the filter expression in parentheses. The format is ``<tagk>=<type>(<filter_expression>)``. Whether or not results are grouped depends on which curly bracket the filter is in. Two curly braces are now supported per metric query. The first set is the *group by* filter and the second is a *non group by* filter, e.g. ``{host=web01}{colo=regexp(sjc.*)}. If you only want to filter without grouping then the first curly set must be empty, e.g. ``{}{host=web*}``
+
+.. NOTE:: Regular expression, wildcard filters with a pre/post/in-fix or literal ors with many values can cause queries to return slower as each row of data must be resolved to their string values then processed.
+
+*Filter Conversions*
+
+Values in the POST query ``tags`` map and the *group by* curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:
+
+.. csv-table::
+  :header: "Example", "Description"
+  :widths: 25, 75
+  
+  "``<tagk>=*``", "Wildcard filter, effectively makes sure the tag key is present in the series"
+  "``<tagk>=value``", "Case sensitive literal OR filter"
+  "``<tagk>=value1|value2|valueN``", "Case sensitive literal OR filter"
+  "``<tagk>=va*``", "Case insensitive wildcard filter. An asterisk (star) with any other strings now becomes a wildcard filter shortcut"
 
 Metric Query String Format
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -79,7 +109,7 @@ The full specification for a metric query string sub query is as follows:
 
 ::
 
-  m=<aggregator>:[rate[{counter[,<counter_max>[,<reset_value>]]]}:][<down_sampler>:]<metric_name>[{<tag_name1>=<tag_value1 &| grouping_operator>[,...<tag_nameN>=<tag_valueN &| grouping_operator>]}]
+  m=<aggregator>:[rate[{counter[,<counter_max>[,<reset_value>]]]}:][<down_sampler>:]<metric_name>[{<tag_name1>=<grouping filter>[,...<tag_nameN>=<grouping_filter>]}][{<tag_name1>=<non grouping filter>[,...<tag_nameN>=<non_grouping_filter>]}]
   
 It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see :doc:`../../user_guide/query/examples`.
 
@@ -130,7 +160,45 @@ Please see the serializer documentation for request information: :doc:`../serial
           }
       ]
   }
-   
+
+2.2 query with filters
+
+.. code-block :: javascript
+
+  {
+      "start": 1356998400,
+      "end": 1356998460,
+      "queries": [
+          {
+              "aggregator": "sum",
+              "metric": "sys.cpu.0",
+              "rate": "true",
+              "filters": [
+                  {
+                     "type":"wildcard",
+                     "tagk":"host",
+                     "filter":"*",
+                     "groupBy":true
+                  },
+                  {
+                     "type":"literal_or",
+                     "tagk":"dc",
+                     "filter":"lga|lga1|lga2",
+                     "groupBy":false
+                  },
+              ]
+          }, 
+          {
+              "aggregator": "sum",
+              "tsuids": [
+                  "000001000002000042",
+                  "000001000002000043"
+                ]
+              }
+          }
+      ]
+  }
+
 Response
 --------
    

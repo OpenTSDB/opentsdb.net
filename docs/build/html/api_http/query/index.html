@@ -285,7 +285,14 @@
 <tr class="row-odd"><td>tags</td>
 <td>Map</td>
 <td>Optional</td>
-<td>To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Note that if no tags are specified, all metrics in the system will be aggregated into the results.</td>
+<td>To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. <em>Deprecated in 2.2</em></td>
+<td>&nbsp;</td>
+<td><em>See Below</em></td>
+</tr>
+<tr class="row-even"><td>filters <em>(2.2)</em></td>
+<td>List</td>
+<td>Optional</td>
+<td>Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.</td>
 <td>&nbsp;</td>
 <td><em>See Below</em></td>
 </tr>
@@ -335,11 +342,94 @@
 </tr>
 </tbody>
 </table>
+<p><em>Filters</em></p>
+<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><em>Filters</em></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <tt class="docutils literal"><span class="pre">host=literal_or(web01)</span></tt> and <tt class="docutils literal"><span class="pre">host=literal_or(web02)</span></tt> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="5%" />
+<col width="50%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>String</td>
+<td>Required</td>
+<td>The name of the filter to invoke. See <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a></td>
+<td>&nbsp;</td>
+<td>regexp</td>
+</tr>
+<tr class="row-odd"><td>tagk</td>
+<td>String</td>
+<td>Required</td>
+<td>The tag key to invoke the filter on</td>
+<td>&nbsp;</td>
+<td>host</td>
+</tr>
+<tr class="row-even"><td>filter</td>
+<td>String</td>
+<td>Required</td>
+<td>The filter expression to evaluate and depends on the filter being used</td>
+<td>&nbsp;</td>
+<td>web.*.mysite.com</td>
+</tr>
+<tr class="row-odd"><td>groupBy</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to group the results by each value matched by the filter. By default all values matching the filter will be aggregated into a single series.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>For URI queries, the type precedes the filter expression in parentheses. The format is <tt class="docutils literal"><span class="pre">&lt;tagk&gt;=&lt;type&gt;(&lt;filter_expression&gt;)</span></tt>. Whether or not results are grouped depends on which curly bracket the filter is in. Two curly braces are now supported per metric query. The first set is the <em>group by</em> filter and the second is a <em>non group by</em> filter, e.g. <tt class="docutils literal"><span class="pre">{host=web01}{colo=regexp(sjc.*)}.</span> <span class="pre">If</span> <span class="pre">you</span> <span class="pre">only</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">filter</span> <span class="pre">without</span> <span class="pre">grouping</span> <span class="pre">then</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">curly</span> <span class="pre">set</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">empty,</span> <span class="pre">e.g.</span> <span class="pre">``{}{host=web*}</span></tt></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Regular expression, wildcard filters with a pre/post/in-fix or literal ors with many values can cause queries to return slower as each row of data must be resolved to their string values then processed.</p>
+</div>
+<p><em>Filter Conversions</em></p>
+<p>Values in the POST query <tt class="docutils literal"><span class="pre">tags</span></tt> map and the <em>group by</em> curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Example</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=*</span></tt></td>
+<td>Wildcard filter, effectively makes sure the tag key is present in the series</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=value</span></tt></td>
+<td>Case sensitive literal OR filter</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=value1|value2|valueN</span></tt></td>
+<td>Case sensitive literal OR filter</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=va*</span></tt></td>
+<td>Case insensitive wildcard filter. An asterisk (star) with any other strings now becomes a wildcard filter shortcut</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1 &amp;| grouping_operator&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN &amp;| grouping_operator&gt;]}]
+<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;grouping_filter&gt;]}][{&lt;tag_name1&gt;=&lt;non grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;non_grouping_filter&gt;]}]
 </pre></div>
 </div>
 <p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><em>Query Examples</em></a>.</p>
@@ -373,6 +463,42 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
                 <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
             <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="s2">&quot;000001000002000042&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;000001000002000043&quot;</span>
+              <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>2.2 query with filters</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="mi">1356998400</span><span class="p">,</span>
+    <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="mi">1356998460</span><span class="p">,</span>
+    <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                   <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;wildcard&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="s2">&quot;host&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;groupBy&quot;</span><span class="o">:</span><span class="kc">true</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                   <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;literal_or&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="s2">&quot;dc&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;lga|lga1|lga2&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;groupBy&quot;</span><span class="o">:</span><span class="kc">false</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>

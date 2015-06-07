@@ -52,10 +52,6 @@ Example Response
         "examples": "host=not_key()  {\"type\":\"not_key\",\"tagk\":\"host\",\"filter\":\"\",\"groupBy\":false}",
         "description": "Skips any time series with the given tag key, regardless of the value. This can be useful for situations where a metric has inconsistent tag sets. NOTE: The filter value must be null or an empty string."
     },
-    "librange": {
-        "examples": "host=librange(@manhattan_app.genesis-frontpage-yql.canary.production.manhattan.bf1.yahoo.com.physicalhost){\"type\":\"librange\",\"tagk\":\"host\",\"filter\":\"@manhattan_app.genesis-frontpage-yql.canary.production.manhattan.bf1.yahoo.com.physicalhost\",\"groupBy\":false}",
-        "description": "Accepts a role, resolves it to a set of hosts and match the tags against them."
-    },
     "iwildcard": {
         "examples": "host=iwildcard(web*),  host=iwildcard(web*.tsdb.net)  {\"type\":\"iwildcard\",\"tagk\":\"host\",\"filter\":\"web*.tsdb.net\",\"groupBy\":false}",
         "description": "Performs pre, post and in-fix glob matching of values. The globs are case insensitive and multiple wildcards can be used. The wildcard character is the * (asterisk). Case insensitivity is achieved by dropping all values to lower case. At least one wildcard must be present in the filter value. A wildcard by itself can be used as well to match on any value for the tag key."

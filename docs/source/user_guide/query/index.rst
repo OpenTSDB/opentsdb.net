@@ -7,6 +7,7 @@ OpenTSDB offers a number of means to extract data such as CLI tools, an HTTP API
    :maxdepth: 1
    
    dates
+   filters
    timeseries
    aggregators
    examples

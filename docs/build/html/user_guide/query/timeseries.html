@@ -124,7 +124,7 @@ put proc.loadavg.1min 1234567890 1.35 host=A
 <div class="section" id="your-first-plot">
 <h2>Your first plot</h2>
 <p>Now, let's revisit what we talked about here at the beginning. A time series is a series of datapoints of some particular metric (and its tags) over time. For this example, each host is sending two time series to the TSD. If you had 3 boxes each sending these two time series, TSD would be collecting and storing 6 time series. Now that you have the data, let's start plotting.</p>
-<p>To plot HTTP hits, you just go to the UI and enter <tt class="docutils literal"><span class="pre">http.hits</span></tt> as your metric name, and enter the time range. Check the &quot;Rate&quot; button since this particular metric is a rate counter, and voil?, you have a plot of the rate of HTTP hits to your web servers over time.</p>
+<p>To plot HTTP hits, you just go to the UI and enter <tt class="docutils literal"><span class="pre">http.hits</span></tt> as your metric name, and enter the time range. Check the &quot;Rate&quot; button since this particular metric is a rate counter, and voilà, you have a plot of the rate of HTTP hits to your web servers over time.</p>
 </div>
 <div class="section" id="aggregators">
 <h2>Aggregators</h2>
@@ -140,7 +140,7 @@ put proc.loadavg.1min 1234567890 1.35 host=A
 </div>
 <div class="section" id="adding-more-metrics">
 <h2>Adding More Metrics</h2>
-<p>So, now you have a plot of your web hits. How does that correlate against load average? On this same graph, click the &quot;+&quot; tab to add a new metric to this existing graph. Enter proc.loadavg.1min as your metric and click &quot;Right Axis&quot; so the Y axis is scaled separately and its labels on the right. Make sure &quot;Rate&quot; is unchecked, since load average is not a counter metric. Voil?! Now you can see how changes in the rate of web hits affects your system's load average.</p>
+<p>So, now you have a plot of your web hits. How does that correlate against load average? On this same graph, click the &quot;+&quot; tab to add a new metric to this existing graph. Enter proc.loadavg.1min as your metric and click &quot;Right Axis&quot; so the Y axis is scaled separately and its labels on the right. Make sure &quot;Rate&quot; is unchecked, since load average is not a counter metric. Voilà! Now you can see how changes in the rate of web hits affects your system's load average.</p>
 </div>
 <div class="section" id="getting-fancy">
 <h2>Getting Fancy</h2>

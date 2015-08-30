@@ -111,17 +111,17 @@
 <p>This endpoint (2.1 and later) provides support for accessing the latest value of individual time series. It provides an optimization over a regular query when only the last data point is required. Locating the last point can be done with the timestamp of the meta data counter or by scanning backwards from the current system time.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In order for this endpoint to function with metric string queries, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><em>Metadata</em></a>. Queries using TSUIDs can be executed without a meta data table using the back scan parameter.</p>
+<p class="last">In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><em>Metadata</em></a>. You must set either <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></tt> or <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></tt>. Queries with a backscan parameter will skip the meta table.</p>
 </div>
 <p>Similar to the standard query endpoint, there are two methods to use in selecting which time series should return data:</p>
 <ul class="simple">
-<li><strong>Metric Query</strong> - Similar to a regular metric query, you can send a metric name and optionally a set of tag pairs. The TSD will scan the meta data table to see if any time series match the query. For each time series that matches, it will scan for the latest data point and return it.</li>
+<li><strong>Metric Query</strong> - Similar to a regular metric query, you can send a metric name and optionally a set of tag pairs. If the real-time meta has been enabled, the TSD will scan the meta data table to see if any time series match the query. For each time series that matches, it will scan for the latest data point and return it. However if meta is disabled, then the TSD will attempt a lookup for the exact set of metric and tags provided as long as a backscan value is given (as of 2.1.1).</li>
 <li><strong>TSUID Query</strong> - If you know the TSUIDs for the time series that you want to access data for, simply provide a list of TSUIDs.</li>
 </ul>
 <p>Additionally there are two ways to find the last data point for each time series located:</p>
 <ul class="simple">
-<li><strong>Counter Method</strong> - The default is to lookup the data point counter in the meta data table for each time series. This counter records the time when the latest data point was written by a TSD. The endpoint looks up the timestamp and scans the proper data row, fetching the last point in the row. This will work most of the time, however please be aware that if you backfill older data (via an import or simplly putting a data point with an old timestamp) the counter column timestamp may not be accurate. This method is best used for continously updated data.</li>
-<li><strong>Back Scan</strong> - Alternatively you can specify a number of hours to scan back in time starting at the current system time of the TSD where the query is being executed. For example, if you specify a back scan time of 24 hours, the TSD will first look for data in the row with the current hour. If that row is empty, it will look for data one hour before that. It will keep doing that until it finds a data point or it exceedes the hour limit. This method is useful if you often write data points out of order in time. Also note that the larger the backscan value, the longer it may take for queries to complete as they may scan further back in time for data.</li>
+<li><strong>Counter Method</strong> - If no backscan value is given and meta is enabled, the default is to lookup the data point counter in the meta data table for each time series. This counter records the time when the latest data point was written by a TSD. The endpoint looks up the timestamp and &quot;gets&quot; the proper data row, fetching the last point in the row. This will work most of the time, however please be aware that if you backfill older data (via an import or simply putting a data point with an old timestamp) the counter column timestamp may not be accurate. This method is best used for continuously updated data.</li>
+<li><strong>Back Scan</strong> - Alternatively you can specify a number of hours to scan back in time starting at the current system time of the TSD where the query is being executed. For example, if you specify a back scan time of 24 hours, the TSD will first look for data in the row with the current hour. If that row is empty, it will look for data one hour before that. It will keep doing that until it finds a data point or it exceeds the hour limit. This method is useful if you often write data points out of order in time. Also note that the larger the backscan value, the longer it may take for queries to complete as they may scan further back in time for data.</li>
 </ul>
 <p>All queries will return results only for time series that matched the query and for which a data point was found. The results are a list of individual data points per time series. Aggregation cannot be performed on individual data points as the timestamps may not align and the TSD will only return a single point so interpolation is impossible.</p>
 <div class="section" id="verbs">
@@ -166,7 +166,7 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>resolve</td>
+<tr class="row-odd"><td>resolveNames</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to resolve the TSUIDs of results to their metric and tag names.</td>
@@ -193,7 +193,7 @@
 <div class="highlight-python"><div class="highlight"><pre>timeseries=&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN&gt;]}]
 </pre></div>
 </div>
-<p>It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators.</p>
+<p>It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators. Note that if you supply a backscan value to avoid the meta table, then you must supply at least one tag pair as TSDB requires all series to have at least one tag.</p>
 </div>
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>
@@ -228,7 +228,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">],</span>
-    <span class="s2">&quot;resolve&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;resolveNames&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
     <span class="s2">&quot;backScan&quot;</span><span class="o">:</span><span class="mi">24</span>
 <span class="p">}</span>
 </pre></div>

@@ -11,10 +11,17 @@ Currently in the "next" branch on Github.
 * Appends - Support writing all data points for an hour in a single column. This saves the need for TSD compactions and reduces network traffic at query time.
 * Salting - Enables greater distribution of writes for high cardinality metrics as well as asynchronous scanning for improved query speed. (Non backwards compatible)
 * Random Metric UIDs - Enables better distribution of writes when creating new metrics
-* Storage Exception Plugins - Enables various handling of data points when HBase is unavailable
+* Storage Exception Plugin - Enables various handling of data points when HBase is unavailable
 * Secure AsyncHBase - Access HBase clusters requiring Kerberos or simple authentication along with optional encryption.
 * Fill Policy - Enable emitting NaNs or Nulls via the JSON query endpoint when data points are "missing"
 * Count and Percentiles - New aggregator functions
+* More Stats - Gives greater insight into query performance via the query stats endpoint and new stats for threads, region clients and the JVM
+* Annotations - Scan for multiple annotations only via the /api/annotations endpoint
+* Query Filters - New filters for flexibility including case (in)sensitive literals, wildcards and regular expressions.
+* Override Tag Widths - You can now override tag widths in the config instead of having to recompile the code.
+* Compaction Tuning - New parameters allow for tuning the TSD compaction process.
+* Delete Data And UIDs - Allow for deleting data at query time as well as removing UIDs from the system.
+* Synchronous Writing - The HTTP Put API now supports synchronous writing to make sure data is flushed to HBase.
 
 2.1
 ---

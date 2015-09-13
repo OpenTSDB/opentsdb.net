@@ -232,6 +232,20 @@ documentation for details.</p>
 <td>300,000</td>
 <td>&nbsp;</td>
 </tr>
+<tr class="row-even"><td>tsd.core.storage_exception_handler.enable <em>(2.2)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable the configured storage exception handler plugin.</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.storage_exception_handler.plugin <em>(2.2)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>The full class name of the storage exception handler plugin you wish to use.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
 <tr class="row-even"><td>tsd.core.timezone</td>
 <td>String</td>
 <td>Optional</td>
@@ -262,32 +276,46 @@ E.g. /tmp/opentsdb</td>
 <td>&nbsp;</td>
 <td>--cachedir</td>
 </tr>
-<tr class="row-even"><td>tsd.http.request.cors_domains</td>
+<tr class="row-even"><td>tsd.http.query.allow_delete</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to allow deleting data points from storage during query time.</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.request.cors_domains</td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma separated list of domain names to allow access to OpenTSDB when the <tt class="docutils literal"><span class="pre">Origin</span></tt> header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard <tt class="docutils literal"><span class="pre">*</span></tt> and specific domains at the same time.</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.request.cors_headers <em>(2.1)</em></td>
+<tr class="row-even"><td>tsd.http.request.cors_headers <em>(2.1)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma separated list of headers sent to clients when executing a CORs request. The literal value of this option will be passed to clients.</td>
 <td>Authorization, Content-Type, Accept, Origin, User-Agent, DNT, Cache-Control, X-Mx-ReqToken, Keep-Alive, X-Requested-With, If-Modified-Since</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.request.enable_chunked</td>
+<tr class="row-odd"><td>tsd.http.request.enable_chunked</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable incoming chunk support for the HTTP RPC</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.request.max_chunk</td>
+<tr class="row-even"><td>tsd.http.request.max_chunk</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum request body size to support for incoming HTTP requests when chunking is enabled.</td>
 <td>4096</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.rpc.plugins <em>(2.2)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.</td>
+<td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>tsd.http.show_stack_trace</td>
@@ -376,6 +404,34 @@ E.g. 127.0.0.1</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
+<tr class="row-even"><td>tsd.query.allow_simultaneous_duplicates <em>(2.2)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to allow simultaneous duplicate queries from the same host. If disabled, a second query that comes in matching one already running will receive an exception.</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.query.filter.expansion_limit <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.</td>
+<td>4096</td>
+<td>1024</td>
+</tr>
+<tr class="row-even"><td>tsd.query.skip_unresolved_tagvs <em>(2.2)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to continue querying when the query includes a tag value that hasn't been assigned a UID yet and may not exist.</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.query.timeout <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>How long, in milliseconds, before canceling a running query. A value of 0 means queries will not timeout.</td>
+<td>0</td>
+<td>&nbsp;</td>
+</tr>
 <tr class="row-even"><td>tsd.rpc.plugins</td>
 <td>String</td>
 <td>Optional</td>
@@ -420,39 +476,81 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.enable_compaction</td>
+<tr class="row-even"><td>tsd.storage.compaction.flush_interval <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>How long, in seconds, to wait in between compaction queue flush calls</td>
+<td>10</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.compaction.flush_speed <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A multiplier used to determine how quickly to attempt flushing the compaction queue. E.g. a value of 2 means it will try to flush the entire queue within 30 minutes. A value of 1 would take an hour.</td>
+<td>2</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.compaction.max_concurrent_flushes <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The maximum number of compaction calls inflight to HBase at any given time</td>
+<td>10000</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.compaction.min_flush_threshold <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Size of the compaction queue that must be exceeded before flushing is triggered</td>
+<td>100</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.enable_appends <em>(2.2)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to append data to columns when writing data points instead of creating new columns for each value. Avoids the need for compactions after each hour but can use more resources on HBase.</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.enable_compaction</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable compactions</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.fix_duplicates <em>(2.1)</em></td>
+<tr class="row-even"><td>tsd.storage.fix_duplicates <em>(2.1)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to accept the last written value when parsing data points with duplicate timestamps. When enabled in conjunction with compactions, a compacted column will be written with the latest data points.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.flush_interval</td>
+<tr class="row-odd"><td>tsd.storage.flush_interval</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How often, in milliseconds, to flush the data point storage write buffer</td>
 <td>1000</td>
 <td>--flush-interval</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.data_table</td>
+<tr class="row-even"><td>tsd.storage.hbase.data_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where data points are stored</td>
 <td>tsdb</td>
 <td>--table</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.meta_table</td>
+<tr class="row-odd"><td>tsd.storage.hbase.meta_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where meta data are stored</td>
 <td>tsdb-meta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.hbase.prefetch_meta <em>(2.2)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to prefetch the regions for the TSDB tables before starting the network interface. This can improve performance.</td>
+<td>False</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.hbase.tree_table</td>
@@ -479,10 +577,51 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <tr class="row-even"><td>tsd.storage.hbase.zk_quorum</td>
 <td>String</td>
 <td>Optional</td>
-<td>A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers.
-E.g. <tt class="docutils literal"><span class="pre">192.168.1.1:2181,192.168.1.2:2181</span></tt></td>
+<td>A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers. E.g. <tt class="docutils literal"><span class="pre">192.168.1.1:2181,192.168.1.2:2181</span></tt></td>
 <td>localhost</td>
 <td>--zkquorum</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.repair_appends <em>(2.2)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to re-write appended data point columns at query time when the columns contain duplicate or out of order data.</td>
+<td>False</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.salt.buckets <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The number of salt buckets used to distribute load across regions. <strong>NOTE</strong> Changing this value after writing data may cause TSUID based queries to fail.</td>
+<td>20</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.salt.width <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The width, in bytes, of the salt prefix used to indicate which bucket a time series belongs in. A value of 0 means salting is disabled. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
+<td>0</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.uid.width.metric <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The width, in bytes, of metric UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
+<td>3</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.uid.width.tagk <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The width, in bytes, of tag name UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
+<td>3</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.uid.width.tagv <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The width, in bytes, of tag value UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
+<td>3</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>

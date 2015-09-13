@@ -83,6 +83,8 @@ If we want to query for the average CPU time across each server we can craft a q
 
 However if we have many web servers in the system, this could create a ton of results. To filter on only the hosts we want you can use the pipe operator to select a subset of time series. For example ``start=1356998400&m=avg:sys.cpu.user{host=webserver01|webserver03}`` will return results only for ``webserver01`` and ``webserver03``.
 
+With version 2.2 you can enable or disable grouping per tag filter. 
+
 Aggregation
 ^^^^^^^^^^^
 
@@ -111,6 +113,8 @@ Using down sampling we can cleanup the previous graph to arrive at something muc
 As of 2.1, downsampled timestamps are normalized based on the remainder of the original data point timestamp divided by the downsampling interval in milliseconds, i.e. the modulus. In Java the code is ``timestamp - (timestamp % interval_ms)``. For example, given a timestamp of ``1388550980000``, or ``1/1/2014 04:36:20 UTC`` and an hourly interval that equates to 3600000 milliseconds, the resulting timestamp will be rounded to ``1388548800000``. All data points between 4 and 5 UTC will wind up in the 4 AM bucket. If you query for a day's worth of data downsampling on 1 hour, you will receive 24 data points (assuming there is data for all 24 hours). 
 
 Normalization works very well for common queries such as a day's worth of data downsampled to 1 minute or 1 hour. However if you try to downsample on an odd interval, such as 36 minutes, then the timestamps may look a little strange due to the nature of the modulus calculation. Given an interval of 36 minutes and our example above, the interval would be ``2160000`` milliseconds and the resulting timestamp ``1388549520`` or ``04:12:00 UTC``. All data points between ``04:12`` and ``04:48`` would wind up in a single bucket. Also note that OpenTSDB cannot currently normalize on non-UTC times and it cannot normalize on weekly or monthly boundaries.
+
+With version 2.2 a downsampling query can emit a ``NaN`` or ``null`` when a downsample bucket is missing a value for all of the series involved. Because OpenTSDB does not allow for storing literal NaNs at this time, nor does it impose specific intervals on storage, this can be used to mimic systems that do such as RRDs.
 
 .. NOTE:: Previous to 2.1, timestamps were not normalized. The buckets were calculated based on the starting time of the first data point retreived for each series, then the series went through interpolation. This means a graph may show varying gaps between values and return more values than expected.
 

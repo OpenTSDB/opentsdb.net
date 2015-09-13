@@ -85,31 +85,35 @@
 <li><a class="reference internal" href="#rename">rename</a><ul>
 <li><a class="reference internal" href="#id7">Command Format</a></li>
 <li><a class="reference internal" href="#id8">Example Command</a></li>
-<li><a class="reference internal" href="#id9">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delete">delete</a><ul>
+<li><a class="reference internal" href="#id9">Command Format</a></li>
+<li><a class="reference internal" href="#id10">Example Command</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#fsck">fsck</a><ul>
-<li><a class="reference internal" href="#id10">Command Format</a></li>
-<li><a class="reference internal" href="#id11">Example Command</a></li>
-<li><a class="reference internal" href="#id12">Example Response</a></li>
+<li><a class="reference internal" href="#id11">Command Format</a></li>
+<li><a class="reference internal" href="#id12">Example Command</a></li>
+<li><a class="reference internal" href="#id13">Example Response</a></li>
 <li><a class="reference internal" href="#metasync">metasync</a></li>
-<li><a class="reference internal" href="#id13">Command Format</a></li>
-<li><a class="reference internal" href="#id14">Example Command</a></li>
+<li><a class="reference internal" href="#id14">Command Format</a></li>
+<li><a class="reference internal" href="#id15">Example Command</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#metapurge">metapurge</a><ul>
-<li><a class="reference internal" href="#id15">Command Format</a></li>
-<li><a class="reference internal" href="#id16">Example Command</a></li>
+<li><a class="reference internal" href="#id16">Command Format</a></li>
+<li><a class="reference internal" href="#id17">Example Command</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#treesync">treesync</a><ul>
-<li><a class="reference internal" href="#id17">Command Format</a></li>
-<li><a class="reference internal" href="#id18">Example Command</a></li>
+<li><a class="reference internal" href="#id18">Command Format</a></li>
+<li><a class="reference internal" href="#id19">Example Command</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#treepurge">treepurge</a><ul>
-<li><a class="reference internal" href="#id19">Command Format</a></li>
-<li><a class="reference internal" href="#id20">Example Command</a></li>
+<li><a class="reference internal" href="#id20">Command Format</a></li>
+<li><a class="reference internal" href="#id21">Example Command</a></li>
 </ul>
 </li>
 </ul>
@@ -330,8 +334,56 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="delete">
+<h2>delete</h2>
+<p>Removes the mapping of the UID from the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table. Make sure all sources are no longer writing data using the UID and that sufficient time has passed so that users would not query for data that used the UIDs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After deleting a UID, it may still remain in the caches of running TSD servers. Make sure to flush their caches after deleting an entry.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Deleting a UID will not delete the underlying data associated with the UIDs (we're working on that). For metrics this is safe, it won't affect queries. But for tag names and values, if a query scans over data containing the old UID, the query will fail with an exception because it can no longer find the name mapping.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID the name represent. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>String</td>
+<td>The existing UID name</td>
+<td>owner</td>
+</tr>
+</tbody>
+</table>
 <div class="section" id="id9">
-<h3>Example Response</h3>
+<h3>Command Format</h3>
+<div class="highlight-python"><div class="highlight"><pre>delete &lt;kind&gt; &lt;name&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>Example Command</h3>
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid delete disk.d0
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="fsck">
@@ -393,19 +445,19 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <li>fix - Attempts to fix errors per the table above</li>
 <li>delete_unknown - Removes any columns in the UID table that do not belong to OpenTSDB</li>
 </ul>
-<div class="section" id="id10">
+<div class="section" id="id11">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">fsck</span> <span class="p">[</span><span class="n">fix</span><span class="p">]</span> <span class="p">[</span><span class="n">delete_unknown</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id11">
+<div class="section" id="id12">
 <h3>Example Command</h3>
 <div class="highlight-python"><div class="highlight"><pre>./tsdb uid fsck fix
 </pre></div>
 </div>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id13">
 <h3>Example Response</h3>
 <div class="highlight-python"><div class="highlight"><pre>INFO  [main] UidManager: ----------------------------------
 INFO  [main] UidManager: -    Running fsck in FIX mode    -
@@ -429,13 +481,13 @@ WARN  [main] UidManager: 2 errors found.
 <p>This command will run through the entire data table, scanning each row of timeseries data and generate missing TSMeta objects and UIDMeta objects or update the created timestamps for each object type if necessary. Use this command after enabling meta tracking with existing data or if you suspect that some timeseries may not have been indexed properly. The command will also push new or updated meta entries to a search engine if a plugin has been configured. If existing meta is corrupted, meaning the TSD is unable to deserialize the object, it will be replaced with a new entry.</p>
 <p>It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.</p>
 </div>
-<div class="section" id="id13">
+<div class="section" id="id14">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">metasync</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id14">
+<div class="section" id="id15">
 <h3>Example Command</h3>
 <div class="highlight-python"><div class="highlight"><pre>./tsdb uid metasync
 </pre></div>
@@ -445,13 +497,13 @@ WARN  [main] UidManager: 2 errors found.
 <div class="section" id="metapurge">
 <h2>metapurge</h2>
 <p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <tt class="docutils literal"><span class="pre">metasync</span></tt>.</p>
-<div class="section" id="id15">
+<div class="section" id="id16">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">metapurge</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id16">
+<div class="section" id="id17">
 <h3>Example Command</h3>
 <div class="highlight-python"><div class="highlight"><pre>./tsdb uid metapurge
 </pre></div>
@@ -461,13 +513,13 @@ WARN  [main] UidManager: 2 errors found.
 <div class="section" id="treesync">
 <h2>treesync</h2>
 <p>Runs through the list of TSMeta objects in the UID table and processes each through all configured and enabled trees to compile branches. This command may be run at any time and will not affect existing objects.</p>
-<div class="section" id="id17">
+<div class="section" id="id18">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">treesync</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id18">
+<div class="section" id="id19">
 <h3>Example Command</h3>
 <div class="highlight-python"><div class="highlight"><pre>./tsdb uid treesync
 </pre></div>
@@ -504,13 +556,13 @@ WARN  [main] UidManager: 2 errors found.
 </tr>
 </tbody>
 </table>
-<div class="section" id="id19">
+<div class="section" id="id20">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">treepurge</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">definition</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id20">
+<div class="section" id="id21">
 <h3>Example Command</h3>
 <div class="highlight-python"><div class="highlight"><pre>./tsdb uid treepurge 1
 </pre></div>

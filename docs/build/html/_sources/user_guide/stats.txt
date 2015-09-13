@@ -33,6 +33,7 @@ All stats include a ``host`` tag that includes the name of the host where the TS
    "tsd.rpc.errors", "type=hbase_errors", "Counter", "The total number of RPC errors caused by HBase exceptions"
    "tsd.rpc.errors", "type=invalid_values", "Counter", "The total number of RPC errors caused invalid ``put`` values from user requests, such as a string instead of a number"
    "tsd.rpc.errors", "type=illegal_arguments", "Counter", "The total number of RPC errors caused by bad data from the user"
+   "tsd.rpc.errors", "type=socket_writes_blocked", "Counter", "The total number of times the TSD was unable to write back to the telnet socket due to a full buffer. If this happens it likely means a number of exceptions were happening."
    "tsd.rpc.errors", "type=unknown_metrics", "Counter", "The total number of RPC errors caused by attempts to ``put`` a metric without an assigned UID. This only increments if *auto metrics* is disabled."
    "tsd.uid.cache-hit", "kind=metrics", "Counter", "The total number of successful cache lookups for metric UIDs"
    "tsd.uid.cache-miss", "kind=metrics", "Counter", "The total number of failed cache lookups for metric UIDs that required a call to storage"

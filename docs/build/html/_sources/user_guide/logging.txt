@@ -55,7 +55,7 @@ Appenders are destinations where logging information is sent. Typically logging 
 Loggers
 -------
 
-Loggers determine what data and what level of data is routed to the appenders. Loggers can match a particular Java class namespace and affect all messages emitted from that space. The default OpenTSDB config explicitly lists some loggers for Zookeeper, Asyncbase and the Async libraries to set their levels to ``INFO`` so as to avoid chatty outputs that are not relevant most of the time. If you enable a plugin and start seeing a lot of messages that you don't care about, add a logger entry to suppress the messages.
+Loggers determine what data and what level of data is routed to the appenders. Loggers can match a particular Java class namespace and affect all messages emitted from that space. The default OpenTSDB config explicitly lists some loggers for Zookeeper, AsyncHBase and the Async libraries to set their levels to ``INFO`` so as to avoid chatty outputs that are not relevant most of the time. If you enable a plugin and start seeing a lot of messages that you don't care about, add a logger entry to suppress the messages.
 
 Root
 ----

@@ -160,6 +160,10 @@ For example:
  
 Each ``put`` can only send a single data point. Don't forget the newline character, e.g. ``\n`` at the end of your command.
 
+.. NOTE:: 
+
+  The Telnet method of writing is discouraged as it doesn't provide a way of determining which data points failed to write due to formatting or storage errors. Instead use the HTTP API.
+  
 Http API
 --------
 
@@ -200,7 +204,16 @@ In 2.2 salting is supported to greatly increase write distribution across region
 
 .. WARNING:: Because salting modifies the storage format, you cannot enable or disable salting at whim. If you have existing data, you must start a new data table and migrate data from the old table into the new one. Salted data cannot be read from previous versions of OpenTSDB.
 
-To enable salting you must recompile OpenTSDB after modifying the ``SALT_WIDTH`` and ``SALT_BUCKETS`` variables in the ``src/core/Const.java`` file. We recommend setting the salt width to ``1`` and determine the number of buckets based on a factor of the number of region servers in your cluster. Note that at query time, the TSD will fire ``SALT_BUCKETS`` number of scanners to fetch data. The proper number of salt buckets must be determined through experimentation as at some point query performance may suffer due to having too many scanners open and collating the results. In the future the salt width and buckets may be configurable but we didn't want folks changing settings on accident and losing data.
+To enable salting you must modify the config file parameter ``tsd.storage.salt.width`` and optionally ``tsd.storage.salt.buckets``. We recommend setting the salt width to ``1`` and determine the number of buckets based on a factor of the number of region servers in your cluster. Note that at query time, the TSD will fire ``tsd.storage.salt.buckets`` number of scanners to fetch data. The proper number of salt buckets must be determined through experimentation as at some point query performance may suffer due to having too many scanners open and collating the results. In the future the salt width and buckets may be configurable but we didn't want folks changing settings on accident and losing data.
+
+Appends
+-------
+
+Also in 2.2, writing to HBase columns via appends is now supported. This can improve both read and write performance in that TSDs will no longer maintain a queue of rows to compact at the end of each hour, thus preventing a massive read and re-write operation in HBase. However due to the way appends operate in HBase, an increase in CPU utilization, store file size and HDFS traffic will occur on the region servers. Make sure to monitor your HBase servers closely.
+
+At read time, only one column is returned per row similar to post-TSD-compaction rows. However note that if the ``tsd.storage.repair_appends`` is enabled, then when a column has duplicates or out of order data, it will be re-written to HBase. Also columns with many duplicates or ordering issues may slow queries as they must be resolved before answering the caller.
+
+Appends can be enabled and disabled at any time. However versions of OpenTSDB prior to 2.2 will skip over appended values.
 
 Pre-Split HBase Regions
 -----------------------

@@ -202,7 +202,7 @@ API Endpoints
    query/index
    search/index
    serializers
-   stats
+   stats/index
    suggest
    tree/index
    uid/index

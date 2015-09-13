@@ -119,13 +119,18 @@
 <li class="toctree-l1"><a class="reference internal" href="last.html">/api/query/last</a></li>
 </ul>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">/query</span></tt> endpoint is documented below.</p>
+<p>The <tt class="docutils literal"><span class="pre">/query</span></tt> endpoint is documented below. As of 2.2 data matching a query can be deleted by using the <tt class="docutils literal"><span class="pre">DELETE</span></tt> verb. The configuration parameter <tt class="docutils literal"><span class="pre">tsd.http.query.allow_delete</span></tt> must be enabled to allow deletions. Data that is deleted will be returned in the query results. Executing the query a second time should return empty results.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Deleting data is permanent. Also beware that when deleting, some data outside the boundaries of the start and end times may be deleted as data is stored on an hourly basis.</p>
+</div>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
 <li>GET</li>
 <li>POST</li>
+<li>DELETE</li>
 </ul>
 </div>
 <div class="section" id="requests">
@@ -264,7 +269,7 @@
 <tr class="row-even"><td>rate</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continously incrementing counter and you want to view the rate of change between data points.</td>
+<td>Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continuously incrementing counter and you want to view the rate of change between data points.</td>
 <td>false</td>
 <td>true</td>
 </tr>
@@ -529,7 +534,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>metric</td>
-<td>Name of the metric retreived for the time series</td>
+<td>Name of the metric retrieved for the time series</td>
 </tr>
 <tr class="row-odd"><td>tags</td>
 <td>A list of tags only returned when the results are for a single time series. If results are aggregated, this value may be null or an empty map</td>

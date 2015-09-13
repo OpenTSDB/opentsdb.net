@@ -46,7 +46,7 @@ If HBase is running, you can choose to install OpenTSDB from a package (availabl
 Compiling From Source
 ---------------------
 
-Complication requirements include:
+Compilation requirements include:
 
 * A Linux system
 * Java Development Kit 1.6 or later
@@ -121,7 +121,7 @@ OpenTSDB |version| works off a configuration file that is shared between the dae
 With the config file written, you can start a tsd with the command::
 
   ./build/tsdb tsd
-  
+
 Alternatively, you can also use the following commands to create a temporary directory and pass in only command line flags::
 
   tsdtmp=${TMPDIR-'/tmp'}/tsd    # For best performance, make sure
@@ -140,16 +140,16 @@ Upgrading from 1.x
 OpenTSDB |version| is fully backwards compatible with 1.x data. We've taken great pains to make sure you can download |version|, compile, stop your old TSD and start the new one. Your existing tools will read and write to the TSD without a problem. |version| introduces two new tables to HBase schema for storing meta-data. From the directory where you downloaded the source (or the tools directory if installed with the Debian package), execute::
 
   env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/upgrade_1to2.sh
-  
-where ``COMPRESSION`` is the same as your existing production table compression format. 
+
+where ``COMPRESSION`` is the same as your existing production table compression format.
 
 While you can start a |version| TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at ``./src/opentsdb.conf``. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See :doc:`user_guide/configuration` for details.
 
-You do not have to upgrade all of your TSDs to |version| at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs. 
+You do not have to upgrade all of your TSDs to |version| at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.
 
 If you do perform a rolling upgrade where you have multiple TSDs, heed the following warning:
 
-.. WARNING:: Do not write **Annotations** or **Data point with Millisecond Timestamps** while you run a mixture of 1.x and 2.x. Because these data are stored in the same rows as regular data points, they can affect compactions and queries. 
+.. WARNING:: Do not write **Annotations** or **Data point with Millisecond Timestamps** while you run a mixture of 1.x and 2.x. Because these data are stored in the same rows as regular data points, they can affect compactions and queries.
 
 Before upgrading to 2.x, you may want to upgrade all of your TSDs to OpenTSDB 1.2. This release is fully forwards compatible in that it will ignore annotations and millisecond timestamps and operate as expected. With 1.2 running, if you accidentally record an annotation or millisecond data point, your 1.2 TSDs will operate normally.
 

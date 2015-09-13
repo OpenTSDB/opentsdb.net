@@ -1,8 +1,15 @@
 /api/stats
 ==========
 
-This endpoint provides a list of statistics for the running TSD. These statistics are automatically recorded by a running TSD every 5 minutes but may be accessed via this endpoint. All statistics are read only.
+This endpoint provides a list of statistics for the running TSD. Sub endpoints return details about other TSD components such as the JVM, thread states or storage client. All statistics are read only.
 
+.. toctree::
+   :maxdepth: 1
+   
+   threads
+   jvm
+   region_clients
+   
 Verbs
 -----
 

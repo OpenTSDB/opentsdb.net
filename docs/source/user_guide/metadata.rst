@@ -12,7 +12,7 @@ a ``tagk`` or tag name, and a ``tagv`` or tag value. When a new name for one
 of these UIDs comes into the system, a Unique ID is assigned so that there is
 always a UID name and numeric identifier pair.
 
-Each UID may also have a metadata entry recorded in the ``tsdb-uid`` table. Data available for each UID includes immutable fields such as the ``uid``, ``type``, ``name`` and ``created`` timestamp that reflects the time when the UID was first assigned. Additionaly some fields may be edited such as the ``description``, ``notes``, ``displayName`` and a set of ``custom`` key/value pairs to record extra information. For details on the fields, see the :doc:`../api_http/uid/uidmeta` endpoint.
+Each UID may also have a metadata entry recorded in the ``tsdb-uid`` table. Data available for each UID includes immutable fields such as the ``uid``, ``type``, ``name`` and ``created`` timestamp that reflects the time when the UID was first assigned. Additionally some fields may be edited such as the ``description``, ``notes``, ``displayName`` and a set of ``custom`` key/value pairs to record extra information. For details on the fields, see the :doc:`../api_http/uid/uidmeta` endpoint.
 
 Whenever a new UIDMeta object is created or modified, it will be pushed to the Search plugin if a plugin has been configured and loaded. For information about UID values, see :doc:`uids`.
 
@@ -43,7 +43,7 @@ Annotations
 
 Another form of metadata is the *annotation*. Annotations are simple objects associated with a timestamp and, optionally, a timeseries. Annotations are meant to be a very basic means of recording an event. They are not intended as an event management or issue tracking system. Rather they can be used to link a timeseries to such an external system.
 
-Every annotation is associated with a start timestamp. This determines where the note is stored in the backend and may be the start of an event with a beggining and end, or just used to record a note at a specific point in time. Optionally an end timestamp can be set if the note represents a time span, such as an issue that was resolved some time after the start.
+Every annotation is associated with a start timestamp. This determines where the note is stored in the backend and may be the start of an event with a beginning and end, or just used to record a note at a specific point in time. Optionally an end timestamp can be set if the note represents a time span, such as an issue that was resolved some time after the start.
 
 Additionally, an annotation is defined by a TSUID. If the TSUID field is set to a valid TSUID, the annotation will be stored, and associated, along with the data points for the timeseries defined by the ID. This means that when creating a query for data points, any annotations stored within the requested timespan will be retrieved and optionally returned to the user. These annotations are considered "local".
 

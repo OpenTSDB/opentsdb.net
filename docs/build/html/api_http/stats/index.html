@@ -7,26 +7,26 @@
     
     <title>/api/stats &mdash; OpenTSDB 2.1 documentation</title>
     
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../index.html" />
-    <link rel="up" title="HTTP API" href="index.html" />
-    <link rel="next" title="/api/suggest" href="suggest.html" />
-    <link rel="prev" title="/api/serializers" href="serializers.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
-<link href="../_static/solarized-dark.css" rel="stylesheet">
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="up" title="HTTP API" href="../index.html" />
+    <link rel="next" title="/api/stats/threads" href="threads.html" />
+    <link rel="prev" title="/api/serializers" href="../serializers.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-18339382-1']);
@@ -45,21 +45,21 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="suggest.html" title="/api/suggest"
+          <a href="threads.html" title="/api/stats/threads"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="serializers.html" title="/api/serializers"
+          <a href="../serializers.html" title="/api/serializers"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/api/stats</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
@@ -76,14 +76,14 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="serializers.html"
+  <p class="topless"><a href="../serializers.html"
                         title="previous chapter">/api/serializers</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="suggest.html"
-                        title="next chapter">/api/suggest</a></p>
+  <p class="topless"><a href="threads.html"
+                        title="next chapter">/api/stats/threads</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -104,7 +104,13 @@
             
   <div class="section" id="api-stats">
 <h1>/api/stats</h1>
-<p>This endpoint provides a list of statistics for the running TSD. These statistics are automatically recorded by a running TSD every 5 minutes but may be accessed via this endpoint. All statistics are read only.</p>
+<p>This endpoint provides a list of statistics for the running TSD. Sub endpoints return details about other TSD components such as the JVM, thread states or storage client. All statistics are read only.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="threads.html">/api/stats/threads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jvm.html">/api/stats/jvm</a></li>
+</ul>
+</div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
@@ -208,16 +214,16 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="suggest.html" title="/api/suggest"
+          <a href="threads.html" title="/api/stats/threads"
              >next</a> |</li>
         <li class="right" >
-          <a href="serializers.html" title="/api/serializers"
+          <a href="../serializers.html" title="/api/serializers"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

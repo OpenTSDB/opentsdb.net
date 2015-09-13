@@ -11,13 +11,16 @@ Query API Endpoints
    
    last
 
-The ``/query`` endpoint is documented below.
+The ``/query`` endpoint is documented below. As of 2.2 data matching a query can be deleted by using the ``DELETE`` verb. The configuration parameter ``tsd.http.query.allow_delete`` must be enabled to allow deletions. Data that is deleted will be returned in the query results. Executing the query a second time should return empty results.
+
+.. WARNING:: Deleting data is permanent. Also beware that when deleting, some data outside the boundaries of the start and end times may be deleted as data is stored on an hourly basis.
 
 Verbs
 -----
 
 * GET
 * POST
+* DELETE
 
 Requests
 --------
@@ -54,7 +57,7 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
   
   "aggregator", "String", "Required", "The name of an aggregation function to use. See :doc:`../aggregators`", "", "sum"
   "metric", "String", "Required", "The name of a metric stored in the system", "", "sys.cpu.0"
-  "rate", "Boolean", "Optional", "Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continously incrementing counter and you want to view the rate of change between data points.", "false", "true"
+  "rate", "Boolean", "Optional", "Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continuously incrementing counter and you want to view the rate of change between data points.", "false", "true"
   "rateOptions", "Map", "Optional", "Monotonically increasing counter handling options", "*See below*", "*See below*"
   "downsample", "String", "Optional", "An optional downsampling function to reduce the amount of data returned.", "", "5m-avg"
   "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. *Deprecated in 2.2*", "", "*See Below*"
@@ -208,7 +211,7 @@ The output generated for a query depends heavily on the chosen serializer :doc:`
   :header: "Name", "Description"
   :widths: 20, 80
   
-  "metric", "Name of the metric retreived for the time series"
+  "metric", "Name of the metric retrieved for the time series"
   "tags", "A list of tags only returned when the results are for a single time series. If results are aggregated, this value may be null or an empty map"
   "aggregatedTags", "If more than one timeseries were included in the result set, i.e. they were aggregated, this will display a list of tag names that were found in common across all time series."
   "dps", "Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by the serializer."

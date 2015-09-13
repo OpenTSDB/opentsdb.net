@@ -140,7 +140,7 @@
 </div>
 <div class="section" id="serializers">
 <h2>Serializers</h2>
-<p>The HTTP API provides a plugin interface for serializing and deserializing data in formats other than the default JSON formats. These plugins do not require a plugin name or enable flag in the configuraiton file. Instead simply drop the plugin in the plugin directory and it will be loaded when the TSD is launched. More than one serializer plugin can be loaded on startup. Serializer plugins may require configuration properties, so check the documentation before using them.</p>
+<p>The HTTP API provides a plugin interface for serializing and deserializing data in formats other than the default JSON formats. These plugins do not require a plugin name or enable flag in the configuration file. Instead simply drop the plugin in the plugin directory and it will be loaded when the TSD is launched. More than one serializer plugin can be loaded on startup. Serializer plugins may require configuration properties, so check the documentation before using them.</p>
 <div class="section" id="id1">
 <h3>Plugins</h3>
 <p>No implementations, aside from the default, at this time.</p>
@@ -169,7 +169,7 @@
 </div>
 <div class="section" id="rpc">
 <h2>RPC</h2>
-<p>Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the <tt class="docutils literal"><span class="pre">tsd.rpc.plugins</span></tt> configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.</p>
+<p>Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the <tt class="docutils literal"><span class="pre">tsd.rpc.plugins</span></tt> or <cite>tsd.http.rpc.plugins`</cite> configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.</p>
 <div class="section" id="id4">
 <h3>Plugins</h3>
 <p>No implementations at this time.</p>

@@ -135,8 +135,33 @@ Example Command
 
   ./tsdb uid rename disk.d0 disk.d0.bytes_read
 
-Example Response
-----------------
+delete
+^^^^^^
+
+Removes the mapping of the UID from the ``tsdb-uid`` table. Make sure all sources are no longer writing data using the UID and that sufficient time has passed so that users would not query for data that used the UIDs.
+
+.. NOTE:: After deleting a UID, it may still remain in the caches of running TSD servers. Make sure to flush their caches after deleting an entry.
+
+.. WARNING:: Deleting a UID will not delete the underlying data associated with the UIDs (we're working on that). For metrics this is safe, it won't affect queries. But for tag names and values, if a query scans over data containing the old UID, the query will fail with an exception because it can no longer find the name mapping.
+
+.. csv-table::
+   :header: "Name", "Data Type", "Description", "Example"
+   :widths: 10, 10, 60, 20
+   
+   "kind", "String", "The type of the UID the name represent. Must be one of ``metrics``, ``tagk`` or ``tagv``", "tagk"
+   "name", "String", "The existing UID name", "owner"
+   
+Command Format
+--------------
+::
+
+  delete <kind> <name>
+
+Example Command
+---------------
+::
+
+  ./tsdb uid delete disk.d0
 
 fsck
 ^^^^

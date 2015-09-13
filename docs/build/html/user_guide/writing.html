@@ -87,6 +87,7 @@
 <li><a class="reference internal" href="#uid-assignment">UID Assignment</a></li>
 <li><a class="reference internal" href="#random-metric-uid-assignment">Random Metric UID Assignment</a></li>
 <li><a class="reference internal" href="#salting">Salting</a></li>
+<li><a class="reference internal" href="#appends">Appends</a></li>
 <li><a class="reference internal" href="#pre-split-hbase-regions">Pre-Split HBase Regions</a></li>
 <li><a class="reference internal" href="#distributed-hbase">Distributed HBase</a></li>
 <li><a class="reference internal" href="#multiple-tsds">Multiple TSDs</a></li>
@@ -261,6 +262,10 @@ sys.cpu.user host=webserver01,cpu=63 1356998400  1
 </pre></div>
 </div>
 <p>Each <tt class="docutils literal"><span class="pre">put</span></tt> can only send a single data point. Don't forget the newline character, e.g. <tt class="docutils literal"><span class="pre">\n</span></tt> at the end of your command.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Telnet method of writing is discouraged as it doesn't provide a way of determining which data points failed to write due to formatting or storage errors. Instead use the HTTP API.</p>
+</div>
 </div>
 <div class="section" id="http-api">
 <h3>Http API</h3>
@@ -296,7 +301,13 @@ sys.cpu.user host=webserver01,cpu=63 1356998400  1
 <p class="first admonition-title">Warning</p>
 <p class="last">Because salting modifies the storage format, you cannot enable or disable salting at whim. If you have existing data, you must start a new data table and migrate data from the old table into the new one. Salted data cannot be read from previous versions of OpenTSDB.</p>
 </div>
-<p>To enable salting you must recompile OpenTSDB after modifying the <tt class="docutils literal"><span class="pre">SALT_WIDTH</span></tt> and <tt class="docutils literal"><span class="pre">SALT_BUCKETS</span></tt> variables in the <tt class="docutils literal"><span class="pre">src/core/Const.java</span></tt> file. We recommend setting the salt width to <tt class="docutils literal"><span class="pre">1</span></tt> and determine the number of buckets based on a factor of the number of region servers in your cluster. Note that at query time, the TSD will fire <tt class="docutils literal"><span class="pre">SALT_BUCKETS</span></tt> number of scanners to fetch data. The proper number of salt buckets must be determined through experimentation as at some point query performance may suffer due to having too many scanners open and collating the results. In the future the salt width and buckets may be configurable but we didn't want folks changing settings on accident and losing data.</p>
+<p>To enable salting you must modify the config file parameter <tt class="docutils literal"><span class="pre">tsd.storage.salt.width</span></tt> and optionally <tt class="docutils literal"><span class="pre">tsd.storage.salt.buckets</span></tt>. We recommend setting the salt width to <tt class="docutils literal"><span class="pre">1</span></tt> and determine the number of buckets based on a factor of the number of region servers in your cluster. Note that at query time, the TSD will fire <tt class="docutils literal"><span class="pre">tsd.storage.salt.buckets</span></tt> number of scanners to fetch data. The proper number of salt buckets must be determined through experimentation as at some point query performance may suffer due to having too many scanners open and collating the results. In the future the salt width and buckets may be configurable but we didn't want folks changing settings on accident and losing data.</p>
+</div>
+<div class="section" id="appends">
+<h3>Appends</h3>
+<p>Also in 2.2, writing to HBase columns via appends is now supported. This can improve both read and write performance in that TSDs will no longer maintain a queue of rows to compact at the end of each hour, thus preventing a massive read and re-write operation in HBase. However due to the way appends operate in HBase, an increase in CPU utilization, store file size and HDFS traffic will occur on the region servers. Make sure to monitor your HBase servers closely.</p>
+<p>At read time, only one column is returned per row similar to post-TSD-compaction rows. However note that if the <tt class="docutils literal"><span class="pre">tsd.storage.repair_appends</span></tt> is enabled, then when a column has duplicates or out of order data, it will be re-written to HBase. Also columns with many duplicates or ordering issues may slow queries as they must be resolved before answering the caller.</p>
+<p>Appends can be enabled and disabled at any time. However versions of OpenTSDB prior to 2.2 will skip over appended values.</p>
 </div>
 <div class="section" id="pre-split-hbase-regions">
 <h3>Pre-Split HBase Regions</h3>

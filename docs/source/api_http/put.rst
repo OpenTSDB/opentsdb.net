@@ -31,6 +31,8 @@ Some query string parameters can be supplied that alter the response to a put re
    
    "summary", "Present", "Optional", "Whether or not to return summary information", "false", "summary", "", "/api/put?summary"
    "details", "Present", "Optional", "Whether or not to return detailed information", "false", "details", "", "/api/put?details"
+   "sync", "Boolean", "Optional", "Whether or not to wait for the data to be flushed to storage before returning the results.", "false", "sync", "", "/api/put?sync"
+   "sync_timeout", "Integer", "Optional", "A timeout, in milliseconds, to wait for the data to be flushed to storage before returning with an error. When a timeout occurs, using the ``details`` flag will tell how many data points failed and how many succeeded. ``sync`` must also be given for this to take effect. A value of 0 means the write will not timeout.", "0", "sync_timeout", "", "/api/put/?sync&sync_timeout=60000"
 
 If both ``detailed`` and ``summary`` are present in a query string, the API will respond with ``detailed`` information.
 

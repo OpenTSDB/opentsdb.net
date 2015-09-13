@@ -172,6 +172,24 @@
 <td>&nbsp;</td>
 <td>/api/put?details</td>
 </tr>
+<tr class="row-even"><td>sync</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to wait for the data to be flushed to storage before returning the results.</td>
+<td>false</td>
+<td>sync</td>
+<td>&nbsp;</td>
+<td>/api/put?sync</td>
+</tr>
+<tr class="row-odd"><td>sync_timeout</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A timeout, in milliseconds, to wait for the data to be flushed to storage before returning with an error. When a timeout occurs, using the <tt class="docutils literal"><span class="pre">details</span></tt> flag will tell how many data points failed and how many succeeded. <tt class="docutils literal"><span class="pre">sync</span></tt> must also be given for this to take effect. A value of 0 means the write will not timeout.</td>
+<td>0</td>
+<td>sync_timeout</td>
+<td>&nbsp;</td>
+<td>/api/put/?sync&amp;sync_timeout=60000</td>
+</tr>
 </tbody>
 </table>
 <p>If both <tt class="docutils literal"><span class="pre">detailed</span></tt> and <tt class="docutils literal"><span class="pre">summary</span></tt> are present in a query string, the API will respond with <tt class="docutils literal"><span class="pre">detailed</span></tt> information.</p>

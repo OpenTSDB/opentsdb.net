@@ -38,6 +38,9 @@ Request parameters include:
    "globalAnnotations", "Boolean", "Optional", "Whether or not the query should retrieve global annotations for the requested timespan", "false", "global_annotations", "", "true"
    "msResolution", "Boolean", "Optional", "Whether or not to output data point timestamps in milliseconds or seconds. If this flag is not provided and there are multiple data points within a second, those data points will be down sampled using the query's aggregation function.", "false", "ms", "", "true"
    "showTSUIDs", "Boolean", "Optional", "Whether or not to output the TSUIDs associated with timeseries in the results. If multiple time series were aggregated into one set, multiple TSUIDs will be returned in a sorted manner", "false", "show_tsuids", "", "true"
+   "showSummary", "Boolean", "Optional", "Whether or not to show a summary of timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects.", "false", "show_summary", "", "true"
+   "showQuery", "Boolean", "Optional", "Whether or not to return the original sub query with the query results. If the request contains many sub queries then this is a good way to determine which results belong to which sub query. Note that in the case of a ``*`` or wildcard query, this can produce a lot of duplicate output.", "false", "show_query", "", "true"
+   "delete", "Boolean", "Optional", "Can be passed to the JSON with a POST to delete any data points that match the given query.", "false", "", "W", "true"
 
 Sub Queries
 ^^^^^^^^^^^
@@ -333,6 +336,55 @@ For the following example, two TSDs were running and the query was: ``http://loc
               "1365966062": 3902197769,
   ...
               "1365974281": 3922266478
+          }
+      }
+  ]
+
+Example With Show Summary and Query
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+  [
+      {
+          "metric": "tsd.hbase.puts",
+          "tags": {},
+          "aggregatedTags": [
+              "host"
+          ],
+          "query": {
+              "aggregator": "sum",
+              "metric": "tsd.hbase.puts",
+              "tsuids": null,
+              "downsample": null,
+              "rate": true,
+              "filters": [
+                  {
+                      "tagk": "host",
+                      "filter": "*",
+                      "group_by": true,
+                      "type": "wildcard"
+                  }
+              ],
+              "rateOptions": null,
+              "tags": { }
+          },
+          "dps": {
+              "1365966001": 25595461080,
+              "1365966061": 25595542522,
+              "1365966062": 25595543979,
+  ...
+              "1365973801": 25717417859
+          }
+      },
+      {
+          "statsSummary": {
+              "datapoints": 0,
+              "rawDatapoints": 56,
+              "aggregationTime": 0,
+              "serializationTime": 20,
+              "storageTime": 6,
+              "timeTotal": 26
           }
       }
   ]

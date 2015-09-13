@@ -76,6 +76,7 @@
 <li><a class="reference internal" href="#example-aggregated-default-response">Example Aggregated Default Response</a></li>
 <li><a class="reference internal" href="#example-aggregated-array-response">Example Aggregated Array Response</a></li>
 <li><a class="reference internal" href="#example-multi-set-response">Example Multi-Set Response</a></li>
+<li><a class="reference internal" href="#example-with-show-summary-and-query">Example With Show Summary and Query</a></li>
 </ul>
 </li>
 </ul>
@@ -220,6 +221,33 @@
 <td>false</td>
 <td>show_tsuids</td>
 <td>&nbsp;</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>showSummary</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to show a summary of timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects.</td>
+<td>false</td>
+<td>show_summary</td>
+<td>&nbsp;</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>showQuery</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to return the original sub query with the query results. If the request contains many sub queries then this is a good way to determine which results belong to which sub query. Note that in the case of a <tt class="docutils literal"><span class="pre">*</span></tt> or wildcard query, this can produce a lot of duplicate output.</td>
+<td>false</td>
+<td>show_query</td>
+<td>&nbsp;</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>delete</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Can be passed to the JSON with a POST to delete any data points that match the given query.</td>
+<td>false</td>
+<td>&nbsp;</td>
+<td>W</td>
 <td>true</td>
 </tr>
 </tbody>
@@ -661,6 +689,54 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
             <span class="s2">&quot;1365966062&quot;</span><span class="o">:</span> <span class="mi">3902197769</span><span class="p">,</span>
 <span class="p">...</span>
             <span class="s2">&quot;1365974281&quot;</span><span class="o">:</span> <span class="mi">3922266478</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-with-show-summary-and-query">
+<h3>Example With Show Summary and Query</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;aggregatedTags&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;host&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;downsample&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;group_by&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;wildcard&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1365966001&quot;</span><span class="o">:</span> <span class="mi">25595461080</span><span class="p">,</span>
+            <span class="s2">&quot;1365966061&quot;</span><span class="o">:</span> <span class="mi">25595542522</span><span class="p">,</span>
+            <span class="s2">&quot;1365966062&quot;</span><span class="o">:</span> <span class="mi">25595543979</span><span class="p">,</span>
+<span class="p">...</span>
+            <span class="s2">&quot;1365973801&quot;</span><span class="o">:</span> <span class="mi">25717417859</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;statsSummary&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;datapoints&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;rawDatapoints&quot;</span><span class="o">:</span> <span class="mi">56</span><span class="p">,</span>
+            <span class="s2">&quot;aggregationTime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;serializationTime&quot;</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="s2">&quot;storageTime&quot;</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="s2">&quot;timeTotal&quot;</span><span class="o">:</span> <span class="mi">26</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">]</span>

@@ -588,35 +588,42 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.salt.buckets <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.max_tags <em>(2.2)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The maximum number of tags allowed per data point.  <strong>NOTE</strong> Please be aware of the performance tradeoffs of overusing tags <a class="reference internal" href="writing.html"><em>Writing Data</em></a></td>
+<td>8</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.salt.buckets <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number of salt buckets used to distribute load across regions. <strong>NOTE</strong> Changing this value after writing data may cause TSUID based queries to fail.</td>
 <td>20</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.salt.width <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.salt.width <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of the salt prefix used to indicate which bucket a time series belongs in. A value of 0 means salting is disabled. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>0</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.uid.width.metric <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.uid.width.metric <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of metric UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.uid.width.tagk <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.uid.width.tagk <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of tag name UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.uid.width.tagv <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.uid.width.tagv <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of tag value UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>

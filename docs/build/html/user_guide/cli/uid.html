@@ -288,7 +288,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <p>Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">After changing a UID name you must flush the cache or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.</p>
+<p class="last">After changing a UID name you must flush the cache (see <a class="reference internal" href="../../api_http/dropcaches.html"><em>/api/dropcaches</em></a>) or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.</p>
 </div>
 <table border="1" class="docutils">
 <colgroup>
@@ -324,13 +324,13 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </table>
 <div class="section" id="id7">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre>assign &lt;kind&gt; &lt;name&gt; &lt;newname&gt;
+<div class="highlight-python"><div class="highlight"><pre>rename &lt;kind&gt; &lt;name&gt; &lt;newname&gt;
 </pre></div>
 </div>
 </div>
 <div class="section" id="id8">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid rename disk.d0 disk.d0.bytes_read
+<div class="highlight-python"><div class="highlight"><pre>./tsdb uid rename metrics disk.d0 disk.d0.bytes_read
 </pre></div>
 </div>
 </div>

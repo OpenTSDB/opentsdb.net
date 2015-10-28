@@ -81,7 +81,7 @@ Example Query String Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
   
-  http://localhost:4242/api/tree/rule?treeId=1&level=0&order=0&type=METRIC&separator=.&method_override=post
+  http://localhost:4242/api/tree/rule?treeId=1&level=0&order=0&type=METRIC&separator=\.&method_override=post
 
 
 Example Content Request

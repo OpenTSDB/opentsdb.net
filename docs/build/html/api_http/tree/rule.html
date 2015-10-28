@@ -307,7 +307,7 @@
 <p>Using the <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> methods, you can create a new rule or edit an existing rule. New rules require a <tt class="docutils literal"><span class="pre">type</span></tt> value. Existing trees require a valid <tt class="docutils literal"><span class="pre">treeId</span></tt> ID and any fields that require modification. A successful request will return the modified rule object. Note that if a rule exists at the given level and order, any changes will be merged with or overwrite the existing rule.</p>
 <div class="section" id="example-query-string-request">
 <h3>Example Query String Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=.&amp;method_override=post
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=\.&amp;method_override=post
 </pre></div>
 </div>
 </div>

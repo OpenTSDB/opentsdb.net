@@ -113,7 +113,7 @@ rename
 
 Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned. 
 
-.. NOTE:: After changing a UID name you must flush the cache or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.
+.. NOTE:: After changing a UID name you must flush the cache (see :doc:`../../api_http/dropcaches`) or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.
 
 .. csv-table::
    :header: "Name", "Data Type", "Description", "Example"
@@ -127,13 +127,13 @@ Command Format
 --------------
 ::
 
-  assign <kind> <name> <newname>
+  rename <kind> <name> <newname>
 
 Example Command
 ---------------
 ::
 
-  ./tsdb uid rename disk.d0 disk.d0.bytes_read
+  ./tsdb uid rename metrics disk.d0 disk.d0.bytes_read
 
 delete
 ^^^^^^

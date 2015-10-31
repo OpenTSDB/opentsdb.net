@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bigtable &mdash; OpenTSDB 2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="up" title="Storage" href="index.html" />
+    <link rel="next" title="CLI Tools" href="../cli/index.html" />
+    <link rel="prev" title="HBase Schema" href="hbase.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../cli/index.html" title="CLI Tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="hbase.html" title="HBase Schema"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Storage</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bigtable</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="hbase.html"
+                        title="previous chapter">HBase Schema</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../cli/index.html"
+                        title="next chapter">CLI Tools</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bigtable">
+<h1>Bigtable</h1>
+<p>The <a class="reference external" href="https://cloud.google.com/">Google Cloud Platform</a> provides hosting of Google's Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google's backend is simple. Indeed, the schemas (see <a class="reference internal" href="hbase.html"><em>HBase Schema</em></a>) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The clients for Bigtable are in beta and undergoing a number of changes. Performance should improve as we adjust the code and uncover new tuning parameters. Please help us out on the mailing list or by modifying the code in Github.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup</h2>
+<ol class="arabic simple">
+<li>Setup your Google Cloud Platform account.</li>
+<li>Follow the steps in <a class="reference external" href="https://cloud.google.com/bigtable/docs/creating-cluster">Creating a Cloud Bigtable Cluster</a></li>
+<li>Follow the steps in <a class="reference external" href="https://cloud.google.com/bigtable/docs/hbase-shell-quickstart">HBase Shell Quickstart</a> paying attention to where you download your JSON key file.</li>
+<li>Set the <cite>HBASE_HOME</cite> environment variable to your Bigtable shell directory and run the <cite>src/create_table.sh</cite> script. If the script fails to launch the shell, try running the shell manually and execute the <cite>create</cite> statements substituting the proper values.</li>
+<li>Build TSDB by executing <cite>sh build-bigtable.sh</cite> (or if you prefer Maven, <cite>sh build-bigtable.sh pom.xml</cite>)</li>
+<li>Prepare the <cite>opentsdb.conf</cite> file with the required and/or optional configuration parameters below.</li>
+<li>Run the tsd via <cite>build/tsdb tsd --config=&lt;path&gt;/opentsdb.conf</cite></li>
+</ol>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration</h2>
+<p>The following is a table with required and optional parameters to run OpenTSDB with Bigtable. These are in addition to the standard TSD configuration parameters from <a class="reference internal" href="../configuration.html"><em>Configuration</em></a></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="5%" />
+<col width="5%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>google.bigtable.project.id</td>
+<td>String</td>
+<td>Required</td>
+<td>The project ID assigned to your Bigtable instance</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>google.bigtable.cluster.name</td>
+<td>String</td>
+<td>Required</td>
+<td>The cluster ID you gave your Bigtable instance at creation</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>google.bigtable.zone.name</td>
+<td>String</td>
+<td>Required</td>
+<td>The service zone where your cluster is operating. Chosen at creation.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>hbase.client.connection.impl</td>
+<td>String</td>
+<td>Required</td>
+<td>The class that will be used to implement the HBase API AsyncBigtable will use as a shim between the Bigtable client and OpenTSDB. Set this to <cite>com.google.cloud.bigtable.hbase1_0.BigtableConnection</cite></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>google.bigtable.auth.service.account.enable</td>
+<td>Boolean</td>
+<td>Required</td>
+<td>Whether or not to use a Google cloud service account to connect. Set this to <cite>true</cite></td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>google.bigtable.auth.json.keyfile</td>
+<td>String</td>
+<td>Required</td>
+<td>The full path to the JSON formatted key file associated with the service account you want to use for Bigtable access. Download this from your cloud console.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>google.bigtable.grpc.channel.count</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The number of sockets opened to the Bigtable API for handling RPCs. For higher throughput consider increasing the channel count.</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Google's Bigtable client communicates with their servers over HTTP2 with TLS using ALPN. As Java 7 and 8 (dunno about 9) lack native ALPN support, a <a class="reference external" href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html">library</a> must be loaded at JVM start to modify the JVM's bytecode. The build script for OpenTSDB will attempt to detect your JDK version and download the proper version of ALPN but if you have a custom JVM or something other than Hotspot or OpenJDK you may run into issues. Try different versions of the <cite>alpn-boot</cite> JAR to see what works for you.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../cli/index.html" title="CLI Tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="hbase.html" title="HBase Schema"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" >Storage</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

@@ -22,7 +22,10 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="up" title="Storage" href="index.html" />
+    <link rel="next" title="CLI Tools" href="../cli/index.html" />
+    <link rel="prev" title="Bigtable" href="bigtable.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -44,11 +47,34 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../cli/index.html" title="CLI Tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bigtable.html" title="Bigtable"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Storage</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cassandra</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bigtable.html"
+                        title="previous chapter">Bigtable</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../cli/index.html"
+                        title="next chapter">CLI Tools</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -72,7 +98,66 @@
             
   <div class="section" id="cassandra">
 <h1>Cassandra</h1>
-<p>TODO</p>
+<p>Cassandra is an eventually consistent key value store similar to HBase and Google`s Bigtable. It implements a distributed hash map with column families originally it supported a Thrift based API very close to HBase`s. Lately Cassandra has moved towards a SQL like query language with much more flexibility around data types, joints and filters. Thankfully the Thrift interface is still there so it`s easy to convert the OpenTSDB HBase schema and calls to Cassandra at a low level through the AsyncHBase <tt class="docutils literal"><span class="pre">HBaseClient</span></tt> API. <a class="reference external" href="https://github.com/OpenTSDB/asynccassandra">AsyncCassandra</a> is a shim between OpenTSDB and Cassandra for trying out TSDB with an alternate backend.</p>
+<div class="section" id="setup">
+<h2>Setup</h2>
+<ol class="arabic simple">
+<li>Setup a Cassandra cluster using the <tt class="docutils literal"><span class="pre">ByteOrderedPartitioner</span></tt>. This is critical as we require the row keys to be sorted. Because this setting affects the entire node, you may need to setup a cluster dedicated to OpenTSDB.</li>
+<li>Create the proper keyspsaces and column families by using the <cite>cassandra-cli</cite> script:</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre>create keyspace tsdb;
+use tsdb;
+create column family t with comparator = BytesType;
+
+create keyspace tsdbuid;
+use tsdbuid;
+create column family id with comparator = BytesType;
+create column family name with comparator = BytesType;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Build TSDB by executing <cite>sh build-cassandra.sh</cite> (or if you prefer Maven, <cite>sh build-cassandra.sh pom.xml</cite>)</li>
+<li>Modify your <cite>opentsdb.conf</cite> file with the <cite>asynccassandra.seeds</cite> parameter, e.g. <cite>asynccassandra.seeds=127.0.0.1:9160</cite>.</li>
+<li>In the config file, set <cite>tsd.storage.hbase.uid_table=tsdbuid</cite></li>
+<li>Run the tsd via <cite>build/tsdb tsd --config=&lt;path&gt;/opentsdb.conf</cite></li>
+</ol>
+<p>If you intend to use meta data or tree features, repeat the keyspace creation with the proper table name.</p>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration</h2>
+<p>The following is a table with required and optional parameters to run OpenTSDB with Cassandra. These are in addition to the standard TSD configuration parameters from <a class="reference internal" href="../configuration.html"><em>Configuration</em></a></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="5%" />
+<col width="5%" />
+<col width="60%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>asynccassandra.seeds</td>
+<td>String</td>
+<td>Required</td>
+<td>The list of nodes in your Cassandra cluster. These can be formatted <cite>&lt;hostname&gt;:&lt;port&gt;</cite></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>asynccassandra.port</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>An optional port to use for all nodes if not configured in the seeds setting.</td>
+<td>9160</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 
 
@@ -87,7 +172,15 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../cli/index.html" title="CLI Tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bigtable.html" title="Bigtable"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li><a href="index.html" >Storage</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

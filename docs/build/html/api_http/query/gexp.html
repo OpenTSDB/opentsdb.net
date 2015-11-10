@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/query/gexp &mdash; OpenTSDB 2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="up" title="/api/query" href="index.html" />
+    <link rel="next" title="/api/query/last" href="last.html" />
+    <link rel="prev" title="/api/query/exp" href="exp.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="last.html" title="/api/query/last"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="exp.html" title="/api/query/exp"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/query/gexp</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-query-string-requests">Example Query String Requests</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="exp.html"
+                        title="previous chapter">/api/query/exp</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="last.html"
+                        title="next chapter">/api/query/last</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-query-gexp">
+<h1>/api/query/gexp</h1>
+<p>Graphite is an excellent storage system for time series data with a number of built in functions to manipulate the data. To support transitions from Graphite to OpenTSDB, the <tt class="docutils literal"><span class="pre">/api/query/gexp</span></tt> endpoint supports URI queries <em>similar</em> but not <em>identical</em> to Graphite's expressions. Graphite functions are generally formatted as <tt class="docutils literal"><span class="pre">func(&lt;series&gt;[,</span> <span class="pre">param1][,</span> <span class="pre">paramN])</span></tt> with the ability to nest functions. TSD's implementation follows the same pattern but uses an <tt class="docutils literal"><span class="pre">m</span></tt> style query (e.g. <tt class="docutils literal"><span class="pre">sum:proc.stat.cpu{host=foo,type=idle}</span></tt>) in place of the <tt class="docutils literal"><span class="pre">&lt;series&gt;</span></tt>. Nested functions are supported.</p>
+<p>TSDB implements a subset of Graphite functions though we hope to add more in the future. For a list of Graphite functions and descriptions, see the <a class="reference external" href="http://graphite.readthedocs.org/en/latest/functions.html">Documentation</a>. TSD supported functions appear below.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Queries can only be executed via GET using the URI at this time. (In the future, the <a class="reference internal" href="exp.html"><em>/api/query/exp</em></a> endpoint will support more flexibility.) This is an extension of the main <a class="reference internal" href="index.html"><em>/api/query</em></a> endpoint so parameters in the request table are also supported here. Additional parameters include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="55%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>exp</td>
+<td>String</td>
+<td>Required</td>
+<td>The Graphite style expression to execute. The first parameter of a function must either be another function or a URI formatted <strong>Sub Query</strong></td>
+<td>scale(sum:if.bytes_in{host=*},1024)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-query-string-requests">
+<h3>Example Query String Requests</h3>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/query?start=1h-ago&amp;exp=scale(sum:if.bytes_in{host=*},1024)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The output is identical to the <a class="reference internal" href="index.html"><em>/api/query</em></a> output.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="last.html" title="/api/query/last"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="exp.html" title="/api/query/exp"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" >/api/query</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

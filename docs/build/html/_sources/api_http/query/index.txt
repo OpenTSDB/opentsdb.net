@@ -9,6 +9,8 @@ Query API Endpoints
 .. toctree::
    :maxdepth: 1
    
+   exp
+   gexp
    last
 
 The ``/query`` endpoint is documented below. As of 2.2 data matching a query can be deleted by using the ``DELETE`` verb. The configuration parameter ``tsd.http.query.allow_delete`` must be enabled to allow deletions. Data that is deleted will be returned in the query results. Executing the query a second time should return empty results.

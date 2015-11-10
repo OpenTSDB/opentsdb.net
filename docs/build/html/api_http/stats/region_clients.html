@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/stats/region_clients &mdash; OpenTSDB 2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="up" title="/api/stats" href="index.html" />
+    <link rel="next" title="/api/suggest" href="../suggest.html" />
+    <link rel="prev" title="/api/stats/jvm" href="jvm.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../suggest.html" title="/api/suggest"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="jvm.html" title="/api/stats/jvm"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">/api/stats</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/stats/region_clients</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="jvm.html"
+                        title="previous chapter">/api/stats/jvm</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../suggest.html"
+                        title="next chapter">/api/suggest</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api-stats-region-clients">
+<h1>/api/stats/region_clients</h1>
+<p>Returns information about the various HBase region server clients in AsyncHBase. This helps to identify issues with a particular region server.
+Available from version 2.2.0.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>No parameters available.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p><strong>Query String</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/stats/region_clients
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is an array of objects. Fields in the response include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pendingBreached</td>
+<td>Integer</td>
+<td>The total number of times writes to a new region client were discarded because it's pending RPC buffer was full. This should almost always be zero and a positive value indicates the TSD took a long time to connect to a region server.</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>writesBlocked</td>
+<td>Integer</td>
+<td>How many RPCs (batched or individual) in total were blocked due to the connection's send buffer being full. A positive value indicates a slow HBase server or poor network performance.</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>inflightBreached</td>
+<td>Integer</td>
+<td>The total number of times RPCs were blocked due to too many outstanding RPCs waiting for a response from HBase. A positive value indicates the region server is slow or network performance is poor.</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>dead</td>
+<td>Boolean</td>
+<td>Whether or not the region client is marked as dead due to a connection close event (such as region server going down)</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>rpcsInFlight</td>
+<td>Integer</td>
+<td>The current number of RPCs sent to HBase and awaiting a response.</td>
+<td>10</td>
+</tr>
+<tr class="row-odd"><td>rpcsSent</td>
+<td>Integer</td>
+<td>The total number of RPCs sent to HBase.</td>
+<td>424242</td>
+</tr>
+<tr class="row-even"><td>rpcResponsesUnknown</td>
+<td>Integer</td>
+<td>The total number of responses received from HBase for which we couldn't find an RPC. This may indicate packet corruption or an incompatible HBase version.</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>pendingBatchedRPCs</td>
+<td>Integer</td>
+<td>The number of RPCs queued in the batched RPC awaiting the next flush or the batch limit.</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>endpoint</td>
+<td>String</td>
+<td>The IP and port of the region server in the format '/&lt;ip&gt;:&lt;port&gt;'</td>
+<td>/127.0.0.1:35008</td>
+</tr>
+<tr class="row-odd"><td>rpcResponsesTimedout</td>
+<td>Integer</td>
+<td>The total number of responses from HBase for RPCs that have previously timedout. This means HBase may be catching up and responding to stale RPCs.</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>rpcid</td>
+<td>Integer</td>
+<td>The ID of the last RPC sent to HBase. This may be a negative number</td>
+<td>42</td>
+</tr>
+<tr class="row-odd"><td>rpcsTimedout</td>
+<td>Integer</td>
+<td>The total number of RPCs that have timed out. This may indicate a slow region server, poor network performance or GC issues with the TSD.</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>pendingRPCs</td>
+<td>Integer</td>
+<td>The number of RPCs queued and waiting for the connection handshake with the region server to complete</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;pendingBreached&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;writesBlocked&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;inflightBreached&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;dead&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;rpcsInFlight&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;rpcsSent&quot;</span><span class="o">:</span> <span class="mi">35704</span><span class="p">,</span>
+        <span class="s2">&quot;rpcResponsesUnknown&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;pendingBatchedRPCs&quot;</span><span class="o">:</span> <span class="mi">452</span><span class="p">,</span>
+        <span class="s2">&quot;endpoint&quot;</span><span class="o">:</span> <span class="s2">&quot;/127.0.0.1:35008&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rpcResponsesTimedout&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;rpcid&quot;</span><span class="o">:</span> <span class="mi">35703</span><span class="p">,</span>
+        <span class="s2">&quot;rpcsTimedout&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;pendingRPCs&quot;</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../suggest.html" title="/api/suggest"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="jvm.html" title="/api/stats/jvm"
+             >previous</a> |</li>
+        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li><a href="index.html" >/api/stats</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

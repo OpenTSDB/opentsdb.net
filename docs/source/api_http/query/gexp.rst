@@ -5,6 +5,8 @@ Graphite is an excellent storage system for time series data with a number of bu
 
 TSDB implements a subset of Graphite functions though we hope to add more in the future. For a list of Graphite functions and descriptions, see the `Documentation <http://graphite.readthedocs.org/en/latest/functions.html>`_. TSD supported functions appear below.
 
+.. NOTE:: Supported as of version 2.3
+
 Verbs
 -----
 
@@ -32,3 +34,32 @@ Response
 --------
 
 The output is identical to :doc:`index`.
+
+Functions
+---------
+
+Currently supported expressions include:
+
+absolute(<metric>)
+^^^^^^^^^^^^^^^^^^
+
+Emits the results as absolute values, converting negative values to positive.
+
+highestCurrent(<metric>,<n>)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sorts all resulting time series by their most recent value and emits ``n`` number of series with the highest values. ``n`` must be a positive integer value.
+
+highestMax(<metric>,<n>)
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sorts all resulting time series by the maximum value for the time span and emits ``n`` number of series with the highest values. ``n`` must be a positive integer value.
+
+movingAverage(<metric>,<window>)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Emits a sliding window moving average for each data point and series in the metric. The ``window`` parameter may either be a positive integer that reflects the number of data points to maintain in the window (non-timed) or a time span specified by an integer followed by time unit such as ``'60s'`` or ``'60m'`` or ``'24h'``. Timed windows must be in single quotes.
+
+scale(<metric>,<factor>)
+
+Multiplies each series by the factor where the factor can be a positive or negative floating point or integer value.

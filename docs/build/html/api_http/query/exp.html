@@ -114,6 +114,10 @@
 <p>For example we can compute &quot;a + b&quot; with a group by on the host field. Both metrics queried alone would emit a time series per host, e.g. maybe one for &quot;web01&quot;, &quot;web02&quot; and &quot;web03&quot;. Lets say metric &quot;a&quot; has values for all 3 hosts but metric &quot;b&quot; is missing &quot;web03&quot;.</p>
 <p>With the intersection operator, the expression will effectively add &quot;a.web01 + b.web01&quot; and &quot;a.web02 + b.web02&quot; but will skip emitting anything for &quot;web03&quot;. Be aware of this if you see fewer outputs that you expected or you see errors about no series available after intersection.</p>
 <p>With the union operator the expression will add the <tt class="docutils literal"><span class="pre">web01</span></tt> and <tt class="docutils literal"><span class="pre">web02</span></tt> series but for metric &quot;b&quot;, it will substitute the metric's fill policy value for the results.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Supported as of version 2.3</p>
+</div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">

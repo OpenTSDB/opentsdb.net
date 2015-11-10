@@ -11,6 +11,8 @@ With the intersection operator, the expression will effectively add "a.web01 + b
 
 With the union operator the expression will add the ``web01`` and ``web02`` series but for metric "b", it will substitute the metric's fill policy value for the results.
 
+.. NOTE:: Supported as of version 2.3
+
 Verbs
 -----
 

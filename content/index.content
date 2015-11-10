@@ -55,16 +55,16 @@
   </ol>
   <div class="carousel-inner">
     <div class="text-center item active">
-      <h3>OpenTSDB 2.2.0 RC1</h3>
-      <p><b>2015-09-12</b> - OpenTSDB 2.2.0 has been released with new features. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.2.0RC1">GitHub</a> and help us find bugs! Checkout the <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p> 
+      <h3>OpenTSDB 2.2.0 RC2</h3>
+      <p><b>2015-11-09</b> - OpenTSDB 2.2.0 RC2 has been released with new features. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.2.0RC2">GitHub</a> and help us find bugs! Checkout the <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new.</p> 
     </div>
     <div class="text-center item">
-      <h3>OpenTSDB 2.1.1</h3>
-      <p><b>2015-09-12</b> - OpenTSDB 2.1.1 has been released with bug fixes. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/2.1.1">GitHub</a></p> 
+      <h3>OpenTSDB 2.1.2</h3>
+      <p><b>2015-11-09</b> - OpenTSDB 2.1.2 has been released with bug fixes. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/2.1.2">GitHub</a></p> 
     </div>
     <div class="text-center item">
-      <h3>AsyncHBase 1.7.0</h3>
-      <p><b>2015-09-11</b> - For users of the asynchronous HBase client AsyncHBase, version 1.7.0 has been released with new features. Check it out on <a href="https://github.com/OpenTSDB/asynchbase/releases/tag/v1.7.0">GitHub</a></p>  
+      <h3>OpenTSDB with BigTable or Cassandra</h3>
+      <p><b>2015-11-10</b> - Thanks to the folks at <a href="http://www.pythian.com/">Pythian</a> and <a href="http://googlecloudplatform.blogspot.com/2015/05/introducing-Google-Cloud-Bigtable.html">Google</a> OpenTSDB can now use the original <a href="http://googlecloudplatform.blogspot.com/2015/05/introducing-Google-Cloud-Bigtable.html">Bigtable</a> as a backend. And for folks who have been asking, you can now choose Cassandra for storage instead of HBase. Both engines are in beta. See the <a href="http://opentsdb.net/docs/build/html/user_guide/backends/index.html">Documentation</a> for details and <a href="https://github.com/OpenTSDB/opentsdb/tree/put">Github</a> for the code.</p>  
     </div>
   </div>
   <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">

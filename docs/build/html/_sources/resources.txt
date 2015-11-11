@@ -39,6 +39,7 @@ Utilities
 * `Coda Hale Metrics Reporter <https://github.com/sps/metrics-opentsdb>`_ - Writes data to OpenTSDB from the Java Metrics library.
 * `Alternative Coda Hale Metrics Reporter <https://github.com/stuart-warren/metrics-opentsdb>`_ - Writes data to OpenTSDB from the Java Metrics library.
 * `opentsdb-snmp <https://github.com/frogmaster/opentsdb-snmp>`_ - Fetches data from SNMP enabled devices and writes to OpenTSDB.
+* `proxTSDB <https://github.com/worldline/proxyTSDB>`_ - A metric data gateway capable of buffering data to RAM or disk if the TSD is down.
 
 Clients
 ^^^^^^^

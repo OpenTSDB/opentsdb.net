@@ -77,7 +77,7 @@ Example Content Request
           {
               "metric": "sys.cpu.0",
               "tags": {
-                  "host": "web1",
+                  "host": "web01",
                   "dc": "lga"
               }
           }, 

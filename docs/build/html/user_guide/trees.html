@@ -282,7 +282,7 @@
 <h3>Regex Rules</h3>
 <p>In some situations, you may want to extract only a component of a metric, tag or custom value to use for grouping. For example, if you have computers in mutiple data centers with fully qualified domain names that incorporate the name of the DC, but not all metrics include a DC tag, you could use a regex to extract the DC for grouping.</p>
 <p>The <tt class="docutils literal"><span class="pre">regex</span></tt> rule parameter must be set with a valid regular expression that includes one or more extraction operators, i.e. the parentheses. If the regex matches on the value provided, the extracted data will be used to build the branch or leaf. If more than one extractions are provided in the regex, you can use the <tt class="docutils literal"><span class="pre">regex_group_index</span></tt> parameter to choose which extracted value to use. The index is 0 based and defaults to 0, so if you want to choose the output of the second extraction, you would set this index to 1. If the regex does not match on the value or the extraction fails to return a valid string, the rule will be considered a no match.</p>
-<p>For example, if we have a host tagk with a tagv of <tt class="docutils literal"><span class="pre">web1.nyc.mysite.com</span></tt>, we could use a regex similar to <tt class="docutils literal"><span class="pre">.*\.(.*)\..*\..*</span></tt> to extract the &quot;nyc&quot; portion of the FQDN and group all of the servers in the &quot;nyc&quot; data center under the &quot;nyc&quot; branch.</p>
+<p>For example, if we have a host tagk with a tagv of <tt class="docutils literal"><span class="pre">web01.nyc.mysite.com</span></tt>, we could use a regex similar to <tt class="docutils literal"><span class="pre">.*\.(.*)\..*\..*</span></tt> to extract the &quot;nyc&quot; portion of the FQDN and group all of the servers in the &quot;nyc&quot; data center under the &quot;nyc&quot; branch.</p>
 </div>
 <div class="section" id="separator-rules">
 <h3>Separator Rules</h3>
@@ -353,47 +353,47 @@
 <tbody valign="top">
 <tr class="row-even"><td>1</td>
 <td>cpu.system</td>
-<td>dc=dal, host=web1.dal.mysite.com</td>
+<td>dc=dal, host=web01.dal.mysite.com</td>
 <td>0102040101</td>
 </tr>
 <tr class="row-odd"><td>2</td>
 <td>cpu.system</td>
-<td>dc=dal, host=web2.dal.mysite.com</td>
+<td>dc=dal, host=web02.dal.mysite.com</td>
 <td>0102040102</td>
 </tr>
 <tr class="row-even"><td>3</td>
 <td>cpu.system</td>
-<td>dc=dal, host=web3.dal.mysite.com</td>
+<td>dc=dal, host=web03.dal.mysite.com</td>
 <td>0102040103</td>
 </tr>
 <tr class="row-odd"><td>4</td>
 <td>app.connections</td>
-<td>host=web1.dal.mysite.com</td>
+<td>host=web01.dal.mysite.com</td>
 <td>010101</td>
 </tr>
 <tr class="row-even"><td>5</td>
 <td>app.errors</td>
-<td>host=web1.dal.mysite.com, owner=doe</td>
+<td>host=web01.dal.mysite.com, owner=doe</td>
 <td>0101010306</td>
 </tr>
 <tr class="row-odd"><td>6</td>
 <td>cpu.system</td>
-<td>dc=lax, host=web1.lax.mysite.com</td>
+<td>dc=lax, host=web01.lax.mysite.com</td>
 <td>0102050101</td>
 </tr>
 <tr class="row-even"><td>7</td>
 <td>cpu.system</td>
-<td>dc=lax, host=web2.lax.mysite.com</td>
+<td>dc=lax, host=web02.lax.mysite.com</td>
 <td>0102050102</td>
 </tr>
 <tr class="row-odd"><td>8</td>
 <td>cpu.user</td>
-<td>dc=dal, host=web1.dal.mysite.com</td>
+<td>dc=dal, host=web01.dal.mysite.com</td>
 <td>0202040101</td>
 </tr>
 <tr class="row-even"><td>9</td>
 <td>cpu.user</td>
-<td>dc=dal, host=web2.dal.mysite.com</td>
+<td>dc=dal, host=web02.dal.mysite.com</td>
 <td>0202040102</td>
 </tr>
 </tbody>
@@ -456,7 +456,7 @@
 <p>The resulting tree would look like this:</p>
 <ul class="simple">
 <li>dal<ul>
-<li>web1.dal.mysite.com<ul>
+<li>web01.dal.mysite.com<ul>
 <li>app<ul>
 <li>connections (tsuid=010101)</li>
 <li>errors (tsuid=0101010306)</li>
@@ -467,7 +467,7 @@
 <li>user (tsuid=0202040101)</li>
 </ul>
 </li>
-<li>web2.dal.mysite.com<ul>
+<li>web02.dal.mysite.com<ul>
 <li>cpu<ul>
 <li>system (tsuid=0102040102)</li>
 <li>user (tsuid=0202040102)</li>
@@ -475,7 +475,7 @@
 </li>
 </ul>
 </li>
-<li>web3.dal.mysite.com<ul>
+<li>web03.dal.mysite.com<ul>
 <li>cpu<ul>
 <li>system (tsuid=0102040103)</li>
 </ul>
@@ -487,14 +487,14 @@
 </ul>
 </li>
 <li>lax<ul>
-<li>web1.lax.mysite.com<ul>
+<li>web01.lax.mysite.com<ul>
 <li>cpu<ul>
 <li>system (tsuid=0102050101)</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>web2.lax.mysite.com<ul>
+<li>web02.lax.mysite.com<ul>
 <li>cpu<ul>
 <li>system (tsuid=0102050102)</li>
 </ul>

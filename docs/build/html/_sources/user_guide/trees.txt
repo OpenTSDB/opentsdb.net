@@ -110,7 +110,7 @@ In some situations, you may want to extract only a component of a metric, tag or
 
 The ``regex`` rule parameter must be set with a valid regular expression that includes one or more extraction operators, i.e. the parentheses. If the regex matches on the value provided, the extracted data will be used to build the branch or leaf. If more than one extractions are provided in the regex, you can use the ``regex_group_index`` parameter to choose which extracted value to use. The index is 0 based and defaults to 0, so if you want to choose the output of the second extraction, you would set this index to 1. If the regex does not match on the value or the extraction fails to return a valid string, the rule will be considered a no match.
 
-For example, if we have a host tagk with a tagv of ``web1.nyc.mysite.com``, we could use a regex similar to ``.*\.(.*)\..*\..*`` to extract the "nyc" portion of the FQDN and group all of the servers in the "nyc" data center under the "nyc" branch.
+For example, if we have a host tagk with a tagv of ``web01.nyc.mysite.com``, we could use a regex similar to ``.*\.(.*)\..*\..*`` to extract the "nyc" portion of the FQDN and group all of the servers in the "nyc" data center under the "nyc" branch.
 
 Separator Rules
 ---------------
@@ -176,15 +176,15 @@ Assume that our TSD has the following timeseries stored:
    :header: "TS#", "Metric", "Tags", "TSUID"
    :widths: 10, 20, 40, 30
    
-   "1", "cpu.system", "dc=dal, host=web1.dal.mysite.com", "0102040101"
-   "2", "cpu.system", "dc=dal, host=web2.dal.mysite.com", "0102040102"
-   "3", "cpu.system", "dc=dal, host=web3.dal.mysite.com", "0102040103"
-   "4", "app.connections", "host=web1.dal.mysite.com", "010101"
-   "5", "app.errors", "host=web1.dal.mysite.com, owner=doe", "0101010306"
-   "6", "cpu.system", "dc=lax, host=web1.lax.mysite.com", "0102050101"
-   "7", "cpu.system", "dc=lax, host=web2.lax.mysite.com", "0102050102"
-   "8", "cpu.user", "dc=dal, host=web1.dal.mysite.com", "0202040101"
-   "9", "cpu.user", "dc=dal, host=web2.dal.mysite.com", "0202040102"
+   "1", "cpu.system", "dc=dal, host=web01.dal.mysite.com", "0102040101"
+   "2", "cpu.system", "dc=dal, host=web02.dal.mysite.com", "0102040102"
+   "3", "cpu.system", "dc=dal, host=web03.dal.mysite.com", "0102040103"
+   "4", "app.connections", "host=web01.dal.mysite.com", "010101"
+   "5", "app.errors", "host=web01.dal.mysite.com, owner=doe", "0101010306"
+   "6", "cpu.system", "dc=lax, host=web01.lax.mysite.com", "0102050101"
+   "7", "cpu.system", "dc=lax, host=web02.lax.mysite.com", "0102050102"
+   "8", "cpu.user", "dc=dal, host=web01.dal.mysite.com", "0202040101"
+   "9", "cpu.user", "dc=dal, host=web02.dal.mysite.com", "0202040102"
    
 Note that for this example we won't be using any custom value rules so we don't need to show the TSMeta objects, but assume these values populate a TSMeta. Also, the TSUIDs are truncated with 1 byte per UID for illustration purposes.   
 
@@ -211,7 +211,7 @@ The resulting tree would look like this:
 
 * dal
 
-  * web1.dal.mysite.com
+  * web01.dal.mysite.com
   
     * app
       
@@ -223,14 +223,14 @@ The resulting tree would look like this:
       * system (tsuid=0102040101)
       * user (tsuid=0202040101)
     
-    * web2.dal.mysite.com
+    * web02.dal.mysite.com
       
       * cpu
         
         * system (tsuid=0102040102)
         * user (tsuid=0202040102)
         
-    * web3.dal.mysite.com
+    * web03.dal.mysite.com
       
       * cpu
         
@@ -238,13 +238,13 @@ The resulting tree would look like this:
 
 * lax
 
-  * web1.lax.mysite.com
+  * web01.lax.mysite.com
     
     * cpu
       
       * system (tsuid=0102050101)
       
-  * web2.lax.mysite.com
+  * web02.lax.mysite.com
     
     * cpu
       

@@ -36,9 +36,9 @@ Sample Data
    "dc", "02"
    "owner", "03"
    "**Tagvs**", ""
-   "web1", "01"
-   "web2", "02"
-   "web3", "03"
+   "web01", "01"
+   "web02", "02"
+   "web03", "03"
    "dal", "04"
    "lax", "05"
    "doe", "06"
@@ -121,9 +121,9 @@ Usually aggregating all of the time series for a metric isn't particularly usefu
 
 ::
 
-  m=sum:cpu.system{host=web1}
+  m=sum:cpu.system{host=web01}
   
-This will return an aggregate of time series #1, #4, #5 and #6 since they're the only series that include ``host=web1``. 
+This will return an aggregate of time series #1, #4, #5 and #6 since they're the only series that include ``host=web01``. 
 
 .. code-block :: javascript
 
@@ -131,7 +131,7 @@ This will return an aggregate of time series #1, #4, #5 and #6 since they're the
       {
           "metric": "cpu.system",
           "tags": {
-              "host": "web1"
+              "host": "web01"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -153,7 +153,7 @@ What if you want a specific timeseries? You have to include every tag and coresp
 
 ::
 
-  m=sum:cpu.system{host=web1,dc=lax}
+  m=sum:cpu.system{host=web01,dc=lax}
   
 This will return the data from timeseries #6 only.
 
@@ -164,7 +164,7 @@ This will return the data from timeseries #6 only.
           "metric": "cpu.system",
           "tags": {
               "dc": "lax",
-              "host": "web1"
+              "host": "web01"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -176,7 +176,7 @@ This will return the data from timeseries #6 only.
       }
   ]
   
-.. WARNING:: This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 ``m=sum:cpu.system{host=web1}`` thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.
+.. WARNING:: This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 ``m=sum:cpu.system{host=web01}`` thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.
 
 Query 4 - TSUID Query
 ---------------------
@@ -196,7 +196,7 @@ The results will be the data points that you requested.
           "metric": "cpu.system",
           "tags": {
               "dc": "lax",
-              "host": "web1"
+              "host": "web01"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -223,7 +223,7 @@ You can also aggregate multiple TSUIDs in the same query, provided they share th
       {
           "metric": "cpu.system",
           "tags": {
-              "host": "web1"
+              "host": "web01"
           },
           "aggregated_tags": [
               "dc"
@@ -253,11 +253,11 @@ In this example, we will have 3 groups returned:
    :header: "Group", "Time Series Included"
    :widths: 30, 30
    
-   "web1", "#1, #4, #5, #6"
-   "web2", "#2, #7"
-   "web3", "#3"
+   "web01", "#1, #4, #5, #6"
+   "web02", "#2, #7"
+   "web03", "#3"
    
-TSDB found 7 total timeseries that included the "host" tag. There were 3 unique values for that tag (web1, web2, and web3).
+TSDB found 7 total timeseries that included the "host" tag. There were 3 unique values for that tag (web01, web02, and web03).
 
 .. code-block :: javascript
 
@@ -265,7 +265,7 @@ TSDB found 7 total timeseries that included the "host" tag. There were 3 unique 
       {
           "metric": "cpu.system",
           "tags": {
-              "host": "web1"
+              "host": "web01"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -281,7 +281,7 @@ TSDB found 7 total timeseries that included the "host" tag. There were 3 unique 
       {
           "metric": "cpu.system",
           "tags": {
-              "host": "web2"
+              "host": "web02"
           },
           "aggregated_tags": [
               "dc"
@@ -298,7 +298,7 @@ TSDB found 7 total timeseries that included the "host" tag. There were 3 unique 
           "metric": "cpu.system",
           "tags": {
               "dc": "dal",
-              "host": "web3"
+              "host": "web03"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -313,7 +313,7 @@ TSDB found 7 total timeseries that included the "host" tag. There were 3 unique 
 Query 7 - Group and Filter
 --------------------------
 
-Note that the in example #2, the ``web1`` group included the odd-ball timeseries #4 and #5. We can filter those out by specifying a second tag ala:
+Note that the in example #2, the ``web01`` group included the odd-ball timeseries #4 and #5. We can filter those out by specifying a second tag ala:
 
 ::
 
@@ -328,7 +328,7 @@ Now we'll only get results for #1 - #3, but we lose the ``dc=lax`` values.
           "metric": "cpu.system",
           "tags": {
               "dc": "dal",
-              "host": "web1"
+              "host": "web01"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -342,7 +342,7 @@ Now we'll only get results for #1 - #3, but we lose the ``dc=lax`` values.
           "metric": "cpu.system",
           "tags": {
               "dc": "dal",
-              "host": "web2"
+              "host": "web02"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -356,7 +356,7 @@ Now we'll only get results for #1 - #3, but we lose the ``dc=lax`` values.
           "metric": "cpu.system",
           "tags": {
               "dc": "dal",
-              "host": "web3"
+              "host": "web03"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -375,16 +375,16 @@ The ``*`` operator is greedy and will return *all* values that are assigned to a
 
 ::
 
-  m=sum:cpu.nice{host=web1|web2}
+  m=sum:cpu.nice{host=web01|web02}
   
-This will find all of the timeseries that include "host" values for "web1" OR "web2", then group them by value, similar to the ``*`` operator. Our groups, this time, will look like this:
+This will find all of the timeseries that include "host" values for "web01" OR "web02", then group them by value, similar to the ``*`` operator. Our groups, this time, will look like this:
 
 .. csv-table::
    :header: "Group", "Time Series Included"
    :widths: 30, 30
    
-   "web1", "#1, #4, #5, #6"
-   "web2", "#2, #7"
+   "web01", "#1, #4, #5, #6"
+   "web02", "#2, #7"
 
 .. code-block :: javascript
 
@@ -392,7 +392,7 @@ This will find all of the timeseries that include "host" values for "web1" OR "w
       {
           "metric": "cpu.system",
           "tags": {
-              "host": "web1"
+              "host": "web01"
           },
           "aggregated_tags": [],
           "tsuids": [
@@ -408,7 +408,7 @@ This will find all of the timeseries that include "host" values for "web1" OR "w
       {
           "metric": "cpu.system",
           "tags": {
-              "host": "web2"
+              "host": "web02"
           },
           "aggregated_tags": [
               "dc"

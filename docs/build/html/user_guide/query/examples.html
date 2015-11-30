@@ -208,13 +208,13 @@
 <tr class="row-odd"><td><strong>Tagvs</strong></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>web1</td>
+<tr class="row-even"><td>web01</td>
 <td>01</td>
 </tr>
-<tr class="row-odd"><td>web2</td>
+<tr class="row-odd"><td>web02</td>
 <td>02</td>
 </tr>
-<tr class="row-even"><td>web3</td>
+<tr class="row-even"><td>web03</td>
 <td>03</td>
 </tr>
 <tr class="row-odd"><td>dal</td>
@@ -299,15 +299,15 @@
 <div class="section" id="query-2-filter-on-a-tag">
 <h2>Query 2 - Filter on a Tag</h2>
 <p>Usually aggregating all of the time series for a metric isn't particularly useful. Instead we can drill down a little by filtering for time series that contain a specific tagk/tagv pair combination. Simply put the pair in curly braces:</p>
-<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web1}
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web01}
 </pre></div>
 </div>
-<p>This will return an aggregate of time series #1, #4, #5 and #6 since they're the only series that include <tt class="docutils literal"><span class="pre">host=web1</span></tt>.</p>
+<p>This will return an aggregate of time series #1, #4, #5 and #6 since they're the only series that include <tt class="docutils literal"><span class="pre">host=web01</span></tt>.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web1&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -327,7 +327,7 @@
 <div class="section" id="query-3-specific-time-series">
 <h2>Query 3 - Specific Time Series</h2>
 <p>What if you want a specific timeseries? You have to include every tag and coresponding value.</p>
-<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web1,dc=lax}
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.system{host=web01,dc=lax}
 </pre></div>
 </div>
 <p>This will return the data from timeseries #6 only.</p>
@@ -336,7 +336,7 @@
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lax&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web1&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -351,7 +351,7 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 <tt class="docutils literal"><span class="pre">m=sum:cpu.system{host=web1}</span></tt> thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.</p>
+<p class="last">This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 <tt class="docutils literal"><span class="pre">m=sum:cpu.system{host=web01}</span></tt> thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.</p>
 </div>
 </div>
 <div class="section" id="query-4-tsuid-query">
@@ -366,7 +366,7 @@
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lax&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web1&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -390,7 +390,7 @@
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web1&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
             <span class="s2">&quot;dc&quot;</span>
@@ -425,23 +425,23 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>web1</td>
+<tr class="row-even"><td>web01</td>
 <td>#1, #4, #5, #6</td>
 </tr>
-<tr class="row-odd"><td>web2</td>
+<tr class="row-odd"><td>web02</td>
 <td>#2, #7</td>
 </tr>
-<tr class="row-even"><td>web3</td>
+<tr class="row-even"><td>web03</td>
 <td>#3</td>
 </tr>
 </tbody>
 </table>
-<p>TSDB found 7 total timeseries that included the &quot;host&quot; tag. There were 3 unique values for that tag (web1, web2, and web3).</p>
+<p>TSDB found 7 total timeseries that included the &quot;host&quot; tag. There were 3 unique values for that tag (web01, web02, and web03).</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web1&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -457,7 +457,7 @@
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web2&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
             <span class="s2">&quot;dc&quot;</span>
@@ -474,7 +474,7 @@
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web3&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web03&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -490,7 +490,7 @@
 </div>
 <div class="section" id="query-7-group-and-filter">
 <h2>Query 7 - Group and Filter</h2>
-<p>Note that the in example #2, the <tt class="docutils literal"><span class="pre">web1</span></tt> group included the odd-ball timeseries #4 and #5. We can filter those out by specifying a second tag ala:</p>
+<p>Note that the in example #2, the <tt class="docutils literal"><span class="pre">web01</span></tt> group included the odd-ball timeseries #4 and #5. We can filter those out by specifying a second tag ala:</p>
 <div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.nice{host=*,dc=dal}
 </pre></div>
 </div>
@@ -500,7 +500,7 @@
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web1&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -514,7 +514,7 @@
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web2&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -528,7 +528,7 @@
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
             <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web3&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web03&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -545,10 +545,10 @@
 <div class="section" id="query-8-grouping-with-or">
 <h2>Query 8 - Grouping With OR</h2>
 <p>The <tt class="docutils literal"><span class="pre">*</span></tt> operator is greedy and will return <em>all</em> values that are assigned to a tag name. If you only want a few tag values, you can use the <tt class="docutils literal"><span class="pre">|</span></tt> (pipe) operator instead.</p>
-<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.nice{host=web1|web2}
+<div class="highlight-python"><div class="highlight"><pre>m=sum:cpu.nice{host=web01|web02}
 </pre></div>
 </div>
-<p>This will find all of the timeseries that include &quot;host&quot; values for &quot;web1&quot; OR &quot;web2&quot;, then group them by value, similar to the <tt class="docutils literal"><span class="pre">*</span></tt> operator. Our groups, this time, will look like this:</p>
+<p>This will find all of the timeseries that include &quot;host&quot; values for &quot;web01&quot; OR &quot;web02&quot;, then group them by value, similar to the <tt class="docutils literal"><span class="pre">*</span></tt> operator. Our groups, this time, will look like this:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="50%" />
@@ -560,10 +560,10 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>web1</td>
+<tr class="row-even"><td>web01</td>
 <td>#1, #4, #5, #6</td>
 </tr>
-<tr class="row-odd"><td>web2</td>
+<tr class="row-odd"><td>web02</td>
 <td>#2, #7</td>
 </tr>
 </tbody>
@@ -572,7 +572,7 @@
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web1&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
         <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -588,7 +588,7 @@
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web2&quot;</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
             <span class="s2">&quot;dc&quot;</span>

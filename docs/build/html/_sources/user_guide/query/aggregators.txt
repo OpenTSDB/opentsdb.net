@@ -103,7 +103,7 @@ For example, take series ``A`` and ``B`` in the first table under **Aggregation*
    "B Downsampled", "", "", "", "50", "", "10"
    "Aggregated Result", "", "", "", "85", "", "35"
 
-The actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. Future versions of OpenTSDB will likely normalize this time on a well defined boundary.
+For early versions of OpenTSDB, the actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. As of 2.1 and later, the timestamp for each point is aligned to the start of a time bucket based on a modulo of the current time and the downsample interval.
 
 Note that when a query specifies a down sampling function and multiple time series are returned, downsampling occurs **before** aggregation. I.e. now that we have ``A Downsampled`` and ``B Downsampled`` we can aggregate the two series to come up with the aggregated result on the bottom line.
 

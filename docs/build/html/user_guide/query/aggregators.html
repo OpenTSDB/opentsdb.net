@@ -380,7 +380,7 @@ For the graphically inclined we have the following examples. An imaginary metric
 </tr>
 </tbody>
 </table>
-<p>The actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. Future versions of OpenTSDB will likely normalize this time on a well defined boundary.</p>
+<p>For early versions of OpenTSDB, the actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. As of 2.1 and later, the timestamp for each point is aligned to the start of a time bucket based on a modulo of the current time and the downsample interval.</p>
 <p>Note that when a query specifies a down sampling function and multiple time series are returned, downsampling occurs <strong>before</strong> aggregation. I.e. now that we have <tt class="docutils literal"><span class="pre">A</span> <span class="pre">Downsampled</span></tt> and <tt class="docutils literal"><span class="pre">B</span> <span class="pre">Downsampled</span></tt> we can aggregate the two series to come up with the aggregated result on the bottom line.</p>
 </div>
 <div class="section" id="fill-policies">

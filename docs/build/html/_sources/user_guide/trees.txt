@@ -222,19 +222,19 @@ The resulting tree would look like this:
       
       * system (tsuid=0102040101)
       * user (tsuid=0202040101)
+  
+  * web02.dal.mysite.com
     
-    * web02.dal.mysite.com
+    * cpu
       
-      * cpu
-        
-        * system (tsuid=0102040102)
-        * user (tsuid=0202040102)
-        
-    * web03.dal.mysite.com
+      * system (tsuid=0102040102)
+      * user (tsuid=0202040102)
       
-      * cpu
-        
-        * system (tsuid=0102040103)
+  * web03.dal.mysite.com
+    
+    * cpu
+      
+      * system (tsuid=0102040103)
 
 * lax
 

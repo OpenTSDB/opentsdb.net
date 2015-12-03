@@ -27,6 +27,7 @@ Parameters used by the lookup endpoint include:
    :widths: 10, 5, 5, 45, 10, 5, 5, 15
 
    "query", "String", "Required", "A lookup query as defined below.", "", "m", "", "tsd.hbase.rpcs{type=*}"
+   "useMeta", "Boolean", "Optional", "Whether or not to use the meta data table or the raw data table. The raw table will be much slower.", "False", "use_meta", "", "True"
 
 Lookup Queries
 ^^^^^^^^^^^^^^

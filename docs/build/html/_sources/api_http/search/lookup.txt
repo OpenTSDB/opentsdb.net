@@ -40,7 +40,7 @@ For complex queries with multiple values, each type is ``AND``'d with the other 
 
 ::
 
-  <metric> AND (<tagk1>=[<tagv1>] OR <tagk2>=[<tagv2>]) AND ([<tagk3>]=<tagv3> OR [<tagk4>]=<tagv4>)
+  <metric> AND (<tagk1>=[<tagv1>] OR <tagk1>=[<tagv2>]) AND ([<tagk2>]=<tagv3> OR [<tagk2>]=<tagv4>)
 
 For example, the query ``tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=tsd3}`` would return only the time series with the metric ``tsd.hbase.rpcs`` and the ``type`` tagk with any value and a ``host`` tag with either ``tsd1`` or ``tsd2`` or ``tsd3``. Unlike a data query, you may supply multiple tagks with the same name as seen in the example above. Wildcards always take priority so if your query looked like ``tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=*}``, then the query would effectively be treated as ``tsd.hbase.rpcs{type=*,host=*}``.
 

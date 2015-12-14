@@ -193,7 +193,7 @@
 <div class="highlight-python"><div class="highlight"><pre>timeseries=&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN&gt;]}]
 </pre></div>
 </div>
-<p>It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators. Note that if you supply a backscan value to avoid the meta table, then you must supply at least one tag pair as TSDB requires all series to have at least one tag.</p>
+<p>It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators. Note that if you supply a backscan value to avoid the meta table, then you must supply all of the tags and values to match the exact time series you are looking for. Backscan does not currently filter on the metric and tags given but will look for the specific series.</p>
 </div>
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>

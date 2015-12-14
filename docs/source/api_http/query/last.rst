@@ -48,7 +48,7 @@ The full specification for a metric query string sub query is as follows:
 
   timeseries=<metric_name>[{<tag_name1>=<tag_value1>[,...<tag_nameN>=<tag_valueN>]}]
   
-It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators. Note that if you supply a backscan value to avoid the meta table, then you must supply at least one tag pair as TSDB requires all series to have at least one tag.
+It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators. Note that if you supply a backscan value to avoid the meta table, then you must supply all of the tags and values to match the exact time series you are looking for. Backscan does not currently filter on the metric and tags given but will look for the specific series.
 
 TSUID Query String Format
 ^^^^^^^^^^^^^^^^^^^^^^^^^

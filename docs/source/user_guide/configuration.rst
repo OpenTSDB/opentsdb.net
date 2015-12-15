@@ -50,6 +50,10 @@ applicable, the corresponding command line override is provided. Please note
 that individual command line tools may have their own values so see their
 documentation for details.
 
+.. NOTE::
+
+  For additional parameters used for tuning the AsyncHBase client, see `AsyncHBase Configuration <http://opentsdb.github.io/asynchbase/docs/build/html/configuration.html>`_
+
 .. csv-table::
    :header: "Property", "Type", "Required", "Description", "Default", "CLI"
    :widths: 20, 5, 5, 55, 5, 10

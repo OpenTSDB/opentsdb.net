@@ -314,7 +314,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>An optional downsampling function to reduce the amount of data returned.</td>
-<td>&nbsp;</td>
+<td><em>See below</em></td>
 <td>5m-avg</td>
 </tr>
 <tr class="row-odd"><td>tags</td>
@@ -377,6 +377,18 @@
 </tr>
 </tbody>
 </table>
+<p><em>Downsampling</em></p>
+<p>Downsample specifications const if an interval, a unit of time, an aggregator and (as of 2.2) an optional fill policy. The format of a downsample spec is:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;interval&gt;&lt;units&gt;-&lt;aggregator&gt;[-&lt;fill policy&gt;]
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>1h-sum
+30m-avg-nan
+24h-max-zero
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../../user_guide/query/aggregators.html"><em>Aggregators</em></a> for a list of supported fill policies.</p>
 <p><em>Filters</em></p>
 <p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><em>Filters</em></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <tt class="docutils literal"><span class="pre">host=literal_or(web01)</span></tt> and <tt class="docutils literal"><span class="pre">host=literal_or(web02)</span></tt> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
 <table border="1" class="docutils">

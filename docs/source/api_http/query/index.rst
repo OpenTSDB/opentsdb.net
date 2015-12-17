@@ -64,7 +64,7 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
   "metric", "String", "Required", "The name of a metric stored in the system", "", "sys.cpu.0"
   "rate", "Boolean", "Optional", "Whether or not the data should be converted into deltas before returning. This is useful if the metric is a continuously incrementing counter and you want to view the rate of change between data points.", "false", "true"
   "rateOptions", "Map", "Optional", "Monotonically increasing counter handling options", "*See below*", "*See below*"
-  "downsample", "String", "Optional", "An optional downsampling function to reduce the amount of data returned.", "", "5m-avg"
+  "downsample", "String", "Optional", "An optional downsampling function to reduce the amount of data returned.", "*See below*", "5m-avg"
   "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. *Deprecated in 2.2*", "", "*See Below*"
   "filters *(2.2)*", "List", "Optional", "Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.", "", "*See Below*"
 
@@ -79,6 +79,24 @@ When passing rate options in a query string, the options must be enclosed in cur
   "counter", "Boolean", "Optional", "Whether or not the underlying data is a monotonically increasing counter that may roll over", "false", "true"
   "counterMax", "Integer", "Optional", "A positive integer representing the maximum value for the counter.", "Java Long.MaxValue", "65535"
   "resetValue", "Integer", "Optional", "An optional value that, when exceeded, will cause the aggregator to return a ``0`` instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.", "0", "65000"
+
+*Downsampling*
+
+Downsample specifications const if an interval, a unit of time, an aggregator and (as of 2.2) an optional fill policy. The format of a downsample spec is:
+
+::
+
+  <interval><units>-<aggregator>[-<fill policy>]
+
+For example:
+
+::
+  
+  1h-sum
+  30m-avg-nan
+  24h-max-zero
+
+See :doc:`../../user_guide/query/aggregators` for a list of supported fill policies.
 
 *Filters*
 

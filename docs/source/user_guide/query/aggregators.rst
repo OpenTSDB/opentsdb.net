@@ -116,10 +116,12 @@ When aggregating multiple series OpenTSDB generally performs linear interpolatio
 
 Available polices include:
 
-* None - The default behavior that does not emit missing values during serialization and performs linear interpolation (or otherwise specified interpolation) when aggregating series.
-* NaN - Emits a ``NaN`` in the serialization output when all values are missing in a series. Skips series in aggregations when the value is missing.
-* Null - Same behavior as NaN except that during serialization it emits a ``null`` instead of a ``NaN``.
-* Zero - Substitutes a zero when a timestamp is missing. The zero value will be incorporated in aggregated results.
+* None (``none``) - The default behavior that does not emit missing values during serialization and performs linear interpolation (or otherwise specified interpolation) when aggregating series.
+* NaN (``nan``) - Emits a ``NaN`` in the serialization output when all values are missing in a series. Skips series in aggregations when the value is missing.
+* Null (``null``) - Same behavior as NaN except that during serialization it emits a ``null`` instead of a ``NaN``.
+* Zero (``zero``) - Substitutes a zero when a timestamp is missing. The zero value will be incorporated in aggregated results.
+
+(The terms in parentheses can be used in downsampling specifications, e.g. ``1h-sum-nan``)
 
 An example with the NaN fill policy and downsampling on 10 seconds:
 

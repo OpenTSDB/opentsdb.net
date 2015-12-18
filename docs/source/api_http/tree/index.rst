@@ -39,7 +39,7 @@ The following fields can be used for all tree endpoint requests:
    
    "treeId", "Integer", "Required*", "Used to fetch or modify a specific tree. *When creating a new tree, the ``tree`` value must not be present.", "", "treeid", "RO", "1"
    "name", "String", "Required*", "A brief, descriptive name for the tree. *Required only when creating a tree.", "", "name", "RW", "Network Infrastructure"
-   "description", "String", "Optional", "A longer description of what the tree contains", "", "description", "RW", "Tree containing all network gearl"
+   "description", "String", "Optional", "A longer description of what the tree contains", "", "description", "RW", "Tree containing all network gear"
    "notes", "String", "Optional", "Detailed notes about the tree", "", "notes", "RW", ""
    "strictMatch", "Boolean", "Optional", "Whether or not timeseries should be included in the tree if they fail to match one or more rule levels.", "false", "strict_match", "RW", "true"
    "enabled", "Boolean", "Optional", "Whether or not TSMeta should be processed through the tree. By default this is set to ``false`` so that you can setup rules and test some objects before building branches.", "false", "enabled", "RW", "true"
@@ -228,7 +228,7 @@ POST/PUT
 
 Using the ``POST`` or ``PUT`` methods, you can create a new tree or edit most of the fields for an existing tree. New trees require a ``name`` value and for the ``treeId' value to be empty. Existing trees require a valid ``treeId`` ID and any fields that require modification. A successful request will return the modified tree object.
 
-.. Note:: A new tree will not have any rules. Your next call should probably bee to ``/tree/rule`` or ``/tree/rules``.
+.. Note:: A new tree will not have any rules. Your next call should probably be to ``/tree/rule`` or ``/tree/rules``.
 
 Example POST Create Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^

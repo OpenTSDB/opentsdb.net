@@ -29,6 +29,7 @@ All command line utilities share some common command line parameters:
    "--config", "String", "The full or relative path to an OpenTSDB :doc:`../configuration` file. If this parameter is not provided, the command will attempt to load the default config file.", "See :doc:`../configuration`", "--config=/usr/local/tempconfig.conf"
    "--table", "String", "Name of the HBase table where datapoints are stored", "tsdb", "--table=prod-tsdb"
    "--uidtable", "String", "Name of the HBase table where UID information is stored", "tsdb-uid", "--uidtable=prod-tsdb-uid"
+   "--verbose", "Boolean", "For some CLI tools, this command will allow for INFO and above logging per the logback.xml config. Otherwise without this flag, some tools may only log WARNing messages."
    "--zkbasedir", "String", "Path under which is the znode for the -ROOT- region", "/hbase", "--zkbasedir=/prod/hbase"
    "--zkquorum", "String", "Specification of the ZooKeeper quorum to use, i.e. a list of servers and/or ports in the ZooKeeper cluster", "localhost", "--zkquorum=zkhost1,zkhost2,zkhost3"
    

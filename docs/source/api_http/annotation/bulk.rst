@@ -4,7 +4,7 @@
 *NOTE: (Version 2.1)*
 The bulk endpoint enables adding, updating or deleting multiple annotations in a single call. Annotation updates must be sent over PUT or POST as content data. Query string requests are not supported for ``POST`` or ``GET``. Each annotation is processed individually and synchronized with the backend. If one of the annotations has an error, such as a missing field, an exception will be returned and some of the annotations may not be written to storage. In such an event, the errant annotation should be fixed and all annotations sent again.
 
-Annotations may also be deleted in bulk for a specified time span. If you supply a list of of one or more TSUIDs, annotations with a ``start time`` that falls within the specified timespan and belong to those TSUIDs will be removed. Alternatively the ``global`` flag can be set and any global annoations (those not associated with a time series) will be deleted within the range.
+Annotations may also be deleted in bulk for a specified time span. If you supply a list of of one or more TSUIDs, annotations with a ``start time`` that falls within the specified timespan and belong to those TSUIDs will be removed. Alternatively the ``global`` flag can be set and any global annotations (those not associated with a time series) will be deleted within the range.
 
 Verbs
 -----
@@ -30,7 +30,7 @@ Fields for a bulk delete request are defined below:
    "tsuids", "Array", "Optional", "A list of TSUIDs with annotations that should be deleted. This may be empty or null (for JSON) in which case the ``global`` flag should be set. When using the query string, separate TSUIDs with commas.", "", "tsuids", "RO", "000001000001000001, 000001000001000002"
    "global", "Boolean", "Optional", "Whether or not global annotations should be deleted for the range", "false", "global", "RO", "true"
 
-.. WARNING:: If your request uses ``PUT``, any fields that you do not supply with the request will be overwritten with their default values. For example, the ``description`` field will be set to an emtpy string and the ``custom`` field will be reset to ``null``.
+.. WARNING:: If your request uses ``PUT``, any fields that you do not supply with the request will be overwritten with their default values. For example, the ``description`` field will be set to an empty string and the ``custom`` field will be reset to ``null``.
 
 Example POST/PUT Request
 ^^^^^^^^^^^^^^^^^^^^^^^^

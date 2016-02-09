@@ -90,7 +90,7 @@ IDEs
 
 Many devs use an IDE to work on Java projects and despite OpenTSDB's non-java-standard directory layout, working with an IDE is pretty easy. Here are some steps to get up and running with Eclipse though they should work with other environments. This example assumes you're using Eclipse.
 
-* Cone the GIT repo to a location such as ``/home/$USER/opentsdb``
+* Clone the GIT repo to a location such as ``/home/$USER/opentsdb``
 * Build the repo with ``./build.sh`` from the directory
 * Fire up Eclipse or your favorite IDE
 * Create a new Java project with a name like ``opentsdb_dev`` so that it winds up in ``/home/$USER/opentsdb_dev``

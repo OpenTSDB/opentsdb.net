@@ -179,11 +179,6 @@ Avg
 
 Calculates the average of all values across the time span or across multiple time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.
 
-Count
------
-
-Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted.
-
 Dev
 ---
 

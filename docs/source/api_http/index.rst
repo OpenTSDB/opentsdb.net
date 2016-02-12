@@ -80,7 +80,7 @@ If an error occurs, the API will return a response with an error object formatte
    "code", "Integer", "Yes", "The HTTP status code", "400"
    "message", "String", "Yes", "A descriptive error message about what went wrong", "Missing required parameter"
    "details", "String", "Optional", "Details about the error, often a stack trace", "Missing value: type"
-   "trace", "String", "Optional", "A JAVA stack trace describing the location where the error was generated. This can be enabled via the ``tsd.http.show_stack_trace`` configuration option. The default for TSD is to hide the stack trace.", "`See below`"
+   "trace", "String", "Optional", "A JAVA stack trace describing the location where the error was generated. This can be disabled via the ``tsd.http.show_stack_trace`` configuration option. The default for TSD is to show the stack trace.", "`See below`"
 
 All errors will return with a valid HTTP status error code and a content body with error details. The default formatter returns error messages as JSON with the ``application/json`` content-type. If a different formatter was requested, the output may be different. See the formatter documentation for details.
    

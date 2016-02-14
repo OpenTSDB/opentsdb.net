@@ -138,7 +138,7 @@ The general process for creating and building a tree is as follows:
 #. Create a new tree via the HTTP API
 #. Assign one or more rules to the tree via the HTTP API
 #. Test the rules with some TSMeta objects via the HTTP API
-#. After veryfing the branches would appear correctly, set the tree's ``enable`` flat to ``true``
+#. After veryfing the branches would appear correctly, set the tree's ``enable`` flag to ``true``
 #. Run the ``uid`` tool with the ``treesync`` sub command to synchronize existing TSMeta objects in the tree
 
 .. NOTE:: When you create a new tree, it will be disabled by default so TSMeta objects will not be processed through the rule set. This is so you have time to configure the rule set and test it to verify that the tree would be built as you expect it to.

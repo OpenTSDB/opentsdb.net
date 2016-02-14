@@ -182,7 +182,7 @@ Calculates the average of all values across the time span or across multiple tim
 Count
 -----
 
-Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted.
+Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted. It's best to use this when downsampling.
 
 Dev
 ---

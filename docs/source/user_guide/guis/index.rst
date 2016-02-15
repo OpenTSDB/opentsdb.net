@@ -6,7 +6,7 @@ Currently OpenTSDB offers a simple built-in GUI accessible by opening your brows
 Interface
 ^^^^^^^^^
 
-.. image:: ../../images/gui_sections.jpg
+.. image:: ../../images/gui_sections.png
 
 There are three main areas of the GUI:
 
@@ -27,9 +27,9 @@ The menu is a group of tabs that can be clicked for different options.
 Errors
 ------
 
-When building a graph, if an error occurs, a message will appear above the menu.
+When building a graph, if an error occurs, a message will appear above the menu. Click on the arrow to expand the message and determine what the error was.
 
-.. image:: ../../images/gui_error.jpg
+.. image:: ../../images/gui_error.png
 
 Query Builder
 ^^^^^^^^^^^^^
@@ -43,33 +43,37 @@ You'll likely spend a lot of time in this area since there are a number of optio
 Metrics Section
 ---------------
 
-.. image:: ../../images/gui_metric_section.jpg
+.. image:: ../../images/gui_metric_section.png
 
 This area is where you choose the metrics, optional tags, aggregation function and a possible down sampler for your graph. Along the top are a pair of blue tabs. Each graph can display multiple metrics and the tabs organize the different sub queries. Each graph requires at least one metric so you'll choose that metric in the first tab. To add another metric to your graph, click the ``+`` tab and you'll be able to setup another sub query. If you have configured multiple metrics, simply click on the tab that corresponds to the metric you want to modify. The tab will display a subset of the metric name it is associated with.
 
-The **Metric** box is where you'll choose a metric. This field auto-completes as you type just like a modern web browser. Auto-complete is case sensitive so only metrics matching the case provided will be displayed. By default, only the 25 top matching entries will be returned so you may not see all of the possible choices as you type. Either click on the entry you want when it appears or keep typing until you have entire metric in the box.
+The **Metric** box is where you'll choose a metric. This field auto-completes as you type just like a modern web browser. Auto-complete is generally case sensitive so only metrics matching the case provided will be displayed. By default, only the 25 top matching entries will be returned so you may not see all of the possible choices as you type. Either click on the entry you want when it appears or keep typing until you have entire metric in the box.
 
-.. image:: ../../images/gui_autocomplete.jpg
+.. image:: ../../images/gui_autocomplete.png
 
-Recall from the :doc:`../query/index` documentation that if you only provide a metric without any tags, *every time series with that metric* will be aggregated in the results. If you want to drill down, supply one or more **Tags** to filter or group the results. A new metric section will have two boxes next to **Tags**. The left box is for the tag name or ``tagk`` value, e.g. ``host`` or ``symbol``. The right hand box is for the tag value or ``tagv``, e.g. ``webserver01`` or ``goog``. When you add a tag, another pair of boxes will appear so that you can keep adding tags to filter as much as necessary.
+Recall from the :doc:`../query/index` documentation that if you only provide a metric without any tags, *every time series with that metric* will be aggregated in the results. If you want to drill down, supply one or more **Tags** to filter or group the results. A new metric section will have two boxes next to **Tags**. The left box is for the tag name or ``tagk`` value, e.g. ``host`` or ``symbol``. The right hand box is for the tag value or ``tagv``, e.g. ``webserver01`` or ``google``. When you add a tag, another pair of boxes will appear so that you can keep adding tags to filter as much as necessary. 
 
 Both tag name and value boxes also auto-complete in the same way as the **Metric** box. However each auto-complete will show *all* of the results for the name or value, not just the values that would apply to a specific metric or tag name. In future versions we may be able to implement such a mapping feature but currently you'll have to sort through all of the values.
 
-The tag value box can use grouping operators such as the ``*`` and the ``|``. See :doc:`../query/index` for details.
+With version 2.2, a checkbox to the right of each pair of check boxes is used to determine if the results should be grouped by the tag filter (checked) or aggregated (unchecked). The boxes are checked by default to exhibit the behavior of TSD prior to 2.2.
+
+The tag value box can use grouping operators such as the ``*`` and the ``|``. See :doc:`../query/index` for details. Tag value boxes can also use filters as of version 2.2. E.g. you can enter "wildcard(webserver*)" as a tag value and it will match all hosts starting with "webserver".
 
 The **Rate** box allows you to convert all of the time series for the metric to a rate of change value. By default this option is turned off.
+
+**Rate ctr** Enables the rate options boxes below and indicate that the metric graphed is a monotonically increasing counter. If so, you can choose to supply a maximum value (**Rate Ctr Max**) for the counter so that when it rolls over, the graph will show the proper value instead of a negative number. Likewise you can choose to set a reset value (**Rate Ctr Reset**) to replace values with a zero if the rate is greater than the value. To avoid negative spikes it's generally save to set the rate counter with a reset value of 1.
 
 For metrics or time series with different scales, you can select the **Right Axis** check box to add another axis to the right of the graph for the metric's time series. This can make graphs much more readable if the scales differ greatly.
 
 The **Aggregator** box is a drop-down list of aggregation functions used to manipulate the data for multiple time series associated with the sub query. The default aggregator is *sum* but you can choose from a number of other options.
 
-The **Downsample** section is used to reduce the number of data points displayed on the graph. By default, GnuPlot will place a character, such as the ``+`` or ``x`` at each data point of a graph. When the time span is wide and there are many data points, the graph can grow pretty thick and ugly. Use down sampling to reduce the number of points. Simply choose an aggregation function from the drop down list, then enter a time interval in the second box. The interval must follow the relative date format (without the ``-ago`` component). For example, to downsample on an hour, enter ``1h``. See :doc:`../query/dates` for details.
+The **Downsample** section is used to reduce the number of data points displayed on the graph. By default, GnuPlot will place a character, such as the ``+`` or ``x`` at each data point of a graph. When the time span is wide and there are many data points, the graph can grow pretty thick and ugly. Use down sampling to reduce the number of points. Simply choose an aggregation function from the drop down list, then enter a time interval in the second box. The interval must follow the relative date format (without the ``-ago`` component). For example, to downsample on an hour, enter ``1h``. The last selection box chooses a "fill policy" for the downsampled values when aggregated with other series. For graphing in the GUI, only the "zero" value makes a difference as it will substitute a zero for missing series. See :doc:`../query/dates` for details.
 
-.. figure:: ../../images/gui_downsampling_off.jpg
+.. figure:: ../../images/gui_downsampling_off.png
   
    Downsampling Disabled
    
-.. figure:: ../../images/gui_downsampling_on.jpg
+.. figure:: ../../images/gui_downsampling_on.png
 
    Downsampling Enabled
 

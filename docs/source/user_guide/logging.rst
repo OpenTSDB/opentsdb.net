@@ -12,40 +12,12 @@ Every log message is accompanied by a descriptive severity level. Levels employe
 * **WARN** - These are often caused by bad user data or something else that was wrong but not a critical error. Look for warnings if you are not receiving the results you expect when using OpenTSDB.
 * **INFO** - Informational messages are notifications of expected or normal behavior. They can be useful during troubleshooting. Most logging appenders should be set to ``INFO``.
 * **DEBUG** - If you require further troubleshooting you can enable ``DEBUG`` logging that will give much greater detail about what OpenTSDB is doing under the hood. Be careful enabling this level as it can return a vast amount of data. 
+* **OFF** - To drop any logging messages from a class, simply set the level to ``OFF``.
 
 Configuration
 ^^^^^^^^^^^^^
 
-A file called ``logback.xml`` is included in the ``/src`` directory and copied for distributions. On startup, OpenTSDB will search the class path for this file and if found, load the configuration. The default config from GIT will log INFO level events to console and store the 1,024 latest messages in a round-robin buffer to be accessed from the GUI. Packages built from GIT also include rotating file logs. 
-
-The default config for OpenTSDB is:
-
-.. code-block :: xml 
-
-  <?xml version="1.0" encoding="UTF-8"?>
-  <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-      <encoder>
-        <pattern>
-          %d{ISO8601} %-5level [%thread] %logger{0}: %msg%n
-        </pattern>
-      </encoder>
-    </appender>
-    
-    <appender name="CYCLIC" class="ch.qos.logback.core.read.CyclicBufferAppender">
-      <MaxSize>1024</MaxSize>
-    </appender>
-
-    <logger name="org.apache.zookeeper" level="INFO"/>
-    <logger name="org.hbase.async" level="INFO"/>
-    <logger name="com.stumbleupon.async" level="INFO"/>
-    <root level="INFO">
-      <appender-ref ref="STDOUT"/>
-      <appender-ref ref="CYCLIC"/>
-    </root>
-  </configuration>
-
-The config is broken up into the following sections:
+A file called ``logback.xml`` is included in the ``/src`` directory and copied for distributions. On startup, OpenTSDB will search the class path for this file and if found, load the configuration. The default config from GIT will log INFO level events to console and store the 1,024 latest messages in a round-robin buffer to be accessed from the GUI. However by default, it won't log to disk. Packages built from GIT have file logging enabled by default. As of 2.2, all queries can be logged to a separate file for parsing and automating. This log is disabled by default but can be enabled by setting the proper log level.
 
 Appenders
 ---------
@@ -57,15 +29,30 @@ Loggers
 
 Loggers determine what data and what level of data is routed to the appenders. Loggers can match a particular Java class namespace and affect all messages emitted from that space. The default OpenTSDB config explicitly lists some loggers for Zookeeper, AsyncHBase and the Async libraries to set their levels to ``INFO`` so as to avoid chatty outputs that are not relevant most of the time. If you enable a plugin and start seeing a lot of messages that you don't care about, add a logger entry to suppress the messages.
 
+**Query Log**
+To enable the Query log, find the following section:
+
+.. code-block :: xml
+
+  <logger name="QueryLog" level="OFF" additivity="false">
+    <appender-ref ref="QUERY_LOG"/>
+  </logger>
+  
+and set the ``level`` to ``INFO``.
+
+**Log File**
+To enable the main log file, find the following section:
+
+.. code-block :: xml
+
+  <!--<appender-ref ref="FILE"/>-->
+
+and remove the comments so it appears as ``<appender-ref ref="FILE"/>``.
+
 Root
 ----
 
 The root section is the catch-all logger that determines that default logging level for all messages that don't match an explicit logger. It also handles routing to the different appenders.
-
-Examples
-^^^^^^^^
-
-If you aren't installing from a package, you may want to try adding some of the following appenders to your file.
 
 Log to Rotating File
 --------------------

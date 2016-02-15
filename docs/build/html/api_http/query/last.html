@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/query/last &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/query/last &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="/api/query" href="index.html" />
     <link rel="next" title="/api/search" href="../search/index.html" />
     <link rel="prev" title="/api/query/gexp" href="gexp.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="gexp.html" title="/api/query/gexp"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -85,7 +85,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="../search/index.html"
                         title="next chapter">/api/search</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -104,14 +104,14 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-query-last">
 <h1>/api/query/last</h1>
 <p>This endpoint (2.1 and later) provides support for accessing the latest value of individual time series. It provides an optimization over a regular query when only the last data point is required. Locating the last point can be done with the timestamp of the meta data counter or by scanning backwards from the current system time.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><em>Metadata</em></a>. You must set either <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></tt> or <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></tt>. Queries with a backscan parameter will skip the meta table.</p>
+<p class="last">In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><em>Metadata</em></a>. You must set either <code class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></code> or <code class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></code>. Queries with a backscan parameter will skip the meta table.</p>
 </div>
 <p>Similar to the standard query endpoint, there are two methods to use in selecting which time series should return data:</p>
 <ul class="simple">
@@ -237,7 +237,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output will be an array of 0 or more data points depending on the data that was found. If a data point for a particular time series was not located within the time specified, it will not appear in the output. Output fields depend on whether or not the <tt class="docutils literal"><span class="pre">resolve</span></tt> flag was set.</p>
+<p>The output will be an array of 0 or more data points depending on the data that was found. If a data point for a particular time series was not located within the time specified, it will not appear in the output. Output fields depend on whether or not the <code class="docutils literal"><span class="pre">resolve</span></code> flag was set.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -250,10 +250,10 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>metric</td>
-<td>Name of the metric for the time series. Only returned if <tt class="docutils literal"><span class="pre">resolve</span></tt> was set to true.</td>
+<td>Name of the metric for the time series. Only returned if <code class="docutils literal"><span class="pre">resolve</span></code> was set to true.</td>
 </tr>
 <tr class="row-odd"><td>tags</td>
-<td>A list of tags for the time series. Only returned if <tt class="docutils literal"><span class="pre">resolve</span></tt> was set to true.</td>
+<td>A list of tags for the time series. Only returned if <code class="docutils literal"><span class="pre">resolve</span></code> was set to true.</td>
 </tr>
 <tr class="row-even"><td>timestamp</td>
 <td>A Unix epoch timestamp, in milliseconds, when the data point was written</td>
@@ -266,7 +266,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 </tr>
 </tbody>
 </table>
-<p>Unless there was an error with the query, you will generally receive a <tt class="docutils literal"><span class="pre">200</span></tt> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
+<p>Unless there was an error with the query, you will generally receive a <code class="docutils literal"><span class="pre">200</span></code> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
 </pre></div>
 </div>
@@ -320,7 +320,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -332,13 +332,13 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
         <li class="right" >
           <a href="gexp.html" title="/api/query/gexp"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/stats &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/stats &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,9 +22,9 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="HTTP API" href="../index.html" />
-    <link rel="next" title="/api/stats/threads" href="threads.html" />
+    <link rel="next" title="/api/stats/jvm" href="jvm.html" />
     <link rel="prev" title="/api/serializers" href="../serializers.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
@@ -40,24 +40,24 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="threads.html" title="/api/stats/threads"
+          <a href="jvm.html" title="/api/stats/jvm"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../serializers.html" title="/api/serializers"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -79,9 +79,9 @@
   <p class="topless"><a href="../serializers.html"
                         title="previous chapter">/api/serializers</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="threads.html"
-                        title="next chapter">/api/stats/threads</a></p>
-<div id="searchbox" style="display: none">
+  <p class="topless"><a href="jvm.html"
+                        title="next chapter">/api/stats/jvm</a></p>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -100,16 +100,17 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-stats">
 <h1>/api/stats</h1>
 <p>This endpoint provides a list of statistics for the running TSD. Sub endpoints return details about other TSD components such as the JVM, thread states or storage client. All statistics are read only.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="threads.html">/api/stats/threads</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jvm.html">/api/stats/jvm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query.html">/api/stats/query</a></li>
 <li class="toctree-l1"><a class="reference internal" href="region_clients.html">/api/stats/region_clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threads.html">/api/stats/threads</a></li>
 </ul>
 </div>
 <div class="section" id="verbs">
@@ -211,24 +212,24 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="threads.html" title="/api/stats/threads"
+          <a href="jvm.html" title="/api/stats/jvm"
              >next</a> |</li>
         <li class="right" >
           <a href="../serializers.html" title="/api/serializers"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

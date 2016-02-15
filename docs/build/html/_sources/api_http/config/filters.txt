@@ -34,7 +34,7 @@ Example Response
   {
     "iliteral_or": {
         "examples": "host=iliteral_or(web01),  host=iliteral_or(web01|web02|web03)  {\"type\":\"iliteral_or\",\"tagk\":\"host\",\"filter\":\"web01|web02|web03\",\"groupBy\":false}",
-        "description": "Accepts one or more exact values and matches if the series contains any of them. Multiple values can be included and must be seperated by the | (pipe) character. The filter is case insensitive and will not allow characters that TSDB does not allow at write time."
+        "description": "Accepts one or more exact values and matches if the series contains any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case insensitive and will not allow characters that TSDB does not allow at write time."
     },
     "wildcard": {
         "examples": "host=wildcard(web*),  host=wildcard(web*.tsdb.net)  {\"type\":\"wildcard\",\"tagk\":\"host\",\"filter\":\"web*.tsdb.net\",\"groupBy\":false}",
@@ -42,11 +42,11 @@ Example Response
     },
     "not_literal_or": {
         "examples": "host=not_literal_or(web01),  host=not_literal_or(web01|web02|web03)  {\"type\":\"not_literal_or\",\"tagk\":\"host\",\"filter\":\"web01|web02|web03\",\"groupBy\":false}",
-        "description": "Accepts one or more exact values and matches if the series does NOT contain any of them. Multiple values can be included and must be seperated by the | (pipe) character. The filter is case sensitive and will not allow characters that TSDB does not allow at write time."
+        "description": "Accepts one or more exact values and matches if the series does NOT contain any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case sensitive and will not allow characters that TSDB does not allow at write time."
     },
     "not_iliteral_or": {
         "examples": "host=not_iliteral_or(web01),  host=not_iliteral_or(web01|web02|web03)  {\"type\":\"not_iliteral_or\",\"tagk\":\"host\",\"filter\":\"web01|web02|web03\",\"groupBy\":false}",
-        "description": "Accepts one or more exact values and matches if the series does NOT contain any of them. Multiple values can be included and must be seperated by the | (pipe) character. The filter is case insensitive and will not allow characters that TSDB does not allow at write time."
+        "description": "Accepts one or more exact values and matches if the series does NOT contain any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case insensitive and will not allow characters that TSDB does not allow at write time."
     },
     "not_key": {
         "examples": "host=not_key()  {\"type\":\"not_key\",\"tagk\":\"host\",\"filter\":\"\",\"groupBy\":false}",
@@ -58,7 +58,7 @@ Example Response
     },
     "literal_or": {
         "examples": "host=literal_or(web01),  host=literal_or(web01|web02|web03)  {\"type\":\"literal_or\",\"tagk\":\"host\",\"filter\":\"web01|web02|web03\",\"groupBy\":false}",
-        "description": "Accepts one or more exact values and matches if the series contains any of them. Multiple values can be included and must be seperated by the | (pipe) character. The filter is case sensitive and will not allow characters that TSDB does not allow at write time."
+        "description": "Accepts one or more exact values and matches if the series contains any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case sensitive and will not allow characters that TSDB does not allow at write time."
     },
     "regexp": {
         "examples": "host=regexp(.*)  {\"type\":\"regexp\",\"tagk\":\"host\",\"filter\":\".*\",\"groupBy\":false}",

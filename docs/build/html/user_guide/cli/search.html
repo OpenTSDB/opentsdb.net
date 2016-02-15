@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>search &mdash; OpenTSDB 2.1 documentation</title>
+    <title>search &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="CLI Tools" href="index.html" />
     <link rel="next" title="tsd" href="tsd.html" />
     <link rel="prev" title="scan" href="scan.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="scan.html" title="scan"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -82,7 +82,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="tsd.html"
                         title="next chapter">tsd</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -101,7 +101,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="search">
 <h1>search</h1>
@@ -109,13 +109,13 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Available in 2.1</p>
 </div>
-<p>The search command allows for searching OpenTSDB to reteive a list of time series or associated meta data. Search does not return actual data points or time series objects stored in the data table. Use the query tools to access that data. Currently only the <tt class="docutils literal"><span class="pre">lookup</span></tt> command is implemented.</p>
+<p>The search command allows for searching OpenTSDB to reteive a list of time series or associated meta data. Search does not return actual data points or time series objects stored in the data table. Use the query tools to access that data. Currently only the <code class="docutils literal"><span class="pre">lookup</span></code> command is implemented.</p>
 <div class="section" id="lookup">
 <h2>Lookup</h2>
-<p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <tt class="docutils literal"><span class="pre">host=web01</span></tt> you can execute a lookup to find out.</p>
+<p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <code class="docutils literal"><span class="pre">host=web01</span></code> you can execute a lookup to find out.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">By default lookups are performed against the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table. You must enable real-time meta data creation or perform a <tt class="docutils literal"><span class="pre">metasync</span></tt> using the <tt class="docutils literal"><span class="pre">uid</span></tt> command in order to retreive data from a lookup. Alternatively you can lookup against the raw data table but this can take a very long time depending on how much data is in your system.</p>
+<p class="last">By default lookups are performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table. You must enable real-time meta data creation or perform a <code class="docutils literal"><span class="pre">metasync</span></code> using the <code class="docutils literal"><span class="pre">uid</span></code> command in order to retreive data from a lookup. Alternatively you can lookup against the raw data table but this can take a very long time depending on how much data is in your system.</p>
 </div>
 <div class="section" id="command-format">
 <h3>Command Format</h3>
@@ -150,7 +150,7 @@
 </tr>
 <tr class="row-odd"><td>--use_data_table</td>
 <td>Flag</td>
-<td>Optional flag that will cause the lookup to run against the main <tt class="docutils literal"><span class="pre">tsdb-data</span></tt> table. <em>NOTE:</em> This can take a very long time to complete.</td>
+<td>Optional flag that will cause the lookup to run against the main <code class="docutils literal"><span class="pre">tsdb-data</span></code> table. <em>NOTE:</em> This can take a very long time to complete.</td>
 <td>Not set</td>
 <td>--use_data_table</td>
 </tr>
@@ -167,13 +167,13 @@
 </div>
 <div class="section" id="example-command">
 <h3>Example Command</h3>
-<div class="highlight-bash"><div class="highlight"><pre>search lookup tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>
+<div class="highlight-bash"><div class="highlight"><pre>search lookup tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="output">
 <h3>Output</h3>
-<p>During a lookup, the results will be printed to standard out. Note that if you have logging enabled, messages may be interspersed with the results. Set the logging level to WARN or ERROR in the <tt class="docutils literal"><span class="pre">logback.xml</span></tt> configuration to supress these warnings. You may want to run the lookup in the background and capture standard out to a file, particularly when running lookups against the data table as these may take a long time to complete.</p>
+<p>During a lookup, the results will be printed to standard out. Note that if you have logging enabled, messages may be interspersed with the results. Set the logging level to WARN or ERROR in the <code class="docutils literal"><span class="pre">logback.xml</span></code> configuration to supress these warnings. You may want to run the lookup in the background and capture standard out to a file, particularly when running lookups against the data table as these may take a long time to complete.</p>
 <div class="highlight-bash"><div class="highlight"><pre>&lt;tsuid&gt; &lt;metric name&gt; &lt;tag/value pairs&gt;
 </pre></div>
 </div>
@@ -188,7 +188,7 @@
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-bash"><div class="highlight"><pre>0023E3000002017358000006017438 tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>openScanner <span class="nv">host</span><span class="o">=</span>tsdb-1.mysite.com
+<div class="highlight-bash"><div class="highlight"><pre>0023E3000002017358000006017438 tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>openScanner <span class="nv">host</span><span class="o">=</span>tsdb-1.mysite.com
 </pre></div>
 </div>
 <div class="admonition note">
@@ -205,7 +205,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -217,13 +217,13 @@
         <li class="right" >
           <a href="scan.html" title="scan"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

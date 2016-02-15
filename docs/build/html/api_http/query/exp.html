@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/query/exp &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/query/exp &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="/api/query" href="index.html" />
     <link rel="next" title="/api/query/gexp" href="gexp.html" />
     <link rel="prev" title="/api/query" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="index.html" title="/api/query"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -86,7 +86,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="gexp.html"
                         title="next chapter">/api/query/gexp</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -105,7 +105,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-query-exp">
 <h1>/api/query/exp</h1>
@@ -113,7 +113,7 @@
 <p>Two set operations (or Joins) are allowed. The union of all time series ore the intersection.</p>
 <p>For example we can compute &quot;a + b&quot; with a group by on the host field. Both metrics queried alone would emit a time series per host, e.g. maybe one for &quot;web01&quot;, &quot;web02&quot; and &quot;web03&quot;. Lets say metric &quot;a&quot; has values for all 3 hosts but metric &quot;b&quot; is missing &quot;web03&quot;.</p>
 <p>With the intersection operator, the expression will effectively add &quot;a.web01 + b.web01&quot; and &quot;a.web02 + b.web02&quot; but will skip emitting anything for &quot;web03&quot;. Be aware of this if you see fewer outputs that you expected or you see errors about no series available after intersection.</p>
-<p>With the union operator the expression will add the <tt class="docutils literal"><span class="pre">web01</span></tt> and <tt class="docutils literal"><span class="pre">web02</span></tt> series but for metric &quot;b&quot;, it will substitute the metric's fill policy value for the results.</p>
+<p>With the union operator the expression will add the <code class="docutils literal"><span class="pre">web01</span></code> and <code class="docutils literal"><span class="pre">web02</span></code> series but for metric &quot;b&quot;, it will substitute the metric's fill policy value for the results.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Supported as of version 2.3</p>
@@ -213,7 +213,7 @@
 <tr class="row-even"><td>interval</td>
 <td>String</td>
 <td>Required</td>
-<td>A downsampling interval, i.e. what time span to rollup raw values into. The format is <tt class="docutils literal"><span class="pre">&lt;#&gt;&lt;unit&gt;</span></tt>, e.g. <tt class="docutils literal"><span class="pre">15m</span></tt></td>
+<td>A downsampling interval, i.e. what time span to rollup raw values into. The format is <code class="docutils literal"><span class="pre">&lt;#&gt;&lt;unit&gt;</span></code>, e.g. <code class="docutils literal"><span class="pre">15m</span></code></td>
 <td>&nbsp;</td>
 <td>1h</td>
 </tr>
@@ -291,7 +291,7 @@
 <td>Emits a zero when the value is missing</td>
 </tr>
 <tr class="row-odd"><td>scalar</td>
-<td>Emits a user defined value when a data point is missing. Must specify the value with <tt class="docutils literal"><span class="pre">value</span></tt>. The value can be an integer or floating point.</td>
+<td>Emits a user defined value when a data point is missing. Must specify the value with <code class="docutils literal"><span class="pre">value</span></code>. The value can be an integer or floating point.</td>
 </tr>
 </tbody>
 </table>
@@ -457,8 +457,8 @@
 <tr class="row-odd"><td>aggregator</td>
 <td>String</td>
 <td>Optional</td>
-<td>An optional aggregation function to overload the global function in <tt class="docutils literal"><span class="pre">time</span></tt> for just this metric</td>
-<td><tt class="docutils literal"><span class="pre">time</span></tt>'s aggregator</td>
+<td>An optional aggregation function to overload the global function in <code class="docutils literal"><span class="pre">time</span></code> for just this metric</td>
+<td><code class="docutils literal"><span class="pre">time</span></code>'s aggregator</td>
 <td>count</td>
 </tr>
 <tr class="row-even"><td>fillPolicy</td>
@@ -628,7 +628,7 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <tt class="docutils literal"><span class="pre">id</span></tt> field for all objects can not contain spaces, special characters or periods at this time.</p>
+<p class="last">The <code class="docutils literal"><span class="pre">id</span></code> field for all objects can not contain spaces, special characters or periods at this time.</p>
 </div>
 <p><strong>Complete Example</strong></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
@@ -696,7 +696,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output will contain a list of objects in the <tt class="docutils literal"><span class="pre">outputs</span></tt> array with the results in an array of arrays representing each time series followed by meta data for each series and the query overall. Also included is the original query and some summary statistics. The fields include:</p>
+<p>The output will contain a list of objects in the <code class="docutils literal"><span class="pre">outputs</span></code> array with the results in an array of arrays representing each time series followed by meta data for each series and the query overall. Also included is the original query and some summary statistics. The fields include:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -725,7 +725,7 @@
 </tr>
 </tbody>
 </table>
-<p>The meta section contains ordered information about each time series in the output arrays. The first element in the array will always have a <tt class="docutils literal"><span class="pre">metrics</span></tt> value of <tt class="docutils literal"><span class="pre">timestamp</span></tt> and no other data.</p>
+<p>The meta section contains ordered information about each time series in the output arrays. The first element in the array will always have a <code class="docutils literal"><span class="pre">metrics</span></code> value of <code class="docutils literal"><span class="pre">timestamp</span></code> and no other data.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -982,7 +982,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -994,13 +994,13 @@
         <li class="right" >
           <a href="index.html" title="/api/query"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

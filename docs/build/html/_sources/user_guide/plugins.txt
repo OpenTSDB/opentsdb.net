@@ -67,3 +67,23 @@ Plugins
 -------
 
 No implementations at this time.
+
+Storage Exception Handler
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If a write to the underlying storage layer fails for any reason, an exception is raised. When this happens, if a a storage exception handler plugin is enabled, the data points that couldn't be written can be retried at a later date by spooling to disk or passing to a messaging system. (v2.2)
+
+Plugins
+-------
+
+No implementations at this time.
+
+HTTP RPC Plugin
+^^^^^^^^^^^^^^^
+
+This is an interface used to implement additional HTTP API endpoints for OpenTSDB. (v2.2)
+
+Plugins
+-------
+
+No implementations at this time.

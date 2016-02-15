@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/tree/branch &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/tree/branch &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="/api/tree" href="index.html" />
     <link rel="next" title="/api/tree/collisions" href="collisions.html" />
     <link rel="prev" title="/api/tree" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="index.html" title="/api/tree"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -83,7 +83,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="collisions.html"
                         title="next chapter">/api/tree/collisions</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -102,12 +102,12 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-tree-branch">
 <h1>/api/tree/branch</h1>
-<p>A branch represents a level in the tree heirarchy and contains information about child branches and/or leaves. Branches are immutable from an API perspective and can only be created or modified by processing a TSMeta through tree rules via a CLI command or when a new timeseries is encountered or a TSMeta object modified. Therefore the <tt class="docutils literal"><span class="pre">branch</span></tt> endpoint only supports the <tt class="docutils literal"><span class="pre">GET</span></tt> verb.</p>
-<p>A branch is identified by a <tt class="docutils literal"><span class="pre">branchId</span></tt>, a hexadecimal encoded string that represents the ID of the tree it belongs to as well as the IDs of each parent the branch stems from. All branches stem from the <strong>ROOT</strong> branch of a tree and this is usually the starting place when browsing. To fetch the <strong>ROOT</strong> just call this endpoingt with a valid <tt class="docutils literal"><span class="pre">treeId</span></tt>. The root branch ID is also a 4 character encoding of the tree ID.</p>
+<p>A branch represents a level in the tree heirarchy and contains information about child branches and/or leaves. Branches are immutable from an API perspective and can only be created or modified by processing a TSMeta through tree rules via a CLI command or when a new timeseries is encountered or a TSMeta object modified. Therefore the <code class="docutils literal"><span class="pre">branch</span></code> endpoint only supports the <code class="docutils literal"><span class="pre">GET</span></code> verb.</p>
+<p>A branch is identified by a <code class="docutils literal"><span class="pre">branchId</span></code>, a hexadecimal encoded string that represents the ID of the tree it belongs to as well as the IDs of each parent the branch stems from. All branches stem from the <strong>ROOT</strong> branch of a tree and this is usually the starting place when browsing. To fetch the <strong>ROOT</strong> just call this endpoingt with a valid <code class="docutils literal"><span class="pre">treeId</span></code>. The root branch ID is also a 4 character encoding of the tree ID.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
@@ -163,7 +163,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a request will return the branch object using the requested serializer. If the requested tree or branch did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message.</p>
+<p>A successful response to a request will return the branch object using the requested serializer. If the requested tree or branch did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message.</p>
 <p>Fields returned with the response include:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -207,12 +207,12 @@
 </tr>
 <tr class="row-odd"><td>branches</td>
 <td>Array</td>
-<td>An array of child branch objects. May be <tt class="docutils literal"><span class="pre">null</span></tt>.</td>
+<td>An array of child branch objects. May be <code class="docutils literal"><span class="pre">null</span></code>.</td>
 <td><em>See Below</em></td>
 </tr>
 <tr class="row-even"><td>leaves</td>
 <td>Array</td>
-<td>An array of child leaf objects. May be <tt class="docutils literal"><span class="pre">null</span></tt>.</td>
+<td>An array of child leaf objects. May be <code class="docutils literal"><span class="pre">null</span></code>.</td>
 <td><em>See Leaves Below</em></td>
 </tr>
 </tbody>
@@ -351,7 +351,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -363,13 +363,13 @@
         <li class="right" >
           <a href="index.html" title="/api/tree"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/tree</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

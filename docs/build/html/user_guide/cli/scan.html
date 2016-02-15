@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>scan &mdash; OpenTSDB 2.1 documentation</title>
+    <title>scan &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="CLI Tools" href="index.html" />
     <link rel="next" title="search" href="search.html" />
     <link rel="prev" title="fsck" href="fsck.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="fsck.html" title="fsck"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -82,7 +82,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="search.html"
                         title="next chapter">search</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -101,7 +101,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="scan">
 <h1>scan</h1>
@@ -109,7 +109,7 @@
 <p>Note that while queries require an aggregator, it is effectively ignored. If a query encompasses many time series, the scan output may be extremely large so be careful when crafting queries.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
-<div class="highlight-bash"><div class="highlight"><pre>scan <span class="o">[</span>--delete|--import<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre>scan <span class="o">[</span>--delete<span class="p">|</span>--import<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]</span>
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -162,12 +162,12 @@
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>scan --import 1h-ago now sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>scan
+<div class="highlight-bash"><div class="highlight"><pre>scan --import 1h-ago now sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>scan
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p>If you include the <tt class="docutils literal"><span class="pre">--delete</span></tt> flag, <strong>ALL</strong> data in 'any' row that matches on the query will be deleted permanently. Rows are separated on 1 hour boundaries so that if you issued a scan command with a start and end time that covered 10 minutes within a single hour, the entire hour of data will be deleted.</p>
+<p>If you include the <code class="docutils literal"><span class="pre">--delete</span></code> flag, <strong>ALL</strong> data in 'any' row that matches on the query will be deleted permanently. Rows are separated on 1 hour boundaries so that if you issued a scan command with a start and end time that covered 10 minutes within a single hour, the entire hour of data will be deleted.</p>
 <p class="last">Deletions will also delete any Annotations or non-TSDB related data in a row.</p>
 </div>
 <div class="admonition note">
@@ -177,9 +177,9 @@
 </div>
 <div class="section" id="raw-output">
 <h2>Raw Output</h2>
-<p>The default output for <tt class="docutils literal"><span class="pre">scan</span></tt> is a raw dump of the rows and columns that match the given queries. This is useful in debugging situations such as data point collisions or encoding issues. As the output includes raw byte arrays and the format changes slightly depending on the data, it is not easily machine paresable.</p>
+<p>The default output for <code class="docutils literal"><span class="pre">scan</span></code> is a raw dump of the rows and columns that match the given queries. This is useful in debugging situations such as data point collisions or encoding issues. As the output includes raw byte arrays and the format changes slightly depending on the data, it is not easily machine paresable.</p>
 <p>Row keys, column qualifiers and column values are emitted as Java byte arrays. These are surrounded by square brackets and individual bytes are represented as signed integers (as Java does not have native unsigned ints). Row keys are printed first followed by a new line. Then each column is printed on it's own row and is indented with two spaces to indicate it belongs to the previous row. If a compacted column is found, the raw data and number of compacted values is printed followed by a new line. Each compacted data point is printed on it's own indented line. Annotations are also emitted in raw mode.</p>
-<p>The various formats are listed below. The <tt class="docutils literal"><span class="pre">\t</span></tt> expression represents a tab. <tt class="docutils literal"><span class="pre">space</span></tt> indicates a space character.</p>
+<p>The various formats are listed below. The <code class="docutils literal"><span class="pre">\t</span></code> expression represents a tab. <code class="docutils literal"><span class="pre">space</span></code> indicates a space character.</p>
 <div class="section" id="row-key-format">
 <h3>Row Key Format</h3>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>&lt;row key&gt;<span class="o">]</span> &lt;metric name&gt; &lt;row timestamp&gt; <span class="o">(</span>&lt;datetime&gt;<span class="o">)</span> &lt;tag/value pairs&gt;
@@ -196,13 +196,13 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>0, 0, 1, 80, -30, 39, 0, 0, 0, 1, 0, 0, 1<span class="o">]</span> sys.cpu.user 1356998400 <span class="o">(</span>Mon Dec 31 19:00:00 EST 2012<span class="o">)</span> <span class="o">{</span><span class="nv">host</span><span class="o">=</span>web01<span class="o">}</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>0, 0, 1, 80, -30, 39, 0, 0, 0, 1, 0, 0, 1<span class="o">]</span> sys.cpu.user <span class="m">1356998400</span> <span class="o">(</span>Mon Dec <span class="m">31</span> 19:00:00 EST 2012<span class="o">)</span> <span class="o">{</span><span class="nv">host</span><span class="o">=</span>web01<span class="o">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="single-data-point-column-format">
 <h3>Single Data Point Column Format</h3>
-<div class="highlight-bash"><div class="highlight"><pre>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;l|f&gt;<span class="se">\t</span>&lt;timestamp&gt;<span class="se">\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
+<div class="highlight-bash"><div class="highlight"><pre>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;l<span class="p">|</span>f&gt;<span class="se">\t</span>&lt;timestamp&gt;<span class="se">\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
 </pre></div>
 </div>
 <p>Where:</p>
@@ -211,13 +211,13 @@
 <li><strong>qualifier</strong> Is the raw byte array of the column qualifier</li>
 <li><strong>value</strong> Is the raw byte array of the column value</li>
 <li><strong>offset</strong> Is the number of seconds or milliseconds (based on timestamp) of offset from the row base timestamp</li>
-<li><strong>l|f</strong> Is either <tt class="docutils literal"><span class="pre">l</span></tt> to indicate the value is an Integer (Java Long) or <tt class="docutils literal"><span class="pre">f</span></tt> for a floating point value.</li>
+<li><strong>l|f</strong> Is either <code class="docutils literal"><span class="pre">l</span></code> to indicate the value is an Integer (Java Long) or <code class="docutils literal"><span class="pre">f</span></code> for a floating point value.</li>
 <li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
 <li><strong>datetime</strong> Is the system default formatted human readable timestamp</li>
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>0, 17<span class="o">]</span>       <span class="o">[</span>0, 17<span class="o">]</span> <span class="o">[</span>1, 1<span class="o">]</span>  1       l       1356998401      <span class="o">(</span>Mon Dec 31 19:00:01 EST 2012<span class="o">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>0, 17<span class="o">]</span>       <span class="o">[</span>0, 17<span class="o">]</span> <span class="o">[</span>1, 1<span class="o">]</span>  <span class="m">1</span>       l       <span class="m">1356998401</span>      <span class="o">(</span>Mon Dec <span class="m">31</span> 19:00:01 EST 2012<span class="o">)</span>
 </pre></div>
 </div>
 </div>
@@ -235,7 +235,7 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>-16, 0, 0, 7, -16, 0, 2, 7, -16, 0, 1, 7<span class="o">]</span>    <span class="o">[</span>0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 6, 0<span class="o">]</span> <span class="o">=</span> 3 values:
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>-16, 0, 0, 7, -16, 0, 2, 7, -16, 0, 1, 7<span class="o">]</span>    <span class="o">[</span>0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 6, 0<span class="o">]</span> <span class="o">=</span> <span class="m">3</span> values:
 </pre></div>
 </div>
 <p>Each data point within the compacted column follows the same format as a single column with the addition of two spaces of indentation.</p>
@@ -257,14 +257,14 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>1, 0, 0<span class="o">]</span>     <span class="o">[</span>123, 34...<span class="o">]</span>    0       <span class="o">{</span><span class="s2">&quot;tsuid&quot;</span>:<span class="s2">&quot;000001000001000001&quot;</span>,<span class="s2">&quot;startTime&quot;</span>:1356998400,<span class="s2">&quot;endTime&quot;</span>:0,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;Annotation on seconds&quot;</span>,<span class="s2">&quot;notes&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;custom&quot;</span>:null<span class="o">}</span>        1356998416000   <span class="o">(</span>Mon Dec 31 19:00:16 EST 2012<span class="o">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>1, 0, 0<span class="o">]</span>     <span class="o">[</span>123, 34...<span class="o">]</span>    <span class="m">0</span>       <span class="o">{</span><span class="s2">&quot;tsuid&quot;</span>:<span class="s2">&quot;000001000001000001&quot;</span>,<span class="s2">&quot;startTime&quot;</span>:1356998400,<span class="s2">&quot;endTime&quot;</span>:0,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;Annotation on seconds&quot;</span>,<span class="s2">&quot;notes&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;custom&quot;</span>:null<span class="o">}</span>        <span class="m">1356998416000</span>   <span class="o">(</span>Mon Dec <span class="m">31</span> 19:00:16 EST 2012<span class="o">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="import-format">
 <h2>Import Format</h2>
-<p>The import format is the same as a Telnet style <tt class="docutils literal"><span class="pre">put</span></tt> command.</p>
+<p>The import format is the same as a Telnet style <code class="docutils literal"><span class="pre">put</span></code> command.</p>
 <div class="highlight-bash"><div class="highlight"><pre>&lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; &lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">[</span>...&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span>
 </pre></div>
 </div>
@@ -278,8 +278,8 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>sys.cpu.user 1356998400 42 <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span>0
-sys.cpu.user 1356998401 24 <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span>0
+<div class="highlight-bash"><div class="highlight"><pre>sys.cpu.user <span class="m">1356998400</span> <span class="m">42</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span>0
+sys.cpu.user <span class="m">1356998401</span> <span class="m">24</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span>0
 </pre></div>
 </div>
 </div>
@@ -291,7 +291,7 @@ sys.cpu.user 1356998401 24 <span class="nv">host</span><span class="o">=</span>w
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -303,13 +303,13 @@ sys.cpu.user 1356998401 24 <span class="nv">host</span><span class="o">=</span>w
         <li class="right" >
           <a href="fsck.html" title="fsck"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

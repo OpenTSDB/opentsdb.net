@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>JSON Serializer &mdash; OpenTSDB 2.1 documentation</title>
+    <title>JSON Serializer &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -37,17 +37,17 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -64,7 +64,7 @@
 </li>
 </ul>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -83,14 +83,14 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="json-serializer">
 <h1>JSON Serializer</h1>
 <p>The default OpenTSDB serializer parses and returns JSON formatted data. Below you'll find details about the serializer and request parameters that affect only the the JSON serializer. If the serializer has extra parameters for a specific endpoint, they'll be listed below.</p>
 <div class="section" id="serializer-name">
 <h2>Serializer Name</h2>
-<p><tt class="docutils literal"><span class="pre">json</span></tt></p>
+<p><code class="docutils literal"><span class="pre">json</span></code></p>
 </div>
 <div class="section" id="serializer-options">
 <h2>Serializer Options</h2>
@@ -118,7 +118,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>Wraps the response in a JavaScript function name passed to the parameter.</td>
-<td><tt class="docutils literal"><span class="pre">empty</span></tt></td>
+<td><code class="docutils literal"><span class="pre">empty</span></code></td>
 <td>jsonp=callback</td>
 </tr>
 </tbody>
@@ -126,7 +126,7 @@
 </div>
 <div class="section" id="jsonp">
 <h2>JSONP</h2>
-<p>The JSON formatter can wrap responses in a JavaScript function using the <tt class="docutils literal"><span class="pre">jsonp</span></tt> query string parameter. Supply the name of the function you wish to use and the result will be wrapped.</p>
+<p>The JSON formatter can wrap responses in a JavaScript function using the <code class="docutils literal"><span class="pre">jsonp</span></code> query string parameter. Supply the name of the function you wish to use and the result will be wrapped.</p>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/version?jsonp=callback
@@ -189,17 +189,17 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

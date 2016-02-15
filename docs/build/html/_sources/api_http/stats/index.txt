@@ -6,9 +6,10 @@ This endpoint provides a list of statistics for the running TSD. Sub endpoints r
 .. toctree::
    :maxdepth: 1
    
-   threads
    jvm
+   query
    region_clients
+   threads
    
 Verbs
 -----

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/search/lookup &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/search/lookup &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -37,17 +37,17 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -64,7 +64,7 @@
 </li>
 </ul>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -83,7 +83,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-search-lookup">
 <h1>/api/search/lookup</h1>
@@ -91,10 +91,10 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Available in 2.1</p>
 </div>
-<p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <tt class="docutils literal"><span class="pre">host=web01</span></tt> you can execute a lookup to find out. Lookups do not require a search plugin to be installed.</p>
+<p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <code class="docutils literal"><span class="pre">host=web01</span></code> you can execute a lookup to find out. Lookups do not require a search plugin to be installed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Lookups are performed against the <tt class="docutils literal"><span class="pre">tsdb-meta</span></tt> table. You must enable real-time meta data creation or perform a <tt class="docutils literal"><span class="pre">metasync</span></tt> using the <tt class="docutils literal"><span class="pre">uid</span></tt> command in order to retreive data from a lookup. Lookups can be executed against the raw data table using the CLI command only: <a class="reference internal" href="../../user_guide/cli/search.html"><em>search</em></a></p>
+<p class="last">Lookups are performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table. You must enable real-time meta data creation or perform a <code class="docutils literal"><span class="pre">metasync</span></code> using the <code class="docutils literal"><span class="pre">uid</span></code> command in order to retreive data from a lookup. Lookups can be executed against the raw data table using the CLI command only: <a class="reference internal" href="../../user_guide/cli/search.html"><em>search</em></a></p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -152,13 +152,13 @@
 <div class="section" id="lookup-queries">
 <h3>Lookup Queries</h3>
 <p>A lookup query consists of at least one metric, tag name (tagk) or tag value (tagv). Each value must be a literal name in the UID table. If a given name cannot be resolved to a UID, an exception will be returned. Only one metric can be supplied per query but multiple tagk, tagv or tag pairs may be provided.</p>
-<p>Normally, tags a provided in the format <tt class="docutils literal"><span class="pre">&lt;tagk&gt;=&lt;tagv&gt;</span></tt> and a value is required on either side of the equals sign. However for lookups, one value may an asterisk <tt class="docutils literal"><span class="pre">*</span></tt>, i.e. <tt class="docutils literal"><span class="pre">&lt;tagk&gt;=*</span></tt> or <tt class="docutils literal"><span class="pre">*=&lt;tagv&gt;</span></tt>. In these cases, the asterisk acts as a wildcard meaning any time series with the given tagk or tagv will be returned. For example, if we issue a query for <tt class="docutils literal"><span class="pre">host=*</span></tt> then we will get all of the time series with a <tt class="docutils literal"><span class="pre">host</span></tt> tagk such as <tt class="docutils literal"><span class="pre">host=web01</span></tt> and <tt class="docutils literal"><span class="pre">host=web02</span></tt>.</p>
-<p>For complex queries with multiple values, each type is <tt class="docutils literal"><span class="pre">AND</span></tt>'d with the other types and <tt class="docutils literal"><span class="pre">OR</span></tt>'d with it's own type.</p>
+<p>Normally, tags a provided in the format <code class="docutils literal"><span class="pre">&lt;tagk&gt;=&lt;tagv&gt;</span></code> and a value is required on either side of the equals sign. However for lookups, one value may an asterisk <code class="docutils literal"><span class="pre">*</span></code>, i.e. <code class="docutils literal"><span class="pre">&lt;tagk&gt;=*</span></code> or <code class="docutils literal"><span class="pre">*=&lt;tagv&gt;</span></code>. In these cases, the asterisk acts as a wildcard meaning any time series with the given tagk or tagv will be returned. For example, if we issue a query for <code class="docutils literal"><span class="pre">host=*</span></code> then we will get all of the time series with a <code class="docutils literal"><span class="pre">host</span></code> tagk such as <code class="docutils literal"><span class="pre">host=web01</span></code> and <code class="docutils literal"><span class="pre">host=web02</span></code>.</p>
+<p>For complex queries with multiple values, each type is <code class="docutils literal"><span class="pre">AND</span></code>'d with the other types and <code class="docutils literal"><span class="pre">OR</span></code>'d with it's own type.</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;metric&gt; AND (&lt;tagk1&gt;=[&lt;tagv1&gt;] OR &lt;tagk1&gt;=[&lt;tagv2&gt;]) AND ([&lt;tagk2&gt;]=&lt;tagv3&gt; OR [&lt;tagk2&gt;]=&lt;tagv4&gt;)
 </pre></div>
 </div>
-<p>For example, the query <tt class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=tsd3}</span></tt> would return only the time series with the metric <tt class="docutils literal"><span class="pre">tsd.hbase.rpcs</span></tt> and the <tt class="docutils literal"><span class="pre">type</span></tt> tagk with any value and a <tt class="docutils literal"><span class="pre">host</span></tt> tag with either <tt class="docutils literal"><span class="pre">tsd1</span></tt> or <tt class="docutils literal"><span class="pre">tsd2</span></tt> or <tt class="docutils literal"><span class="pre">tsd3</span></tt>. Unlike a data query, you may supply multiple tagks with the same name as seen in the example above. Wildcards always take priority so if your query looked like <tt class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=*}</span></tt>, then the query would effectively be treated as <tt class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=*}</span></tt>.</p>
-<p>To retreive a list of all time series with a specific tag value, e.g. a particular host, you could issue a query like <tt class="docutils literal"><span class="pre">{*=web01}</span></tt> that will return all time series with a tag value of <tt class="docutils literal"><span class="pre">web01</span></tt>. This can be useful in debugging tag name issues such as some series having <tt class="docutils literal"><span class="pre">host=web01</span></tt> or <tt class="docutils literal"><span class="pre">server=web01</span></tt>.</p>
+<p>For example, the query <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=tsd3}</span></code> would return only the time series with the metric <code class="docutils literal"><span class="pre">tsd.hbase.rpcs</span></code> and the <code class="docutils literal"><span class="pre">type</span></code> tagk with any value and a <code class="docutils literal"><span class="pre">host</span></code> tag with either <code class="docutils literal"><span class="pre">tsd1</span></code> or <code class="docutils literal"><span class="pre">tsd2</span></code> or <code class="docutils literal"><span class="pre">tsd3</span></code>. Unlike a data query, you may supply multiple tagks with the same name as seen in the example above. Wildcards always take priority so if your query looked like <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=*}</span></code>, then the query would effectively be treated as <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=*}</span></code>.</p>
+<p>To retreive a list of all time series with a specific tag value, e.g. a particular host, you could issue a query like <code class="docutils literal"><span class="pre">{*=web01}</span></code> that will return all time series with a tag value of <code class="docutils literal"><span class="pre">web01</span></code>. This can be useful in debugging tag name issues such as some series having <code class="docutils literal"><span class="pre">host=web01</span></code> or <code class="docutils literal"><span class="pre">server=web01</span></code>.</p>
 </div>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
@@ -167,7 +167,7 @@
 </pre></div>
 </div>
 <p>POST:</p>
-<p>JSON requests follow the search query format on the <a class="reference internal" href="index.html"><em>/api/search</em></a> page. Limits and startNote that tags are supplied as a list of objects. The value for the <tt class="docutils literal"><span class="pre">key</span></tt> should be a <tt class="docutils literal"><span class="pre">tagk</span></tt> and the value for <tt class="docutils literal"><span class="pre">value</span></tt> should be a <tt class="docutils literal"><span class="pre">tagv</span></tt> or wildcard.</p>
+<p>JSON requests follow the search query format on the <a class="reference internal" href="index.html"><em>/api/search</em></a> page. Limits and startNote that tags are supplied as a list of objects. The value for the <code class="docutils literal"><span class="pre">key</span></code> should be a <code class="docutils literal"><span class="pre">tagk</span></code> and the value for <code class="docutils literal"><span class="pre">value</span></code> should be a <code class="docutils literal"><span class="pre">tagv</span></code> or wildcard.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.rpcs&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
@@ -246,7 +246,7 @@
 </tr>
 </tbody>
 </table>
-<p>This endpoint will almost always return a <tt class="docutils literal"><span class="pre">200</span></tt> with content body. If the query doesn't match any results, the <tt class="docutils literal"><span class="pre">results</span></tt> field will be an empty array and <tt class="docutils literal"><span class="pre">totalResults</span></tt> will be 0. If an error occurs, such as a failure to resolve a metric or tag name to a UID, an exception will be returned.</p>
+<p>This endpoint will almost always return a <code class="docutils literal"><span class="pre">200</span></code> with content body. If the query doesn't match any results, the <code class="docutils literal"><span class="pre">results</span></code> field will be an empty array and <code class="docutils literal"><span class="pre">totalResults</span></code> will be 0. If an error occurs, such as a failure to resolve a metric or tag name to a UID, an exception will be returned.</p>
 </div>
 <div class="section" id="example-response">
 <h2>Example Response</h2>
@@ -298,17 +298,17 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

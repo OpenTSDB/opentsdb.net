@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugins &mdash; OpenTSDB 2.1 documentation</title>
+    <title>Plugins &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../index.html" />
     <link rel="up" title="Development" href="index.html" />
     <link rel="next" title="HTTP API" href="http_api.html" />
     <link rel="prev" title="General Development" href="development.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="development.html" title="General Development"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -73,7 +73,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="http_api.html"
                         title="next chapter">HTTP API</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -92,7 +92,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="plugins">
 <h1>Plugins</h1>
@@ -103,34 +103,34 @@
 <p>A plugin JAR requires a manifest with a special <em>services</em> folder and file to enable the <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to load it properly. Here are the steps for creating the proper files:</p>
 <blockquote>
 <div><ul>
-<li><p class="first">Create a <tt class="docutils literal"><span class="pre">META-INF</span></tt> directory under your <tt class="docutils literal"><span class="pre">src</span></tt> directory. Some IDEs can automatically generate this</p>
+<li><p class="first">Create a <code class="docutils literal"><span class="pre">META-INF</span></code> directory under your <code class="docutils literal"><span class="pre">src</span></code> directory. Some IDEs can automatically generate this</p>
 </li>
-<li><p class="first">Within the <tt class="docutils literal"><span class="pre">META-INF</span></tt> directory, create a file named <tt class="docutils literal"><span class="pre">MANIFEST.MF</span></tt>. Again some IDEs can generate this automatically.</p>
+<li><p class="first">Within the <code class="docutils literal"><span class="pre">META-INF</span></code> directory, create a file named <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code>. Again some IDEs can generate this automatically.</p>
 </li>
-<li><p class="first">Edit the <tt class="docutils literal"><span class="pre">MANIFEST.MF</span></tt> file and add:</p>
+<li><p class="first">Edit the <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code> file and add:</p>
 <div class="highlight-python"><div class="highlight"><pre>Manifest-Version: 1.0
 </pre></div>
 </div>
 <p>making sure to end with a blank line. You can add more manifest information if you like. This is the bare minimum to satisfy plugin requirements.</p>
 </li>
-<li><p class="first">Create a <tt class="docutils literal"><span class="pre">services</span></tt> directory under <tt class="docutils literal"><span class="pre">META-INF</span></tt></p>
+<li><p class="first">Create a <code class="docutils literal"><span class="pre">services</span></code> directory under <code class="docutils literal"><span class="pre">META-INF</span></code></p>
 </li>
-<li><p class="first">Within <tt class="docutils literal"><span class="pre">services</span></tt> create a file with the canonical class name of the abstract plugin class you are implementing. E.g. if you implement <tt class="docutils literal"><span class="pre">net.opentsdb.search.SearchPlugin</span></tt>, use that for the name of the file.</p>
+<li><p class="first">Within <code class="docutils literal"><span class="pre">services</span></code> create a file with the canonical class name of the abstract plugin class you are implementing. E.g. if you implement <code class="docutils literal"><span class="pre">net.opentsdb.search.SearchPlugin</span></code>, use that for the name of the file.</p>
 </li>
-<li><p class="first">Edit the new file and put the canonical name of each class that implements the abstract interface on a new line of the file. E.g. if your implementation is called <tt class="docutils literal"><span class="pre">net.opentsdb.search.ElasticSearch</span></tt>, put that on a line. Some quick notes about this file:</p>
+<li><p class="first">Edit the new file and put the canonical name of each class that implements the abstract interface on a new line of the file. E.g. if your implementation is called <code class="docutils literal"><span class="pre">net.opentsdb.search.ElasticSearch</span></code>, put that on a line. Some quick notes about this file:</p>
 <ul>
-<li><p class="first">You can put comments in the service implementation file. The comment character is the <tt class="docutils literal"><span class="pre">#</span></tt>, just like a Java properties file. E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ElasticSearch plugin written by John Doe</span>
-<span class="c"># that sends data over HTTP to a number of ElasticSearch servers</span>
+<li><p class="first">You can put comments in the service implementation file. The comment character is the <code class="docutils literal"><span class="pre">#</span></code>, just like a Java properties file. E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># ElasticSearch plugin written by John Doe</span>
+<span class="c1"># that sends data over HTTP to a number of ElasticSearch servers</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearch</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">You can have more than one implementation of the same abstract class in one JAR and in this file.
 NOTE: If you have widely different implementations, start a different project and JAR. E.g. if you implement a search plugin for ElasticSearch and another for Solr, put Solr in a different project. However if you have two implementations that are very similar but slightly different, you can create one project. For example you could write an ElasticSearch plugin that uses HTTP for a protocol and another that uses Thrift. In that case, you could have a file like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ElasticSearch HTTP</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># ElasticSearch HTTP</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchHTTP</span>
-<span class="c"># ElasticSearch Thrift</span>
+<span class="c1"># ElasticSearch Thrift</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchThrift</span>
 </pre></div>
 </div>
@@ -141,7 +141,7 @@ NOTE: If you have widely different implementations, start a different project an
 <div class="highlight-python"><div class="highlight"><pre>jar cvmf &lt;path to MANIFEST.MF&gt; &lt;plugin jar name&gt; &lt;list of class files&gt;
 </pre></div>
 </div>
-<p>Where the <tt class="docutils literal"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></tt> includes the services file that you created above. E.g.:</p>
+<p>Where the <code class="docutils literal"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></code> includes the services file that you created above. E.g.:</p>
 <div class="highlight-python"><div class="highlight"><pre>jar cvmf META-INF/MANIFEST.MF searchplugin.jar ../bin/net/opentsdb/search/myplugin.class META-INF/services/net.opentsdb.search.SearchPlugin
 </pre></div>
 </div>
@@ -157,7 +157,7 @@ NOTE: If you have widely different implementations, start a different project an
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -169,12 +169,12 @@ NOTE: If you have widely different implementations, start a different project an
         <li class="right" >
           <a href="development.html" title="General Development"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >Development</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

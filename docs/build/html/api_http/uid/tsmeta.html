@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/uid/tsmeta &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/uid/tsmeta &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="/api/uid" href="index.html" />
     <link rel="next" title="/api/uid/uidmeta" href="uidmeta.html" />
     <link rel="prev" title="/api/uid/assign" href="assign.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="assign.html" title="/api/uid/assign"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/uid</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -88,7 +88,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="uidmeta.html"
                         title="next chapter">/api/uid/uidmeta</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -107,11 +107,11 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-uid-tsmeta">
 <h1>/api/uid/tsmeta</h1>
-<p>This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <tt class="docutils literal"><span class="pre">POST</span></tt> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <tt class="docutils literal"><span class="pre">PUT</span></tt> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
+<p>This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <code class="docutils literal"><span class="pre">POST</span></code> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <code class="docutils literal"><span class="pre">PUT</span></code> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
 <p>Please note that deleting a meta data entry will not delete the data points stored for the timeseries. Neither will it remove the UID assignments or associated UID meta objects.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -226,7 +226,7 @@
 <tr class="row-even"><td>dataType</td>
 <td>String</td>
 <td>Optional</td>
-<td>The kind of data stored in the timeseries such as <tt class="docutils literal"><span class="pre">counter</span></tt>, <tt class="docutils literal"><span class="pre">gauge</span></tt>, <tt class="docutils literal"><span class="pre">absolute</span></tt>, etc. These may be defined later but they should be similar to Data Source Types in an <a class="reference external" href="http://oss.oetiker.ch/rrdtool">RRD</a></td>
+<td>The kind of data stored in the timeseries such as <code class="docutils literal"><span class="pre">counter</span></code>, <code class="docutils literal"><span class="pre">gauge</span></code>, <code class="docutils literal"><span class="pre">absolute</span></code>, etc. These may be defined later but they should be similar to Data Source Types in an <a class="reference external" href="http://oss.oetiker.ch/rrdtool">RRD</a></td>
 <td>&nbsp;</td>
 <td>data_type</td>
 <td>RW</td>
@@ -244,7 +244,7 @@
 <tr class="row-even"><td>max</td>
 <td>Float</td>
 <td>Optional</td>
-<td>An optional maximum value for this timeseries that may be used in calculations such as percent of maximum. If the default of <tt class="docutils literal"><span class="pre">NaN</span></tt> is present, the value is ignored.</td>
+<td>An optional maximum value for this timeseries that may be used in calculations such as percent of maximum. If the default of <code class="docutils literal"><span class="pre">NaN</span></code> is present, the value is ignored.</td>
 <td>NaN</td>
 <td>max</td>
 <td>RW</td>
@@ -253,7 +253,7 @@
 <tr class="row-odd"><td>min</td>
 <td>Float</td>
 <td>Optional</td>
-<td>An optional minimum value for this timeseries that may be used in calculations such as percent of minimum. If the default of <tt class="docutils literal"><span class="pre">NaN</span></tt> is present, the value is ignored.</td>
+<td>An optional minimum value for this timeseries that may be used in calculations such as percent of minimum. If the default of <code class="docutils literal"><span class="pre">NaN</span></code> is present, the value is ignored.</td>
 <td>NaN</td>
 <td>min</td>
 <td>RW</td>
@@ -263,16 +263,16 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Custom fields cannot be passed via query string. You must use the <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> verbs.</p>
+<p class="last">Custom fields cannot be passed via query string. You must use the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> verbs.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+<p class="last">If your request uses <code class="docutils literal"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal"><span class="pre">description</span></code> field will be set to an emtpy string and the <code class="docutils literal"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal"><span class="pre">null</span></code>.</p>
 </div>
-<p>With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the <tt class="docutils literal"><span class="pre">tsuid</span></tt> field must be left empty. Additionally two query string parameters must be supplied:</p>
+<p>With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the <code class="docutils literal"><span class="pre">tsuid</span></code> field must be left empty. Additionally two query string parameters must be supplied:</p>
 <ul class="simple">
 <li><strong>m</strong> - A metric and tags similar to a GET request or data point query</li>
-<li><strong>create</strong> - A flag with a value of <tt class="docutils literal"><span class="pre">true</span></tt></li>
+<li><strong>create</strong> - A flag with a value of <code class="docutils literal"><span class="pre">true</span></code></li>
 </ul>
 <p>For example:</p>
 <div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post
@@ -314,7 +314,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full TS meta data object with any given changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested TSUID did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
+<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full TS meta data object with any given changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested TSUID did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -338,7 +338,7 @@
 </tr>
 <tr class="row-odd"><td>tags</td>
 <td>Array of UIDMeta</td>
-<td>A list of tag name / tag value UID meta data objects associated with the timeseries. The <tt class="docutils literal"><span class="pre">tagk</span></tt> UID will be first followed by it's corresponding <tt class="docutils literal"><span class="pre">tagv</span></tt> object.</td>
+<td>A list of tag name / tag value UID meta data objects associated with the timeseries. The <code class="docutils literal"><span class="pre">tagk</span></code> UID will be first followed by it's corresponding <code class="docutils literal"><span class="pre">tagv</span></code> object.</td>
 <td><em>See Below</em></td>
 </tr>
 <tr class="row-even"><td>created</td>
@@ -423,7 +423,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -435,13 +435,13 @@
         <li class="right" >
           <a href="assign.html" title="/api/uid/assign"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/uid</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Trees &mdash; OpenTSDB 2.1 documentation</title>
+    <title>Trees &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="GUI" href="guis/index.html" />
     <link rel="prev" title="Metadata" href="metadata.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="metadata.html" title="Metadata"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -98,7 +98,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="guis/index.html"
                         title="next chapter">GUI</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -117,7 +117,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="trees">
 <h1>Trees</h1>
@@ -148,10 +148,10 @@
 <p>Each branch will often have a list of child branches. However if a branch is at the end of a path, it may not have any child branches, but it should have a list of leaves.</p>
 <div class="section" id="branch-ids-and-paths">
 <h3>Branch IDs and Paths</h3>
-<p>Branch IDs are hexadecimal encoded byte arrays similar to TSUIDs but with a different format. Branch IDs always start with the ID of the tree encoded on 2 bytes. Root branches have a branch ID equal to the tree ID. Thus the root for tree <tt class="docutils literal"><span class="pre">1</span></tt> would have a branch ID of <tt class="docutils literal"><span class="pre">0001</span></tt>.</p>
-<p>Each child branch has a <tt class="docutils literal"><span class="pre">DisplayName</span></tt> value and the hash of this value is used to generate a 32 bit integer ID for the branch. The hash function used is the Java <tt class="docutils literal"><span class="pre">java.lang.String</span></tt> hash function. The 4 bytes of the integer value are then encoded to 8 hexadecimal characters. For example, if we have a display name of <tt class="docutils literal"><span class="pre">sys</span></tt> for a branch, the hash returned will be 102093. The TSD will convert that value to hexadecimal <tt class="docutils literal"><span class="pre">0001BECD</span></tt>.</p>
-<p>A branch ID is composed of the tree ID concatenated with the ID of each parent above the current branch, concatenated with the ID of the current branch. Thus, if our child branch <tt class="docutils literal"><span class="pre">sys</span></tt> is a child of the root, we would have a branch ID of <tt class="docutils literal"><span class="pre">00010001BECD</span></tt>.</p>
-<p>Lets say there is a branch with a display name of <tt class="docutils literal"><span class="pre">cpu</span></tt> off of the <tt class="docutils literal"><span class="pre">sys</span></tt> child branch. <tt class="docutils literal"><span class="pre">cpu</span></tt> returns a hash of 98728 which converts to <tt class="docutils literal"><span class="pre">000181A8</span></tt> in hex. The ID of this child would be <tt class="docutils literal"><span class="pre">00010001BECD000181A8</span></tt>.</p>
+<p>Branch IDs are hexadecimal encoded byte arrays similar to TSUIDs but with a different format. Branch IDs always start with the ID of the tree encoded on 2 bytes. Root branches have a branch ID equal to the tree ID. Thus the root for tree <code class="docutils literal"><span class="pre">1</span></code> would have a branch ID of <code class="docutils literal"><span class="pre">0001</span></code>.</p>
+<p>Each child branch has a <code class="docutils literal"><span class="pre">DisplayName</span></code> value and the hash of this value is used to generate a 32 bit integer ID for the branch. The hash function used is the Java <code class="docutils literal"><span class="pre">java.lang.String</span></code> hash function. The 4 bytes of the integer value are then encoded to 8 hexadecimal characters. For example, if we have a display name of <code class="docutils literal"><span class="pre">sys</span></code> for a branch, the hash returned will be 102093. The TSD will convert that value to hexadecimal <code class="docutils literal"><span class="pre">0001BECD</span></code>.</p>
+<p>A branch ID is composed of the tree ID concatenated with the ID of each parent above the current branch, concatenated with the ID of the current branch. Thus, if our child branch <code class="docutils literal"><span class="pre">sys</span></code> is a child of the root, we would have a branch ID of <code class="docutils literal"><span class="pre">00010001BECD</span></code>.</p>
+<p>Lets say there is a branch with a display name of <code class="docutils literal"><span class="pre">cpu</span></code> off of the <code class="docutils literal"><span class="pre">sys</span></code> child branch. <code class="docutils literal"><span class="pre">cpu</span></code> returns a hash of 98728 which converts to <code class="docutils literal"><span class="pre">000181A8</span></code> in hex. The ID of this child would be <code class="docutils literal"><span class="pre">00010001BECD000181A8</span></code>.</p>
 <p>IDs are created this way primarily due to the method of branch and leaf storage but also as a way to navigate back up a tree from a branch anywhere in the tree structure. This can be particularly useful if you know the end branch of a path and want to move back up one level or more. Unfortunately a deep tree can create very long branch IDs, but a well designed tree really shouldn't be more than 5 to 10 levels deep. Most URI requests should support branches up to 100 levels deep before the URI character constraints are reached.</p>
 </div>
 </div>
@@ -162,7 +162,7 @@
 </div>
 <div class="section" id="rules">
 <h2>Rules</h2>
-<p>Each tree is dynamically built from a set of rules defined by the user. A rule set must contain at least one rule and usually will have more than one. Each set has multiple <em>levels</em> that determine the order of rule processing. Rules located at level 0 are processed first, then rules at level 1, and so on until all of the rules have been applied to a given timeseries. Each level in the rule set may have multiple rules to handle situations where metrics and tags may not have been planned out ahead of time or some arbitrary data may have snuck in. If multiple rules are stored in a level, the first one with a successful match will be applied and the others ignored. These rules are also ordered by the <em>order</em> field so that a rule with order 0 is processed first, then a rule with order 1 and so on. In logs and when using the test endpoint, rules are usually given IDs in the format of &quot;[&lt;treeId&gt;:&lt;level&gt;:&lt;order&gt;:&lt;type&gt;]&quot; such as &quot;[1:0:1:0]&quot; indicates the rule for tree 1, at level 0, order 1 of the type <tt class="docutils literal"><span class="pre">METRIC</span></tt>.</p>
+<p>Each tree is dynamically built from a set of rules defined by the user. A rule set must contain at least one rule and usually will have more than one. Each set has multiple <em>levels</em> that determine the order of rule processing. Rules located at level 0 are processed first, then rules at level 1, and so on until all of the rules have been applied to a given timeseries. Each level in the rule set may have multiple rules to handle situations where metrics and tags may not have been planned out ahead of time or some arbitrary data may have snuck in. If multiple rules are stored in a level, the first one with a successful match will be applied and the others ignored. These rules are also ordered by the <em>order</em> field so that a rule with order 0 is processed first, then a rule with order 1 and so on. In logs and when using the test endpoint, rules are usually given IDs in the format of &quot;[&lt;treeId&gt;:&lt;level&gt;:&lt;order&gt;:&lt;type&gt;]&quot; such as &quot;[1:0:1:0]&quot; indicates the rule for tree 1, at level 0, order 1 of the type <code class="docutils literal"><span class="pre">METRIC</span></code>.</p>
 <div class="section" id="rule-types">
 <h3>Rule Types</h3>
 <p>Each rule acts on a single component of the timeseries data. Currently available types include:</p>
@@ -281,8 +281,8 @@
 <div class="section" id="regex-rules">
 <h3>Regex Rules</h3>
 <p>In some situations, you may want to extract only a component of a metric, tag or custom value to use for grouping. For example, if you have computers in mutiple data centers with fully qualified domain names that incorporate the name of the DC, but not all metrics include a DC tag, you could use a regex to extract the DC for grouping.</p>
-<p>The <tt class="docutils literal"><span class="pre">regex</span></tt> rule parameter must be set with a valid regular expression that includes one or more extraction operators, i.e. the parentheses. If the regex matches on the value provided, the extracted data will be used to build the branch or leaf. If more than one extractions are provided in the regex, you can use the <tt class="docutils literal"><span class="pre">regex_group_index</span></tt> parameter to choose which extracted value to use. The index is 0 based and defaults to 0, so if you want to choose the output of the second extraction, you would set this index to 1. If the regex does not match on the value or the extraction fails to return a valid string, the rule will be considered a no match.</p>
-<p>For example, if we have a host tagk with a tagv of <tt class="docutils literal"><span class="pre">web01.nyc.mysite.com</span></tt>, we could use a regex similar to <tt class="docutils literal"><span class="pre">.*\.(.*)\..*\..*</span></tt> to extract the &quot;nyc&quot; portion of the FQDN and group all of the servers in the &quot;nyc&quot; data center under the &quot;nyc&quot; branch.</p>
+<p>The <code class="docutils literal"><span class="pre">regex</span></code> rule parameter must be set with a valid regular expression that includes one or more extraction operators, i.e. the parentheses. If the regex matches on the value provided, the extracted data will be used to build the branch or leaf. If more than one extractions are provided in the regex, you can use the <code class="docutils literal"><span class="pre">regex_group_index</span></code> parameter to choose which extracted value to use. The index is 0 based and defaults to 0, so if you want to choose the output of the second extraction, you would set this index to 1. If the regex does not match on the value or the extraction fails to return a valid string, the rule will be considered a no match.</p>
+<p>For example, if we have a host tagk with a tagv of <code class="docutils literal"><span class="pre">web01.nyc.mysite.com</span></code>, we could use a regex similar to <code class="docutils literal"><span class="pre">.*\.(.*)\..*\..*</span></code> to extract the &quot;nyc&quot; portion of the FQDN and group all of the servers in the &quot;nyc&quot; data center under the &quot;nyc&quot; branch.</p>
 </div>
 <div class="section" id="separator-rules">
 <h3>Separator Rules</h3>
@@ -295,20 +295,20 @@
 </div>
 <div class="section" id="tree-building">
 <h2>Tree Building</h2>
-<p>First, you must create the <tt class="docutils literal"><span class="pre">tsdb-tree</span></tt> table in HBase if you haven't already done so. If you enable tree processing and the table does not exist, the TSDs will not start.</p>
-<p>A tree can be built in two ways. The <tt class="docutils literal"><span class="pre">tsd.core.tree.enable_processing</span></tt> configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The resulting branch will be recorded to storage. If a collision occurs or the TSUID failed to match on any rules, a warning will be logged and if the tree options configured, may be recorded to storage.</p>
-<p>Alternatively you can periodically synchronize all TSMeta objects via the CLI <tt class="docutils literal"><span class="pre">uid</span></tt> tool. This will scan through the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table and pass each discovered TSMeta object through configured and enabled trees. See <a class="reference internal" href="cli/uid.html"><em>uid</em></a> for details.</p>
+<p>First, you must create the <code class="docutils literal"><span class="pre">tsdb-tree</span></code> table in HBase if you haven't already done so. If you enable tree processing and the table does not exist, the TSDs will not start.</p>
+<p>A tree can be built in two ways. The <code class="docutils literal"><span class="pre">tsd.core.tree.enable_processing</span></code> configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The resulting branch will be recorded to storage. If a collision occurs or the TSUID failed to match on any rules, a warning will be logged and if the tree options configured, may be recorded to storage.</p>
+<p>Alternatively you can periodically synchronize all TSMeta objects via the CLI <code class="docutils literal"><span class="pre">uid</span></code> tool. This will scan through the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table and pass each discovered TSMeta object through configured and enabled trees. See <a class="reference internal" href="cli/uid.html"><em>uid</em></a> for details.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">For real-time tree building you need to enable the <tt class="docutils literal"><span class="pre">tsd.core.meta.enable_tracking</span></tt> setting as well so that TSMeta objects are created when a timeseries is received.</p>
+<p class="last">For real-time tree building you need to enable the <code class="docutils literal"><span class="pre">tsd.core.meta.enable_tracking</span></code> setting as well so that TSMeta objects are created when a timeseries is received.</p>
 </div>
 <p>The general process for creating and building a tree is as follows:</p>
 <ol class="arabic simple">
 <li>Create a new tree via the HTTP API</li>
 <li>Assign one or more rules to the tree via the HTTP API</li>
 <li>Test the rules with some TSMeta objects via the HTTP API</li>
-<li>After veryfing the branches would appear correctly, set the tree's <tt class="docutils literal"><span class="pre">enable</span></tt> flag to <tt class="docutils literal"><span class="pre">true</span></tt></li>
-<li>Run the <tt class="docutils literal"><span class="pre">uid</span></tt> tool with the <tt class="docutils literal"><span class="pre">treesync</span></tt> sub command to synchronize existing TSMeta objects in the tree</li>
+<li>After veryfing the branches would appear correctly, set the tree's <code class="docutils literal"><span class="pre">enable</span></code> flag to <code class="docutils literal"><span class="pre">true</span></code></li>
+<li>Run the <code class="docutils literal"><span class="pre">uid</span></code> tool with the <code class="docutils literal"><span class="pre">treesync</span></code> sub command to synchronize existing TSMeta objects in the tree</li>
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -321,13 +321,13 @@
 </div>
 <div class="section" id="strict-matching">
 <h3>Strict Matching</h3>
-<p>All TSMeta objects are processed through every tree. If you only want a single, monolithic tree to organize all of your OpenTSDB timeseries, this isn't a problem. But if you want to create a number of trees for specific subsets of information, you may want to exclude some timeseries entries from creating leaves. The <tt class="docutils literal"><span class="pre">strictMatch</span></tt> flag on a tree helps to filter out timeseries that belong on one tree but not another. With strict matching enabled, a timeseries must match a rule on every level (that has one or more rules) in the rule set in order for it to be included in the tree. If the meta fails to match on any of the levels with rules, it will be recorded as a not matched entry and no leaf will be generated.</p>
+<p>All TSMeta objects are processed through every tree. If you only want a single, monolithic tree to organize all of your OpenTSDB timeseries, this isn't a problem. But if you want to create a number of trees for specific subsets of information, you may want to exclude some timeseries entries from creating leaves. The <code class="docutils literal"><span class="pre">strictMatch</span></code> flag on a tree helps to filter out timeseries that belong on one tree but not another. With strict matching enabled, a timeseries must match a rule on every level (that has one or more rules) in the rule set in order for it to be included in the tree. If the meta fails to match on any of the levels with rules, it will be recorded as a not matched entry and no leaf will be generated.</p>
 <p>By default strict matching is disabled so that as many timeseries as possible can be captured in a tree. If you change this setting on a tree, you may want to delete the existing branches and run a re-sync.</p>
 </div>
 </div>
 <div class="section" id="collisions">
 <h2>Collisions</h2>
-<p>Due to the flexibility of rule sets and the wide variety of metric, tag name and value naming, it is almost inevitable that two different TSMeta entries would try to create the same leaf on a tree. Each branch can only have one leaf with a given display name. For example, if a branch has a leaf named <tt class="docutils literal"><span class="pre">user</span></tt> with a tsuid of <tt class="docutils literal"><span class="pre">010101</span></tt> but the tree tries to add a new leaf named <tt class="docutils literal"><span class="pre">user</span></tt> with a tsuid of <tt class="docutils literal"><span class="pre">020202</span></tt>, the new leaf will not be added to the tree. Instead, a <em>collision</em> entry will be recorded for the tree to say that tsuid <tt class="docutils literal"><span class="pre">0202020</span></tt> collided with an existing leaf for tsuid <tt class="docutils literal"><span class="pre">010101</span></tt>. The HTTP API can then be used to query the collision list to see if a particular TSUID did not appear in the tree due to a collision.</p>
+<p>Due to the flexibility of rule sets and the wide variety of metric, tag name and value naming, it is almost inevitable that two different TSMeta entries would try to create the same leaf on a tree. Each branch can only have one leaf with a given display name. For example, if a branch has a leaf named <code class="docutils literal"><span class="pre">user</span></code> with a tsuid of <code class="docutils literal"><span class="pre">010101</span></code> but the tree tries to add a new leaf named <code class="docutils literal"><span class="pre">user</span></code> with a tsuid of <code class="docutils literal"><span class="pre">020202</span></code>, the new leaf will not be added to the tree. Instead, a <em>collision</em> entry will be recorded for the tree to say that tsuid <code class="docutils literal"><span class="pre">0202020</span></code> collided with an existing leaf for tsuid <code class="docutils literal"><span class="pre">010101</span></code>. The HTTP API can then be used to query the collision list to see if a particular TSUID did not appear in the tree due to a collision.</p>
 </div>
 <div class="section" id="not-matched">
 <h2>Not Matched</h2>
@@ -399,7 +399,7 @@
 </tbody>
 </table>
 <p>Note that for this example we won't be using any custom value rules so we don't need to show the TSMeta objects, but assume these values populate a TSMeta. Also, the TSUIDs are truncated with 1 byte per UID for illustration purposes.</p>
-<p>Now let's setup a tree with <tt class="docutils literal"><span class="pre">strictMatching</span></tt> disabled and the following rules:</p>
+<p>Now let's setup a tree with <code class="docutils literal"><span class="pre">strictMatching</span></code> disabled and the following rules:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -450,7 +450,7 @@
 </tbody>
 </table>
 <p>The goal for this set of rules is to order our timeseres by data center, then host, then by metric. Our company may have thousands of servers around the world so it doesn't make sense to display all of them in one branch of the tree, rather we want to group them by data center and let users drill down as needed.</p>
-<p>In our example data, we had some old timeseries that didn't have a <tt class="docutils literal"><span class="pre">dc</span></tt> tag name. However the <tt class="docutils literal"><span class="pre">host</span></tt> tag does have a fully qualified domain name with the data center name embedded. Thus the first level of our rule set has two rules. The first will look for a <tt class="docutils literal"><span class="pre">dc</span></tt> tag, and if found, it will use that tag's value and the second rule is skipped. If the <tt class="docutils literal"><span class="pre">dc</span></tt> tag does not exist, then the second rule will scan the <tt class="docutils literal"><span class="pre">host</span></tt> tag's value and attempt to extract the data center name from the FQDN. The second level has one rule and that is used to group on the value of the <tt class="docutils literal"><span class="pre">host</span></tt> tag so that all metrics belonging to that host can be displayed in branches beneath it. The final level has the metric rule that includes a separator to further group the timeseries by the data contained. Since we have multiple CPU and application metrics, all deliniated by a period, it makes sense to add a separator at this point.</p>
+<p>In our example data, we had some old timeseries that didn't have a <code class="docutils literal"><span class="pre">dc</span></code> tag name. However the <code class="docutils literal"><span class="pre">host</span></code> tag does have a fully qualified domain name with the data center name embedded. Thus the first level of our rule set has two rules. The first will look for a <code class="docutils literal"><span class="pre">dc</span></code> tag, and if found, it will use that tag's value and the second rule is skipped. If the <code class="docutils literal"><span class="pre">dc</span></code> tag does not exist, then the second rule will scan the <code class="docutils literal"><span class="pre">host</span></code> tag's value and attempt to extract the data center name from the FQDN. The second level has one rule and that is used to group on the value of the <code class="docutils literal"><span class="pre">host</span></code> tag so that all metrics belonging to that host can be displayed in branches beneath it. The final level has the metric rule that includes a separator to further group the timeseries by the data contained. Since we have multiple CPU and application metrics, all deliniated by a period, it makes sense to add a separator at this point.</p>
 <div class="section" id="result">
 <h3>Result</h3>
 <p>The resulting tree would look like this:</p>
@@ -514,7 +514,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -526,12 +526,12 @@
         <li class="right" >
           <a href="metadata.html" title="Metadata"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/tree/collisions &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/tree/collisions &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="/api/tree" href="index.html" />
     <link rel="next" title="/api/tree/notmatched" href="notmatched.html" />
     <link rel="prev" title="/api/tree/branch" href="branch.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="branch.html" title="/api/tree/branch"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -80,7 +80,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="notmatched.html"
                         title="next chapter">/api/tree/notmatched</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -99,18 +99,18 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-tree-collisions">
 <h1>/api/tree/collisions</h1>
-<p>When processing a TSMeta, if the resulting leaf would overwrite an existing leaf with a different TSUID, a collision will be recorded. This endpoint allows retreiving a list of the TSUIDs that were not included in a tree due to collisions. It is useful for debugging in that if you find a TSUID in this list, you can pass it through the <tt class="docutils literal"><span class="pre">/tree/test</span></tt> endpoint to get details on why the collision occurred.</p>
+<p>When processing a TSMeta, if the resulting leaf would overwrite an existing leaf with a different TSUID, a collision will be recorded. This endpoint allows retreiving a list of the TSUIDs that were not included in a tree due to collisions. It is useful for debugging in that if you find a TSUID in this list, you can pass it through the <code class="docutils literal"><span class="pre">/tree/test</span></code> endpoint to get details on why the collision occurred.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Calling this endpoint without a list of one or more TSUIDs will return all collisions in the tree. If you have a large number of timeseries in your system, the response can potentially be very large. Thus it is best to use this endpoint with specific TSUIDs.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If <tt class="docutils literal"><span class="pre">storeFailures</span></tt> is diabled for the tree, this endpoint will not return any data. Collisions will still appear in the TSD's logs.</p>
+<p class="last">If <code class="docutils literal"><span class="pre">storeFailures</span></code> is diabled for the tree, this endpoint will not return any data. Collisions will still appear in the TSD's logs.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -167,7 +167,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response will return a map of key/value pairs where the unrecorded TSUID as the key and the existing leave's TSUID as the value. The response will only return collisions that were found. If one or more of the TSUIDs requested did not result in a collision, it will not be returned with the result. This may mean that the TSMeta has not been processed yet. Note that if no collisions have occurred or the tree hasn't processed any data yet, the result set will be empty. If the requested tree did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+<p>A successful response will return a map of key/value pairs where the unrecorded TSUID as the key and the existing leave's TSUID as the value. The response will only return collisions that were found. If one or more of the TSUIDs requested did not result in a collision, it will not be returned with the result. This may mean that the TSMeta has not been processed yet. Note that if no collisions have occurred or the tree hasn't processed any data yet, the result set will be empty. If the requested tree did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <blockquote>
@@ -191,7 +191,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -203,13 +203,13 @@
         <li class="right" >
           <a href="branch.html" title="/api/tree/branch"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li><a href="index.html" >/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/tree</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

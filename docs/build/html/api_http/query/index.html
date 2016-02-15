@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/query &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/query &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="HTTP API" href="../index.html" />
     <link rel="next" title="/api/query/exp" href="exp.html" />
     <link rel="prev" title="/api/put" href="../put.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="../put.html" title="/api/put"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -89,7 +89,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="exp.html"
                         title="next chapter">/api/query/exp</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -108,11 +108,11 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-query">
 <h1>/api/query</h1>
-<p>Probably the most useful endpoint in the API, <tt class="docutils literal"><span class="pre">/api/query</span></tt> enables extracting data from the storage system in various formats determined by the serializer selected. Queries can be submitted via the 1.0 query string format or body content.</p>
+<p>Probably the most useful endpoint in the API, <code class="docutils literal"><span class="pre">/api/query</span></code> enables extracting data from the storage system in various formats determined by the serializer selected. Queries can be submitted via the 1.0 query string format or body content.</p>
 <div class="section" id="query-api-endpoints">
 <h2>Query API Endpoints</h2>
 <div class="toctree-wrapper compound">
@@ -122,7 +122,7 @@
 <li class="toctree-l1"><a class="reference internal" href="last.html">/api/query/last</a></li>
 </ul>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">/query</span></tt> endpoint is documented below. As of 2.2 data matching a query can be deleted by using the <tt class="docutils literal"><span class="pre">DELETE</span></tt> verb. The configuration parameter <tt class="docutils literal"><span class="pre">tsd.http.query.allow_delete</span></tt> must be enabled to allow deletions. Data that is deleted will be returned in the query results. Executing the query a second time should return empty results.</p>
+<p>The <code class="docutils literal"><span class="pre">/query</span></code> endpoint is documented below. As of 2.2 data matching a query can be deleted by using the <code class="docutils literal"><span class="pre">DELETE</span></code> verb. The configuration parameter <code class="docutils literal"><span class="pre">tsd.http.query.allow_delete</span></code> must be enabled to allow deletions. Data that is deleted will be returned in the query results. Executing the query a second time should return empty results.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Deleting data is permanent. Also beware that when deleting, some data outside the boundaries of the start and end times may be deleted as data is stored on an hourly basis.</p>
@@ -183,7 +183,7 @@
 <tr class="row-even"><td>queries</td>
 <td>Array</td>
 <td>Required</td>
-<td>One or more sub queries used to select the time series to return. These may be metric <tt class="docutils literal"><span class="pre">m</span></tt> or TSUID <tt class="docutils literal"><span class="pre">tsuids</span></tt> queries</td>
+<td>One or more sub queries used to select the time series to return. These may be metric <code class="docutils literal"><span class="pre">m</span></code> or TSUID <code class="docutils literal"><span class="pre">tsuids</span></code> queries</td>
 <td>&nbsp;</td>
 <td>m or tsuids</td>
 <td>&nbsp;</td>
@@ -192,7 +192,7 @@
 <tr class="row-odd"><td>noAnnotations</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides <tt class="docutils literal"><span class="pre">globalAnnotations</span></tt></td>
+<td>Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides <code class="docutils literal"><span class="pre">globalAnnotations</span></code></td>
 <td>false</td>
 <td>no_annotations</td>
 <td>&nbsp;</td>
@@ -237,7 +237,7 @@
 <tr class="row-even"><td>showQuery</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to return the original sub query with the query results. If the request contains many sub queries then this is a good way to determine which results belong to which sub query. Note that in the case of a <tt class="docutils literal"><span class="pre">*</span></tt> or wildcard query, this can produce a lot of duplicate output.</td>
+<td>Whether or not to return the original sub query with the query results. If the request contains many sub queries then this is a good way to determine which results belong to which sub query. Note that in the case of a <code class="docutils literal"><span class="pre">*</span></code> or wildcard query, this can produce a lot of duplicate output.</td>
 <td>false</td>
 <td>show_query</td>
 <td>&nbsp;</td>
@@ -334,7 +334,7 @@
 </tbody>
 </table>
 <p><em>Rate Options</em></p>
-<p>When passing rate options in a query string, the options must be enclosed in curly braces. For example:  <tt class="docutils literal"><span class="pre">m=sum:rate{counter,,1000}:if.octets.in</span></tt>. If you wish to use the default <tt class="docutils literal"><span class="pre">counterMax</span></tt> but do want to supply a <tt class="docutils literal"><span class="pre">resetValue</span></tt>, you must add two commas as in the previous example. Additional fields in the <tt class="docutils literal"><span class="pre">rateOptions</span></tt> object include the following:</p>
+<p>When passing rate options in a query string, the options must be enclosed in curly braces. For example:  <code class="docutils literal"><span class="pre">m=sum:rate{counter,,1000}:if.octets.in</span></code>. If you wish to use the default <code class="docutils literal"><span class="pre">counterMax</span></code> but do want to supply a <code class="docutils literal"><span class="pre">resetValue</span></code>, you must add two commas as in the previous example. Additional fields in the <code class="docutils literal"><span class="pre">rateOptions</span></code> object include the following:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -371,7 +371,7 @@
 <tr class="row-even"><td>resetValue</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>An optional value that, when exceeded, will cause the aggregator to return a <tt class="docutils literal"><span class="pre">0</span></tt> instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.</td>
+<td>An optional value that, when exceeded, will cause the aggregator to return a <code class="docutils literal"><span class="pre">0</span></code> instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.</td>
 <td>0</td>
 <td>65000</td>
 </tr>
@@ -390,7 +390,7 @@
 </div>
 <p>See <a class="reference internal" href="../../user_guide/query/aggregators.html"><em>Aggregators</em></a> for a list of supported fill policies.</p>
 <p><em>Filters</em></p>
-<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><em>Filters</em></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <tt class="docutils literal"><span class="pre">host=literal_or(web01)</span></tt> and <tt class="docutils literal"><span class="pre">host=literal_or(web02)</span></tt> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
+<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><em>Filters</em></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -440,13 +440,13 @@
 </tr>
 </tbody>
 </table>
-<p>For URI queries, the type precedes the filter expression in parentheses. The format is <tt class="docutils literal"><span class="pre">&lt;tagk&gt;=&lt;type&gt;(&lt;filter_expression&gt;)</span></tt>. Whether or not results are grouped depends on which curly bracket the filter is in. Two curly braces are now supported per metric query. The first set is the <em>group by</em> filter and the second is a <em>non group by</em> filter, e.g. <tt class="docutils literal"><span class="pre">{host=web01}{colo=regexp(sjc.*)}.</span> <span class="pre">If</span> <span class="pre">you</span> <span class="pre">only</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">filter</span> <span class="pre">without</span> <span class="pre">grouping</span> <span class="pre">then</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">curly</span> <span class="pre">set</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">empty,</span> <span class="pre">e.g.</span> <span class="pre">``{}{host=web*}</span></tt></p>
+<p>For URI queries, the type precedes the filter expression in parentheses. The format is <code class="docutils literal"><span class="pre">&lt;tagk&gt;=&lt;type&gt;(&lt;filter_expression&gt;)</span></code>. Whether or not results are grouped depends on which curly bracket the filter is in. Two curly braces are now supported per metric query. The first set is the <em>group by</em> filter and the second is a <em>non group by</em> filter, e.g. <code class="docutils literal"><span class="pre">{host=web01}{colo=regexp(sjc.*)}.</span> <span class="pre">If</span> <span class="pre">you</span> <span class="pre">only</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">filter</span> <span class="pre">without</span> <span class="pre">grouping</span> <span class="pre">then</span> <span class="pre">the</span> <span class="pre">first</span> <span class="pre">curly</span> <span class="pre">set</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">empty,</span> <span class="pre">e.g.</span> <span class="pre">``{}{host=web*}</span></code></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Regular expression, wildcard filters with a pre/post/in-fix or literal ors with many values can cause queries to return slower as each row of data must be resolved to their string values then processed.</p>
 </div>
 <p><em>Filter Conversions</em></p>
-<p>Values in the POST query <tt class="docutils literal"><span class="pre">tags</span></tt> map and the <em>group by</em> curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:</p>
+<p>Values in the POST query <code class="docutils literal"><span class="pre">tags</span></code> map and the <em>group by</em> curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="25%" />
@@ -458,16 +458,16 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=*</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&lt;tagk&gt;=*</span></code></td>
 <td>Wildcard filter, effectively makes sure the tag key is present in the series</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=value</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&lt;tagk&gt;=value</span></code></td>
 <td>Case sensitive literal OR filter</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=value1|value2|valueN</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&lt;tagk&gt;=value1|value2|valueN</span></code></td>
 <td>Case sensitive literal OR filter</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;tagk&gt;=va*</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&lt;tagk&gt;=va*</span></code></td>
 <td>Case insensitive wildcard filter. An asterisk (star) with any other strings now becomes a wildcard filter shortcut</td>
 </tr>
 </tbody>
@@ -588,18 +588,18 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 <td>Retrieved data points after being processed by the aggregators. Each data point consists of a timestamp and a value, the format determined by the serializer.</td>
 </tr>
 <tr class="row-even"><td>annotations</td>
-<td>If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by <tt class="docutils literal"><span class="pre">start_time</span></tt>. Aggregator functions do not affect annotations, all annotations will be returned for the span.</td>
+<td>If the query retrieved annotations for timeseries over the requested timespan, they will be returned in this group. Annotations for every timeseries will be merged into one set and sorted by <code class="docutils literal"><span class="pre">start_time</span></code>. Aggregator functions do not affect annotations, all annotations will be returned for the span.</td>
 </tr>
 <tr class="row-odd"><td>globalAnnotations</td>
 <td>If requested by the user, the query will scan for global annotations during the timespan and the results returned in this group</td>
 </tr>
 </tbody>
 </table>
-<p>Unless there was an error with the query, you will generally receive a <tt class="docutils literal"><span class="pre">200</span></tt> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
+<p>Unless there was an error with the query, you will generally receive a <code class="docutils literal"><span class="pre">200</span></code> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
 </pre></div>
 </div>
-<p>For the JSON serializer, the timestamp will always be a Unix epoch style integer followed by the value as an integer or a floating point. For example, the default output is <tt class="docutils literal"><span class="pre">&quot;dps&quot;{&quot;&lt;timestamp&gt;&quot;:&lt;value&gt;}</span></tt>. By default the timestamps will be in seconds. If the <tt class="docutils literal"><span class="pre">msResolution</span></tt> flag is set, then the timestamps will be in milliseconds.</p>
+<p>For the JSON serializer, the timestamp will always be a Unix epoch style integer followed by the value as an integer or a floating point. For example, the default output is <code class="docutils literal"><span class="pre">&quot;dps&quot;{&quot;&lt;timestamp&gt;&quot;:&lt;value&gt;}</span></code>. By default the timestamps will be in seconds. If the <code class="docutils literal"><span class="pre">msResolution</span></code> flag is set, then the timestamps will be in milliseconds.</p>
 <div class="section" id="example-aggregated-default-response">
 <h3>Example Aggregated Default Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
@@ -677,7 +677,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </div>
 <div class="section" id="example-multi-set-response">
 <h3>Example Multi-Set Response</h3>
-<p>For the following example, two TSDs were running and the query was: <tt class="docutils literal"><span class="pre">http://localhost:4242/api/query?start=1h-ago&amp;m=sum:tsd.hbase.puts{host=*}</span></tt>. This returns two explicit time series.</p>
+<p>For the following example, two TSDs were running and the query was: <code class="docutils literal"><span class="pre">http://localhost:4242/api/query?start=1h-ago&amp;m=sum:tsd.hbase.puts{host=*}</span></code>. This returns two explicit time series.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
@@ -766,7 +766,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -778,12 +778,12 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
         <li class="right" >
           <a href="../put.html" title="/api/put"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

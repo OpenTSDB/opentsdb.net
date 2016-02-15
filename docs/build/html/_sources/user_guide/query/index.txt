@@ -11,6 +11,7 @@ OpenTSDB offers a number of means to extract data such as CLI tools, an HTTP API
    timeseries
    aggregators
    examples
+   stats
    
 Query Components
 ^^^^^^^^^^^^^^^^

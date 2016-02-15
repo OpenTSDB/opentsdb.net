@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/put &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/put &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../index.html" />
     <link rel="up" title="HTTP API" href="index.html" />
     <link rel="next" title="/api/query" href="query/index.html" />
     <link rel="prev" title="/api/dropcaches" href="dropcaches.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="dropcaches.html" title="/api/dropcaches"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -83,7 +83,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="query/index.html"
                         title="next chapter">/api/query</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -102,7 +102,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-put">
 <h1>/api/put</h1>
@@ -116,11 +116,11 @@
 <p>Another recommendation is to enable keep-alives on your HTTP client so that you can re-use your connection to the server every time you put data.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When using HTTP for puts, you may need to enable support for chunks if your HTTP client automatically breaks large requests into smaller packets. For example, CURL will break up messages larger than 2 or 3 data points and by default, OpenTSDB disables chunk support. Enable it by setting <tt class="docutils literal"><span class="pre">tsd.http.request.enable_chunked</span></tt> to true in the config file.</p>
+<p class="last">When using HTTP for puts, you may need to enable support for chunks if your HTTP client automatically breaks large requests into smaller packets. For example, CURL will break up messages larger than 2 or 3 data points and by default, OpenTSDB disables chunk support. Enable it by setting <code class="docutils literal"><span class="pre">tsd.http.request.enable_chunked</span></code> to true in the config file.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If the <tt class="docutils literal"><span class="pre">tsd.mode</span></tt> is set to <tt class="docutils literal"><span class="pre">ro</span></tt>, the <tt class="docutils literal"><span class="pre">/api/put</span></tt> endpoint will be unavailable and all calls will return a 404 error.</p>
+<p class="last">If the <code class="docutils literal"><span class="pre">tsd.mode</span></code> is set to <code class="docutils literal"><span class="pre">ro</span></code>, the <code class="docutils literal"><span class="pre">/api/put</span></code> endpoint will be unavailable and all calls will return a 404 error.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -184,7 +184,7 @@
 <tr class="row-odd"><td>sync_timeout</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>A timeout, in milliseconds, to wait for the data to be flushed to storage before returning with an error. When a timeout occurs, using the <tt class="docutils literal"><span class="pre">details</span></tt> flag will tell how many data points failed and how many succeeded. <tt class="docutils literal"><span class="pre">sync</span></tt> must also be given for this to take effect. A value of 0 means the write will not timeout.</td>
+<td>A timeout, in milliseconds, to wait for the data to be flushed to storage before returning with an error. When a timeout occurs, using the <code class="docutils literal"><span class="pre">details</span></code> flag will tell how many data points failed and how many succeeded. <code class="docutils literal"><span class="pre">sync</span></code> must also be given for this to take effect. A value of 0 means the write will not timeout.</td>
 <td>0</td>
 <td>sync_timeout</td>
 <td>&nbsp;</td>
@@ -192,7 +192,7 @@
 </tr>
 </tbody>
 </table>
-<p>If both <tt class="docutils literal"><span class="pre">detailed</span></tt> and <tt class="docutils literal"><span class="pre">summary</span></tt> are present in a query string, the API will respond with <tt class="docutils literal"><span class="pre">detailed</span></tt> information.</p>
+<p>If both <code class="docutils literal"><span class="pre">detailed</span></code> and <code class="docutils literal"><span class="pre">summary</span></code> are present in a query string, the API will respond with <code class="docutils literal"><span class="pre">detailed</span></code> information.</p>
 <p>The fields and examples below refer to the default JSON serializer.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -299,9 +299,9 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>By default, the put endpoint will respond with a <tt class="docutils literal"><span class="pre">204</span></tt> HTTP status code and no content if all data points were stored successfully. If one or more datapoints had an error, the API will return a <tt class="docutils literal"><span class="pre">400</span></tt> with an error message in the content.</p>
+<p>By default, the put endpoint will respond with a <code class="docutils literal"><span class="pre">204</span></code> HTTP status code and no content if all data points were stored successfully. If one or more datapoints had an error, the API will return a <code class="docutils literal"><span class="pre">400</span></code> with an error message in the content.</p>
 <p>For debugging purposes, you can ask for the response to include a summary of how many data points were stored successfully and failed, or get details about what data points could not be stored and why so that you can fix your client code. Also, errors with a data point will be logged in the TSD's log file so you can look there for issues.</p>
-<p>Fields present in <tt class="docutils literal"><span class="pre">summary</span></tt> or <tt class="docutils literal"><span class="pre">detailed</span></tt> responses include:</p>
+<p>Fields present in <code class="docutils literal"><span class="pre">summary</span></code> or <code class="docutils literal"><span class="pre">detailed</span></code> responses include:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -325,7 +325,7 @@
 </tr>
 <tr class="row-even"><td>errors</td>
 <td>Array</td>
-<td>A list of data points that failed be queued and why. Present in the <tt class="docutils literal"><span class="pre">details</span></tt> response only.</td>
+<td>A list of data points that failed be queued and why. Present in the <code class="docutils literal"><span class="pre">details</span></code> response only.</td>
 </tr>
 </tbody>
 </table>
@@ -369,7 +369,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -381,12 +381,12 @@
         <li class="right" >
           <a href="dropcaches.html" title="/api/dropcaches"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

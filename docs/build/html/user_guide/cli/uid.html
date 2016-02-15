@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>uid &mdash; OpenTSDB 2.1 documentation</title>
+    <title>uid &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="CLI Tools" href="index.html" />
     <link rel="next" title="mkmetric" href="mkmetric.html" />
     <link rel="prev" title="CLI Tools" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="index.html" title="CLI Tools"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -128,7 +128,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="mkmetric.html"
                         title="next chapter">mkmetric</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -147,11 +147,11 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="uid">
 <h1>uid</h1>
-<p>The UID utility provides various functions to search or modify information in the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data.</p>
+<p>The UID utility provides various functions to search or modify information in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data.</p>
 <p>Use the UID utility with the command line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">uid</span> <span class="o">&lt;</span><span class="n">subcommands</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">arguments</span><span class="p">]</span>
 </pre></div>
@@ -162,7 +162,7 @@
 </div>
 <div class="section" id="lookup">
 <h2>Lookup</h2>
-<p>The lookup command is the default for <tt class="docutils literal"><span class="pre">uid</span></tt> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
+<p>The lookup command is the default for <code class="docutils literal"><span class="pre">uid</span></code> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
 <div class="section" id="command-format">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre>&lt;kind&gt; &lt;name&gt;
@@ -205,7 +205,7 @@
 <tbody valign="top">
 <tr class="row-even"><td>kind</td>
 <td>String</td>
-<td>The type of the UID to search for. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>The type of the UID to search for. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
 <td>&nbsp;</td>
 <td>tagk</td>
 </tr>
@@ -219,7 +219,7 @@
 </table>
 <div class="section" id="id1">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s">&#39;&lt;expression&gt;&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s1">&#39;&lt;expression&gt;&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -259,7 +259,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <tbody valign="top">
 <tr class="row-even"><td>kind</td>
 <td>String</td>
-<td>The type of the UID the names represent. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>The type of the UID the names represent. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
 <td>tagk</td>
 </tr>
 <tr class="row-odd"><td>name</td>
@@ -309,7 +309,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <tbody valign="top">
 <tr class="row-even"><td>kind</td>
 <td>String</td>
-<td>The type of the UID the name represent. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>The type of the UID the name represent. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
 <td>tagk</td>
 </tr>
 <tr class="row-odd"><td>name</td>
@@ -339,7 +339,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </div>
 <div class="section" id="delete">
 <h2>delete</h2>
-<p>Removes the mapping of the UID from the <tt class="docutils literal"><span class="pre">tsdb-uid</span></tt> table. Make sure all sources are no longer writing data using the UID and that sufficient time has passed so that users would not query for data that used the UIDs.</p>
+<p>Removes the mapping of the UID from the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table. Make sure all sources are no longer writing data using the UID and that sufficient time has passed so that users would not query for data that used the UIDs.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">After deleting a UID, it may still remain in the caches of running TSD servers. Make sure to flush their caches after deleting an entry.</p>
@@ -365,7 +365,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <tbody valign="top">
 <tr class="row-even"><td>kind</td>
 <td>String</td>
-<td>The type of the UID the name represent. Must be one of <tt class="docutils literal"><span class="pre">metrics</span></tt>, <tt class="docutils literal"><span class="pre">tagk</span></tt> or <tt class="docutils literal"><span class="pre">tagv</span></tt></td>
+<td>The type of the UID the name represent. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
 <td>tagk</td>
 </tr>
 <tr class="row-odd"><td>name</td>
@@ -498,7 +498,7 @@ WARN  [main] UidManager: 2 errors found.
 </div>
 <div class="section" id="metapurge">
 <h2>metapurge</h2>
-<p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <tt class="docutils literal"><span class="pre">metasync</span></tt>.</p>
+<p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <code class="docutils literal"><span class="pre">metasync</span></code>.</p>
 <div class="section" id="id16">
 <h3>Command Format</h3>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">metapurge</span>
@@ -579,7 +579,7 @@ WARN  [main] UidManager: 2 errors found.
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -591,13 +591,13 @@ WARN  [main] UidManager: 2 errors found.
         <li class="right" >
           <a href="index.html" title="CLI Tools"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

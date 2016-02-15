@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Filters &mdash; OpenTSDB 2.1 documentation</title>
+    <title>Filters &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="Querying or Reading Data" href="index.html" />
     <link rel="next" title="Understanding Metrics and Time Series" href="timeseries.html" />
     <link rel="prev" title="Dates and Times" href="dates.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="dates.html" title="Dates and Times"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -84,7 +84,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="timeseries.html"
                         title="next chapter">Understanding Metrics and Time Series</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -103,60 +103,60 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="filters">
 <h1>Filters</h1>
 <p>In OpenTSDB 2.2 tag key and value filters were introduced. This makes it easier to extract only the data that you want from storage. The filter framework is plugable to allow for tying into external systems such as asset management or provisioning systems.</p>
-<p>Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <tt class="docutils literal"><span class="pre">host=literal_or(web01)</span></tt> and <tt class="docutils literal"><span class="pre">host=literal_or(web02)</span></tt> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key.</p>
-<p>Note that some type of filters may cause queries to execute slower than others, e.g. the regex and wildcard filters. Before fetching data from storage, the filters are processed to create a database filter based on UIDs so using the case sensitive &quot;literal or&quot; filter is always faster than regex because we can resolve the strings to UIDs and send those to the storage system for filtering. Instead if you ask for regex or wildcards with pre, post or infix filtering the TSD must retrieve all of the rows from storage with the tag key UID, then for each unique row, resolve the UIDs back to strings and then run the filter over the results. Also, filter sets with a large list of literals will be processed post storage to avoid creating a massive filter for the backing store to process. This limit defaults to <tt class="docutils literal"><span class="pre">4096</span></tt> and can be configured via the <tt class="docutils literal"><span class="pre">tsd.query.filter.expansion_limit</span></tt> parameter.</p>
+<p>Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key.</p>
+<p>Note that some type of filters may cause queries to execute slower than others, e.g. the regex and wildcard filters. Before fetching data from storage, the filters are processed to create a database filter based on UIDs so using the case sensitive &quot;literal or&quot; filter is always faster than regex because we can resolve the strings to UIDs and send those to the storage system for filtering. Instead if you ask for regex or wildcards with pre, post or infix filtering the TSD must retrieve all of the rows from storage with the tag key UID, then for each unique row, resolve the UIDs back to strings and then run the filter over the results. Also, filter sets with a large list of literals will be processed post storage to avoid creating a massive filter for the backing store to process. This limit defaults to <code class="docutils literal"><span class="pre">4096</span></code> and can be configured via the <code class="docutils literal"><span class="pre">tsd.query.filter.expansion_limit</span></code> parameter.</p>
 <div class="section" id="built-in-filters">
 <h2>Built-in Filters</h2>
 <div class="section" id="literal-or">
 <h3>literal_or</h3>
 <p>Takes a single literal value or a pipe delimited list of values and returns any time series matching the results on a case sensitive bases. This is a very efficient filter as it can resolve the strings to UIDs and send that to the storage layer for pre-filtering.</p>
 <p><em>Examples</em></p>
-<p><tt class="docutils literal"><span class="pre">literal_or(web01|web02|web03)</span></tt>
-<tt class="docutils literal"><span class="pre">literal_or(web01)</span></tt></p>
+<p><code class="docutils literal"><span class="pre">literal_or(web01|web02|web03)</span></code>
+<code class="docutils literal"><span class="pre">literal_or(web01)</span></code></p>
 </div>
 <div class="section" id="ilteral-or">
 <h3>ilteral_or</h3>
-<p>The same as a <tt class="docutils literal"><span class="pre">literal_or</span></tt> but is case insensitive. Note that this is not efficient like the literal or as it must post-process all rows from storage.</p>
+<p>The same as a <code class="docutils literal"><span class="pre">literal_or</span></code> but is case insensitive. Note that this is not efficient like the literal or as it must post-process all rows from storage.</p>
 </div>
 <div class="section" id="not-literal-or">
 <h3>not_literal_or</h3>
-<p>Case sensitive <tt class="docutils literal"><span class="pre">literal_or</span></tt> that will return series that do <strong>NOT</strong> match the given list of values. Efficient as it can be pre-processed by storage.</p>
+<p>Case sensitive <code class="docutils literal"><span class="pre">literal_or</span></code> that will return series that do <strong>NOT</strong> match the given list of values. Efficient as it can be pre-processed by storage.</p>
 </div>
 <div class="section" id="not-iliteral-or">
 <h3>not_iliteral_or</h3>
-<p>Case insensitive <tt class="docutils literal"><span class="pre">not_literal_or</span></tt>.</p>
+<p>Case insensitive <code class="docutils literal"><span class="pre">not_literal_or</span></code>.</p>
 </div>
 <div class="section" id="wildcard">
 <h3>wildcard</h3>
-<p>Provides case sensitive postfix, prefix, infix and multi-infix filtering. The wildcard character is an asterisk (star) <tt class="docutils literal"><span class="pre">*</span></tt>. Multiple wildcards can be used. If only the asterisk is given, the filter effectively returns any time series that include the tag key (and is an efficient filter that can be pre-processed).</p>
+<p>Provides case sensitive postfix, prefix, infix and multi-infix filtering. The wildcard character is an asterisk (star) <code class="docutils literal"><span class="pre">*</span></code>. Multiple wildcards can be used. If only the asterisk is given, the filter effectively returns any time series that include the tag key (and is an efficient filter that can be pre-processed).</p>
 <p><em>Examples</em>
-<tt class="docutils literal"><span class="pre">wildcard(*mysite.com)</span></tt>
-<tt class="docutils literal"><span class="pre">wildcard(web*)</span></tt>
-<tt class="docutils literal"><span class="pre">wildcard(web*mysite.com)</span></tt>
-<tt class="docutils literal"><span class="pre">wildcard(web*mysite*)</span></tt>
-<tt class="docutils literal"><span class="pre">wildcard(*)</span></tt></p>
+<code class="docutils literal"><span class="pre">wildcard(*mysite.com)</span></code>
+<code class="docutils literal"><span class="pre">wildcard(web*)</span></code>
+<code class="docutils literal"><span class="pre">wildcard(web*mysite.com)</span></code>
+<code class="docutils literal"><span class="pre">wildcard(web*mysite*)</span></code>
+<code class="docutils literal"><span class="pre">wildcard(*)</span></code></p>
 </div>
 <div class="section" id="iwildcard">
 <h3>iwildcard</h3>
-<p>The same as <tt class="docutils literal"><span class="pre">wildcard</span></tt> but case insensitive.</p>
+<p>The same as <code class="docutils literal"><span class="pre">wildcard</span></code> but case insensitive.</p>
 </div>
 <div class="section" id="regexp">
 <h3>regexp</h3>
 <p>Filters using POSIX compliant regular expressions post fetching from storage. The filter uses Java's built-in regular expression operation. Be careful to escape special characters depending on the query method used.</p>
 <p><em>Examples</em>
-<tt class="docutils literal"><span class="pre">regexp(web.*)</span></tt>
-<tt class="docutils literal"><span class="pre">regexp(web[0-9].mysite.com)</span></tt></p>
+<code class="docutils literal"><span class="pre">regexp(web.*)</span></code>
+<code class="docutils literal"><span class="pre">regexp(web[0-9].mysite.com)</span></code></p>
 </div>
 </div>
 <div class="section" id="plugins">
 <h2>Plugins</h2>
 <p>As developers add plugins we will list them here.</p>
-<p>To develop a plugin, simply extend the <tt class="docutils literal"><span class="pre">net.opentsdb.query.filter.TagVFilter</span></tt> class, create JAR per the <a class="reference internal" href="../../development/plugins.html"><em>Plugins</em></a> documentation and drop it in your plugins directory. On start, the TSD will search for the plugin and load it. If there was an error with the implementation the TSD will not start up and will log the exception.</p>
+<p>To develop a plugin, simply extend the <code class="docutils literal"><span class="pre">net.opentsdb.query.filter.TagVFilter</span></code> class, create JAR per the <a class="reference internal" href="../../development/plugins.html"><em>Plugins</em></a> documentation and drop it in your plugins directory. On start, the TSD will search for the plugin and load it. If there was an error with the implementation the TSD will not start up and will log the exception.</p>
 </div>
 </div>
 
@@ -166,7 +166,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -178,13 +178,13 @@
         <li class="right" >
           <a href="dates.html" title="Dates and Times"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

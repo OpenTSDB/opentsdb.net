@@ -6,8 +6,6 @@ OpenTSDB has a thriving community who contributed and requested a number of new 
 2.2
 ---
 
-Currently in the "next" branch on Github.
-
 * Appends - Support writing all data points for an hour in a single column. This saves the need for TSD compactions and reduces network traffic at query time.
 * Salting - Enables greater distribution of writes for high cardinality metrics as well as asynchronous scanning for improved query speed. (Non backwards compatible)
 * Random Metric UIDs - Enables better distribution of writes when creating new metrics
@@ -22,6 +20,7 @@ Currently in the "next" branch on Github.
 * Compaction Tuning - New parameters allow for tuning the TSD compaction process.
 * Delete Data And UIDs - Allow for deleting data at query time as well as removing UIDs from the system.
 * Synchronous Writing - The HTTP Put API now supports synchronous writing to make sure data is flushed to HBase.
+* Query Stats - Query details are now logged that include timing statistics. A new endpoint also shows running and completed queries.
 
 2.1
 ---

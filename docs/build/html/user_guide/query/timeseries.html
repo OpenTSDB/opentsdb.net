@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Understanding Metrics and Time Series &mdash; OpenTSDB 2.1 documentation</title>
+    <title>Understanding Metrics and Time Series &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="Querying or Reading Data" href="index.html" />
     <link rel="next" title="Aggregators" href="aggregators.html" />
     <link rel="prev" title="Filters" href="filters.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="filters.html" title="Filters"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -85,7 +85,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="aggregators.html"
                         title="next chapter">Aggregators</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -104,14 +104,14 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="understanding-metrics-and-time-series">
 <h1>Understanding Metrics and Time Series</h1>
 <p>OpenTSDB is a time series database. A time series is a series of numeric data points of some particular metric over time. Each time series consists of a metric plus zero or more tags associated with this metric (we'll cover tags in a bit). A metric is any particular piece of data (e.g. hits to an Apache hosted file) that you wish to track over time.</p>
 <p>OpenTSDB is also a data plotting system. OpenTSDB plots things a bit differently than other systems. We'll discuss plotting in more detail below, but for now it's important to know that for OpenTSDB, the basis of any given plot is the metric. It takes that metric, finds all of the time series for the time range you select, aggregates those times series together (e.g. by summing them up) and plots the result. The plotting mechanism is very flexible and powerful and you can do much more than this, but for now let's talk about the key to the time series, which is the metric.</p>
-<p>In OpenTSDB, a metric is named with a string, like <tt class="docutils literal"><span class="pre">http.hits</span></tt>. To be able to store all the different values for all the places where this metric exists, you tag the data with one or more tags when you send them to the TSD. TSD stores the timestamp, the value, and the tags. When you want to retrieve this data, TSD retrieves all of the values for the time span you supply, optionally with a tag filter you supply, aggregates all these values together how you want, and plots a graph of this value over time.</p>
-<p>There's a bunch of things in here that we've introduced so far. To help you understand how things work, I'll start with a typical example. Let's say you have a bunch of web servers and you want to track two things: hits to the web server and load average of the system. Let's make up metric names to express this. For load average, let's call it <tt class="docutils literal"><span class="pre">proc.loadavg.1min</span></tt> (since on Linux you can easily get this data by reading <tt class="docutils literal"><span class="pre">/proc/loadavg</span></tt>). For many web servers, there is a way to ask the web server for a counter expressing the number of hits to the server since it started. This is a convenient counter upon which to use for a metric we'll call <tt class="docutils literal"><span class="pre">http.hits</span></tt>. I chose these two examples for two reasons. One, we'll get to see how OpenTSDB easily handles both counters (values that increase over time, except when they get reset by a restart/reboot or overflow) and how it handles normal values that go up and down, like load average. A great advantage of OpenTSDB is that you don't need to do any rate calculation of your counters. It will do it all for you. The second reason is that we can also show you how you can plot two different metrics with different scales on the same graph, which is a great way to correlate different metrics.</p>
+<p>In OpenTSDB, a metric is named with a string, like <code class="docutils literal"><span class="pre">http.hits</span></code>. To be able to store all the different values for all the places where this metric exists, you tag the data with one or more tags when you send them to the TSD. TSD stores the timestamp, the value, and the tags. When you want to retrieve this data, TSD retrieves all of the values for the time span you supply, optionally with a tag filter you supply, aggregates all these values together how you want, and plots a graph of this value over time.</p>
+<p>There's a bunch of things in here that we've introduced so far. To help you understand how things work, I'll start with a typical example. Let's say you have a bunch of web servers and you want to track two things: hits to the web server and load average of the system. Let's make up metric names to express this. For load average, let's call it <code class="docutils literal"><span class="pre">proc.loadavg.1min</span></code> (since on Linux you can easily get this data by reading <code class="docutils literal"><span class="pre">/proc/loadavg</span></code>). For many web servers, there is a way to ask the web server for a counter expressing the number of hits to the server since it started. This is a convenient counter upon which to use for a metric we'll call <code class="docutils literal"><span class="pre">http.hits</span></code>. I chose these two examples for two reasons. One, we'll get to see how OpenTSDB easily handles both counters (values that increase over time, except when they get reset by a restart/reboot or overflow) and how it handles normal values that go up and down, like load average. A great advantage of OpenTSDB is that you don't need to do any rate calculation of your counters. It will do it all for you. The second reason is that we can also show you how you can plot two different metrics with different scales on the same graph, which is a great way to correlate different metrics.</p>
 <div class="section" id="your-first-datapoints">
 <h2>Your first datapoints</h2>
 <p>Without going into too much detail on how collectors send data to the TSD , you write a collector that periodically sends the current value of these datapoints for each server to the TSD. So the TSD can aggregate the data from multiple hosts, you tag each value with a &quot;host&quot; tag. So, if you have web servers A, B, C, etc, they each periodically send something like this to the TSD:</p>
@@ -119,12 +119,12 @@
 put proc.loadavg.1min 1234567890 1.35 host=A
 </pre></div>
 </div>
-<p>Here &quot;1234567890&quot; is the current epoch time (date +%s) in seconds. The next number is the value of the metric at this time. This is data from host A, so it's tagged with <tt class="docutils literal"><span class="pre">host=A</span></tt>. Data from host B would be tagged with <tt class="docutils literal"><span class="pre">host=B</span></tt>, and so forth. Over time, you'll get a bunch of time series stored in OpenTSDB.</p>
+<p>Here &quot;1234567890&quot; is the current epoch time (date +%s) in seconds. The next number is the value of the metric at this time. This is data from host A, so it's tagged with <code class="docutils literal"><span class="pre">host=A</span></code>. Data from host B would be tagged with <code class="docutils literal"><span class="pre">host=B</span></code>, and so forth. Over time, you'll get a bunch of time series stored in OpenTSDB.</p>
 </div>
 <div class="section" id="your-first-plot">
 <h2>Your first plot</h2>
 <p>Now, let's revisit what we talked about here at the beginning. A time series is a series of datapoints of some particular metric (and its tags) over time. For this example, each host is sending two time series to the TSD. If you had 3 boxes each sending these two time series, TSD would be collecting and storing 6 time series. Now that you have the data, let's start plotting.</p>
-<p>To plot HTTP hits, you just go to the UI and enter <tt class="docutils literal"><span class="pre">http.hits</span></tt> as your metric name, and enter the time range. Check the &quot;Rate&quot; button since this particular metric is a rate counter, and voil?, you have a plot of the rate of HTTP hits to your web servers over time.</p>
+<p>To plot HTTP hits, you just go to the UI and enter <code class="docutils literal"><span class="pre">http.hits</span></code> as your metric name, and enter the time range. Check the &quot;Rate&quot; button since this particular metric is a rate counter, and voil?, you have a plot of the rate of HTTP hits to your web servers over time.</p>
 </div>
 <div class="section" id="aggregators">
 <h2>Aggregators</h2>
@@ -145,7 +145,7 @@ put proc.loadavg.1min 1234567890 1.35 host=A
 <div class="section" id="getting-fancy">
 <h2>Getting Fancy</h2>
 <p>Imagine each if your servers actually ran two webservers, say, one for static content and one for dynamic content. Rather than create another metric, just tag the http.hits metric with the server instance. Have your collector send stuff like:</p>
-<p><tt class="docutils literal"><span class="pre">put</span> <span class="pre">http.hits</span> <span class="pre">1234567890</span> <span class="pre">34877</span> <span class="pre">host=A</span> <span class="pre">webserver=static</span> <span class="pre">put</span> <span class="pre">http.hits</span> <span class="pre">1234567890</span> <span class="pre">4357</span> <span class="pre">host=A</span> <span class="pre">webserver=dynamic</span> <span class="pre">put</span> <span class="pre">proc.loadavg.1min</span> <span class="pre">1234567890</span> <span class="pre">1.35</span> <span class="pre">host=A</span></tt></p>
+<p><code class="docutils literal"><span class="pre">put</span> <span class="pre">http.hits</span> <span class="pre">1234567890</span> <span class="pre">34877</span> <span class="pre">host=A</span> <span class="pre">webserver=static</span> <span class="pre">put</span> <span class="pre">http.hits</span> <span class="pre">1234567890</span> <span class="pre">4357</span> <span class="pre">host=A</span> <span class="pre">webserver=dynamic</span> <span class="pre">put</span> <span class="pre">proc.loadavg.1min</span> <span class="pre">1234567890</span> <span class="pre">1.35</span> <span class="pre">host=A</span></code></p>
 <p>Why do this instead of creating another metric? Well, what if sometimes you care about plotting total HTTP hits and sometimes you care about breaking out static vs. dynamic hits? With a tag, it's easy. With this new tag, you'll see a webserver tag appear in the UI when plotting this metric. You can leave it blank and it will aggregate up both values into one plot (according to your Aggregator setting) and you can see the total hits, or you can do webserver=* to break out how much each of your static and dynamic instances are collectively doing across your web servers. You can even go deeper and specify webserver=* and host=* to see the full breakdown.</p>
 </div>
 <div class="section" id="guidelines-when-to-create-metrics">
@@ -177,7 +177,7 @@ put proc.loadavg.1min 1234567890 1.35 host=A
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -189,13 +189,13 @@ put proc.loadavg.1min 1234567890 1.35 host=A
         <li class="right" >
           <a href="filters.html" title="Filters"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

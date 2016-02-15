@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Load Balancing with Varnish &mdash; OpenTSDB 2.1 documentation</title>
+    <title>Load Balancing with Varnish &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="Utilities" href="index.html" />
     <link rel="next" title="Alerting with Nagios" href="nagios.html" />
     <link rel="prev" title="tsddrain.py" href="tsddrain.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="tsddrain.html" title="tsddrain.py"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="tsddrain.html"
@@ -66,7 +66,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="nagios.html"
                         title="next chapter">Alerting with Nagios</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -85,13 +85,13 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="load-balancing-with-varnish">
 <h1>Load Balancing with Varnish</h1>
 <p><a class="reference external" href="https://www.varnish-cache.org/">Varnish</a> is a powerful HTTP load balancer (reverse proxy), which is also very good at caching. When running multiple TSDs, Varnish comes in handy to distribute the HTTP traffic across the TSDs. Bear in mind that write traffic doesn't use the HTTP protocol by default, and as such you can only use Varnish for read queries. Using Varnish will help you easily scale the amount of read capacity of your TSD cluster.</p>
 <p>The following is a sample Varnish configuration recommended for use with OpenTSDB. It uses a slightly custom load balancing strategy to achieve optimal cache hit rate at the TSD level. This configuration requires at least Varnish 2.1.0 to run, but using Varnish 3.0 or above is strongly recommended.</p>
-<p>This sample configuration is for 2 backends, named <tt class="docutils literal"><span class="pre">foo</span></tt> and <tt class="docutils literal"><span class="pre">bar</span></tt>. You need to substitute at least the host names.</p>
+<p>This sample configuration is for 2 backends, named <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code>. You need to substitute at least the host names.</p>
 <div class="highlight-python"><div class="highlight"><pre># VCL configuration for OpenTSDB.
 
 backend foo {
@@ -156,7 +156,7 @@ sub vcl_hash {
 }
 </pre></div>
 </div>
-<p>On many Linux distros (including Debian and Ubuntu), you need to put the configuration above in <tt class="docutils literal"><span class="pre">/etc/varnish/default.vcl</span></tt>. We also recommend tweaking the command-line parameters of <tt class="docutils literal"><span class="pre">varnishd</span></tt> in order to use a memory-backed cache of about 1GB if you can afford it. On Debian/Ubuntu systems, this is done by editing <tt class="docutils literal"><span class="pre">/etc/default/varnish</span></tt> to make sure that <tt class="docutils literal"><span class="pre">-s</span> <span class="pre">malloc,1G</span></tt> is passed to <tt class="docutils literal"><span class="pre">varnishd</span></tt>.</p>
+<p>On many Linux distros (including Debian and Ubuntu), you need to put the configuration above in <code class="docutils literal"><span class="pre">/etc/varnish/default.vcl</span></code>. We also recommend tweaking the command-line parameters of <code class="docutils literal"><span class="pre">varnishd</span></code> in order to use a memory-backed cache of about 1GB if you can afford it. On Debian/Ubuntu systems, this is done by editing <code class="docutils literal"><span class="pre">/etc/default/varnish</span></code> to make sure that <code class="docutils literal"><span class="pre">-s</span> <span class="pre">malloc,1G</span></code> is passed to <code class="docutils literal"><span class="pre">varnishd</span></code>.</p>
 <p>Read more about Varnish:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.varnish-cache.org/docs/trunk/reference/vcl.html">The VCL configuration language</a></li>
@@ -165,7 +165,7 @@ sub vcl_hash {
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">if you're using Varnish 2.x (which is not recommended as we would strongly encourage you to migrate to 3.x) you have to replace each function call <tt class="docutils literal"><span class="pre">hash_data(foo);</span></tt> to set <tt class="docutils literal"><span class="pre">req.hash</span> <span class="pre">+=</span> <span class="pre">foo;</span></tt> in the VCL configuration above.</p>
+<p class="last">if you're using Varnish 2.x (which is not recommended as we would strongly encourage you to migrate to 3.x) you have to replace each function call <code class="docutils literal"><span class="pre">hash_data(foo);</span></code> to set <code class="docutils literal"><span class="pre">req.hash</span> <span class="pre">+=</span> <span class="pre">foo;</span></code> in the VCL configuration above.</p>
 </div>
 </div>
 
@@ -175,7 +175,7 @@ sub vcl_hash {
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -187,13 +187,13 @@ sub vcl_hash {
         <li class="right" >
           <a href="tsddrain.html" title="tsddrain.py"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Utilities</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

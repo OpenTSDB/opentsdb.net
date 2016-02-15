@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>/api/annotation &mdash; OpenTSDB 2.1 documentation</title>
+    <title>/api/annotation &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="HTTP API" href="../index.html" />
     <link rel="next" title="/api/annotation/bulk" href="bulk.html" />
     <link rel="prev" title="/api/aggregators" href="../aggregators.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +53,11 @@
         <li class="right" >
           <a href="../aggregators.html" title="/api/aggregators"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -83,7 +83,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="bulk.html"
                         title="next chapter">/api/annotation/bulk</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -102,7 +102,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="api-annotation">
 <h1>/api/annotation</h1>
@@ -115,7 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="bulk.html">/api/annotation/bulk</a></li>
 </ul>
 </div>
-<p>The default <tt class="docutils literal"><span class="pre">/annotation</span></tt> endpoint deals with one notation at a time. The <tt class="docutils literal"><span class="pre">/annotation/bulk</span></tt> endpoint allows for adding or updating multiple annotations at a time.</p>
+<p>The default <code class="docutils literal"><span class="pre">/annotation</span></code> endpoint deals with one notation at a time. The <code class="docutils literal"><span class="pre">/annotation/bulk</span></code> endpoint allows for adding or updating multiple annotations at a time.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -128,7 +128,7 @@
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>All annotations are identified by the <tt class="docutils literal"><span class="pre">startTime</span></tt> field and optionally the <tt class="docutils literal"><span class="pre">tsuid</span></tt> field. Each note can be global, meaning it is associated with all timeseries, or it can be local, meaning it's associated with a specific tsuid. If the tsuid is not supplied or has an empty value, the annotation is considered to be a global note.</p>
+<p>All annotations are identified by the <code class="docutils literal"><span class="pre">startTime</span></code> field and optionally the <code class="docutils literal"><span class="pre">tsuid</span></code> field. Each note can be global, meaning it is associated with all timeseries, or it can be local, meaning it's associated with a specific tsuid. If the tsuid is not supplied or has an empty value, the annotation is considered to be a global note.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -210,11 +210,11 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Custom fields cannot be passed via query string. You must use the <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> verbs.</p>
+<p class="last">Custom fields cannot be passed via query string. You must use the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> verbs.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">If your request uses <tt class="docutils literal"><span class="pre">PUT</span></tt>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <tt class="docutils literal"><span class="pre">description</span></tt> field will be set to an emtpy string and the <tt class="docutils literal"><span class="pre">custom</span></tt> field will be reset to <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+<p class="last">If your request uses <code class="docutils literal"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal"><span class="pre">description</span></code> field will be set to an empty string and the <code class="docutils literal"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal"><span class="pre">null</span></code>.</p>
 </div>
 <div class="section" id="example-get-request">
 <h3>Example GET Request</h3>
@@ -240,7 +240,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt> or <tt class="docutils literal"><span class="pre">PUT</span></tt> request will return the full object with the requested changes. Successful <tt class="docutils literal"><span class="pre">DELETE</span></tt> calls will return with a <tt class="docutils literal"><span class="pre">204</span></tt> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <tt class="docutils literal"><span class="pre">304</span></tt> without any body content. If the requested annotation did not exist in the system, a <tt class="docutils literal"><span class="pre">404</span></tt> will be returned with an error message. If invalid data was supplied a <tt class="docutils literal"><span class="pre">400</span></tt> error will be returned.</p>
+<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full object with the requested changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested annotation did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
@@ -266,7 +266,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -278,12 +278,12 @@
         <li class="right" >
           <a href="../aggregators.html" title="/api/aggregators"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

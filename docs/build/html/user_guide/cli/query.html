@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>query &mdash; OpenTSDB 2.1 documentation</title>
+    <title>query &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="CLI Tools" href="index.html" />
     <link rel="next" title="fsck" href="fsck.html" />
     <link rel="prev" title="import" href="import.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="import.html" title="import"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -75,7 +75,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="fsck.html"
                         title="next chapter">fsck</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -94,7 +94,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="query">
 <h1>query</h1>
@@ -148,13 +148,13 @@
 </tr>
 <tr class="row-even"><td>rate</td>
 <td>String</td>
-<td>The literal <tt class="docutils literal"><span class="pre">rate</span></tt> if the timeseries represents a counter and the results should be returned as delta per second</td>
+<td>The literal <code class="docutils literal"><span class="pre">rate</span></code> if the timeseries represents a counter and the results should be returned as delta per second</td>
 <td>&nbsp;</td>
 <td>rate</td>
 </tr>
 <tr class="row-odd"><td>counter</td>
 <td>String</td>
-<td>Optional literal <tt class="docutils literal"><span class="pre">counter</span></tt> that indicates the underlying data is a monotonically increasong counter that may roll over</td>
+<td>Optional literal <code class="docutils literal"><span class="pre">counter</span></code> that indicates the underlying data is a monotonically increasong counter that may roll over</td>
 <td>&nbsp;</td>
 <td>counter</td>
 </tr>
@@ -172,7 +172,7 @@
 </tr>
 <tr class="row-even"><td>downsample N FUNC</td>
 <td>String</td>
-<td>Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal <tt class="docutils literal"><span class="pre">downsample</span></tt> followed by a timespan in milliseconds and an aggregation function name</td>
+<td>Optional downsampling specifier to group data into larger time spans and reduce the amount of data returned. Format is the literal <code class="docutils literal"><span class="pre">downsample</span></code> followed by a timespan in milliseconds and an aggregation function name</td>
 <td>&nbsp;</td>
 <td>downsample 300000 avg</td>
 </tr>
@@ -198,7 +198,7 @@
 </table>
 <p>For more details on querying, please see <a class="reference internal" href="../query/index.html"><em>Querying or Reading Data</em></a>.</p>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>query 1h-ago now sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nb">type</span><span class="o">=</span>scan
+<div class="highlight-bash"><div class="highlight"><pre>query 1h-ago now sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>scan
 </pre></div>
 </div>
 </div>
@@ -217,10 +217,10 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>tsd.hbase.rpcs 1393376401000 28067146491 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
-tsd.hbase.rpcs 1393376461000 28067526510 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
-tsd.hbase.rpcs 1393376521000 28067826659 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
-tsd.hbase.rpcs 1393376581000 28068126093 <span class="o">{</span><span class="nb">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+<div class="highlight-bash"><div class="highlight"><pre>tsd.hbase.rpcs <span class="m">1393376401000</span> <span class="m">28067146491</span> <span class="o">{</span><span class="nv">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+tsd.hbase.rpcs <span class="m">1393376461000</span> <span class="m">28067526510</span> <span class="o">{</span><span class="nv">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+tsd.hbase.rpcs <span class="m">1393376521000</span> <span class="m">28067826659</span> <span class="o">{</span><span class="nv">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
+tsd.hbase.rpcs <span class="m">1393376581000</span> <span class="m">28068126093</span> <span class="o">{</span><span class="nv">type</span><span class="o">=</span>put, <span class="nv">fqdn</span><span class="o">=</span>tsdb-data-1<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -232,7 +232,7 @@ tsd.hbase.rpcs 1393376581000 28068126093 <span class="o">{</span><span class="nb
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -244,13 +244,13 @@ tsd.hbase.rpcs 1393376581000 28068126093 <span class="o">{</span><span class="nb
         <li class="right" >
           <a href="import.html" title="import"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

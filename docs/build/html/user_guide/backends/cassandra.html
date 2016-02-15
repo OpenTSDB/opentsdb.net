@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Cassandra &mdash; OpenTSDB 2.1 documentation</title>
+    <title>Cassandra &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1',
+        VERSION:     '2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.1 documentation" href="../../index.html" />
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../../index.html" />
     <link rel="up" title="Storage" href="index.html" />
     <link rel="next" title="CLI Tools" href="../cli/index.html" />
     <link rel="prev" title="Bigtable" href="bigtable.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -40,8 +40,8 @@
   })();
 </script>
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,12 +53,12 @@
         <li class="right" >
           <a href="bigtable.html" title="Bigtable"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Storage</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Storage</a> &raquo;</li> 
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -75,7 +75,7 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="../cli/index.html"
                         title="next chapter">CLI Tools</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -94,15 +94,15 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="cassandra">
 <h1>Cassandra</h1>
-<p>Cassandra is an eventually consistent key value store similar to HBase and Google`s Bigtable. It implements a distributed hash map with column families originally it supported a Thrift based API very close to HBase`s. Lately Cassandra has moved towards a SQL like query language with much more flexibility around data types, joints and filters. Thankfully the Thrift interface is still there so it`s easy to convert the OpenTSDB HBase schema and calls to Cassandra at a low level through the AsyncHBase <tt class="docutils literal"><span class="pre">HBaseClient</span></tt> API. <a class="reference external" href="https://github.com/OpenTSDB/asynccassandra">AsyncCassandra</a> is a shim between OpenTSDB and Cassandra for trying out TSDB with an alternate backend.</p>
+<p>Cassandra is an eventually consistent key value store similar to HBase and Google`s Bigtable. It implements a distributed hash map with column families originally it supported a Thrift based API very close to HBase`s. Lately Cassandra has moved towards a SQL like query language with much more flexibility around data types, joints and filters. Thankfully the Thrift interface is still there so it`s easy to convert the OpenTSDB HBase schema and calls to Cassandra at a low level through the AsyncHBase <code class="docutils literal"><span class="pre">HBaseClient</span></code> API. <a class="reference external" href="https://github.com/OpenTSDB/asynccassandra">AsyncCassandra</a> is a shim between OpenTSDB and Cassandra for trying out TSDB with an alternate backend.</p>
 <div class="section" id="setup">
 <h2>Setup</h2>
 <ol class="arabic simple">
-<li>Setup a Cassandra cluster using the <tt class="docutils literal"><span class="pre">ByteOrderedPartitioner</span></tt>. This is critical as we require the row keys to be sorted. Because this setting affects the entire node, you may need to setup a cluster dedicated to OpenTSDB.</li>
+<li>Setup a Cassandra cluster using the <code class="docutils literal"><span class="pre">ByteOrderedPartitioner</span></code>. This is critical as we require the row keys to be sorted. Because this setting affects the entire node, you may need to setup a cluster dedicated to OpenTSDB.</li>
 <li>Create the proper keyspsaces and column families by using the <cite>cassandra-cli</cite> script:</li>
 </ol>
 <div class="highlight-python"><div class="highlight"><pre>create keyspace tsdb;
@@ -166,7 +166,7 @@ create column family name with comparator = BytesType;
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -178,13 +178,13 @@ create column family name with comparator = BytesType;
         <li class="right" >
           <a href="bigtable.html" title="Bigtable"
              >previous</a> |</li>
-        <li><a href="../../index.html">OpenTSDB 2.1 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li><a href="index.html" >Storage</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Storage</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2015, OpenTSDB.
+        &copy; Copyright 2016, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -28,7 +28,7 @@ Example Query String Requests
 
 ::
 
-  http://localhost:4242/api/query?start=1h-ago&exp=scale(sum:if.bytes_in{host=*},1024)
+  http://localhost:4242/api/query/gexp?start=1h-ago&exp=scale(sum:if.bytes_in{host=*},1024)
 
 Response
 --------

@@ -41,7 +41,7 @@ All annotations are identified by the ``startTime`` field and optionally the ``t
 
 .. NOTE:: Custom fields cannot be passed via query string. You must use the ``POST`` or ``PUT`` verbs.
 
-.. WARNING:: If your request uses ``PUT``, any fields that you do not supply with the request will be overwritten with their default values. For example, the ``description`` field will be set to an emtpy string and the ``custom`` field will be reset to ``null``.
+.. WARNING:: If your request uses ``PUT``, any fields that you do not supply with the request will be overwritten with their default values. For example, the ``description`` field will be set to an empty string and the ``custom`` field will be reset to ``null``.
 
 Example GET Request
 ^^^^^^^^^^^^^^^

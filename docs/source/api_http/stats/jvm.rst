@@ -1,7 +1,11 @@
 /api/stats/jvm
 ==============
 
-The threads endpoint is used for debugging the TSD's JVM process and includes stats about the garbage collector, system load and memory usage.
+The threads endpoint is used for debugging the TSD's JVM process and includes stats about the garbage collector, system load and memory usage. (v2.2)
+
+.. NOTE ::
+
+  The information printed will change depending on the JVM you are running the TSD under. In particular, the pools and GC sections will differ quite a bit.
 
 Verbs
 -----

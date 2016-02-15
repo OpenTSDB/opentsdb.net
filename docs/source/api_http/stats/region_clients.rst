@@ -1,8 +1,7 @@
 /api/stats/region_clients
 =========================
 
-Returns information about the various HBase region server clients in AsyncHBase. This helps to identify issues with a particular region server.
-Available from version 2.2.0.
+Returns information about the various HBase region server clients in AsyncHBase. This helps to identify issues with a particular region server. (v2.2)
 
 Verbs
 -----

@@ -445,6 +445,10 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Regular expression, wildcard filters with a pre/post/in-fix or literal ors with many values can cause queries to return slower as each row of data must be resolved to their string values then processed.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When submitting a JSON query to OpenTSDB 2.2, use either <code class="docutils literal"><span class="pre">tags</span></code> OR <code class="docutils literal"><span class="pre">filters</span></code>. Only one will take effect and the order is indeterminate as the JSON parser may deserialize one before the other. We recommend using filters for all future queries.</p>
+</div>
 <p><em>Filter Conversions</em></p>
 <p>Values in the POST query <code class="docutils literal"><span class="pre">tags</span></code> map and the <em>group by</em> curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:</p>
 <table border="1" class="docutils">

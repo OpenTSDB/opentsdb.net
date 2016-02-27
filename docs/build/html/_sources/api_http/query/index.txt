@@ -115,6 +115,8 @@ For URI queries, the type precedes the filter expression in parentheses. The for
 
 .. NOTE:: Regular expression, wildcard filters with a pre/post/in-fix or literal ors with many values can cause queries to return slower as each row of data must be resolved to their string values then processed.
 
+.. NOTE:: When submitting a JSON query to OpenTSDB 2.2, use either ``tags`` OR ``filters``. Only one will take effect and the order is indeterminate as the JSON parser may deserialize one before the other. We recommend using filters for all future queries.
+
 *Filter Conversions*
 
 Values in the POST query ``tags`` map and the *group by* curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:

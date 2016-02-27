@@ -98,26 +98,26 @@
             
   <div class="section" id="bigtable">
 <h1>Bigtable</h1>
-<p>The <a class="reference external" href="https://cloud.google.com/">Google Cloud Platform</a> provides hosting of Google's Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google's backend is simple. Indeed, the schemas (see <a class="reference internal" href="hbase.html"><em>HBase Schema</em></a>) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.</p>
+<p><a class="reference external" href="https://cloud.google.com/">Google Cloud Platform</a> provides hosting of Google's Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google's backend is simple. Indeed, the schemas (see <a class="reference internal" href="hbase.html"><em>HBase Schema</em></a>) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The clients for Bigtable are in beta and undergoing a number of changes. Performance should improve as we adjust the code and uncover new tuning parameters. Please help us out on the mailing list or by modifying the code in Github.</p>
+<p class="last">The clients for Bigtable are in beta and undergoing a number of changes. Performance should improve as we adjust the code and uncover new tuning parameters. Please help us out on the mailing list or by modifying the code in GitHub.</p>
 </div>
 <div class="section" id="setup">
 <h2>Setup</h2>
 <ol class="arabic simple">
 <li>Setup your Google Cloud Platform account.</li>
-<li>Follow the steps in <a class="reference external" href="https://cloud.google.com/bigtable/docs/creating-cluster">Creating a Cloud Bigtable Cluster</a></li>
-<li>Follow the steps in <a class="reference external" href="https://cloud.google.com/bigtable/docs/hbase-shell-quickstart">HBase Shell Quickstart</a> paying attention to where you download your JSON key file.</li>
+<li>Follow the steps in <a class="reference external" href="https://cloud.google.com/bigtable/docs/creating-cluster">Creating a Cloud Bigtable Cluster</a>.</li>
+<li>Follow the steps in <a class="reference external" href="https://cloud.google.com/bigtable/docs/hbase-shell-quickstart">HBase Shell Quickstart</a>, paying attention to where you download your JSON key file.</li>
 <li>Set the <cite>HBASE_HOME</cite> environment variable to your Bigtable shell directory and run the <cite>src/create_table.sh</cite> script. If the script fails to launch the shell, try running the shell manually and execute the <cite>create</cite> statements substituting the proper values.</li>
 <li>Build TSDB by executing <cite>sh build-bigtable.sh</cite> (or if you prefer Maven, <cite>sh build-bigtable.sh pom.xml</cite>)</li>
 <li>Prepare the <cite>opentsdb.conf</cite> file with the required and/or optional configuration parameters below.</li>
-<li>Run the tsd via <cite>build/tsdb tsd --config=&lt;path&gt;/opentsdb.conf</cite></li>
+<li>Run the TSD via <cite>build/tsdb tsd --config=&lt;path&gt;/opentsdb.conf</cite></li>
 </ol>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration</h2>
-<p>The following is a table with required and optional parameters to run OpenTSDB with Bigtable. These are in addition to the standard TSD configuration parameters from <a class="reference internal" href="../configuration.html"><em>Configuration</em></a></p>
+<p>The following is a table of required and optional parameters to run OpenTSDB with Bigtable. These are in addition to the standard TSD configuration parameters from <a class="reference internal" href="../configuration.html"><em>Configuration</em></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -138,19 +138,19 @@
 <tr class="row-even"><td>google.bigtable.project.id</td>
 <td>String</td>
 <td>Required</td>
-<td>The project ID assigned to your Bigtable instance</td>
+<td>The project ID hosting your Bigtable cluster.</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>google.bigtable.cluster.name</td>
 <td>String</td>
 <td>Required</td>
-<td>The cluster ID you gave your Bigtable instance at creation</td>
+<td>The cluster ID you assigned to your Bigtable cluster at creation.</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>google.bigtable.zone.name</td>
 <td>String</td>
 <td>Required</td>
-<td>The service zone where your cluster is operating. Chosen at creation.</td>
+<td>The zone where your Bigtable cluster is operating; chosen at creation.</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>hbase.client.connection.impl</td>

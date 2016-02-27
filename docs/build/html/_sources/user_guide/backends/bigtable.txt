@@ -1,33 +1,33 @@
 Bigtable
 ========
 
-The `Google Cloud Platform <https://cloud.google.com/>`_ provides hosting of Google's Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google's backend is simple. Indeed, the schemas (see :doc:`hbase`) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.
+`Google Cloud Platform <https://cloud.google.com/>`_ provides hosting of Google's Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google's backend is simple. Indeed, the schemas (see :doc:`hbase`) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.
 
-.. NOTE:: The clients for Bigtable are in beta and undergoing a number of changes. Performance should improve as we adjust the code and uncover new tuning parameters. Please help us out on the mailing list or by modifying the code in Github.
+.. NOTE:: The clients for Bigtable are in beta and undergoing a number of changes. Performance should improve as we adjust the code and uncover new tuning parameters. Please help us out on the mailing list or by modifying the code in GitHub.
 
 Setup
 ^^^^^
 
 1. Setup your Google Cloud Platform account.
-2. Follow the steps in `Creating a Cloud Bigtable Cluster <https://cloud.google.com/bigtable/docs/creating-cluster>`_
-3. Follow the steps in `HBase Shell Quickstart <https://cloud.google.com/bigtable/docs/hbase-shell-quickstart>`_ paying attention to where you download your JSON key file.
+2. Follow the steps in `Creating a Cloud Bigtable Cluster <https://cloud.google.com/bigtable/docs/creating-cluster>`_.
+3. Follow the steps in `HBase Shell Quickstart <https://cloud.google.com/bigtable/docs/hbase-shell-quickstart>`_, paying attention to where you download your JSON key file.
 4. Set the `HBASE_HOME` environment variable to your Bigtable shell directory and run the `src/create_table.sh` script. If the script fails to launch the shell, try running the shell manually and execute the `create` statements substituting the proper values.
 5. Build TSDB by executing `sh build-bigtable.sh` (or if you prefer Maven, `sh build-bigtable.sh pom.xml`)
 6. Prepare the `opentsdb.conf` file with the required and/or optional configuration parameters below.
-7. Run the tsd via `build/tsdb tsd --config=<path>/opentsdb.conf`
+7. Run the TSD via `build/tsdb tsd --config=<path>/opentsdb.conf`
 
 Configuration
 ^^^^^^^^^^^^^
 
-The following is a table with required and optional parameters to run OpenTSDB with Bigtable. These are in addition to the standard TSD configuration parameters from :doc:`../configuration`
+The following is a table of required and optional parameters to run OpenTSDB with Bigtable. These are in addition to the standard TSD configuration parameters from :doc:`../configuration`.
 
 .. csv-table::
    :header: "Property", "Type", "Required", "Description", "Default"
    :widths: 20, 5, 5, 60, 10
 
-   "google.bigtable.project.id", "String", "Required", "The project ID assigned to your Bigtable instance", ""
-   "google.bigtable.cluster.name", "String", "Required", "The cluster ID you gave your Bigtable instance at creation", ""
-   "google.bigtable.zone.name", "String", "Required", "The service zone where your cluster is operating. Chosen at creation.", ""
+   "google.bigtable.project.id", "String", "Required", "The project ID hosting your Bigtable cluster.", ""
+   "google.bigtable.cluster.name", "String", "Required", "The cluster ID you assigned to your Bigtable cluster at creation.", ""
+   "google.bigtable.zone.name", "String", "Required", "The zone where your Bigtable cluster is operating; chosen at creation.", ""
    "hbase.client.connection.impl", "String", "Required", "The class that will be used to implement the HBase API AsyncBigtable will use as a shim between the Bigtable client and OpenTSDB. Set this to `com.google.cloud.bigtable.hbase1_0.BigtableConnection`", ""
    "google.bigtable.auth.service.account.enable", "Boolean", "Required", "Whether or not to use a Google cloud service account to connect. Set this to `true`", "false"
    "google.bigtable.auth.json.keyfile", "String", "Required", "The full path to the JSON formatted key file associated with the service account you want to use for Bigtable access. Download this from your cloud console.", ""

@@ -63,7 +63,7 @@
       <p><b>2016-02-15</b> - OpenTSDB 2.1.5 has been released with bug fixes. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/2.1.4">GitHub</a></p> 
     </div>
     <div class="text-center item">
-      <h3>OpenTSDB with BigTable or Cassandra</h3>
+      <h3>OpenTSDB with Bigtable or Cassandra</h3>
       <p><b>2015-11-10</b> - Thanks to the folks at <a href="http://www.pythian.com/">Pythian</a> and <a href="http://googlecloudplatform.blogspot.com/2015/05/introducing-Google-Cloud-Bigtable.html">Google</a> OpenTSDB can now use the original <a href="http://googlecloudplatform.blogspot.com/2015/05/introducing-Google-Cloud-Bigtable.html">Bigtable</a> as a backend. And for folks who have been asking, you can now choose Cassandra for storage instead of HBase. Both engines are in beta. See the <a href="http://opentsdb.net/docs/build/html/user_guide/backends/index.html">Documentation</a> for details and <a href="https://github.com/OpenTSDB/opentsdb/tree/put">Github</a> for the code.</p>  
     </div>
   </div>

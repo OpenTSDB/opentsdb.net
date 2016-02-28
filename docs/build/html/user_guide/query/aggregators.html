@@ -78,6 +78,7 @@
 <li><a class="reference internal" href="#mimmin">MimMin</a></li>
 <li><a class="reference internal" href="#mimmax">MimMax</a></li>
 <li><a class="reference internal" href="#min">Min</a></li>
+<li><a class="reference internal" href="#none">None</a></li>
 <li><a class="reference internal" href="#percentiles">Percentiles</a></li>
 <li><a class="reference internal" href="#sum">Sum</a></li>
 <li><a class="reference internal" href="#zimsum">ZimSum</a></li>
@@ -559,35 +560,39 @@ For the graphically inclined we have the following examples. An imaginary metric
 <td>Selects the largest data point</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-odd"><td>p50</td>
+<tr class="row-odd"><td>none</td>
+<td>Skips group by aggregation of all time series. (2.3)</td>
+<td>Zero if missing</td>
+</tr>
+<tr class="row-even"><td>p50</td>
 <td>Calculates the 50th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-even"><td>p75</td>
+<tr class="row-odd"><td>p75</td>
 <td>Calculates the 75th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-odd"><td>p90</td>
+<tr class="row-even"><td>p90</td>
 <td>Calculates the 90th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-even"><td>p95</td>
+<tr class="row-odd"><td>p95</td>
 <td>Calculates the 95th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-odd"><td>p99</td>
+<tr class="row-even"><td>p99</td>
 <td>Calculates the 99th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-even"><td>p999</td>
+<tr class="row-odd"><td>p999</td>
 <td>Calculates the 999th percentile</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-odd"><td>sum</td>
+<tr class="row-even"><td>sum</td>
 <td>Adds the data points together</td>
 <td>Linear Interpolation</td>
 </tr>
-<tr class="row-even"><td>zimsum</td>
+<tr class="row-odd"><td>zimsum</td>
 <td>Adds the data points together</td>
 <td>Zero if missing</td>
 </tr>
@@ -625,6 +630,10 @@ For the graphically inclined we have the following examples. An imaginary metric
 <div class="section" id="min">
 <h3>Min</h3>
 <p>Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It's useful for looking at the lower bounds of gauge metrics.</p>
+</div>
+<div class="section" id="none">
+<h3>None</h3>
+<p>(2.3) Skips group by aggregation. This aggregator is useful for fetching the <em>raw</em> data from storage as it will return a result set for every time series matching the filters. Note that the query will throw an exception if used with a downsampler.</p>
 </div>
 <div class="section" id="percentiles">
 <h3>Percentiles</h3>

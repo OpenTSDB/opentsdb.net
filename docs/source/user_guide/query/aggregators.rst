@@ -163,6 +163,7 @@ The following is a description of the aggregation functions available in OpenTSD
    "mimmax", "Selects the largest data point", "Minimum if missing"
    "min", "Selects the smallest data point", "Linear Interpolation"
    "max", "Selects the largest data point", "Linear Interpolation"
+   "none", "Skips group by aggregation of all time series. (2.3)", "Zero if missing"
    "p50", "Calculates the 50th percentile", "Linear Interpolation"
    "p75", "Calculates the 75th percentile", "Linear Interpolation"
    "p90", "Calculates the 90th percentile", "Linear Interpolation"
@@ -213,6 +214,11 @@ Min
 ---
 
 Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It's useful for looking at the lower bounds of gauge metrics.
+
+None
+----
+
+(2.3) Skips group by aggregation. This aggregator is useful for fetching the *raw* data from storage as it will return a result set for every time series matching the filters. Note that the query will throw an exception if used with a downsampler.
 
 Percentiles
 -----------

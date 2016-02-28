@@ -84,7 +84,14 @@ If we want to query for the average CPU time across each server we can craft a q
 
 However if we have many web servers in the system, this could create a ton of results. To filter on only the hosts we want you can use the pipe operator to select a subset of time series. For example ``start=1356998400&m=avg:sys.cpu.user{host=webserver01|webserver03}`` will return results only for ``webserver01`` and ``webserver03``.
 
-With version 2.2 you can enable or disable grouping per tag filter. 
+With version 2.2 you can enable or disable grouping per tag filter. Additional filters are also available including wildcards and regular expressions.
+
+Explicit Tags
+^^^^^^^^^^^^^
+
+As of 2.3 and later, if you know all of the tag keys for a given metric query latency can be improved greatly by using the ``explicitTags`` feature and making sure ``tsd.query.enable_fuzzy_filter`` is enabled in the config. A special filter is given to HBase that enables skipping ahead to rows that we need for the query instead of iterating over every row key and comparing a regular expression. 
+
+For example, using the data set above, if we only care about metrics where ``host=webserver02`` and there are hundreds of hosts, you can craft a query such as ``start=1356998400&m=avg:explicit_tags:sys.cpu.user{host=webserver02,cpu=*}``. Note that you must specify every tag included in the time series for this to work and you can decide whether or not to group by the additional tags.
 
 Aggregation
 ^^^^^^^^^^^
@@ -101,7 +108,7 @@ Downsampling
 
 OpenTSDB can ingest a large amount of data, even a data point every second for a given time series. Thus queries may return a large number of data points. Accessing the results of a query with a large number of points from the API can eat up bandwidth. High frequencies of data can easily overwhelm Javascript graphing libraries, hence the choice to use GnuPlot. Graphs created by the GUI can be difficult to read, resulting in thick lines such as the graph below:
 
-.. image:: ../../images/gui_downsampling_off.jpg
+.. image:: ../../images/gui_downsampling_off.png
 
 Down sampling can be used at query time to reduce the number of data points returned so that you can extract better information from a graph or pass less data over a connection. Down sampling requires an **aggregation** function and a **time interval**. The aggregation function is used to compute a new data point across all of the data points in the specified interval with the proper mathematical function. For example, if the aggregation ``sum`` is used, then all of the data points within the interval will be summed together into a single value. If ``avg`` is chosen, then the average of all data points within the interval will be returned. 
 
@@ -109,7 +116,7 @@ Intervals are specified by a number and a unit of time. For example, ``30m`` wil
 
 Using down sampling we can cleanup the previous graph to arrive at something much more useful:
 
-.. image:: ../../images/gui_downsampling_on.jpg
+.. image:: ../../images/gui_downsampling_on.png
 
 As of 2.1, downsampled timestamps are normalized based on the remainder of the original data point timestamp divided by the downsampling interval in milliseconds, i.e. the modulus. In Java the code is ``timestamp - (timestamp % interval_ms)``. For example, given a timestamp of ``1388550980000``, or ``1/1/2014 04:36:20 UTC`` and an hourly interval that equates to 3600000 milliseconds, the resulting timestamp will be rounded to ``1388548800000``. All data points between 4 and 5 UTC will wind up in the 4 AM bucket. If you query for a day's worth of data downsampling on 1 hour, you will receive 24 data points (assuming there is data for all 24 hours). 
 

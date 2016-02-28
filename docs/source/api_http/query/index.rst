@@ -67,6 +67,7 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
   "downsample", "String", "Optional", "An optional downsampling function to reduce the amount of data returned.", "*See below*", "5m-avg"
   "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. *Deprecated in 2.2*", "", "*See Below*"
   "filters *(2.2)*", "List", "Optional", "Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.", "", "*See Below*"
+  "explicitTags *(2.3)*", "Boolean", "Optional", "Returns the series that include only the tag keys provided in the filters.", "false", "true"
 
 *Rate Options*
 
@@ -115,7 +116,7 @@ For URI queries, the type precedes the filter expression in parentheses. The for
 
 .. NOTE:: Regular expression, wildcard filters with a pre/post/in-fix or literal ors with many values can cause queries to return slower as each row of data must be resolved to their string values then processed.
 
-.. NOTE:: When submitting a JSON query to OpenTSDB 2.2, use either ``tags`` OR ``filters``. Only one will take effect and the order is indeterminate as the JSON parser may deserialize one before the other. We recommend using filters for all future queries.
+.. NOTE:: When submitting a JSON query to OpenTSDB 2.2 or later, use either ``tags`` OR ``filters``. Only one will take effect and the order is indeterminate as the JSON parser may deserialize one before the other. We recommend using filters for all future queries.
 
 *Filter Conversions*
 
@@ -137,7 +138,7 @@ The full specification for a metric query string sub query is as follows:
 
 ::
 
-  m=<aggregator>:[rate[{counter[,<counter_max>[,<reset_value>]]]}:][<down_sampler>:]<metric_name>[{<tag_name1>=<grouping filter>[,...<tag_nameN>=<grouping_filter>]}][{<tag_name1>=<non grouping filter>[,...<tag_nameN>=<non_grouping_filter>]}]
+  m=<aggregator>:[rate[{counter[,<counter_max>[,<reset_value>]]]}:][<down_sampler>:][explicit_tags:]<metric_name>[{<tag_name1>=<grouping filter>[,...<tag_nameN>=<grouping_filter>]}][{<tag_name1>=<non grouping filter>[,...<tag_nameN>=<non_grouping_filter>]}]
   
 It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see :doc:`../../user_guide/query/examples`.
 
@@ -380,6 +381,7 @@ Example With Show Summary and Query
               "tsuids": null,
               "downsample": null,
               "rate": true,
+              "explicitTags": false,
               "filters": [
                   {
                       "tagk": "host",

@@ -77,6 +77,7 @@ documentation for details.
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written.
    E.g. /tmp/opentsdb", "", "--cachedir"
    "tsd.http.query.allow_delete", "Boolean", "Optional", "Whether or not to allow deleting data points from storage during query time.", "False", ""
+   "tsd.query.enable_fuzzy_filter", "Boolean", "Optional", "Whether or not to enable the FuzzyRowFilter for HBase when making queries using the ``explicitTags`` flag.", "True", ""
    "tsd.http.request.cors_domains", "String", "Optional", "A comma separated list of domain names to allow access to OpenTSDB when the ``Origin`` header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard ``*`` and specific domains at the same time.", "", ""
    "tsd.http.request.cors_headers *(2.1)*", "String", "Optional", "A comma separated list of headers sent to clients when executing a CORs request. The literal value of this option will be passed to clients.", "Authorization, Content-Type, Accept, Origin, User-Agent, DNT, Cache-Control, X-Mx-ReqToken, Keep-Alive, X-Requested-With, If-Modified-Since", ""
    "tsd.http.request.enable_chunked", "Boolean", "Optional", "Whether or not to enable incoming chunk support for the HTTP RPC", "false", ""

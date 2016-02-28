@@ -331,6 +331,13 @@
 <td>&nbsp;</td>
 <td><em>See Below</em></td>
 </tr>
+<tr class="row-odd"><td>explicitTags <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Returns the series that include only the tag keys provided in the filters.</td>
+<td>false</td>
+<td>true</td>
+</tr>
 </tbody>
 </table>
 <p><em>Rate Options</em></p>
@@ -447,7 +454,7 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When submitting a JSON query to OpenTSDB 2.2, use either <code class="docutils literal"><span class="pre">tags</span></code> OR <code class="docutils literal"><span class="pre">filters</span></code>. Only one will take effect and the order is indeterminate as the JSON parser may deserialize one before the other. We recommend using filters for all future queries.</p>
+<p class="last">When submitting a JSON query to OpenTSDB 2.2 or later, use either <code class="docutils literal"><span class="pre">tags</span></code> OR <code class="docutils literal"><span class="pre">filters</span></code>. Only one will take effect and the order is indeterminate as the JSON parser may deserialize one before the other. We recommend using filters for all future queries.</p>
 </div>
 <p><em>Filter Conversions</em></p>
 <p>Values in the POST query <code class="docutils literal"><span class="pre">tags</span></code> map and the <em>group by</em> curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:</p>
@@ -480,7 +487,7 @@
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;grouping_filter&gt;]}][{&lt;tag_name1&gt;=&lt;non grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;non_grouping_filter&gt;]}]
+<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:][explicit_tags:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;grouping_filter&gt;]}][{&lt;tag_name1&gt;=&lt;non grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;non_grouping_filter&gt;]}]
 </pre></div>
 </div>
 <p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><em>Query Examples</em></a>.</p>
@@ -728,6 +735,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
             <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
             <span class="s2">&quot;downsample&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
             <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;explicitTags&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
             <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[</span>
                 <span class="p">{</span>
                     <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>

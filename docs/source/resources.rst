@@ -34,7 +34,7 @@ Utilities
 * `Statsd Publisher <https://github.com/danslimmon/statsd-opentsdb-backend>`_ - A statsd backend to publish data to a TSD.
 * `OpenTSDB Proxy <https://github.com/nimbusproject/opentsdbproxy>`_ - A Django based proxy with authentication and SSL support to run in front of the TSDs.
 * `Puppet Module <https://github.com/mburger/puppet-opentsdb>`_ - A puppet deployment module.
-* `Flume Module <https://github.com/octo47/opentsdb-flume>`_ - Write data from Flume to a TSD.
+* `Flume Module <https://github.com/yandex/opentsdb-flume>`_ - Write data from Flume to a TSD.
 * `Chef Cookbook <https://github.com/looztra/opentsdb-cookbook>`_ - Deploy from source via Chef.
 * * `OpenTSDB Cookbook <https://github.com/acaiafa/opentsdb-cookbook>`_ - A Chef cookbook for CentOS or Ubuntu.
 * `Coda Hale Metrics Reporter <https://github.com/sps/metrics-opentsdb>`_ - Writes data to OpenTSDB from the Java Metrics library.

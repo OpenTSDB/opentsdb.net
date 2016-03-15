@@ -42,6 +42,9 @@ Startup and Service Discovery
 
 OpenTSDB is sometimes used within environments where additional initialization or registration is desired beyond what OpenTSDB typically can do out of the box. Startup plugins can be enabled which will be called when OpenTSDB is initializing, when it is ready to serve traffic, and when it is being shutdown. The ``tsd.startup.plugin`` property can be used to specify the plugin class and ``tsd.startup.enable`` will instruct OpenTSDB to attempt to load the startup plugin.
 
+.. NOTE::
+   Added in 2.3.0
+
 Plugins
 -------
 

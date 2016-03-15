@@ -37,6 +37,18 @@ Plugins
 
 No implementations, aside from the default, at this time.
 
+Startup and Service Discovery
+^^^^^^^^^^^
+
+OpenTSDB is sometimes used within environments where additional initialization or registration is desired beyond what OpenTSDB typically can do out of the box. Startup plugins can be enabled which will be called when OpenTSDB is initializing, when it is ready to serve traffic, and when it is being shutdown. The ``tsd.startup.plugin`` property can be used to specify the plugin class and ``tsd.startup.enable`` will instruct OpenTSDB to attempt to load the startup plugin.
+
+Plugins
+-------
+
+* `Identity Plugin <https://github.com/inst-tech/opentsdb-discoveryplugins/blob/master/src/main/java/io/tsdb/opentsdb/discoveryplugins/IdentityPlugin.java>`_ - An example plugin which does nothing but can be used as a starting point for future Startup Plugins and can be used to test the registration mechanism.
+
+* `Apache Curator <https://github.com/inst-tech/opentsdb-discoveryplugins/blob/master/src/main/java/io/tsdb/opentsdb/discoveryplugins/CuratorPlugin.java>`_ - A beta plugin which can be used to register OpenTSDB in Zookeeper using Apache Curator's Service Discovery mechanism
+
 Search
 ^^^^^^
 

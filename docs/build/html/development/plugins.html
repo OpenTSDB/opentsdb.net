@@ -63,6 +63,13 @@
   <ul>
 <li><a class="reference internal" href="#">Plugins</a><ul>
 <li><a class="reference internal" href="#manifest">Manifest</a></li>
+<li><a class="reference internal" href="#startup-plugins">Startup Plugins</a><ul>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
+<li><a class="reference internal" href="#initialize">Initialize</a></li>
+<li><a class="reference internal" href="#ready">Ready</a></li>
+<li><a class="reference internal" href="#shutdown">Shutdown</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -108,7 +115,7 @@
 <li><p class="first">Within the <code class="docutils literal"><span class="pre">META-INF</span></code> directory, create a file named <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code>. Again some IDEs can generate this automatically.</p>
 </li>
 <li><p class="first">Edit the <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code> file and add:</p>
-<div class="highlight-python"><div class="highlight"><pre>Manifest-Version: 1.0
+<div class="highlight-python"><div class="highlight"><pre><span></span>Manifest-Version: 1.0
 </pre></div>
 </div>
 <p>making sure to end with a blank line. You can add more manifest information if you like. This is the bare minimum to satisfy plugin requirements.</p>
@@ -120,7 +127,7 @@
 <li><p class="first">Edit the new file and put the canonical name of each class that implements the abstract interface on a new line of the file. E.g. if your implementation is called <code class="docutils literal"><span class="pre">net.opentsdb.search.ElasticSearch</span></code>, put that on a line. Some quick notes about this file:</p>
 <ul>
 <li><p class="first">You can put comments in the service implementation file. The comment character is the <code class="docutils literal"><span class="pre">#</span></code>, just like a Java properties file. E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># ElasticSearch plugin written by John Doe</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch plugin written by John Doe</span>
 <span class="c1"># that sends data over HTTP to a number of ElasticSearch servers</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearch</span>
 </pre></div>
@@ -128,7 +135,7 @@
 </li>
 <li><p class="first">You can have more than one implementation of the same abstract class in one JAR and in this file.
 NOTE: If you have widely different implementations, start a different project and JAR. E.g. if you implement a search plugin for ElasticSearch and another for Solr, put Solr in a different project. However if you have two implementations that are very similar but slightly different, you can create one project. For example you could write an ElasticSearch plugin that uses HTTP for a protocol and another that uses Thrift. In that case, you could have a file like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># ElasticSearch HTTP</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch HTTP</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchHTTP</span>
 <span class="c1"># ElasticSearch Thrift</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchThrift</span>
@@ -138,16 +145,51 @@ NOTE: If you have widely different implementations, start a different project an
 </ul>
 </li>
 <li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you're going command line, try this:</p>
-<div class="highlight-python"><div class="highlight"><pre>jar cvmf &lt;path to MANIFEST.MF&gt; &lt;plugin jar name&gt; &lt;list of class files&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>jar cvmf &lt;path to MANIFEST.MF&gt; &lt;plugin jar name&gt; &lt;list of class files&gt;
 </pre></div>
 </div>
 <p>Where the <code class="docutils literal"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></code> includes the services file that you created above. E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>jar cvmf META-INF/MANIFEST.MF searchplugin.jar ../bin/net/opentsdb/search/myplugin.class META-INF/services/net.opentsdb.search.SearchPlugin
+<div class="highlight-python"><div class="highlight"><pre><span></span>jar cvmf META-INF/MANIFEST.MF searchplugin.jar ../bin/net/opentsdb/search/myplugin.class META-INF/services/net.opentsdb.search.SearchPlugin
 </pre></div>
 </div>
 </li>
 </ul>
 </div></blockquote>
+</div>
+<div class="section" id="startup-plugins">
+<h2>Startup Plugins</h2>
+<p>Startup Plugins can be used to perform additional initialization steps during the OpenTSDB startup process.</p>
+<dl class="docutils">
+<dt>There are four hooks available, and they are called in this order:</dt>
+<dd><ul class="first last simple">
+<li>Constructor</li>
+<li>Initialize</li>
+<li>Ready</li>
+<li>Shutdown</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="constructor">
+<h3>Constructor</h3>
+<p>In the constructor for your plugin, you should initialize your plugin and make any external connections required here. For example, to connect to a service discovery tool such as Etcd or Curator.</p>
+</div>
+<div class="section" id="initialize">
+<h3>Initialize</h3>
+<p>The Initialize hook is called once OpenTSDB has fully read the configuration options, both from the file, and the command line. This is called prior to creating the TSDB object so you can modify the configuration at this time.</p>
+<p>This hook could be used to register OpenTSDB with a service discovery mechanism or look up the location of an HBase cluster dynamically and populate the connfiguration. You could potentially create HBase tables if they do not exist at this time.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You will want to make sure you set the status to PENDING or some other non-ready state in your service discovery system when this is called. TSDB has not been initialized yet at this point.</p>
+</div>
+</div>
+<div class="section" id="ready">
+<h3>Ready</h3>
+<p>This hook is called once OpenTSDB has been fully initialized and is ready to serve traffic. This hook could be used to set the status to READY in a service discovery system, change the state of in a load balancer or perform other tasks which require a fully functioning OpenTSDB instance.</p>
+</div>
+<div class="section" id="shutdown">
+<h3>Shutdown</h3>
+<p>This hook is called when OpenTSDB is performing shutdown tasks. No work should be done here which requires a functioning and connected OpenTSDB instance. You could use this to update the status of this node within your service discovery mechanism.</p>
+</div>
 </div>
 </div>
 

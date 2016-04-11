@@ -12,7 +12,7 @@ Metrics need to be registered before you can start storing data points for them.
 
 This will create 2 metrics: ``mysql.bytes_received`` and ``mysql.bytes_sent``
 
-New tags, on the other hand, are automatically registered whenever they're used for the first time. Right now OpenTSDB only allows you to have up to 224 = 16,777,216 different metrics, 16,777,216 different tag names and 16,777,216 different tag values. This is because each one of those is assigned a UID on 3 bytes. Metric names, tag names and tag values have their own UID spaces, which is why you can have 16,777,216 of each kind. The size of each space is configurable but there is no knob that exposes this configuration parameter right now. So bear in mind that using user ID or event ID as a tag value will not work right now if you have a large site.
+New tags, on the other hand, are automatically registered whenever they're used for the first time. Right now OpenTSDB only allows you to have up to 2^24 = 16,777,216 different metrics, 16,777,216 different tag names and 16,777,216 different tag values. This is because each one of those is assigned a UID on 3 bytes. Metric names, tag names and tag values have their own UID spaces, which is why you can have 16,777,216 of each kind. The size of each space is configurable but there is no knob that exposes this configuration parameter right now. So bear in mind that using user ID or event ID as a tag value will not work right now if you have a large site.
 
 Start Collecting Data
 ^^^^^^^^^^^^^^^^^^^^^
@@ -81,7 +81,7 @@ Let's imagine that you have a cron job that crunches gigabytes of application lo
   1288900030 59 bar
   1288900030 80 other
 
-The first column is a timestamp, the second the average latency for that 30 second window, and the third the type of request we're talking about. If you run your cron job on a day worth of logs, you'll end up with 8640 such lines. In order to import those into OpenTSDB, you need to adjust your cron job slightly to produce its output in the following format::
+The first column is a timestamp, the second is the average latency for that 30 second window, and the third is the type of request we're talking about. If you run your cron job on a day worth of logs, you'll end up with 8640 such lines. In order to import those into OpenTSDB, you need to adjust your cron job slightly to produce its output in the following format::
 
   myservice.latency.avg 1288900000 42 reqtype=foo
   myservice.latency.avg 1288900000 51 reqtype=bar

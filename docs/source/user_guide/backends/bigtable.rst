@@ -11,7 +11,7 @@ Setup
 1. Setup your Google Cloud Platform account.
 2. Follow the steps in `Creating a Cloud Bigtable Cluster <https://cloud.google.com/bigtable/docs/creating-cluster>`_.
 3. Follow the steps in `HBase Shell Quickstart <https://cloud.google.com/bigtable/docs/hbase-shell-quickstart>`_, paying attention to where you download your JSON key file.
-4. Set the `HBASE_HOME` environment variable to your Bigtable shell directory and run the `src/create_table.sh` script. If the script fails to launch the shell, try running the shell manually and execute the `create` statements substituting the proper values.
+4. Set the `HBASE_HOME` environment variable to your Bigtable shell directory, make sure the `HBASE_CLASSPATH`, `JAVA_HOME`, and `GOOGLE_APPLICATION_CREDENTIALS` environment variables have been set according to the values in `Creating a Cloud BigTable Cluster` document, and run the `src/create_table.sh` script. If the script fails to launch the shell, try running the shell manually and execute the `create` statements substituting the proper values.
 5. Build TSDB by executing `sh build-bigtable.sh` (or if you prefer Maven, `sh build-bigtable.sh pom.xml`)
 6. Prepare the `opentsdb.conf` file with the required and/or optional configuration parameters below.
 7. Run the TSD via `build/tsdb tsd --config=<path>/opentsdb.conf`

@@ -108,7 +108,7 @@ Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
 properties start with <code class="docutils literal"><span class="pre">tsd.</span></code> Comments or inactive configuration lines are
 blocked by a hash symbol <code class="docutils literal"><span class="pre">#</span></code>. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># List of Zookeeper hosts that manage the HBase cluster
+<div class="highlight-python"><div class="highlight"><pre># List of Zookeeper hosts that manage the HBase cluster
 tsd.storage.hbase.zk_quorum = 192.168.1.100
 </pre></div>
 </div>
@@ -243,15 +243,6 @@ documentation for details.</p>
 <td>300,000</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.core.stats_with_port <em>(2.3)</em></td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Directs all TSD stats to be generated with a port tag <code>port=###</code>. Demarcates TSD stats when running
-multiple instances on the same host.</td>
-<td>False</td>
-<td>--statswport</td>
-</tr>
-
 <tr class="row-odd"><td>tsd.core.storage_exception_handler.enable <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
@@ -676,12 +667,12 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <ul>
 <li><p class="first">Special characters must be escaped with a backslash include: <code class="docutils literal"><span class="pre">#</span></code>, <code class="docutils literal"><span class="pre">!</span></code>, <code class="docutils literal"><span class="pre">=</span></code>, and <code class="docutils literal"><span class="pre">:</span></code>
 E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>my.property = Hello World\!
+<div class="highlight-python"><div class="highlight"><pre>my.property = Hello World\!
 </pre></div>
 </div>
 </li>
 <li><p class="first">Unicode characters must be escaped with their hexadecimal representation, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>my.property = \u0009
+<div class="highlight-python"><div class="highlight"><pre>my.property = \u0009
 </pre></div>
 </div>
 </li>

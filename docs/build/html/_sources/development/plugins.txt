@@ -44,4 +44,36 @@ A plugin JAR requires a manifest with a special *services* folder and file to en
     
       jar cvmf META-INF/MANIFEST.MF searchplugin.jar ../bin/net/opentsdb/search/myplugin.class META-INF/services/net.opentsdb.search.SearchPlugin
       
-    
+Startup Plugins
+---------------
+
+Startup Plugins can be used to perform additional initialization steps during the OpenTSDB startup process.
+
+There are four hooks available, and they are called in this order:
+    * Constructor
+    * Initialize
+    * Ready
+    * Shutdown
+
+Constructor
+```````````
+
+In the constructor for your plugin, you should initialize your plugin and make any external connections required here. For example, to connect to a service discovery tool such as Etcd or Curator.
+
+Initialize
+``````````
+The Initialize hook is called once OpenTSDB has fully read the configuration options, both from the file, and the command line. This is called prior to creating the TSDB object so you can modify the configuration at this time.
+
+This hook could be used to register OpenTSDB with a service discovery mechanism or look up the location of an HBase cluster dynamically and populate the connfiguration. You could potentially create HBase tables if they do not exist at this time.
+
+.. note:: You will want to make sure you set the status to PENDING or some other non-ready state in your service discovery system when this is called. TSDB has not been initialized yet at this point.
+
+Ready
+`````
+
+This hook is called once OpenTSDB has been fully initialized and is ready to serve traffic. This hook could be used to set the status to READY in a service discovery system, change the state of in a load balancer or perform other tasks which require a fully functioning OpenTSDB instance.
+
+Shutdown
+````````
+
+This hook is called when OpenTSDB is performing shutdown tasks. No work should be done here which requires a functioning and connected OpenTSDB instance. You could use this to update the status of this node within your service discovery mechanism.

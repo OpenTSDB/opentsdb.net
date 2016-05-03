@@ -173,14 +173,6 @@
 <td>localhost</td>
 <td>--zkquorum=zkhost1,zkhost2,zkhost3</td>
 </tr>
-<tr class="row-odd"><td>--statswport</td>
-<td>Boolean</td>
-<td>Directs all TSD stats to be generated with a port tag <code>port=###</code>. Demarcates TSD stats when running
-multiple instances on the same host.</td>
-<td>false</td>
-<td></td>
-</tr>
-
 </tbody>
 </table>
 </div>
@@ -189,22 +181,22 @@ multiple instances on the same host.</td>
 <p>The common parameters above are required by all the CLI commands. It can be tedious to manually type them over and over again. You can instead store typically used values in a file <code class="docutils literal"><span class="pre">./tsdb.local</span></code>. This file is expected to be a shell script and will be sourced by <code class="docutils literal"><span class="pre">./tsdb</span></code> if it exists.</p>
 <p><em>Setting default values for common parameters</em></p>
 <p>If, for example, your ZooKeeper quorum is behind the DNS name &quot;zookeeper.example.com&quot; (a name with 5 A records), instead of always passing <code class="docutils literal"><span class="pre">--zkquorum=zookeeper.example.com</span></code> to the CLI tool each time you use it, you can create <code class="docutils literal"><span class="pre">./tsdb.local</span></code> with the following contents:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="ch">#!/bin/bash</span>
 <span class="nv">MY_ARGS</span><span class="o">=</span><span class="s1">&#39;--zkquorum=zookeeper&#39;</span>
-<span class="nb">set</span> x <span class="nv">$MY_ARGS</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="nb">set</span> x $MY_ARGS <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
 <span class="nb">shift</span>
 </pre></div>
 </div>
 <p><em>Overriding the timezone of the TSD</em></p>
 <p>Servers are frequently using UTC as their timezone. By default, the TSD renders graphs using the local timezone of the server. You can override this to have graphs in your local time by specifying a timezone in <code class="docutils literal"><span class="pre">./tsdb.local</span></code>. For example, if you're in California, this will force the TSD to use your timezone:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="nb">export</span> <span class="nv">TZ</span><span class="o">=</span>PST8PDT &gt;&gt;tsdb.local
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">echo</span> <span class="nb">export</span> <span class="nv">TZ</span><span class="o">=</span>PST8PDT &gt;&gt;tsdb.local
 </pre></div>
 </div>
 <p>On most Linux and BSD systems, you can look under <code class="docutils literal"><span class="pre">/usr/share/zoneinfo</span></code> for names of timezones supported on your system.</p>
 <p><em>Changing JVM parameters</em></p>
 <p>You might want to adjust JVM parameters, for instance to turn on GC activity logging or to set the size of various memory regions. In order to do so, simply set the variable JVMARGS in <code class="docutils literal"><span class="pre">./tsdb.local</span></code>.</p>
 <p>Here is an example that is recommended for production use:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">GCARGS</span><span class="o">=</span><span class="s2">&quot;-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps\</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">GCARGS</span><span class="o">=</span><span class="s2">&quot;-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps\</span>
 <span class="s2"> -XX:+PrintTenuringDistribution -Xloggc:/tmp/tsd-gc-`date +%s`.log&quot;</span>
 <span class="k">if</span> <span class="nb">test</span> -t 0<span class="p">;</span> <span class="k">then</span> <span class="c1"># if stdin is a tty, don&#39;t turn on GC logging.</span>
   <span class="nv">GCARGS</span><span class="o">=</span>
@@ -213,7 +205,7 @@ multiple instances on the same host.</td>
 <span class="c1"># This forces you to restart your application if any of the backends change</span>
 <span class="c1"># IP. Instead tell it to cache names for only 10 minutes at most.</span>
 <span class="nv">FIX_DNS</span><span class="o">=</span><span class="s1">&#39;-Dsun.net.inetaddr.ttl=600&#39;</span>
-<span class="nv">JVMARGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JVMARGS</span><span class="s2"> </span><span class="nv">$GCARGS</span><span class="s2"> </span><span class="nv">$FIX_DNS</span><span class="s2">&quot;</span>
+<span class="nv">JVMARGS</span><span class="o">=</span><span class="s2">&quot;</span>$<span class="s2">JVMARGS </span>$<span class="s2">GCARGS </span><span class="nv">$F</span><span class="s2">IX_DNS&quot;</span>
 </pre></div>
 </div>
 </div>

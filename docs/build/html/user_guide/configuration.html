@@ -79,14 +79,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -108,8 +105,8 @@ Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
 properties start with <code class="docutils literal"><span class="pre">tsd.</span></code> Comments or inactive configuration lines are
 blocked by a hash symbol <code class="docutils literal"><span class="pre">#</span></code>. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre># List of Zookeeper hosts that manage the HBase cluster
-tsd.storage.hbase.zk_quorum = 192.168.1.100
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># List of Zookeeper hosts that manage the HBase cluster</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">zk_quorum</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.100</span>
 </pre></div>
 </div>
 <p>will configure the TSD to connect to Zookeeper on <code class="docutils literal"><span class="pre">192.168.1.100</span></code>.</p>
@@ -197,28 +194,28 @@ documentation for details.</p>
 <tr class="row-even"><td>tsd.core.meta.enable_realtime_ts</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable real-time TSMeta object creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>Whether or not to enable real-time TSMeta object creation. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a></td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.meta.enable_realtime_uid</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable real-time UIDMeta object creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>Whether or not to enable real-time UIDMeta object creation. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a></td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.meta.enable_tsuid_incrementing</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a> (Overrides &quot;tsd.core.meta.enable_tsuid_tracking&quot;)</td>
+<td>Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a> (Overrides &quot;tsd.core.meta.enable_tsuid_tracking&quot;)</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.meta.enable_tsuid_tracking</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable tracking of TSUIDs by storing a <code class="docutils literal"><span class="pre">1</span></code> with the current timestamp every time a data point is recorded. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>Whether or not to enable tracking of TSUIDs by storing a <code class="docutils literal"><span class="pre">1</span></code> with the current timestamp every time a data point is recorded. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a></td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
@@ -354,7 +351,7 @@ E.g. /opt/opentsdb/staticroot</td>
 <tr class="row-even"><td>tsd.mode <em>(2.1)</em></td>
 <td>String</td>
 <td>Optional</td>
-<td>Whether or not the TSD will allow writing data points. Must be either <code class="docutils literal"><span class="pre">rw</span></code> to allow writing data or <code class="docutils literal"><span class="pre">ro</span></code> to block data point writes. Note that meta data such as UIDs can still be written/modified.</td>
+<td>Whether or not the TSD will allow writing data points. Must be either <code class="docutils literal"><span class="pre">rw</span></code> to allow writing data, <code class="docutils literal"><span class="pre">ro</span></code> to block data point writes, or <code class="docutils literal"><span class="pre">wo</span></code> to block data point reads. Note that meta data such as UIDs can still be written/modified.</td>
 <td>rw</td>
 <td>&nbsp;</td>
 </tr>
@@ -609,7 +606,7 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <tr class="row-even"><td>tsd.storage.max_tags <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The maximum number of tags allowed per data point.  <strong>NOTE</strong> Please be aware of the performance tradeoffs of overusing tags <a class="reference internal" href="writing.html"><em>Writing Data</em></a></td>
+<td>The maximum number of tags allowed per data point.  <strong>NOTE</strong> Please be aware of the performance tradeoffs of overusing tags <a class="reference internal" href="writing.html"><span class="doc">Writing Data</span></a></td>
 <td>8</td>
 <td>&nbsp;</td>
 </tr>
@@ -667,12 +664,12 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <ul>
 <li><p class="first">Special characters must be escaped with a backslash include: <code class="docutils literal"><span class="pre">#</span></code>, <code class="docutils literal"><span class="pre">!</span></code>, <code class="docutils literal"><span class="pre">=</span></code>, and <code class="docutils literal"><span class="pre">:</span></code>
 E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>my.property = Hello World\!
+<div class="highlight-default"><div class="highlight"><pre><span></span>my.property = Hello World\!
 </pre></div>
 </div>
 </li>
 <li><p class="first">Unicode characters must be escaped with their hexadecimal representation, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>my.property = \u0009
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my</span><span class="o">.</span><span class="n">property</span> <span class="o">=</span> \<span class="n">u0009</span>
 </pre></div>
 </div>
 </li>

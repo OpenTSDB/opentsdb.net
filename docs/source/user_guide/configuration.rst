@@ -87,7 +87,7 @@ documentation for details.
    "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""
    "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as JavaScript files for the web interface, are located.
    E.g. /opt/opentsdb/staticroot", "", "--staticroot"
-   "tsd.mode *(2.1)*", "String", "Optional", "Whether or not the TSD will allow writing data points. Must be either ``rw`` to allow writing data or ``ro`` to block data point writes. Note that meta data such as UIDs can still be written/modified.", "rw", ""
+   "tsd.mode *(2.1)*", "String", "Optional", "Whether or not the TSD will allow writing data points. Must be either ``rw`` to allow writing data, ``ro`` to block data point writes, or ``wo`` to block data point reads. Note that meta data such as UIDs can still be written/modified.", "rw", ""
    "tsd.network.async_io", "Boolean", "Optional", "Whether or not to use NIO or traditional blocking IO", "True", "--async-io"
    "tsd.network.backlog", "Integer", "Optional", "The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the 'somaxconn' kernel setting or set by Netty to 3072.", "See Description", "--backlog"
    "tsd.network.bind", "String", "Optional", "An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.

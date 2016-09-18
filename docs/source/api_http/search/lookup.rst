@@ -28,6 +28,8 @@ Parameters used by the lookup endpoint include:
 
    "query", "String", "Required", "A lookup query as defined below.", "", "m", "", "tsd.hbase.rpcs{type=*}"
    "useMeta", "Boolean", "Optional", "Whether or not to use the meta data table or the raw data table. The raw table will be much slower.", "False", "use_meta", "", "True"
+   "limit", "Integer", "Optional", "The maximum number of items returned in the result set. Currently the limit is ignored for lookup queries", "25", "", "", "100"
+   "startIndex", "Integer", "Optional", "Ignored for lookup queries, always the default.", "0", "", "", "10"
 
 Lookup Queries
 ^^^^^^^^^^^^^^

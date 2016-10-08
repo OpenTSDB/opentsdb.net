@@ -1,7 +1,7 @@
 Understanding Metrics and Time Series
 =====================================
 
-OpenTSDB is a time series database. A time series is a series of numeric data points of some particular metric over time. Each time series consists of a metric plus zero or more tags associated with this metric (we'll cover tags in a bit). A metric is any particular piece of data (e.g. hits to an Apache hosted file) that you wish to track over time.
+OpenTSDB is a time series database. A time series is a series of numeric data points of some particular metric over time. Each time series consists of a metric plus one or more tags associated with this metric (we'll cover tags in a bit). A metric is any particular piece of data (e.g. hits to an Apache hosted file) that you wish to track over time.
 
 OpenTSDB is also a data plotting system. OpenTSDB plots things a bit differently than other systems. We'll discuss plotting in more detail below, but for now it's important to know that for OpenTSDB, the basis of any given plot is the metric. It takes that metric, finds all of the time series for the time range you select, aggregates those times series together (e.g. by summing them up) and plots the result. The plotting mechanism is very flexible and powerful and you can do much more than this, but for now let's talk about the key to the time series, which is the metric.
 

@@ -37,7 +37,7 @@ Absolute time stamps are supported in human readable format or Unix style intege
 
 While OpenTSDB can store data with millisecond resolution, most queries will return the data with second resolution to provide backwards compatibility for existing tools. Unless a down sampling algorithm has been specified with a query, the data will automatically be down sampled to 1 second using the same aggregation function specified in a query. This way, if multiple data points are stored for a given second, they will be aggregated and returned in a normal query correctly.
 
-To extract data with millisecond resolution, use the ``/api/query`` endpoint and specify the ``msResolution`` JSON parameter or ``ms`` query string flag and it will bypass down sampling (unless specified) and return all timestamps in Unix epoch millisecond resolution. Also, the ``scan`` commandline utility will return the timestamp as written in storage.
+To extract data with millisecond resolution, use the ``/api/query`` endpoint and specify the ``msResolution`` (`ms`` is also okay, but not recommended) JSON parameter or query string flag and it will bypass down sampling (unless specified) and return all timestamps in Unix epoch millisecond resolution. Also, the ``scan`` commandline utility will return the timestamp as written in storage.
 
 Tags
 ^^^^

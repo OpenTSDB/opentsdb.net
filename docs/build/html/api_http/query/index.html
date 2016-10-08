@@ -207,7 +207,7 @@
 <td>&nbsp;</td>
 <td>true</td>
 </tr>
-<tr class="row-odd"><td>msResolution or ms</td>
+<tr class="row-odd"><td>msResolution (or ms)</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to output data point timestamps in milliseconds or seconds. The msResolution flag is recommended. If this flag is not provided and there are multiple data points within a second, those data points will be down sampled using the query's aggregation function.</td>
@@ -610,7 +610,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
 </pre></div>
 </div>
-<p>For the JSON serializer, the timestamp will always be a Unix epoch style integer followed by the value as an integer or a floating point. For example, the default output is <code class="docutils literal"><span class="pre">&quot;dps&quot;{&quot;&lt;timestamp&gt;&quot;:&lt;value&gt;}</span></code>. By default the timestamps will be in seconds. If the <code class="docutils literal"><span class="pre">msResolution</span></code> or <code class="docutils literal"><span class="pre">ms</span></code> flag is set, then the timestamps will be in milliseconds.</p>
+<p>For the JSON serializer, the timestamp will always be a Unix epoch style integer followed by the value as an integer or a floating point. For example, the default output is <code class="docutils literal"><span class="pre">&quot;dps&quot;{&quot;&lt;timestamp&gt;&quot;:&lt;value&gt;}</span></code>. By default the timestamps will be in seconds. If the <code class="docutils literal"><span class="pre">msResolution</span></code> flag is set, then the timestamps will be in milliseconds.</p>
 <div class="section" id="example-aggregated-default-response">
 <h3>Example Aggregated Default Response</h3>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>

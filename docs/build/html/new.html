@@ -60,6 +60,9 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">What's New</a><ul>
+<li><a class="reference internal" href="#x-planned">3.X (Planned)</a></li>
+<li><a class="reference internal" href="#planned">2.4 (Planned)</a></li>
+<li><a class="reference internal" href="#release-candidate">2.3 (Release Candidate)</a></li>
 <li><a class="reference internal" href="#id1">2.2</a></li>
 <li><a class="reference internal" href="#id2">2.1</a></li>
 <li><a class="reference internal" href="#id3">2.0</a></li>
@@ -97,6 +100,37 @@
   <div class="section" id="what-s-new">
 <h1>What's New</h1>
 <p>OpenTSDB has a thriving community who contributed and requested a number of new features.</p>
+<div class="section" id="x-planned">
+<h2>3.X (Planned)</h2>
+<p>While 3.0 is still a ways off, we'll be pushing some of the new features into a new branch of the repo. Some are in progress and other features are planned. If you have any features that you want to see, let us know.</p>
+<ul class="simple">
+<li>Distributed Queries - Based on the great work of Turn on <a class="reference external" href="https://github.com/turn/splicer">Splicer</a> we have a distributed query layer to split queries amongst multiple TSDs for greater throughput.</li>
+<li>Query Caching - Improve queries with time-sharded caching of results.</li>
+<li>Improved Expressions - Perform group by, downsampling and arithmetic modifications in any order. Potentially support UDFs as well.</li>
+<li>Anomaly Processing/Forecasting - Integrate with modeling libraries (such as <a class="reference external" href="https://github.com/yahoo/egads">EGADs</a>) for deeper time series analysis.</li>
+</ul>
+</div>
+<div class="section" id="planned">
+<h2>2.4 (Planned)</h2>
+<ul class="simple">
+<li>Rollup/Pre-Aggregates - Support for storing and querying time-based rolled up data and/or pre-aggregated values.</li>
+<li>Distributed Percentile - Store histograms (or sketches) for calculating proper percentiles over multiple sources.</li>
+</ul>
+</div>
+<div class="section" id="release-candidate">
+<h2>2.3 (Release Candidate)</h2>
+<ul class="simple">
+<li>Expressions - Query time computations using time series data. For example, dividing one metric by another.</li>
+<li>Graphite Style Functions - Additional filtering and mutation of data at query time using Graphite style functions.</li>
+<li>Calendar Based Downsampling - The ability to align downsampled data on Gregorian calendar boundaries.</li>
+<li>Bigtable Support - Run TSDB in the cloud using Google's hosted Bigtable service.</li>
+<li>Cassandra Support - Support for running OpenTSDB on legacy Cassandra clusters.</li>
+<li>Write Filters - Block or allow time series or UID assignments based on plugins or whitelists.</li>
+<li>New Aggregators - None for returning raw data. First and Last to return the first or last data points during downsampling.</li>
+<li>Meta Data Cache Plugin - A new API for caching meta data to improve query performance.</li>
+<li>Startup Plugins - APIs to help with service discovery on TSD startup.</li>
+</ul>
+</div>
 <div class="section" id="id1">
 <h2>2.2</h2>
 <ul class="simple">

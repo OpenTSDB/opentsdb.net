@@ -308,6 +308,11 @@ the license, or (at your option) any later version.</small>
 <h4>Who supports OpenTSDB?</h4>
 <a href="http://www.stumbleupon.jobs">StumbleUpon</a> supported the initial
 development of OpenTSDB as well as its open-source release.
+<a href="http://www.yahoo.com">Yahoo!</a> is currently maintaining OpenTSDB.
+Many other engineers and companies have contributed to OpenTSDB over the years.
+Please see our <a href="https://github.com/OpenTSDB/opentsdb/blob/next/THANKS">
+thanks</a> file for contributors. And thank you to everyone who has made OpenTSDB
+so popular and successful.
 <p>
 YourKit is kindly supporting open source projects with its full-featured Java
 Profiler.  YourKit, LLC is the creator of innovative and intelligent tools for

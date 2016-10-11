@@ -3,6 +3,34 @@ What's New
 
 OpenTSDB has a thriving community who contributed and requested a number of new features. 
 
+3.X (Planned)
+-------------
+While 3.0 is still a ways off, we'll be pushing some of the new features into a new branch of the repo. Some are in progress and other features are planned. If you have any features that you want to see, let us know.
+
+* Distributed Queries - Based on the great work of Turn on `Splicer <https://github.com/turn/splicer>`_ we have a distributed query layer to split queries amongst multiple TSDs for greater throughput.
+* Query Caching - Improve queries with time-sharded caching of results.
+* Improved Expressions - Perform group by, downsampling and arithmetic modifications in any order. Potentially support UDFs as well.
+* Anomaly Processing/Forecasting - Integrate with modeling libraries (such as `EGADs <https://github.com/yahoo/egads>`_) for deeper time series analysis. 
+
+2.4 (Planned)
+-------------
+
+* Rollup/Pre-Aggregates - Support for storing and querying time-based rolled up data and/or pre-aggregated values.
+* Distributed Percentile - Store histograms (or sketches) for calculating proper percentiles over multiple sources.
+
+2.3 (Release Candidate)
+-----------------------
+
+* Expressions - Query time computations using time series data. For example, dividing one metric by another.
+* Graphite Style Functions - Additional filtering and mutation of data at query time using Graphite style functions.
+* Calendar Based Downsampling - The ability to align downsampled data on Gregorian calendar boundaries.
+* Bigtable Support - Run TSDB in the cloud using Google's hosted Bigtable service.
+* Cassandra Support - Support for running OpenTSDB on legacy Cassandra clusters.
+* Write Filters - Block or allow time series or UID assignments based on plugins or whitelists.
+* New Aggregators - None for returning raw data. First and Last to return the first or last data points during downsampling.
+* Meta Data Cache Plugin - A new API for caching meta data to improve query performance.
+* Startup Plugins - APIs to help with service discovery on TSD startup.
+
 2.2
 ---
 

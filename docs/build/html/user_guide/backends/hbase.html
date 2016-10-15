@@ -134,9 +134,10 @@
 <div class="section" id="data-table-schema">
 <h2>Data Table Schema</h2>
 <p>All OpenTSDB data points are stored in a single, massive table, named <code class="docutils literal"><span class="pre">tsdb</span></code> by default. This is to take advantage of HBase's ordering and region distribution. All values are stored in the <code class="docutils literal"><span class="pre">t</span></code> column family.</p>
-<p><strong>Row Key</strong> - Row keys are byte arrays comprised of the metric UID, a base timestamp and the UID for tagk/v pairs:  <code class="docutils literal"><span class="pre">&lt;metric_uid&gt;&lt;timestamp&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></code>. By default, UIDs are encoded on 3 bytes.</p>
+<p><strong>Row Key</strong> - Row keys are byte arrays comprised of an optional salt, the metric UID, a base timestamp and the UID for tagk/v pairs:  <code class="docutils literal"><span class="pre">[salt]&lt;metric_uid&gt;&lt;timestamp&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></code>. By default, UIDs are encoded on 3 bytes.</p>
+<p>With salting enabled (as of OpenTSDB 2.2) the first byte (or bytes) are a hashed salt ID to better distribute data across multiple regions and/or region servers.</p>
 <p>The timestamp is a Unix epoch value in seconds encoded on 4 bytes. Rows are broken up into hour increments, reflected by the timestamp in each row. Thus each timestamp will be normalized to an hour value, e.g. <em>2013-01-01 08:00:00</em>. This is to avoid stuffing too many data points in a single row as that would affect region distribution. Also, since HBase sorts on the row key, data for the same metric and time bucket, but with different tags, will be grouped together for efficient queries.</p>
-<p>Some example row keys, represented as hex are:</p>
+<p>Some example unsalted row keys, represented as hex are:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="mf">00000150E22700000001000001</span>
 <span class="mf">00000150E22700000001000001000002000004</span>
 <span class="mf">00000150E22700000001000002</span>

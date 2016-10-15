@@ -6,11 +6,13 @@ Data Table Schema
 
 All OpenTSDB data points are stored in a single, massive table, named ``tsdb`` by default. This is to take advantage of HBase's ordering and region distribution. All values are stored in the ``t`` column family.
 
-**Row Key** - Row keys are byte arrays comprised of the metric UID, a base timestamp and the UID for tagk/v pairs:  ``<metric_uid><timestamp><tagk1><tagv1>[...<tagkN><tagvN>]``. By default, UIDs are encoded on 3 bytes. 
+**Row Key** - Row keys are byte arrays comprised of an optional salt, the metric UID, a base timestamp and the UID for tagk/v pairs:  ``[salt]<metric_uid><timestamp><tagk1><tagv1>[...<tagkN><tagvN>]``. By default, UIDs are encoded on 3 bytes. 
+
+With salting enabled (as of OpenTSDB 2.2) the first byte (or bytes) are a hashed salt ID to better distribute data across multiple regions and/or region servers.
 
 The timestamp is a Unix epoch value in seconds encoded on 4 bytes. Rows are broken up into hour increments, reflected by the timestamp in each row. Thus each timestamp will be normalized to an hour value, e.g. *2013-01-01 08:00:00*. This is to avoid stuffing too many data points in a single row as that would affect region distribution. Also, since HBase sorts on the row key, data for the same metric and time bucket, but with different tags, will be grouped together for efficient queries.
 
-Some example row keys, represented as hex are:
+Some example unsalted row keys, represented as hex are:
 
 ::
   

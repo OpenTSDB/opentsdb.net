@@ -21,6 +21,7 @@ Front Ends
 * `TSDash <https://github.com/facebook/tsdash>`_ - A Java based UI and dashboard from Facebook.
 * `OpenTSDB Dashboard <https://github.com/turn/opentsdb-dashboard>`_ - A JQuery based dashboard from Turn.
 * `Grafana <http://grafana.org>`_ - A dashboard and graph editor with OpenTSDB support.
+* `Graphite OpenTSDB Finder <https://github.com/mikebryant/graphite-opentsdb-finder>`_ - A Graphite plugin to load TSDB data.
 
 Utilities
 ^^^^^^^^^

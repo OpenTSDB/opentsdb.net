@@ -199,6 +199,7 @@ API Endpoints
    config/index
    dropcaches
    put
+   rollup
    query/index
    search/index
    serializers

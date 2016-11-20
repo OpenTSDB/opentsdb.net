@@ -7,8 +7,9 @@ These pages serve as a user and administration guide. We highly recommend that y
    :maxdepth: 1
    
    configuration
-   writing
+   writing/index
    query/index
+   rollups
    uids
    metadata
    trees

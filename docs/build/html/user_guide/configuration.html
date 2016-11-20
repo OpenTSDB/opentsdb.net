@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTSDB 2.2 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
-    <link rel="next" title="Writing Data" href="writing.html" />
+    <link rel="next" title="Writing Data" href="writing/index.html" />
     <link rel="prev" title="User Guide" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
@@ -48,7 +48,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="writing.html" title="Writing Data"
+          <a href="writing/index.html" title="Writing Data"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="User Guide"
@@ -74,7 +74,7 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">User Guide</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="writing.html"
+  <p class="topless"><a href="writing/index.html"
                         title="next chapter">Writing Data</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
@@ -279,7 +279,14 @@ E.g. America/Los_Angeles</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.cachedir</td>
+<tr class="row-even"><td>tsd.core.bulk.allow_out_of_order_timestamps <a href="#id1"><span class="problematic" id="id2">*</span></a>(2.3)</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to allow out-of-order values when bulk importing data from a text file.</td>
+<td>false</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.cachedir</td>
 <td>String</td>
 <td>Required</td>
 <td>The full path to a location where temporary files can be written.
@@ -287,63 +294,63 @@ E.g. /tmp/opentsdb</td>
 <td>&nbsp;</td>
 <td>--cachedir</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.query.allow_delete</td>
+<tr class="row-even"><td>tsd.http.query.allow_delete</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow deleting data points from storage during query time.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.query.enable_fuzzy_filter</td>
+<tr class="row-odd"><td>tsd.query.enable_fuzzy_filter</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable the FuzzyRowFilter for HBase when making queries using the <code class="docutils literal"><span class="pre">explicitTags</span></code> flag.</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.request.cors_domains</td>
+<tr class="row-even"><td>tsd.http.request.cors_domains</td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma separated list of domain names to allow access to OpenTSDB when the <code class="docutils literal"><span class="pre">Origin</span></code> header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard <code class="docutils literal"><span class="pre">*</span></code> and specific domains at the same time.</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.request.cors_headers <em>(2.1)</em></td>
+<tr class="row-odd"><td>tsd.http.request.cors_headers <em>(2.1)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma separated list of headers sent to clients when executing a CORs request. The literal value of this option will be passed to clients.</td>
 <td>Authorization, Content-Type, Accept, Origin, User-Agent, DNT, Cache-Control, X-Mx-ReqToken, Keep-Alive, X-Requested-With, If-Modified-Since</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.request.enable_chunked</td>
+<tr class="row-even"><td>tsd.http.request.enable_chunked</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable incoming chunk support for the HTTP RPC</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.request.max_chunk</td>
+<tr class="row-odd"><td>tsd.http.request.max_chunk</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum request body size to support for incoming HTTP requests when chunking is enabled.</td>
 <td>4096</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.rpc.plugins <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.http.rpc.plugins <em>(2.2)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.http.show_stack_trace</td>
+<tr class="row-odd"><td>tsd.http.show_stack_trace</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to return the stack trace with an API query response when an exception occurs.</td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.http.staticroot</td>
+<tr class="row-even"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
 <td>Location of a directory where static files, such as JavaScript files for the web interface, are located.
@@ -351,28 +358,28 @@ E.g. /opt/opentsdb/staticroot</td>
 <td>&nbsp;</td>
 <td>--staticroot</td>
 </tr>
-<tr class="row-even"><td>tsd.mode <em>(2.1)</em></td>
+<tr class="row-odd"><td>tsd.mode <em>(2.1)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>Whether or not the TSD will allow writing data points. Must be either <code class="docutils literal"><span class="pre">rw</span></code> to allow writing data or <code class="docutils literal"><span class="pre">ro</span></code> to block data point writes. Note that meta data such as UIDs can still be written/modified.</td>
 <td>rw</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.async_io</td>
+<tr class="row-even"><td>tsd.network.async_io</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to use NIO or traditional blocking IO</td>
 <td>True</td>
 <td>--async-io</td>
 </tr>
-<tr class="row-even"><td>tsd.network.backlog</td>
+<tr class="row-odd"><td>tsd.network.backlog</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the 'somaxconn' kernel setting or set by Netty to 3072.</td>
 <td>See Description</td>
 <td>--backlog</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.bind</td>
+<tr class="row-even"><td>tsd.network.bind</td>
 <td>String</td>
 <td>Optional</td>
 <td>An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
@@ -380,74 +387,109 @@ E.g. 127.0.0.1</td>
 <td>0.0.0.0</td>
 <td>--bind</td>
 </tr>
-<tr class="row-even"><td>tsd.network.keep_alive</td>
+<tr class="row-odd"><td>tsd.network.keep_alive</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.port</td>
+<tr class="row-even"><td>tsd.network.port</td>
 <td>Integer</td>
 <td>Required</td>
 <td>The TCP port to use for accepting connections</td>
 <td>&nbsp;</td>
 <td>--port</td>
 </tr>
-<tr class="row-even"><td>tsd.network.reuse_address</td>
+<tr class="row-odd"><td>tsd.network.reuse_address</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow reuse of the bound port within Netty</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
+<tr class="row-even"><td>tsd.network.tcp_no_delay</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to disable TCP buffering before sending data</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.network.worker_threads</td>
+<tr class="row-odd"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number of asynchronous IO worker threads for Netty</td>
 <td><em>#CPU cores * 2</em></td>
 <td>--worker-threads</td>
 </tr>
-<tr class="row-odd"><td>tsd.no_diediedie <em>(2.1)</em></td>
+<tr class="row-even"><td>tsd.no_diediedie <em>(2.1)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Enable or disable the <code class="docutils literal"><span class="pre">diediedie</span></code> HTML and ASCII commands to shutdown a TSD.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.query.allow_simultaneous_duplicates <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.query.allow_simultaneous_duplicates <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow simultaneous duplicate queries from the same host. If disabled, a second query that comes in matching one already running will receive an exception.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.query.filter.expansion_limit <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.query.filter.expansion_limit <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.</td>
 <td>4096</td>
 <td>1024</td>
 </tr>
-<tr class="row-even"><td>tsd.query.skip_unresolved_tagvs <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.query.skip_unresolved_tagvs <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to continue querying when the query includes a tag value that hasn't been assigned a UID yet and may not exist.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.query.timeout <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.query.timeout <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How long, in milliseconds, before canceling a running query. A value of 0 means queries will not timeout.</td>
 <td>0</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.rollups.enable <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to enable rollup and pre-aggregation storage and writing.</td>
+<td>false</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.rollups.tag_raw <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to tag non-rolled-up and non-pre-aggregated values with the tag key configured in <code class="docutils literal"><span class="pre">tsd.rollups.agg_tag_key</span></code> and value configured in <code class="docutils literal"><span class="pre">tsd.rollups.raw_agg_tag_value</span></code></td>
+<td>false</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.rollups.agg_tag_key <em>(2.4)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>A special key to tag pre-aggregated data with when writing to storage</td>
+<td>_aggregate</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.rollups.raw_agg_tag_value <em>(2.4)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>A special tag value to non-rolled-up and non-pre-aggregated data with when writing to storage. <code class="docutils literal"><span class="pre">tsd.rollups.tag_raw</span></code> must be set to true.</td>
+<td>RAW</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>tsd.rollups.block_derived <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to block storing derived aggregations such as <code class="docutils literal"><span class="pre">AVG</span></code> and <code class="docutils literal"><span class="pre">DEV</span></code>.</td>
+<td>true</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>tsd.rpc.plugins</td>
@@ -457,14 +499,21 @@ E.g. 127.0.0.1</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.rtpublisher.enable</td>
+<tr class="row-odd"><td>tsd.rpc.telnet.return_errors <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to return errors to the Telnet style socket when writing data via <code class="docutils literal"><span class="pre">put</span></code> or <code class="docutils literal"><span class="pre">rollup</span></code></td>
+<td>true</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>tsd.rtpublisher.enable</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable a real time publishing plugin. If true, you must supply a valid <code class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></code> class name</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.rtpublisher.plugin</td>
+<tr class="row-odd"><td>tsd.rtpublisher.plugin</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of a real time publishing plugin to instantiate. If <code class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></code> is set to false, this value is ignored.
@@ -472,14 +521,14 @@ E.g. net.opentsdb.tsd.RabbitMQPublisher</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.search.enable</td>
+<tr class="row-even"><td>tsd.search.enable</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable search functionality. If true, you must supply a valid <code class="docutils literal"><span class="pre">tsd.search.plugin</span></code> class name</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.search.plugin</td>
+<tr class="row-odd"><td>tsd.search.plugin</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of a search plugin to instantiate. If <code class="docutils literal"><span class="pre">tsd.search.enable</span></code> is set to false, this value is ignored.
@@ -487,161 +536,161 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.stats.canonical</td>
+<tr class="row-even"><td>tsd.stats.canonical</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with <code class="docutils literal"><span class="pre">host=&lt;hostname&gt;</span></code> which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be <code class="docutils literal"><span class="pre">fqdn=&lt;hostname&gt;</span></code></td>
 <td>false</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.compaction.flush_interval <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.compaction.flush_interval <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How long, in seconds, to wait in between compaction queue flush calls</td>
 <td>10</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.compaction.flush_speed <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.compaction.flush_speed <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>A multiplier used to determine how quickly to attempt flushing the compaction queue. E.g. a value of 2 means it will try to flush the entire queue within 30 minutes. A value of 1 would take an hour.</td>
 <td>2</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.compaction.max_concurrent_flushes <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.compaction.max_concurrent_flushes <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum number of compaction calls inflight to HBase at any given time</td>
 <td>10000</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.compaction.min_flush_threshold <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.compaction.min_flush_threshold <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>Size of the compaction queue that must be exceeded before flushing is triggered</td>
 <td>100</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.enable_appends <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.enable_appends <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to append data to columns when writing data points instead of creating new columns for each value. Avoids the need for compactions after each hour but can use more resources on HBase.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.enable_compaction</td>
+<tr class="row-even"><td>tsd.storage.enable_compaction</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable compactions</td>
 <td>True</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.fix_duplicates <em>(2.1)</em></td>
+<tr class="row-odd"><td>tsd.storage.fix_duplicates <em>(2.1)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to accept the last written value when parsing data points with duplicate timestamps. When enabled in conjunction with compactions, a compacted column will be written with the latest data points.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.flush_interval</td>
+<tr class="row-even"><td>tsd.storage.flush_interval</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How often, in milliseconds, to flush the data point storage write buffer</td>
 <td>1000</td>
 <td>--flush-interval</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.data_table</td>
+<tr class="row-odd"><td>tsd.storage.hbase.data_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where data points are stored</td>
 <td>tsdb</td>
 <td>--table</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.meta_table</td>
+<tr class="row-even"><td>tsd.storage.hbase.meta_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where meta data are stored</td>
 <td>tsdb-meta</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.prefetch_meta <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.hbase.prefetch_meta <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to prefetch the regions for the TSDB tables before starting the network interface. This can improve performance.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.tree_table</td>
+<tr class="row-even"><td>tsd.storage.hbase.tree_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where tree data are stored</td>
 <td>tsdb-tree</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.uid_table</td>
+<tr class="row-odd"><td>tsd.storage.hbase.uid_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where UID information is stored</td>
 <td>tsdb-uid</td>
 <td>--uidtable</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.zk_basedir</td>
+<tr class="row-even"><td>tsd.storage.hbase.zk_basedir</td>
 <td>String</td>
 <td>Optional</td>
 <td>Path under which the znode for the -ROOT- region is located</td>
 <td>/hbase</td>
 <td>--zkbasedir</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.zk_quorum</td>
+<tr class="row-odd"><td>tsd.storage.hbase.zk_quorum</td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers. E.g. <code class="docutils literal"><span class="pre">192.168.1.1:2181,192.168.1.2:2181</span></code></td>
 <td>localhost</td>
 <td>--zkquorum</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.repair_appends <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.repair_appends <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to re-write appended data point columns at query time when the columns contain duplicate or out of order data.</td>
 <td>False</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.max_tags <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.max_tags <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The maximum number of tags allowed per data point.  <strong>NOTE</strong> Please be aware of the performance tradeoffs of overusing tags <a class="reference internal" href="writing.html"><em>Writing Data</em></a></td>
+<td>The maximum number of tags allowed per data point.  <strong>NOTE</strong> Please be aware of the performance tradeoffs of overusing tags <code class="xref doc docutils literal"><span class="pre">writing</span></code></td>
 <td>8</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.salt.buckets <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.salt.buckets <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number of salt buckets used to distribute load across regions. <strong>NOTE</strong> Changing this value after writing data may cause TSUID based queries to fail.</td>
 <td>20</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.salt.width <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.salt.width <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of the salt prefix used to indicate which bucket a time series belongs in. A value of 0 means salting is disabled. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>0</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.uid.width.metric <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.uid.width.metric <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of metric UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.uid.width.tagk <em>(2.2)</em></td>
+<tr class="row-odd"><td>tsd.storage.uid.width.tagk <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of tag name UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.uid.width.tagv <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.uid.width.tagv <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of tag value UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
@@ -695,7 +744,7 @@ E.g.:</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="writing.html" title="Writing Data"
+          <a href="writing/index.html" title="Writing Data"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="User Guide"

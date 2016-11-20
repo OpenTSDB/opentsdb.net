@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>User Guide &mdash; OpenTSDB 2.2 documentation</title>
+    <title>stats &mdash; OpenTSDB 2.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,8 +23,9 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="OpenTSDB 2.2 documentation" href="../index.html" />
-    <link rel="next" title="Configuration" href="configuration.html" />
-    <link rel="prev" title="Installation" href="../installation.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="up" title="Telnet Style API" href="index.html" />
+    <link rel="next" title="Development" href="../development/index.html" />
+    <link rel="prev" title="Telnet Style API" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -47,22 +48,35 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="configuration.html" title="Configuration"
+          <a href="../development/index.html" title="Development"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../installation.html" title="Installation"
+          <a href="index.html" title="Telnet Style API"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">stats</a><ul>
+<li><a class="reference internal" href="#request">Request</a></li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../installation.html"
-                        title="previous chapter">Installation</a></p>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Telnet Style API</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="configuration.html"
-                        title="next chapter">Configuration</a></p>
+  <p class="topless"><a href="../development/index.html"
+                        title="next chapter">Development</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -84,28 +98,33 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="user-guide">
-<h1>User Guide</h1>
-<p>These pages serve as a user and administration guide. We highly recommend that you start with the <code class="xref doc docutils literal"><span class="pre">writing</span></code> and <a class="reference internal" href="query/index.html"><em>Querying or Reading Data</em></a> sections to understand how OpenTSDB handles its core purpose of storing and serving time series information. Then follow up with the <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> section to play around with getting some data into your OpenTSDB instance. Finally follow up with the other pages for details on the other features of OpenTSDB.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="writing/index.html">Writing Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="query/index.html">Querying or Reading Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rollups.html">Rollup And Pre-Aggregates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uids.html">UIDs and TSUIDs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metadata.html">Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trees.html">Trees</a></li>
-<li class="toctree-l1"><a class="reference internal" href="guis/index.html">GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backends/index.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
-</ul>
+  <div class="section" id="stats">
+<h1>stats</h1>
+<p>This command is similar to the HTTP <a class="reference internal" href="../api_http/stats/index.html"><em>/api/stats</em></a> endpoint in that it will return a list of the TSD stats, one per line, in the <code class="docutils literal"><span class="pre">put</span></code> format. This command does not modify TSD in any way.</p>
+<div class="section" id="request">
+<h2>Request</h2>
+<p>The command format is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stats</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A set of time series with data about the running TSD.</p>
+<div class="section" id="example">
+<h3>Example</h3>
+<div class="highlight-python"><div class="highlight"><pre>tsd.hbase.rpcs 1479600574 0 type=increment host=web01
+tsd.hbase.rpcs 1479600574 0 type=delete host=web01
+tsd.hbase.rpcs 1479600574 1 type=get host=web01
+tsd.hbase.rpcs 1479600574 0 type=put host=web01
+tsd.hbase.rpcs 1479600574 0 type=append host=web01
+tsd.hbase.rpcs 1479600574 0 type=rowLock host=web01
+tsd.hbase.rpcs 1479600574 0 type=openScanner host=web01
+tsd.hbase.rpcs 1479600574 0 type=scan host=web01
+tsd.hbase.rpcs.batched 1479600574 0 host=web01
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -122,12 +141,13 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="configuration.html" title="Configuration"
+          <a href="../development/index.html" title="Development"
              >next</a> |</li>
         <li class="right" >
-          <a href="../installation.html" title="Installation"
+          <a href="index.html" title="Telnet Style API"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

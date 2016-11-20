@@ -75,6 +75,7 @@ documentation for details.
    E.g. America/Los_Angeles", "System Configured", ""
    "tsd.core.tree.enable_processing", "Boolean", "Optional", "Whether or not to enable processing new/edited TSMeta through tree rule sets", "false", ""
    "tsd.core.uid.random_metrics *(2.2)*", "Boolean", "Optional", "Whether or not to randomly assign UIDs to new metrics as they are created", "false", ""
+   "tsd.core.bulk.allow_out_of_order_timestamps *(2.3)", "Boolean", "Optional", "Whether or not to allow out-of-order values when bulk importing data from a text file.", "false", ""
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written.
    E.g. /tmp/opentsdb", "", "--cachedir"
    "tsd.http.query.allow_delete", "Boolean", "Optional", "Whether or not to allow deleting data points from storage during query time.", "False", ""
@@ -102,7 +103,13 @@ documentation for details.
    "tsd.query.filter.expansion_limit *(2.2)*", "Integer", "Optional", "The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.", "4096", "1024"
    "tsd.query.skip_unresolved_tagvs *(2.2)*", "Boolean", "Optional", "Whether or not to continue querying when the query includes a tag value that hasn't been assigned a UID yet and may not exist.", "False", ""
    "tsd.query.timeout *(2.2)*", "Integer", "Optional", "How long, in milliseconds, before canceling a running query. A value of 0 means queries will not timeout.", "0", ""
+   "tsd.rollups.enable *(2.4)*", "Boolean", "Optional", "Whether or not to enable rollup and pre-aggregation storage and writing.", "false", ""
+   "tsd.rollups.tag_raw *(2.4)*", "Boolean", "Optional", "Whether or not to tag non-rolled-up and non-pre-aggregated values with the tag key configured in ``tsd.rollups.agg_tag_key`` and value configured in ``tsd.rollups.raw_agg_tag_value``", "false", ""
+   "tsd.rollups.agg_tag_key *(2.4)*", "String", "Optional", "A special key to tag pre-aggregated data with when writing to storage", "_aggregate", ""
+   "tsd.rollups.raw_agg_tag_value *(2.4)*", "String", "Optional", "A special tag value to non-rolled-up and non-pre-aggregated data with when writing to storage. ``tsd.rollups.tag_raw`` must be set to true.", "RAW", ""
+   "tsd.rollups.block_derived *(2.4)*", "Boolean", "Optional", "Whether or not to block storing derived aggregations such as ``AVG`` and ``DEV``.", "true", ""
    "tsd.rpc.plugins", "String", "Optional", "A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.", "", ""
+   "tsd.rpc.telnet.return_errors *(2.4)*", "Boolean", "Optional", "Whether or not to return errors to the Telnet style socket when writing data via ``put`` or ``rollup``", "true", ""
    "tsd.rtpublisher.enable", "Boolean", "Optional", "Whether or not to enable a real time publishing plugin. If true, you must supply a valid ``tsd.rtpublisher.plugin`` class name", "False", ""
    "tsd.rtpublisher.plugin", "String", "Optional", "The class name of a real time publishing plugin to instantiate. If ``tsd.rtpublisher.enable`` is set to false, this value is ignored.
    E.g. net.opentsdb.tsd.RabbitMQPublisher", "", ""

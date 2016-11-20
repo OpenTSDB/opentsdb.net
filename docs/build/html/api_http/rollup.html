@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/api/rollup &mdash; OpenTSDB 2.2 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/api/rollup</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-single-data-point-put">Example Single Data Point Put</a></li>
+<li><a class="reference internal" href="#example-multiple-data-point-put">Example Multiple Data Point Put</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-rollup">
+<h1>/api/rollup</h1>
+<p>This endpoint allows for storing rolled up and/or pre-aggregated data in OpenTSDB over HTTP. For details on rollups and pre-aggs, please see the user guide: <a class="reference internal" href="../user_guide/rollups.html"><em>Rollup And Pre-Aggregates</em></a>.</p>
+<p>Also see the <a class="reference internal" href="put.html"><em>/api/put</em></a> documentation for notes and common parameters that are shared with the <code class="docutils literal"><span class="pre">/api/rollup</span></code> endpoint. This page lays out the differences between the two.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Rollup and pre-aggregate values are extensions of the <code class="docutils literal"><span class="pre">put</span></code> object with three additional fields. For completeness, all fields are listed below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>metric</td>
+<td>String</td>
+<td>Required</td>
+<td>The name of the metric you are storing</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>sys.cpu.nice</td>
+</tr>
+<tr class="row-odd"><td>timestamp</td>
+<td>Integer</td>
+<td>Required</td>
+<td>A Unix epoch style timestamp in seconds or milliseconds. The timestamp must not contain non-numeric characters.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>1365465600</td>
+</tr>
+<tr class="row-even"><td>value</td>
+<td>Integer, Float, String</td>
+<td>Required</td>
+<td>The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: <code class="xref doc docutils literal"><span class="pre">../../user_guide/writing</span></code></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>42.5</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>Map</td>
+<td>Required</td>
+<td>A map of tag name/tag value pairs. At least one pair must be supplied.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>{&quot;host&quot;:&quot;web01&quot;}</td>
+</tr>
+<tr class="row-even"><td>interval</td>
+<td>String</td>
+<td>Optional*</td>
+<td>A time interval reflecting what timespan the <strong>rollup</strong> value represents. The interval consists of <code class="docutils literal"><span class="pre">&lt;amount&gt;&lt;unit&gt;</span></code> similar to a downsampler or relative query timestamp. E.g. <code class="docutils literal"><span class="pre">6h</span></code> for 5 hours of data, <code class="docutils literal"><span class="pre">30m</span></code> for 30 minutes of data.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>1h</td>
+</tr>
+<tr class="row-odd"><td>aggregator</td>
+<td>String</td>
+<td>Optional*</td>
+<td>An aggregation function used to generate the <strong>rollup</strong> value. Must match a supplied TSDB aggregator.</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>SUM</td>
+</tr>
+<tr class="row-even"><td>groupByAggregator</td>
+<td>String</td>
+<td>Optional*</td>
+<td>An aggregation function used to generate the <strong>pre-aggregate</strong> value. Must match a supplied TSDB aggregator.</td>
+<td>&nbsp;</td>
+<td>W</td>
+<td>COUNT</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>While the aggregators and interval are marked as optional above, at least one of the combinations documented below must be satisfied for data to be recorded.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">interval</th>
+<th class="head">aggregator</th>
+<th class="head">groupByAggregator</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Set</td>
+<td>Set</td>
+<td>Empty</td>
+<td>Data represents a <em>raw</em> or <em>non-pre-aggregated</em> <strong>rollup</strong> over the interval.</td>
+</tr>
+<tr class="row-odd"><td>Empty</td>
+<td>Empty</td>
+<td>Set</td>
+<td>Data represents a <em>raw</em> <strong>pre-aggregated</strong> value that has not been rolled up over time.</td>
+</tr>
+<tr class="row-even"><td>Set</td>
+<td>Set</td>
+<td>Set</td>
+<td>Data represents a <em>rolled up</em> <em>pre-aggregated</em> value.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-single-data-point-put">
+<h3>Example Single Data Point Put</h3>
+<p>You can supply a single data point in a request:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1h&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;SUM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;groupByAggregator&quot;</span><span class="p">,</span> <span class="s2">&quot;SUM&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-multiple-data-point-put">
+<h3>Example Multiple Data Point Put</h3>
+<p>Multiple data points must be encased in an array:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+           <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;SUM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;groupByAggregator&quot;</span><span class="p">,</span> <span class="s2">&quot;SUM&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+           <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;SUM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;groupByAggregator&quot;</span><span class="p">,</span> <span class="s2">&quot;SUM&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>Responses are handled in the same was as for the <a class="reference internal" href="put.html"><em>/api/put</em></a> endpoint.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

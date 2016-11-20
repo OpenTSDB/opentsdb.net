@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>put &mdash; OpenTSDB 2.2 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.2 documentation" href="../index.html" />
+    <link rel="up" title="Telnet Style API" href="index.html" />
+    <link rel="next" title="rollup" href="rollup.html" />
+    <link rel="prev" title="Telnet Style API" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="rollup.html" title="rollup"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Telnet Style API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">put</a><ul>
+<li><a class="reference internal" href="#request">Request</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-requests-and-responses">Example Requests and Responses</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Telnet Style API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rollup.html"
+                        title="next chapter">rollup</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="put">
+<h1>put</h1>
+<p>Attempts to write a data point to storage. Note that UTF-8 characters may not be handled properly by the Telnet style API so use the <a class="reference internal" href="../api_http/put.html"><em>/api/put</em></a> method instead or use the Java API directly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because the socket is read and written to asynchronously, responses may be garbled. It's best to treat this similar to a UDP socket in that you may not always know if the data made it in. If you require truly synchronous writes with guarantees of the data making it to storage, please use the HTTP or Java APIs.</p>
+</div>
+<div class="section" id="request">
+<h2>Request</h2>
+<p>The command format is:</p>
+<div class="highlight-python"><div class="highlight"><pre>put &lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; &lt;tagk_1&gt;=&lt;tagv_1&gt;[ &lt;tagk_n&gt;=&lt;tagv_n&gt;]
+</pre></div>
+</div>
+<p>Note:</p>
+<ul class="simple">
+<li>Because fields are space delimited, metrics and tag values may not contain spaces.</li>
+<li>The timestamp must be a positive Unix epoch timestamp. E.g. <code class="docutils literal"><span class="pre">1479496100</span></code> to represent <code class="docutils literal"><span class="pre">Fri,</span> <span class="pre">18</span> <span class="pre">Nov</span> <span class="pre">2016</span> <span class="pre">19:08:20</span> <span class="pre">GMT</span></code></li>
+<li>The value must be a number. It may be an integer (maximum and minimum values of Java's <code class="docutils literal"><span class="pre">long</span></code> data type), a floating point value or scientific notation (in the format <code class="docutils literal"><span class="pre">[-]&lt;#&gt;.&lt;#&gt;[e|E][-]&lt;#&gt;</span></code>).</li>
+<li>At least one tag pair must be present. Additional tag pairs can be added with spaces in between.</li>
+</ul>
+<div class="section" id="examples">
+<h3>Examples</h3>
+<div class="highlight-python"><div class="highlight"><pre>put sys.if.bytes.out 1479496100 1.3E3 host=web01 interface=eth0
+put sys.procs.running 1479496100 42 host=web01
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful request will not return a response. Only on error will the socket return a line of data. Some examples appear below:</p>
+<div class="section" id="example-requests-and-responses">
+<h3>Example Requests and Responses</h3>
+<div class="highlight-python"><div class="highlight"><pre>put
+put: illegal argument: not enough arguments (need least 4, got 1)
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>put metric.foo notatime 42 host=web01
+put: invalid value: Invalid character &#39;n&#39; in notatime
+</pre></div>
+</div>
+<p>The following will be returned if <code class="docutils literal"><span class="pre">tsd.core.auto_create_metrics</span></code> are disabled.</p>
+<div class="highlight-python"><div class="highlight"><pre>put new.metric 1479496160 1.3e3 host=web01
+put: unknown metric: No such name for &#39;metrics&#39;: &#39;new.metric&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="rollup.html" title="rollup"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Telnet Style API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

@@ -100,7 +100,7 @@ documentation for details.
    "tsd.network.worker_threads", "Integer", "Optional", "The number of asynchronous IO worker threads for Netty", "*#CPU cores \* 2*", "--worker-threads"
    "tsd.no_diediedie *(2.1)*", "Boolean", "Optional", "Enable or disable the ``diediedie`` HTML and ASCII commands to shutdown a TSD.", "False", ""
    "tsd.query.allow_simultaneous_duplicates *(2.2)*", "Boolean", "Optional", "Whether or not to allow simultaneous duplicate queries from the same host. If disabled, a second query that comes in matching one already running will receive an exception.", "False", ""
-   "tsd.query.filter.expansion_limit *(2.2)*", "Integer", "Optional", "The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.", "4096", "1024"
+   "tsd.query.filter.expansion_limit *(2.2)*", "Integer", "Optional", "The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.", "4096", ""
    "tsd.query.skip_unresolved_tagvs *(2.2)*", "Boolean", "Optional", "Whether or not to continue querying when the query includes a tag value that hasn't been assigned a UID yet and may not exist.", "False", ""
    "tsd.query.timeout *(2.2)*", "Integer", "Optional", "How long, in milliseconds, before canceling a running query. A value of 0 means queries will not timeout.", "0", ""
    "tsd.rollups.enable *(2.4)*", "Boolean", "Optional", "Whether or not to enable rollup and pre-aggregation storage and writing.", "false", ""

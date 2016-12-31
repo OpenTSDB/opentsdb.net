@@ -18,8 +18,8 @@ While 3.0 is still a ways off, we'll be pushing some of the new features into a 
 * Rollup/Pre-Aggregates - Support for storing and querying time-based rolled up data and/or pre-aggregated values.
 * Distributed Percentile - Store histograms (or sketches) for calculating proper percentiles over multiple sources.
 
-2.3 (Release Candidate)
------------------------
+2.3
+---
 
 * Expressions - Query time computations using time series data. For example, dividing one metric by another.
 * Graphite Style Functions - Additional filtering and mutation of data at query time using Graphite style functions.
@@ -30,6 +30,7 @@ While 3.0 is still a ways off, we'll be pushing some of the new features into a 
 * New Aggregators - None for returning raw data. First and Last to return the first or last data points during downsampling.
 * Meta Data Cache Plugin - A new API for caching meta data to improve query performance.
 * Startup Plugins - APIs to help with service discovery on TSD startup.
+* Example Java API usage classes.
 
 2.2
 ---

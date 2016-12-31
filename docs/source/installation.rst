@@ -8,7 +8,7 @@ Runtime Requirements
 
 To actually run OpenTSDB, you'll need to meet the following:
 
-* A Linux system
+* A Linux system (or Windows with manual building)
 * Java Runtime Environment 1.6 or later
 * HBase 0.92 or later
 * GnuPlot 4.2 or later
@@ -16,7 +16,7 @@ To actually run OpenTSDB, you'll need to meet the following:
 Installation
 ^^^^^^^^^^^^
 
-First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the `Apache Quick Start <https://hbase.apache.org/book/quickstart.html>`_ guide. Alternatively you could try a packaged distribution such as `Cloudera's CDH <http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html>`_ or `Hortonworks HDP <http://hortonworks.com/products/hdp-2/>`_
+First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the `Apache Quick Start <https://hbase.apache.org/book/quickstart.html>`_ guide. Alternatively you could try a packaged distribution such as `Cloudera's CDH <http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html>`_, `Hortonworks HDP <http://hortonworks.com/products/hdp-2/>`_ or `MapR<https://www.mapr.com/>`_.
 
 Before proceeding with OpenTSDB, make certain that Zookeeper is accessible. One method is to simply telnet to the proper port and execute the ``stats`` command.
 
@@ -64,7 +64,7 @@ Download the latest version using ``git clone`` command or download a release fr
  cd opentsdb
  ./build.sh
 
-If compilation was successfuly, you should have a tsdb jar file in ``./build`` along with a ``tsdb`` script. You can now execute command-line tool by invoking ``./build/tsdb`` or you can run ``make install`` to install OpenTSDB on your system. Should you ever change your mind, there is also ``make uninstall``, so there are no strings attached.
+If compilation was successfully, you should have a tsdb jar file in ``./build`` along with a ``tsdb`` script. You can now execute command-line tool by invoking ``./build/tsdb`` or you can run ``make install`` to install OpenTSDB on your system. Should you ever change your mind, there is also ``make uninstall``, so there are no strings attached.
 
 If you need to distribute OpenTSDB to machines without an Internet connection, call ``./build.sh dist`` to wrap the build directory into a tarball that you can then copy to additional machines.
 
@@ -83,7 +83,7 @@ The Debian package will create the following directories:
 * /etc/opentsdb - Configuration files
 * /tmp/opentsdb - Temporary cache files
 * /usr/share/opentsdb - Application files
-* /usr/share/opentsdb/bin - The "tsdb" startup script that launches a TSD or commandline tools
+* /usr/share/opentsdb/bin - The "tsdb" startup script that launches a TSD or command line tools
 * /usr/share/opentsdb/lib - Java JAR library files
 * /usr/share/opentsdb/plugins - Location for plugin files and dependencies
 * /usr/share/opentsdb/static - Static files for the GUI
@@ -143,7 +143,7 @@ OpenTSDB |version| is fully backwards compatible with 1.x data. We've taken grea
 
 where ``COMPRESSION`` is the same as your existing production table compression format.
 
-While you can start a |version| TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at ``./src/opentsdb.conf``. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See :doc:`user_guide/configuration` for details.
+While you can start a |version| TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at ``./src/opentsdb.conf``. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accessible via command line and the file is shared with CLI tools. See :doc:`user_guide/configuration` for details.
 
 You do not have to upgrade all of your TSDs to |version| at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.
 
@@ -153,7 +153,27 @@ If you do perform a rolling upgrade where you have multiple TSDs, heed the follo
 
 Before upgrading to 2.x, you may want to upgrade all of your TSDs to OpenTSDB 1.2. This release is fully forwards compatible in that it will ignore annotations and millisecond timestamps and operate as expected. With 1.2 running, if you accidentally record an annotation or millisecond data point, your 1.2 TSDs will operate normally.
 
+Upgrading from 2.x to a Later 2.x
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In general, upgrading within a single major release branch is simply a matter of updating the binaries or package and restarting a TSD. Within a branch we'll maintain settings, APIs and schema. However new features may be added with each minor version that include new configuration settings with useful defaults.
+
+.. NOTE:: 
+
+  The exception so far has been the introduction of salted rows in 2.2.0. Disabled by default, using this feature requires creating a new HBase table with a new set of pre-splits and modifying the configuration of every TSD to use the new table with salting enabled. The schema for salted and unsalted tables is incompatible so if users have a lot of data in a previous table, it may be best to leave a few TSDs running to query against the old table and new TSDs to write to and read from the new salted table. For smaller amounts of data, the :doc:`user_guide/cli/scan` tool can be used to export and re-import your data.
+
+.. NOTE::
+
+  Likewise with 2.3, the introduction of new backends (Bigtable or Cassandra) requires setting up new storage tables and migrating data.
+
+
 Downgrading
 ^^^^^^^^^^^
 
-Because we've worked hard to maintain backwards compatability, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the ``tsdb-tree`` and ``tsdb-meta`` tables if you so desire.
+Because we've worked hard to maintain backwards compatibility, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the ``tsdb-tree`` and ``tsdb-meta`` tables if you so desire.
+
+Downgrades within a major version are idempotent.
+
+.. WARNING::
+
+  If you wrote data using a salted table or changed the UID widths for metrics, tag keys or tag values then you cannot downgrade. Create a new table and export the data from the old table, then re-write the data to the new table using the older TSD version.

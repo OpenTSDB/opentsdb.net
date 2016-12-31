@@ -62,10 +62,10 @@
 <li><a class="reference internal" href="#">What's New</a><ul>
 <li><a class="reference internal" href="#x-planned">3.X (Planned)</a></li>
 <li><a class="reference internal" href="#planned">2.4 (Planned)</a></li>
-<li><a class="reference internal" href="#release-candidate">2.3 (Release Candidate)</a></li>
-<li><a class="reference internal" href="#id1">2.2</a></li>
-<li><a class="reference internal" href="#id2">2.1</a></li>
-<li><a class="reference internal" href="#id3">2.0</a></li>
+<li><a class="reference internal" href="#id1">2.3</a></li>
+<li><a class="reference internal" href="#id2">2.2</a></li>
+<li><a class="reference internal" href="#id3">2.1</a></li>
+<li><a class="reference internal" href="#id4">2.0</a></li>
 </ul>
 </li>
 </ul>
@@ -117,8 +117,8 @@
 <li>Distributed Percentile - Store histograms (or sketches) for calculating proper percentiles over multiple sources.</li>
 </ul>
 </div>
-<div class="section" id="release-candidate">
-<h2>2.3 (Release Candidate)</h2>
+<div class="section" id="id1">
+<h2>2.3</h2>
 <ul class="simple">
 <li>Expressions - Query time computations using time series data. For example, dividing one metric by another.</li>
 <li>Graphite Style Functions - Additional filtering and mutation of data at query time using Graphite style functions.</li>
@@ -129,9 +129,10 @@
 <li>New Aggregators - None for returning raw data. First and Last to return the first or last data points during downsampling.</li>
 <li>Meta Data Cache Plugin - A new API for caching meta data to improve query performance.</li>
 <li>Startup Plugins - APIs to help with service discovery on TSD startup.</li>
+<li>Example Java API usage classes.</li>
 </ul>
 </div>
-<div class="section" id="id1">
+<div class="section" id="id2">
 <h2>2.2</h2>
 <ul class="simple">
 <li>Appends - Support writing all data points for an hour in a single column. This saves the need for TSD compactions and reduces network traffic at query time.</li>
@@ -151,7 +152,7 @@
 <li>Query Stats - Query details are now logged that include timing statistics. A new endpoint also shows running and completed queries.</li>
 </ul>
 </div>
-<div class="section" id="id2">
+<div class="section" id="id3">
 <h2>2.1</h2>
 <ul class="simple">
 <li>Downsampling - Timestamps are now aligned on modulus boundaries, reducing the need to interpolation across series.</li>
@@ -162,7 +163,7 @@
 <li>UID Cache - Preload portions of the UID table on startup to improve writes</li>
 </ul>
 </div>
-<div class="section" id="id3">
+<div class="section" id="id4">
 <h2>2.0</h2>
 <ul class="simple">
 <li>Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names, or values</li>

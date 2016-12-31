@@ -70,6 +70,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#upgrading-from-1-x">Upgrading from 1.x</a></li>
+<li><a class="reference internal" href="#upgrading-from-2-x-to-a-later-2-x">Upgrading from 2.x to a Later 2.x</a></li>
 <li><a class="reference internal" href="#downgrading">Downgrading</a></li>
 </ul>
 </li>
@@ -109,7 +110,7 @@
 <h2>Runtime Requirements</h2>
 <p>To actually run OpenTSDB, you'll need to meet the following:</p>
 <ul class="simple">
-<li>A Linux system</li>
+<li>A Linux system (or Windows with manual building)</li>
 <li>Java Runtime Environment 1.6 or later</li>
 <li>HBase 0.92 or later</li>
 <li>GnuPlot 4.2 or later</li>
@@ -117,7 +118,7 @@
 </div>
 <div class="section" id="id1">
 <h2>Installation</h2>
-<p>First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the <a class="reference external" href="https://hbase.apache.org/book/quickstart.html">Apache Quick Start</a> guide. Alternatively you could try a packaged distribution such as <a class="reference external" href="http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html">Cloudera's CDH</a> or <a class="reference external" href="http://hortonworks.com/products/hdp-2/">Hortonworks HDP</a></p>
+<p>First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the <a class="reference external" href="https://hbase.apache.org/book/quickstart.html">Apache Quick Start</a> guide. Alternatively you could try a packaged distribution such as <a class="reference external" href="http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html">Cloudera's CDH</a>, <a class="reference external" href="http://hortonworks.com/products/hdp-2/">Hortonworks HDP</a> or <a href="#id2"><span class="problematic" id="id3">`MapR&lt;https://www.mapr.com/&gt;`_</span></a>.</p>
 <p>Before proceeding with OpenTSDB, make certain that Zookeeper is accessible. One method is to simply telnet to the proper port and execute the <code class="docutils literal"><span class="pre">stats</span></code> command.</p>
 <div class="highlight-python"><div class="highlight"><pre>root@host:~# telnet localhost 2181
 Trying 127.0.0.1...
@@ -158,7 +159,7 @@ cd opentsdb
 ./build.sh
 </pre></div>
 </div>
-<p>If compilation was successfuly, you should have a tsdb jar file in <code class="docutils literal"><span class="pre">./build</span></code> along with a <code class="docutils literal"><span class="pre">tsdb</span></code> script. You can now execute command-line tool by invoking <code class="docutils literal"><span class="pre">./build/tsdb</span></code> or you can run <code class="docutils literal"><span class="pre">make</span> <span class="pre">install</span></code> to install OpenTSDB on your system. Should you ever change your mind, there is also <code class="docutils literal"><span class="pre">make</span> <span class="pre">uninstall</span></code>, so there are no strings attached.</p>
+<p>If compilation was successfully, you should have a tsdb jar file in <code class="docutils literal"><span class="pre">./build</span></code> along with a <code class="docutils literal"><span class="pre">tsdb</span></code> script. You can now execute command-line tool by invoking <code class="docutils literal"><span class="pre">./build/tsdb</span></code> or you can run <code class="docutils literal"><span class="pre">make</span> <span class="pre">install</span></code> to install OpenTSDB on your system. Should you ever change your mind, there is also <code class="docutils literal"><span class="pre">make</span> <span class="pre">uninstall</span></code>, so there are no strings attached.</p>
 <p>If you need to distribute OpenTSDB to machines without an Internet connection, call <code class="docutils literal"><span class="pre">./build.sh</span> <span class="pre">dist</span></code> to wrap the build directory into a tarball that you can then copy to additional machines.</p>
 </div>
 <div class="section" id="source-layout">
@@ -173,7 +174,7 @@ cd opentsdb
 <li>/etc/opentsdb - Configuration files</li>
 <li>/tmp/opentsdb - Temporary cache files</li>
 <li>/usr/share/opentsdb - Application files</li>
-<li>/usr/share/opentsdb/bin - The &quot;tsdb&quot; startup script that launches a TSD or commandline tools</li>
+<li>/usr/share/opentsdb/bin - The &quot;tsdb&quot; startup script that launches a TSD or command line tools</li>
 <li>/usr/share/opentsdb/lib - Java JAR library files</li>
 <li>/usr/share/opentsdb/plugins - Location for plugin files and dependencies</li>
 <li>/usr/share/opentsdb/static - Static files for the GUI</li>
@@ -224,7 +225,7 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
 </pre></div>
 </div>
 <p>where <code class="docutils literal"><span class="pre">COMPRESSION</span></code> is the same as your existing production table compression format.</p>
-<p>While you can start a 2.3 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code>. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> for details.</p>
+<p>While you can start a 2.3 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code>. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accessible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> for details.</p>
 <p>You do not have to upgrade all of your TSDs to 2.3 at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.</p>
 <p>If you do perform a rolling upgrade where you have multiple TSDs, heed the following warning:</p>
 <div class="admonition warning">
@@ -233,9 +234,26 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
 </div>
 <p>Before upgrading to 2.x, you may want to upgrade all of your TSDs to OpenTSDB 1.2. This release is fully forwards compatible in that it will ignore annotations and millisecond timestamps and operate as expected. With 1.2 running, if you accidentally record an annotation or millisecond data point, your 1.2 TSDs will operate normally.</p>
 </div>
+<div class="section" id="upgrading-from-2-x-to-a-later-2-x">
+<h2>Upgrading from 2.x to a Later 2.x</h2>
+<p>In general, upgrading within a single major release branch is simply a matter of updating the binaries or package and restarting a TSD. Within a branch we'll maintain settings, APIs and schema. However new features may be added with each minor version that include new configuration settings with useful defaults.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The exception so far has been the introduction of salted rows in 2.2.0. Disabled by default, using this feature requires creating a new HBase table with a new set of pre-splits and modifying the configuration of every TSD to use the new table with salting enabled. The schema for salted and unsalted tables is incompatible so if users have a lot of data in a previous table, it may be best to leave a few TSDs running to query against the old table and new TSDs to write to and read from the new salted table. For smaller amounts of data, the <a class="reference internal" href="user_guide/cli/scan.html"><em>scan</em></a> tool can be used to export and re-import your data.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Likewise with 2.3, the introduction of new backends (Bigtable or Cassandra) requires setting up new storage tables and migrating data.</p>
+</div>
+</div>
 <div class="section" id="downgrading">
 <h2>Downgrading</h2>
-<p>Because we've worked hard to maintain backwards compatability, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the <code class="docutils literal"><span class="pre">tsdb-tree</span></code> and <code class="docutils literal"><span class="pre">tsdb-meta</span></code> tables if you so desire.</p>
+<p>Because we've worked hard to maintain backwards compatibility, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the <code class="docutils literal"><span class="pre">tsdb-tree</span></code> and <code class="docutils literal"><span class="pre">tsdb-meta</span></code> tables if you so desire.</p>
+<p>Downgrades within a major version are idempotent.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you wrote data using a salted table or changed the UID widths for metrics, tag keys or tag values then you cannot downgrade. Create a new table and export the data from the old table, then re-write the data to the new table using the older TSD version.</p>
+</div>
 </div>
 </div>
 

@@ -74,6 +74,7 @@
 <li><a class="reference internal" href="#count">Count</a></li>
 <li><a class="reference internal" href="#dev">Dev</a></li>
 <li><a class="reference internal" href="#estimated-percentiles">Estimated Percentiles</a></li>
+<li><a class="reference internal" href="#first-last">First &amp; Last</a></li>
 <li><a class="reference internal" href="#max">Max</a></li>
 <li><a class="reference internal" href="#mimmin">MimMin</a></li>
 <li><a class="reference internal" href="#mimmax">MimMax</a></li>
@@ -303,7 +304,7 @@ For the graphically inclined we have the following examples. An imaginary metric
 <p>It seems intuitive from the image above that if you &quot;stack up&quot; the red line and the green line, you'd get the blue line. At any discrete point in time, the blue line has a value that is equal to the sum of the value of the red line and the value of the green line at that time. Without interpolation, you get something rather unintuitive that is harder to make sense of, and which is also a lot less meaningful and useful:</p>
 <img alt="../../_images/without-lerp.png" src="../../_images/without-lerp.png" />
 <p>Notice how the blue line drops down to the green data point at 18:46:48. No need to be a mathematician or to have taken advanced maths classes to see that interpolation is needed to properly aggregate multiple time series together and get meaningful results.</p>
-<p>At the moment OpenTSDB only supports <strong>`linear interpolation &lt;http://en.wikipedia.org/wiki/Linear_interpolation&gt;`_</strong> (sometimes shortened &quot;lerp&quot;) for sake of simplicity. Patches are welcome for those who would like to add other interpolation methods.</p>
+<p>At the moment OpenTSDB primarily supports <a class="reference external" href="http://en.wikipedia.org/wiki/Linear_interpolation">linear interpolation</a> (sometimes shortened &quot;lerp&quot;) along with some aggregators that will simply substitute zeros or the max or min value. Patches are welcome for those who would like to add other interpolation methods.</p>
 <p>Interpolation is only performed at query time when more than one time series are found to match a query. Many metrics collection systems interpolate on <em>write</em> so that you original value is never recorded. OpenTSDB stores your original value and lets you retrieve it at any time.</p>
 <p>Here is another slightly more complicated example that came from the mailing list, depicting how multiple time series are aggregated by average:</p>
 <a class="reference external image-reference" href="../../_images/aggregation_average.png"><img alt="Click the image to enlarge." src="../../_images/aggregation-average_sm.png" /></a>
@@ -544,6 +545,14 @@ For the graphically inclined we have the following examples. An imaginary metric
 <td>Calculates the estimated 999th percentile with the R-7 method *</td>
 <td>Linear Interpolation</td>
 </tr>
+<tr class="row-odd"><td>first</td>
+<td>Returns the first data point in the set. Only useful for downsampling, not aggregation. (2.3)</td>
+<td>Indeterminate</td>
+</tr>
+<tr class="row-even"><td>last</td>
+<td>Returns the last data point in the set. Only useful for downsampling, not aggregation. (2.3)</td>
+<td>Indeterminate</td>
+</tr>
 <tr class="row-odd"><td>mimmin</td>
 <td>Selects the smallest data point</td>
 <td>Maximum if missing</td>
@@ -615,6 +624,10 @@ For the graphically inclined we have the following examples. An imaginary metric
 <h3>Estimated Percentiles</h3>
 <p>Calculates various percentiles using a choice of algorithms. These are useful for series with many data points as some data may be kicked out of the calculation. When used to aggregate multiple series, the function will perform linear interpolation. See <a class="reference external" href="http://en.wikipedia.org/wiki/Quantile">Wikipedia</a> for details. Implementation is through the <a class="reference external" href="http://commons.apache.org/proper/commons-math/">Apache Math library.</a></p>
 </div>
+<div class="section" id="first-last">
+<h3>First &amp; Last</h3>
+<p>(2.3) These aggregators will return the first or the last data point in the downsampling interval. E.g. if a downsample bucket consists of the series <code class="docutils literal"><span class="pre">2,</span> <span class="pre">6,</span> <span class="pre">1,</span> <span class="pre">7</span></code> then the <code class="docutils literal"><span class="pre">first</span></code> aggregator will return <code class="docutils literal"><span class="pre">1</span></code> and <code class="docutils literal"><span class="pre">last</span></code> will return <code class="docutils literal"><span class="pre">7</span></code>. Note that this aggregator is only useful for downsamplers. When used as a group-by aggregator, the results are indeterminate as the ordering of time series retrieved from storage and held in memory is not consistent from TSD to TSD or execution to execution.</p>
+</div>
 <div class="section" id="max">
 <h3>Max</h3>
 <p>The inverse of <code class="docutils literal"><span class="pre">min</span></code>, it returns the largest data point from all of the time series or within a time span. This function will perform linear interpolation across time series. It's useful for looking at the upper bounds of gauge metrics.</p>
@@ -645,7 +658,7 @@ For the graphically inclined we have the following examples. An imaginary metric
 </div>
 <div class="section" id="zimsum">
 <h3>ZimSum</h3>
-<p>Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does <em>not</em> perform interpolation, instead it substitues a <code class="docutils literal"><span class="pre">0</span></code> for missing data points. This can be useful when working with discrete values.</p>
+<p>Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does <em>not</em> perform interpolation, instead it substitutes a <code class="docutils literal"><span class="pre">0</span></code> for missing data points. This can be useful when working with discrete values.</p>
 </div>
 </div>
 </div>

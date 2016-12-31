@@ -72,7 +72,7 @@ It seems intuitive from the image above that if you "stack up" the red line and 
 
 Notice how the blue line drops down to the green data point at 18:46:48. No need to be a mathematician or to have taken advanced maths classes to see that interpolation is needed to properly aggregate multiple time series together and get meaningful results.
 
-At the moment OpenTSDB only supports **`linear interpolation <http://en.wikipedia.org/wiki/Linear_interpolation>`_** (sometimes shortened "lerp") for sake of simplicity. Patches are welcome for those who would like to add other interpolation methods. 
+At the moment OpenTSDB primarily supports `linear interpolation <http://en.wikipedia.org/wiki/Linear_interpolation>`_ (sometimes shortened "lerp") along with some aggregators that will simply substitute zeros or the max or min value. Patches are welcome for those who would like to add other interpolation methods. 
 
 Interpolation is only performed at query time when more than one time series are found to match a query. Many metrics collection systems interpolate on *write* so that you original value is never recorded. OpenTSDB stores your original value and lets you retrieve it at any time.
 
@@ -159,6 +159,8 @@ The following is a description of the aggregation functions available in OpenTSD
    "ep99r7", "Calculates the estimated 99th percentile with the R-7 method \*", "Linear Interpolation"
    "ep999r3", "Calculates the estimated 999th percentile with the R-3 method \*", "Linear Interpolation"
    "ep999r7", "Calculates the estimated 999th percentile with the R-7 method \*", "Linear Interpolation"
+   "first", "Returns the first data point in the set. Only useful for downsampling, not aggregation. (2.3)", "Indeterminate"
+   "last", "Returns the last data point in the set. Only useful for downsampling, not aggregation. (2.3)", "Indeterminate"
    "mimmin", "Selects the smallest data point", "Maximum if missing"
    "mimmax", "Selects the largest data point", "Minimum if missing"
    "min", "Selects the smallest data point", "Linear Interpolation"
@@ -194,6 +196,11 @@ Estimated Percentiles
 ---------------------
 
 Calculates various percentiles using a choice of algorithms. These are useful for series with many data points as some data may be kicked out of the calculation. When used to aggregate multiple series, the function will perform linear interpolation. See `Wikipedia <http://en.wikipedia.org/wiki/Quantile>`_ for details. Implementation is through the `Apache Math library. <http://commons.apache.org/proper/commons-math/>`_ 
+
+First & Last
+------------
+
+(2.3) These aggregators will return the first or the last data point in the downsampling interval. E.g. if a downsample bucket consists of the series ``2, 6, 1, 7`` then the ``first`` aggregator will return ``1`` and ``last`` will return ``7``. Note that this aggregator is only useful for downsamplers. When used as a group-by aggregator, the results are indeterminate as the ordering of time series retrieved from storage and held in memory is not consistent from TSD to TSD or execution to execution.
 
 Max
 ---
@@ -233,4 +240,4 @@ Calculates the sum of all data points from all of the time series or within the 
 ZimSum
 ------
 
-Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitues a ``0`` for missing data points. This can be useful when working with discrete values.
+Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitutes a ``0`` for missing data points. This can be useful when working with discrete values.

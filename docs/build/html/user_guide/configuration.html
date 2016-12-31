@@ -194,6 +194,20 @@ documentation for details.</p>
 <td>0</td>
 <td>&nbsp;</td>
 </tr>
+<tr class="row-even"><td>tsd.core.enable_api <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to allow the 2.x HTTP API to function. When disabled, calls to endpoints such as <code class="docutils literal"><span class="pre">/api/query</span></code> or <code class="docutils literal"><span class="pre">/api/suggest</span></code> will return a 404.</td>
+<td>True</td>
+<td>--disable-api</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.enable_ui <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to allow the built-in GUI and legacy HTTP API to function. When disabled, calls to the root endpoint or other such as <code class="docutils literal"><span class="pre">/logs</span></code> or <code class="docutils literal"><span class="pre">/suggest</span></code> will return a 404.</td>
+<td>True</td>
+<td>--disable-ui</td>
+</tr>
 <tr class="row-even"><td>tsd.core.meta.enable_realtime_ts</td>
 <td>Boolean</td>
 <td>Optional</td>

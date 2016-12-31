@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation &mdash; OpenTSDB 2.2 documentation</title>
+    <title>Installation &mdash; OpenTSDB 2.3 documentation</title>
     
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.2',
+        VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.2 documentation" href="index.html" />
+    <link rel="top" title="OpenTSDB 2.3 documentation" href="index.html" />
     <link rel="next" title="User Guide" href="user_guide/index.html" />
     <link rel="prev" title="What&#39;s New" href="new.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
@@ -52,7 +52,7 @@
         <li class="right" >
           <a href="new.html" title="What&#39;s New"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -194,7 +194,7 @@ cd opentsdb
 </div>
 <div class="section" id="start-a-tsd">
 <h3>Start a TSD</h3>
-<p>OpenTSDB 2.2 works off a configuration file that is shared between the daemon and command line tools. If you compiled from source, copy the <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code> file to a proper directory as documented in <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> and edit the following, required settings:</p>
+<p>OpenTSDB 2.3 works off a configuration file that is shared between the daemon and command line tools. If you compiled from source, copy the <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code> file to a proper directory as documented in <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> and edit the following, required settings:</p>
 <ul class="simple">
 <li><strong>tsd.http.cachedir</strong> - Path to write temporary files to</li>
 <li><strong>tsd.http.staticroot</strong> - Path to the static GUI files found in <code class="docutils literal"><span class="pre">./build/staticroot</span></code></li>
@@ -219,13 +219,13 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
 </div>
 <div class="section" id="upgrading-from-1-x">
 <h2>Upgrading from 1.x</h2>
-<p>OpenTSDB 2.2 is fully backwards compatible with 1.x data. We've taken great pains to make sure you can download 2.2, compile, stop your old TSD and start the new one. Your existing tools will read and write to the TSD without a problem. 2.2 introduces two new tables to HBase schema for storing meta-data. From the directory where you downloaded the source (or the tools directory if installed with the Debian package), execute:</p>
+<p>OpenTSDB 2.3 is fully backwards compatible with 1.x data. We've taken great pains to make sure you can download 2.3, compile, stop your old TSD and start the new one. Your existing tools will read and write to the TSD without a problem. 2.3 introduces two new tables to HBase schema for storing meta-data. From the directory where you downloaded the source (or the tools directory if installed with the Debian package), execute:</p>
 <div class="highlight-python"><div class="highlight"><pre>env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/upgrade_1to2.sh
 </pre></div>
 </div>
 <p>where <code class="docutils literal"><span class="pre">COMPRESSION</span></code> is the same as your existing production table compression format.</p>
-<p>While you can start a 2.2 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code>. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> for details.</p>
-<p>You do not have to upgrade all of your TSDs to 2.2 at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.</p>
+<p>While you can start a 2.3 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code>. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accesible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><em>Configuration</em></a> for details.</p>
+<p>You do not have to upgrade all of your TSDs to 2.3 at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.</p>
 <p>If you do perform a rolling upgrade where you have multiple TSDs, heed the following warning:</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -257,11 +257,11 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
         <li class="right" >
           <a href="new.html" title="What&#39;s New"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2016, OpenTSDB.
+        &copy; Copyright 2017, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

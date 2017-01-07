@@ -1,17 +1,24 @@
-Aggregators
+Aggregation
 ===========
 
-OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. But how do you merge individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different data series into one, giving you a choice of various mathematical operations. Since OpenTSDB doesn't know whether or not a query will return multiple time series, an aggregation function is always required just in case.
+OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. The reason for this is that when users are looking at their data, most often they start at a high level asking questions like "what is my total throughput by data center?" or "what is the current power consumption by region?". After looking at these high level values, one or more may stick out so users drill-down into more granular data sets like "what is the throughput by host in my LAX data center?". We want to make it easy to answer those high level questions but still allow for drilling down for greater detail.
 
-Aggregators have two methods of operation:
+But how do you merge multiple individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different time series into one. Filters are used to group results by tags and aggregations are then applied to each group. Aggregations are similar to SQL's ``GROUP BY`` clause where the user selects a pre-defined aggregation function to merge multiple records into a single result. However in TSDs, a set of records is aggregated per timestamp and group.
+
+Each aggregator has two components:
+
+* **Function** - The mathematical computation applied such as summing all the values, computing the average or picking the highest.
+* **Interpolation** - A way of handling *missing* values such as when time series *A* has a value at *T1* but time series *B* does not have a value.
+
+This document focuses on how aggregators are used in a *group by* context, i.e. when merging multiple time series into one. Additionally, aggregators can be used to downsample time series (i.e. return a lower resolution set of results). For more information, see :doc:`downsampling`.
 
 Aggregation
 ^^^^^^^^^^^
 
-Since OpenTSDB doesn't know whether a query will return multiple time series until it scans through all of the data, an aggregation function must be specified for every query just in case. When more than one series is found, the two series are **aggregated** together into a single time series. For each timestamp in the different time series, the aggregator will perform it's computation for each value in every time series at that timestamp. That is, the aggregator will work *across* all of the time series at each timestamp. The following table illustrates the ``sum`` aggregator as it works across time series ``A`` and ``B`` to produce series ``Output``.
+When aggregating or *grouping* each set of time series into one, the timestamps in every time series are aligned. Then for each timestamp, the values across all time series are aggregated into a new numerical value. That is, the aggregator will work *across* all of the time series at each timestamp. Think of the raw data as a matrix or table as in the following example that illustrates the ``sum`` aggregator as it works across two time series, ``A`` and ``B``, to produce a new time series ``Output``.
 
 .. csv-table::
-   :header: "series", "ts0", "ts0+10s", "ts0+20s", "ts0+30s", "ts0+40s", "ts0+50s"
+   :header: "Time Series", "t0", "t0+10s", "t0+20s", "t0+30s", "t0+40s", "t0+50s"
    :widths: 40, 10, 10, 10, 10, 10, 10
    
    "A", "5", "5", "10", "15", "20", "5"
@@ -19,46 +26,52 @@ Since OpenTSDB doesn't know whether a query will return multiple time series unt
    "Output", "15", "10", "30", "30", "30", "5"
 
 
-For timestamp ``ts0`` the data points for ``A`` and ``B`` are summed, i.e. ``5 + 10 == 15``. Next, the two values for ``ts1`` are summed together to get ``10`` and so on. Each aggregation function will perform a different mathematical operation.
+For timestamp ``t0`` the data points for ``A`` and ``B`` are summed, i.e. ``5 + 10 == 15``. Next, the two values for ``ts1`` are summed together to get ``10`` and so on. In SQL, this may look like ``SELECT SUM(value) FROM ts_table GROUP BY timestamp``.
 
 Interpolation
--------------
+^^^^^^^^^^^^^
 
-In the example above, both time series ``A`` and ``B`` had data points at every time stamp, they lined up neatly. However what happens when two series do not line up? It can be difficult, and sometimes undesired, to synchronize all sources of data to write at the exact same time. For example, if we have 10,000 servers sending 100 system metrics every 5 minutes, that would be a burst of 10M data points in a single second. We would need a pretty beefy network and cluster to accommodate that traffic. Not to mention the system would be sitting idle for the rest of 5 minutes. Instead it makes much more sense to splay the writes over time so that we have an average of 3,333 writes per second to reduce our hardware and network requirements. 
+In the example above, both time series ``A`` and ``B`` had data points at every time stamp, they lined up neatly. However what happens when two series do not line up? It can be difficult, and sometimes undesired, to synchronize all sources of data to write at the exact same time. For example, if we have 10,000 servers sending 100 system metrics every 5 minutes, that would be a burst of 10M data points in a single second. We would need a pretty beefy network and cluster to accommodate that traffic. Not to mention the system would be sitting idle for 4 minutes and 59 seconds. Instead it makes much more sense to splay the writes over time so that we have an average of 3,333 writes per second to reduce our hardware and network requirements. 
 
 .. sidebar:: Missing Data
 
-  By "missing" we simply mean that a time series does not have a data point for the timestamp requested. Usually the data is simply time shifted before or after the requested timestamp, but it could actually be missing if the source or the TSD encountered an error and the data wasn't recorded.
+  By "missing" we simply mean that a time series does not have a data point at a given timestamp. Usually the data is simply time shifted before or after the requested timestamp, but it could actually be missing if the source or the TSD encountered an error and the data wasn't recorded. Some time series DBs may allow for storing a ``NaN`` at a timestamp to represent an unrecordable value but OpenTSDB does not allow this yet.
   
-How do you *sum* or find the *avg* of a number and something that doesn't exist? One option is to simply ignore the data points for all time series at the time stamp where any series is missing data. But if you have two time series and they are simply miss-aligned, your query would return an empty data set even though there is good data in storage, so that's not very useful. 
+How do you *sum* or find the *avg* of a number and something that doesn't exist? One's first instinct is to just return the valid data points and be done with it. However what if you're dealing, as above, with thousands of sources where the data points are simply unaligned? For example, the following graph shows a time series with writes that are unaligned, resulting in a jagged line that is confusing to read:
 
-Another option is to define a scalar value (e.g. ``0`` or the maximum value for a Long) to use whenever a data point is missing. OpenTSDB 2.0 provides a few aggregation methods that substitute a scalar value for missing data points. These are useful when working with distinct value time series such as the number of sales in at a given time.
+.. image:: ../../images/aggregation_zimsum.png
 
-However sometimes it doesn't make sense to define a scalar for missing data. Often you may be recording a monotonically increasing counter such as the number of bytes transmitted from a network interface. With a counter, we can use **interpolation** to make a guess as to what the value would be at that point in time. Interpolation takes two points and the time span between them to calculate a *best guess* value at the time stamp requested.
+Alternatively, you could simply ignore the data points for all time series at a given time stamp where any series is missing data. But if you have two time series and they are simply miss-aligned, your query would return an empty data set even though there is good data in storage, so that's not necessarily very useful.
 
-Take a look at these two time series where the data is simply offset by 10 seconds:
+Another option is to define a scalar value (e.g. ``0`` or the maximum value for a Long) to use whenever a data point is missing. OpenTSDB 2.0 and later provides a few aggregation methods that substitute a scalar value for missing data points and indeed, the graph above was generated using the ``zimsum`` aggregator that replaces unaligned values with a zero. This kind of substitution can be useful when working with distinct value time series such as the total number of sales in at a given time but doesn't work when dealing with averages or visually verifying a graph *looks* good.
+
+One answer OpenTSDB provides is to use the well defined numerical analysis method of `interpolation <https://en.wikipedia.org/wiki/Interpolation>`_ to make a guess as to what the value would be at that point in time. Interpolation uses existing data points for a time series to calculate a *best guess* value at the time stamp requested. Using OpenTSDB's linear interpolation we can smooth out our unaligned graph to get:
+
+.. image:: ../../images/aggregation_sum.png
+
+For a numerical example, take a look at these two time series where the sources issue a value every 20 seconds and the data is simply offset by 10 seconds:
 
 .. csv-table::
-   :header: "series", "ts0", "ts0+10s", "ts0+20s", "ts0+30s", "ts0+40s", "ts0+50s", "ts0+60s"
+   :header: "Time Series", "t0", "t0+10s", "t0+20s", "t0+30s", "t0+40s", "t0+50s", "t0+60s"
    :widths: 30, 10, 10, 10, 10, 10, 10, 10
    
-   "A", "na", "5", "na", "15", "na", "5", "na"
-   "B", "10", "na", "20", "na", "10", "na", "20"
+   "A", "*na*", "5", "*na*", "15", "*na*", "5", "*na*"
+   "B", "10", "*na*", "20", "*na*", "10", "*na*", "20"
    
-When OpenTSDB is calculating an aggregation it starts at the first data point found for any series, in this case it will be the data for ``B`` at ``ts0``. We request a value for ``A`` at ``ts0`` but there isn't any data there. We know that there is data for ``A`` at ``ts0+10s`` but since we don't have any value before that, we can't make a guess as to what it would be. Thus we simply return the value for ``B``.
+When OpenTSDB is calculating an aggregation it starts at the first data point found for any series, in this case it will be the data for ``B`` at ``t0``. We request a value for ``A`` at ``t0`` but there isn't any data there. We know that there is data for ``A`` at ``t0+10s`` but since we don't have any value before that, we can't make a guess as to what it would be. Thus we simply return the value for ``B``.
 
-Next we run across a value for ``A`` at time ``ts0+10s``. We request a value for ``ts0+10s`` from time series ``B`` but there isn't one. But ``B`` knows there is a value at ``ts0+20s`` and we had a value at ``ts0`` so we can now calculate a guess for ``ts0+10s``. The formula for linear interpolation is ``y = y0 + (y1 - y0) * ((x - x0) / (x1 - x0))`` where, for series ``B``, ``y0 = 10``, ``y1 = 20``, ``x = ts0+10s (or 10)``, ``x0 = ts0 (or 0)`` and ``x1 = ts0+20s (or 20)``. Thus we have ``y = 10 + (20 - 10) * ((10 - 0) / (20 - 0)`` which will reduce to ``y = 10 + 10 * (10 / 20)`` further reducing to ``y = 10 + 10 * .5`` and ``y = 10 + 5``. Therefore ``B`` will give us a *guestimated* value of ``15`` at ``ts0+10s``.
+Next we run across a value for ``A`` at time ``t0+10s``. We request a value for ``t0+10s`` from time series ``B`` but there isn't one. But ``B`` knows there is a value at ``t0+20s`` and we had a value at ``t0`` so we can now calculate a guess for ``t0+10s``. The formula for linear interpolation is ``y = y0 + (y1 - y0) * ((x - x0) / (x1 - x0))`` where, for series ``B``, ``y0 = 10``, ``y1 = 20``, ``x = t0+10s (or 10)``, ``x0 = t0 (or 0)`` and ``x1 = t0+20s (or 20)``. Thus we have ``y = 10 + (20 - 10) * ((10 - 0) / (20 - 0)`` which will reduce to ``y = 10 + 10 * (10 / 20)`` further reducing to ``y = 10 + 10 * .5`` and ``y = 10 + 5``. Therefore ``B`` will give us a *guestimated* value of ``15`` at ``t0+10s``.
 
 Iteration continues over every timestamp for which a data point is found for every series returned as a part of the query. The resulting series, using the **sum** aggregator, will look like this:
 
 .. csv-table::
-   :header: "series", "ts0", "ts0+10s", "ts0+20s", "ts0+30s", "ts0+40s", "ts0+50s", "ts0+60s"
+   :header: "series", "t0", "t0+10s", "t0+20s", "t0+30s", "t0+40s", "t0+50s", "t0+60s"
    :widths: 30, 10, 10, 10, 10, 10, 10, 10
    
-   "A", "na", "5", "na", "15", "na", "5", "na"
-   "B", "10", "na", "20", "na", "10", "na", "20"
-   "Interpolated A", "na", "", "10", "", "10", "", ""
-   "Interpolated B", "", "15", "", "15", "", "15", "na"
+   "A", "*na*", "5", "*na*", "15", "*na*", "5", "*na*"
+   "B", "10", "*na*", "20", "*na*", "10", "*na*", "20"
+   "Interpolated A", "", "", "10", "", "10", "", ""
+   "Interpolated B", "", "15", "", "15", "", "15", "*na*"
    "Summed Result", "10", "20", "30", "25", "20", "20", "20"
 
 **More Examples:**
@@ -79,8 +92,6 @@ Interpolation is only performed at query time when more than one time series are
 Here is another slightly more complicated example that came from the mailing list, depicting how multiple time series are aggregated by average:
 
 .. image:: ../../images/aggregation-average_sm.png
-   :target: ../../_images/aggregation_average.png
-   :alt: Click the image to enlarge.
 
 The thick blue line with triangles is the an aggregation with the ``avg`` function of multiple time series as per the query ``start=1h-ago&m=avg:duration_seconds``. As we can see, the resulting time series has one data point at each timestamp of all the underlying time series it aggregates, and that data point is computed by taking the average of the values of all the time series at that timestamp. This is also true for the lonely data point of the squared-purple time series, that temporarily boosted the average until the next data point. 
 
@@ -89,108 +100,72 @@ The thick blue line with triangles is the an aggregation with the ``avg`` functi
 Downsampling
 ^^^^^^^^^^^^
 
-The second method of operation for aggregation functions is ``downsampling``. Since OpenTSDB stores data at the original resolution indefinitely, requesting data for a long time span can return millions of points. This can cause a burden on bandwidth or graphing libraries so it's common to request data at a lower resolution for longer spans. Downsampling breaks the long span of data into smaller spans and merges the data for the smaller span into a single data point. Aggregation functions will perform the same calculation as for an aggregation process but instead of working across data points for multiple time series at a single time stamp, downsampling works across multiple data points within a single time series over a given time span.
+As mentioned above, interpolation is one means of handling missing data. But some users hate the fact that linear interpolation is a way of *lying* about the data because it generates phantom values. Instead one means of handling unaligned values is through downsampling. For example, if sources report a value every minute but they're skewed in time across that minute, provide a downsampling on 1 minute for every query across that source data. This will have the result of *snapping* the values to the same timestamp across each time series so that interpolation is *mostly* avoided. Interpolation will still occur when a downsampling *bucket* is missing a value.
 
-For example, take series ``A`` and ``B`` in the first table under **Aggregation**. The data points cover a 50 second time span. Let's say we want to downsample that to 30 seconds. This will give us two data points for each series:
+See :doc:`downsampling` for details and examples on avoiding interpolation.
 
-.. csv-table::
-   :header: "series", "ts0", "ts0+10s", "ts0+20s", "ts0+30s", "ts0+40s", "ts0+50s"
-   :widths: 40, 10, 10, 10, 10, 10, 10
-   
-   "A", "5", "5", "10", "15", "20", "5"
-   "A Downsampled", "", "", "", "35", "", "25"
-   "B", "10", "5", "20", "15", "10", "0"
-   "B Downsampled", "", "", "", "50", "", "10"
-   "Aggregated Result", "", "", "", "85", "", "35"
+.. NOTE:: In general it's a good ideal to downsample every query that will incorporate multiple time series.
 
-For early versions of OpenTSDB, the actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. As of 2.1 and later, the timestamp for each point is aligned to the start of a time bucket based on a modulo of the current time and the downsample interval.
-
-Note that when a query specifies a down sampling function and multiple time series are returned, downsampling occurs **before** aggregation. I.e. now that we have ``A Downsampled`` and ``B Downsampled`` we can aggregate the two series to come up with the aggregated result on the bottom line.
-
-Fill Policies
-^^^^^^^^^^^^^
-
-With version 2.2 you can specify a fill policy when downsampling to substitute values for use in cross-series aggregations when data points are "missing". Because OpenTSDB does not impose constraints on time alignment or when values are supposed to exist, such constraints must be specified at query time. At serialization time, if all series are missing values for an expected timestamp, nothing is emitted. For example, if a series is writing data every minute from T0 to T4, but for some reason the source fails to write data at T3, only 4 values will be serialized when the user may expect 5. With fill policies you can now choose what value is emitted for T3.
-
-When aggregating multiple series OpenTSDB generally performs linear interpolation when a series is missing a value at a timestamp present in one or more other series. Some aggregators substitute specific values such as zero, min or max values. With fill policies you can modify aggregation behavior by flagging a missing value as a NaN or a scalar such as zero. When a NaN is emitted for a series, it is skipped for all calculations. For example, if a query asks for the average of a metric and one or more series are missing values, substituting a 0 would drive down the average and lerping introduces non-extant values. However with NaNs we can flag the value as missing and skip it in the calculation.
-
-Available polices include:
-
-* None (``none``) - The default behavior that does not emit missing values during serialization and performs linear interpolation (or otherwise specified interpolation) when aggregating series.
-* NaN (``nan``) - Emits a ``NaN`` in the serialization output when all values are missing in a series. Skips series in aggregations when the value is missing.
-* Null (``null``) - Same behavior as NaN except that during serialization it emits a ``null`` instead of a ``NaN``.
-* Zero (``zero``) - Substitutes a zero when a timestamp is missing. The zero value will be incorporated in aggregated results.
-
-(The terms in parentheses can be used in downsampling specifications, e.g. ``1h-sum-nan``)
-
-An example with the NaN fill policy and downsampling on 10 seconds:
-
-.. csv-table::
-   :header: "series", "ts0", "ts0+10s", "ts0+20s", "ts0+30s", "ts0+40s", "ts0+50s", "ts0+60s"
-   :widths: 30, 10, 10, 10, 10, 10, 10, 10
-   
-   "A", "na", "na", "na", "15", "na", "5", "na"
-   "B", "10", "na", "20", "na", "na", "na", "20"
-   "Interpolated A", "NaN", "NaN", "NaN", "", "NaN", "", "NaN"
-   "Interpolated B", "", "NaN", "", "NaN", "NaN", "NaN", ""
-   "Summed Result", "10", "NaN", "20", "15", "NaN", "5", "20"
-   
 Available Aggregators
 ^^^^^^^^^^^^^^^^^^^^^
 
-The following is a description of the aggregation functions available in OpenTSDB. 
+The following is a description of the aggregation functions available in OpenTSDB. Note that some should only be used for grouping and others for downsampling.
 
 .. csv-table::
-   :header: "Aggregator", "Description", "Interpolation"
-   :widths: 20, 40, 40
+   :header: "Aggregator", "TSD Version", ""Description", "Interpolation"
+   :widths: 10, 10, 40, 40
    
-   "avg", "Averages the data points", "Linear Interpolation"
-   "count", "The number of raw data points in the set", "Zero if missing"
-   "dev", "Calculates the standard deviation", "Linear Interpolation"
-   "ep50r3", "Calculates the estimated 50th percentile with the R-3 method \*", "Linear Interpolation"
-   "ep50r7", "Calculates the estimated 50th percentile with the R-7 method \*", "Linear Interpolation"
-   "ep75r3", "Calculates the estimated 75th percentile with the R-3 method \*", "Linear Interpolation"
-   "ep75r7", "Calculates the estimated 75th percentile with the R-7 method \*", "Linear Interpolation"
-   "ep90r3", "Calculates the estimated 90th percentile with the R-3 method \*", "Linear Interpolation"
-   "ep90r7", "Calculates the estimated 90th percentile with the R-7 method \*", "Linear Interpolation"
-   "ep95r3", "Calculates the estimated 95th percentile with the R-3 method \*", "Linear Interpolation"
-   "ep95r7", "Calculates the estimated 95th percentile with the R-7 method \*", "Linear Interpolation"
-   "ep99r3", "Calculates the estimated 99th percentile with the R-3 method \*", "Linear Interpolation"
-   "ep99r7", "Calculates the estimated 99th percentile with the R-7 method \*", "Linear Interpolation"
-   "ep999r3", "Calculates the estimated 999th percentile with the R-3 method \*", "Linear Interpolation"
-   "ep999r7", "Calculates the estimated 999th percentile with the R-7 method \*", "Linear Interpolation"
-   "first", "Returns the first data point in the set. Only useful for downsampling, not aggregation. (2.3)", "Indeterminate"
-   "last", "Returns the last data point in the set. Only useful for downsampling, not aggregation. (2.3)", "Indeterminate"
-   "mimmin", "Selects the smallest data point", "Maximum if missing"
-   "mimmax", "Selects the largest data point", "Minimum if missing"
-   "min", "Selects the smallest data point", "Linear Interpolation"
-   "max", "Selects the largest data point", "Linear Interpolation"
-   "none", "Skips group by aggregation of all time series. (2.3)", "Zero if missing"
-   "p50", "Calculates the 50th percentile", "Linear Interpolation"
-   "p75", "Calculates the 75th percentile", "Linear Interpolation"
-   "p90", "Calculates the 90th percentile", "Linear Interpolation"
-   "p95", "Calculates the 95th percentile", "Linear Interpolation"
-   "p99", "Calculates the 99th percentile", "Linear Interpolation"
-   "p999", "Calculates the 999th percentile", "Linear Interpolation"
-   "sum", "Adds the data points together", "Linear Interpolation"
-   "zimsum", "Adds the data points together", "Zero if missing"
+   "avg", "1.0", "Averages the data points", "Linear Interpolation"
+   "count", "2.2", "The number of raw data points in the set", "Zero if missing"
+   "dev", "1.0", "Calculates the standard deviation", "Linear Interpolation"
+   "ep50r3", "2.2", "Calculates the estimated 50th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep50r7", "2.2", "Calculates the estimated 50th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep75r3", "2.2", "Calculates the estimated 75th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep75r7", "2.2", "Calculates the estimated 75th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep90r3", "2.2", "Calculates the estimated 90th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep90r7", "2.2", "Calculates the estimated 90th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep95r3", "2.2", "Calculates the estimated 95th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep95r7", "2.2", "Calculates the estimated 95th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep99r3", "2.2", "Calculates the estimated 99th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep99r7", "2.2", "Calculates the estimated 99th percentile with the R-7 method \*", "Linear Interpolation"
+   "ep999r3", "2.2", "Calculates the estimated 999th percentile with the R-3 method \*", "Linear Interpolation"
+   "ep999r7", "2.2", "Calculates the estimated 999th percentile with the R-7 method \*", "Linear Interpolation"
+   "first", "2.3", "Returns the first data point in the set. Only useful for downsampling, not aggregation.", "Indeterminate"
+   "last", "2.3", "Returns the last data point in the set. Only useful for downsampling, not aggregation.", "Indeterminate"
+   "mimmin", "2.0", "Selects the smallest data point", "Maximum if missing"
+   "mimmax", "2.0", "Selects the largest data point", "Minimum if missing"
+   "min", "1.0", "Selects the smallest data point", "Linear Interpolation"
+   "max", "1.0", "Selects the largest data point", "Linear Interpolation"
+   "none", "2.3", "Skips group by aggregation of all time series.", "Zero if missing"
+   "p50", "2.2", "Calculates the 50th percentile", "Linear Interpolation"
+   "p75", "2.2", "Calculates the 75th percentile", "Linear Interpolation"
+   "p90", "2.2", "Calculates the 90th percentile", "Linear Interpolation"
+   "p95", "2.2", "Calculates the 95th percentile", "Linear Interpolation"
+   "p99", "2.2", "Calculates the 99th percentile", "Linear Interpolation"
+   "p999", "2.2", "Calculates the 999th percentile", "Linear Interpolation"
+   "sum", "1.0", "Adds the data points together", "Linear Interpolation"
+   "zimsum", "2.0", "Adds the data points together", "Zero if missing"
 
 \* For percentile calculations, see the `Wikipedia <http://en.wikipedia.org/wiki/Quantile>`_ article. For high cardinality calculations, using the estimated percentiles may be more performant.
 
 Avg
 ---
 
-Calculates the average of all values across the time span or across multiple time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.
+Calculates the average of all values across the downsampling bucket or across multiple time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. 
+
+.. NOTE:: Even though the calculation will usually result in a floating point value, if the data points are recorded as integers, an integer will be returned losing some precision.
 
 Count
 -----
 
-Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted. It's best to use this when downsampling.
+Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted. When used with downsampling, it will reflect the number of data points in each downsample *bucket*. When used in a group-by aggregation, reflects the number of time series with values at a given time.
 
 Dev
 ---
 
-Calculates the `standard deviation <http://en.wikipedia.org/wiki/Standard_deviation>`_ across a span or time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. Note that even though the calculation will usually result in a float, if the data points are recorded as integers, an integer will be returned losing some precision.
+Calculates the `standard deviation <http://en.wikipedia.org/wiki/Standard_deviation>`_ across a bucket or time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. 
+
+.. NOTE:: Even though the calculation will usually result in a floating point value, if the data points are recorded as integers, an integer will be returned losing some precision.
 
 Estimated Percentiles
 ---------------------
@@ -200,7 +175,9 @@ Calculates various percentiles using a choice of algorithms. These are useful fo
 First & Last
 ------------
 
-(2.3) These aggregators will return the first or the last data point in the downsampling interval. E.g. if a downsample bucket consists of the series ``2, 6, 1, 7`` then the ``first`` aggregator will return ``1`` and ``last`` will return ``7``. Note that this aggregator is only useful for downsamplers. When used as a group-by aggregator, the results are indeterminate as the ordering of time series retrieved from storage and held in memory is not consistent from TSD to TSD or execution to execution.
+These aggregators will return the first or the last data point in the downsampling interval. E.g. if a downsample bucket consists of the series ``2, 6, 1, 7`` then the ``first`` aggregator will return ``1`` and ``last`` will return ``7``. Note that this aggregator is only useful for downsamplers. 
+
+.. WARNING:: When used as a group-by aggregator, the results are indeterminate as the ordering of time series retrieved from storage and held in memory is not consistent from TSD to TSD or execution to execution.
 
 Max
 ---
@@ -225,7 +202,7 @@ Returns only the smallest data point from all of the time series or within the t
 None
 ----
 
-(2.3) Skips group by aggregation. This aggregator is useful for fetching the *raw* data from storage as it will return a result set for every time series matching the filters. Note that the query will throw an exception if used with a downsampler.
+Skips group by aggregation. This aggregator is useful for fetching the *raw* data from storage as it will return a result set for every time series matching the filters. Note that the query will throw an exception if used with a downsampler.
 
 Percentiles
 -----------
@@ -241,3 +218,8 @@ ZimSum
 ------
 
 Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitutes a ``0`` for missing data points. This can be useful when working with discrete values.
+
+Listing Aggregators
+^^^^^^^^^^^^^^^^^^^
+
+With the HTTP API running on a TSD, users can query the ``/api/aggregators`` to get a list of aggregators implemented on the TSD.

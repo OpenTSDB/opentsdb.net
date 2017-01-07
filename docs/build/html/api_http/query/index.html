@@ -64,8 +64,12 @@
 <li><a class="reference internal" href="#">/api/query</a><ul>
 <li><a class="reference internal" href="#query-api-endpoints">Query API Endpoints</a></li>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
-<li><a class="reference internal" href="#requests">Requests</a><ul>
-<li><a class="reference internal" href="#sub-queries">Sub Queries</a></li>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#sub-queries">Sub Queries</a><ul>
+<li><a class="reference internal" href="#rate-options">Rate Options</a></li>
+<li><a class="reference internal" href="#downsampling">Downsampling</a></li>
+<li><a class="reference internal" href="#filters">Filters</a></li>
+<li><a class="reference internal" href="#filter-conversions">Filter Conversions</a></li>
 <li><a class="reference internal" href="#metric-query-string-format">Metric Query String Format</a></li>
 <li><a class="reference internal" href="#tsuid-query-string-format">TSUID Query String Format</a></li>
 <li><a class="reference internal" href="#example-query-string-requests">Example Query String Requests</a></li>
@@ -225,16 +229,25 @@
 <td>&nbsp;</td>
 <td>true</td>
 </tr>
-<tr class="row-odd"><td>showSummary</td>
+<tr class="row-odd"><td>showSummary <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to show a summary of timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects.</td>
+<td>Whether or not to show a summary of timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects. See <a class="reference internal" href="../../user_guide/query/stats.html"><em>Query Details and Stats</em></a></td>
 <td>false</td>
 <td>show_summary</td>
 <td>&nbsp;</td>
 <td>true</td>
 </tr>
-<tr class="row-even"><td>showQuery</td>
+<tr class="row-even"><td>showStats <em>(2.2)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to show detailed timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects. See <a class="reference internal" href="../../user_guide/query/stats.html"><em>Query Details and Stats</em></a></td>
+<td>false</td>
+<td>show_stats</td>
+<td>&nbsp;</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>showQuery <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to return the original sub query with the query results. If the request contains many sub queries then this is a good way to determine which results belong to which sub query. Note that in the case of a <code class="docutils literal"><span class="pre">*</span></code> or wildcard query, this can produce a lot of duplicate output.</td>
@@ -243,7 +256,7 @@
 <td>&nbsp;</td>
 <td>true</td>
 </tr>
-<tr class="row-odd"><td>delete</td>
+<tr class="row-even"><td>delete</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Can be passed to the JSON with a POST to delete any data points that match the given query.</td>
@@ -252,10 +265,29 @@
 <td>W</td>
 <td>true</td>
 </tr>
+<tr class="row-odd"><td>timezone <em>(2.3)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional timezone for calendar-based downsampling. Must be a valid <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">timezone</a> database name supported by the JRE installed on the TSD server.</td>
+<td>UTC</td>
+<td>timezone</td>
+<td>&nbsp;</td>
+<td>Asia/Kabul</td>
+</tr>
+<tr class="row-even"><td>useCalendar <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not use the calendar based on the given timezone for downsampling intervals</td>
+<td>false</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>true</td>
+</tr>
 </tbody>
 </table>
+</div>
 <div class="section" id="sub-queries">
-<h3>Sub Queries</h3>
+<h2>Sub Queries</h2>
 <p>An OpenTSDB query requires at least one sub query, a means of selecting which time series should be included in the result set. There are two types:</p>
 <ul class="simple">
 <li><strong>Metric Query</strong> - The full name of a metric is supplied along with an optional list of tags. This is optimized for aggregating multiple time series into one result.</li>
@@ -340,7 +372,8 @@
 </tr>
 </tbody>
 </table>
-<p><em>Rate Options</em></p>
+<div class="section" id="rate-options">
+<h3>Rate Options</h3>
 <p>When passing rate options in a query string, the options must be enclosed in curly braces. For example:  <code class="docutils literal"><span class="pre">m=sum:rate{counter,,1000}:if.octets.in</span></code>. If you wish to use the default <code class="docutils literal"><span class="pre">counterMax</span></code> but do want to supply a <code class="docutils literal"><span class="pre">resetValue</span></code>, you must add two commas as in the previous example. Additional fields in the <code class="docutils literal"><span class="pre">rateOptions</span></code> object include the following:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -384,20 +417,25 @@
 </tr>
 </tbody>
 </table>
-<p><em>Downsampling</em></p>
-<p>Downsample specifications const if an interval, a unit of time, an aggregator and (as of 2.2) an optional fill policy. The format of a downsample spec is:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;interval&gt;&lt;units&gt;-&lt;aggregator&gt;[-&lt;fill policy&gt;]
+</div>
+<div class="section" id="downsampling">
+<h3>Downsampling</h3>
+<p>Downsample specifications const if an interval, a unit of time, the <code class="docutils literal"><span class="pre">c</span></code> flag to use calendar based downsampling (as of 2.3), an aggregator and (as of 2.2) an optional fill policy. The format of a downsample spec is:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;interval&gt;&lt;units&gt;-&lt;aggregator&gt;[c][-&lt;fill policy&gt;]
 </pre></div>
 </div>
 <p>For example:</p>
 <div class="highlight-python"><div class="highlight"><pre>1h-sum
 30m-avg-nan
 24h-max-zero
+1dc-sum
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="../../user_guide/query/aggregators.html"><em>Aggregators</em></a> for a list of supported fill policies.</p>
-<p><em>Filters</em></p>
-<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><em>Filters</em></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
+<p>See <a class="reference internal" href="../../user_guide/query/downsampling.html"><em>Downsampling</em></a> for details on downsampling, a list of supported fill policies and how calendar based downsampling operates.</p>
+</div>
+<div class="section" id="filters">
+<h3>Filters</h3>
+<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><em>Query Filters</em></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -456,7 +494,9 @@
 <p class="first admonition-title">Note</p>
 <p class="last">When submitting a JSON query to OpenTSDB 2.2 or later, use either <code class="docutils literal"><span class="pre">tags</span></code> OR <code class="docutils literal"><span class="pre">filters</span></code>. Only one will take effect and the order is indeterminate as the JSON parser may deserialize one before the other. We recommend using filters for all future queries.</p>
 </div>
-<p><em>Filter Conversions</em></p>
+</div>
+<div class="section" id="filter-conversions">
+<h3>Filter Conversions</h3>
 <p>Values in the POST query <code class="docutils literal"><span class="pre">tags</span></code> map and the <em>group by</em> curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -722,6 +762,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </div>
 <div class="section" id="example-with-show-summary-and-query">
 <h3>Example With Show Summary and Query</h3>
+<p>See <a class="reference internal" href="../../user_guide/query/stats.html"><em>Query Details and Stats</em></a></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Query Performance &mdash; OpenTSDB 2.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
+    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="next" title="Query Examples" href="examples.html" />
+    <link rel="prev" title="Downsampling" href="downsampling.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="../../_static/solarized-dark.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18339382-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Query Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="downsampling.html" title="Downsampling"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Query Performance</a><ul>
+<li><a class="reference internal" href="#caching">Caching</a></li>
+<li><a class="reference internal" href="#one-out-of-many-queries">One Out of Many Queries</a></li>
+<li><a class="reference internal" href="#high-cardinality-query">High Cardinality Query</a></li>
+<li><a class="reference internal" href="#wide-time-span-queries">Wide Time Span Queries</a></li>
+<li><a class="reference internal" href="#general-improvements">General Improvements</a><ul>
+<li><a class="reference internal" href="#multiple-read-tsds">Multiple Read TSDs</a></li>
+<li><a class="reference internal" href="#tune-storage">Tune Storage</a></li>
+<li><a class="reference internal" href="#educate-users">Educate Users</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="downsampling.html"
+                        title="previous chapter">Downsampling</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter">Query Examples</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="query-performance">
+<h1>Query Performance</h1>
+<p>Query performance is critical for any database system. This page lists some common OpenTSDB issues and steps to improve performance.</p>
+<div class="section" id="caching">
+<h2>Caching</h2>
+<p>At this time OpenTSDB doesn't have a built-in cache (aside from the built-in GUI that will cache PNG image files for 60 seconds). Therefore we rely on the underlying database's cache. In HBase (the most common OpenTSDB backend) there is the concept of a Block cache that will store blocks of rows and columns in memory on write and/or read. A good primer is <a class="reference external" href="http://www.n10k.com/blog/blockcache-101/">Nick Dimiduck's Block Cache 101</a>. One good way to setup the cache is to use the <code class="docutils literal"><span class="pre">BucketCache</span></code> and size the L1 cache fairly large so that it acts as a write cache and keeps most of your recent data in memory. Then the L2 cache can keep frequently queried data in memory as users run their queries.</p>
+<p>Carefully watch your region servers for GC pauses. Users typically run the bucket cache in off-heap mode but there is still a penalty to pay in serializing between Java and JNI for off-heap cache hits and writes.</p>
+<p>Also, make sure that compression is enabled on your HBase tables. Blocks are stored in memory using the compression algorithm specified on the table, thus you can fit more compressed blocks in cache than uncompressed.</p>
+</div>
+<div class="section" id="one-out-of-many-queries">
+<h2>One Out of Many Queries</h2>
+<p>If you commonly have queries where you're looking for one or two time series amongst a metric with vary high cardinality (i.e. many tag values) then make sure you are using version 2.3 or later with <code class="docutils literal"><span class="pre">explicitTags</span></code> enabled in your query. The query must list all of the tag keys associated with the data you are looking for but it will enable a special filter on HBase that will help to reduce the number of rows scanned. See <a class="reference internal" href="filters.html"><em>Query Filters</em></a> for details.</p>
+<p>Alternatively, if you place a high-cardinality tag in the metric name, this will greatly reduce the amount of data scanned at query time and improve performance. See <a class="reference internal" href="../writing/index.html"><em>Writing Data</em></a> for more information.</p>
+</div>
+<div class="section" id="high-cardinality-query">
+<h2>High Cardinality Query</h2>
+<p>For queries that are aggregating many time series together, the best way to improve performance is to run OpenTSDB 2.2 or later with salting enabled and run multiple region servers in an HBase cluster. This will execute queries in parallel, fetching subsets of data from each region server and merging the results. For example, with a single region server, a query may take 10 seconds to complete. When writing the same data to 5 region servers with salting, the same query should take about 2 seconds, the time it takes for the slowest region server to respond. Merging the sets is generally insignificant time wise.</p>
+</div>
+<div class="section" id="wide-time-span-queries">
+<h2>Wide Time Span Queries</h2>
+<p>Queries that are looking at wide timespans (such as months or years) can benefit from dowmsampling if the bottleneck is observed between the TSD and consuming application (such as a UI or API client). Using a downsampler will reduce the amount of data serialized by the TSD and sent to the user.</p>
+<p>However if the bottleneck is between storage (HBase) and the TSD then the best solution is to start writing rolled-up data using OpenTSDB 2.4 or later. This requires an external system to compute time-based rollups and write them to storage. Alternatively a UI or API client can execute multiple queries against multiple TSDs for smaller time spans and merge the results together. In the future we plan on adding such capabilities to TSDs directly.</p>
+</div>
+<div class="section" id="general-improvements">
+<h2>General Improvements</h2>
+<p>Additional items to consider:</p>
+<div class="section" id="multiple-read-tsds">
+<h3>Multiple Read TSDs</h3>
+<p>Run multiple TSDs dedicated to reading data and place a load balancer in front of them. This is the most common setup observed when running OpenTSDB and allows for rotating upgrades of TSDs without taking down the entire system.</p>
+</div>
+<div class="section" id="tune-storage">
+<h3>Tune Storage</h3>
+<p>HBase has many, many parameters that can be tuned and in general, most of OpenTSDB's bottlenecks arise from HBase. Make sure to monitor the servers, particularly queues, cache, response times, CPU and GCs.</p>
+</div>
+<div class="section" id="educate-users">
+<h3>Educate Users</h3>
+<p>No database system is immune to long-running or resource hogging queries. Ask users to start with smaller time ranges, such as 1 hour, and gradually increase their time-ranges. Also help users understand cardinality and how asking for <code class="docutils literal"><span class="pre">high_cardinality_tag_key=*</span></code> may be a bad idea.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Query Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="downsampling.html" title="Downsampling"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2017, OpenTSDB.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

@@ -68,7 +68,7 @@
 <li><a class="reference internal" href="#aggregation">Aggregation</a></li>
 <li><a class="reference internal" href="#downsampling">Downsampling</a></li>
 <li><a class="reference internal" href="#rate">Rate</a></li>
-<li><a class="reference internal" href="#order-of-operations">Order of operations</a></li>
+<li><a class="reference internal" href="#order-of-operations">Order of Operations</a></li>
 </ul>
 </li>
 </ul>
@@ -110,6 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Query Filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aggregators.html">Aggregation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="downsampling.html">Downsampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Query Performance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Query Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stats.html">Query Details and Stats</a></li>
 </ul>
@@ -241,7 +242,7 @@ sys.cpu.user host=webserver02,cpu=1  1356998400  1
 <p>Systems that track data in counters often revert to 0 when restarted. When that happens and we could get a spurious result when using the max counter feature. For example, if the counter has reached <code class="docutils literal"><span class="pre">2000</span></code> at <code class="docutils literal"><span class="pre">t0</span></code> and someone reboots the server, the next value may be <code class="docutils literal"><span class="pre">500</span></code> at <code class="docutils literal"><span class="pre">t1</span></code>. If we set our max to <code class="docutils literal"><span class="pre">65535</span></code> the result would be <code class="docutils literal"><span class="pre">65535</span> <span class="pre">-</span> <span class="pre">2000</span> <span class="pre">+</span> <span class="pre">500</span></code> to give us <code class="docutils literal"><span class="pre">64035</span></code>. If the normal rate is a few points per second, this particular spike, with <code class="docutils literal"><span class="pre">30s</span></code> between points, would create a rate spike of <code class="docutils literal"><span class="pre">2,134.5</span></code>! To avoid this, we can set the <code class="docutils literal"><span class="pre">resetValue</span></code> which will, when the rate exceeds this value, return a data point of <code class="docutils literal"><span class="pre">0</span></code> so as to avoid spikes in either direction. For the example above, if we know that our rate almost never exceeds 100, we could configure a <code class="docutils literal"><span class="pre">resetValue</span></code> of <code class="docutils literal"><span class="pre">100</span></code> and when the data point above is calculated, it will return <code class="docutils literal"><span class="pre">0</span></code> instead of <code class="docutils literal"><span class="pre">2,134.5</span></code>. The default value of 0 means the reset value will be ignored, no rates will be suppressed.</p>
 </div>
 <div class="section" id="order-of-operations">
-<h2>Order of operations</h2>
+<h2>Order of Operations</h2>
 <p>Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:</p>
 <ol class="arabic simple">
 <li>Filtering</li>

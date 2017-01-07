@@ -11,6 +11,7 @@ OpenTSDB offers a number of means to extract, manipulate and analyze data. Data 
    filters
    aggregators
    downsampling
+   performance
    examples
    stats  
 
@@ -99,7 +100,7 @@ OpenTSDB 2.0 provides support for special monotonically increasing counter data 
 
 Systems that track data in counters often revert to 0 when restarted. When that happens and we could get a spurious result when using the max counter feature. For example, if the counter has reached ``2000`` at ``t0`` and someone reboots the server, the next value may be ``500`` at ``t1``. If we set our max to ``65535`` the result would be ``65535 - 2000 + 500`` to give us ``64035``. If the normal rate is a few points per second, this particular spike, with ``30s`` between points, would create a rate spike of ``2,134.5``! To avoid this, we can set the ``resetValue`` which will, when the rate exceeds this value, return a data point of ``0`` so as to avoid spikes in either direction. For the example above, if we know that our rate almost never exceeds 100, we could configure a ``resetValue`` of ``100`` and when the data point above is calculated, it will return ``0`` instead of ``2,134.5``. The default value of 0 means the reset value will be ignored, no rates will be suppressed.
 
-Order of operations
+Order of Operations
 ^^^^^^^^^^^^^^^^^^^
 
 Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:

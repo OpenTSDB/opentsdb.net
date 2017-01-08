@@ -1,6 +1,6 @@
 Downsampling
 ============
-
+.. index:: Downsampling
 Downsampling (or in signal processing, *decimation*) is the process of reducing the sampling rate, or resolution, of data. For example, lets say a temperature sensor is sending data to an OpenTSDB system every second. If a user queries for data over an hour time span, they would receive 3,600 data points, something that could be graphed fairly easily. However now if the user asks for a full week of data they'll receive 604,800 data points and suddenly the graph may become pretty messy. Using a downsampler, multiple data points within a time range for a single time series are aggregated together with a mathematical function into a single value at an aligned timestamp. This way we can reduce the number of values from say, 604,800 to 168. 
 
 Downsamplers require at least two components:
@@ -30,7 +30,7 @@ Normalization works very well for common queries such as a day's worth of data d
 
 Calendar Boundaries
 ^^^^^^^^^^^^^^^^^^^
-
+.. index:: Calendars
 Starting with OpenTSDB 2.3, users can specify calendar based downsampling instead of the quick modulus method. This is much more useful for reporting purposes such as looking at values relating to human times such as months, weeks or days. Additionally downsampling can account for timezones and incorporate daylight savings time shifts and zone offsets.
 
 To use calendar boundaries, check the documentation for the endpoint you're making a query from. For example, the V2 URI endpoint has a specific timezone parameter to be used such as ``&timezone=Asia/Kabul`` and calendar based downsampling is enabled by appending a ``c`` to the interval time units as in ``&m=sum:1dc-sum:my.metric``. For JSON queries, a separate ``timezone`` field is used at the top level along with a ``useCalendar`` boolean flag. If no timezone is provided, calendars use UTC time.
@@ -39,7 +39,7 @@ With calendar downsampling, the first interval is snapped to January 1st at 00:0
 
 Fill Policies
 ^^^^^^^^^^^^^
-
+.. index:: Fill Policy
 Downsampling is often used to align timestamps to avoid interpolation when performing a group-by. Because OpenTSDB does not impose constraints on time alignment or when values are supposed to exist, such constraints must be specified at query time. When performing a group-by aggregation with downsampling, if all series are missing values for an expected interval, nothing is emitted. For example, if a series is writing data every minute from ``t0`` to ``t0+6m``, but for some reason the source fails to write data at ``t0+3m``, only 5 values will be serialized when the user may expect 6. With fill policies in 2.2 and later, you can now choose what value is emitted for ``t0+3m`` so that the user (or application) will *see* that a value was missing for a specific timestamp instead of having to figure out which timestamp was missing. Fill policies simply emit a pre-defined value any time a downsample bucket is empty.
 
 Available polices include:

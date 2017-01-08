@@ -1,6 +1,6 @@
 rollup
 ======
-
+.. index:: Telnet rollup
 Attempts to write a rolled up and/or pre-aggregated data point to storage. Note that UTF-8 characters may not be handled properly by the Telnet style API so use the :doc:`../api_http/rollup` method instead or use the Java API directly. Also see the :doc:`../user_guide/rollup` documentation for more information. This endpoint behaves in a similar manner to the :doc:`put` API.
 
 Request

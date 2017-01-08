@@ -1,6 +1,6 @@
 Trees
 =====
-
+.. index:: Trees
 Along with metadata, OpenTSDB 2.0 introduces the concept of **trees**, a hierarchical method of organizing timeseries into an easily navigable structure that can be browsed similar to a file system on a computer. Users can define a number of trees with various rule sets that organize TSMeta objects into a tree structure. Then users can browse the resulting tree via an HTTP API endpoint. See :doc:`../api_http/tree/index` for details.
 
 Tree Terminology
@@ -15,7 +15,7 @@ Tree Terminology
 
 Branch
 ^^^^^^
-
+.. index:: Branches
 Each node of a tree is recorded as a *branch* object. Each branch contains information such as:
 
 * **Branch ID** - The ID of the branch. This is a hexadecimal value described below.
@@ -44,14 +44,14 @@ IDs are created this way primarily due to the method of branch and leaf storage 
 
 Leaves
 ^^^^^^
-
+.. index:: Leaves
 A unique timeseries is represented as a *leaf* on the tree. A leaf can appear on any branch in the structure, including the root. But they will usually appear at the end of a series of branches in a branch that has one or more leaves but no child branches. Each leaf contains the TSUID for the timeseries to be used in a query as well as the metric and tag name/values. It also contains a *display name* that is parsed from the rule set but may not be identical to any of the metric, tag names or tag values.
 
 Ideally a timeseries will only appear once on a tree. But if the TSMeta object for a timeseries, OR the UIDMeta for a metric or tag is modified, it may be processed a second time and a second leaf added. This can happen particularly in situations where a tree has a *custom* rule on the metric, tag name or tag value where the TSMeta has been processed then a user adds a custom field that matches the rule set. In these situations it is recommended to enable *strict matching* on the tree so that the timeseries will not show up until the custom data has been added.
 
 Rules
 ^^^^^
-
+.. index:: Rules
 Each tree is dynamically built from a set of rules defined by the user. A rule set must contain at least one rule and usually will have more than one. Each set has multiple *levels* that determine the order of rule processing. Rules located at level 0 are processed first, then rules at level 1, and so on until all of the rules have been applied to a given timeseries. Each level in the rule set may have multiple rules to handle situations where metrics and tags may not have been planned out ahead of time or some arbitrary data may have snuck in. If multiple rules are stored in a level, the first one with a successful match will be applied and the others ignored. These rules are also ordered by the *order* field so that a rule with order 0 is processed first, then a rule with order 1 and so on. In logs and when using the test endpoint, rules are usually given IDs in the format of "[<treeId>:<level>:<order>:<type>]" such as "[1:0:1:0]" indicates the rule for tree 1, at level 0, order 1 of the type ``METRIC``.
 
 Rule Types
@@ -124,7 +124,7 @@ Each rule can only process a regex, a separator, or neither. If the rule has bot
 
 Tree Building
 ^^^^^^^^^^^^^
-
+.. index:: Building Trees
 First, you must create the ``tsdb-tree`` table in HBase if you haven't already done so. If you enable tree processing and the table does not exist, the TSDs will not start.
 
 A tree can be built in two ways. The ``tsd.core.tree.enable_processing`` configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The resulting branch will be recorded to storage. If a collision occurs or the TSUID failed to match on any rules, a warning will be logged and if the tree options configured, may be recorded to storage.
@@ -145,7 +145,7 @@ The general process for creating and building a tree is as follows:
 
 Rule Processing Order
 ---------------------
-
+.. index:: Rule Order
 A tree will usually have more than one rule in order for the resulting tree to be useful. As noted above, rules are organized into levels and orders. A TSMeta is processed through the rule set starting at level 0 and order 0. Processing proceedes through the rules on a level in increasing order. After the first rule on a level that successfully matches on the TSMeta data, processing skips to the next level. This means that rules on a level are effectively ``or``ed. If level 0 has rules at order 0, 1, 2 and 3, and the TSMeta matches on the rule with an order of 1, the rules with order 2 and 3 will be skipped.
 
 When editing rules, it may happen that some levels or orders are skipped or left empty. In these situations, processing simply skips the empty locations. You should do your best to keep things organized properly but the rule processor is a little forgiving.
@@ -159,7 +159,7 @@ By default strict matching is disabled so that as many timeseries as possible ca
 
 Collisions
 ^^^^^^^^^^
-
+.. index:: Collisions
 Due to the flexibility of rule sets and the wide variety of metric, tag name and value naming, it is almost inevitable that two different TSMeta entries would try to create the same leaf on a tree. Each branch can only have one leaf with a given display name. For example, if a branch has a leaf named ``user`` with a tsuid of ``010101`` but the tree tries to add a new leaf named ``user`` with a tsuid of ``020202``, the new leaf will not be added to the tree. Instead, a *collision* entry will be recorded for the tree to say that tsuid ``0202020`` collided with an existing leaf for tsuid ``010101``. The HTTP API can then be used to query the collision list to see if a particular TSUID did not appear in the tree due to a collision.
 
 Not Matched

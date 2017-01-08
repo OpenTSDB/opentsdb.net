@@ -1,6 +1,6 @@
 What's New
 ==========
-
+.. index:: News
 OpenTSDB has a thriving community who contributed and requested a number of new features. 
 
 3.X (Planned)

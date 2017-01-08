@@ -5,7 +5,7 @@ In OpenTSDB, when you write a timeseries data point, it is always associated wit
 
 UID
 ^^^
-
+.. index:: UIDs
 Types of UID objects include:
 
 * **metric** - A metric such as ``sys.cpu.0`` or ``trades.per.second``
@@ -57,7 +57,7 @@ Another idea is to simply bump up the UIDs to 4 bytes then calculate a hash on t
 
 TSUIDs
 ^^^^^^
-
+.. index:: TSUIDs
 When a data point is written to OpenTSDB, the row key is formatted as ``<metric_UID><timestamp><tagk1_UID><tagv1_UID>[...<tagkN_UID><tagvN_UID>]``. By simply dropping the timestamp from the row key, we have a long array of UIDs that combined, form a unique timeseries ID. Encoding the bytes as a hex string will give us a useful TSUID that can be passed around various API calls. Thus from our UID example above where each metric, tag name and value has a UID of 1, our TSUID, encoded as a hexadecimal string, would be ``000001000001000001``. 
 
 While this TSUID format may be long and ugly, particularly with all of the 0s for early UIDs, there are a few reasons why this is useful:

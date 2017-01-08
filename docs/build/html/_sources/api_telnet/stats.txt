@@ -1,6 +1,6 @@
 stats
 =====
-
+.. index:: Telnet stats
 This command is similar to the HTTP :doc:`../api_http/stats/index` endpoint in that it will return a list of the TSD stats, one per line, in the ``put`` format. This command does not modify TSD in any way.
 
 Request

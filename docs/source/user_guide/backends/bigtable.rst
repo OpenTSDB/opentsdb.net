@@ -1,6 +1,6 @@
 Bigtable
 ========
-
+.. index:: Bigtable
 `Google Cloud Platform <https://cloud.google.com/>`_ provides hosting of Google's Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google's backend is simple. Indeed, the schemas (see :doc:`hbase`) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.
 
 .. NOTE:: The clients for Bigtable are in beta and undergoing a number of changes. Performance should improve as we adjust the code and uncover new tuning parameters. Please help us out on the mailing list or by modifying the code in GitHub.

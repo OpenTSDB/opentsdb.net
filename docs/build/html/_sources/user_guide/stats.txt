@@ -1,6 +1,6 @@
 Stats
 =====
-
+.. index:: Stats
 OpenTSDB offers a number of metrics about its performance, accessible via various API endpoints. The main stats are accessible from the GUI via the "Stats" tab, from the Http API at ``/api/stats`` or the legacy API at ``/stats``. The Telnet style API also supports the "stats" command for fetching over CLI. These can easily be published right back into OpenTSDB at any interval you like. 
 
 Additional stats available include JVM information, storage details (e.g. per-region-client HBase stats) and executed query details. See :doc:`../api_http/stats/index` for more details about the other endpoints.

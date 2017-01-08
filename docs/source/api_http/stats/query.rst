@@ -1,6 +1,6 @@
 /api/stats/query
 ================
-
+.. index:: HTTP /api/stats/query
 This endpoint can be used for tracking and troubleshooting queries executed against a TSD. It maintains an unbounded list of currently executing queries as well as a list of up to 256 completed queries (rotating the oldest queries out of memory). Information about each query includes the original query, request headers, response code, timing and an exception if thrown. (v2.2)
 
 Verbs

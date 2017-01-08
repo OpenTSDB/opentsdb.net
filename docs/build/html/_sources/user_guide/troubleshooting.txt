@@ -1,6 +1,6 @@
 Troubleshooting
 ===============
-
+.. index:: Troubleshooting
 This page lists common issues encountered by users of OpenTSDB along with various troubleshooting steps. If you run into an issue, please check the `OpenTSDB Google Group <https://groups.google.com/forum/#!forum/opentsdb>`_ or the `Github Issues <https://github.com/OpenTSDB/opentsdb/issues>`_. If you can't find an answer, please include your operating system, TSD version and HBase version in your question.
 
 OpenTSDB compactions trigger large .tmp files and region server crashes in HBase

@@ -1,6 +1,6 @@
 /api/rollup
 ===========
-
+.. index:: HTTP /api/rollup
 This endpoint allows for storing rolled up and/or pre-aggregated data in OpenTSDB over HTTP. For details on rollups and pre-aggs, please see the user guide: :doc:`../../user_guide/rollups`.
 
 Also see the :doc:`put` documentation for notes and common parameters that are shared with the ``/api/rollup`` endpoint. This page lays out the differences between the two.

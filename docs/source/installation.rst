@@ -1,11 +1,11 @@
 Installation
 ============
-
+.. index:: Installation
 OpenTSDB may be compiled from source or installed from a package. Releases can be found on `Github <https://github.com/OpenTSDB/opentsdb/releases>`_.
 
 Runtime Requirements
 ^^^^^^^^^^^^^^^^^^^^
-
+.. index:: Requirements
 To actually run OpenTSDB, you'll need to meet the following:
 
 * A Linux system (or Windows with manual building)
@@ -45,7 +45,7 @@ If HBase is running, you can choose to install OpenTSDB from a package (availabl
 
 Compiling From Source
 ---------------------
-
+.. index:: Compilation
 Compilation requirements include:
 
 * A Linux system
@@ -70,8 +70,13 @@ If you need to distribute OpenTSDB to machines without an Internet connection, c
 
 Source Layout
 -------------
+.. index:: Source
+There are four main branches in the GIT repo.
 
-There are two main branches in the GIT repo. The ``master`` branch is the latest stable release along with any bug fixes that have been committed between releases. Currently, the ``master`` branch is OpenTSDB 2.0.1. The ``next`` branch is the next major or minor version of OpenTSDB with new features and development. When ``next`` is stable, it will be merged into ``master``. Currently the ``next`` branch is 2.1.0 RC 1. Additional branches may be present and are used for testing or developing specific features.
+* **master** This is the current release of OpenTSDB. It has been marked as stable and in between releases, only bug-fixes are applied. This is always suitable for running in production.
+* **maintenance** This was the previous release of OpenTSDB and may have bug fixes applied in between releases.
+* **next** The current version of OpenTSDB under development. This version is suitable for development environments and may have new features as well as bug fixes. If a release candidate has been cut, this branch will only contain bug fixes and is suitable for a staging environment.
+* **put** The next version of OpenTSDB that may have new features when a release candidate is present in the **next** branch. 
 
 Debian Package
 --------------
@@ -136,7 +141,7 @@ At this point you can access the TSD's web interface through http://127.0.0.1:42
 
 Upgrading from 1.x
 ^^^^^^^^^^^^^^^^^^
-
+.. index:: Upgrading
 OpenTSDB |version| is fully backwards compatible with 1.x data. We've taken great pains to make sure you can download |version|, compile, stop your old TSD and start the new one. Your existing tools will read and write to the TSD without a problem. |version| introduces two new tables to HBase schema for storing meta-data. From the directory where you downloaded the source (or the tools directory if installed with the Debian package), execute::
 
   env COMPRESSION=NONE HBASE_HOME=path/to/hbase-0.94.X ./src/upgrade_1to2.sh
@@ -169,7 +174,7 @@ In general, upgrading within a single major release branch is simply a matter of
 
 Downgrading
 ^^^^^^^^^^^
-
+.. index:: Downgrading
 Because we've worked hard to maintain backwards compatibility, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the ``tsdb-tree`` and ``tsdb-meta`` tables if you so desire.
 
 Downgrades within a major version are idempotent.

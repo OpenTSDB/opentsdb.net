@@ -1,6 +1,6 @@
 /api/uid/assign
 ===============
-
+.. index:: HTTP /api/uid/assign
 This endpoint enables assigning UIDs to new metrics, tag names and tag values. Multiple types and names can be provided in a single call and the API will process each name individually, reporting which names were assigned UIDs successfully, along with the UID assigned, and which failed due to invalid characters or had already been assigned. Assignment can be performed via query string or content data.
 
 Verbs

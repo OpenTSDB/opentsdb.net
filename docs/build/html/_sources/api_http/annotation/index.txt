@@ -1,6 +1,6 @@
 /api/annotation
 ===============
-
+.. index:: HTTP /api/annotation
 These endpoints provides a means of adding, editing or deleting annotations stored in the OpenTSDB backend. Annotations are very basic objects used to record a note of an arbitrary event at some point, optionally associated with a timeseries. Annotations are not meant to be used as a tracking or event based system, rather they are useful for providing links to such systems by displaying a notice on graphs or via API query calls.
 
 When creating, modifying or deleting annotations, all changes will be propagated to the search plugin if configured.

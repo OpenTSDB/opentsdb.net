@@ -1,6 +1,6 @@
 Query Filters
 =============
-
+.. index:: Filters
 A critical function of any database system is to enable fetching subsets of the full data set using some form of filtering. OpenTSDB has provided filtering since version 1.x with expanded capabilities starting with 2.2 and beyond. Filters currently operate on tag values at this time. That means that any metrics and tag keys must be specified exactly as they appear in the database when fetching data.
 
 **Example Data**
@@ -21,7 +21,8 @@ As each filter is explained below, the following data se tis used. It consists o
 
 Grouping
 --------
-
+.. index:: Grouping
+.. index:: Group By
 Grouping, also referred to as *group-by*, is the process of combining multiple time series into one using the required aggregation function and filters. By default, OpenTSDB groups everything by metric so that if the query returned 10 time series with an aggregator of ``sum``, all 10 series would be added together over time to arrive at one value. See :doc:`aggregators` for details on how time series are merged.
 
 To avoid grouping and fetch each underlying time series without any aggregation, use the ``none`` aggregator included in version 2.2. Alternatively, you can disable grouping on a per-filter bases with OpenTSDB 2.2 and later. See API documentation on how to do so.
@@ -99,7 +100,7 @@ Multiple filters on the same tag key are allowed and when processed, they are *A
 
 Explicit Tags
 -------------
-
+.. index:: Explicit Tags
 As of 2.3 and later, if you know all of the tag keys for a given metric query latency can be improved greatly by using the ``explicitTags`` feature. This flag has two benefits:
 
 #. For metrics that have a high cardinality, the backend can switch to a more efficient query to fetch a smaller subset of data from storage. (Particularly in 2.4)
@@ -158,7 +159,7 @@ The examples below use the URI syntax.
 
 literal_or
 ^^^^^^^^^^
-
+.. index:: literal_or
 Takes a single literal value or a ``|`` pipe delimited list of values and returns any time series matching the results on a case sensitive bases. This is a very efficient filter as it can resolve the strings to UIDs and send that to the storage layer for pre-filtering. In SQL this is similar to the ``IN`` or ``=`` predicates.
 
 *Examples*
@@ -168,22 +169,22 @@ Takes a single literal value or a ``|`` pipe delimited list of values and return
 
 ilteral_or
 ^^^^^^^^^^
-
+.. index:: iliteral_or
 The same as a ``literal_or`` but is case insensitive. Note that this is not efficient like the literal or as it must post-process all rows from storage.
 
 not_literal_or
 ^^^^^^^^^^^^^^
-
+.. index:: not_literal_or
 Case sensitive ``literal_or`` that will return series that do **NOT** match the given list of values. Efficient as it can be pre-processed by storage.
 
 not_iliteral_or
 ^^^^^^^^^^^^^^^
-
+.. index:: not_iliteral_or
 Case insensitive ``not_literal_or``.
 
 wildcard
 ^^^^^^^^
-
+.. index:: wildcard
 Provides case sensitive postfix, prefix, infix and multi-infix filtering. The wildcard character is an asterisk (star) ``*``. Multiple wildcards can be used. If only the asterisk is given, the filter effectively returns any time series that include the tag key (and is an efficient filter that can be pre-processed). In SQL land, this is similar to ``LIKE`` predicate with a bit more flexibility.
 
 *Examples*
@@ -196,12 +197,12 @@ Provides case sensitive postfix, prefix, infix and multi-infix filtering. The wi
 
 iwildcard
 ^^^^^^^^^
-
+.. index:: iwildcard
 The same as ``wildcard`` but case insensitive.
 
 regexp
 ^^^^^^
-
+.. index:: regexp
 Filters using POSIX compliant regular expressions post fetching from storage. The filter uses Java's built-in regular expression operation. Be careful to escape special characters depending on the query method used.
 
 *Examples*

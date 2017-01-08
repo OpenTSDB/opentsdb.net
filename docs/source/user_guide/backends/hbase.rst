@@ -1,6 +1,6 @@
 HBase Schema
 ============
-
+.. index:: HBase
 Data Table Schema
 ^^^^^^^^^^^^^^^^^
 

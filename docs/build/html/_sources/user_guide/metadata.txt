@@ -1,11 +1,11 @@
 Metadata
 ========
-
+.. index:: Metadata
 The primary purpose of OpenTSDB is to store timeseries data points and allow for various operations on that data. However it helps to know what kind of data is stored and provide some context when working with the information. OpenTSDB's metadata is data about the data points. Much of it is user configurable to provide tie-ins with external tools such as search engines or issue tracking systems. This chapter describes various metadata available and what it's used for.
 
 UIDMeta
 ^^^^^^^
-
+.. index:: UIDMeta
 Every data point stored in OpenTSDB has at least three UIDs associated with
 it. There will always be a ``metric`` and one or more tag pairs consisting of
 a ``tagk`` or tag name, and a ``tagv`` or tag value. When a new name for one
@@ -18,7 +18,7 @@ Whenever a new UIDMeta object is created or modified, it will be pushed to the S
 
 TSMeta
 ^^^^^^
-
+.. index:: TSMeta
 Each timeseries in OpenTSDB is uniquely identified by the combination of it's metric UID and tag name/value UIDs, creating a TSUID as per :doc:`uids`. When a new timeseries is received, a TSMeta object can be recorded in the ``tsdb-uid`` table in a row identified by the TSUID. The meta object includes some immutable fields such as the ``tsuid``, ``metric``, ``tags``, ``lastReceived`` and ``created`` timestamp that reflects the time when the TSMeta was first received. Additionally some fields can be edited such as a ``description``, ``notes`` and others. See :doc:`../api_http/uid/tsmeta` for details.
 
 Enabling Metadata
@@ -40,7 +40,7 @@ For situations where a TSD crashes before metadata can be written to storage or 
 
 Annotations
 ^^^^^^^^^^^
-
+.. index:: Annotations
 Another form of metadata is the *annotation*. Annotations are simple objects associated with a timestamp and, optionally, a timeseries. Annotations are meant to be a very basic means of recording an event. They are not intended as an event management or issue tracking system. Rather they can be used to link a timeseries to such an external system.
 
 Every annotation is associated with a start timestamp. This determines where the note is stored in the backend and may be the start of an event with a beginning and end, or just used to record a note at a specific point in time. Optionally an end timestamp can be set if the note represents a time span, such as an issue that was resolved some time after the start.

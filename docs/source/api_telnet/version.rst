@@ -1,6 +1,6 @@
 version
 =======
-
+.. index:: Telnet version
 This command is similar to the HTTP :doc:`../api_http/version` endpoint in that it will return information about the currently running version of OpenTSDB. This command does not modify TSD in any way.
 
 Request

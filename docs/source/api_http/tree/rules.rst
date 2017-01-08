@@ -1,6 +1,6 @@
 /api/tree/rules
 ===============
-
+.. index:: HTTP /api/tree/rules
 The rules endpoint is used for bulk merging, replacing or deleting the entire ruleset of a tree. Instead of calling the ``tree/rule`` endpoint multiple times for a single rule, you can supply a list of rules that will be merged into, or replace, the current rule set. Note that the ``GET`` verb is not supported for this endpoint. To fetch the ruleset, load the tree via the ``/tree`` endpoint. Also, all data must be provided in request content, query strings are not supported.
    
 Verbs

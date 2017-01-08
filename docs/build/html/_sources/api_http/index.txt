@@ -1,6 +1,6 @@
 HTTP API
 ========
-
+.. index:: HTTP API
 OpenTSDB provides an HTTP based application programming interface to enable integration with external systems. Almost all OpenTSDB features are accessiable via the API such as querying timeseries data, managing metadata and storing data points. Please read this entire page for important information about standard API behavior before investigating individual endpoints.
 
 Overview
@@ -15,7 +15,7 @@ OpenTSDB 1.x had a simple HTTP API that provided access to common behaviors such
 
 Serializers
 -----------
-
+.. index:: HTTP Serializers
 2.0 introduces pluggable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read :doc:`serializers/index`
 
 All API calls use the default JSON serializer unless overridden by query string or ``Content-Type`` header. To override:
@@ -33,7 +33,7 @@ The API documentation will display requests and responses using the JSON seriali
 
 Authentication/Permissions
 --------------------------
-
+.. index:: HTTP Authentication
 As of yet, OpenTSDB lacks an authentication and access control system.
 Therefore no authentication is required when accessing the API. If you wish to
 limit access to OpenTSDB, use network ACLs or firewalls to block access.
@@ -41,7 +41,7 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.
 
 Response Codes
 --------------
-
+.. index:: HTTP Response Codes
 Every request will be returned with a standard HTTP response code. Most responses will include content, particularly error codes that will include details in the body about what went wrong. Successful codes returned from the API include:
 
 .. csv-table::
@@ -70,7 +70,7 @@ Common error response codes include:
    
 Errors
 ------
-
+.. index:: HTTP Errors
 If an error occurs, the API will return a response with an error object formatted per the requested response type. Error object fields include:
 
 .. csv-table::
@@ -101,7 +101,7 @@ Note that the stack trace is truncated. Also, the trace will include system spec
 
 Verbs
 -----
-   
+.. index:: HTTP Verbs
 The HTTP API is RESTful in nature, meaning it does it's best to adhere to the REST protocol by using HTTP verbs to determine a course of action. For example, a ``GET`` request should only return data, a ``PUT`` or ``POST`` should modify data and ``DELETE`` should remove it. Documentation will reflect what verbs can be used on an endpoint and what they do. 
 
 However in some situations, verbs such as ``DELETE`` and ``PUT`` are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using ``GET`` and ``POST`` exclusively. Therefore, while the OpenTSDB API supports extended verbs, most requests can be performed with just ``GET`` by adding the query string parameter ``method_override``. This parameter allows clients to pass data for most API calls as query string values instead of body content. For example, you can delete an annotation by issuing a ``GET`` with a query string ``/api/annotation?start_time=1369141261&tsuid=010101&method_override=delete``. The following table describes verb behavior and overrides.
@@ -149,7 +149,7 @@ The API can accept body content that has been compressed. Make sure to set the `
 
 CORS
 ----
-
+.. index:: HTTP CORs
 OpenTSDB provides simple and preflight support for Cross-Origin Resource Sharing (CORS) requests. To enable CORS, you must supply either a wild card ``*`` or a comma separated list of specific domains in the ``tsd.http.request.cors_domains`` configuration setting and restart OpenTSDB. For example, you can supply a value of ``*`` or you could provide a list of domains such as ``beeblebrox.com,www.beeblebrox.com,aurtherdent.com``. The domain list is case insensitive but must fully match any value sent by clients.
 
 When a ``GET``, ``POST``, ``PUT`` or ``DELETE`` request arrives with the ``Origin`` header set to a valid domain name, the server will compare the domain against the configured list. If the domain appears in the list or the wild card was set, the server will add the ``Access-Control-Allow-Origin`` and ``Access-Control-Allow-Methods`` headers to the response after processing is complete. The allowed methods will always be ``GET, POST, PUT, DELETE``. It does not change per end point. If the request is a CORS preflight, i.e. the ``OPTION`` method is used, the response will be the same but with an empty content body and a 200 status code.
@@ -162,7 +162,7 @@ By default, the ``tsd.http.request.cors_domains`` list is empty and CORS is diab
 
 Documentation
 -------------
-
+.. index:: HTTP Documentation
 The documentation for each endpoint listed below will contain details about how to use that endpoint. Eahc page will contain a description of the endpoint, what verbs are supported, the fields in a request, fields in a respone and examples. 
 
 Request Parameters are a list of field names that you can pass in with your request. Each table has the following information:
@@ -189,7 +189,7 @@ Read :doc:`deprecated`
 
 API Endpoints
 -------------
-
+.. index:: HTTP Endpoints
 .. toctree::
    :maxdepth: 1
    

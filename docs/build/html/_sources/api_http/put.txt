@@ -1,6 +1,6 @@
 /api/put
 ========
-
+.. index:: HTTP /api/put
 This endpoint allows for storing data in OpenTSDB over HTTP as an alternative to the Telnet interface. Put requests can only be performed via content associated with the POST method. The format of the content is dependent on the serializer selected. However there are some common parameters and responses as documented below.
 
 To save on bandwidth, the put API allows clients to store multiple data points in a single request. The data points do not have to be related in any way. Each data point is processed individually and an error with one piece of data will not affect the storing of good data. This means if your request has 100 data points and 1 of them has an error, 99 data points will still be written and one will be rejected. See the Response section below for details on determining what data point was not stored.

@@ -1,6 +1,6 @@
 /api/config/filters
 ===================
-
+.. index:: HTTP /api/config/filters
 **(Version 2.2 and later)**
 This endpoint lists the various filters loaded by the TSD and some information about how to use them.
 

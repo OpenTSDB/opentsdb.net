@@ -1,6 +1,6 @@
 Aggregation
 ===========
-
+.. index:: Aggregation
 OpenTSDB was designed to efficiently combine multiple, distinct time series during query execution. The reason for this is that when users are looking at their data, most often they start at a high level asking questions like "what is my total throughput by data center?" or "what is the current power consumption by region?". After looking at these high level values, one or more may stick out so users drill-down into more granular data sets like "what is the throughput by host in my LAX data center?". We want to make it easy to answer those high level questions but still allow for drilling down for greater detail.
 
 But how do you merge multiple individual time series into a single series of data? Aggregation functions provide the means of mathematically merging the different time series into one. Filters are used to group results by tags and aggregations are then applied to each group. Aggregations are similar to SQL's ``GROUP BY`` clause where the user selects a pre-defined aggregation function to merge multiple records into a single result. However in TSDs, a set of records is aggregated per timestamp and group.
@@ -30,7 +30,7 @@ For timestamp ``t0`` the data points for ``A`` and ``B`` are summed, i.e. ``5 + 
 
 Interpolation
 ^^^^^^^^^^^^^
-
+.. index:: Interpolation
 In the example above, both time series ``A`` and ``B`` had data points at every time stamp, they lined up neatly. However what happens when two series do not line up? It can be difficult, and sometimes undesired, to synchronize all sources of data to write at the exact same time. For example, if we have 10,000 servers sending 100 system metrics every 5 minutes, that would be a burst of 10M data points in a single second. We would need a pretty beefy network and cluster to accommodate that traffic. Not to mention the system would be sitting idle for 4 minutes and 59 seconds. Instead it makes much more sense to splay the writes over time so that we have an average of 3,333 writes per second to reduce our hardware and network requirements. 
 
 .. sidebar:: Missing Data
@@ -150,73 +150,74 @@ The following is a description of the aggregation functions available in OpenTSD
 
 Avg
 ---
-
+.. index:: avg
 Calculates the average of all values across the downsampling bucket or across multiple time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. 
 
 .. NOTE:: Even though the calculation will usually result in a floating point value, if the data points are recorded as integers, an integer will be returned losing some precision.
 
 Count
 -----
-
+.. index:: count
 Returns the number of data points stored in the series or range. When used to aggregate multiple series, zeros will be substituted. When used with downsampling, it will reflect the number of data points in each downsample *bucket*. When used in a group-by aggregation, reflects the number of time series with values at a given time.
 
 Dev
 ---
-
+.. index:: dev
 Calculates the `standard deviation <http://en.wikipedia.org/wiki/Standard_deviation>`_ across a bucket or time series. This function will perform linear interpolation across time series. It's useful for looking at gauge metrics. 
 
 .. NOTE:: Even though the calculation will usually result in a floating point value, if the data points are recorded as integers, an integer will be returned losing some precision.
 
 Estimated Percentiles
 ---------------------
-
+.. index:: Estimated Percentiles
 Calculates various percentiles using a choice of algorithms. These are useful for series with many data points as some data may be kicked out of the calculation. When used to aggregate multiple series, the function will perform linear interpolation. See `Wikipedia <http://en.wikipedia.org/wiki/Quantile>`_ for details. Implementation is through the `Apache Math library. <http://commons.apache.org/proper/commons-math/>`_ 
 
 First & Last
 ------------
-
+.. index:: first
+.. index:: last
 These aggregators will return the first or the last data point in the downsampling interval. E.g. if a downsample bucket consists of the series ``2, 6, 1, 7`` then the ``first`` aggregator will return ``1`` and ``last`` will return ``7``. Note that this aggregator is only useful for downsamplers. 
 
 .. WARNING:: When used as a group-by aggregator, the results are indeterminate as the ordering of time series retrieved from storage and held in memory is not consistent from TSD to TSD or execution to execution.
 
 Max
 ---
-
+.. index:: max
 The inverse of ``min``, it returns the largest data point from all of the time series or within a time span. This function will perform linear interpolation across time series. It's useful for looking at the upper bounds of gauge metrics.
 
 MimMin
 ------
-
+.. index:: mimmin
 The "maximum if missing minimum" function returns only the smallest data point from all of the time series or within the time span. This function will *not* perform interpolation, instead it will return the maximum value for the type of data specified if the value is missing. This will return the Long.MaxValue for integer points or Double.MaxValue for floating point values. See `Primitive Data Types  <http://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html>`_ for details. It's useful for looking at the lower bounds of gauge metrics.
 
 MimMax
 ------
-
+.. index:: mimmax
 The "minimum if missing maximum" function returns only the largest data point from all of the time series or within the time span. This function will *not* perform interpolation, instead it will return the minimum value for the type of data specified if the value is missing. This will return the Long.MinValue for integer points or Double.MinValue for floating point values. See `Primitive Data Types  <http://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html>`_ for details. It's useful for looking at the upper bounds of gauge metrics.
 
 Min
 ---
-
+.. index:: min
 Returns only the smallest data point from all of the time series or within the time span. This function will perform linear interpolation across time series. It's useful for looking at the lower bounds of gauge metrics.
 
 None
 ----
-
+.. index:: none
 Skips group by aggregation. This aggregator is useful for fetching the *raw* data from storage as it will return a result set for every time series matching the filters. Note that the query will throw an exception if used with a downsampler.
 
 Percentiles
 -----------
-
+.. index:: percentiles
 Calculates various percentiles. When used to aggregate multiple series, the function will perform linear interpolation. Implementation is through the `Apache Math library. <http://commons.apache.org/proper/commons-math/>`_ 
 
 Sum
 ---
-
+.. index:: sum
 Calculates the sum of all data points from all of the time series or within the time span if down sampling. This is the default aggregation function for the GUI as it's often the most useful when combining multiple time series such as gauges or counters. It performs linear interpolation when data points fail to line up. If you have a distinct series of values that you want to sum and you do not need interpolation, look at ``zimsum``
 
 ZimSum
 ------
-
+.. index:: zimsum
 Calculates the sum of all data points at the specified timestamp from all of the time series or within the time span. This function does *not* perform interpolation, instead it substitutes a ``0`` for missing data points. This can be useful when working with discrete values.
 
 Listing Aggregators

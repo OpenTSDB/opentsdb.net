@@ -1,6 +1,6 @@
 query
 =====
-
+.. index:: CLI Query
 The query command line tool is meant to be a quick debugging tool for extracting data from OpenTSDB. The HTTP API will usually be much quicker when querying data as it incorprates caches and open connections to storage. Results are printed to stdout in a text format with one data point per line.
 
 Note that a query may return data points before and after the timespan requested. These are used in downsampling and graphing.

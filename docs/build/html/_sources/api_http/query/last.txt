@@ -1,6 +1,6 @@
 /api/query/last
 ===============
-
+.. index:: HTTP /api/query/last
 This endpoint (2.1 and later) provides support for accessing the latest value of individual time series. It provides an optimization over a regular query when only the last data point is required. Locating the last point can be done with the timestamp of the meta data counter or by scanning backwards from the current system time.
 
 .. NOTE:: In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in :doc:`../../user_guide/metadata`. You must set either ``tsd.core.meta.enable_tsuid_tracking`` or ``tsd.core.meta.enable_realtime_ts``. Queries with a backscan parameter will skip the meta table.

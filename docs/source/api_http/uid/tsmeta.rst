@@ -1,6 +1,6 @@
 /api/uid/tsmeta
 ===============
-
+.. index:: HTTP /api/uid/tsmeta
 This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a *metric* and one or more *tag name/value* pairs. Some fields are set by the TSD but others can be set by the user. When using the ``POST`` method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the ``PUT`` method will overwrite all user mutable fields with given values or defaults if a given field is not provided.
 
 Please note that deleting a meta data entry will not delete the data points stored for the timeseries. Neither will it remove the UID assignments or associated UID meta objects. 

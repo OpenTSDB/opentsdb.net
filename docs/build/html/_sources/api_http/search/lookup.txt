@@ -1,6 +1,6 @@
 /api/search/lookup
 ==================
-
+.. index:: HTTP /api/lookup
 .. NOTE::
 
   Available in 2.1

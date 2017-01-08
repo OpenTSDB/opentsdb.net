@@ -38,7 +38,7 @@ Notice that some data points are missing. With those data sets, lets look at rol
 
 Rollups
 ^^^^^^^
-
+.. index:: Rollups
 A "rollup" is defined, in OpenTSDB, as a **single** time series aggregated over time. It may also be called a "time-based aggregation". Rollups help to solve the problem of looking at wide time spans. For example, if you write a data point every 60 seconds and query for one year of data, a time series would return more than 525k individual data points. Graphing that many points could be pretty messy. Instead you may want to look at lower resolution data, say 1 hour data where you only have around 8k values to plot. Then you can identify anomalies and drill down for finer resolution data.
 
 If you have already used OpenTSDB to query data, you are likely familiar with **downsamplers** that aggregate each time series into a smaller, or lower resolution, value. A rollup is essentially the result of a downsampler stored in the system and called up at will. Each rollup (or downsampler) requires two pieces of information:
@@ -100,7 +100,7 @@ The resulting ``avg`` for a ``2h`` downsampling query would look like this:
 
 Pre-Aggregates
 ^^^^^^^^^^^^^^
-
+.. index:: Pre-Aggregates
 While rollups help with wide time span queries, you can still run into query performance issues with small ranges if the metric has high cardinality (i.e. the unique number of time series for the given metric). In the example above, we have 4 web servers. But lets say that we have 10,000 servers. Fetching the sum or average of interface traffic may be fairly slow. If users are often fetching the group by (or some think of it as the spatial aggregate) of large sets like this then it makes sense to store the aggregate and query that instead, fetching *much* less data.
 
 Unlike rollups, pre-aggregates require only one extra piece of information:

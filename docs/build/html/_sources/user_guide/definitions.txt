@@ -1,11 +1,12 @@
 Definitions
 ===========
-
+.. index:: Definitions
+.. index:: Glossary
 When it comes to timeseries data, there are lots of terms tossed about that can lead to some confusion. This page is a sort of glossary that helps to define words related to the use of OpenTSDB.
 
 Cardinality
 ^^^^^^^^^^^
-
+.. index:: Cardinality
 Cardinality is a mathematical term defined as the number of elements in a set. In database lingo, it's often used to refer to the number of unique items in an index. With regards to OpenTSDB it can refer to:
 
 * The number of unique time series for a given metric
@@ -15,12 +16,12 @@ Due to the nature of the OpenTSDB storage schema, metrics with higher cardinalit
 
 Compaction
 ^^^^^^^^^^
-
+.. index:: Compaction
 An OpenTSDB compaction takes multiple columns in an HBase row and merges them into a single column to reduce disk space. This is not to be confused with HBase compactions where multiple edits to a region are merged into one. OpenTSDB compactions can occur periodically for a TSD after data has been written, or during a query.
 
 Data Point
 ^^^^^^^^^^
-
+.. index:: Data Point
 Each of the metrics above can be recorded as a number at a specific time. For example, we could record that Sue worked 8 hours at the end of each day. Or that "mylogo.jpg" was downloaded 400 times in the past hour. Thus a datapoint consists of:
 
 * A metric
@@ -30,7 +31,7 @@ Each of the metrics above can be recorded as a number at a specific time. For ex
 
 Metric
 ^^^^^^
-
+.. index:: Metric
 A metric is simply the name of a quantitative measurement. Metrics include things like:
 
 * hours worked by an employee
@@ -48,7 +49,7 @@ Unfortunately OpenTSDB requires metrics to be named as a single, long word witho
 
 Tags
 ^^^^
-
+.. index:: Tags
 A ``metric`` should be descriptive of what is being measured, but with OpenTSDB, it should not be too specific. Instead, it is better to use ``tags`` to differentiate and organize different items that may share a common metric. Tags are pairs of words that provide a means of associating a metric with a specific item. Each pair consists of a ``tagk`` that represents the group or category of the following ``tagv`` that represents a specific item, object, location or other noun.
 
 Expanding on the metric examples above:
@@ -59,15 +60,15 @@ Expanding on the metric examples above:
 
 Time Series
 ^^^^^^^^^^^
-
+.. index:: Time Series
 A collection of two or more data points for a single metric and group of tag name/value pairs.
 
 Timestamp
 ^^^^^^^^^
-
+.. index:: Timestamp
 Timestamps are simply the absolute time when a value for a given metric was recorded. 
 
 Value
 ^^^^^
-
+.. index:: Value
 A value represents the actual numeric measurement of the given metric. One of our employees, Sue, worked 8 hours yesterday, thus the value would be ``8``. There were 1,024 downloads of ``logo.jpg`` from our webserver in the past hour. And 12 inches of snow fell in New England today. 

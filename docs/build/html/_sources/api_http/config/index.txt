@@ -1,6 +1,6 @@
 /api/config
 ===========
-
+.. index:: HTTP /api/config
 This endpoint returns information about the running configuration of the TSD. It is read only and cannot be used to set configuration options.
 
 

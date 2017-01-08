@@ -1,6 +1,6 @@
 /api/query/exp
 ==============
-
+.. index:: HTTP /api/query/exp
 This endpoint allows for querying data using expressions. The query is broken up into different sections.
 
 Two set operations (or Joins) are allowed. The union of all time series ore the intersection.

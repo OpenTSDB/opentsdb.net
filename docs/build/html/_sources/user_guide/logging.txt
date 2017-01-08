@@ -1,6 +1,6 @@
 Logging
 =======
-
+.. index:: Logging
 OpenTSDB uses the `SLF4J <http://www.slf4j.org/>`_ abstraction layer along with `Logback <http://logback.qos.ch/>`_ for logging flexibility. Configuration is performed via an XML file and there are many different formatting, level and destination options.
 
 Levels

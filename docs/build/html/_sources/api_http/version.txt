@@ -1,6 +1,6 @@
 /api/version
 ============
-
+.. index:: HTTP /api/version
 This endpoint returns information about the running version of OpenTSDB.
 
 Verbs

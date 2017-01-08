@@ -1,6 +1,6 @@
 Query Examples
 ==============
-
+.. index:: Query Examples
 The following is a list of example queries using an example data set. We'll illustrate a number of common query types that may be encountered so you can get an understanding of how the query system works. Each time series in the example set has only a single data point stored and the UIDs have been truncated to a single byte to make it easier to read. The example queries are all *Metric* queries from the HTTP API and only show the ``m=`` component. See :doc:`../../api_http/query/index` for details. If you are using a CLI tool, the query format will differ slightly so read the documentation for the particular command.
 
 Sample Data

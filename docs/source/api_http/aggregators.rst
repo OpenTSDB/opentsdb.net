@@ -1,6 +1,6 @@
 /api/aggregators
 ================
-
+.. index:: HTTP /api/aggregators
 This endpoint simply lists the names of implemented aggregation functions used in timeseries queries.
 
 Verbs

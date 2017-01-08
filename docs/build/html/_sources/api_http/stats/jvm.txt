@@ -1,6 +1,6 @@
 /api/stats/jvm
 ==============
-
+.. index:: HTTP /api/stats/jvm
 The threads endpoint is used for debugging the TSD's JVM process and includes stats about the garbage collector, system load and memory usage. (v2.2)
 
 .. NOTE ::

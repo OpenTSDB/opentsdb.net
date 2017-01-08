@@ -1,6 +1,6 @@
 diediedie
 =========
-
+.. index:: Telnet diediedie
 This command will cause the running TSD to shutdown and the process to exit. Please use carefully.
 
 .. WARNING::

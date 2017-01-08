@@ -1,6 +1,6 @@
 /api/tree/branch
 ================
-
+.. index:: HTTP /api/tree/branch
 A branch represents a level in the tree heirarchy and contains information about child branches and/or leaves. Branches are immutable from an API perspective and can only be created or modified by processing a TSMeta through tree rules via a CLI command or when a new timeseries is encountered or a TSMeta object modified. Therefore the ``branch`` endpoint only supports the ``GET`` verb.
 
 A branch is identified by a ``branchId``, a hexadecimal encoded string that represents the ID of the tree it belongs to as well as the IDs of each parent the branch stems from. All branches stem from the **ROOT** branch of a tree and this is usually the starting place when browsing. To fetch the **ROOT** just call this endpoingt with a valid ``treeId``. The root branch ID is also a 4 character encoding of the tree ID.

@@ -1,6 +1,6 @@
 scan
 ====
-
+.. index:: CLI Scan
 The scan command is useful for debugging and exporting data points. Provide a start time, optional end time and one or more queries and the response will be raw byte data from storage or data points in a text format acceptable for use with the **import** command. Scan also provides a rudimentary means of deleting data. The scan command accepts common CLI arguments. Data is emitted to standard out.
 
 Note that while queries require an aggregator, it is effectively ignored. If a query encompasses many time series, the scan output may be extremely large so be careful when crafting queries.

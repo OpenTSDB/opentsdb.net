@@ -1,6 +1,6 @@
 import
 ======
-
+.. index:: CLI Import
 The import command enables bulk loading of time series data into OpenTSDB. You provide one or more files and OpenTSDB will parse and load the data. Data must be formatted in the Telnet ``put`` style with one data point per line in a text file. Each file may optionally be compressed with GZip and if so, must end with the ``.gz`` extension.
 
 For more information on storing data in OpenTSDB, please see :doc:`../writing`

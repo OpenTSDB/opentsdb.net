@@ -5,7 +5,7 @@ OpenTSDB isn't laid out like a typical Java project, instead it's a bit more lik
 
 Build System
 ^^^^^^^^^^^^
-
+.. index:: Build System
 There are almost as many build systems as there are developers so it's impossible to satisfy everyone no matter which system or layout is chosen. Autotools and GNU Make were chosen early on for OpenTSDB because of their flexibility, portability, and especially speed and popular usage. It's not the easiest to configure but for our needs, it's really not too difficult. We'll spell out what you need to change below and give tips for IDE users who want to setup an environment. Note that the build script can now compile a ``pom.xml`` file for compiling with Maven and work is underway to provide better Maven support. However you still have to modify ``Makefile.am`` if you add or remove classes or dependencies and such.
 
 Building
@@ -87,7 +87,7 @@ After editing, rebuild with ``./build.sh`` and verify that your class was compil
 
 IDEs
 ^^^^
-
+.. index:: IDEs
 Many devs use an IDE to work on Java projects and despite OpenTSDB's non-java-standard directory layout, working with an IDE is pretty easy. Here are some steps to get up and running with Eclipse though they should work with other environments. This example assumes you're using Eclipse.
 
 * Clone the GIT repo to a location such as ``/home/$USER/opentsdb``

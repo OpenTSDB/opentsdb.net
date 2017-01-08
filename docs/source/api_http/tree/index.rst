@@ -1,7 +1,7 @@
 /api/tree
 =========
-
-Trees are meta data used to organize time series in a heirarchical structure for browsing similar to a typical file system. A number of endpoints under the ``/tree`` root allow working with various tree related data:
+.. index:: HTTP /api/tree
+Trees are meta data used to organize time series in a hierarchical structure for browsing similar to a typical file system. A number of endpoints under the ``/tree`` root allow working with various tree related data:
 
 Tree API Endpoints
 ------------------

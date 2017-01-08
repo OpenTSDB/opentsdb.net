@@ -1,6 +1,6 @@
 search
 ======
-
+.. index:: CLI Search
 .. NOTE::
 
   Available in 2.1

@@ -1,6 +1,6 @@
 GUI
 ===
-
+.. index:: GUI
 Currently OpenTSDB offers a simple built-in GUI accessible by opening your browser and navigating to the host and port where the TSD is running. For example, if you are running a TSD on your local computer on port 4242, simply navigate to ``http://localhost:4242``. While the GUI won't win awards for beauty, it provides a quick means of building a useful graph with the data in your system.
 
 Interface

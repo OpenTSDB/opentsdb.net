@@ -1,6 +1,6 @@
 Plugins
 =======
-
+.. index:: Plugins
 OpenTSDB 2.0 introduced a plugin framework, allowing varous contributors to quickly and easily customize their TSDs. This document gives you an overview of the plugin system and will link to some available implementations.
 
 General

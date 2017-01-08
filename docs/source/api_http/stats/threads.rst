@@ -1,6 +1,6 @@
 /api/stats/threads
 ==================
-
+.. index:: HTTP /api/stats/threads
 The threads endpoint is used for debugging the TSD and providing insight into the state and execution of various threads without having to resort to a JStack trace. (v2.2)
 
 Verbs

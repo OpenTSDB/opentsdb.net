@@ -1,6 +1,6 @@
 Deprecated HTTP API
 ===================
-
+.. index:: HTTP Deprecated
 Version 1.0 of OpenTSDB included a rudimentary HTTP API that allowed for querying data, suggesting metric or tag names and a means of accessing static files. The 1.0 API has been carried over to 2.0 for backwards compatibility though most of the calls have been deprecated. Below is a list of the different endpoints and how to use them.
 
 .. WARNING:: Version 3.0 may discard these deprecated methods so if you are developing tools against the HTTP API, make sure to use the 2.0 version.
@@ -28,7 +28,7 @@ Requests the root which is the GWT generated OpenTSDB GUI. This endpoint only re
 
 /aggregators (**Deprecated**)
 -----------------------------
-
+.. index:: HTTP /aggregators
 Returns a list of available aggregation functions in JSON format only. Other formats are ignored. This method does not accept any query string parameters.
 
 Example Request:
@@ -43,24 +43,24 @@ Example Response:
   
 /diediedie (**Deprecated**)
 ---------------------------
-
+.. index:: HTTP /diediedie
 Accessing this endpoint causes the TSD to perform a graceful shutdown and exit. A graceful shutdown prevents data loss by flushing all the buffered edits to HBase before exiting. The endpoint does not return any data and does not accept any parameters.
 
 /dropcaches (**Deprecated**)
 ----------------------------
-
+.. index:: HTTP /dropcaches
 Clears all internal caches such as the UID to name and name to UID maps. It should be used if you have renamed a metric, tagk or tagv.
 
 /logs (**Deprecated**)
 ----------------------
-
+.. index:: HTTP /logs
 Returns the latest lines logged by the TSD internally, returning the most recent entries first. OpenTSDB uses LogBack and the ``src/logback.xml`` file must have a Cyclic Buffer appender configured for this endpoint to function. The XML configuration determines how many lines will be returned with each call. Output defaults to plain text with message components separated by tabs, or it can be returned as JSON with the proper query string.
 
 This endpoint can also change the logging level of ______ at runtime. The query string parameter to use is ``level=<logging_level>``. For example, you can call ``http://localhost:4242/logs?level=INFO`` to set the log level to ``INFO``. Valid parameter values are (from the most verbose to the least): ``ALL`` ``TRACE`` ``DEBUG`` ``INFO`` ``WARN`` ``ERROR`` ``OFF`` (names are case insensitive).  Note that this method does not change the ``logback.xml`` configuration file and restarting the TSD will reload from that file.
 
 /q (**Deprecated**)
 -------------------
-
+.. index:: HTTP /q
 Queries the TSD for data.
 
 /s
@@ -74,12 +74,12 @@ Note: The TSD will allow clients to cache static files for 1 year by default, an
 
 /stats (**Deprecated**)
 -----------------------
-
+.. index:: HTTP /stats
 Returns statistics about the running TSD
 
 /suggest (**Deprecated**)
 -------------------------
-
+.. index:: HTTP /suggest
 Used for auto-complete calls to match metrics, tag names or tag values on the given string. Returns JSON data only.
 
 Parameters:
@@ -109,5 +109,5 @@ Example Response:
 
 /version (**Deprecated**)
 -------------------------
-
+.. index:: HTTP /version
 Returns version information about the build of the running TSD. Can be returned in either the default of plain-text or JSON.

@@ -1,11 +1,11 @@
 Query Performance
 =================
-
+.. index:: Query Performance
 Query performance is critical for any database system. This page lists some common OpenTSDB issues and steps to improve performance.
 
 Caching
 ^^^^^^^
-
+.. index:: Caching
 At this time OpenTSDB doesn't have a built-in cache (aside from the built-in GUI that will cache PNG image files for 60 seconds). Therefore we rely on the underlying database's cache. In HBase (the most common OpenTSDB backend) there is the concept of a Block cache that will store blocks of rows and columns in memory on write and/or read. A good primer is `Nick Dimiduck's Block Cache 101 <http://www.n10k.com/blog/blockcache-101/>`_. One good way to setup the cache is to use the ``BucketCache`` and size the L1 cache fairly large so that it acts as a write cache and keeps most of your recent data in memory. Then the L2 cache can keep frequently queried data in memory as users run their queries.
 
 Carefully watch your region servers for GC pauses. Users typically run the bucket cache in off-heap mode but there is still a penalty to pay in serializing between Java and JNI for off-heap cache hits and writes.

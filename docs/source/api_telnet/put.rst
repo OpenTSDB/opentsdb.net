@@ -1,6 +1,6 @@
 put
 ===
-
+.. index:: Telnet put
 Attempts to write a data point to storage. Note that UTF-8 characters may not be handled properly by the Telnet style API so use the :doc:`../api_http/put` method instead or use the Java API directly.
 
 .. NOTE::

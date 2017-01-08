@@ -1,6 +1,6 @@
 mkmetric
 ========
-
+.. index:: CLI mkmetric
 mkmetric is a shortcut to the ``uid assign metrics <metric>`` command where you can provide multiple metric names in a single call and UIDs will be assigned or retrieved. If any of the metrics already exist, the assigned UID will be returned.
 
 Parameters

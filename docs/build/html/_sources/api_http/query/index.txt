@@ -1,6 +1,6 @@
 /api/query
 ==========
-
+.. index:: HTTP /api/query
 Probably the most useful endpoint in the API, ``/api/query`` enables extracting data from the storage system in various formats determined by the serializer selected. Queries can be submitted via the 1.0 query string format or body content.
 
 Query API Endpoints

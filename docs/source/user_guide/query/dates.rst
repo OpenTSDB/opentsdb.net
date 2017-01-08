@@ -1,11 +1,11 @@
 Dates and Times
 ===============
-
+.. index:: Date and Time
 OpenTSDB supports a number of date and time formats when querying for data. The following formats are supported in queries submitted through the GUI, CliQuery tool or HTTP API. Every query requires a **start time** and an optional **end time**. If the end time is not specified, the current time on the system where the TSD is running will be used.
 
 Relative
 ^^^^^^^^
-
+.. index:: Relative Times
 If you don't know the exact timestamp to request you can submit a time in the past relative to the time on the system where the TSD is running. Relative times follow the format ``<amount><time unit>-ago`` where ``<amount>`` is the number of time units and ``<time unit>`` is the unit of time, such as hours, days, etc. For example, if we provide a **start time** of ``1h-ago`` and leave out the **end time**, our query will return data start at 1 hour ago to the current time. Possible units of time include:
 
 * ms - Milliseconds
@@ -21,14 +21,14 @@ If you don't know the exact timestamp to request you can submit a time in the pa
 
 Absolute Unix Time
 ^^^^^^^^^^^^^^^^^^
-
+.. index:: Absolute Unix Time
 Internally, all data is associated with a Unix (or POSIX) style timestamp. Unix times are defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. Timestamps are represented as a positive integer such as ``1364410924``, representing ``ISO 8601:2013-03-27T19:02:04Z``. Since calls to store data in OpenTSDB require a Unix timestamp, it makes sense to support the format in queries. Thus you can supply an integer for a start or end time in a query.
 
 Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of ``1364410924000`` and an end time of ``1364410924250`` will return data within a 250 millisecond window. Millisecond timestamps may also be supplied with a period separating the seconds from the milliseconds as in ``1364410924.250``. Any integers with 13 (or 14) characters will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds. Milliseconds may only be supplied with 3 digit precision. If your tool outputs more than 3 digits you must truncate or round the value.
 
 Absolute Formatted Time
 ^^^^^^^^^^^^^^^^^^^^^^^
-
+.. index:: Absolute Human Time
 Since calculating a Unix time in your head is pretty difficult, OpenTSDB also supports human readable absolute date and times. Supported formats include:
 
 * yyyy/MM/dd-HH:mm:ss

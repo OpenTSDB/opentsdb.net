@@ -1,6 +1,6 @@
 fsck
 ====
-
+.. index:: CLI FSCK
 Similar to a file system check, the fsck command will scan and, optionally, attempt to repair problems with data points in OpenTSDB's data table. The fsck command only operates on the ``tsdb`` storage table, scanning the entire data table or any rows of data that match on a given query. Fsck can be used to repair errors and also reclaim space by compacting rows that were not compacted by a TSD and variable-length encoding data points from previous versions of OpenTSDB.
 
 By default, running fsck will only report errors found by the query. No changes are made to the underlying data unless you supply the ``--fix`` or ``--fix-all`` flags. Generally you should run an fsck without a fix flag first and verify issues found in the log file. If you're confident in the repairs, add a fix flag. Not all errors can be repaired automatically.

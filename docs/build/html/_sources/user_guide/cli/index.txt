@@ -1,6 +1,6 @@
 CLI Tools
 =========
-
+.. index:: CLI
 OpenTSDB consists of a single JAR file that uses a shell script to determine what actiosn the user wants to take. While the most common action is to start the TSD with the ``tsd`` command so that it can run all the time and process RPCs, other commands are available to work with OpenTSDB data. These commands include:
 
 .. toctree::
@@ -19,7 +19,7 @@ Accessing a CLI tool is performed from the location of the ``tsdb`` file, built 
    
 Common Parameters
 ^^^^^^^^^^^^^^^^^
-
+.. index:: CLI Parameters
 All command line utilities share some common command line parameters:
 
 .. csv-table::

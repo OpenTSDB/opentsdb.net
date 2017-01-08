@@ -1,11 +1,11 @@
 Writing Data
 ============
-
+.. index:: Writing
 You may want to jump right in and start throwing data into your TSD, but to really take advantage of OpenTSDB's power and flexibility, you may want to pause and think about your naming schema. After you've done that, you can proceed to pushing data over the Telnet or HTTP APIs, or use an existing tool with OpenTSDB support such as 'tcollector'.
 
 Naming Schema
 ^^^^^^^^^^^^^
-
+.. index:: Naming Schema
 Many metrics administrators are used to supplying a single name for their time series. For example, systems administrators used to RRD-style systems may name their time series ``webserver01.sys.cpu.0.user``. The name tells us that the time series is recording the amount of time in user space for cpu ``0`` on ``webserver01``. This works great if you want to retrieve just the user time for that cpu core on that particular web server later on. 
 
 But what if the web server has 64 cores and you want to get the average time across all of them? Some systems allow you to specify a wild card such as ``webserver01.sys.cpu.*.user`` that would read all 64 files and aggregate the results. Alternatively, you could record a new time series called ``webserver01.sys.cpu.user.all`` that represents the same aggregate but you must now write '64 + 1' different time series. What if you had a thousand web servers and you wanted the average cpu time for all of your servers? You could craft a wild card query like ``*.sys.cpu.*.user`` and the system would open all 64,000 files, aggregate the results and return the data. Or you setup a process to pre-aggregate the data and write it to ``webservers.sys.cpu.user.all``.
@@ -108,13 +108,13 @@ Metric and tags are not limited in length, though you should try to keep the val
 
 Integer Values
 --------------
-
+.. index:: Integers
 If the value from a ``put`` command is parsed without a decimal point (``.``), it will be treated as a signed integer. Integers are stored, unsigned, with variable length encoding so that a data point may take as little as 1 byte of space or up to 8 bytes. This means a data point can have a minimum value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807 (inclusive). Integers cannot have commas or any character other than digits and the dash (for negative values).  For example, in order to store the maximum value, it must be provided in the form ``9223372036854775807``.
 
 Floating Point Values
 ---------------------
-
-If the value from a ``put`` command is parsed with a decimal point (``.``) it will be treated as a floating point value. Currently all floating point values are stored on 4 bytes, single-precision, with support for 8 bytes planned for a future release.  Floats are stored in IEEE 754 floating-point "single format" with positive and negative value support.  Infinity and Not-a-Number values are not supported and will throw an error if supplied to a TSD. See `Wikipedia <https://en.wikipedia.org/wiki/IEEE_floating_point>`_ and the `Java Documentation <http://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.2.3>`_ for details.
+.. index:: Floating Point
+If the value from a ``put`` command is parsed with a decimal point (``.``) it will be treated as a floating point value. Currently all floating point values are stored on 4 bytes, single-precision, with support for 8 byte double-precision in 2.4 and later.  Floats are stored in IEEE 754 floating-point "single format" with positive and negative value support.  Infinity and Not-a-Number values are not supported and will throw an error if supplied to a TSD. See `Wikipedia <https://en.wikipedia.org/wiki/IEEE_floating_point>`_ and the `Java Documentation <http://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.2.3>`_ for details.
 
 .. NOTE::
   
@@ -122,12 +122,12 @@ If the value from a ``put`` command is parsed with a decimal point (``.``) it wi
 
 Ordering
 --------
-
+.. index:: Ordering
 Unlike other solutions, OpenTSDB allows for writing data for a given time series in any order you want.  This enables significant flexibility in writing data to a TSD, allowing for populating current data from your systems, then importing historical data at a later time. 
 
 Duplicate Data Points
 ---------------------
-
+.. index:: Duplicates
 Writing data points in OpenTSDB is generally idempotent within an hour of the original write. This means  you can write the value ``42`` at timestamp ``1356998400`` and then write ``42`` again for the same time and nothing bad will happen. However if you have compactions enabled to reduce storage consumption and write the same data point after the row of data has been compacted, an exception may be returned when you query over that row. If you attempt to write two different values with the same timestamp, a duplicate data point exception may be thrown during query time. This is due to a difference in encoding integers on 1, 2, 4 or 8 bytes and floating point numbers. If the first value was an integer and the second a floating point, the duplicate error will always be thrown. However if both values were floats or they were both integers that could be encoded on the same length, then the original value may be overwritten if a compaction has not occurred on the row.
 
 In most situations, if a duplicate data point is written it is usually an indication that something went wrong with the data source such as a process restarting unexpectedly or a bug in a script. OpenTSDB will fail "safe" by throwing an exception when you query over a row with one or more duplicates so you can down the issue.
@@ -190,7 +190,7 @@ Therefore, we recommend that you 'pre-assign' UID to as many metrics, tag keys a
 
 Random Metric UID Assignment
 ----------------------------
-
+.. index:: Random
 With 2.2 you can randomly assign UIDs to metrics for better region server write distribution. Because metric UIDs are located at the start of the row key, if a new set of busy metric are created, all writes for those metric will be on the same server until the region splits. With random UID generation enabled, the new metrics will be distributed across the key space and likely to wind up in different regions on different servers. 
 
 Random metric generation can be enabled or disabled at any time by modifying the ``tsd.core.uid.random_metrics`` flag and data is backwards compatible all the way back to OpenTSDB 1.0. However it is recommended that you pre-split your TSDB data table according to the full metric UID space. E.g. if you use the default UID size in OpenTSDB, UIDs are 3 bytes wide, thus you can have 16,777,215 values. If you already have data in your TSDB table and choose to enable random UIDs, you may want to create new regions.
@@ -199,7 +199,7 @@ When generating random IDs, TSDB will try up to 10 times to assign a UID without
 
 Salting
 -------
-
+.. index:: Salting
 In 2.2 salting is supported to greatly increase write distribution across region servers. When enabled, a configured number of bytes are prepended to each row key. Each metric and combination of tags is then hashed into one "bucket", the ID of which is written to the salt bytes. Distribution is improved particularly for high-cardinality metrics (those with a large number of tag combinations) as the time series are split across the configured bucket count, thus routed to different regions and different servers. For example, without salting, a metric with 1 million series will be written to a single region on a single server. With salting enabled and a bucket size of 20, the series will be split across 20 regions (and 20 servers if the cluster has that many hosts) where each region has 50,000 series.
 
 .. WARNING:: Because salting modifies the storage format, you cannot enable or disable salting at whim. If you have existing data, you must start a new data table and migrate data from the old table into the new one. Salted data cannot be read from previous versions of OpenTSDB.
@@ -208,7 +208,7 @@ To enable salting you must modify the config file parameter ``tsd.storage.salt.w
 
 Appends
 -------
-
+.. index:: Appends
 Also in 2.2, writing to HBase columns via appends is now supported. This can improve both read and write performance in that TSDs will no longer maintain a queue of rows to compact at the end of each hour, thus preventing a massive read and re-write operation in HBase. However due to the way appends operate in HBase, an increase in CPU utilization, store file size and HDFS traffic will occur on the region servers. Make sure to monitor your HBase servers closely.
 
 At read time, only one column is returned per row similar to post-TSD-compaction rows. However note that if the ``tsd.storage.repair_appends`` is enabled, then when a column has duplicates or out of order data, it will be re-written to HBase. Also columns with many duplicates or ordering issues may slow queries as they must be resolved before answering the caller.
@@ -217,7 +217,7 @@ Appends can be enabled and disabled at any time. However versions of OpenTSDB pr
 
 Pre-Split HBase Regions
 -----------------------
-
+.. index:: Pre-Split Regions
 For brand new installs you will see much better performance if you pre-split the regions in HBase regardless of if you're testing on a stand-alone server or running a full cluster. HBase regions handle a defined range of row keys and are essentially a single file. When you create the ``tsdb`` table and start writing data for the first time, all of those data points are being sent to this one file on one server. As a region fills up, HBase will automatically split it into different files and move it to other servers in the cluster, but when this happens, the TSDs cannot write to the region and must buffer the data points. Therefore, if you can pre-allocate a number of regions before you start writing, the TSDs can send data to multiple files or servers and you'll be taking advantage of the linear scalability immediately. 
 
 The simplest way to pre-split your ``tsdb`` table regions is to estimate the number of unique metric names you'll be recording. If you have designed a naming schema, you should have a pretty good idea. Let's say that we will track 4,000 metrics in our system. That's not to say 4,000 time series, as we're not counting the tags yet, just the metric names such as "sys.cpu.user". Data points are written in row keys where the metric's UID comprises the first bytes, 3 bytes by default. The first metric will be assigned a UID of ``000001`` as a hex encoded value. The 4,000th metric will have a UID of ``000FA0`` in hex. You can use these as the start and end keys in the script from the `HBase Book <http://hbase.apache.org/book/perf.writing.html>`_ to split your table into any number of regions. 256 regions may be a good place to start depending on how many time series share each metric.

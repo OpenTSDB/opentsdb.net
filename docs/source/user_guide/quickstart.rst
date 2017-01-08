@@ -1,6 +1,6 @@
 Quick Start
 ===========
-
+.. index:: Quick Start
 Once you have a TSD up and running (after following the :doc:`../installation` guide) you can follow the steps below to get some data into OpenTSDB. After you have some data stored, pull up the GUI and try generating some graphs.
 
 Create Your First Metrics
@@ -71,7 +71,7 @@ This will store a reading of the 1-minute and 5-minute load average of your serv
 
 Batch Imports
 ^^^^^^^^^^^^^
-
+.. index:: Batch Importing
 Let's imagine that you have a cron job that crunches gigabytes of application logs every day or every hour to extract profiling data. For instance, you could be logging the time taken to process a request and your cron job would compute an average for every 30 second window. Maybe you're particularly interested in 2 types of requests handled by your application, so you'll compute separate averages for those requests, and an another average for every other request type. So your cron job may produce an output file that looks like this::
 
   1288900000 42 foo
@@ -99,7 +99,7 @@ If your data file is large, consider gzip'ing it first. This can be as simple as
 
 Self Monitoring
 ^^^^^^^^^^^^^^^
-
+.. index:: Monitoring TSDs
 Each TSD exports some stats about itself through the simple stats command. You can collect those stats and feed them back to the TSD every few seconds. First, create the necessary metrics::
 
   echo stats | nc -w 1 localhost 4242 \

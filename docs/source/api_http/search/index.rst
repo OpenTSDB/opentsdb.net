@@ -1,6 +1,6 @@
 /api/search
 ==========
-
+.. index:: HTTP /api/search
 This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the ``tsdb-meta`` table when enabled. Optionally, a search plugin can be installed to send and retreive information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen. 
 
 .. NOTE:: If the plugin is not configured or enabled, endpoints other than ``/api/search/lookup`` will return an exception.

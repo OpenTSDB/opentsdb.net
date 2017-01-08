@@ -1,6 +1,6 @@
 Query Details and Stats
 =======================
-
+.. index:: stats
 With version 2.2 of OpenTSDB a number of details are now available around queries as we focus on improving flexibility and performance. Query details include who made the request (via headers and socket), what the response was (HTTP status codes and/or exceptions) and timing around the various processes the TSD takes. 
 
 Each HTTP query can include some of these details such as the original query and the timing information using the  ``showSummary`` and ``showQuery`` parameters. Other details can be found in the ``/api/stats/query`` output including headers, status and exceptions. And full details (minus the actual result data) can be logged to disk via the logging config. This page details the various query sections and the information found therein.

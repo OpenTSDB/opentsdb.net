@@ -1,6 +1,6 @@
 /api/suggest
 ============
-
+.. index:: HTTP /api/suggest
 This endpoint provides a means of implementing an "auto-complete" call that can be accessed repeatedly as a user types a request in a GUI. It does not offer full text searching or wildcards, rather it simply matches the entire string passed in the query on the first characters of the stored data. For example, passing a query of ``type=metrics&q=sys`` will return the top 25 metrics in the system that start with ``sys``. Matching is case sensitive, so ``sys`` will not match ``System.CPU``. Results are sorted alphabetically.
 
 Verbs

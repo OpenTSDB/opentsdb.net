@@ -1,12 +1,12 @@
 Configuration
 -------------
-
+.. index:: Configuration
 OpenTSDB can be configured via a file on the local system, via command line
 arguments or a combination or both.
 
 Configuration File
 ^^^^^^^^^^^^^^^^^^
-
+.. index:: Config File
 The configuration file conforms to the Java properties specification.
 Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
@@ -27,7 +27,7 @@ processing is as follows:
 
 File Locations
 ^^^^^^^^^^^^^^
-
+.. index:: Config Locations
 You can use the ``--config`` command line argument to specify the full path to
 a configuration file. Otherwise if not specified, OpenTSDB and some of the
 command-line tools will attempt to search for a valid configuration file in

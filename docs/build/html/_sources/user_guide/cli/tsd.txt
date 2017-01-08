@@ -1,6 +1,6 @@
 tsd
 ===
-
+.. index:: CLI TSD
 The TSD command launches the OpenTSDB daemon in the foreground so that it can accept connections over TCP and HTTP. If successful, you should see a number of messages then:
 
 ::

@@ -1,6 +1,6 @@
 /api/annotation/bulk
 ====================
-
+.. index:: HTTP /api/annotation/bulk
 *NOTE: (Version 2.1)*
 The bulk endpoint enables adding, updating or deleting multiple annotations in a single call. Annotation updates must be sent over PUT or POST as content data. Query string requests are not supported for ``POST`` or ``GET``. Each annotation is processed individually and synchronized with the backend. If one of the annotations has an error, such as a missing field, an exception will be returned and some of the annotations may not be written to storage. In such an event, the errant annotation should be fixed and all annotations sent again.
 

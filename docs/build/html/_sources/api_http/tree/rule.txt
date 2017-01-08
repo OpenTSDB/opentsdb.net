@@ -1,6 +1,6 @@
 /api/tree/rule
 ==============
-
+.. index:: HTTP /api/tree/rule
 Each rule in a tree is an individual object in storage, thus the ``/api/tree/rule`` endpoint allows for easy modification of a single rule in the set. Rules are addressed by their ``tree`` ID, ``level`` and ``order`` and all requests require these three parameters.
 
 .. NOTE:: If a manual tree synchronization is running somewhere or there is a large number of TSMeta objects being created or edited, the tree rule may be cached and modifications to a tree's rule set may take some time to propagate. If you make any modifications to the rule set, other than to meta information such as the ``description`` and ``notes``, you may want to flush the tree data and perform a manual synchronization so that branches and leaves reflect the new rules.

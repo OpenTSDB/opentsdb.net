@@ -1,6 +1,6 @@
 /api/tree/test
 ==============
-
+.. index:: HTTP /api/tree/test
 For debugging a rule set, the test endpoint can be used to run a TSMeta object through a tree's rules and determine where in the heirarchy the leaf would appear. Or find out why a timeseries failed to match on a rule set or collided with an existing timeseries. The only method supported is ``GET`` and no changes will be made to the actual tree in storage when using this endpoint.
 
 The ``messages`` field of the response contains information about what occurred during processing. If the TSUID did not exist or an error occurred, the reason will be found in this field. During processing, each rule that the TSMeta is processed through will generate a message. If a rule matched on the TSMeta successfully or failed, the reason will be recorded.

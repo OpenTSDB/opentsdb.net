@@ -1,6 +1,6 @@
 /api/dropcaches
 ===============
-
+.. index:: HTTP /api/dropcaches
 This endpoint purges the in-memory data cached in OpenTSDB. This includes all UID to name and name to UID maps for metrics, tag names and tag values. 
 
 .. NOTE:: This endpoint does not purge the on-disk temporary cache where graphs and other files are stored.

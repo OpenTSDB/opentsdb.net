@@ -1,6 +1,6 @@
 Cassandra
 =========
-
+.. index:: Cassandra
 Cassandra is an eventually consistent key value store similar to HBase and Google`s Bigtable. It implements a distributed hash map with column families originally it supported a Thrift based API very close to HBase`s. Lately Cassandra has moved towards a SQL like query language with much more flexibility around data types, joints and filters. Thankfully the Thrift interface is still there so it`s easy to convert the OpenTSDB HBase schema and calls to Cassandra at a low level through the AsyncHBase ``HBaseClient`` API. `AsyncCassandra <https://github.com/OpenTSDB/asynccassandra>`_ is a shim between OpenTSDB and Cassandra for trying out TSDB with an alternate backend.
 
 .. WARN:: The shim is in alpha shape. Please help us improve it by forking the repo and issuing pull requests.

@@ -1,6 +1,6 @@
 dropcaches
 ==========
-
+.. index:: Telnet dropcaches
 Purges the metric, tag key and tag value UID to string and string to UID maps.
 
 .. NOTICE::

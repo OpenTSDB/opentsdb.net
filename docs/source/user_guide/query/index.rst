@@ -1,6 +1,6 @@
 Querying or Reading Data
 ========================
-
+.. index:: Querying or Reading Data
 OpenTSDB offers a number of means to extract, manipulate and analyze data. Data can be queried via  CLI tools, an HTTP API and viewed as a GnuPlot graph. Open source tools such as `Grafana <http://grafana.org/>`_ and `Bosun <https://bosun.org/>`_ can also access TSDB data. Querying with OpenTSDB's tag based system can be a bit tricky so read through this document and checkout the following pages for deeper information. Example queries on this page follow the HTTP API format.
 
 .. toctree::
@@ -19,7 +19,7 @@ This page offers a quick overview of the typical query components. For details o
 
 Query Components
 ^^^^^^^^^^^^^^^^
-
+.. index:: Query Components
 OpenTSDB provides a number of tools and endpoints allowing for various query specifications that have evolved over time. The original syntax allowed for simple filtering, aggregation and downsampling. Later versions added support for functions and expressions. In general, each query has the following components:
 
 .. csv-table::
@@ -91,7 +91,7 @@ For details, see :doc:`downsampling`.
 
 Rate
 ^^^^
-
+.. index:: Rate
 A number of data sources return values as constantly incrementing counters. One example is a web site hit counter. When you start a web server, it may have a hit counter of 0. After five minutes the value may be 1,024. After another five minutes it may be 2,048. The graph for a counter will be a somewhat straight line angling up to the right and isn't always very useful. OpenTSDB provides a **rate** conversion function that calculates the rate of change in values over time. This will transform counters into lines with spikes to show you when activity occurred and can be much more useful.
 
 The rate is the first derivative of the values. It's defined as ``(v2 - v1) / (t2 - t1)`` where the times are in seconds. Therefore you will get the rate of change per second. Currently the rate of change between millisecond values defaults to a per second calculation. 
@@ -102,7 +102,7 @@ Systems that track data in counters often revert to 0 when restarted. When that 
 
 Order of Operations
 ^^^^^^^^^^^^^^^^^^^
-
+.. index:: Order of Operations
 Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:
 
 #. Filtering

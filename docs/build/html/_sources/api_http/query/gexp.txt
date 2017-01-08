@@ -1,6 +1,6 @@
 /api/query/gexp
 ===============
-
+.. index:: HTTP /api/query/gexp
 Graphite is an excellent storage system for time series data with a number of built in functions to manipulate the data. To support transitions from Graphite to OpenTSDB, the ``/api/query/gexp`` endpoint supports URI queries *similar* but not *identical* to Graphite`s expressions. Graphite functions are generally formatted as ``func(<series>[, param1][, paramN])`` with the ability to nest functions. TSD`s implementation follows the same pattern but uses an ``m`` style query (e.g. ``sum:proc.stat.cpu{host=foo,type=idle}``) in place of the ``<series>``. Nested functions are supported.
 
 TSDB implements a subset of Graphite functions though we hope to add more in the future. For a list of Graphite functions and descriptions, see the `Documentation <http://graphite.readthedocs.org/en/latest/functions.html>`_. TSD supported functions appear below.

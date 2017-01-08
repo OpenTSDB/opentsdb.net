@@ -1,6 +1,6 @@
 uid
 ===
-
+.. index:: CLI UID
 The UID utility provides various functions to search or modify information in the ``tsdb-uid`` table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data. 
 
 

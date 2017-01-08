@@ -1,6 +1,6 @@
 Additional Resources
 ====================
-
+.. index:: Resources
 These are just some of the awesome front-ends, utilities, libraries and resources created by the OpenTSDB community. Please let us know if you have a project you'd like to see listed and if you don't see something you need, search for it on Github (new projects are popping up all the time) or your favorite search engine.
 
 Monitoring

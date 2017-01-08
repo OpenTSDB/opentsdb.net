@@ -3,6 +3,8 @@ GUI
 .. index:: GUI
 Currently OpenTSDB offers a simple built-in GUI accessible by opening your browser and navigating to the host and port where the TSD is running. For example, if you are running a TSD on your local computer on port 4242, simply navigate to ``http://localhost:4242``. While the GUI won't win awards for beauty, it provides a quick means of building a useful graph with the data in your system.
 
+A much nicer GUI can be found in the form of the open source `Grafana <http://grafana.org/>`_.
+
 Interface
 ^^^^^^^^^
 
@@ -118,9 +120,11 @@ Graph Style
 
 Back in the query builder section you have the graphing style box to the right.
 
-.. image:: ../../images/gui_graphing_style.jpg
+.. image:: ../../images/gui_graphing_style.png
 
 The **WxH** box alters the dimensions of the graph. Simply enter the ``<width>x<height>`` in pixels such as ``1024x768`` then tab or click in another box to update the graph.
+
+With 2.3, a *Global Annotations* check box is provided to query for and include annotations that should apply to all time series.
 
 Below that are a few tabs for altering different parts of the graph.
 

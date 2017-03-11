@@ -54,7 +54,7 @@ You can supply a single data point in a request:
       },
       "interval": "1h",
       "aggregator": "SUM",
-      "groupByAggregator", "SUM"
+      "groupByAggregator": "SUM"
   }
   
 Example Multiple Data Point Put
@@ -75,7 +75,7 @@ Multiple data points must be encased in an array:
           },
           "interval": "1h",
           "aggregator": "SUM",
-          "groupByAggregator", "SUM"
+          "groupByAggregator": "SUM"
       },
       {
           "metric": "sys.cpu.nice",
@@ -87,7 +87,7 @@ Multiple data points must be encased in an array:
           },
           "interval": "1h",
           "aggregator": "SUM",
-          "groupByAggregator", "SUM"
+          "groupByAggregator": "SUM"
       }
   ]
 

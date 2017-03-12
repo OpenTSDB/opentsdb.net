@@ -61,6 +61,7 @@
   <ul>
 <li><a class="reference internal" href="#">Development</a><ul>
 <li><a class="reference internal" href="#guidelines">Guidelines</a></li>
+<li><a class="reference internal" href="#git-repository">Git Repository</a></li>
 <li><a class="reference internal" href="#details">Details</a></li>
 </ul>
 </li>
@@ -127,6 +128,18 @@
 </ul>
 </li>
 </ul>
+</div>
+<div class="section" id="git-repository">
+<h2>Git Repository</h2>
+<p>OpenTSDB is maintained in <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/">GitHub</a>. There are a limited number of branches and the purpose of each branch is as follows:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">maintenance</span></code> - This was the previously released version of OpenTSDB, usually the last minor version. E.g. if 2.3.0 or 2.3.1 is the current release, <code class="docutils literal"><span class="pre">maintenance</span></code> will have the last 2.2.x version. This branch should rarely have PRs pointed at it. Rather patches against <code class="docutils literal"><span class="pre">master</span></code> that would apply to previous releases can be cherry-picked.</li>
+<li><code class="docutils literal"><span class="pre">master</span></code> - The current release version of OpenTSDB. Only pull requests with bug fixes should be given against <code class="docutils literal"><span class="pre">master</span></code>. When enough PRs have been merged, we'll cut another PATCH version, e.g. 2.2.0 to 2.2.1. Patches with new features or behavior modifications should point to <code class="docutils literal"><span class="pre">next</span></code>. Patches against master should be cherry-picked to the <em>downstream</em> branches.</li>
+<li><code class="docutils literal"><span class="pre">next</span></code> - This is the next minor release version of OpenTSDB and contains code in development or, when the version is marked as RC, then release candidate code. If the version is marked as a SNAPSHOT then new features can be applied to next. Once it moves to RC, then new features should be issued against the <code class="docutils literal"><span class="pre">put</span></code> branch. Otherwise only bug fixes should be given for RC code.</li>
+<li><code class="docutils literal"><span class="pre">put</span></code> - When the <code class="docutils literal"><span class="pre">next</span></code> branch is in an RC state, new features should be applied against <code class="docutils literal"><span class="pre">put</span></code> which will be the next minor version.</li>
+<li><code class="docutils literal"><span class="pre">X.0</span></code> - The next major version of OpenTSDB that may include breaking API changes. When the code is in a fairly stable state, it will be promoted up to <code class="docutils literal"><span class="pre">next</span></code> as an RC, then <code class="docutils literal"><span class="pre">master</span></code> for an official release.</li>
+</ul>
+<p>Any other branches are likely to be pruned at some point as they may contain stale code or temporary hacks.</p>
 </div>
 <div class="section" id="details">
 <h2>Details</h2>

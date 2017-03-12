@@ -34,6 +34,19 @@ Guidelines
   * Don't add dependencies to the core OpenTSDB library unless absolutely necessary
   * Add unit tests for any classes/methods you create and verify that your change doesn't break existing unit tests. We know UTs aren't fun, but they are useful
 
+Git Repository
+^^^^^^^^^^^^^^
+
+OpenTSDB is maintained in `GitHub <https://github.com/OpenTSDB/opentsdb/>`_. There are a limited number of branches and the purpose of each branch is as follows:
+
+* ``maintenance`` - This was the previously released version of OpenTSDB, usually the last minor version. E.g. if 2.3.0 or 2.3.1 is the current release, ``maintenance`` will have the last 2.2.x version. This branch should rarely have PRs pointed at it. Rather patches against ``master`` that would apply to previous releases can be cherry-picked.
+* ``master`` - The current release version of OpenTSDB. Only pull requests with bug fixes should be given against ``master``. When enough PRs have been merged, we'll cut another PATCH version, e.g. 2.2.0 to 2.2.1. Patches with new features or behavior modifications should point to ``next``. Patches against master should be cherry-picked to the *downstream* branches.
+* ``next`` - This is the next minor release version of OpenTSDB and contains code in development or, when the version is marked as RC, then release candidate code. If the version is marked as a SNAPSHOT then new features can be applied to next. Once it moves to RC, then new features should be issued against the ``put`` branch. Otherwise only bug fixes should be given for RC code.
+* ``put`` - When the ``next`` branch is in an RC state, new features should be applied against ``put`` which will be the next minor version.
+* ``X.0`` - The next major version of OpenTSDB that may include breaking API changes. When the code is in a fairly stable state, it will be promoted up to ``next`` as an RC, then ``master`` for an official release.
+
+Any other branches are likely to be pruned at some point as they may contain stale code or temporary hacks.
+
 Details
 ^^^^^^^
 

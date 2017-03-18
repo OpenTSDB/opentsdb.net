@@ -84,6 +84,7 @@ When passing rate options in a query string, the options must be enclosed in cur
   "counter", "Boolean", "Optional", "Whether or not the underlying data is a monotonically increasing counter that may roll over", "false", "true"
   "counterMax", "Integer", "Optional", "A positive integer representing the maximum value for the counter.", "Java Long.MaxValue", "65535"
   "resetValue", "Integer", "Optional", "An optional value that, when exceeded, will cause the aggregator to return a ``0`` instead of the calculated rate. Useful when data sources are frequently reset to avoid spurious spikes.", "0", "65000"
+  "dropResets", "Boolean", "Optional", "Whether or not to simply drop rolled-over or reset data points.", "false", "true"
 
 Downsampling
 ------------

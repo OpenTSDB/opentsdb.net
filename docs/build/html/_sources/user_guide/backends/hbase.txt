@@ -58,9 +58,9 @@ Columns with 2 byte qualifiers have an offset in seconds. The first 12 bits of t
 
 Columns with 4 byte qualifiers have an offset in milliseconds. The first 4 *bits* of the qualifier will always be set to ``1`` or ``F`` in hex. The next 22 bits encode the offset in milliseconds as an unsigned integer. The next 2 bits are reserved and the final 4 bits are format flags.
 
-The last 4 bits of either column type describe the data stored. The first bit is a flag that indicates whether or not the value is an integer or floating point. A value of 0 indicates an integer, 1 indicates a float. The last 3 bits indicate the length of the data, offset by 1. A value of ``000`` indicates a 1 byte value while ``010`` indicates a 2 byte value. The length must reflect a value of 1, 2, 4 or 8. Anything else indicates an error.
+The last 4 bits of either column type describe the data stored. The first bit is a flag that indicates whether or not the value is an integer or floating point. A value of 0 indicates an integer, 1 indicates a float. The last 3 bits indicate the length of the data, offset by 1. A value of ``000`` indicates a 1 byte value while ``001`` indicates a 2 byte value. The length must reflect a value of 1, 2, 4 or 8. Anything else indicates an error.
 
-For example, ``0100`` means the column value is an 8 byte, signed integer. ``1011`` indicates the column value is a 4 byte floating point value So the qualifier for the data point at ``1292148123`` with an integer value of 4294967296 would have a qualifier of ``0000011110110100`` or ``07B4`` in hex.
+For example, ``0111`` means the column value is an 8 byte, signed integer. ``1011`` indicates the column value is a 4 byte floating point value So the qualifier for the data point at ``1292148123`` with an integer value of 4294967296 would have a qualifier of ``0000011110110100`` or ``07B4`` in hex.
 
 **Column Values** - 1 to 8 bytes encoded as indicated by the qualifier flag.
 

@@ -37,6 +37,20 @@ Plugins
 
 No implementations, aside from the default, at this time.
 
+Authentication
+^^^^^^^^^^^
+
+Authentication plugins allow OpenTSDB to authenticate a request prior to handling it. This plugin is inserted into the Netty pipeline and will remove itself for that connection once the authentication has been completed.
+
+.. NOTE::
+   Added in 2.4.0 (currently the next branch 03/16/17)
+
+Plugins
+-------
+
+* `Basic Authentication <https://github.com/inst-tech/opentsdb-plugins/blob/master/src/main/java/io/tsdb/opentsdb/authentication/SimpleAuthenticationPlugin.java>`_ - An example which checks a provided username and password against a list of accepted users. Not for production use, does not persist or store users, and really isn't all that secure. This plugin is intended to show the basics of implementing an authentication plugin and for testing the plugin interface.
+
+
 Startup and Service Discovery
 ^^^^^^^^^^^
 

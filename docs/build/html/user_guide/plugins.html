@@ -70,28 +70,32 @@
 <li><a class="reference internal" href="#id1">Plugins</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#startup-and-service-discovery">Startup and Service Discovery</a><ul>
+<li><a class="reference internal" href="#authentication">Authentication</a><ul>
 <li><a class="reference internal" href="#id2">Plugins</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#search">Search</a><ul>
+<li><a class="reference internal" href="#startup-and-service-discovery">Startup and Service Discovery</a><ul>
 <li><a class="reference internal" href="#id3">Plugins</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#real-time-publishing">Real Time Publishing</a><ul>
+<li><a class="reference internal" href="#search">Search</a><ul>
 <li><a class="reference internal" href="#id4">Plugins</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#rpc">RPC</a><ul>
+<li><a class="reference internal" href="#real-time-publishing">Real Time Publishing</a><ul>
 <li><a class="reference internal" href="#id5">Plugins</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#storage-exception-handler">Storage Exception Handler</a><ul>
+<li><a class="reference internal" href="#rpc">RPC</a><ul>
 <li><a class="reference internal" href="#id6">Plugins</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#http-rpc-plugin">HTTP RPC Plugin</a><ul>
+<li><a class="reference internal" href="#storage-exception-handler">Storage Exception Handler</a><ul>
 <li><a class="reference internal" href="#id7">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#http-rpc-plugin">HTTP RPC Plugin</a><ul>
+<li><a class="reference internal" href="#id8">Plugins</a></li>
 </ul>
 </li>
 </ul>
@@ -158,6 +162,20 @@
 <p>No implementations, aside from the default, at this time.</p>
 </div>
 </div>
+<div class="section" id="authentication">
+<h2>Authentication</h2>
+<p>Authentication plugins allow OpenTSDB to authenticate a request prior to handling it. This plugin is inserted into the Netty pipeline and will remove itself for that connection once the authentication has been completed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Added in 2.4.0 (currently the next branch 03/16/17)</p>
+</div>
+<div class="section" id="id2">
+<h3>Plugins</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/inst-tech/opentsdb-plugins/blob/master/src/main/java/io/tsdb/opentsdb/authentication/SimpleAuthenticationPlugin.java">Basic Authentication</a> - An example which checks a provided username and password against a list of accepted users. Not for production use, does not persist or store users, and really isn't all that secure. This plugin is intended to show the basics of implementing an authentication plugin and for testing the plugin interface.</li>
+</ul>
+</div>
+</div>
 <div class="section" id="startup-and-service-discovery">
 <h2>Startup and Service Discovery</h2>
 <p>OpenTSDB is sometimes used within environments where additional initialization or registration is desired beyond what OpenTSDB typically can do out of the box. Startup plugins can be enabled which will be called when OpenTSDB is initializing, when it is ready to serve traffic, and when it is being shutdown. The <code class="docutils literal"><span class="pre">tsd.startup.plugin</span></code> property can be used to specify the plugin class and <code class="docutils literal"><span class="pre">tsd.startup.enable</span></code> will instruct OpenTSDB to attempt to load the startup plugin.</p>
@@ -165,7 +183,7 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Added in 2.3.0</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="id3">
 <h3>Plugins</h3>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/inst-tech/opentsdb-discoveryplugins/blob/master/src/main/java/io/tsdb/opentsdb/discoveryplugins/IdentityPlugin.java">Identity Plugin</a> - An example plugin which does nothing but can be used as a starting point for future Startup Plugins and can be used to test the registration mechanism.</li>
@@ -176,7 +194,7 @@
 <div class="section" id="search">
 <h2>Search</h2>
 <p>OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The <code class="docutils literal"><span class="pre">tsd.search.plugin</span></code> property lets you select a search plugin and <code class="docutils literal"><span class="pre">tsd.search.enable</span></code> will start sending data and queries. Search plugins will be loaded by TSDs and select command line tools such as the UID Manager tool.</p>
-<div class="section" id="id3">
+<div class="section" id="id4">
 <h3>Plugins</h3>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/manolama/opentsdb-elasticsearch">Elastic Search</a> - A beta plugin that connects to an Elastic Search cluster</li>
@@ -186,7 +204,7 @@
 <div class="section" id="real-time-publishing">
 <h2>Real Time Publishing</h2>
 <p>Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The <code class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></code> property lets you select a plugin and <code class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></code> will start sending data.</p>
-<div class="section" id="id4">
+<div class="section" id="id5">
 <h3>Plugins</h3>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/manolama/opentsdb-rtpub-rabbitmq">RabbitMQ</a> - A proof-of-concept plugin to publish to a RabbitMQ cluster by metric name</li>
@@ -197,7 +215,7 @@
 <div class="section" id="rpc">
 <h2>RPC</h2>
 <p>Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the <code class="docutils literal"><span class="pre">tsd.rpc.plugins</span></code> or <cite>tsd.http.rpc.plugins`</cite> configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.</p>
-<div class="section" id="id5">
+<div class="section" id="id6">
 <h3>Plugins</h3>
 <p>No implementations at this time.</p>
 </div>
@@ -205,7 +223,7 @@
 <div class="section" id="storage-exception-handler">
 <h2>Storage Exception Handler</h2>
 <p>If a write to the underlying storage layer fails for any reason, an exception is raised. When this happens, if a a storage exception handler plugin is enabled, the data points that couldn't be written can be retried at a later date by spooling to disk or passing to a messaging system. (v2.2)</p>
-<div class="section" id="id6">
+<div class="section" id="id7">
 <h3>Plugins</h3>
 <p>No implementations at this time.</p>
 </div>
@@ -213,7 +231,7 @@
 <div class="section" id="http-rpc-plugin">
 <h2>HTTP RPC Plugin</h2>
 <p>This is an interface used to implement additional HTTP API endpoints for OpenTSDB. (v2.2)</p>
-<div class="section" id="id7">
+<div class="section" id="id8">
 <h3>Plugins</h3>
 <p>No implementations at this time.</p>
 </div>

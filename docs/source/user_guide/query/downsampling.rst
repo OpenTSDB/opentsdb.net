@@ -5,7 +5,7 @@ Downsampling (or in signal processing, *decimation*) is the process of reducing 
 
 Downsamplers require at least two components:
 
-* **Interval** - A time range (or *bucket*) across which to aggregate the values. For example we could aggregate multiple values for 1 minute or 1 hour or even a whole day. Intervals are specified in the format ``<Size><Units>`` such as ``1h`` for 1 hour or ``30m`` for 30 minutes.
+* **Interval** - A time range (or *bucket*) across which to aggregate the values. For example we could aggregate multiple values for 1 minute or 1 hour or even a whole day. Intervals are specified in the format ``<Size><Units>`` such as ``1h`` for 1 hour or ``30m`` for 30 minutes. As for *2.3* the ``all`` interval is now available to downsample all results in the time range to one value. E.g. ``all-sum``.
 * **Aggregation Function** - A mathematical function that determines how to merge the values in the interval. Aggregation functions from the :doc:`aggregators` documentation are used for the function.
 
 For example, take the following time series ``A`` and ``B``. The data points cover a 70 second time span, a value every 10 seconds. Let's say we want to downsample that to 30 seconds since the user is looking at a graph for a wider time span. Additionally we're grouping these two series into one using a sum aggregator. We can specify a downsampler of ``30s-sum`` that will create 30 second buckets and sum all of the data points in each bucket. This will give us three data points for each series:
@@ -25,6 +25,8 @@ As you can see, for each time series, we generate a synthetic series with a time
 .. NOTE:: For early versions of OpenTSDB, the actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. As of 2.1 and later, the timestamp for each point is aligned to the start of a time bucket based on a modulo of the current time and the downsample interval.
 
 Downsampled timestamps are normalized based on the remainder of the original data point timestamp divided by the downsampling interval in milliseconds, i.e. the modulus. In Java the code is ``timestamp - (timestamp % interval_ms)``. For example, given a timestamp of ``1388550980000``, or ``1/1/2014 04:36:20 UTC`` and an hourly interval that equates to 3600000 milliseconds, the resulting timestamp will be rounded to ``1388548800000``. All data points between 4 and 5 UTC will wind up in the 4 AM bucket. If you query for a day's worth of data downsampling on 1 hour, you will receive 24 data points (assuming there is data for all 24 hours). 
+
+When using the ``all-`` interval, the timestamp of the result will be the start time of the query.
 
 Normalization works very well for common queries such as a day's worth of data downsampled to 1 minute or 1 hour. However if you try to downsample on an odd interval, such as 36 minutes, then the timestamps may look a little strange due to the nature of the modulus calculation. Given an interval of 36 minutes and our example above, the interval would be ``2160000`` milliseconds and the resulting timestamp ``1388549520`` or ``04:12:00 UTC``. All data points between ``04:12`` and ``04:48`` would wind up in a single bucket.
 

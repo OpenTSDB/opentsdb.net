@@ -141,22 +141,22 @@
 <td>The project ID hosting your Bigtable cluster.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>google.bigtable.cluster.name</td>
+<tr class="row-odd"><td>google.bigtable.instance.id</td>
 <td>String</td>
 <td>Required</td>
-<td>The cluster ID you assigned to your Bigtable cluster at creation.</td>
+<td>The cluster ID you assigned to your Bigtable cluster at creation. Note that prior to AsyncBigtable 0.3.0 the value was <code class="docutils literal"><span class="pre">google.bigtable.cluster.name</span></code>.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>google.bigtable.zone.name</td>
+<tr class="row-even"><td>google.bigtable.zone.id</td>
 <td>String</td>
 <td>Required</td>
-<td>The zone where your Bigtable cluster is operating; chosen at creation.</td>
+<td>The zone where your Bigtable cluster is operating; chosen at creation. Note that prior to AsyncBigtable 0.3.0 the value was <code class="docutils literal"><span class="pre">google.bigtable.zone.name</span></code>.</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>hbase.client.connection.impl</td>
 <td>String</td>
 <td>Required</td>
-<td>The class that will be used to implement the HBase API AsyncBigtable will use as a shim between the Bigtable client and OpenTSDB. Set this to <cite>com.google.cloud.bigtable.hbase1_0.BigtableConnection</cite></td>
+<td>The class that will be used to implement the HBase API AsyncBigtable will use as a shim between the Bigtable client and OpenTSDB. Set this to <code class="docutils literal"><span class="pre">com.google.cloud.bigtable.hbase1_2.BigtableConnection</span></code> (or prior to AsyncBigtable 0.3.0 <code class="docutils literal"><span class="pre">com.google.cloud.bigtable.hbase1_0.BigtableConnection</span></code>).</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>google.bigtable.auth.service.account.enable</td>
@@ -181,7 +181,7 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Google's Bigtable client communicates with their servers over HTTP2 with TLS using ALPN. As Java 7 and 8 (dunno about 9) lack native ALPN support, a <a class="reference external" href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html">library</a> must be loaded at JVM start to modify the JVM's bytecode. The build script for OpenTSDB will attempt to detect your JDK version and download the proper version of ALPN but if you have a custom JVM or something other than Hotspot or OpenJDK you may run into issues. Try different versions of the <cite>alpn-boot</cite> JAR to see what works for you.</p>
+<p class="last">In older version's of the client, Google's Bigtable client communicates with their servers over HTTP2 with TLS using ALPN. As Java 7 and 8 (dunno about 9) lack native ALPN support, a <a class="reference external" href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html">library</a> must be loaded at JVM start to modify the JVM's bytecode. The build script for OpenTSDB will attempt to detect your JDK version and download the proper version of ALPN but if you have a custom JVM or something other than Hotspot or OpenJDK you may run into issues. Try different versions of the <cite>alpn-boot</cite> JAR to see what works for you. With AsyncBigtable 0.3.0 a JDK agnostic library is used so ALPN is no longer required.</p>
 </div>
 </div>
 </div>

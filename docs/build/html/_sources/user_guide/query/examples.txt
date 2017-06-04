@@ -41,7 +41,7 @@ Sample Data
    "web03", "03"
    "dal", "04"
    "lax", "05"
-   "doe", "06"
+   "jdoe", "06"
    
 .. WARNING:: This isn't necesarily the best way to setup your metrics and tags, rather it's meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.
 

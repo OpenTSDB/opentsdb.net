@@ -71,7 +71,7 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
   "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. *Deprecated in 2.2*", "", "*See Below*"
   "filters *(2.2)*", "List", "Optional", "Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.", "", "*See Below*"
   "explicitTags *(2.3)*", "Boolean", "Optional", "Returns the series that include only the tag keys provided in the filters.", "false", "true"
-  "percentiles *(2.4)*", "List", "Optional", "Fetches histogram data for the metric and computes the given list of percentiles on the data. Percentiles are floating point values from 0 to 100. More details below.", "[99.9, 95.0, 75.0]"
+  "percentiles *(2.4)*", "List", "Optional", "Fetches histogram data for the metric and computes the given list of percentiles on the data. Percentiles are floating point values from 0 to 100. More details below.", "", "[99.9, 95.0, 75.0]"
 
 Rate Options
 ------------

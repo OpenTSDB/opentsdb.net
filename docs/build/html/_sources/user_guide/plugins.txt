@@ -116,3 +116,13 @@ Plugins
 -------
 
 No implementations at this time.
+
+Histogram Plugins
+^^^^^^^^^^^^^^^^^
+
+These are implementations of histograms, digests or sketches for storing multiple measurements in one interval then extracting data such as quantiles in an accurate manner.
+
+Plugins
+-------
+
+* `Yahoo Data Sketches <https://github.com/OpenTSDB/opentsdb-datasketches>`_ - A set of algorithms for collecting various metrics, merging the results from distributed sources, and computing useful metrics from the results. This implementation uses the quantiles sketch for encoding and storing fixed error rated latency measurements.

@@ -71,6 +71,7 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
   "tags", "Map", "Optional", "To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. *Deprecated in 2.2*", "", "*See Below*"
   "filters *(2.2)*", "List", "Optional", "Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.", "", "*See Below*"
   "explicitTags *(2.3)*", "Boolean", "Optional", "Returns the series that include only the tag keys provided in the filters.", "false", "true"
+  "percentiles *(2.4)*", "List", "Optional", "Fetches histogram data for the metric and computes the given list of percentiles on the data. Percentiles are floating point values from 0 to 100. More details below.", "[99.9, 95.0, 75.0]"
 
 Rate Options
 ------------
@@ -140,6 +141,15 @@ Values in the POST query ``tags`` map and the *group by* curly brace of URI quer
   "``<tagk>=value1|value2|valueN``", "Case sensitive literal OR filter"
   "``<tagk>=va*``", "Case insensitive wildcard filter. An asterisk (star) with any other strings now becomes a wildcard filter shortcut"
 
+Percentiles
+-----------
+
+With OpenTSDB 2.4, the database can store and query histogram or digest data for accurate percentile calculations (as opposed to the built-in percentile aggregators). If one or more percentiles are requested in a query, the TSD will scan storage explicitly for histograms (of any codec type) and regular numeric data will be ignored. More than one percentile can be computed at the same time, for example it may be common to fetch the 99.999th, 99.9th, 99.0th and 95th percentiles in one query via ``percentiles[99.999, 99.9, 99.0, 95.0]``. **NOTE** For some plugin implementations (such as the Yahoo Data Sketches implementation) the percentile list must be given in descending sorted order.
+
+Results are serialized in the same was as regular data point time series for compatibility with existing graph systems. However the percentile will be appended to the metric name and time series for each group-by and percentile will be returned. For example, if the user asks for ``percentiles[99.9,75.0]`` over the ``sys.cpu.nice`` metric, the results will have time series ``sys.cpu.nice_pct_99.9`` and ``sys.cpu.nice_pct_75.0``. 
+
+.. NOTE:: Currently the only supported downsampling and aggregation operators over histogram data is ``SUM``. This is the most common use-case in that you may want to group all of the hosts for a server by colo in which case we'll sum all of the histograms and then compute the percentiles based on the sums. Likewise, if you want to downsample to every hour, the grouped histograms are again summed over time and finally the percentiles are extracted.
+
 Metric Query String Format
 --------------------------
 
@@ -147,7 +157,7 @@ The full specification for a metric query string sub query is as follows:
 
 ::
 
-  m=<aggregator>:[rate[{counter[,<counter_max>[,<reset_value>]]]}:][<down_sampler>:][explicit_tags:]<metric_name>[{<tag_name1>=<grouping filter>[,...<tag_nameN>=<grouping_filter>]}][{<tag_name1>=<non grouping filter>[,...<tag_nameN>=<non_grouping_filter>]}]
+  m=<aggregator>:[rate[{counter[,<counter_max>[,<reset_value>]]]}:][<down_sampler>:][percentiles\[<p1>, <pn>\]:][explicit_tags:]<metric_name>[{<tag_name1>=<grouping filter>[,...<tag_nameN>=<grouping_filter>]}][{<tag_name1>=<non grouping filter>[,...<tag_nameN>=<non_grouping_filter>]}]
   
 It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see :doc:`../../user_guide/query/examples`.
 

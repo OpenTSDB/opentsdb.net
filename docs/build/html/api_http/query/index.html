@@ -25,7 +25,7 @@
     <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
     <link rel="up" title="HTTP API" href="../index.html" />
     <link rel="next" title="/api/query/exp" href="exp.html" />
-    <link rel="prev" title="/api/rollup" href="../rollup.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="/api/histogram" href="../histogram.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -51,7 +51,7 @@
           <a href="exp.html" title="/api/query/exp"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../rollup.html" title="/api/rollup"
+          <a href="../histogram.html" title="/api/histogram"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
@@ -70,6 +70,7 @@
 <li><a class="reference internal" href="#downsampling">Downsampling</a></li>
 <li><a class="reference internal" href="#filters">Filters</a></li>
 <li><a class="reference internal" href="#filter-conversions">Filter Conversions</a></li>
+<li><a class="reference internal" href="#percentiles">Percentiles</a></li>
 <li><a class="reference internal" href="#metric-query-string-format">Metric Query String Format</a></li>
 <li><a class="reference internal" href="#tsuid-query-string-format">TSUID Query String Format</a></li>
 <li><a class="reference internal" href="#example-query-string-requests">Example Query String Requests</a></li>
@@ -88,8 +89,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../rollup.html"
-                        title="previous chapter">/api/rollup</a></p>
+  <p class="topless"><a href="../histogram.html"
+                        title="previous chapter">/api/histogram</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="exp.html"
                         title="next chapter">/api/query/exp</a></p>
@@ -370,6 +371,13 @@
 <td>false</td>
 <td>true</td>
 </tr>
+<tr class="row-even"><td>percentiles <em>(2.4)</em></td>
+<td>List</td>
+<td>Optional</td>
+<td>Fetches histogram data for the metric and computes the given list of percentiles on the data. Percentiles are floating point values from 0 to 100. More details below.</td>
+<td>[99.9, 95.0, 75.0]</td>
+<td>&nbsp;</td>
+</tr>
 </tbody>
 </table>
 <div class="section" id="rate-options">
@@ -531,10 +539,19 @@
 </tbody>
 </table>
 </div>
+<div class="section" id="percentiles">
+<h3>Percentiles</h3>
+<p>With OpenTSDB 2.4, the database can store and query histogram or digest data for accurate percentile calculations (as opposed to the built-in percentile aggregators). If one or more percentiles are requested in a query, the TSD will scan storage explicitly for histograms (of any codec type) and regular numeric data will be ignored. More than one percentile can be computed at the same time, for example it may be common to fetch the 99.999th, 99.9th, 99.0th and 95th percentiles in one query via <code class="docutils literal"><span class="pre">percentiles[99.999,</span> <span class="pre">99.9,</span> <span class="pre">99.0,</span> <span class="pre">95.0]</span></code>. <strong>NOTE</strong> For some plugin implementations (such as the Yahoo Data Sketches implementation) the percentile list must be given in descending sorted order.</p>
+<p>Results are serialized in the same was as regular data point time series for compatibility with existing graph systems. However the percentile will be appended to the metric name and time series for each group-by and percentile will be returned. For example, if the user asks for <code class="docutils literal"><span class="pre">percentiles[99.9,75.0]</span></code> over the <code class="docutils literal"><span class="pre">sys.cpu.nice</span></code> metric, the results will have time series <code class="docutils literal"><span class="pre">sys.cpu.nice_pct_99.9</span></code> and <code class="docutils literal"><span class="pre">sys.cpu.nice_pct_75.0</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently the only supported downsampling and aggregation operators over histogram data is <code class="docutils literal"><span class="pre">SUM</span></code>. This is the most common use-case in that you may want to group all of the hosts for a server by colo in which case we'll sum all of the histograms and then compute the percentiles based on the sums. Likewise, if you want to downsample to every hour, the grouped histograms are again summed over time and finally the percentiles are extracted.</p>
+</div>
+</div>
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:][explicit_tags:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;grouping_filter&gt;]}][{&lt;tag_name1&gt;=&lt;non grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;non_grouping_filter&gt;]}]
+<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:][percentiles\[&lt;p1&gt;, &lt;pn&gt;\]:][explicit_tags:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;grouping_filter&gt;]}][{&lt;tag_name1&gt;=&lt;non grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;non_grouping_filter&gt;]}]
 </pre></div>
 </div>
 <p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><em>Query Examples</em></a>.</p>
@@ -836,7 +853,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
           <a href="exp.html" title="/api/query/exp"
              >next</a> |</li>
         <li class="right" >
-          <a href="../rollup.html" title="/api/rollup"
+          <a href="../histogram.html" title="/api/histogram"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 

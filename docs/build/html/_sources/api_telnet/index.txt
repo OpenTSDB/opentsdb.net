@@ -21,6 +21,7 @@ At any time the connection can be closed by issuing the ``exit`` command.
   
   put
   rollup
+  histogram
   stats
   version
   help

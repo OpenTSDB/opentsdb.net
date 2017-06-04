@@ -200,6 +200,7 @@ API Endpoints
    dropcaches
    put
    rollup
+   histogram
    query/index
    search/index
    serializers

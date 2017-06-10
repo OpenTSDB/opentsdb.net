@@ -78,6 +78,11 @@
 <li><a class="reference internal" href="#solutions">Solutions</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li><a class="reference internal" href="#aggregationids">aggregationIds</a></li>
+<li><a class="reference internal" href="#intervals">intervals</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -532,6 +537,110 @@
 </ul>
 <p><strong>Share</strong></p>
 <p>If you have working code for calculating aggregations, please share with the OpenTSDB group. If your solution is open-source we may be able to incorporate it in the OpenTSDB ecosystem.</p>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration</h2>
+<p id="rollup-configuration">For Opentsdb 2.4, the rollup configuration is referenced by the opentsdb.conf key <code class="docutils literal"><span class="pre">tsd.rollups.config</span></code>. The value of this key must either but a quote-escaped JSON string without newlines or, preferably, the path to a JSON file containing the configuration. The file name must end with <code class="docutils literal"><span class="pre">.json</span></code> as in <code class="docutils literal"><span class="pre">rollup_config.json</span></code>.</p>
+<p>The JSON configuration should look something like this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+      <span class="s2">&quot;aggregationIds&quot;</span><span class="o">:</span> <span class="p">{</span>
+              <span class="s2">&quot;sum&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+              <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">3</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;intervals&quot;</span><span class="o">:</span> <span class="p">[{</span>
+              <span class="s2">&quot;table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;preAggregationTable&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-preagg&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;rowSpan&quot;</span><span class="o">:</span> <span class="s2">&quot;1h&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;defaultInterval&quot;</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">},</span> <span class="p">{</span>
+              <span class="s2">&quot;table&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-rollup-1h&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;preAggregationTable&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdb-rollup-preagg-1h&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1h&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;rowSpan&quot;</span><span class="o">:</span> <span class="s2">&quot;1d&quot;</span>
+      <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The two top level fields include:</p>
+<ul class="simple">
+<li><strong>aggregationIds</strong> - A map of OpenTSDB aggregation function names to numeric identifiers used for compressed storage.</li>
+<li><strong>intervals</strong> - A list of one or more interval definitions containing table names and interval definitions.</li>
+</ul>
+<div class="section" id="aggregationids">
+<h3>aggregationIds</h3>
+<p>The aggregation ids map is used for reducing storage by prepending each type of rolled up data with the numeric ID instead of spelling out the full aggregation function. E.g. if we prefixed every column with <code class="docutils literal"><span class="pre">COUNT:</span></code> that's 6 bytes for every value (or compacted column) that we can save using an ID.</p>
+<p>IDs must be integers from 0 to 127. This means we can store up to 128 different rollups per interval. Only one ID of each numeric value may be provided in the map and only one aggregation function of each type can be given. If a function name does not map to an aggregation function supported by OpenTSDB, an exception will be thrown on start up. Likewise, at least one aggregation must be given for a TSD to start.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The aggregation IDs cannot be changed once you start writing data. If you change mappings, the incorrect data may be returned or queries and writes may fail. You can always add functions in the future but never, ever change the mappings.</p>
+</div>
+</div>
+<div class="section" id="intervals">
+<h3>intervals</h3>
+<p>Each interval object defines table routing for where rollup and pre-aggregate data should be written to and queried from. There are two types of intervals:</p>
+<ul class="simple">
+<li><strong>Default</strong> - This is the default, <em>raw</em> data OpenTSDB table defined by <code class="docutils literal"><span class="pre">&quot;defaultInterval&quot;:true</span></code>. For existing installations, this would be the <code class="docutils literal"><span class="pre">tsdb</span></code> table or whatever is defined in <code class="docutils literal"><span class="pre">tsd.storage.hbase.data_table</span></code>. Intervals and spans are ignored, defaulting to the OpenTSDB 1 hour row width and storing data with the resolution and timestamp given. Each TSD and configuration can have <em>only one</em> default configured at a time.</li>
+<li><strong>Rollup Interval</strong> - Any interval with <code class="docutils literal"><span class="pre">&quot;defaultInterval&quot;:false</span></code> or the default interval not set. These are rollup tables where values are snapped to interval boundaries.</li>
+</ul>
+<p>The following fields should be defined:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="10%" />
+<col width="5%" />
+<col width="55%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>table</td>
+<td>String</td>
+<td>Required</td>
+<td>The base or rollup table for non-pre-aggregated data. For the default table, this should be <code class="docutils literal"><span class="pre">tsdb</span></code> or the table existing raw data is written to. For rolled up data, it must be a different table than the raw data.</td>
+<td>tsdb-rollup-1h</td>
+</tr>
+<tr class="row-odd"><td>preAggregationTable</td>
+<td>String</td>
+<td>Required</td>
+<td>The table where pre-aggregated and (optionally) rolled up data should be written to. This may be the same table as the <code class="docutils literal"><span class="pre">table</span></code> value.</td>
+<td>tsdb-rollup-preagg-1h</td>
+</tr>
+<tr class="row-even"><td>interval</td>
+<td>String</td>
+<td>Required</td>
+<td>The expected interval between data points in the format <code class="docutils literal"><span class="pre">&lt;interval&gt;&lt;units&gt;</span></code>. E.g. if rollups are computed every hour, the interval should be <code class="docutils literal"><span class="pre">1h</span></code>. If they are computed every 10 minutes, set it to <code class="docutils literal"><span class="pre">10m</span></code>. For the default table, this value is ignored.</td>
+<td>1h</td>
+</tr>
+<tr class="row-odd"><td>rowSpan</td>
+<td>String</td>
+<td>Required</td>
+<td>The width of each row in storage. This value must be greater than the <code class="docutils literal"><span class="pre">interval</span></code> and defines the number of <code class="docutils literal"><span class="pre">interval``s</span> <span class="pre">that</span> <span class="pre">will</span> <span class="pre">fit</span> <span class="pre">in</span> <span class="pre">each</span> <span class="pre">row.</span> <span class="pre">E.g.</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">interval</span> <span class="pre">is</span> <span class="pre">``1h</span></code> and <code class="docutils literal"><span class="pre">rowSpan</span></code> is <code class="docutils literal"><span class="pre">1d</span></code> then we would have 24 values per row.</td>
+<td>1d</td>
+</tr>
+<tr class="row-even"><td>defaultInterval</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the configured interval is the default for raw, non-rolled up data.</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>In storage, rollups are written similar to the raw data in that each row has a base timestamp and each data point is an offset from that base time. Each offset is an increment off of the base time, not an actual offset. For example, if a row stores 1 day of 1 hour data, there would be up to 24 offsets. Offset <code class="docutils literal"><span class="pre">0</span></code> would map to midnight for the row and offset 5 would map to 6 AM. Because rollup offsets are encoded on 14 bits, if too many intervals would be stored in a row to fit within 14 bits, an error will be thrown when the TSD is started.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">After writing data to a TSD, do <strong>NOT</strong> change the interval widths or row spans for rollup intervals. This will result in garbage data and possibly failed queries.</p>
+</div>
 </div>
 </div>
 </div>

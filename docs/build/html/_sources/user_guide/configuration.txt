@@ -106,6 +106,7 @@ documentation for details.
    "tsd.query.filter.expansion_limit *(2.2)*", "Integer", "Optional", "The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.", "4096", ""
    "tsd.query.skip_unresolved_tagvs *(2.2)*", "Boolean", "Optional", "Whether or not to continue querying when the query includes a tag value that hasn't been assigned a UID yet and may not exist.", "False", ""
    "tsd.query.timeout *(2.2)*", "Integer", "Optional", "How long, in milliseconds, before canceling a running query. A value of 0 means queries will not timeout.", "0", ""
+   "tsd.rollups.config *(2.4)*", "String", "Optional", "The path to a configuration file detailing available rollup tables and aggregations. Must set ``tsd.rollups.enable`` to ``true`` for this option to be parsed. See :doc:`rollups`", "", "rollup_config.json"
    "tsd.rollups.enable *(2.4)*", "Boolean", "Optional", "Whether or not to enable rollup and pre-aggregation storage and writing.", "false", ""
    "tsd.rollups.tag_raw *(2.4)*", "Boolean", "Optional", "Whether or not to tag non-rolled-up and non-pre-aggregated values with the tag key configured in ``tsd.rollups.agg_tag_key`` and value configured in ``tsd.rollups.raw_agg_tag_value``", "false", ""
    "tsd.rollups.agg_tag_key *(2.4)*", "String", "Optional", "A special key to tag pre-aggregated data with when writing to storage", "_aggregate", ""

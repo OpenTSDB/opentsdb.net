@@ -208,3 +208,73 @@ While stream processing is better you still have problems to deal with such as:
 **Share**
 
 If you have working code for calculating aggregations, please share with the OpenTSDB group. If your solution is open-source we may be able to incorporate it in the OpenTSDB ecosystem.
+
+Configuration
+^^^^^^^^^^^^^
+
+.. _rollup_configuration:
+
+For Opentsdb 2.4, the rollup configuration is referenced by the opentsdb.conf key ``tsd.rollups.config``. The value of this key must either but a quote-escaped JSON string without newlines or, preferably, the path to a JSON file containing the configuration. The file name must end with ``.json`` as in ``rollup_config.json``. 
+
+The JSON configuration should look something like this:
+
+.. code-block :: javascript
+  
+  {
+  	"aggregationIds": {
+  		"sum": 0,
+  		"count": 1,
+  		"min": 2,
+  		"max": 3
+  	},
+  	"intervals": [{
+  		"table": "tsdb",
+  		"preAggregationTable": "tsdb-preagg",
+  		"interval": "1m",
+  		"rowSpan": "1h",
+  		"defaultInterval": true
+  	}, {
+  		"table": "tsdb-rollup-1h",
+  		"preAggregationTable": "tsdb-rollup-preagg-1h",
+  		"interval": "1h",
+  		"rowSpan": "1d"
+  	}]
+  }
+
+The two top level fields include:
+
+* **aggregationIds** - A map of OpenTSDB aggregation function names to numeric identifiers used for compressed storage.
+* **intervals** - A list of one or more interval definitions containing table names and interval definitions.
+
+aggregationIds
+--------------
+
+The aggregation ids map is used for reducing storage by prepending each type of rolled up data with the numeric ID instead of spelling out the full aggregation function. E.g. if we prefixed every column with ``COUNT:`` that's 6 bytes for every value (or compacted column) that we can save using an ID.
+
+IDs must be integers from 0 to 127. This means we can store up to 128 different rollups per interval. Only one ID of each numeric value may be provided in the map and only one aggregation function of each type can be given. If a function name does not map to an aggregation function supported by OpenTSDB, an exception will be thrown on start up. Likewise, at least one aggregation must be given for a TSD to start.
+
+.. WARNING:: The aggregation IDs cannot be changed once you start writing data. If you change mappings, the incorrect data may be returned or queries and writes may fail. You can always add functions in the future but never, ever change the mappings.
+
+intervals
+---------
+
+Each interval object defines table routing for where rollup and pre-aggregate data should be written to and queried from. There are two types of intervals:
+
+* **Default** - This is the default, *raw* data OpenTSDB table defined by ``"defaultInterval":true``. For existing installations, this would be the ``tsdb`` table or whatever is defined in ``tsd.storage.hbase.data_table``. Intervals and spans are ignored, defaulting to the OpenTSDB 1 hour row width and storing data with the resolution and timestamp given. Each TSD and configuration can have *only one* default configured at a time.
+* **Rollup Interval** - Any interval with ``"defaultInterval":false`` or the default interval not set. These are rollup tables where values are snapped to interval boundaries.
+
+The following fields should be defined:
+
+.. csv-table::
+   :header: "Name", "Data Type", "Required", "Description", "Example"
+   :widths: 15, 10, 5, 55, 15
+   
+   "table", "String", "Required", "The base or rollup table for non-pre-aggregated data. For the default table, this should be ``tsdb`` or the table existing raw data is written to. For rolled up data, it must be a different table than the raw data.", "tsdb-rollup-1h"
+   "preAggregationTable", "String", "Required", "The table where pre-aggregated and (optionally) rolled up data should be written to. This may be the same table as the ``table`` value.", "tsdb-rollup-preagg-1h"
+   "interval", "String", "Required", "The expected interval between data points in the format ``<interval><units>``. E.g. if rollups are computed every hour, the interval should be ``1h``. If they are computed every 10 minutes, set it to ``10m``. For the default table, this value is ignored.", "1h"
+   "rowSpan", "String", "Required", "The width of each row in storage. This value must be greater than the ``interval`` and defines the number of ``interval``s that will fit in each row. E.g. if the interval is ``1h`` and ``rowSpan`` is ``1d`` then we would have 24 values per row.", "1d"
+   "defaultInterval", "Boolean", "Optional", "Whether or not the configured interval is the default for raw, non-rolled up data.", "true"
+
+In storage, rollups are written similar to the raw data in that each row has a base timestamp and each data point is an offset from that base time. Each offset is an increment off of the base time, not an actual offset. For example, if a row stores 1 day of 1 hour data, there would be up to 24 offsets. Offset ``0`` would map to midnight for the row and offset 5 would map to 6 AM. Because rollup offsets are encoded on 14 bits, if too many intervals would be stored in a row to fit within 14 bits, an error will be thrown when the TSD is started. 
+
+.. WARNING:: After writing data to a TSD, do **NOT** change the interval widths or row spans for rollup intervals. This will result in garbage data and possibly failed queries.

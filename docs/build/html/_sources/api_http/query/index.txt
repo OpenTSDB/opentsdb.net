@@ -104,6 +104,7 @@ For example:
   30m-avg-nan
   24h-max-zero
   1dc-sum
+  0all-sum
 
 See :doc:`../../user_guide/query/downsampling` for details on downsampling, a list of supported fill policies and how calendar based downsampling operates.
 

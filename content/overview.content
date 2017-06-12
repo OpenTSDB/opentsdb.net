@@ -5,9 +5,10 @@ OpenTSDB consists of a <strong>Time Series Daemon
 primarily achieved by running one or more of the TSDs. Each TSD is independent.  
 There is no master, no shared state so you can run as many TSDs as required to handle any
 load you throw at it.  Each TSD uses the open source database 
-<a href="http://hbase.org">HBase</a> to store and retrieve time-series data.  
-The HBase schema is highly optimized for fast aggregations of similar time series to 
-minimize storage space.  Users of the TSD never need to access HBase directly.  
+<a href="http://hbase.org">HBase</a> or hosted Google Bigtable service to store and 
+retrieve time-series data.  
+The data schema is highly optimized for fast aggregations of similar time series to 
+minimize storage space.  Users of the TSD never need to access the underlying store directly.  
 You can communicate with the TSD via a simple telnet-style
 protocol, an HTTP API or a simple built-in GUI.  All communications happen on the 
 same port (the TSD figures out the protocol of the client by looking at the first 
@@ -39,7 +40,8 @@ In OpenTSDB, a time series data point consists of:
 <li>A metric name.</li>
 <li>A UNIX timestamp (seconds or millisecinds since 
 <a href="http://en.wikipedia.org/wiki/Unix_epoch">Epoch</a>).</li>
-<li>A value (64 bit integer or single-precision floating point value).</li>
+<li>A value (64 bit integer or single-precision floating point value), a JSON 
+formatted event or a histogram/digest.</li>
 <li>A set of tags (key-value pairs) that describe the time series the point belongs to.</li>
 </ul>
 Tags allow you to separate similar data points from different sources or

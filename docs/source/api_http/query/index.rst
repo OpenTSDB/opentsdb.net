@@ -204,8 +204,7 @@ Please see the serializer documentation for request information: :doc:`../serial
               "tsuids": [
                   "000001000002000042",
                   "000001000002000043"
-                ]
-              }
+              ]
           }
       ]
   }
@@ -234,7 +233,7 @@ Please see the serializer documentation for request information: :doc:`../serial
                      "tagk":"dc",
                      "filter":"lga|lga1|lga2",
                      "groupBy":false
-                  },
+                  }
               ]
           }, 
           {
@@ -242,8 +241,7 @@ Please see the serializer documentation for request information: :doc:`../serial
               "tsuids": [
                   "000001000002000042",
                   "000001000002000043"
-                ]
-              }
+              ]
           }
       ]
   }

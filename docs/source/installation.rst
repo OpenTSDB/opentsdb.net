@@ -16,7 +16,7 @@ To actually run OpenTSDB, you'll need to meet the following:
 Installation
 ^^^^^^^^^^^^
 
-First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the `Apache Quick Start <https://hbase.apache.org/book/quickstart.html>`_ guide. Alternatively you could try a packaged distribution such as `Cloudera's CDH <http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html>`_, `Hortonworks HDP <http://hortonworks.com/products/hdp-2/>`_ or `MapR<https://www.mapr.com/>`_.
+First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the `Apache Quick Start <https://hbase.apache.org/book/quickstart.html>`_ guide. Alternatively you could try a packaged distribution such as `Cloudera's CDH <http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html>`_, `Hortonworks HDP <http://hortonworks.com/products/hdp-2/>`_ or `MapR <https://www.mapr.com/>`_.
 
 Before proceeding with OpenTSDB, make certain that Zookeeper is accessible. One method is to simply telnet to the proper port and execute the ``stats`` command.
 

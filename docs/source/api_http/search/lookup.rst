@@ -28,7 +28,7 @@ Parameters used by the lookup endpoint include:
 
    "query", "String", "Required", "A lookup query as defined below.", "", "m", "", "tsd.hbase.rpcs{type=*}"
    "useMeta", "Boolean", "Optional", "Whether or not to use the meta data table or the raw data table. The raw table will be much slower.", "False", "use_meta", "", "True"
-   "limit", "Integer", "Optional", "The maximum number of items returned in the result set. Currently the limit is ignored for lookup queries", "25", "", "", "100"
+   "limit", "Integer", "Optional", "The maximum number of items returned in the result set.", "25", "", "", "100"
    "startIndex", "Integer", "Optional", "Ignored for lookup queries, always the default.", "0", "", "", "10"
 
 Lookup Queries
@@ -83,7 +83,7 @@ Depending on the endpoint called, the output will change slightly. However commo
   
   "type", "String", "The type of query submitted, i.e. the endpoint called.", "LOOKUP"
   "query", "String", "Ignored for lookup queries.", ""
-  "limit", "Integer", "The maximum number of items returned in the result set. Currently the limit is ignored for lookup queries", "25"
+  "limit", "Integer", "The maximum number of items returned in the result set.", "25"
   "startIndex", "Integer", "Ignored for lookup queries, always the default.", "0"
   "metric", "String", "The metric used for the lookup", "\*"
   "tags", "Array", "The list of tag pairs used for the lookup. May be an empty list.", "[ ]"

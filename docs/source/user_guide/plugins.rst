@@ -43,7 +43,7 @@ Authentication
 Authentication plugins allow OpenTSDB to authenticate a request prior to handling it. This plugin is inserted into the Netty pipeline and will remove itself for that connection once the authentication has been completed.
 
 .. NOTE::
-   Added in 2.4.0 (currently the next branch 03/16/17)
+   Added in 2.4.0
 
 Plugins
 -------

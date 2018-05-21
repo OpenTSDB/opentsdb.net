@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/tree/branch &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/tree/branch &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/tree" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/tree/collisions" href="collisions.html" />
     <link rel="prev" title="/api/tree" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="index.html" title="/api/tree"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/tree</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -86,14 +83,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -117,7 +111,7 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>The following fields can be used to request a branch. Only one or the other may be used.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -144,7 +138,7 @@
 <td>Integer</td>
 <td>Optional</td>
 <td>Used to fetch the root branch of the tree. If used in combination with a branchId, the tree ID will be ignored.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>treeid</td>
 <td>RO</td>
 <td>1</td>
@@ -153,7 +147,7 @@
 <td>String</td>
 <td>Required</td>
 <td>A hexadecimal representation of the branch ID, required for all but the root branch request</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>branch</td>
 <td>RO</td>
 <td>000183A21C8F</td>
@@ -165,7 +159,7 @@
 <h2>Response</h2>
 <p>A successful response to a request will return the branch object using the requested serializer. If the requested tree or branch did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message.</p>
 <p>Fields returned with the response include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -219,7 +213,7 @@
 </table>
 <p><strong>Leaves</strong></p>
 <p>If a branch contains child leaves, i.e. timeseries stored in OpenTSDB, their metric, tags, TSUID and display name will be contained in the results. Leaf fields are as follows:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -261,13 +255,13 @@
 <h2>GET</h2>
 <div class="section" id="example-root-get-query">
 <h3>Example Root GET Query</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/branch?treeid=1
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/branch?treeid=1
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">&quot;branches&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -296,13 +290,13 @@
 </div>
 <div class="section" id="example-branch-get-query">
 <h3>Example Branch GET Query</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/branch?branchid=00010001BECD000181A8
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/branch?branchid=00010001BECD000181A8
 </pre></div>
 </div>
 </div>
 <div class="section" id="id1">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;leaves&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0.user&quot;</span><span class="p">,</span>
@@ -363,9 +357,9 @@
         <li class="right" >
           <a href="index.html" title="/api/tree"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/tree</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>HTTP API &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>HTTP API &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="/s" href="s.html" />
     <link rel="prev" title="Troubleshooting" href="../user_guide/troubleshooting.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -39,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -52,7 +50,7 @@
         <li class="right" >
           <a href="../user_guide/troubleshooting.html" title="Troubleshooting"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -90,14 +88,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -121,7 +116,7 @@
 </div>
 <div class="section" id="serializers">
 <h2>Serializers</h2>
-<p>2.0 introduces pluggable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read <a class="reference internal" href="serializers/index.html"><em>HTTP Serializers</em></a></p>
+<p>2.0 introduces pluggable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read <a class="reference internal" href="serializers/index.html"><span class="doc">HTTP Serializers</span></a></p>
 <p>All API calls use the default JSON serializer unless overridden by query string or <code class="docutils literal"><span class="pre">Content-Type</span></code> header. To override:</p>
 <ul>
 <li><p class="first"><strong>Query String</strong> - Supply a parameter such as <code class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></code> where <code class="docutils literal"><span class="pre">&lt;serializer_name&gt;</span></code> is the hard-coded name of the serializer as shown in the <code class="docutils literal"><span class="pre">/api/serializers</span></code> <code class="docutils literal"><span class="pre">serializer</span></code> output field.</p>
@@ -151,7 +146,7 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <div class="section" id="response-codes">
 <h2>Response Codes</h2>
 <p>Every request will be returned with a standard HTTP response code. Most responses will include content, particularly error codes that will include details in the body about what went wrong. Successful codes returned from the API include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -174,7 +169,7 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 </tbody>
 </table>
 <p>Common error response codes include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
@@ -218,7 +213,7 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <div class="section" id="errors">
 <h2>Errors</h2>
 <p>If an error occurs, the API will return a response with an error object formatted per the requested response type. Error object fields include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -264,7 +259,7 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <p>All errors will return with a valid HTTP status error code and a content body with error details. The default formatter returns error messages as JSON with the <code class="docutils literal"><span class="pre">application/json</span></code> content-type. If a different formatter was requested, the output may be different. See the formatter documentation for details.</p>
 <div class="section" id="example-error-result">
 <h3>Example Error Result</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">400</span><span class="p">,</span>
         <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Missing parameter &lt;code&gt;type&lt;/code&gt;&quot;</span><span class="p">,</span>
@@ -281,7 +276,7 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <h2>Verbs</h2>
 <p>The HTTP API is RESTful in nature, meaning it does it's best to adhere to the REST protocol by using HTTP verbs to determine a course of action. For example, a <code class="docutils literal"><span class="pre">GET</span></code> request should only return data, a <code class="docutils literal"><span class="pre">PUT</span></code> or <code class="docutils literal"><span class="pre">POST</span></code> should modify data and <code class="docutils literal"><span class="pre">DELETE</span></code> should remove it. Documentation will reflect what verbs can be used on an endpoint and what they do.</p>
 <p>However in some situations, verbs such as <code class="docutils literal"><span class="pre">DELETE</span></code> and <code class="docutils literal"><span class="pre">PUT</span></code> are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using <code class="docutils literal"><span class="pre">GET</span></code> and <code class="docutils literal"><span class="pre">POST</span></code> exclusively. Therefore, while the OpenTSDB API supports extended verbs, most requests can be performed with just <code class="docutils literal"><span class="pre">GET</span></code> by adding the query string parameter <code class="docutils literal"><span class="pre">method_override</span></code>. This parameter allows clients to pass data for most API calls as query string values instead of body content. For example, you can delete an annotation by issuing a <code class="docutils literal"><span class="pre">GET</span></code> with a query string <code class="docutils literal"><span class="pre">/api/annotation?start_time=1369141261&amp;tsuid=010101&amp;method_override=delete</span></code>. The following table describes verb behavior and overrides.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="70%" />
@@ -329,7 +324,7 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <div class="section" id="compressed-requests">
 <h2>Compressed Requests</h2>
 <p>The API can accept body content that has been compressed. Make sure to set the <code class="docutils literal"><span class="pre">Content-Encoding</span></code> header to <code class="docutils literal"><span class="pre">gzip</span></code> and pass the binary encoded data over the wire. This is particularly useful for posting data points to the <code class="docutils literal"><span class="pre">/api/put</span></code> endpoint. An example using curl:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span> <span class="nx">gzip</span> <span class="o">-</span><span class="mi">9</span><span class="nx">c</span> <span class="nx">clear</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span> <span class="o">&gt;</span> <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">$</span> <span class="nx">gzip</span> <span class="o">-</span><span class="mi">9</span><span class="nx">c</span> <span class="nx">clear</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span> <span class="o">&gt;</span> <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
 
 <span class="nx">$</span> <span class="nx">file</span> <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
 <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span><span class="o">:</span> <span class="nx">gzip</span> <span class="nx">compressed</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">was</span> <span class="s2">&quot;clear-32k.json&quot;</span><span class="p">,</span> <span class="nx">from</span> <span class="nx">Unix</span><span class="p">,</span> <span class="nx">last</span> <span class="nx">modified</span><span class="o">:</span> <span class="nx">Thu</span> <span class="nx">Jan</span> <span class="mi">16</span> <span class="mi">15</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">55</span> <span class="mi">2014</span>
@@ -376,7 +371,7 @@ If you see <code class="docutils literal"><span class="pre">Present</span></code
 </div>
 <div class="section" id="deprecated-api">
 <h2>Deprecated API</h2>
-<p>Read <a class="reference internal" href="deprecated.html"><em>Deprecated HTTP API</em></a></p>
+<p>Read <a class="reference internal" href="deprecated.html"><span class="doc">Deprecated HTTP API</span></a></p>
 </div>
 <div class="section" id="api-endpoints">
 <h2>API Endpoints</h2>
@@ -421,7 +416,7 @@ If you see <code class="docutils literal"><span class="pre">Present</span></code
         <li class="right" >
           <a href="../user_guide/troubleshooting.html" title="Troubleshooting"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

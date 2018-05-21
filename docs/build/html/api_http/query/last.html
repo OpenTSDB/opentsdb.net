@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/query/last &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/query/last &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/query" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/search" href="../search/index.html" />
     <link rel="prev" title="/api/query/gexp" href="gexp.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="gexp.html" title="/api/query/gexp"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -88,14 +85,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -111,7 +105,7 @@
 <p>This endpoint (2.1 and later) provides support for accessing the latest value of individual time series. It provides an optimization over a regular query when only the last data point is required. Locating the last point can be done with the timestamp of the meta data counter or by scanning backwards from the current system time.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><em>Metadata</em></a>. You must set either <code class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></code> or <code class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></code>. Queries with a backscan parameter will skip the meta table.</p>
+<p class="last">In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><span class="doc">Metadata</span></a>. You must set either <code class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></code> or <code class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></code>. Queries with a backscan parameter will skip the meta table.</p>
 </div>
 <p>Similar to the standard query endpoint, there are two methods to use in selecting which time series should return data:</p>
 <ul class="simple">
@@ -134,7 +128,7 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>Common parameters include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -161,10 +155,10 @@
 <td>Array</td>
 <td>Required</td>
 <td>A list of one or more queries used to determine which time series to fetch the last data point for.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>timeseries | tsuids</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>resolveNames</td>
 <td>Boolean</td>
@@ -172,7 +166,7 @@
 <td>Whether or not to resolve the TSUIDs of results to their metric and tag names.</td>
 <td>false</td>
 <td>resolve</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 <tr class="row-even"><td>backScan</td>
@@ -181,7 +175,7 @@
 <td>A number of hours to search in the past for data. If set to 0 then the timestamp of the meta data counter for the time series is used.</td>
 <td>0</td>
 <td>back_scan</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>24</td>
 </tr>
 </tbody>
@@ -190,7 +184,7 @@
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>timeseries=&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;tag_value1&gt;[,...&lt;tag_nameN&gt;=&lt;tag_valueN&gt;]}]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">timeseries</span><span class="o">=&lt;</span><span class="n">metric_name</span><span class="o">&gt;</span><span class="p">[{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">tag_value1</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">tag_valueN</span><span class="o">&gt;</span><span class="p">]}]</span>
 </pre></div>
 </div>
 <p>It is similar to a regular metric query but does not allow for aggregations, rates, down sampling or grouping operators. Note that if you supply a backscan value to avoid the meta table, then you must supply all of the tags and values to match the exact time series you are looking for. Backscan does not currently filter on the metric and tags given but will look for the specific series.</p>
@@ -198,20 +192,20 @@
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>
 <p>TSUID queries are simpler than Metric queries. Simply pass a list of one or more hexadecimal encoded TSUIDs separated by commas:</p>
-<div class="highlight-python"><div class="highlight"><pre>tsuids=&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tsuids</span><span class="o">=&lt;</span><span class="n">tsuid1</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tsuidN</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-query-string-requests">
 <h3>Example Query String Requests</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/query/last?timeseries=proc.stat.cpu{host=foo,type=idle}&amp;timeseries=proc.stat.mem{host=foo,type=idle}
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/query/last?timeseries=proc.stat.cpu{host=foo,type=idle}&amp;timeseries=proc.stat.mem{host=foo,type=idle}
 http://localhost:4242/api/query/last?tsuids=000001000002000003,000001000002000004&amp;back_scan=24&amp;resolve=true
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-content-request">
 <h3>Example Content Request</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
@@ -238,7 +232,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 <div class="section" id="response">
 <h2>Response</h2>
 <p>The output will be an array of 0 or more data points depending on the data that was found. If a data point for a particular time series was not located within the time specified, it will not appear in the output. Output fields depend on whether or not the <code class="docutils literal"><span class="pre">resolve</span></code> flag was set.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -267,12 +261,12 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 </tbody>
 </table>
 <p>Unless there was an error with the query, you will generally receive a <code class="docutils literal"><span class="pre">200</span></code> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[]</span>
 </pre></div>
 </div>
 <div class="section" id="example-responses">
 <h3>Example Responses</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1377118201000</span><span class="p">,</span>
         <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;1976558550&quot;</span><span class="p">,</span>
@@ -286,7 +280,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
 <span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.rpcs&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1377186301000</span><span class="p">,</span>
@@ -332,9 +326,9 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
         <li class="right" >
           <a href="gexp.html" title="/api/query/gexp"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

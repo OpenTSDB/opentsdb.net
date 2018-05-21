@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/query/gexp &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/query/gexp &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/query" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/query/last" href="last.html" />
     <link rel="prev" title="/api/query/exp" href="exp.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="exp.html" title="/api/query/exp"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -94,14 +91,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -128,8 +122,8 @@
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>Queries can only be executed via GET using the URI at this time. (In the future, the <a class="reference internal" href="exp.html"><em>/api/query/exp</em></a> endpoint will support more flexibility.) This is an extension of the main <a class="reference internal" href="index.html"><em>/api/query</em></a> endpoint so parameters in the request table are also supported here. Additional parameters include:</p>
-<table border="1" class="docutils">
+<p>Queries can only be executed via GET using the URI at this time. (In the future, the <a class="reference internal" href="exp.html"><span class="doc">/api/query/exp</span></a> endpoint will support more flexibility.) This is an extension of the main <a class="reference internal" href="index.html"><span class="doc">/api/query</span></a> endpoint so parameters in the request table are also supported here. Additional parameters include:</p>
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -156,14 +150,14 @@
 </table>
 <div class="section" id="example-query-string-requests">
 <h3>Example Query String Requests</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/query/gexp?start=1h-ago&amp;exp=scale(sum:if.bytes_in{host=*},1024)
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/query/gexp?start=1h-ago&amp;exp=scale(sum:if.bytes_in{host=*},1024)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output is identical to <a class="reference internal" href="index.html"><em>/api/query</em></a>.</p>
+<p>The output is identical to <a class="reference internal" href="index.html"><span class="doc">/api/query</span></a>.</p>
 </div>
 <div class="section" id="functions">
 <h2>Functions</h2>
@@ -226,9 +220,9 @@
         <li class="right" >
           <a href="exp.html" title="/api/query/exp"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

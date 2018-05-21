@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Stats &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Stats &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Definitions" href="definitions.html" />
     <link rel="prev" title="Plugins" href="plugins.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="plugins.html" title="Plugins"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -68,14 +65,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -89,13 +83,13 @@
   <div class="section" id="stats">
 <h1>Stats</h1>
 <p>OpenTSDB offers a number of metrics about its performance, accessible via various API endpoints. The main stats are accessible from the GUI via the &quot;Stats&quot; tab, from the Http API at <code class="docutils literal"><span class="pre">/api/stats</span></code> or the legacy API at <code class="docutils literal"><span class="pre">/stats</span></code>. The Telnet style API also supports the &quot;stats&quot; command for fetching over CLI. These can easily be published right back into OpenTSDB at any interval you like.</p>
-<p>Additional stats available include JVM information, storage details (e.g. per-region-client HBase stats) and executed query details. See <a class="reference internal" href="../api_http/stats/index.html"><em>/api/stats</em></a> for more details about the other endpoints.</p>
+<p>Additional stats available include JVM information, storage details (e.g. per-region-client HBase stats) and executed query details. See <a class="reference internal" href="../api_http/stats/index.html"><span class="doc">/api/stats</span></a> for more details about the other endpoints.</p>
 <p>All metrics from the main stats endpoint include a <code class="docutils literal"><span class="pre">host</span></code> tag that includes the name of the host where the TSD is running. If the <code class="docutils literal"><span class="pre">tsd.stats.canonical</span></code> configuration flag is set, this will change to <code class="docutils literal"><span class="pre">fqdn</span></code> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The <code class="docutils literal"><span class="pre">/api/stats</span></code> endpoint is a good place to execute a health check for your TSD as it will execute a query to storage for fetching UID stats. If the TSD is unable to reach the backing store, the API will return an exception.</p>
 </div>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="20%" />
@@ -156,7 +150,7 @@
 <td>The total number of Http RPC requests received and handled by a plugin instead of the built-in APIs. (v2.2)</td>
 </tr>
 <tr class="row-odd"><td>tsd.rpc.exceptions</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number exceptions caught during RPC calls. These may be user error or bugs.</td>
 </tr>
@@ -231,17 +225,17 @@
 <td>The total number of graph requests that were not cached and required a fetch from storage</td>
 </tr>
 <tr class="row-even"><td>tsd.http.query.invalid_requests</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number data queries sent to the /api/query endpoint that were invalid due to user errors such as using the wrong HTTP method, missing parameters or using metrics and tags without UIDs. (v2.2)</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.query.exceptions</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number data queries sent to the /api/query endpoint that threw an exception due to bad user input or an underlying error. See logs for details. (v2.2)</td>
 </tr>
 <tr class="row-even"><td>tsd.http.query.success</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number data queries sent to the /api/query endpoint that completed successfully. Note that these may have returned an empty result. (v2.2)</td>
 </tr>
@@ -356,12 +350,12 @@
 <td>The current number of available tagv UIDs, decrements as UIDs are assigned.</td>
 </tr>
 <tr class="row-odd"><td>tsd.jvm.ramfree</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Gauge</td>
 <td>The number of bytes reported as free by the JVM's Runtime.freeMemory()</td>
 </tr>
 <tr class="row-even"><td>tsd.jvm.ramused</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Gauge</td>
 <td>The number of bytes reported as used by the JVM's Runtime.totalMemory()</td>
 </tr>
@@ -406,7 +400,7 @@
 <td>The time it took, in milliseconds, to execute a Scan call for the 95th percentile cases</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.root_lookups</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of root lookups performed by the client</td>
 </tr>
@@ -460,37 +454,37 @@
 <td>The total number of Scan requests performed by the client. These indicate a scan-&gt;next() call.</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.rpcs.batched</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of batched requests sent by the client</td>
 </tr>
 <tr class="row-even"><td>tsd.hbase.flushes</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of flushes performed by the client</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.connections.created</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of connections made by the client to region servers</td>
 </tr>
 <tr class="row-even"><td>tsd.hbase.nsre</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of No Such Region Exceptions caught. These can happen when a region server crashes, is taken offline or when a region splits (?)</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.nsre.rpcs_delayed</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of calls delayed due to an NSRE that were later successfully executed</td>
 </tr>
 <tr class="row-even"><td>tsd.hbase.region_clients.open</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of connections opened to region servers since the TSD started. If this number is climbing the region servers may be crashing and restarting. (v2.2)</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.region_clients.idle_closed</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Counter</td>
 <td>The total number of connections to region servers that were closed due to idle connections. This indicates nothing was read from or written to a server in some time and the TSD will reconnect when it needs to. (v2.2)</td>
 </tr>
@@ -515,7 +509,7 @@
 <td>The total number of data points found during compaction that were duplicates at the same time but with a different value. (v2.2)</td>
 </tr>
 <tr class="row-even"><td>tsd.compaction.queue.size</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Gauge</td>
 <td>How many rows of data are currently in the queue to be compacted. (v2.2)</td>
 </tr>
@@ -566,8 +560,8 @@
         <li class="right" >
           <a href="plugins.html" title="Plugins"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

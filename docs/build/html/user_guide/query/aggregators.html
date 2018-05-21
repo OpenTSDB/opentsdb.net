@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Aggregation &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Aggregation &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Downsampling" href="downsampling.html" />
     <link rel="prev" title="Query Filters" href="filters.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="filters.html" title="Query Filters"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -96,14 +93,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -123,11 +117,11 @@
 <li><strong>Function</strong> - The mathematical computation applied such as summing all the values, computing the average or picking the highest.</li>
 <li><strong>Interpolation</strong> - A way of handling <em>missing</em> values such as when time series <em>A</em> has a value at <em>T1</em> but time series <em>B</em> does not have a value.</li>
 </ul>
-<p>This document focuses on how aggregators are used in a <em>group by</em> context, i.e. when merging multiple time series into one. Additionally, aggregators can be used to downsample time series (i.e. return a lower resolution set of results). For more information, see <a class="reference internal" href="downsampling.html"><em>Downsampling</em></a>.</p>
+<p>This document focuses on how aggregators are used in a <em>group by</em> context, i.e. when merging multiple time series into one. Additionally, aggregators can be used to downsample time series (i.e. return a lower resolution set of results). For more information, see <a class="reference internal" href="downsampling.html"><span class="doc">Downsampling</span></a>.</p>
 <div class="section" id="id1">
 <h2>Aggregation</h2>
 <p>When aggregating or <em>grouping</em> each set of time series into one, the timestamps in every time series are aligned. Then for each timestamp, the values across all time series are aggregated into a new numerical value. That is, the aggregator will work <em>across</em> all of the time series at each timestamp. Think of the raw data as a matrix or table as in the following example that illustrates the <code class="docutils literal"><span class="pre">sum</span></code> aggregator as it works across two time series, <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code>, to produce a new time series <code class="docutils literal"><span class="pre">Output</span></code>.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
 <col width="10%" />
@@ -190,7 +184,7 @@
 <p>One answer OpenTSDB provides is to use the well defined numerical analysis method of <a class="reference external" href="https://en.wikipedia.org/wiki/Interpolation">interpolation</a> to make a guess as to what the value would be at that point in time. Interpolation uses existing data points for a time series to calculate a <em>best guess</em> value at the time stamp requested. Using OpenTSDB's linear interpolation we can smooth out our unaligned graph to get:</p>
 <img alt="../../_images/aggregation_sum.png" src="../../_images/aggregation_sum.png" />
 <p>For a numerical example, take a look at these two time series where the sources issue a value every 20 seconds and the data is simply offset by 10 seconds:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="30%" />
 <col width="10%" />
@@ -236,7 +230,7 @@
 <p>When OpenTSDB is calculating an aggregation it starts at the first data point found for any series, in this case it will be the data for <code class="docutils literal"><span class="pre">B</span></code> at <code class="docutils literal"><span class="pre">t0</span></code>. We request a value for <code class="docutils literal"><span class="pre">A</span></code> at <code class="docutils literal"><span class="pre">t0</span></code> but there isn't any data there. We know that there is data for <code class="docutils literal"><span class="pre">A</span></code> at <code class="docutils literal"><span class="pre">t0+10s</span></code> but since we don't have any value before that, we can't make a guess as to what it would be. Thus we simply return the value for <code class="docutils literal"><span class="pre">B</span></code>.</p>
 <p>Next we run across a value for <code class="docutils literal"><span class="pre">A</span></code> at time <code class="docutils literal"><span class="pre">t0+10s</span></code>. We request a value for <code class="docutils literal"><span class="pre">t0+10s</span></code> from time series <code class="docutils literal"><span class="pre">B</span></code> but there isn't one. But <code class="docutils literal"><span class="pre">B</span></code> knows there is a value at <code class="docutils literal"><span class="pre">t0+20s</span></code> and we had a value at <code class="docutils literal"><span class="pre">t0</span></code> so we can now calculate a guess for <code class="docutils literal"><span class="pre">t0+10s</span></code>. The formula for linear interpolation is <code class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">y0</span> <span class="pre">+</span> <span class="pre">(y1</span> <span class="pre">-</span> <span class="pre">y0)</span> <span class="pre">*</span> <span class="pre">((x</span> <span class="pre">-</span> <span class="pre">x0)</span> <span class="pre">/</span> <span class="pre">(x1</span> <span class="pre">-</span> <span class="pre">x0))</span></code> where, for series <code class="docutils literal"><span class="pre">B</span></code>, <code class="docutils literal"><span class="pre">y0</span> <span class="pre">=</span> <span class="pre">10</span></code>, <code class="docutils literal"><span class="pre">y1</span> <span class="pre">=</span> <span class="pre">20</span></code>, <code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">t0+10s</span> <span class="pre">(or</span> <span class="pre">10)</span></code>, <code class="docutils literal"><span class="pre">x0</span> <span class="pre">=</span> <span class="pre">t0</span> <span class="pre">(or</span> <span class="pre">0)</span></code> and <code class="docutils literal"><span class="pre">x1</span> <span class="pre">=</span> <span class="pre">t0+20s</span> <span class="pre">(or</span> <span class="pre">20)</span></code>. Thus we have <code class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">10)</span> <span class="pre">*</span> <span class="pre">((10</span> <span class="pre">-</span> <span class="pre">0)</span> <span class="pre">/</span> <span class="pre">(20</span> <span class="pre">-</span> <span class="pre">0)</span></code> which will reduce to <code class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">10</span> <span class="pre">*</span> <span class="pre">(10</span> <span class="pre">/</span> <span class="pre">20)</span></code> further reducing to <code class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">10</span> <span class="pre">*</span> <span class="pre">.5</span></code> and <code class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">+</span> <span class="pre">5</span></code>. Therefore <code class="docutils literal"><span class="pre">B</span></code> will give us a <em>guestimated</em> value of <code class="docutils literal"><span class="pre">15</span></code> at <code class="docutils literal"><span class="pre">t0+10s</span></code>.</p>
 <p>Iteration continues over every timestamp for which a data point is found for every series returned as a part of the query. The resulting series, using the <strong>sum</strong> aggregator, will look like this:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="30%" />
 <col width="10%" />
@@ -278,20 +272,20 @@
 <td>20</td>
 </tr>
 <tr class="row-even"><td>Interpolated A</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>10</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>10</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>Interpolated B</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>15</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>15</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>15</td>
 <td><em>na</em></td>
 </tr>
@@ -325,7 +319,7 @@ For the graphically inclined we have the following examples. An imaginary metric
 <div class="section" id="downsampling">
 <h2>Downsampling</h2>
 <p>As mentioned above, interpolation is one means of handling missing data. But some users hate the fact that linear interpolation is a way of <em>lying</em> about the data because it generates phantom values. Instead one means of handling unaligned values is through downsampling. For example, if sources report a value every minute but they're skewed in time across that minute, provide a downsampling on 1 minute for every query across that source data. This will have the result of <em>snapping</em> the values to the same timestamp across each time series so that interpolation is <em>mostly</em> avoided. Interpolation will still occur when a downsampling <em>bucket</em> is missing a value.</p>
-<p>See <a class="reference internal" href="downsampling.html"><em>Downsampling</em></a> for details and examples on avoiding interpolation.</p>
+<p>See <a class="reference internal" href="downsampling.html"><span class="doc">Downsampling</span></a> for details and examples on avoiding interpolation.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">In general it's a good ideal to downsample every query that will incorporate multiple time series.</p>
@@ -334,7 +328,7 @@ For the graphically inclined we have the following examples. An imaginary metric
 <div class="section" id="available-aggregators">
 <h2>Available Aggregators</h2>
 <p>The following is a description of the aggregation functions available in OpenTSDB. Note that some should only be used for grouping and others for downsampling.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -591,9 +585,9 @@ For the graphically inclined we have the following examples. An imaginary metric
         <li class="right" >
           <a href="filters.html" title="Query Filters"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

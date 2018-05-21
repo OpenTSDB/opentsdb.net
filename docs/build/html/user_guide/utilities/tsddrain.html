@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>tsddrain.py &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>tsddrain.py &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Utilities" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Load Balancing with Varnish" href="varnish.html" />
     <link rel="prev" title="clean_cache.sh" href="clean_cache.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="clean_cache.html" title="clean_cache.sh"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Utilities</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -78,14 +75,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -98,13 +92,13 @@
             
   <div class="section" id="tsddrain-py">
 <h1>tsddrain.py</h1>
-<p>This is a simple utility for consuming data points from collectors while a TSD, HBase or HDFS is underoing maintenance. The script should be run on the same port as a TSD and accepts data in the <code class="docutils literal"><span class="pre">put</span></code> Telnet style. Data points are then written directly to disk in a format that can be used with the <a class="reference internal" href="../cli/import.html"><em>import</em></a> command once HBase is back up.</p>
+<p>This is a simple utility for consuming data points from collectors while a TSD, HBase or HDFS is underoing maintenance. The script should be run on the same port as a TSD and accepts data in the <code class="docutils literal"><span class="pre">put</span></code> Telnet style. Data points are then written directly to disk in a format that can be used with the <a class="reference internal" href="../cli/import.html"><span class="doc">import</span></a> command once HBase is back up.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
-<div class="highlight-bash"><div class="highlight"><pre>tsddrain.py &lt;port&gt; &lt;directory&gt;
+<div class="highlight-bash"><div class="highlight"><pre><span></span>tsddrain.py &lt;port&gt; &lt;directory&gt;
 </pre></div>
 </div>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="15%" />
 <col width="5%" />
@@ -124,26 +118,26 @@
 <tr class="row-even"><td>port</td>
 <td>Integer</td>
 <td>The TCP port to listen on</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>4242</td>
 </tr>
 <tr class="row-odd"><td>directory</td>
 <td>String</td>
 <td>Path to a directory where data files should be written. A file is created for each client with the IP address of the client as the file name,</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>/opt/temptsd/</td>
 </tr>
 </tbody>
 </table>
 <p>Example</p>
-<div class="highlight-bash"><div class="highlight"><pre>./tsddrain.py <span class="m">4242</span> /opt/temptsd/
+<div class="highlight-bash"><div class="highlight"><pre><span></span>./tsddrain.py <span class="m">4242</span> /opt/temptsd/
 </pre></div>
 </div>
 </div>
 <div class="section" id="results">
 <h2>Results</h2>
 <p>On succesfully binding to the default IPv4 address <code class="docutils literal"><span class="pre">0.0.0.0</span></code> and port it will simply print out the line below and start writing. When you're ready to resume using a TSD, simply kill the process.</p>
-<div class="highlight-bash"><div class="highlight"><pre>Use Ctrl-C to stop me.
+<div class="highlight-bash"><div class="highlight"><pre><span></span>Use Ctrl-C to stop me.
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -175,9 +169,9 @@
         <li class="right" >
           <a href="clean_cache.html" title="clean_cache.sh"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Utilities</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Utilities</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

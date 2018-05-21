@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/tree/rules &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/tree/rules &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/tree" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/tree/test" href="test.html" />
     <link rel="prev" title="/api/tree/rule" href="rule.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="rule.html" title="/api/tree/rule"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/tree</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -88,14 +85,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -119,7 +113,7 @@
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>A request to store data must be an array of objects in the content of the request. The same fields as required for the <a class="reference internal" href="rule.html"><em>/api/tree/rule</em></a> endpoint are supported.</p>
+<p>A request to store data must be an array of objects in the content of the request. The same fields as required for the <a class="reference internal" href="rule.html"><span class="doc">/api/tree/rule</span></a> endpoint are supported.</p>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
@@ -134,13 +128,13 @@
 </div>
 <div class="section" id="example-post-request">
 <h3>Example POST Request</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=.&amp;method_override=post</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=.&amp;method_override=post</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-content-request">
 <h3>Example Content Request</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -179,7 +173,7 @@
 </div>
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree/rules?treeId=1&amp;method_override=delete
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rules?treeId=1&amp;method_override=delete
 </pre></div>
 </div>
 </div>
@@ -204,9 +198,9 @@
         <li class="right" >
           <a href="rule.html" title="/api/tree/rule"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/tree</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/tree</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

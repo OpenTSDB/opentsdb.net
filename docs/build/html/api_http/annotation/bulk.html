@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/annotation/bulk &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/annotation/bulk &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/annotation" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/config" href="../config/index.html" />
     <link rel="prev" title="/api/annotation" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="index.html" title="/api/annotation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/annotation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/annotation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -88,14 +85,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -121,9 +115,9 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>Fields for posting or updating annotations are documented at <a class="reference internal" href="index.html"><em>/api/annotation</em></a></p>
+<p>Fields for posting or updating annotations are documented at <a class="reference internal" href="index.html"><span class="doc">/api/annotation</span></a></p>
 <p>Fields for a bulk delete request are defined below:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -149,8 +143,8 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 <tr class="row-even"><td>startTime</td>
 <td>Integer</td>
 <td>Required</td>
-<td>A timestamp for the start of the request. The timestamp may be relative or absolute as per <a class="reference internal" href="../../user_guide/query/dates.html"><em>Dates and Times</em></a>.</td>
-<td>&nbsp;</td>
+<td>A timestamp for the start of the request. The timestamp may be relative or absolute as per <a class="reference internal" href="../../user_guide/query/dates.html"><span class="doc">Dates and Times</span></a>.</td>
+<td>&#160;</td>
 <td>start_time</td>
 <td>RO</td>
 <td>1369141261</td>
@@ -158,8 +152,8 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 <tr class="row-odd"><td>endTime</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>An optional end time for the event if it has completed or been resolved. The timestamp may be relative or absolute as per <a class="reference internal" href="../../user_guide/query/dates.html"><em>Dates and Times</em></a>.</td>
-<td>&nbsp;</td>
+<td>An optional end time for the event if it has completed or been resolved. The timestamp may be relative or absolute as per <a class="reference internal" href="../../user_guide/query/dates.html"><span class="doc">Dates and Times</span></a>.</td>
+<td>&#160;</td>
 <td>end_time</td>
 <td>RO</td>
 <td>1369141262</td>
@@ -168,7 +162,7 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 <td>Array</td>
 <td>Optional</td>
 <td>A list of TSUIDs with annotations that should be deleted. This may be empty or null (for JSON) in which case the <code class="docutils literal"><span class="pre">global</span></code> flag should be set. When using the query string, separate TSUIDs with commas.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>tsuids</td>
 <td>RO</td>
 <td>000001000001000001, 000001000001000002</td>
@@ -190,7 +184,7 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 </div>
 <div class="section" id="example-post-put-request">
 <h3>Example POST/PUT Request</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="p">{</span>
     <span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
@@ -213,13 +207,13 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 </div>
 <div class="section" id="example-delete-qs-request">
 <h3>Example DELETE QS Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>/api/annotation/bulk?start_time=1d-ago&amp;end_time=1h-ago&amp;method_override=delete&amp;tsuids=000001000001000001,000001000001000002
+<div class="highlight-default"><div class="highlight"><pre><span></span>/api/annotation/bulk?start_time=1d-ago&amp;end_time=1h-ago&amp;method_override=delete&amp;tsuids=000001000001000001,000001000001000002
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
         <span class="s2">&quot;000001000001000002&quot;</span>
@@ -238,7 +232,7 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 <p>A successful response to a <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the list of annotations after synchronization (i.e. if issuing a <code class="docutils literal"><span class="pre">POST</span></code> call, existing objects will be merged with the new objects). Delete requests will return an object with the delete query and a <code class="docutils literal"><span class="pre">totalDeleted</span></code> field with an integer number reflecting the total number of annotations deleted. If invalid data was supplied a <code class="docutils literal"><span class="pre">400</span></code> error will be returned along with the specific annotation that caused the error in the <code class="docutils literal"><span class="pre">details</span></code> field of the error object.</p>
 <div class="section" id="example-post-put-response">
 <h3>Example POST/PUT Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="p">{</span>
       <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
       <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
@@ -264,7 +258,7 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
 </div>
 <div class="section" id="example-delete-response">
 <h3>Example DELETE Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
         <span class="s2">&quot;000001000001000002&quot;</span>
@@ -298,9 +292,9 @@ The bulk endpoint enables adding, updating or deleting multiple annotations in a
         <li class="right" >
           <a href="index.html" title="/api/annotation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/annotation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/annotation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

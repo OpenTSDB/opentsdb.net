@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Trees &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Trees &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="GUI" href="guis/index.html" />
     <link rel="prev" title="Metadata" href="metadata.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="metadata.html" title="Metadata"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -101,14 +98,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -121,7 +115,7 @@
             
   <div class="section" id="trees">
 <h1>Trees</h1>
-<p>Along with metadata, OpenTSDB 2.0 introduces the concept of <strong>trees</strong>, a hierarchical method of organizing timeseries into an easily navigable structure that can be browsed similar to a file system on a computer. Users can define a number of trees with various rule sets that organize TSMeta objects into a tree structure. Then users can browse the resulting tree via an HTTP API endpoint. See <a class="reference internal" href="../api_http/tree/index.html"><em>/api/tree</em></a> for details.</p>
+<p>Along with metadata, OpenTSDB 2.0 introduces the concept of <strong>trees</strong>, a hierarchical method of organizing timeseries into an easily navigable structure that can be browsed similar to a file system on a computer. Users can define a number of trees with various rule sets that organize TSMeta objects into a tree structure. Then users can browse the resulting tree via an HTTP API endpoint. See <a class="reference internal" href="../api_http/tree/index.html"><span class="doc">/api/tree</span></a> for details.</p>
 <div class="section" id="tree-terminology">
 <h2>Tree Terminology</h2>
 <ul class="simple">
@@ -166,7 +160,7 @@
 <div class="section" id="rule-types">
 <h3>Rule Types</h3>
 <p>Each rule acts on a single component of the timeseries data. Currently available types include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="10%" />
@@ -206,7 +200,7 @@
 <h3>Rule Config</h3>
 <p>A single rule can either process a regex, a separator, or none. If a regex and a separator are defined for a rule, only the regex will be processed and the separator ignored.</p>
 <p>All changes to a rule are validated to confirm that proper fields are filled out so that the rule can process data. The following fields must be filled out for each rule type:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="50%" />
 <col width="25%" />
@@ -220,8 +214,8 @@
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>Metric</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>Metric_Custom</td>
 <td>X</td>
@@ -229,7 +223,7 @@
 </tr>
 <tr class="row-even"><td>TagK</td>
 <td>X</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>TagK_Custom</td>
 <td>X</td>
@@ -246,7 +240,7 @@
 <h3>Display Formatter</h3>
 <p>Occasionally the data extracted from a tag or metric may not be very descriptive. For example, an application may output a timeseries with a tag pair such as &quot;port=80&quot; or &quot;port=443&quot;. With a standard rule that matched on the tagk value &quot;port&quot;, we would have two branches with the names &quot;80&quot; and &quot;443&quot;. The uninitiated may not know what these numbers mean. Thus users can define a token based formatter that will alter the output of the branch to display useful information. For example, we could declare a formatter of &quot;{tag_name}: {value}&quot; and the branches will now display &quot;port: 80&quot; and &quot;port: 443&quot;.</p>
 <p>Tokens are case sensitive and must appear only one time per formatter. They must also appear exactly as deliniated in the table below:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="22%" />
 <col width="44%" />
@@ -297,7 +291,7 @@
 <h2>Tree Building</h2>
 <p>First, you must create the <code class="docutils literal"><span class="pre">tsdb-tree</span></code> table in HBase if you haven't already done so. If you enable tree processing and the table does not exist, the TSDs will not start.</p>
 <p>A tree can be built in two ways. The <code class="docutils literal"><span class="pre">tsd.core.tree.enable_processing</span></code> configuration setting enables real-time tree creation. Whenever a new TSMeta object is created or edited by a user, the TSMeta will be passed through every configured and enabled tree. The resulting branch will be recorded to storage. If a collision occurs or the TSUID failed to match on any rules, a warning will be logged and if the tree options configured, may be recorded to storage.</p>
-<p>Alternatively you can periodically synchronize all TSMeta objects via the CLI <code class="docutils literal"><span class="pre">uid</span></code> tool. This will scan through the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table and pass each discovered TSMeta object through configured and enabled trees. See <a class="reference internal" href="cli/uid.html"><em>uid</em></a> for details.</p>
+<p>Alternatively you can periodically synchronize all TSMeta objects via the CLI <code class="docutils literal"><span class="pre">uid</span></code> tool. This will scan through the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table and pass each discovered TSMeta object through configured and enabled trees. See <a class="reference internal" href="cli/uid.html"><span class="doc">uid</span></a> for details.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">For real-time tree building you need to enable the <code class="docutils literal"><span class="pre">tsd.core.meta.enable_tracking</span></code> setting as well so that TSMeta objects are created when a timeseries is received.</p>
@@ -336,7 +330,7 @@
 <div class="section" id="examples">
 <h2>Examples</h2>
 <p>Assume that our TSD has the following timeseries stored:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="20%" />
@@ -400,7 +394,7 @@
 </table>
 <p>Note that for this example we won't be using any custom value rules so we don't need to show the TSMeta objects, but assume these values populate a TSMeta. Also, the TSUIDs are truncated with 1 byte per UID for illustration purposes.</p>
 <p>Now let's setup a tree with <code class="docutils literal"><span class="pre">strictMatching</span></code> disabled and the following rules:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -423,28 +417,28 @@
 <td>0</td>
 <td>TagK</td>
 <td>dc</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>0</td>
 <td>1</td>
 <td>TagK</td>
 <td>host</td>
 <td>.*\.(.*)\.mysite\.com</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>1</td>
 <td>0</td>
 <td>TagK</td>
 <td>host</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>\\.</td>
 </tr>
 <tr class="row-odd"><td>2</td>
 <td>0</td>
 <td>Metric</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>\\.</td>
 </tr>
 </tbody>
@@ -526,8 +520,8 @@
         <li class="right" >
           <a href="metadata.html" title="Metadata"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

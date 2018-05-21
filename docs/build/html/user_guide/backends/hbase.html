@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>HBase Schema &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>HBase Schema &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Storage" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Bigtable" href="bigtable.html" />
     <link rel="prev" title="Storage" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="index.html" title="Storage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Storage</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Storage</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -111,14 +108,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -138,7 +132,7 @@
 <p>With salting enabled (as of OpenTSDB 2.2) the first byte (or bytes) are a hashed salt ID to better distribute data across multiple regions and/or region servers.</p>
 <p>The timestamp is a Unix epoch value in seconds encoded on 4 bytes. Rows are broken up into hour increments, reflected by the timestamp in each row. Thus each timestamp will be normalized to an hour value, e.g. <em>2013-01-01 08:00:00</em>. This is to avoid stuffing too many data points in a single row as that would affect region distribution. Also, since HBase sorts on the row key, data for the same metric and time bucket, but with different tags, will be grouped together for efficient queries.</p>
 <p>Some example unsalted row keys, represented as hex are:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mf">00000150E22700000001000001</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">00000150E22700000001000001</span>
 <span class="mf">00000150E22700000001000001000002000004</span>
 <span class="mf">00000150E22700000001000002</span>
 <span class="mf">00000150E22700000001000003</span>
@@ -153,15 +147,15 @@
 </pre></div>
 </div>
 <p>where:</p>
-<div class="highlight-python"><div class="highlight"><pre>00000150E22700000001000001
-&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;
-metric  time   tagk  tagv
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">00000150E22700000001000001</span>
+<span class="s1">&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;</span>
+<span class="n">metric</span>  <span class="n">time</span>   <span class="n">tagk</span>  <span class="n">tagv</span>
 </pre></div>
 </div>
 <p>This represents a single metric but four time series across three hours. Note how there is one time series with two sets of tags:</p>
-<div class="highlight-python"><div class="highlight"><pre>00000150E22700000001000001000002000004
-&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;
-metric  time   tagk  tagv  tagk  tagv
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">00000150E22700000001000001000002000004</span>
+<span class="s1">&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;</span>
+<span class="n">metric</span>  <span class="n">time</span>   <span class="n">tagk</span>  <span class="n">tagv</span>  <span class="n">tagk</span>  <span class="n">tagv</span>
 </pre></div>
 </div>
 <p>Tag names (tagk) are sorted alphabetically before storage, so the &quot;host&quot; tag will always appear first in the row key/TSUID ahead of &quot;owner&quot;.</p>
@@ -310,9 +304,9 @@ metric  time   tagk  tagv  tagk  tagv
 <li>Type and Length - Similar to the original data table, the last 4 bits of each offset byte array contains the encoding of the data value including it's length and whether or not it's a floating point value.</li>
 </ul>
 <p>An example column qualifier for the daily 1 hour interval table looks like:</p>
-<div class="highlight-python"><div class="highlight"><pre>SUM:0010
-&#39;-&#39;&#39;---&#39;
-agg offset
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SUM</span><span class="p">:</span><span class="mi">0010</span>
+<span class="s1">&#39;-&#39;&#39;---&#39;</span>
+<span class="n">agg</span> <span class="n">offset</span>
 </pre></div>
 </div>
 <p>Where the aggregator is <code class="docutils literal"><span class="pre">SUM</span></code>, the offset is <code class="docutils literal"><span class="pre">1</span></code> and the length is 1 byte of an integer value.</p>
@@ -344,9 +338,9 @@ agg offset
         <li class="right" >
           <a href="index.html" title="Storage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Storage</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Storage</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

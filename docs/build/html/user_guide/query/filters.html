@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Query Filters &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Query Filters &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Aggregation" href="aggregators.html" />
     <link rel="prev" title="Dates and Times" href="dates.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="dates.html" title="Dates and Times"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -98,14 +95,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -121,7 +115,7 @@
 <p>A critical function of any database system is to enable fetching subsets of the full data set using some form of filtering. OpenTSDB has provided filtering since version 1.x with expanded capabilities starting with 2.2 and beyond. Filters currently operate on tag values at this time. That means that any metrics and tag keys must be specified exactly as they appear in the database when fetching data.</p>
 <p><strong>Example Data</strong></p>
 <p>As each filter is explained below, the following data se tis used. It consists of a single metric with multiple time series defined on various tags. Only one data point is given at <em>T1</em> as an example.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="20%" />
@@ -175,7 +169,7 @@
 </table>
 <div class="section" id="grouping">
 <h2>Grouping</h2>
-<span class="target" id="index-1"></span><p>Grouping, also referred to as <em>group-by</em>, is the process of combining multiple time series into one using the required aggregation function and filters. By default, OpenTSDB groups everything by metric so that if the query returned 10 time series with an aggregator of <code class="docutils literal"><span class="pre">sum</span></code>, all 10 series would be added together over time to arrive at one value. See <a class="reference internal" href="aggregators.html"><em>Aggregation</em></a> for details on how time series are merged.</p>
+<span class="target" id="index-1"></span><p>Grouping, also referred to as <em>group-by</em>, is the process of combining multiple time series into one using the required aggregation function and filters. By default, OpenTSDB groups everything by metric so that if the query returned 10 time series with an aggregator of <code class="docutils literal"><span class="pre">sum</span></code>, all 10 series would be added together over time to arrive at one value. See <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> for details on how time series are merged.</p>
 <p>To avoid grouping and fetch each underlying time series without any aggregation, use the <code class="docutils literal"><span class="pre">none</span></code> aggregator included in version 2.2. Alternatively, you can disable grouping on a per-filter bases with OpenTSDB 2.2 and later. See API documentation on how to do so.</p>
 </div>
 <div class="section" id="opentsdb-1-x-2-1">
@@ -191,7 +185,7 @@
 <p>The following examples use the v1 HTTP URI syntax wherein the <code class="docutils literal"><span class="pre">m</span></code> parameter consists of the aggregator, a colon, then the metric and tag filters in brackets separated by equal signs.</p>
 <p><strong>Example 1:</strong>
 <code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{host=web01}</span></code></p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
 <col width="25%" />
@@ -208,7 +202,7 @@
 <tbody valign="top">
 <tr class="row-even"><td>1, 4, 5, 6</td>
 <td>host=web01</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>16</td>
 </tr>
 </tbody>
@@ -216,7 +210,7 @@
 <p>In this case the aggregated tags set will be empty as time series 4 and 5 have tags that are not in common with the entire set.</p>
 <p><strong>Example 2:</strong>
 <code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{host=web01,dc=dal}</span></code></p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
 <col width="25%" />
@@ -233,14 +227,14 @@
 <tbody valign="top">
 <tr class="row-even"><td>1</td>
 <td>host=web01,dc=dal</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>3</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example 3:</strong>
 <code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{host=*,dc=dal}</span></code></p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
 <col width="25%" />
@@ -257,17 +251,17 @@
 <tbody valign="top">
 <tr class="row-even"><td>1</td>
 <td>host=web01,dc=dal</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>3</td>
 </tr>
 <tr class="row-odd"><td>2</td>
 <td>host=web02,dc=dal</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>2</td>
 </tr>
 <tr class="row-even"><td>3</td>
 <td>host=web03,dc=dal</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>10</td>
 </tr>
 </tbody>
@@ -275,7 +269,7 @@
 <p>This time we provided the <code class="docutils literal"><span class="pre">*</span></code> for the host and an explicit match for <code class="docutils literal"><span class="pre">dc</span></code>. This will group on the <code class="docutils literal"><span class="pre">host</span></code> tag key and return a time series per unique host tag value, in this case 3 series.</p>
 <p><strong>Example 4:</strong>
 <code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{dc=dal|lax}</span></code></p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
 <col width="25%" />
@@ -331,7 +325,7 @@
 <p>The following examples use the v2 HTTP URI syntax wherein the <code class="docutils literal"><span class="pre">m</span></code> parameter consists of the aggregator, a colon, the <code class="docutils literal"><span class="pre">explicit_tags</span></code> URI flag, then the metric and tag filters in brackets separated by equal signs.</p>
 <p><strong>Example 1:</strong>
 <code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=web01}</span></code></p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
 <col width="25%" />
@@ -348,7 +342,7 @@
 <tbody valign="top">
 <tr class="row-even"><td>4</td>
 <td>host=web01</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>1</td>
 </tr>
 </tbody>
@@ -356,7 +350,7 @@
 <p>This solves the issue of inconsistent tag keys, allowing us to pick out only time series <em>#4</em>.</p>
 <p><strong>Example 2:</strong>
 <code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}</span></code></p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
 <col width="25%" />
@@ -383,7 +377,7 @@
 </tr>
 <tr class="row-even"><td>3</td>
 <td>host=web03,dc=dal</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>10</td>
 </tr>
 </tbody>
@@ -402,7 +396,7 @@
 <div class="section" id="built-in-2-x-filters">
 <h2>Built-in 2.x Filters</h2>
 <p>The following list are built-in filters included with OpenTSDB. Additional filters can be loaded as plugins. Each heading is the <code class="docutils literal"><span class="pre">type</span></code> of filter to use in a URI or JSON query. When writing a URI query, the filter is used by placing the filter name after the tag key's equals sign and placing the filter value in parentheses. E.g. <code class="docutils literal"><span class="pre">{host=regexp(web[0-9]+.lax.mysite.com)}</span></code>. For JSON queries simply use the filter name as the <code class="docutils literal"><span class="pre">type</span></code> parameter and the filter value as the <code class="docutils literal"><span class="pre">filter</span></code> parameter, e.g.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
   <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="s2">&quot;web[0-9]+.lax.mysite.com&quot;</span><span class="p">,</span>
   <span class="s2">&quot;tagk&quot;</span><span class="p">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
@@ -465,7 +459,7 @@
 <div class="section" id="plugins">
 <h2>Plugins</h2>
 <p>As developers add plugins we will list them here.</p>
-<p>To develop a plugin, simply extend the <code class="docutils literal"><span class="pre">net.opentsdb.query.filter.TagVFilter</span></code> class, create JAR per the <a class="reference internal" href="../../development/plugins.html"><em>Plugins</em></a> documentation and drop it in your plugins directory. On start, the TSD will search for the plugin and load it. If there was an error with the implementation the TSD will not start up and will log the exception.</p>
+<p>To develop a plugin, simply extend the <code class="docutils literal"><span class="pre">net.opentsdb.query.filter.TagVFilter</span></code> class, create JAR per the <a class="reference internal" href="../../development/plugins.html"><span class="doc">Plugins</span></a> documentation and drop it in your plugins directory. On start, the TSD will search for the plugin and load it. If there was an error with the implementation the TSD will not start up and will log the exception.</p>
 </div>
 </div>
 
@@ -487,9 +481,9 @@
         <li class="right" >
           <a href="dates.html" title="Dates and Times"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

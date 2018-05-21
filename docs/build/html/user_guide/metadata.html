@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Metadata &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Metadata &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Trees" href="trees.html" />
     <link rel="prev" title="UIDs and TSUIDs" href="uids.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="uids.html" title="UIDs and TSUIDs"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -79,14 +76,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -107,12 +101,12 @@ it. There will always be a <code class="docutils literal"><span class="pre">metr
 a <code class="docutils literal"><span class="pre">tagk</span></code> or tag name, and a <code class="docutils literal"><span class="pre">tagv</span></code> or tag value. When a new name for one
 of these UIDs comes into the system, a Unique ID is assigned so that there is
 always a UID name and numeric identifier pair.</p>
-<p>Each UID may also have a metadata entry recorded in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table. Data available for each UID includes immutable fields such as the <code class="docutils literal"><span class="pre">uid</span></code>, <code class="docutils literal"><span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">created</span></code> timestamp that reflects the time when the UID was first assigned. Additionally some fields may be edited such as the <code class="docutils literal"><span class="pre">description</span></code>, <code class="docutils literal"><span class="pre">notes</span></code>, <code class="docutils literal"><span class="pre">displayName</span></code> and a set of <code class="docutils literal"><span class="pre">custom</span></code> key/value pairs to record extra information. For details on the fields, see the <a class="reference internal" href="../api_http/uid/uidmeta.html"><em>/api/uid/uidmeta</em></a> endpoint.</p>
-<p>Whenever a new UIDMeta object is created or modified, it will be pushed to the Search plugin if a plugin has been configured and loaded. For information about UID values, see <a class="reference internal" href="uids.html"><em>UIDs and TSUIDs</em></a>.</p>
+<p>Each UID may also have a metadata entry recorded in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table. Data available for each UID includes immutable fields such as the <code class="docutils literal"><span class="pre">uid</span></code>, <code class="docutils literal"><span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">created</span></code> timestamp that reflects the time when the UID was first assigned. Additionally some fields may be edited such as the <code class="docutils literal"><span class="pre">description</span></code>, <code class="docutils literal"><span class="pre">notes</span></code>, <code class="docutils literal"><span class="pre">displayName</span></code> and a set of <code class="docutils literal"><span class="pre">custom</span></code> key/value pairs to record extra information. For details on the fields, see the <a class="reference internal" href="../api_http/uid/uidmeta.html"><span class="doc">/api/uid/uidmeta</span></a> endpoint.</p>
+<p>Whenever a new UIDMeta object is created or modified, it will be pushed to the Search plugin if a plugin has been configured and loaded. For information about UID values, see <a class="reference internal" href="uids.html"><span class="doc">UIDs and TSUIDs</span></a>.</p>
 </div>
 <div class="section" id="tsmeta">
 <h2>TSMeta</h2>
-<p>Each timeseries in OpenTSDB is uniquely identified by the combination of it's metric UID and tag name/value UIDs, creating a TSUID as per <a class="reference internal" href="uids.html"><em>UIDs and TSUIDs</em></a>. When a new timeseries is received, a TSMeta object can be recorded in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table in a row identified by the TSUID. The meta object includes some immutable fields such as the <code class="docutils literal"><span class="pre">tsuid</span></code>, <code class="docutils literal"><span class="pre">metric</span></code>, <code class="docutils literal"><span class="pre">tags</span></code>, <code class="docutils literal"><span class="pre">lastReceived</span></code> and <code class="docutils literal"><span class="pre">created</span></code> timestamp that reflects the time when the TSMeta was first received. Additionally some fields can be edited such as a <code class="docutils literal"><span class="pre">description</span></code>, <code class="docutils literal"><span class="pre">notes</span></code> and others. See <a class="reference internal" href="../api_http/uid/tsmeta.html"><em>/api/uid/tsmeta</em></a> for details.</p>
+<p>Each timeseries in OpenTSDB is uniquely identified by the combination of it's metric UID and tag name/value UIDs, creating a TSUID as per <a class="reference internal" href="uids.html"><span class="doc">UIDs and TSUIDs</span></a>. When a new timeseries is received, a TSMeta object can be recorded in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table in a row identified by the TSUID. The meta object includes some immutable fields such as the <code class="docutils literal"><span class="pre">tsuid</span></code>, <code class="docutils literal"><span class="pre">metric</span></code>, <code class="docutils literal"><span class="pre">tags</span></code>, <code class="docutils literal"><span class="pre">lastReceived</span></code> and <code class="docutils literal"><span class="pre">created</span></code> timestamp that reflects the time when the TSMeta was first received. Additionally some fields can be edited such as a <code class="docutils literal"><span class="pre">description</span></code>, <code class="docutils literal"><span class="pre">notes</span></code> and others. See <a class="reference internal" href="../api_http/uid/tsmeta.html"><span class="doc">/api/uid/tsmeta</span></a> for details.</p>
 </div>
 <div class="section" id="enabling-metadata">
 <h2>Enabling Metadata</h2>
@@ -130,7 +124,7 @@ always a UID name and numeric identifier pair.</p>
 <p class="first admonition-title">Warning</p>
 <p class="last">Watch your JVM heap usage when enabling any of the real-time meta data settings. Also watch the storage servers as write traffic may effectively double or treble.</p>
 </div>
-<p>For situations where a TSD crashes before metadata can be written to storage or if you do not enable real-time tracking, you can periodically use the <code class="docutils literal"><span class="pre">uid</span></code> CLI tool and the <code class="docutils literal"><span class="pre">metasync</span></code> sub command to generate missing UIDMeta and TSMeta objects. See <a class="reference internal" href="cli/uid.html"><em>uid</em></a> for information.</p>
+<p>For situations where a TSD crashes before metadata can be written to storage or if you do not enable real-time tracking, you can periodically use the <code class="docutils literal"><span class="pre">uid</span></code> CLI tool and the <code class="docutils literal"><span class="pre">metasync</span></code> sub command to generate missing UIDMeta and TSMeta objects. See <a class="reference internal" href="cli/uid.html"><span class="doc">uid</span></a> for information.</p>
 </div>
 <div class="section" id="annotations">
 <h2>Annotations</h2>
@@ -139,7 +133,7 @@ always a UID name and numeric identifier pair.</p>
 <p>Additionally, an annotation is defined by a TSUID. If the TSUID field is set to a valid TSUID, the annotation will be stored, and associated, along with the data points for the timeseries defined by the ID. This means that when creating a query for data points, any annotations stored within the requested timespan will be retrieved and optionally returned to the user. These annotations are considered &quot;local&quot;.</p>
 <p>If the TSUID is empty, the annotation is considered a &quot;global&quot; notation, something associated with all timeseries in the system. When querying, the user can specify that global annotations be fetched for the timespan of the query. These notes will then be returned along with &quot;local&quot; annotations.</p>
 <p>Annotations should have a very brief <em>description</em>, limited to 25 characters or so since the note may appear on a graph. If the requested timespan has many annotations, the graph can become clogged with notes. User interfaces can then let the user select an annotation to retrieve greater detail. This detail may include lengthy &quot;notes&quot; and/or a custom map of key/value pairs.</p>
-<p>Users can add, edit and delete annotations via the Http API at <code class="xref doc docutils literal"><span class="pre">../api_http/annotation</span></code>.</p>
+<p>Users can add, edit and delete annotations via the Http API at <span class="xref std std-doc">../api_http/annotation</span>.</p>
 <p>An example GnuPlot graph with annotation markers appears below. Notice how only the <code class="docutils literal"><span class="pre">description</span></code> field appears in a box with a blue line recording the <code class="docutils literal"><span class="pre">start_time</span></code>. Only the <code class="docutils literal"><span class="pre">start_time</span></code> appears on the graph.</p>
 <img alt="../_images/annotation_ex.png" src="../_images/annotation_ex.png" />
 </div>
@@ -163,8 +157,8 @@ always a UID name and numeric identifier pair.</p>
         <li class="right" >
           <a href="uids.html" title="UIDs and TSUIDs"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

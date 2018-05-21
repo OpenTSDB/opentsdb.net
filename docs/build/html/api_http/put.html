@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/put &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/put &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="HTTP API" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="/api/rollup" href="rollup.html" />
     <link rel="prev" title="/api/dropcaches" href="dropcaches.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="dropcaches.html" title="/api/dropcaches"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -86,14 +83,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -131,7 +125,7 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>Some query string parameters can be supplied that alter the response to a put request:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -160,7 +154,7 @@
 <td>Whether or not to return summary information</td>
 <td>false</td>
 <td>summary</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>/api/put?summary</td>
 </tr>
 <tr class="row-odd"><td>details</td>
@@ -169,7 +163,7 @@
 <td>Whether or not to return detailed information</td>
 <td>false</td>
 <td>details</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>/api/put?details</td>
 </tr>
 <tr class="row-even"><td>sync</td>
@@ -178,7 +172,7 @@
 <td>Whether or not to wait for the data to be flushed to storage before returning the results.</td>
 <td>false</td>
 <td>sync</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>/api/put?sync</td>
 </tr>
 <tr class="row-odd"><td>sync_timeout</td>
@@ -187,14 +181,14 @@
 <td>A timeout, in milliseconds, to wait for the data to be flushed to storage before returning with an error. When a timeout occurs, using the <code class="docutils literal"><span class="pre">details</span></code> flag will tell how many data points failed and how many succeeded. <code class="docutils literal"><span class="pre">sync</span></code> must also be given for this to take effect. A value of 0 means the write will not timeout.</td>
 <td>0</td>
 <td>sync_timeout</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>/api/put/?sync&amp;sync_timeout=60000</td>
 </tr>
 </tbody>
 </table>
 <p>If both <code class="docutils literal"><span class="pre">detailed</span></code> and <code class="docutils literal"><span class="pre">summary</span></code> are present in a query string, the API will respond with <code class="docutils literal"><span class="pre">detailed</span></code> information.</p>
 <p>The fields and examples below refer to the default JSON serializer.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -221,8 +215,8 @@
 <td>String</td>
 <td>Required</td>
 <td>The name of the metric you are storing</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>W</td>
 <td>sys.cpu.nice</td>
 </tr>
@@ -230,17 +224,17 @@
 <td>Integer</td>
 <td>Required</td>
 <td>A Unix epoch style timestamp in seconds or milliseconds. The timestamp must not contain non-numeric characters.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>W</td>
 <td>1365465600</td>
 </tr>
 <tr class="row-even"><td>value</td>
 <td>Integer, Float, String</td>
 <td>Required</td>
-<td>The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: <code class="xref doc docutils literal"><span class="pre">../../user_guide/writing</span></code></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: <span class="xref std std-doc">../../user_guide/writing</span></td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>W</td>
 <td>42.5</td>
 </tr>
@@ -248,8 +242,8 @@
 <td>Map</td>
 <td>Required</td>
 <td>A map of tag name/tag value pairs. At least one pair must be supplied.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>W</td>
 <td>{&quot;host&quot;:&quot;web01&quot;}</td>
 </tr>
@@ -258,7 +252,7 @@
 <div class="section" id="example-single-data-point-put">
 <h3>Example Single Data Point Put</h3>
 <p>You can supply a single data point in a request:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
     <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
     <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
@@ -273,7 +267,7 @@
 <div class="section" id="example-multiple-data-point-put">
 <h3>Example Multiple Data Point Put</h3>
 <p>Multiple data points must be encased in an array:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
@@ -302,7 +296,7 @@
 <p>By default, the put endpoint will respond with a <code class="docutils literal"><span class="pre">204</span></code> HTTP status code and no content if all data points were stored successfully. If one or more datapoints had an error, the API will return a <code class="docutils literal"><span class="pre">400</span></code> with an error message in the content.</p>
 <p>For debugging purposes, you can ask for the response to include a summary of how many data points were stored successfully and failed, or get details about what data points could not be stored and why so that you can fix your client code. Also, errors with a data point will be logged in the TSD's log file so you can look there for issues.</p>
 <p>Fields present in <code class="docutils literal"><span class="pre">summary</span></code> or <code class="docutils literal"><span class="pre">detailed</span></code> responses include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -331,7 +325,7 @@
 </table>
 <div class="section" id="example-response-with-summary">
 <h3>Example Response with Summary</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;failed&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="mi">0</span>
 <span class="p">}</span>
@@ -340,7 +334,7 @@
 </div>
 <div class="section" id="example-response-with-details">
 <h3>Example Response With Details</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;errors&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;datapoint&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -381,8 +375,8 @@
         <li class="right" >
           <a href="dropcaches.html" title="/api/dropcaches"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

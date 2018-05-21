@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/query/exp &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/query/exp &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/query" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/query/gexp" href="gexp.html" />
     <link rel="prev" title="/api/query" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="index.html" title="/api/query"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -89,14 +86,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -130,7 +124,7 @@
 <div class="section" id="time">
 <h3>&quot;time&quot;</h3>
 <p>The time section is required and is a single JSON object. This affects the time range and optional reductions for all metrics requested.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -153,14 +147,14 @@
 <td>Integer</td>
 <td>Required</td>
 <td>The start time for the query. This may be relative, absolute human readable or absolute Unix Epoch.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>1h-ago, 2015/05/05-00:00:00</td>
 </tr>
 <tr class="row-odd"><td>aggregator</td>
 <td>String</td>
 <td>Required</td>
 <td>The global aggregation function to use for all metrics. It may be overridden on a per metric basis.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>sum</td>
 </tr>
 <tr class="row-even"><td>end</td>
@@ -187,11 +181,11 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;time&quot;</span><span class="o">:</span><span class="p">{</span> <span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;10m-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;downsampler&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;interval&quot;</span><span class="o">:</span><span class="s2">&quot;15m&quot;</span><span class="p">,</span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">}</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;time&quot;</span><span class="o">:</span><span class="p">{</span> <span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;10m-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;downsampler&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;interval&quot;</span><span class="o">:</span><span class="s2">&quot;15m&quot;</span><span class="p">,</span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Downsampler</strong></p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -214,14 +208,14 @@
 <td>String</td>
 <td>Required</td>
 <td>A downsampling interval, i.e. what time span to rollup raw values into. The format is <code class="docutils literal"><span class="pre">&lt;#&gt;&lt;unit&gt;</span></code>, e.g. <code class="docutils literal"><span class="pre">15m</span></code></td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>1h</td>
 </tr>
 <tr class="row-odd"><td>aggregator</td>
 <td>String</td>
 <td>Required</td>
 <td>The aggregation function to use for reducing the data points</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>avg</td>
 </tr>
 <tr class="row-even"><td>fillPolicy</td>
@@ -235,7 +229,7 @@
 </table>
 <p><strong>Fill Policies</strong></p>
 <p>These are used to replace &quot;missing&quot; values, i.e. when a data point was expected but couldn't be found in storage.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -258,7 +252,7 @@
 <td>String</td>
 <td>Required</td>
 <td>The name of a policy to use. The values are listed in the table below</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>zero</td>
 </tr>
 <tr class="row-odd"><td>value</td>
@@ -270,7 +264,7 @@
 </tr>
 </tbody>
 </table>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="25%" />
 <col width="75%" />
@@ -297,14 +291,14 @@
 </table>
 <p>Note that if you try to supply a value that is incompatible with the type the query will throw an exception. E.g. supplying a value with the NaN that isn't NaN will throw an error.</p>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;policy&quot;</span><span class="o">:</span><span class="s2">&quot;scalar&quot;</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">}</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;policy&quot;</span><span class="o">:</span><span class="s2">&quot;scalar&quot;</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="filters">
 <h3>&quot;filters&quot;</h3>
 <p>Filters are for selecting various time series based on the tag keys and values. At least one filter must be specified (for now) with at least an aggregation function supplied. Fields include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -327,7 +321,7 @@
 <td>String</td>
 <td>Required</td>
 <td>A unique ID for the filter. Cannot be the same as any metric or expression ID</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>f1</td>
 </tr>
 <tr class="row-odd"><td>tags</td>
@@ -340,7 +334,7 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="p">[</span>
   <span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span>
   <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
     <span class="p">{</span>
@@ -360,8 +354,8 @@
 </pre></div>
 </div>
 <p><strong>Filter Fields</strong></p>
-<p>Within the &quot;tags&quot; field you can have one or more filter. The list of filters can be found via the <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a> endpoint.</p>
-<table border="1" class="docutils">
+<p>Within the &quot;tags&quot; field you can have one or more filter. The list of filters can be found via the <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a> endpoint.</p>
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -384,21 +378,21 @@
 <td>String</td>
 <td>Required</td>
 <td>The name of the filter from the API</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>regexp</td>
 </tr>
 <tr class="row-odd"><td>tagk</td>
 <td>String</td>
 <td>Required</td>
 <td>The tag key name such as <em>host</em> or <em>colo</em> that we filter on</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>host</td>
 </tr>
 <tr class="row-even"><td>filter</td>
 <td>String</td>
 <td>Required</td>
 <td>The value to filter on. This depends on the filter in use. See the API for details</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>web.*mysite.com</td>
 </tr>
 <tr class="row-odd"><td>groupBy</td>
@@ -414,7 +408,7 @@
 <div class="section" id="metrics">
 <h3>&quot;metrics&quot;</h3>
 <p>The metrics list determines which metrics are included in the expression. There must be at least one metric.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -437,21 +431,21 @@
 <td>String</td>
 <td>Required</td>
 <td>A unique ID for the metric. This MUST be a simple string, no punctuation or spaces</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>cpunice</td>
 </tr>
 <tr class="row-odd"><td>filter</td>
 <td>String</td>
 <td>Required</td>
 <td>The filter to use when fetching this metric. It must match a filter in the filters array</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>f1</td>
 </tr>
 <tr class="row-even"><td>metric</td>
 <td>String</td>
 <td>Required</td>
 <td>The name of a metric in OpenTSDB</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>system.cpu.nice</td>
 </tr>
 <tr class="row-odd"><td>aggregator</td>
@@ -471,14 +465,14 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;cpunice&quot;</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="s2">&quot;system.cpu.nice&quot;</span><span class="p">}</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;cpunice&quot;</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="s2">&quot;system.cpu.nice&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="expressions">
 <h3>&quot;expressions&quot;</h3>
 <p>A list of one or more expressions over the metrics. The variables in an expression <strong>MUST</strong> refer to either a metric ID field or an expression ID field. Nested expressions are supported but exceptions will be thrown if a self reference or circular dependency is detected. So far only basic operations are supported such as addition, subtraction, multiplication, division, modulo</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -501,14 +495,14 @@
 <td>String</td>
 <td>Required</td>
 <td>A unique ID for the expression</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>cpubusy</td>
 </tr>
 <tr class="row-odd"><td>expr</td>
 <td>String</td>
 <td>Required</td>
 <td>The expression to execute</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>a + b / 1024</td>
 </tr>
 <tr class="row-even"><td>join</td>
@@ -528,7 +522,7 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;cpubusy&quot;</span><span class="p">,</span>
   <span class="s2">&quot;expr&quot;</span><span class="o">:</span> <span class="s2">&quot;(((a + b + c + d + e + f + g) - g) / (a + b + c + d + e + f + g)) * 100&quot;</span><span class="p">,</span>
   <span class="s2">&quot;join&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -541,7 +535,7 @@
 </div>
 <p><strong>Joins</strong></p>
 <p>The join object controls how the various time series for a given metric are merged within an expression. The two basic operations supported at this time are the union and intersection operators. Additional flags control join behavior.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -564,7 +558,7 @@
 <td>String</td>
 <td>Required</td>
 <td>The operator to use, either union or intersection</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>intersection</td>
 </tr>
 <tr class="row-odd"><td>useQueryTags</td>
@@ -587,7 +581,7 @@
 <div class="section" id="outputs">
 <h3>&quot;outputs&quot;</h3>
 <p>These determine the output behavior and allow you to eliminate some expressions from the results or include the raw metrics. By default, if this section is missing, all expressions and only the expressions will be serialized. The field is a list of one or more output objects. More fields will be added later with flags to affect the output.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -610,20 +604,20 @@
 <td>String</td>
 <td>Required</td>
 <td>The ID of the metric or expression</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>e</td>
 </tr>
 <tr class="row-odd"><td>alias</td>
 <td>String</td>
 <td>Optional</td>
 <td>An optional descriptive name for series</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>System Busy</td>
 </tr>
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="o">:</span><span class="s2">&quot;System Busy&quot;</span><span class="p">}</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="o">:</span><span class="s2">&quot;System Busy&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -631,7 +625,7 @@
 <p class="last">The <code class="docutils literal"><span class="pre">id</span></code> field for all objects can not contain spaces, special characters or periods at this time.</p>
 </div>
 <p><strong>Complete Example</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1y-ago&quot;</span><span class="p">,</span>
        <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;sum&quot;</span>
@@ -697,7 +691,7 @@
 <div class="section" id="response">
 <h2>Response</h2>
 <p>The output will contain a list of objects in the <code class="docutils literal"><span class="pre">outputs</span></code> array with the results in an array of arrays representing each time series followed by meta data for each series and the query overall. Also included is the original query and some summary statistics. The fields include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -726,7 +720,7 @@
 </tbody>
 </table>
 <p>The meta section contains ordered information about each time series in the output arrays. The first element in the array will always have a <code class="docutils literal"><span class="pre">metrics</span></code> value of <code class="docutils literal"><span class="pre">timestamp</span></code> and no other data.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -759,7 +753,7 @@
 </table>
 <div class="section" id="example-responses">
 <h3>Example Responses</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[</span>
       <span class="p">{</span>
           <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;Mega expression&quot;</span><span class="p">,</span>
@@ -994,9 +988,9 @@
         <li class="right" >
           <a href="index.html" title="/api/query"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

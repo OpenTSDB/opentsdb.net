@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Configuration &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Configuration &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Writing Data" href="writing/index.html" />
     <link rel="prev" title="User Guide" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="index.html" title="User Guide"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -79,14 +76,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -108,8 +102,8 @@ Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
 properties start with <code class="docutils literal"><span class="pre">tsd.</span></code> Comments or inactive configuration lines are
 blocked by a hash symbol <code class="docutils literal"><span class="pre">#</span></code>. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre># List of Zookeeper hosts that manage the HBase cluster
-tsd.storage.hbase.zk_quorum = 192.168.1.100
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># List of Zookeeper hosts that manage the HBase cluster</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">zk_quorum</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.100</span>
 </pre></div>
 </div>
 <p>will configure the TSD to connect to Zookeeper on <code class="docutils literal"><span class="pre">192.168.1.100</span></code>.</p>
@@ -147,7 +141,7 @@ documentation for details.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">For additional parameters used for tuning the AsyncHBase client, see <a class="reference external" href="http://opentsdb.github.io/asynchbase/docs/build/html/configuration.html">AsyncHBase Configuration</a></p>
 </div>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="5%" />
@@ -178,21 +172,21 @@ documentation for details.</p>
 <td>Optional</td>
 <td>Whether or not a data point with a new tag name will assign a UID to the tagk. When false, a data point with a tag name that is not in the database will be rejected and an exception will be thrown.</td>
 <td>True</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.auto_create_tagvs <em>(2.1)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not a data point with a new tag value will assign a UID to the tagv. When false, a data point with a tag value that is not in the database will be rejected and an exception will be thrown.</td>
 <td>True</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.connections.limit <em>(2.3)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>Sets the maximum number of connections a TSD will handle, additional connections are immediately closed.</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.enable_api <em>(2.3)</em></td>
 <td>Boolean</td>
@@ -212,71 +206,99 @@ documentation for details.</p>
 <td>JSON/File Path</td>
 <td>Optional</td>
 <td>A mapping of histogram codec class names to numeric identifications for storing multi-measurement data. For simple configurations, the value may be a quote-escaped JSON map, e.g. <code class="docutils literal"><span class="pre">{\&quot;net.opentsdb.core.SimpleHistogramDecoder\&quot;:</span> <span class="pre">0,\&quot;net.opentsdb.core.CompactQuantilesSketchCodec\&quot;:1}</span></code>. If the value ends with <code class="docutils literal"><span class="pre">.json</span></code> then it will be treated as a file path and the given file will be opened and parsed. Numeric IDs must be between 0 and 255.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.meta.cache.enable <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the meta data caching plugin is enabled.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>tsd.core.meta.cache.plugin <em>(2.3)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>The class name of a plugin implementing the meta cache interface.</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.meta.enable_realtime_ts</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable real-time TSMeta object creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>Whether or not to enable real-time TSMeta object creation. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a></td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.meta.enable_realtime_uid</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable real-time UIDMeta object creation. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>Whether or not to enable real-time UIDMeta object creation. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a></td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.meta.enable_tsuid_incrementing</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a> (Overrides &quot;tsd.core.meta.enable_tsuid_tracking&quot;)</td>
+<td>Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a> (Overrides &quot;tsd.core.meta.enable_tsuid_tracking&quot;)</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.meta.enable_tsuid_tracking</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable tracking of TSUIDs by storing a <code class="docutils literal"><span class="pre">1</span></code> with the current timestamp every time a data point is recorded. See <a class="reference internal" href="metadata.html"><em>Metadata</em></a></td>
+<td>Whether or not to enable tracking of TSUIDs by storing a <code class="docutils literal"><span class="pre">1</span></code> with the current timestamp every time a data point is recorded. See <a class="reference internal" href="metadata.html"><span class="doc">Metadata</span></a></td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.plugin_path</td>
 <td>String</td>
 <td>Optional</td>
 <td>A path to search for plugins when the TSD starts. If the path is invalid, the TSD will fail to start. Plugins can still be enabled if they are in the class path.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.preload_uid_cache <em>(2.1)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Enables pre-population of the UID caches when starting a TSD.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.preload_uid_cache.max_entries <em>(2.1)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number of rows to scan for UID pre-loading.</td>
 <td>300,000</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td>tsd.core.storage_exception_handler.enable <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.core.stats_with_port <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to export the listening network port of the TSD as a tag with stats when calling one of the stats endpoints.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.storage_exception_handler.enable <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable the configured storage exception handler plugin.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>tsd.core.storage_exception_handler.plugin <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.core.storage_exception_handler.plugin <em>(2.2)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>The full class name of the storage exception handler plugin you wish to use.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.core.tag.allow_specialchars <em>(2.3)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional list of ASCII characters allowed in metric names, tag names and tag keys above those already allowed by TSDB. Spaces are allowed.</td>
+<td>&#160;</td>
+<td>! ~/</td>
 </tr>
 <tr class="row-even"><td>tsd.core.timezone</td>
 <td>String</td>
@@ -284,49 +306,49 @@ documentation for details.</p>
 <td>A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.
 E.g. America/Los_Angeles</td>
 <td>System Configured</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.tree.enable_processing</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable processing new/edited TSMeta through tree rule sets</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.uid.random_metrics <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to randomly assign UIDs to new metrics as they are created</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.bulk.allow_out_of_order_timestamps <a href="#id1"><span class="problematic" id="id2">*</span></a>(2.3)</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow out-of-order values when bulk importing data from a text file.</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.core.authentication.enable <a href="#id3"><span class="problematic" id="id4">*</span></a>(2.4)</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to enable the specificed Authentication plugin</td>
+<td>Whether or not to enable the specified Authentication plugin</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.core.authentication.plugin <a href="#id5"><span class="problematic" id="id6">*</span></a>(2.4)</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of an authentication plugin to instantiate. If <code class="docutils literal"><span class="pre">tsd.core.authentication.enable</span></code> is set to false, this value is ignored.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.http.cachedir</td>
 <td>String</td>
 <td>Required</td>
 <td>The full path to a location where temporary files can be written.
 E.g. /tmp/opentsdb</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>--cachedir</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.query.allow_delete</td>
@@ -334,63 +356,63 @@ E.g. /tmp/opentsdb</td>
 <td>Optional</td>
 <td>Whether or not to allow deleting data points from storage during query time.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.query.enable_fuzzy_filter</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable the FuzzyRowFilter for HBase when making queries using the <code class="docutils literal"><span class="pre">explicitTags</span></code> flag.</td>
 <td>True</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.request.cors_domains</td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma separated list of domain names to allow access to OpenTSDB when the <code class="docutils literal"><span class="pre">Origin</span></code> header is specified by the client. If empty, CORS requests are passed through without validation. The list may not contain the public wildcard <code class="docutils literal"><span class="pre">*</span></code> and specific domains at the same time.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.http.request.cors_headers <em>(2.1)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma separated list of headers sent to clients when executing a CORs request. The literal value of this option will be passed to clients.</td>
 <td>Authorization, Content-Type, Accept, Origin, User-Agent, DNT, Cache-Control, X-Mx-ReqToken, Keep-Alive, X-Requested-With, If-Modified-Since</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.request.enable_chunked</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable incoming chunk support for the HTTP RPC</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.http.request.max_chunk</td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum request body size to support for incoming HTTP requests when chunking is enabled.</td>
 <td>4096</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.rpc.plugins <em>(2.2)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.http.show_stack_trace</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to return the stack trace with an API query response when an exception occurs.</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.http.staticroot</td>
 <td>String</td>
 <td>Required</td>
 <td>Location of a directory where static files, such as JavaScript files for the web interface, are located.
 E.g. /opt/opentsdb/staticroot</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>--staticroot</td>
 </tr>
 <tr class="row-even"><td>tsd.mode <em>(2.1)</em></td>
@@ -398,7 +420,7 @@ E.g. /opt/opentsdb/staticroot</td>
 <td>Optional</td>
 <td>Whether or not the TSD will allow writing data points. Must be either <code class="docutils literal"><span class="pre">rw</span></code> to allow writing data or <code class="docutils literal"><span class="pre">ro</span></code> to block data point writes. Note that meta data such as UIDs can still be written/modified.</td>
 <td>rw</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.network.async_io</td>
 <td>Boolean</td>
@@ -427,13 +449,13 @@ E.g. 127.0.0.1</td>
 <td>Optional</td>
 <td>Whether or not to allow keep-alive connections</td>
 <td>True</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.network.port</td>
 <td>Integer</td>
 <td>Required</td>
 <td>The TCP port to use for accepting connections</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>--port</td>
 </tr>
 <tr class="row-even"><td>tsd.network.reuse_address</td>
@@ -441,14 +463,14 @@ E.g. 127.0.0.1</td>
 <td>Optional</td>
 <td>Whether or not to allow reuse of the bound port within Netty</td>
 <td>True</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.network.tcp_no_delay</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to disable TCP buffering before sending data</td>
 <td>True</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.network.worker_threads</td>
 <td>Integer</td>
@@ -462,41 +484,111 @@ E.g. 127.0.0.1</td>
 <td>Optional</td>
 <td>Enable or disable the <code class="docutils literal"><span class="pre">diediedie</span></code> HTML and ASCII commands to shutdown a TSD.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.query.allow_simultaneous_duplicates <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to allow simultaneous duplicate queries from the same host. If disabled, a second query that comes in matching one already running will receive an exception.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.query.filter.expansion_limit <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.</td>
 <td>4096</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>tsd.query.limits.bytes.allow_override, <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the query byte limiter can be overiden on a per-query basis.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>tsd.query.limits.bytes.default <em>(2.4)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A limit on the number of bytes fetched from storage. When this limit is hit, the query will return with an exception. A value of <cite>0</cite> disables the limitter.</td>
+<td>0</td>
+<td>268435456</td>
+</tr>
+<tr class="row-even"><td>tsd.query.limits.data_points.allow_override <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the query data point limiter can be overiden on a per-query basis.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>tsd.query.limits.data_points.default <em>(2.4)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A limit on the number of data points fetched from storage. When this limit is hit, the query will return with an exception. A value of <cite>0</cite> disables the limiter.</td>
+<td>0</td>
+<td>1000000</td>
+</tr>
+<tr class="row-even"><td>tsd.query.limits.overrides.interval <em>(2.4)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>How often, in milliseconds, to reload the byte and data point query limiter plugin configuration.</td>
+<td>60000</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.query.limits.overrides.config <em>(2.4)</em></td>
+<td>JSON/File Path</td>
+<td>Optional</td>
+<td>The path or full config of a query limit configuration with options to match on metric names.</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>tsd.query.multi_get.enable <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not multi-get queries are enabled in conjunction with the search plugin.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>tsd.query.multi_get.batch_size <em>(2.4)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The number of <cite>get</cite> requests sent to storage in a single request.</td>
+<td>1024</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>tsd.query.multi_get.concurrent <em>(2.4)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The number of simultaneous batches outstanding at any given time for multi-get queries.</td>
+<td>20</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.query.multi_get.get_all_salts <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not a get request is fired for every bucket of salt or if the proper bucket is calculated. Used when salting configurations have changed.</td>
+<td>False</td>
+<td>True</td>
 </tr>
 <tr class="row-even"><td>tsd.query.skip_unresolved_tagvs <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to continue querying when the query includes a tag value that hasn't been assigned a UID yet and may not exist.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.query.timeout <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How long, in milliseconds, before canceling a running query. A value of 0 means queries will not timeout.</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.rollups.config <em>(2.4)</em></td>
 <td>String</td>
 <td>Optional</td>
-<td>The path to a configuration file detailing available rollup tables and aggregations. Must set <code class="docutils literal"><span class="pre">tsd.rollups.enable</span></code> to <code class="docutils literal"><span class="pre">true</span></code> for this option to be parsed. See <a class="reference internal" href="rollups.html"><em>Rollup And Pre-Aggregates</em></a></td>
-<td>&nbsp;</td>
+<td>The path to a configuration file detailing available rollup tables and aggregations. Must set <code class="docutils literal"><span class="pre">tsd.rollups.enable</span></code> to <code class="docutils literal"><span class="pre">true</span></code> for this option to be parsed. See <a class="reference internal" href="rollups.html"><span class="doc">Rollup And Pre-Aggregates</span></a></td>
+<td>&#160;</td>
 <td>rollup_config.json</td>
 </tr>
 <tr class="row-odd"><td>tsd.rollups.enable <em>(2.4)</em></td>
@@ -504,135 +596,149 @@ E.g. 127.0.0.1</td>
 <td>Optional</td>
 <td>Whether or not to enable rollup and pre-aggregation storage and writing.</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.rollups.tag_raw <em>(2.4)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to tag non-rolled-up and non-pre-aggregated values with the tag key configured in <code class="docutils literal"><span class="pre">tsd.rollups.agg_tag_key</span></code> and value configured in <code class="docutils literal"><span class="pre">tsd.rollups.raw_agg_tag_value</span></code></td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.rollups.agg_tag_key <em>(2.4)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>A special key to tag pre-aggregated data with when writing to storage</td>
 <td>_aggregate</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.rollups.raw_agg_tag_value <em>(2.4)</em></td>
 <td>String</td>
 <td>Optional</td>
 <td>A special tag value to non-rolled-up and non-pre-aggregated data with when writing to storage. <code class="docutils literal"><span class="pre">tsd.rollups.tag_raw</span></code> must be set to true.</td>
 <td>RAW</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.rollups.block_derived <em>(2.4)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to block storing derived aggregations such as <code class="docutils literal"><span class="pre">AVG</span></code> and <code class="docutils literal"><span class="pre">DEV</span></code>.</td>
 <td>true</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.rpc.plugins</td>
 <td>String</td>
 <td>Optional</td>
 <td>A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.rpc.telnet.return_errors <em>(2.4)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to return errors to the Telnet style socket when writing data via <code class="docutils literal"><span class="pre">put</span></code> or <code class="docutils literal"><span class="pre">rollup</span></code></td>
 <td>true</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.rtpublisher.enable</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable a real time publishing plugin. If true, you must supply a valid <code class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></code> class name</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.rtpublisher.plugin</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of a real time publishing plugin to instantiate. If <code class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></code> is set to false, this value is ignored.
 E.g. net.opentsdb.tsd.RabbitMQPublisher</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.search.enable</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable search functionality. If true, you must supply a valid <code class="docutils literal"><span class="pre">tsd.search.plugin</span></code> class name</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.search.plugin</td>
 <td>String</td>
 <td>Optional</td>
 <td>The class name of a search plugin to instantiate. If <code class="docutils literal"><span class="pre">tsd.search.enable</span></code> is set to false, this value is ignored.
 E.g. net.opentsdb.search.ElasticSearch</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.stats.canonical</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not the FQDN should be returned with statistics requests. The default stats are returned with <code class="docutils literal"><span class="pre">host=&lt;hostname&gt;</span></code> which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be <code class="docutils literal"><span class="pre">fqdn=&lt;hostname&gt;</span></code></td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.startup.enable <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not a startu plugin should be loaded before the TSD.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>tsd.startup.plugin <em>(2.3)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>The name of a plugin implementing the <cite>StartupPlugin</cite> interface.</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.compaction.flush_interval <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>How long, in seconds, to wait in between compaction queue flush calls</td>
 <td>10</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.compaction.flush_speed <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>A multiplier used to determine how quickly to attempt flushing the compaction queue. E.g. a value of 2 means it will try to flush the entire queue within 30 minutes. A value of 1 would take an hour.</td>
 <td>2</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.compaction.max_concurrent_flushes <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The maximum number of compaction calls inflight to HBase at any given time</td>
 <td>10000</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.compaction.min_flush_threshold <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>Size of the compaction queue that must be exceeded before flushing is triggered</td>
 <td>100</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.enable_appends <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to append data to columns when writing data points instead of creating new columns for each value. Avoids the need for compactions after each hour but can use more resources on HBase.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.enable_compaction</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to enable compactions</td>
 <td>True</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.fix_duplicates <em>(2.1)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to accept the last written value when parsing data points with duplicate timestamps. When enabled in conjunction with compactions, a compacted column will be written with the latest data points.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.flush_interval</td>
 <td>Integer</td>
@@ -641,33 +747,47 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>1000</td>
 <td>--flush-interval</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.data_table</td>
+<tr class="row-odd"><td>tsd.storage.get_date_tiered_compaction_start</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A Unix Epoch timestamp in milliseconds when date tierd compactions were enabled on the HBase table. This is useful for existing OpenTSDB installations moving to DTC. Queries starting before this time period will not set time boundaries on queries. See <a class="reference internal" href="tuning.html#date-tierd-compaction"><span class="std std-ref">Date Tierd Compaction</span></a>.</td>
+<td>0</td>
+<td>1514764800000</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.hbase.data_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where data points are stored</td>
 <td>tsdb</td>
 <td>--table</td>
 </tr>
-<tr class="row-even"><td>tsd.storage.hbase.meta_table</td>
+<tr class="row-odd"><td>tsd.storage.hbase.meta_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where meta data are stored</td>
 <td>tsdb-meta</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>tsd.storage.hbase.prefetch_meta <em>(2.2)</em></td>
+<tr class="row-even"><td>tsd.storage.hbase.prefetch_meta <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Whether or not to prefetch the regions for the TSDB tables before starting the network interface. This can improve performance.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.hbase.scanner.maxNumRows <em>(2.3)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The maximum number of rows to fetch from HBase per call to the scanner's <cite>nextRows()</cite> method.</td>
+<td>128</td>
+<td>4096</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.hbase.tree_table</td>
 <td>String</td>
 <td>Optional</td>
 <td>Name of the HBase table where tree data are stored</td>
 <td>tsdb-tree</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.hbase.uid_table</td>
 <td>String</td>
@@ -695,49 +815,119 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <td>Optional</td>
 <td>Whether or not to re-write appended data point columns at query time when the columns contain duplicate or out of order data.</td>
 <td>False</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.max_tags <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The maximum number of tags allowed per data point.  <strong>NOTE</strong> Please be aware of the performance tradeoffs of overusing tags <code class="xref doc docutils literal"><span class="pre">writing</span></code></td>
+<td>The maximum number of tags allowed per data point.  <strong>NOTE</strong> Please be aware of the performance tradeoffs of overusing tags <span class="xref std std-doc">writing</span></td>
 <td>8</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.salt.buckets <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The number of salt buckets used to distribute load across regions. <strong>NOTE</strong> Changing this value after writing data may cause TSUID based queries to fail.</td>
 <td>20</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.salt.width <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of the salt prefix used to indicate which bucket a time series belongs in. A value of 0 means salting is disabled. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>tsd.timeseriesfilter.enable <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the data writing filter plugins are enabled.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>tsd.timeseriesfilter.plugin <em>(2.3)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>The class path to a plugin that implements the <cite>WriteableDataPointFilterPlugin</cite> interface for filtering time series on writes.</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.uid.width.metric <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of metric UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.uid.width.tagk <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of tag name UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.uid.width.tagv <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
 <td>The width, in bytes, of tag value UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.storage.use_max_value <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to choose the larger numeric value during TSDB compaction when duplicates are found and <cite>tsd.storage.use_otsdb_timestamp</cite> has been set to <cite>true</cite>.</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>tsd.storage.use_otsdb_timestamp <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Uses the data point's timestamp for the edits in storage instead of the default <cite>now</cite>. See <a class="reference internal" href="tuning.html#date-tierd-compaction"><span class="std std-ref">Date Tierd Compaction</span></a>.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>tsd.uidfilter.enable <em>(2.3)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not the UID assignment plugin filter is enabled.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>tsd.uidfilter.plugin <em>(2.3)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>A plugin implementing the <cite>UniqueIdFilterPlugin</cite> interface.</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.lru.enable <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Changes the UID caches from unbounded maps to LRU caches.</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.lru.id.size <em>(2.4)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The total number of entries in the reverse UID to string map. Multiply this by 3 to get the total number of entries available, one per UID type (metric, tag key, tag value).</td>
+<td>5000000</td>
+<td>1000000</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.lru.name.size <em>(2.4)</em></td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The total number of entries in the forward string to UID map. Multiply this by 3 to get the total number of entries available, one per UID type (metric, tag key, tag value).</td>
+<td>5000000</td>
+<td>1000000</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.use_mode <em>(2.4)</em></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Determines if the name and/or ID caches should be populated based on the <cite>tsd.mode</cite> setting.</td>
+<td>False</td>
+<td>True</td>
 </tr>
 </tbody>
 </table>
@@ -758,12 +948,12 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <ul>
 <li><p class="first">Special characters must be escaped with a backslash include: <code class="docutils literal"><span class="pre">#</span></code>, <code class="docutils literal"><span class="pre">!</span></code>, <code class="docutils literal"><span class="pre">=</span></code>, and <code class="docutils literal"><span class="pre">:</span></code>
 E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>my.property = Hello World\!
+<div class="highlight-default"><div class="highlight"><pre><span></span>my.property = Hello World\!
 </pre></div>
 </div>
 </li>
 <li><p class="first">Unicode characters must be escaped with their hexadecimal representation, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>my.property = \u0009
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my</span><span class="o">.</span><span class="n">property</span> <span class="o">=</span> \<span class="n">u0009</span>
 </pre></div>
 </div>
 </li>
@@ -791,8 +981,8 @@ E.g.:</p>
         <li class="right" >
           <a href="index.html" title="User Guide"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

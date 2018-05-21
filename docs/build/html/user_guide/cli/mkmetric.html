@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>mkmetric &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>mkmetric &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="CLI Tools" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="import" href="import.html" />
     <link rel="prev" title="uid" href="uid.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="uid.html" title="uid"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -78,14 +75,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -101,12 +95,12 @@
 <p>mkmetric is a shortcut to the <code class="docutils literal"><span class="pre">uid</span> <span class="pre">assign</span> <span class="pre">metrics</span> <span class="pre">&lt;metric&gt;</span></code> command where you can provide multiple metric names in a single call and UIDs will be assigned or retrieved. If any of the metrics already exist, the assigned UID will be returned.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
-<div class="highlight-bash"><div class="highlight"><pre>mkmetric metric <span class="o">[</span>metrics<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkmetric metric <span class="o">[</span>metrics<span class="o">]</span>
 </pre></div>
 </div>
 <p>Simply supply one or more space separate metric names in the call.</p>
 <p>Example</p>
-<div class="highlight-bash"><div class="highlight"><pre>mkmetric sys.cpu.user sys.cpu.nice sys.cpu.idle
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkmetric sys.cpu.user sys.cpu.nice sys.cpu.idle
 </pre></div>
 </div>
 </div>
@@ -114,9 +108,9 @@
 <h2>Response</h2>
 <p>The response is the literal &quot;metrics&quot; followed by the name of the metric and a Java formatted byte array representing the UID assigned or retrieved for each metric, one per line.</p>
 <p>Example</p>
-<div class="highlight-bash"><div class="highlight"><pre>metrics sys.cpu.user: <span class="o">[</span>0, 0, -58<span class="o">]</span>
-metrics sys.cpu.nice: <span class="o">[</span>0, 0, -57<span class="o">]</span>
-metrics sys.cpu.idle: <span class="o">[</span>0, 0, -59<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>metrics sys.cpu.user: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, -58<span class="o">]</span>
+metrics sys.cpu.nice: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, -57<span class="o">]</span>
+metrics sys.cpu.idle: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, -59<span class="o">]</span>
 </pre></div>
 </div>
 </div>
@@ -140,9 +134,9 @@ metrics sys.cpu.idle: <span class="o">[</span>0, 0, -59<span class="o">]</span>
         <li class="right" >
           <a href="uid.html" title="uid"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Cassandra &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Cassandra &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Storage" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="CLI Tools" href="../cli/index.html" />
     <link rel="prev" title="Bigtable" href="bigtable.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="bigtable.html" title="Bigtable"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Storage</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Storage</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -78,14 +75,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -105,14 +99,14 @@
 <li>Setup a Cassandra cluster using the <code class="docutils literal"><span class="pre">ByteOrderedPartitioner</span></code>. This is critical as we require the row keys to be sorted. Because this setting affects the entire node, you may need to setup a cluster dedicated to OpenTSDB.</li>
 <li>Create the proper keyspsaces and column families by using the <cite>cassandra-cli</cite> script:</li>
 </ol>
-<div class="highlight-python"><div class="highlight"><pre>create keyspace tsdb;
-use tsdb;
-create column family t with comparator = BytesType;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">create</span> <span class="n">keyspace</span> <span class="n">tsdb</span><span class="p">;</span>
+<span class="n">use</span> <span class="n">tsdb</span><span class="p">;</span>
+<span class="n">create</span> <span class="n">column</span> <span class="n">family</span> <span class="n">t</span> <span class="k">with</span> <span class="n">comparator</span> <span class="o">=</span> <span class="n">BytesType</span><span class="p">;</span>
 
-create keyspace tsdbuid;
-use tsdbuid;
-create column family id with comparator = BytesType;
-create column family name with comparator = BytesType;
+<span class="n">create</span> <span class="n">keyspace</span> <span class="n">tsdbuid</span><span class="p">;</span>
+<span class="n">use</span> <span class="n">tsdbuid</span><span class="p">;</span>
+<span class="n">create</span> <span class="n">column</span> <span class="n">family</span> <span class="nb">id</span> <span class="k">with</span> <span class="n">comparator</span> <span class="o">=</span> <span class="n">BytesType</span><span class="p">;</span>
+<span class="n">create</span> <span class="n">column</span> <span class="n">family</span> <span class="n">name</span> <span class="k">with</span> <span class="n">comparator</span> <span class="o">=</span> <span class="n">BytesType</span><span class="p">;</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
@@ -125,8 +119,8 @@ create column family name with comparator = BytesType;
 </div>
 <div class="section" id="configuration">
 <h2>Configuration</h2>
-<p>The following is a table with required and optional parameters to run OpenTSDB with Cassandra. These are in addition to the standard TSD configuration parameters from <a class="reference internal" href="../configuration.html"><em>Configuration</em></a></p>
-<table border="1" class="docutils">
+<p>The following is a table with required and optional parameters to run OpenTSDB with Cassandra. These are in addition to the standard TSD configuration parameters from <a class="reference internal" href="../configuration.html"><span class="doc">Configuration</span></a></p>
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="5%" />
@@ -147,7 +141,7 @@ create column family name with comparator = BytesType;
 <td>String</td>
 <td>Required</td>
 <td>The list of nodes in your Cassandra cluster. These can be formatted <cite>&lt;hostname&gt;:&lt;port&gt;</cite></td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>asynccassandra.port</td>
 <td>Integer</td>
@@ -178,9 +172,9 @@ create column family name with comparator = BytesType;
         <li class="right" >
           <a href="bigtable.html" title="Bigtable"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Storage</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Storage</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

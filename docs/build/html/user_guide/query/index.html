@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Querying or Reading Data &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Querying or Reading Data &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="User Guide" href="../index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Understanding Metrics and Time Series" href="timeseries.html" />
     <link rel="prev" title="Writing Data" href="../writing/index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="../writing/index.html" title="Writing Data"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -82,14 +79,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -119,7 +113,7 @@
 <div class="section" id="query-components">
 <h2>Query Components</h2>
 <p>OpenTSDB provides a number of tools and endpoints allowing for various query specifications that have evolved over time. The original syntax allowed for simple filtering, aggregation and downsampling. Later versions added support for functions and expressions. In general, each query has the following components:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="15%" />
 <col width="10%" />
@@ -139,13 +133,13 @@
 <tr class="row-even"><td>Start Time</td>
 <td>String or Integer</td>
 <td>Required</td>
-<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="dates.html"><em>Dates and Times</em></a> for details</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="dates.html"><span class="doc">Dates and Times</span></a> for details</td>
 <td>24h-ago</td>
 </tr>
 <tr class="row-odd"><td>End Time</td>
 <td>String or Integer</td>
 <td>Optional</td>
-<td>An end time for the query. If the end time is not supplied, the current time on the TSD will be used. See <a class="reference internal" href="dates.html"><em>Dates and Times</em></a> for details.</td>
+<td>An end time for the query. If the end time is not supplied, the current time on the TSD will be used. See <a class="reference internal" href="dates.html"><span class="doc">Dates and Times</span></a> for details.</td>
 <td>1h-ago</td>
 </tr>
 <tr class="row-even"><td>Metric</td>
@@ -195,26 +189,26 @@
 </div>
 <div class="section" id="times">
 <h2>Times</h2>
-<p>Absolute time stamps are supported in human readable format or Unix style integers. Relative times may be used for refreshing dashboards. Currently, all queries are able to cover a single time span. In the future we hope to provide an offset query parameter that would allow for aggregations or graphing of a metric over different time periods, such as comparing last week to 1 year ago. See <a class="reference internal" href="dates.html"><em>Dates and Times</em></a> for details on what is permissible.</p>
+<p>Absolute time stamps are supported in human readable format or Unix style integers. Relative times may be used for refreshing dashboards. Currently, all queries are able to cover a single time span. In the future we hope to provide an offset query parameter that would allow for aggregations or graphing of a metric over different time periods, such as comparing last week to 1 year ago. See <a class="reference internal" href="dates.html"><span class="doc">Dates and Times</span></a> for details on what is permissible.</p>
 <p>While OpenTSDB can store data with millisecond resolution, most queries will return the data with second resolution to provide backwards compatibility for existing tools. Unless a down sampling algorithm has been specified with a query, the data will automatically be down sampled to 1 second using the same aggregation function specified in a query. This way, if multiple data points are stored for a given second, they will be aggregated and returned in a normal query correctly.</p>
 <p>To extract data with millisecond resolution, use the <code class="docutils literal"><span class="pre">/api/query</span></code> endpoint and specify the <code class="docutils literal"><span class="pre">msResolution</span></code> (<code class="docutils literal"><span class="pre">ms</span></code> is also okay, but not recommended) JSON parameter or query string flag and it will bypass down sampling (unless specified) and return all timestamps in Unix epoch millisecond resolution. Also, the <code class="docutils literal"><span class="pre">scan</span></code> command line utility will return the timestamp as written in storage.</p>
 </div>
 <div class="section" id="filters">
 <h2>Filters</h2>
 <p>Every time series is comprised of a metric and one or more tag name/value pairs. In OpenTSDB, filters are applied against tag values (at this time TSDB does not provide filtering on metrics or tag keys). Since filters are optional in queries, if you request only the metric name, then every metric with any number or value of tags will be returned in the aggregated results. Filters are similar to the predicates following a <code class="docutils literal"><span class="pre">WHERE</span></code> clause in SQL. For example, if we have a stored data set:</p>
-<div class="highlight-python"><div class="highlight"><pre>sys.cpu.user host=webserver01,cpu=0  1356998400  1
-sys.cpu.user host=webserver01,cpu=1  1356998400  4
-sys.cpu.user host=webserver02,cpu=0  1356998400  2
-sys.cpu.user host=webserver02,cpu=1  1356998400  1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver01</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">0</span>  <span class="mi">1356998400</span>  <span class="mi">1</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver01</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">1</span>  <span class="mi">1356998400</span>  <span class="mi">4</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver02</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">0</span>  <span class="mi">1356998400</span>  <span class="mi">2</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver02</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">1</span>  <span class="mi">1356998400</span>  <span class="mi">1</span>
 </pre></div>
 </div>
 <p>and craft a simple query with the minimum requirements of a <em>start time</em>, <em>aggregator</em> and <em>metric</em> such as: <code class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user</span></code>, we will get a value of <code class="docutils literal"><span class="pre">8</span></code> at <code class="docutils literal"><span class="pre">1356998400</span></code> that aggregates and groups all 4 time series into one.</p>
 <p>If we want to zoom into a particular series or set of series, we can use filters. For example, we can filter on the <code class="docutils literal"><span class="pre">host</span></code> tag via: <code class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01}</span></code>. This query will return a value of <code class="docutils literal"><span class="pre">5</span></code>, incorporating only the time series where <code class="docutils literal"><span class="pre">host=webserver01</span></code>. To drill down to a specific time series, you must include all of the tags for the series, e.g. the query <code class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01,cpu=0}</span></code> will return <code class="docutils literal"><span class="pre">1</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Inconsistent tags can cause unexpected results when querying. See <a class="reference internal" href="../writing/index.html"><em>Writing Data</em></a> for details. Also see <em>Explicit Tags</em> below.</p>
+<p class="last">Inconsistent tags can cause unexpected results when querying. See <a class="reference internal" href="../writing/index.html"><span class="doc">Writing Data</span></a> for details. Also see <em>Explicit Tags</em> below.</p>
 </div>
-<p>Read the <a class="reference internal" href="filters.html"><em>Query Filters</em></a> documentation for details.</p>
+<p>Read the <a class="reference internal" href="filters.html"><span class="doc">Query Filters</span></a> documentation for details.</p>
 </div>
 <div class="section" id="aggregation">
 <h2>Aggregation</h2>
@@ -223,7 +217,7 @@ sys.cpu.user host=webserver02,cpu=1  1356998400  1
 <p class="first admonition-title">Note</p>
 <p class="last">OpenTSDB aggregates data by default and requires an aggregation operator for every query. Each aggregator has to handle missing or data points at different time stamps for multiple series. This is performed via interpolation and can lead to unexpected results at query time if users are unaware of what TSDB is doing.</p>
 </div>
-<p>See <a class="reference internal" href="aggregators.html"><em>Aggregation</em></a> for details.</p>
+<p>See <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> for details.</p>
 </div>
 <div class="section" id="downsampling">
 <h2>Downsampling</h2>
@@ -232,7 +226,7 @@ sys.cpu.user host=webserver02,cpu=1  1356998400  1
 <p>Downsampling can be used at query time to reduce the number of data points returned so that you can extract better information from a graph or pass less data over a connection. Down sampling requires an <strong>aggregation</strong> function and a <strong>time interval</strong>. The aggregation function is used to compute a new data point across all of the data points in the specified interval with the proper mathematical function. For example, if the aggregation <code class="docutils literal"><span class="pre">sum</span></code> is used, then all of the data points within the interval will be summed together into a single value. If <code class="docutils literal"><span class="pre">avg</span></code> is chosen, then the average of all data points within the interval will be returned.</p>
 <p>Using downsampling we can cleanup the previous graph to arrive at something much more useful:</p>
 <img alt="../../_images/gui_downsampling_on1.png" src="../../_images/gui_downsampling_on1.png" />
-<p>For details, see <a class="reference internal" href="downsampling.html"><em>Downsampling</em></a>.</p>
+<p>For details, see <a class="reference internal" href="downsampling.html"><span class="doc">Downsampling</span></a>.</p>
 </div>
 <div class="section" id="rate">
 <h2>Rate</h2>
@@ -275,8 +269,8 @@ sys.cpu.user host=webserver02,cpu=1  1356998400  1
         <li class="right" >
           <a href="../writing/index.html" title="Writing Data"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>General Development &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>General Development &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="Development" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Plugins" href="plugins.html" />
     <link rel="prev" title="Development" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="index.html" title="Development"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -83,14 +80,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -146,12 +140,12 @@ If you absolutely must add a new dependency, here are the steps:</p>
 <li><p class="first">Add the canonical source URL in the format <code class="docutils literal"><span class="pre">&lt;DEPENDENCY&gt;_BASE_URL</span> <span class="pre">:=</span> <span class="pre">&lt;URL&gt;</span></code> e.g. <code class="docutils literal"><span class="pre">JACKSON_CORE_BASE_URL</span> <span class="pre">:=</span> <span class="pre">http://repository.codehaus.org/org/codehaus/jackson/jackson-core-lgpl/$(JACKSON_VERSION)</span></code> and note that the JAR name will be appended to the end of the URL</p>
 </li>
 <li><p class="first">Add the following lines</p>
-<div class="highlight-python"><div class="highlight"><pre>$(&lt;DEPENDENCY&gt;): $(J&lt;DEPENDENCY&gt;).md5
+<div class="highlight-default"><div class="highlight"><pre><span></span>$(&lt;DEPENDENCY&gt;): $(J&lt;DEPENDENCY&gt;).md5
 set dummy ``$(&lt;DEPENDENCY&gt;_BASE_URL)`` ``$(&lt;DEPENDENCY&gt;)``; shift; $(FETCH_DEPENDENCY)
 </pre></div>
 </div>
 <p>e.g.</p>
-<div class="highlight-python"><div class="highlight"><pre>$(JACKSON_CORE): $(JACKSON_CORE).md5
+<div class="highlight-default"><div class="highlight"><pre><span></span>$(JACKSON_CORE): $(JACKSON_CORE).md5
 set dummy ``$(JACKSON_CORE_BASE_URL)`` ``$(JACKSON_CORE)``; shift; $(FETCH_DEPENDENCY)
 </pre></div>
 </div>
@@ -227,7 +221,7 @@ set dummy ``$(JACKSON_CORE_BASE_URL)`` ``$(JACKSON_CORE)``; shift; $(FETCH_DEPEN
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This won't compile the GWT UI. If you want to do UI work and have made changes, recompile OpenTSDB or export it as a JAR from your IDE, then execute the following command (assuming the directory structure above):</p>
-<div class="last highlight-python"><div class="highlight"><pre>java -cp ``&lt;PATH_TO&gt;gwt-dev-2.4.0.jar;&lt;PATH_TO&gt;gwt-user-2.4.0.jar;&lt;PATH_TO&gt;tsdb-1.1.0.jar;/home/$USER/opentsdb/src/net/opentsdb;/home/$USER/opentsdb/src`` com.google.gwt.dev.Compiler -ea -war &lt;PATH_TO_STATIC_DIRECTORY&gt; tsd.Queryui
+<div class="last highlight-default"><div class="highlight"><pre><span></span>java -cp ``&lt;PATH_TO&gt;gwt-dev-2.4.0.jar;&lt;PATH_TO&gt;gwt-user-2.4.0.jar;&lt;PATH_TO&gt;tsdb-1.1.0.jar;/home/$USER/opentsdb/src/net/opentsdb;/home/$USER/opentsdb/src`` com.google.gwt.dev.Compiler -ea -war &lt;PATH_TO_STATIC_DIRECTORY&gt; tsd.Queryui
 </pre></div>
 </div>
 </div>
@@ -252,8 +246,8 @@ set dummy ``$(JACKSON_CORE_BASE_URL)`` ``$(JACKSON_CORE)``; shift; $(FETCH_DEPEN
         <li class="right" >
           <a href="index.html" title="Development"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -58,11 +58,11 @@
       <h3>OpenTSDB 2.3.0</h3>
       <p><b>2016-12-31</b> - OpenTSDB 2.3.0 has been released with new features. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.3.0">GitHub</a> and help us find bugs! Checkout the <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new. And thank you to everyone who contributed to this release.</p> 
     </div>
-    <div class="text-center">
+    <div class="text-center item">
       <h3>OpenTSDB 2.4.0 RC2</h3>
       <p><b>2017-10-07</b> - OpenTSDB 2.4.0 Release Candidate 2 has been released with new features including rollups and histograms.. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.4.0RC2">GitHub</a>, give it a try and let us know of any bugs you find.</p>
     </div>
-    <div class="text-center item" item active">
+    <div class="text-center item active">
       <h3>OpenTSDB 2.3.1</h3>
       <p><b>2018-05-21</b> - OpenTSDB 2.3.1 has been released with new features. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.3.1">GitHub</a> and help us find bugs! Checkout the <a href="http://opentsdb.net/docs/build/html/index.html">documentation</a> to find out what's new. And thank you to everyone who contributed to this release.</p>  
     </div>

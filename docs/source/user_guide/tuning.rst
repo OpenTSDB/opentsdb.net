@@ -36,3 +36,60 @@ OpenTSDB can leverage this compaction strategy (as of 2.4) to improve HBase perf
 * `tsd.storage.use_otsdb_timestamp=true` - By default the edit timestamps of every data point is `now`. This changes the timestamp to be that of the actual data point. Note that rollups do not use this strategy yet.
 * `tsd.storage.get_date_tiered_compaction_start=<Unix Epoch MS timestamp>` - A timestamp in milliseconds when the date tiered compactor was enabled on a table. If you are creating a brand new table for OpenTSDB you can leave this at the default of `0`.
 
+HBase Read/Write Queues
+^^^^^^^^^^^^^^^^^^^^^^^
+
+HBase has the ability to split the queues that handle RPCs for writes (mutations) and reads. This is a huge help for OpenTSDB as massive queries will avoid impacting writes and vice-versa. See the `HBase Book <http://hbase.apache.org/book.html#_tuning_code_callqueue_code_options>`_ for various configuration options. Note that different HBase versions have different names for these properties. 
+
+Possible starting values are 50% or 60%. E.g. `hbase.ipc.server.callqueue.read.share=0.60` or `hbase.ipc.server.callqueue.read.ratio=0.60` depending on HBase version.
+
+Also, tuning the call queue size and threads is important. With a large queue, the region server can possibly OOM (if there are a large number of writes backing up) and RPCs will be more likely to time out on the client side if they sit in the queue too long. The queue size is a factor of the number of handlers. Reducing the call queue size also helps to cause clients to throttle, particularly the AsyncHBase client. For HBase 1.3 a good setting may be `hbase.ipc.server.max.callqueue.length=100` and `hbase.ipc.server.read.threadpool.size=2`. If you need to increase the threads, reduce the queue length as well.
+
+HBase Cache
+^^^^^^^^^^^
+
+Tuning the HBase cache is also important for queries as you want to avoid reading data off disk as much as possible (particularly if that disk is S3). Try using the offheap cache via `hbase.bucketcache.combinedcache.enabled=true` and `hbase.bucketcache.ioengine=offheap`. Give the offheap cache a good amount of RAM, e.g. `hbase.bucketcache.size=4000` for 4GB of RAM. Since the most recent data is usually queried when reading time series, it's a good idea to populate the block cache on writes and use most of that space for the latest data. Try the following settings:
+
+:: 
+
+  hbase.rs.cacheblocksonwrite=true
+  hbase.rs.evictblocksonclose=false
+  hfile.block.bloom.cacheonwrite=true
+  hfile.block.index.cacheonwrite=true
+  hbase.block.data.cachecompressed=true
+  hbase.bucketcache.blockcache.single.percentage=.99
+  hbase.bucketcache.blockcache.multi.percentage=0
+  hbase.bucketcache.blockcache.memory.percentage=.01
+  hfile.block.cache.size=.054 #ignored but needs a value.
+
+This will allocate the majority of the black cache for writes and cache it in memory.
+
+For the on-heap cache, you can try an allocation of:
+::
+
+  hbase.lru.blockcache.single.percentage=.50
+  hbase.lru.blockcache.multi.percentage=.49
+  hbase.lru.blockcache.memory.percentage=.01
+
+HBase Compaction
+^^^^^^^^^^^^^^^^
+
+Compaction is the process of merging multiple stores on disk for a region into fewer files to reduce space and query times. You can tune the number of threads and thresholds for compaction to avoid using too many resources when the focus should be on writes.
+::
+  
+  hbase.hstore.compaction.ratio=1.2
+  hbase.regionserver.thread.compaction.large=2
+  hbase.regionserver.thread.compaction.small=6
+  hbase.regionserver.thread.compaction.throttle=524288000
+
+HBase Regions
+^^^^^^^^^^^^^
+
+For OpenTSDB we've observed that 10G regions are a good size for a large cluster `hbase.hregion.max.filesize=10737418240`.
+
+HBase Memstore
+^^^^^^^^^^^^^^
+
+Try flushing the mem store to disk (and cache) more often, particularly for heavy write loads. We've seen good behavior with 16MBs `hbase.hregion.memstore.flush.size=16777216`. Also try reducing the memstore size limit via `hbase.regionserver.global.memstore.lowerLimit=.20` and `hbase.regionserver.global.memstore.upperLimit=.30`.
+
+

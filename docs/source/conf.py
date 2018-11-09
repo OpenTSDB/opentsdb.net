@@ -41,9 +41,11 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
+from datetime import datetime
+currentYear = datetime.now().year
 # General information about the project.
 project = u'OpenTSDB'
-copyright = u'2017, OpenTSDB'
+copyright = u'%s, OpenTSDB' % currentYear
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -260,7 +262,7 @@ texinfo_documents = [
 epub_title = u'opentsdb'
 epub_author = u'OpenTSDB'
 epub_publisher = u'OpenTSDB'
-epub_copyright = u'2017, OpenTSDB'
+epub_copyright = u'%s, OpenTSDB' % currentYear
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

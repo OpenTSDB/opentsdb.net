@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/search/lookup &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -34,8 +26,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -64,12 +55,14 @@
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -86,10 +79,10 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Available in 2.1</p>
 </div>
-<p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <code class="docutils literal"><span class="pre">host=web01</span></code> you can execute a lookup to find out. Lookups do not require a search plugin to be installed.</p>
+<p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <code class="docutils literal notranslate"><span class="pre">host=web01</span></code> you can execute a lookup to find out. Lookups do not require a search plugin to be installed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Lookups are performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table. You must enable real-time meta data creation or perform a <code class="docutils literal"><span class="pre">metasync</span></code> using the <code class="docutils literal"><span class="pre">uid</span></code> command in order to retreive data from a lookup. Lookups can be executed against the raw data table using the CLI command only: <a class="reference internal" href="../../user_guide/cli/search.html"><span class="doc">search</span></a></p>
+<p class="last">Lookups are performed against the <code class="docutils literal notranslate"><span class="pre">tsdb-meta</span></code> table. You must enable real-time meta data creation or perform a <code class="docutils literal notranslate"><span class="pre">metasync</span></code> using the <code class="docutils literal notranslate"><span class="pre">uid</span></code> command in order to retreive data from a lookup. Lookups can be executed against the raw data table using the CLI command only: <a class="reference internal" href="../../user_guide/cli/search.html"><span class="doc">search</span></a></p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -165,23 +158,23 @@
 <div class="section" id="lookup-queries">
 <h3>Lookup Queries</h3>
 <p>A lookup query consists of at least one metric, tag name (tagk) or tag value (tagv). Each value must be a literal name in the UID table. If a given name cannot be resolved to a UID, an exception will be returned. Only one metric can be supplied per query but multiple tagk, tagv or tag pairs may be provided.</p>
-<p>Normally, tags a provided in the format <code class="docutils literal"><span class="pre">&lt;tagk&gt;=&lt;tagv&gt;</span></code> and a value is required on either side of the equals sign. However for lookups, one value may an asterisk <code class="docutils literal"><span class="pre">*</span></code>, i.e. <code class="docutils literal"><span class="pre">&lt;tagk&gt;=*</span></code> or <code class="docutils literal"><span class="pre">*=&lt;tagv&gt;</span></code>. In these cases, the asterisk acts as a wildcard meaning any time series with the given tagk or tagv will be returned. For example, if we issue a query for <code class="docutils literal"><span class="pre">host=*</span></code> then we will get all of the time series with a <code class="docutils literal"><span class="pre">host</span></code> tagk such as <code class="docutils literal"><span class="pre">host=web01</span></code> and <code class="docutils literal"><span class="pre">host=web02</span></code>.</p>
-<p>For complex queries with multiple values, each type is <code class="docutils literal"><span class="pre">AND</span></code>'d with the other types and <code class="docutils literal"><span class="pre">OR</span></code>'d with it's own type.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">metric</span><span class="o">&gt;</span> <span class="n">AND</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">tagk1</span><span class="o">&gt;=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">tagv1</span><span class="o">&gt;</span><span class="p">]</span> <span class="n">OR</span> <span class="o">&lt;</span><span class="n">tagk1</span><span class="o">&gt;=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">tagv2</span><span class="o">&gt;</span><span class="p">])</span> <span class="n">AND</span> <span class="p">([</span><span class="o">&lt;</span><span class="n">tagk2</span><span class="o">&gt;</span><span class="p">]</span><span class="o">=&lt;</span><span class="n">tagv3</span><span class="o">&gt;</span> <span class="n">OR</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">tagk2</span><span class="o">&gt;</span><span class="p">]</span><span class="o">=&lt;</span><span class="n">tagv4</span><span class="o">&gt;</span><span class="p">)</span>
+<p>Normally, tags a provided in the format <code class="docutils literal notranslate"><span class="pre">&lt;tagk&gt;=&lt;tagv&gt;</span></code> and a value is required on either side of the equals sign. However for lookups, one value may an asterisk <code class="docutils literal notranslate"><span class="pre">*</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">&lt;tagk&gt;=*</span></code> or <code class="docutils literal notranslate"><span class="pre">*=&lt;tagv&gt;</span></code>. In these cases, the asterisk acts as a wildcard meaning any time series with the given tagk or tagv will be returned. For example, if we issue a query for <code class="docutils literal notranslate"><span class="pre">host=*</span></code> then we will get all of the time series with a <code class="docutils literal notranslate"><span class="pre">host</span></code> tagk such as <code class="docutils literal notranslate"><span class="pre">host=web01</span></code> and <code class="docutils literal notranslate"><span class="pre">host=web02</span></code>.</p>
+<p>For complex queries with multiple values, each type is <code class="docutils literal notranslate"><span class="pre">AND</span></code>’d with the other types and <code class="docutils literal notranslate"><span class="pre">OR</span></code>’d with it’s own type.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">metric</span><span class="o">&gt;</span> <span class="n">AND</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">tagk1</span><span class="o">&gt;=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">tagv1</span><span class="o">&gt;</span><span class="p">]</span> <span class="n">OR</span> <span class="o">&lt;</span><span class="n">tagk1</span><span class="o">&gt;=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">tagv2</span><span class="o">&gt;</span><span class="p">])</span> <span class="n">AND</span> <span class="p">([</span><span class="o">&lt;</span><span class="n">tagk2</span><span class="o">&gt;</span><span class="p">]</span><span class="o">=&lt;</span><span class="n">tagv3</span><span class="o">&gt;</span> <span class="n">OR</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">tagk2</span><span class="o">&gt;</span><span class="p">]</span><span class="o">=&lt;</span><span class="n">tagv4</span><span class="o">&gt;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>For example, the query <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=tsd3}</span></code> would return only the time series with the metric <code class="docutils literal"><span class="pre">tsd.hbase.rpcs</span></code> and the <code class="docutils literal"><span class="pre">type</span></code> tagk with any value and a <code class="docutils literal"><span class="pre">host</span></code> tag with either <code class="docutils literal"><span class="pre">tsd1</span></code> or <code class="docutils literal"><span class="pre">tsd2</span></code> or <code class="docutils literal"><span class="pre">tsd3</span></code>. Unlike a data query, you may supply multiple tagks with the same name as seen in the example above. Wildcards always take priority so if your query looked like <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=*}</span></code>, then the query would effectively be treated as <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=*}</span></code>.</p>
-<p>To retreive a list of all time series with a specific tag value, e.g. a particular host, you could issue a query like <code class="docutils literal"><span class="pre">{*=web01}</span></code> that will return all time series with a tag value of <code class="docutils literal"><span class="pre">web01</span></code>. This can be useful in debugging tag name issues such as some series having <code class="docutils literal"><span class="pre">host=web01</span></code> or <code class="docutils literal"><span class="pre">server=web01</span></code>.</p>
+<p>For example, the query <code class="docutils literal notranslate"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=tsd3}</span></code> would return only the time series with the metric <code class="docutils literal notranslate"><span class="pre">tsd.hbase.rpcs</span></code> and the <code class="docutils literal notranslate"><span class="pre">type</span></code> tagk with any value and a <code class="docutils literal notranslate"><span class="pre">host</span></code> tag with either <code class="docutils literal notranslate"><span class="pre">tsd1</span></code> or <code class="docutils literal notranslate"><span class="pre">tsd2</span></code> or <code class="docutils literal notranslate"><span class="pre">tsd3</span></code>. Unlike a data query, you may supply multiple tagks with the same name as seen in the example above. Wildcards always take priority so if your query looked like <code class="docutils literal notranslate"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=*}</span></code>, then the query would effectively be treated as <code class="docutils literal notranslate"><span class="pre">tsd.hbase.rpcs{type=*,host=*}</span></code>.</p>
+<p>To retreive a list of all time series with a specific tag value, e.g. a particular host, you could issue a query like <code class="docutils literal notranslate"><span class="pre">{*=web01}</span></code> that will return all time series with a tag value of <code class="docutils literal notranslate"><span class="pre">web01</span></code>. This can be useful in debugging tag name issues such as some series having <code class="docutils literal notranslate"><span class="pre">host=web01</span></code> or <code class="docutils literal notranslate"><span class="pre">server=web01</span></code>.</p>
 </div>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p>Query String:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/search/lookup?m=tsd.hbase.rpcs{type=*}
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/search/lookup?m=tsd.hbase.rpcs{type=*}
 </pre></div>
 </div>
 <p>POST:</p>
-<p>JSON requests follow the search query format on the <a class="reference internal" href="index.html"><span class="doc">/api/search</span></a> page. Limits and startNote that tags are supplied as a list of objects. The value for the <code class="docutils literal"><span class="pre">key</span></code> should be a <code class="docutils literal"><span class="pre">tagk</span></code> and the value for <code class="docutils literal"><span class="pre">value</span></code> should be a <code class="docutils literal"><span class="pre">tagv</span></code> or wildcard.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<p>JSON requests follow the search query format on the <a class="reference internal" href="index.html"><span class="doc">/api/search</span></a> page. Limits and startNote that tags are supplied as a list of objects. The value for the <code class="docutils literal notranslate"><span class="pre">key</span></code> should be a <code class="docutils literal notranslate"><span class="pre">tagk</span></code> and the value for <code class="docutils literal notranslate"><span class="pre">value</span></code> should be a <code class="docutils literal notranslate"><span class="pre">tagv</span></code> or wildcard.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.rpcs&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
         <span class="p">{</span>
@@ -259,11 +252,11 @@
 </tr>
 </tbody>
 </table>
-<p>This endpoint will almost always return a <code class="docutils literal"><span class="pre">200</span></code> with content body. If the query doesn't match any results, the <code class="docutils literal"><span class="pre">results</span></code> field will be an empty array and <code class="docutils literal"><span class="pre">totalResults</span></code> will be 0. If an error occurs, such as a failure to resolve a metric or tag name to a UID, an exception will be returned.</p>
+<p>This endpoint will almost always return a <code class="docutils literal notranslate"><span class="pre">200</span></code> with content body. If the query doesn’t match any results, the <code class="docutils literal notranslate"><span class="pre">results</span></code> field will be an empty array and <code class="docutils literal notranslate"><span class="pre">totalResults</span></code> will be 0. If an error occurs, such as a failure to resolve a metric or tag name to a UID, an exception will be returned.</p>
 </div>
 <div class="section" id="example-response">
 <h2>Example Response</h2>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;LOOKUP&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.rpcs&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
@@ -321,7 +314,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/rollup &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -78,12 +69,14 @@
                         title="next chapter">/api/histogram</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -97,7 +90,7 @@
   <div class="section" id="api-rollup">
 <h1>/api/rollup</h1>
 <p>This endpoint allows for storing rolled up and/or pre-aggregated data in OpenTSDB over HTTP. For details on rollups and pre-aggs, please see the user guide: <a class="reference internal" href="../user_guide/rollups.html"><span class="doc">Rollup And Pre-Aggregates</span></a>.</p>
-<p>Also see the <a class="reference internal" href="put.html"><span class="doc">/api/put</span></a> documentation for notes and common parameters that are shared with the <code class="docutils literal"><span class="pre">/api/rollup</span></code> endpoint. This page lays out the differences between the two.</p>
+<p>Also see the <a class="reference internal" href="put.html"><span class="doc">/api/put</span></a> documentation for notes and common parameters that are shared with the <code class="docutils literal notranslate"><span class="pre">/api/rollup</span></code> endpoint. This page lays out the differences between the two.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
@@ -106,7 +99,7 @@
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>Rollup and pre-aggregate values are extensions of the <code class="docutils literal"><span class="pre">put</span></code> object with three additional fields. For completeness, all fields are listed below:</p>
+<p>Rollup and pre-aggregate values are extensions of the <code class="docutils literal notranslate"><span class="pre">put</span></code> object with three additional fields. For completeness, all fields are listed below:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
@@ -164,12 +157,12 @@
 <td>&#160;</td>
 <td>&#160;</td>
 <td>W</td>
-<td>{&quot;host&quot;:&quot;web01&quot;}</td>
+<td>{“host”:”web01”}</td>
 </tr>
 <tr class="row-even"><td>interval</td>
 <td>String</td>
 <td>Optional*</td>
-<td>A time interval reflecting what timespan the <strong>rollup</strong> value represents. The interval consists of <code class="docutils literal"><span class="pre">&lt;amount&gt;&lt;unit&gt;</span></code> similar to a downsampler or relative query timestamp. E.g. <code class="docutils literal"><span class="pre">6h</span></code> for 5 hours of data, <code class="docutils literal"><span class="pre">30m</span></code> for 30 minutes of data.</td>
+<td>A time interval reflecting what timespan the <strong>rollup</strong> value represents. The interval consists of <code class="docutils literal notranslate"><span class="pre">&lt;amount&gt;&lt;unit&gt;</span></code> similar to a downsampler or relative query timestamp. E.g. <code class="docutils literal notranslate"><span class="pre">6h</span></code> for 5 hours of data, <code class="docutils literal notranslate"><span class="pre">30m</span></code> for 30 minutes of data.</td>
 <td>&#160;</td>
 <td>&#160;</td>
 <td>W</td>
@@ -231,7 +224,7 @@
 <div class="section" id="example-single-data-point-put">
 <h3>Example Single Data Point Put</h3>
 <p>You can supply a single data point in a request:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
     <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
     <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
@@ -249,7 +242,7 @@
 <div class="section" id="example-multiple-data-point-put">
 <h3>Example Multiple Data Point Put</h3>
 <p>Multiple data points must be encased in an array:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
@@ -308,7 +301,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

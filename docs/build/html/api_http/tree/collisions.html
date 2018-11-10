@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/tree/collisions &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -79,12 +70,14 @@
                         title="next chapter">/api/tree/notmatched</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -97,14 +90,14 @@
             
   <div class="section" id="api-tree-collisions">
 <h1>/api/tree/collisions</h1>
-<p>When processing a TSMeta, if the resulting leaf would overwrite an existing leaf with a different TSUID, a collision will be recorded. This endpoint allows retreiving a list of the TSUIDs that were not included in a tree due to collisions. It is useful for debugging in that if you find a TSUID in this list, you can pass it through the <code class="docutils literal"><span class="pre">/tree/test</span></code> endpoint to get details on why the collision occurred.</p>
+<p>When processing a TSMeta, if the resulting leaf would overwrite an existing leaf with a different TSUID, a collision will be recorded. This endpoint allows retreiving a list of the TSUIDs that were not included in a tree due to collisions. It is useful for debugging in that if you find a TSUID in this list, you can pass it through the <code class="docutils literal notranslate"><span class="pre">/tree/test</span></code> endpoint to get details on why the collision occurred.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Calling this endpoint without a list of one or more TSUIDs will return all collisions in the tree. If you have a large number of timeseries in your system, the response can potentially be very large. Thus it is best to use this endpoint with specific TSUIDs.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If <code class="docutils literal"><span class="pre">storeFailures</span></code> is diabled for the tree, this endpoint will not return any data. Collisions will still appear in the TSD's logs.</p>
+<p class="last">If <code class="docutils literal notranslate"><span class="pre">storeFailures</span></code> is diabled for the tree, this endpoint will not return any data. Collisions will still appear in the TSD’s logs.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -161,7 +154,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response will return a map of key/value pairs where the unrecorded TSUID as the key and the existing leave's TSUID as the value. The response will only return collisions that were found. If one or more of the TSUIDs requested did not result in a collision, it will not be returned with the result. This may mean that the TSMeta has not been processed yet. Note that if no collisions have occurred or the tree hasn't processed any data yet, the result set will be empty. If the requested tree did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
+<p>A successful response will return a map of key/value pairs where the unrecorded TSUID as the key and the existing leave’s TSUID as the value. The response will only return collisions that were found. If one or more of the TSUIDs requested did not result in a collision, it will not be returned with the result. This may mean that the TSMeta has not been processed yet. Note that if no collisions have occurred or the tree hasn’t processed any data yet, the result set will be empty. If the requested tree did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal notranslate"><span class="pre">400</span></code> error will be returned.</p>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <blockquote>
@@ -169,7 +162,7 @@
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;010101&quot;</span><span class="o">:</span> <span class="s2">&quot;AAAAAA&quot;</span><span class="p">,</span>
     <span class="s2">&quot;020202&quot;</span><span class="o">:</span> <span class="s2">&quot;BBBBBB&quot;</span>
 <span class="p">}</span>
@@ -203,7 +196,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

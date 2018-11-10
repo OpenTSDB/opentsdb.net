@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/query/gexp &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -90,12 +81,14 @@
                         title="next chapter">/api/query/last</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -108,7 +101,7 @@
             
   <div class="section" id="api-query-gexp">
 <h1>/api/query/gexp</h1>
-<p>Graphite is an excellent storage system for time series data with a number of built in functions to manipulate the data. To support transitions from Graphite to OpenTSDB, the <code class="docutils literal"><span class="pre">/api/query/gexp</span></code> endpoint supports URI queries <em>similar</em> but not <em>identical</em> to Graphite`s expressions. Graphite functions are generally formatted as <code class="docutils literal"><span class="pre">func(&lt;series&gt;[,</span> <span class="pre">param1][,</span> <span class="pre">paramN])</span></code> with the ability to nest functions. TSD`s implementation follows the same pattern but uses an <code class="docutils literal"><span class="pre">m</span></code> style query (e.g. <code class="docutils literal"><span class="pre">sum:proc.stat.cpu{host=foo,type=idle}</span></code>) in place of the <code class="docutils literal"><span class="pre">&lt;series&gt;</span></code>. Nested functions are supported.</p>
+<p>Graphite is an excellent storage system for time series data with a number of built in functions to manipulate the data. To support transitions from Graphite to OpenTSDB, the <code class="docutils literal notranslate"><span class="pre">/api/query/gexp</span></code> endpoint supports URI queries <em>similar</em> but not <em>identical</em> to Graphite`s expressions. Graphite functions are generally formatted as <code class="docutils literal notranslate"><span class="pre">func(&lt;series&gt;[,</span> <span class="pre">param1][,</span> <span class="pre">paramN])</span></code> with the ability to nest functions. TSD`s implementation follows the same pattern but uses an <code class="docutils literal notranslate"><span class="pre">m</span></code> style query (e.g. <code class="docutils literal notranslate"><span class="pre">sum:proc.stat.cpu{host=foo,type=idle}</span></code>) in place of the <code class="docutils literal notranslate"><span class="pre">&lt;series&gt;</span></code>. Nested functions are supported.</p>
 <p>TSDB implements a subset of Graphite functions though we hope to add more in the future. For a list of Graphite functions and descriptions, see the <a class="reference external" href="http://graphite.readthedocs.org/en/latest/functions.html">Documentation</a>. TSD supported functions appear below.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -150,7 +143,7 @@
 </table>
 <div class="section" id="example-query-string-requests">
 <h3>Example Query String Requests</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/query/gexp?start=1h-ago&amp;exp=scale(sum:if.bytes_in{host=*},1024)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/query/gexp?start=1h-ago&amp;exp=scale(sum:if.bytes_in{host=*},1024)
 </pre></div>
 </div>
 </div>
@@ -161,7 +154,7 @@
 </div>
 <div class="section" id="functions">
 <h2>Functions</h2>
-<p>Functions that accept a single metric query will operate across each time series result. E.g. if a query includes a group by on host such as <code class="docutils literal"><span class="pre">scale(sum:if.bytes_in{host=*},1024)</span></code>, and multiple hosts exist with that metric, then a series for each host will be emitted and the function applied. For functions that take multiple metrics, a union is performed across each metric and the function is executed across each resulting series with matching tags. E.g with the query <code class="docutils literal"><span class="pre">sum(sum:if.bytes_in{host=*},sum:if.bytes_out{host=*})</span></code>, assume two hosts exist, <code class="docutils literal"><span class="pre">web01</span></code> and <code class="docutils literal"><span class="pre">web02</span></code>. In this case, the output will be <code class="docutils literal"><span class="pre">if.bytes_in{host=web01}</span> <span class="pre">+</span> <span class="pre">if.bytes_out{host=web01}</span></code> and <code class="docutils literal"><span class="pre">if.bytes_in{host=web02}</span> <span class="pre">+</span> <span class="pre">if.bytes_out{host=web02}</span></code>. Missing series in any metric result set will be filled with the default fill value of the function.</p>
+<p>Functions that accept a single metric query will operate across each time series result. E.g. if a query includes a group by on host such as <code class="docutils literal notranslate"><span class="pre">scale(sum:if.bytes_in{host=*},1024)</span></code>, and multiple hosts exist with that metric, then a series for each host will be emitted and the function applied. For functions that take multiple metrics, a union is performed across each metric and the function is executed across each resulting series with matching tags. E.g with the query <code class="docutils literal notranslate"><span class="pre">sum(sum:if.bytes_in{host=*},sum:if.bytes_out{host=*})</span></code>, assume two hosts exist, <code class="docutils literal notranslate"><span class="pre">web01</span></code> and <code class="docutils literal notranslate"><span class="pre">web02</span></code>. In this case, the output will be <code class="docutils literal notranslate"><span class="pre">if.bytes_in{host=web01}</span> <span class="pre">+</span> <span class="pre">if.bytes_out{host=web01}</span></code> and <code class="docutils literal notranslate"><span class="pre">if.bytes_in{host=web02}</span> <span class="pre">+</span> <span class="pre">if.bytes_out{host=web02}</span></code>. Missing series in any metric result set will be filled with the default fill value of the function.</p>
 <p>Currently supported expressions include:</p>
 <div class="section" id="absolute-metric">
 <h3>absolute(&lt;metric&gt;)</h3>
@@ -177,15 +170,15 @@
 </div>
 <div class="section" id="highestcurrent-metric-n">
 <h3>highestCurrent(&lt;metric&gt;,&lt;n&gt;)</h3>
-<p>Sorts all resulting time series by their most recent value and emits <code class="docutils literal"><span class="pre">n</span></code> number of series with the highest values. <code class="docutils literal"><span class="pre">n</span></code> must be a positive integer value.</p>
+<p>Sorts all resulting time series by their most recent value and emits <code class="docutils literal notranslate"><span class="pre">n</span></code> number of series with the highest values. <code class="docutils literal notranslate"><span class="pre">n</span></code> must be a positive integer value.</p>
 </div>
 <div class="section" id="highestmax-metric-n">
 <h3>highestMax(&lt;metric&gt;,&lt;n&gt;)</h3>
-<p>Sorts all resulting time series by the maximum value for the time span and emits <code class="docutils literal"><span class="pre">n</span></code> number of series with the highest values. <code class="docutils literal"><span class="pre">n</span></code> must be a positive integer value.</p>
+<p>Sorts all resulting time series by the maximum value for the time span and emits <code class="docutils literal notranslate"><span class="pre">n</span></code> number of series with the highest values. <code class="docutils literal notranslate"><span class="pre">n</span></code> must be a positive integer value.</p>
 </div>
 <div class="section" id="movingaverage-metric-window">
 <h3>movingAverage(&lt;metric&gt;,&lt;window&gt;)</h3>
-<p>Emits a sliding window moving average for each data point and series in the metric. The <code class="docutils literal"><span class="pre">window</span></code> parameter may either be a positive integer that reflects the number of data points to maintain in the window (non-timed) or a time span specified by an integer followed by time unit such as <code class="docutils literal"><span class="pre">`60s`</span></code> or <code class="docutils literal"><span class="pre">`60m`</span></code> or <code class="docutils literal"><span class="pre">`24h`</span></code>. Timed windows must be in single quotes.</p>
+<p>Emits a sliding window moving average for each data point and series in the metric. The <code class="docutils literal notranslate"><span class="pre">window</span></code> parameter may either be a positive integer that reflects the number of data points to maintain in the window (non-timed) or a time span specified by an integer followed by time unit such as <code class="docutils literal notranslate"><span class="pre">`60s`</span></code> or <code class="docutils literal notranslate"><span class="pre">`60m`</span></code> or <code class="docutils literal notranslate"><span class="pre">`24h`</span></code>. Timed windows must be in single quotes.</p>
 </div>
 <div class="section" id="multiplyseries-metric-metricn">
 <h3>multiplySeries(&lt;metric&gt;[,&lt;metricN&gt;])</h3>
@@ -226,7 +219,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

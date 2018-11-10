@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Rollup And Pre-Aggregates &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -92,12 +83,14 @@
                         title="next chapter">UIDs and TSUIDs</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -110,7 +103,7 @@
             
   <div class="section" id="rollup-and-pre-aggregates">
 <h1>Rollup And Pre-Aggregates</h1>
-<p>While TSDB is designed to store original, full resolution data as long as there is space, queries for wide time ranges or over many tag combinations can be quite painful. Such queries can take a long time to complete or, in the worst case, kill TSDs with out-of-memory exceptions. As of OpenTSDB 2.4, a set of new APIs allow for storing and querying lower resolution data to answer such queries much quicker. This page will give you an overview of what rollups and pre-aggregates are, how they work in TSDB and how best to use them. Look in the API's section for specific implementation details.</p>
+<p>While TSDB is designed to store original, full resolution data as long as there is space, queries for wide time ranges or over many tag combinations can be quite painful. Such queries can take a long time to complete or, in the worst case, kill TSDs with out-of-memory exceptions. As of OpenTSDB 2.4, a set of new APIs allow for storing and querying lower resolution data to answer such queries much quicker. This page will give you an overview of what rollups and pre-aggregates are, how they work in TSDB and how best to use them. Look in the API’s section for specific implementation details.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">OpenTSDB does not itself calculate and store rollup or pre-aggregated data. There are multiple ways to compute the results but they all have benefits and drawbacks depending on the scale and accuracy requirements. See the <a class="reference internal" href="#generating"><span class="std std-ref">Generating Rollups and Pre-Aggregates</span></a> section discussing how to create this data.</p>
@@ -161,7 +154,7 @@
 </tr>
 </tbody>
 </table>
-<p>Notice that they all have the same <code class="docutils literal"><span class="pre">metric</span></code> and <code class="docutils literal"><span class="pre">interface</span></code> tag, but different <code class="docutils literal"><span class="pre">host</span></code> and <code class="docutils literal"><span class="pre">colo</span></code> tags.</p>
+<p>Notice that they all have the same <code class="docutils literal notranslate"><span class="pre">metric</span></code> and <code class="docutils literal notranslate"><span class="pre">interface</span></code> tag, but different <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">colo</span></code> tags.</p>
 <p>Next for some data written at 15 minute intervals:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -234,20 +227,20 @@
 </div>
 <div class="section" id="rollups">
 <h2>Rollups</h2>
-<p>A &quot;rollup&quot; is defined, in OpenTSDB, as a <strong>single</strong> time series aggregated over time. It may also be called a &quot;time-based aggregation&quot;. Rollups help to solve the problem of looking at wide time spans. For example, if you write a data point every 60 seconds and query for one year of data, a time series would return more than 525k individual data points. Graphing that many points could be pretty messy. Instead you may want to look at lower resolution data, say 1 hour data where you only have around 8k values to plot. Then you can identify anomalies and drill down for finer resolution data.</p>
+<p>A “rollup” is defined, in OpenTSDB, as a <strong>single</strong> time series aggregated over time. It may also be called a “time-based aggregation”. Rollups help to solve the problem of looking at wide time spans. For example, if you write a data point every 60 seconds and query for one year of data, a time series would return more than 525k individual data points. Graphing that many points could be pretty messy. Instead you may want to look at lower resolution data, say 1 hour data where you only have around 8k values to plot. Then you can identify anomalies and drill down for finer resolution data.</p>
 <p>If you have already used OpenTSDB to query data, you are likely familiar with <strong>downsamplers</strong> that aggregate each time series into a smaller, or lower resolution, value. A rollup is essentially the result of a downsampler stored in the system and called up at will. Each rollup (or downsampler) requires two pieces of information:</p>
 <ul class="simple">
-<li><strong>Interval</strong> - How much time is &quot;rolled&quot; up into the new value. For example, <code class="docutils literal"><span class="pre">1h</span></code> for one hour of data or <code class="docutils literal"><span class="pre">1d</span></code> for a day of data.</li>
-<li><strong>Aggregation Function</strong> - What arithmetic was performed on the underlying values to arrive at the new value. E.g. <code class="docutils literal"><span class="pre">sum</span></code> to add all of the values or <code class="docutils literal"><span class="pre">max</span></code> to store the largest.</li>
+<li><strong>Interval</strong> - How much time is “rolled” up into the new value. For example, <code class="docutils literal notranslate"><span class="pre">1h</span></code> for one hour of data or <code class="docutils literal notranslate"><span class="pre">1d</span></code> for a day of data.</li>
+<li><strong>Aggregation Function</strong> - What arithmetic was performed on the underlying values to arrive at the new value. E.g. <code class="docutils literal notranslate"><span class="pre">sum</span></code> to add all of the values or <code class="docutils literal notranslate"><span class="pre">max</span></code> to store the largest.</li>
 </ul>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">When storing rollups, it's best to avoid functions such as <strong>average</strong>, <strong>median</strong> or <strong>deviation</strong>. When performing further downsampling or grouping aggregations, such values become meaningless. Instead it's much better to always store the <strong>sum</strong> and <strong>count</strong> from which, at least, the <strong>average</strong> can be computed at query time. For more information, see the section below.</p>
+<p class="last">When storing rollups, it’s best to avoid functions such as <strong>average</strong>, <strong>median</strong> or <strong>deviation</strong>. When performing further downsampling or grouping aggregations, such values become meaningless. Instead it’s much better to always store the <strong>sum</strong> and <strong>count</strong> from which, at least, the <strong>average</strong> can be computed at query time. For more information, see the section below.</p>
 </div>
-<p>The timestamp of a rolled-up data point should snap to the top of the rollup interval. E.g. if the rollup interval is <code class="docutils literal"><span class="pre">1h</span></code> then it contains 1 hour of data and should snap to the top of the hour. (As all timestamps are written in Unix Epoch format, defined as the UTC timezone, this would be the start of an hour UTC time).</p>
+<p>The timestamp of a rolled-up data point should snap to the top of the rollup interval. E.g. if the rollup interval is <code class="docutils literal notranslate"><span class="pre">1h</span></code> then it contains 1 hour of data and should snap to the top of the hour. (As all timestamps are written in Unix Epoch format, defined as the UTC timezone, this would be the start of an hour UTC time).</p>
 <div class="section" id="rollup-example">
 <h3>Rollup Example</h3>
-<p>Given the series above, lets store the <code class="docutils literal"><span class="pre">sum</span></code> and <code class="docutils literal"><span class="pre">count</span></code> with an interval of <code class="docutils literal"><span class="pre">1h</span></code>.</p>
+<p>Given the series above, lets store the <code class="docutils literal notranslate"><span class="pre">sum</span></code> and <code class="docutils literal notranslate"><span class="pre">count</span></code> with an interval of <code class="docutils literal notranslate"><span class="pre">1h</span></code>.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="50%" />
@@ -295,13 +288,13 @@
 </tr>
 </tbody>
 </table>
-<p>Notice that all timestamps align to the top of the hour regardless of when the first data point in the interval &quot;bucket&quot; appears. Also notice that if a data point is not present for an interval, the count is lower.</p>
-<p>In general, you should aim to compute and store the <code class="docutils literal"><span class="pre">MAX</span></code>, <code class="docutils literal"><span class="pre">MIN</span></code>, <code class="docutils literal"><span class="pre">SUM</span></code> and <code class="docutils literal"><span class="pre">COUNT</span></code> for each time series when storing rollups.</p>
+<p>Notice that all timestamps align to the top of the hour regardless of when the first data point in the interval “bucket” appears. Also notice that if a data point is not present for an interval, the count is lower.</p>
+<p>In general, you should aim to compute and store the <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">MIN</span></code>, <code class="docutils literal notranslate"><span class="pre">SUM</span></code> and <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> for each time series when storing rollups.</p>
 </div>
 <div class="section" id="averaging-rollup-example">
 <h3>Averaging Rollup Example</h3>
-<p>When rollups are enabled and you request a downsampler with the <code class="docutils literal"><span class="pre">avg</span></code> function from OpenTSDB, the TSD will scan storage for <code class="docutils literal"><span class="pre">SUM</span></code> and <code class="docutils literal"><span class="pre">COUNT</span></code> values. Then while iterating over the data it will accurately compute the average.</p>
-<p>The timestamps for count and sum values must match. However, if the expected count value for a sum is missing, the sum will be kicked out of the results. Take the following example set from above where we're now missing a count data point in <code class="docutils literal"><span class="pre">ts2</span></code>.</p>
+<p>When rollups are enabled and you request a downsampler with the <code class="docutils literal notranslate"><span class="pre">avg</span></code> function from OpenTSDB, the TSD will scan storage for <code class="docutils literal notranslate"><span class="pre">SUM</span></code> and <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> values. Then while iterating over the data it will accurately compute the average.</p>
+<p>The timestamps for count and sum values must match. However, if the expected count value for a sum is missing, the sum will be kicked out of the results. Take the following example set from above where we’re now missing a count data point in <code class="docutils literal notranslate"><span class="pre">ts2</span></code>.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="50%" />
@@ -333,7 +326,7 @@
 </tr>
 </tbody>
 </table>
-<p>The resulting <code class="docutils literal"><span class="pre">avg</span></code> for a <code class="docutils literal"><span class="pre">2h</span></code> downsampling query would look like this:</p>
+<p>The resulting <code class="docutils literal notranslate"><span class="pre">avg</span></code> for a <code class="docutils literal notranslate"><span class="pre">2h</span></code> downsampling query would look like this:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="67%" />
@@ -360,12 +353,12 @@
 <p>While rollups help with wide time span queries, you can still run into query performance issues with small ranges if the metric has high cardinality (i.e. the unique number of time series for the given metric). In the example above, we have 4 web servers. But lets say that we have 10,000 servers. Fetching the sum or average of interface traffic may be fairly slow. If users are often fetching the group by (or some think of it as the spatial aggregate) of large sets like this then it makes sense to store the aggregate and query that instead, fetching <em>much</em> less data.</p>
 <p>Unlike rollups, pre-aggregates require only one extra piece of information:</p>
 <ul class="simple">
-<li><strong>Aggregation Function</strong> - What arithmetic was performed on the underlying values to arrive at the new value. E.g. <code class="docutils literal"><span class="pre">sum</span></code> to add all of the time series or <code class="docutils literal"><span class="pre">max</span></code> to store the largest.</li>
+<li><strong>Aggregation Function</strong> - What arithmetic was performed on the underlying values to arrive at the new value. E.g. <code class="docutils literal notranslate"><span class="pre">sum</span></code> to add all of the time series or <code class="docutils literal notranslate"><span class="pre">max</span></code> to store the largest.</li>
 </ul>
-<p>In OpenTSDB, pre-aggregates are differentiated from other time series with a special tag. The default tag key is <code class="docutils literal"><span class="pre">_aggregate</span></code> (configurable via <code class="docutils literal"><span class="pre">tsd.rollups.agg_tag_key</span></code>). The <strong>aggregation function</strong> used to generate the data is then stored in the tag value in upper-case. Lets look at an example:</p>
+<p>In OpenTSDB, pre-aggregates are differentiated from other time series with a special tag. The default tag key is <code class="docutils literal notranslate"><span class="pre">_aggregate</span></code> (configurable via <code class="docutils literal notranslate"><span class="pre">tsd.rollups.agg_tag_key</span></code>). The <strong>aggregation function</strong> used to generate the data is then stored in the tag value in upper-case. Lets look at an example:</p>
 <div class="section" id="pre-aggregate-example">
 <h3>Pre-Aggregate Example</h3>
-<p>Given the example set at the top, we may want to look at the total interface traffic by colo (data center). In that case, we can aggregate by <code class="docutils literal"><span class="pre">SUM</span></code> and <code class="docutils literal"><span class="pre">COUNT</span></code> similarly to the rollups. The result would be four <strong>new</strong> time series with meta data like:</p>
+<p>Given the example set at the top, we may want to look at the total interface traffic by colo (data center). In that case, we can aggregate by <code class="docutils literal notranslate"><span class="pre">SUM</span></code> and <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> similarly to the rollups. The result would be four <strong>new</strong> time series with meta data like:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
@@ -381,32 +374,32 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>ts1'</td>
+<tr class="row-even"><td>ts1’</td>
 <td>system.if.bytes.out</td>
 <td>colo=lga</td>
 <td>_aggregate=SUM</td>
 </tr>
-<tr class="row-odd"><td>ts2'</td>
+<tr class="row-odd"><td>ts2’</td>
 <td>system.if.bytes.out</td>
 <td>colo=lga</td>
 <td>_aggregate=COUNT</td>
 </tr>
-<tr class="row-even"><td>ts3'</td>
+<tr class="row-even"><td>ts3’</td>
 <td>system.if.bytes.out</td>
 <td>colo=sjc</td>
 <td>_aggregate=SUM</td>
 </tr>
-<tr class="row-odd"><td>ts4'</td>
+<tr class="row-odd"><td>ts4’</td>
 <td>system.if.bytes.out</td>
 <td>colo=sjc</td>
 <td>_aggregate=SUM</td>
 </tr>
 </tbody>
 </table>
-<p>Notice that these time series have dropped the tags for <code class="docutils literal"><span class="pre">host</span></code> and <code class="docutils literal"><span class="pre">interface</span></code>. That's because, during aggregation, multiple, different values of the <code class="docutils literal"><span class="pre">host</span></code> and <code class="docutils literal"><span class="pre">interface</span></code> have been wrapped up into this new series so it no longer makes sense to have them as tags. Also note that we injected the new <code class="docutils literal"><span class="pre">_aggregate</span></code> tag in the stored data. Queries can now access this data by specifying an <code class="docutils literal"><span class="pre">_aggregate</span></code> value.</p>
+<p>Notice that these time series have dropped the tags for <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">interface</span></code>. That’s because, during aggregation, multiple, different values of the <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">interface</span></code> have been wrapped up into this new series so it no longer makes sense to have them as tags. Also note that we injected the new <code class="docutils literal notranslate"><span class="pre">_aggregate</span></code> tag in the stored data. Queries can now access this data by specifying an <code class="docutils literal notranslate"><span class="pre">_aggregate</span></code> value.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">With rollups enabled, if you plan to use pre-aggregates, you may want to help differentiate raw data from pre-aggregates by having TSDB automatically inject <code class="docutils literal"><span class="pre">_aggregate=RAW</span></code>. Just configure the <code class="docutils literal"><span class="pre">tsd.rollups.tag_raw</span></code> setting to true.</p>
+<p class="last">With rollups enabled, if you plan to use pre-aggregates, you may want to help differentiate raw data from pre-aggregates by having TSDB automatically inject <code class="docutils literal notranslate"><span class="pre">_aggregate=RAW</span></code>. Just configure the <code class="docutils literal notranslate"><span class="pre">tsd.rollups.tag_raw</span></code> setting to true.</p>
 </div>
 <p>Now for the resulting data:</p>
 <table border="1" class="colwidths-given docutils">
@@ -434,7 +427,7 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>ts1'</td>
+<tr class="row-even"><td>ts1’</td>
 <td>8</td>
 <td>6</td>
 <td>5</td>
@@ -444,7 +437,7 @@
 <td>6</td>
 <td>3</td>
 </tr>
-<tr class="row-odd"><td>ts2'</td>
+<tr class="row-odd"><td>ts2’</td>
 <td>2</td>
 <td>2</td>
 <td>2</td>
@@ -454,7 +447,7 @@
 <td>2</td>
 <td>2</td>
 </tr>
-<tr class="row-even"><td>ts3'</td>
+<tr class="row-even"><td>ts3’</td>
 <td>9</td>
 <td>5</td>
 <td>3</td>
@@ -464,7 +457,7 @@
 <td>4</td>
 <td>9</td>
 </tr>
-<tr class="row-odd"><td>ts4'</td>
+<tr class="row-odd"><td>ts4’</td>
 <td>1</td>
 <td>2</td>
 <td>2</td>
@@ -476,10 +469,10 @@
 </tr>
 </tbody>
 </table>
-<p>Since we're performing a group by aggregation (grouping by <code class="docutils literal"><span class="pre">colo</span></code>) we have a value for each timestamp from the original data set. We are <em>not</em> downsampling or performing a rollup in this situation.</p>
+<p>Since we’re performing a group by aggregation (grouping by <code class="docutils literal notranslate"><span class="pre">colo</span></code>) we have a value for each timestamp from the original data set. We are <em>not</em> downsampling or performing a rollup in this situation.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">As with rollups, when writing pre-aggregates, it's best to avoid functions such as <strong>average</strong>, <strong>median</strong> or <strong>deviation</strong>. Just store <strong>sum</strong> and <strong>count</strong></p>
+<p class="last">As with rollups, when writing pre-aggregates, it’s best to avoid functions such as <strong>average</strong>, <strong>median</strong> or <strong>deviation</strong>. Just store <strong>sum</strong> and <strong>count</strong></p>
 </div>
 </div>
 </div>
@@ -492,8 +485,8 @@
 <p>Currently the TSDs do not generate the rollup or pre-aggregated data for you. The primary reason for this is that OpenTSDB is meant to handle huge amounts of time series data so individual TSDs are focused on getting their data into storage as quickly as possible.</p>
 <div class="section" id="problems">
 <h3>Problems</h3>
-<p>Because of the (essentially) stateless nature of the TSDs, they likely won't have the full set of data available to perform pre-aggregates. E.g., our sample <code class="docutils literal"><span class="pre">ts1</span></code> data may be written to <code class="docutils literal"><span class="pre">TSD_A</span></code> while <code class="docutils literal"><span class="pre">ts2</span></code> is written to <code class="docutils literal"><span class="pre">TSD_B</span></code>. Neither can perform a proper group-by without reading the data out of storage. We also don't know at what time we should perform the pre-aggregation. We could wait for 1 minute and pre-aggregate the data but miss anything that came in after that minute. Or we could wait an hour and queries over the pre-aggregates won't have data for the last hour. And what happens if data comes in much later?</p>
-<p>Additionally for rollups, depending on how users write data to TSDs, for <code class="docutils literal"><span class="pre">ts1</span></code>, we may receive the <code class="docutils literal"><span class="pre">12:15</span></code> data point on <code class="docutils literal"><span class="pre">TSD_A</span></code> but the <code class="docutils literal"><span class="pre">12:30</span></code> value arrives on <code class="docutils literal"><span class="pre">TSD_B</span></code> so neither has the data required for the full hour. Time windowing constraints also apply to rollups.</p>
+<p>Because of the (essentially) stateless nature of the TSDs, they likely won’t have the full set of data available to perform pre-aggregates. E.g., our sample <code class="docutils literal notranslate"><span class="pre">ts1</span></code> data may be written to <code class="docutils literal notranslate"><span class="pre">TSD_A</span></code> while <code class="docutils literal notranslate"><span class="pre">ts2</span></code> is written to <code class="docutils literal notranslate"><span class="pre">TSD_B</span></code>. Neither can perform a proper group-by without reading the data out of storage. We also don’t know at what time we should perform the pre-aggregation. We could wait for 1 minute and pre-aggregate the data but miss anything that came in after that minute. Or we could wait an hour and queries over the pre-aggregates won’t have data for the last hour. And what happens if data comes in much later?</p>
+<p>Additionally for rollups, depending on how users write data to TSDs, for <code class="docutils literal notranslate"><span class="pre">ts1</span></code>, we may receive the <code class="docutils literal notranslate"><span class="pre">12:15</span></code> data point on <code class="docutils literal notranslate"><span class="pre">TSD_A</span></code> but the <code class="docutils literal notranslate"><span class="pre">12:30</span></code> value arrives on <code class="docutils literal notranslate"><span class="pre">TSD_B</span></code> so neither has the data required for the full hour. Time windowing constraints also apply to rollups.</p>
 </div>
 <div class="section" id="solutions">
 <h3>Solutions</h3>
@@ -511,17 +504,17 @@
 <li>Read from alternate stores. One example is to mirror all data to another store such as HDFS and run batch jobs against that data.</li>
 </ul>
 <p><strong>Queueing on TSDs</strong></p>
-<p>Another option that some databases use is to queue all of the data in memory in the process and write the results after a configured time window has passed. But because TSDs are stateless and generally users put a load balancer in front of their TSDs, a single TSD may not get the full picture of the rollup or pre-agg to be calculated (as we mentioned above). For this method to work, upstream collectors would have to route all of the data required for a calculation to a specific TSD. It's not a difficult task but the problems faced include:</p>
+<p>Another option that some databases use is to queue all of the data in memory in the process and write the results after a configured time window has passed. But because TSDs are stateless and generally users put a load balancer in front of their TSDs, a single TSD may not get the full picture of the rollup or pre-agg to be calculated (as we mentioned above). For this method to work, upstream collectors would have to route all of the data required for a calculation to a specific TSD. It’s not a difficult task but the problems faced include:</p>
 <ul class="simple">
 <li>Having enough RAM or disk space to spool the data locally on for each TSD.</li>
-<li>If a TSD process dies, you'll either loose the data for the aggregation or it must be bootstrapped from storage.</li>
+<li>If a TSD process dies, you’ll either loose the data for the aggregation or it must be bootstrapped from storage.</li>
 <li>Whenever the aggregation calculations are taking place, overall write throughput of the raw data can be affected.</li>
 <li>You still have the late/historical data issue.</li>
-<li>Since TSDB is JVM based, keeping all of that data in RAM and then running GC will hurt. A lot. (spooling to disk is better, but then you'll hit IO issues)</li>
+<li>Since TSDB is JVM based, keeping all of that data in RAM and then running GC will hurt. A lot. (spooling to disk is better, but then you’ll hit IO issues)</li>
 </ul>
 <p>In general, queueing on a writer is a bad idea. Avoid the pain.</p>
 <p><strong>Stream Processing</strong></p>
-<p>A better way of dealing with rollups and pre-aggregates is to route the data into a stream processing system where it can be processed in near-real-time and written to the TSDs. It's similar to the <em>Queuing on TSDs</em> option but using one of the myriad stream processing frameworks (Storm, Flink, Spark, etc.) to handle message routing and in-memory storage. Then you simply write some code to compute the aggregates and spit the data out after a window has passed.</p>
+<p>A better way of dealing with rollups and pre-aggregates is to route the data into a stream processing system where it can be processed in near-real-time and written to the TSDs. It’s similar to the <em>Queuing on TSDs</em> option but using one of the myriad stream processing frameworks (Storm, Flink, Spark, etc.) to handle message routing and in-memory storage. Then you simply write some code to compute the aggregates and spit the data out after a window has passed.</p>
 <p>This is the solution used by many next-generation monitoring solutions such as that at Yahoo!. Yahoo is working to open source their stream processing system for others who need monitoring at massive scales and it plugs neatly into TSDB.</p>
 <p>While stream processing is better you still have problems to deal with such as:</p>
 <ul class="simple">
@@ -535,9 +528,9 @@
 </div>
 <div class="section" id="configuration">
 <h2>Configuration</h2>
-<p id="rollup-configuration">For Opentsdb 2.4, the rollup configuration is referenced by the opentsdb.conf key <code class="docutils literal"><span class="pre">tsd.rollups.config</span></code>. The value of this key must either but a quote-escaped JSON string without newlines or, preferably, the path to a JSON file containing the configuration. The file name must end with <code class="docutils literal"><span class="pre">.json</span></code> as in <code class="docutils literal"><span class="pre">rollup_config.json</span></code>.</p>
+<p id="rollup-configuration">For Opentsdb 2.4, the rollup configuration is referenced by the opentsdb.conf key <code class="docutils literal notranslate"><span class="pre">tsd.rollups.config</span></code>. The value of this key must either but a quote-escaped JSON string without newlines or, preferably, the path to a JSON file containing the configuration. The file name must end with <code class="docutils literal notranslate"><span class="pre">.json</span></code> as in <code class="docutils literal notranslate"><span class="pre">rollup_config.json</span></code>.</p>
 <p>The JSON configuration should look something like this:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;aggregationIds&quot;</span><span class="o">:</span> <span class="p">{</span>
               <span class="s2">&quot;sum&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
               <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -566,7 +559,7 @@
 </ul>
 <div class="section" id="aggregationids">
 <h3>aggregationIds</h3>
-<p>The aggregation ids map is used for reducing storage by prepending each type of rolled up data with the numeric ID instead of spelling out the full aggregation function. E.g. if we prefixed every column with <code class="docutils literal"><span class="pre">COUNT:</span></code> that's 6 bytes for every value (or compacted column) that we can save using an ID.</p>
+<p>The aggregation ids map is used for reducing storage by prepending each type of rolled up data with the numeric ID instead of spelling out the full aggregation function. E.g. if we prefixed every column with <code class="docutils literal notranslate"><span class="pre">COUNT:</span></code> that’s 6 bytes for every value (or compacted column) that we can save using an ID.</p>
 <p>IDs must be integers from 0 to 127. This means we can store up to 128 different rollups per interval. Only one ID of each numeric value may be provided in the map and only one aggregation function of each type can be given. If a function name does not map to an aggregation function supported by OpenTSDB, an exception will be thrown on start up. Likewise, at least one aggregation must be given for a TSD to start.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -577,8 +570,8 @@
 <h3>intervals</h3>
 <p>Each interval object defines table routing for where rollup and pre-aggregate data should be written to and queried from. There are two types of intervals:</p>
 <ul class="simple">
-<li><strong>Default</strong> - This is the default, <em>raw</em> data OpenTSDB table defined by <code class="docutils literal"><span class="pre">&quot;defaultInterval&quot;:true</span></code>. For existing installations, this would be the <code class="docutils literal"><span class="pre">tsdb</span></code> table or whatever is defined in <code class="docutils literal"><span class="pre">tsd.storage.hbase.data_table</span></code>. Intervals and spans are ignored, defaulting to the OpenTSDB 1 hour row width and storing data with the resolution and timestamp given. Each TSD and configuration can have <em>only one</em> default configured at a time.</li>
-<li><strong>Rollup Interval</strong> - Any interval with <code class="docutils literal"><span class="pre">&quot;defaultInterval&quot;:false</span></code> or the default interval not set. These are rollup tables where values are snapped to interval boundaries.</li>
+<li><strong>Default</strong> - This is the default, <em>raw</em> data OpenTSDB table defined by <code class="docutils literal notranslate"><span class="pre">&quot;defaultInterval&quot;:true</span></code>. For existing installations, this would be the <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> table or whatever is defined in <code class="docutils literal notranslate"><span class="pre">tsd.storage.hbase.data_table</span></code>. Intervals and spans are ignored, defaulting to the OpenTSDB 1 hour row width and storing data with the resolution and timestamp given. Each TSD and configuration can have <em>only one</em> default configured at a time.</li>
+<li><strong>Rollup Interval</strong> - Any interval with <code class="docutils literal notranslate"><span class="pre">&quot;defaultInterval&quot;:false</span></code> or the default interval not set. These are rollup tables where values are snapped to interval boundaries.</li>
 </ul>
 <p>The following fields should be defined:</p>
 <table border="1" class="colwidths-given docutils">
@@ -601,25 +594,25 @@
 <tr class="row-even"><td>table</td>
 <td>String</td>
 <td>Required</td>
-<td>The base or rollup table for non-pre-aggregated data. For the default table, this should be <code class="docutils literal"><span class="pre">tsdb</span></code> or the table existing raw data is written to. For rolled up data, it must be a different table than the raw data.</td>
+<td>The base or rollup table for non-pre-aggregated data. For the default table, this should be <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> or the table existing raw data is written to. For rolled up data, it must be a different table than the raw data.</td>
 <td>tsdb-rollup-1h</td>
 </tr>
 <tr class="row-odd"><td>preAggregationTable</td>
 <td>String</td>
 <td>Required</td>
-<td>The table where pre-aggregated and (optionally) rolled up data should be written to. This may be the same table as the <code class="docutils literal"><span class="pre">table</span></code> value.</td>
+<td>The table where pre-aggregated and (optionally) rolled up data should be written to. This may be the same table as the <code class="docutils literal notranslate"><span class="pre">table</span></code> value.</td>
 <td>tsdb-rollup-preagg-1h</td>
 </tr>
 <tr class="row-even"><td>interval</td>
 <td>String</td>
 <td>Required</td>
-<td>The expected interval between data points in the format <code class="docutils literal"><span class="pre">&lt;interval&gt;&lt;units&gt;</span></code>. E.g. if rollups are computed every hour, the interval should be <code class="docutils literal"><span class="pre">1h</span></code>. If they are computed every 10 minutes, set it to <code class="docutils literal"><span class="pre">10m</span></code>. For the default table, this value is ignored.</td>
+<td>The expected interval between data points in the format <code class="docutils literal notranslate"><span class="pre">&lt;interval&gt;&lt;units&gt;</span></code>. E.g. if rollups are computed every hour, the interval should be <code class="docutils literal notranslate"><span class="pre">1h</span></code>. If they are computed every 10 minutes, set it to <code class="docutils literal notranslate"><span class="pre">10m</span></code>. For the default table, this value is ignored.</td>
 <td>1h</td>
 </tr>
 <tr class="row-odd"><td>rowSpan</td>
 <td>String</td>
 <td>Required</td>
-<td>The width of each row in storage. This value must be greater than the <code class="docutils literal"><span class="pre">interval</span></code> and defines the number of <code class="docutils literal"><span class="pre">interval``s</span> <span class="pre">that</span> <span class="pre">will</span> <span class="pre">fit</span> <span class="pre">in</span> <span class="pre">each</span> <span class="pre">row.</span> <span class="pre">E.g.</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">interval</span> <span class="pre">is</span> <span class="pre">``1h</span></code> and <code class="docutils literal"><span class="pre">rowSpan</span></code> is <code class="docutils literal"><span class="pre">1d</span></code> then we would have 24 values per row.</td>
+<td>The width of each row in storage. This value must be greater than the <code class="docutils literal notranslate"><span class="pre">interval</span></code> and defines the number of <code class="docutils literal notranslate"><span class="pre">interval``s</span> <span class="pre">that</span> <span class="pre">will</span> <span class="pre">fit</span> <span class="pre">in</span> <span class="pre">each</span> <span class="pre">row.</span> <span class="pre">E.g.</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">interval</span> <span class="pre">is</span> <span class="pre">``1h</span></code> and <code class="docutils literal notranslate"><span class="pre">rowSpan</span></code> is <code class="docutils literal notranslate"><span class="pre">1d</span></code> then we would have 24 values per row.</td>
 <td>1d</td>
 </tr>
 <tr class="row-even"><td>defaultInterval</td>
@@ -630,7 +623,7 @@
 </tr>
 </tbody>
 </table>
-<p>In storage, rollups are written similar to the raw data in that each row has a base timestamp and each data point is an offset from that base time. Each offset is an increment off of the base time, not an actual offset. For example, if a row stores 1 day of 1 hour data, there would be up to 24 offsets. Offset <code class="docutils literal"><span class="pre">0</span></code> would map to midnight for the row and offset 5 would map to 6 AM. Because rollup offsets are encoded on 14 bits, if too many intervals would be stored in a row to fit within 14 bits, an error will be thrown when the TSD is started.</p>
+<p>In storage, rollups are written similar to the raw data in that each row has a base timestamp and each data point is an offset from that base time. Each offset is an increment off of the base time, not an actual offset. For example, if a row stores 1 day of 1 hour data, there would be up to 24 offsets. Offset <code class="docutils literal notranslate"><span class="pre">0</span></code> would map to midnight for the row and offset 5 would map to 6 AM. Because rollup offsets are encoded on 14 bits, if too many intervals would be stored in a row to fit within 14 bits, an error will be thrown when the TSD is started.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">After writing data to a TSD, do <strong>NOT</strong> change the interval widths or row spans for rollup intervals. This will result in garbage data and possibly failed queries.</p>
@@ -662,7 +655,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>clean_cache.sh &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -65,12 +56,14 @@
                         title="next chapter">tsddrain.py</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -83,10 +76,10 @@
             
   <div class="section" id="clean-cache-sh">
 <h1>clean_cache.sh</h1>
-<p>OpenTSDB uses a directory for caching graphs and gnuplot scripts. Unfortunately it doesn't clean up after itself at this time so a simple shell script is included to purge all files in the directory if drive where the directory resides drops below 10% of free space. Simply add this script as a cron entry and set it to run as often as you like.</p>
+<p>OpenTSDB uses a directory for caching graphs and gnuplot scripts. Unfortunately it doesn’t clean up after itself at this time so a simple shell script is included to purge all files in the directory if drive where the directory resides drops below 10% of free space. Simply add this script as a cron entry and set it to run as often as you like.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This script will purge all files in the directory. Don't store anything important in the temp directory.</p>
+<p class="last">This script will purge all files in the directory. Don’t store anything important in the temp directory.</p>
 </div>
 </div>
 
@@ -114,7 +107,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

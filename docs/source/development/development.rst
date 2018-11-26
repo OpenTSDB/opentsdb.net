@@ -101,7 +101,7 @@ Many devs use an IDE to work on Java projects and despite OpenTSDB's non-java-st
 * Create a symlink to the GIT repo's ``./src/tsd/client`` directory from ``./src/tsd/client``. E.g. ``ln -s /home/$USER/opentsdb/src/tsd/client /home/$USER/opentsdb_dev/src/tsd/client``
 * If your IDE didn't, create a ``./test`` directory under your dev project folder. This will be used for unit tests.
 * Add a ``net`` directory under ``./test`` so you have ``./test/net``
-* Create a symlink to the GIT repo's ``./test`` directory from ``./test/net/opentsdb``. E.g. ``ln -s /home/$USER/opentsdb/test /home/$USER/opentsdb_dev/test/net/opentdsb``
+* Create a symlink to the GIT repo's ``./test`` directory from ``./test/net/opentsdb``. E.g. ``ln -s /home/$USER/opentsdb/test /home/$USER/opentsdb_dev/test/net/opentsdb``
 * Refresh the directory lists in Eclipse and you should see all of the source files
 * Right click the ``net.opentsdb.tsd.client`` package under SRC and select ``Build Path`` then ``Exclude`` from the menu
 * Now add the downloaded dependencies by clicking Project -> Properties, click the ``Java Build Path`` menu item and click ``Add External JARs`` button.

@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>User Guide &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>User Guide &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Configuration" href="configuration.html" />
     <link rel="prev" title="Installation" href="../installation.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -39,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -52,7 +50,7 @@
         <li class="right" >
           <a href="../installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -66,14 +64,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -86,7 +81,7 @@
             
   <div class="section" id="user-guide">
 <h1>User Guide</h1>
-<p>These pages serve as a user and administration guide. We highly recommend that you start with the <code class="xref doc docutils literal"><span class="pre">writing</span></code> and <a class="reference internal" href="query/index.html"><em>Querying or Reading Data</em></a> sections to understand how OpenTSDB handles its core purpose of storing and serving time series information. Then follow up with the <a class="reference internal" href="quickstart.html"><em>Quick Start</em></a> section to play around with getting some data into your OpenTSDB instance. Finally follow up with the other pages for details on the other features of OpenTSDB.</p>
+<p>These pages serve as a user and administration guide. We highly recommend that you start with the <span class="xref std std-doc">writing</span> and <a class="reference internal" href="query/index.html"><span class="doc">Querying or Reading Data</span></a> sections to understand how OpenTSDB handles its core purpose of storing and serving time series information. Then follow up with the <a class="reference internal" href="quickstart.html"><span class="doc">Quick Start</span></a> section to play around with getting some data into your OpenTSDB instance. Finally follow up with the other pages for details on the other features of OpenTSDB.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
@@ -104,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Tuning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </div>
@@ -127,7 +123,7 @@
         <li class="right" >
           <a href="../installation.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

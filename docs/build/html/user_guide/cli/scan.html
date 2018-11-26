@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>scan &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>scan &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="CLI Tools" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="search" href="search.html" />
     <link rel="prev" title="fsck" href="fsck.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="fsck.html" title="fsck"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -85,14 +82,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -109,10 +103,10 @@
 <p>Note that while queries require an aggregator, it is effectively ignored. If a query encompasses many time series, the scan output may be extremely large so be careful when crafting queries.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
-<div class="highlight-bash"><div class="highlight"><pre>scan <span class="o">[</span>--delete<span class="p">|</span>--import<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>scan <span class="o">[</span>--delete<span class="p">|</span>--import<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]</span>
 </pre></div>
 </div>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="15%" />
 <col width="5%" />
@@ -143,26 +137,26 @@
 </tr>
 <tr class="row-even"><td>START-DATE</td>
 <td>String or Integer</td>
-<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
-<td>&nbsp;</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><span class="doc">Dates and Times</span></a> for details</td>
+<td>&#160;</td>
 <td>1h-ago</td>
 </tr>
 <tr class="row-odd"><td>END-DATE</td>
 <td>String or Integer</td>
-<td>Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><em>Dates and Times</em></a> for details</td>
+<td>Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><span class="doc">Dates and Times</span></a> for details</td>
 <td>Current timestamp</td>
 <td>2014/01/01-00:00:00</td>
 </tr>
 <tr class="row-even"><td>query</td>
 <td>String</td>
 <td>One or more command line queries</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>sum tsd.hbase.rpcs type=put</td>
 </tr>
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>scan --import 1h-ago now sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>scan
+<div class="highlight-bash"><div class="highlight"><pre><span></span>scan --import 1h-ago now sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>scan
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -182,7 +176,7 @@
 <p>The various formats are listed below. The <code class="docutils literal"><span class="pre">\t</span></code> expression represents a tab. <code class="docutils literal"><span class="pre">space</span></code> indicates a space character.</p>
 <div class="section" id="row-key-format">
 <h3>Row Key Format</h3>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>&lt;row key&gt;<span class="o">]</span> &lt;metric name&gt; &lt;row timestamp&gt; <span class="o">(</span>&lt;datetime&gt;<span class="o">)</span> &lt;tag/value pairs&gt;
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>&lt;row key&gt;<span class="o">]</span> &lt;metric name&gt; &lt;row timestamp&gt; <span class="o">(</span>&lt;datetime&gt;<span class="o">)</span> &lt;tag/value pairs&gt;
 </pre></div>
 </div>
 <p>Where:</p>
@@ -196,13 +190,13 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>0, 0, 1, 80, -30, 39, 0, 0, 0, 1, 0, 0, 1<span class="o">]</span> sys.cpu.user <span class="m">1356998400</span> <span class="o">(</span>Mon Dec <span class="m">31</span> 19:00:00 EST 2012<span class="o">)</span> <span class="o">{</span><span class="nv">host</span><span class="o">=</span>web01<span class="o">}</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span>, <span class="m">80</span>, -30, <span class="m">39</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span><span class="o">]</span> sys.cpu.user <span class="m">1356998400</span> <span class="o">(</span>Mon Dec <span class="m">31</span> <span class="m">19</span>:00:00 EST <span class="m">2012</span><span class="o">)</span> <span class="o">{</span><span class="nv">host</span><span class="o">=</span>web01<span class="o">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="single-data-point-column-format">
 <h3>Single Data Point Column Format</h3>
-<div class="highlight-bash"><div class="highlight"><pre>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;l<span class="p">|</span>f&gt;<span class="se">\t</span>&lt;timestamp&gt;<span class="se">\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;l<span class="p">|</span>f&gt;<span class="se">\t</span>&lt;timestamp&gt;<span class="se">\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
 </pre></div>
 </div>
 <p>Where:</p>
@@ -217,13 +211,13 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>0, 17<span class="o">]</span>       <span class="o">[</span>0, 17<span class="o">]</span> <span class="o">[</span>1, 1<span class="o">]</span>  <span class="m">1</span>       l       <span class="m">1356998401</span>      <span class="o">(</span>Mon Dec <span class="m">31</span> 19:00:01 EST 2012<span class="o">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">0</span>, <span class="m">17</span><span class="o">]</span>       <span class="o">[</span><span class="m">0</span>, <span class="m">17</span><span class="o">]</span> <span class="o">[</span><span class="m">1</span>, <span class="m">1</span><span class="o">]</span>  <span class="m">1</span>       l       <span class="m">1356998401</span>      <span class="o">(</span>Mon Dec <span class="m">31</span> <span class="m">19</span>:00:01 EST <span class="m">2012</span><span class="o">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="compacted-column-format">
 <h3>Compacted Column Format</h3>
-<div class="highlight-bash"><div class="highlight"><pre>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span> <span class="o">=</span> &lt;number of datapoints&gt; values:
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span> <span class="o">=</span> &lt;number of datapoints&gt; values:
 </pre></div>
 </div>
 <p>Where:</p>
@@ -235,14 +229,14 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>-16, 0, 0, 7, -16, 0, 2, 7, -16, 0, 1, 7<span class="o">]</span>    <span class="o">[</span>0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 6, 0<span class="o">]</span> <span class="o">=</span> <span class="m">3</span> values:
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>-16, <span class="m">0</span>, <span class="m">0</span>, <span class="m">7</span>, -16, <span class="m">0</span>, <span class="m">2</span>, <span class="m">7</span>, -16, <span class="m">0</span>, <span class="m">1</span>, <span class="m">7</span><span class="o">]</span>    <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">4</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">5</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">6</span>, <span class="m">0</span><span class="o">]</span> <span class="o">=</span> <span class="m">3</span> values:
 </pre></div>
 </div>
 <p>Each data point within the compacted column follows the same format as a single column with the addition of two spaces of indentation.</p>
 </div>
 <div class="section" id="annotation-column-format">
 <h3>Annotation Column Format</h3>
-<div class="highlight-bash"><div class="highlight"><pre>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;JSON<span class="se">\&gt;\t</span>&lt;timestamp<span class="se">\&gt;\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;JSON<span class="se">\&gt;\t</span>&lt;timestamp<span class="se">\&gt;\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
 </pre></div>
 </div>
 <p>Where:</p>
@@ -257,7 +251,7 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>1, 0, 0<span class="o">]</span>     <span class="o">[</span>123, 34...<span class="o">]</span>    <span class="m">0</span>       <span class="o">{</span><span class="s2">&quot;tsuid&quot;</span>:<span class="s2">&quot;000001000001000001&quot;</span>,<span class="s2">&quot;startTime&quot;</span>:1356998400,<span class="s2">&quot;endTime&quot;</span>:0,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;Annotation on seconds&quot;</span>,<span class="s2">&quot;notes&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;custom&quot;</span>:null<span class="o">}</span>        <span class="m">1356998416000</span>   <span class="o">(</span>Mon Dec <span class="m">31</span> 19:00:16 EST 2012<span class="o">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">1</span>, <span class="m">0</span>, <span class="m">0</span><span class="o">]</span>     <span class="o">[</span><span class="m">123</span>, <span class="m">34</span>...<span class="o">]</span>    <span class="m">0</span>       <span class="o">{</span><span class="s2">&quot;tsuid&quot;</span>:<span class="s2">&quot;000001000001000001&quot;</span>,<span class="s2">&quot;startTime&quot;</span>:1356998400,<span class="s2">&quot;endTime&quot;</span>:0,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;Annotation on seconds&quot;</span>,<span class="s2">&quot;notes&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;custom&quot;</span>:null<span class="o">}</span>        <span class="m">1356998416000</span>   <span class="o">(</span>Mon Dec <span class="m">31</span> <span class="m">19</span>:00:16 EST <span class="m">2012</span><span class="o">)</span>
 </pre></div>
 </div>
 </div>
@@ -265,7 +259,7 @@
 <div class="section" id="import-format">
 <h2>Import Format</h2>
 <p>The import format is the same as a Telnet style <code class="docutils literal"><span class="pre">put</span></code> command.</p>
-<div class="highlight-bash"><div class="highlight"><pre>&lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; &lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">[</span>...&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; &lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">[</span>...&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span>
 </pre></div>
 </div>
 <p>Where:</p>
@@ -278,8 +272,8 @@
 </ul>
 </div></blockquote>
 <p>Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>sys.cpu.user <span class="m">1356998400</span> <span class="m">42</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span>0
-sys.cpu.user <span class="m">1356998401</span> <span class="m">24</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span>0
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sys.cpu.user <span class="m">1356998400</span> <span class="m">42</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span><span class="m">0</span>
+sys.cpu.user <span class="m">1356998401</span> <span class="m">24</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span><span class="m">0</span>
 </pre></div>
 </div>
 </div>
@@ -303,9 +297,9 @@ sys.cpu.user <span class="m">1356998401</span> <span class="m">24</span> <span c
         <li class="right" >
           <a href="fsck.html" title="fsck"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>histogram &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>histogram &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="Telnet Style API" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="stats" href="stats.html" />
     <link rel="prev" title="rollup" href="rollup.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="rollup.html" title="rollup"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -83,14 +80,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -104,7 +98,7 @@
   <div class="section" id="histogram">
 <h1>histogram</h1>
 <p><strong>Available with OpenTSDB 2.4</strong></p>
-<p>Attempts to write a histogram data point to storage. Note that UTF-8 characters may not be handled properly by the Telnet style API so use the <a class="reference internal" href="../api_http/histogram.html"><em>/api/histogram</em></a> method instead or use the Java API directly.</p>
+<p>Attempts to write a histogram data point to storage. Note that UTF-8 characters may not be handled properly by the Telnet style API so use the <a class="reference internal" href="../api_http/histogram.html"><span class="doc">/api/histogram</span></a> method instead or use the Java API directly.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Because the socket is read and written to asynchronously, responses may be garbled. It's best to treat this similar to a UDP socket in that you may not always know if the data made it in. If you require truly synchronous writes with guarantees of the data making it to storage, please use the HTTP or Java APIs.</p>
@@ -116,7 +110,7 @@
 <div class="section" id="request">
 <h2>Request</h2>
 <p>The command format is:</p>
-<div class="highlight-python"><div class="highlight"><pre>put &lt;metric&gt; &lt;timestamp&gt; [&lt;id&gt;] &lt;value&gt; &lt;tagk_1&gt;=&lt;tagv_1&gt;[ &lt;tagk_n&gt;=&lt;tagv_n&gt;]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">put</span> <span class="o">&lt;</span><span class="n">metric</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">timestamp</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tagk_1</span><span class="o">&gt;=&lt;</span><span class="n">tagv_1</span><span class="o">&gt;</span><span class="p">[</span> <span class="o">&lt;</span><span class="n">tagk_n</span><span class="o">&gt;=&lt;</span><span class="n">tagv_n</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Note:</p>
@@ -129,7 +123,7 @@
 </ul>
 <p><strong>Value Encoding:</strong></p>
 <p>For the simple bucketed histogram implementation, the value is a semicoln separated list of key/value pairs separated by an equals sign. All values (the right side of the equals operator) must be signed integers. Left side values are either the key characters <code class="docutils literal"><span class="pre">u</span></code> or <code class="docutils literal"><span class="pre">o</span></code>, signed integers or signed float point values. Numerics represent the bucket lower and upper bounds separated by a comma. Key/values may appear in any order. Left side key descriptors are:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="14%" />
 <col width="14%" />
@@ -163,8 +157,8 @@
 </table>
 <div class="section" id="examples">
 <h3>Examples</h3>
-<div class="highlight-python"><div class="highlight"><pre>put sys.if.bytes.out 1479496100 u=0:o=1:0,1.5=42:1.5,5.75=24 host=web01 interface=eth0
-put sys.procs.running 1479496100 1 AgMIGoAAAAADAAAAAAAAAAAAAAAAAPA/AAAAAABARUAAAAAAAADwPwAAAAAAADhAAAAAAABARUA= host=web01
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">put</span> <span class="n">sys</span><span class="o">.</span><span class="k">if</span><span class="o">.</span><span class="n">bytes</span><span class="o">.</span><span class="n">out</span> <span class="mi">1479496100</span> <span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span><span class="n">o</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.5</span><span class="o">=</span><span class="mi">42</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">5.75</span><span class="o">=</span><span class="mi">24</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span> <span class="n">interface</span><span class="o">=</span><span class="n">eth0</span>
+<span class="n">put</span> <span class="n">sys</span><span class="o">.</span><span class="n">procs</span><span class="o">.</span><span class="n">running</span> <span class="mi">1479496100</span> <span class="mi">1</span> <span class="n">AgMIGoAAAAADAAAAAAAAAAAAAAAAAPA</span><span class="o">/</span><span class="n">AAAAAABARUAAAAAAAADwPwAAAAAAADhAAAAAAABARUA</span><span class="o">=</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
 </pre></div>
 </div>
 </div>
@@ -174,17 +168,17 @@ put sys.procs.running 1479496100 1 AgMIGoAAAAADAAAAAAAAAAAAAAAAAPA/AAAAAABARUAAA
 <p>A successful request will not return a response. Only on error will the socket return a line of data. Some examples appear below:</p>
 <div class="section" id="example-requests-and-responses">
 <h3>Example Requests and Responses</h3>
-<div class="highlight-python"><div class="highlight"><pre>put
-put: illegal argument: not enough arguments (need least 4, got 1)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">put</span>
+<span class="n">put</span><span class="p">:</span> <span class="n">illegal</span> <span class="n">argument</span><span class="p">:</span> <span class="ow">not</span> <span class="n">enough</span> <span class="n">arguments</span> <span class="p">(</span><span class="n">need</span> <span class="n">least</span> <span class="mi">4</span><span class="p">,</span> <span class="n">got</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>put metric.foo notatime 42 host=web01
-put: invalid value: Invalid character &#39;n&#39; in notatime
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">put</span> <span class="n">metric</span><span class="o">.</span><span class="n">foo</span> <span class="n">notatime</span> <span class="mi">42</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">put</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">value</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">character</span> <span class="s1">&#39;n&#39;</span> <span class="ow">in</span> <span class="n">notatime</span>
 </pre></div>
 </div>
 <p>The following will be returned if <code class="docutils literal"><span class="pre">tsd.core.auto_create_metrics</span></code> are disabled.</p>
-<div class="highlight-python"><div class="highlight"><pre>put new.metric 1479496160 u=0:o=1:0,1.5=42:1.5,5.75=24 host=web01
-put: unknown metric: No such name for &#39;metrics&#39;: &#39;new.metric&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">put</span> <span class="n">new</span><span class="o">.</span><span class="n">metric</span> <span class="mi">1479496160</span> <span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span><span class="n">o</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.5</span><span class="o">=</span><span class="mi">42</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">5.75</span><span class="o">=</span><span class="mi">24</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">put</span><span class="p">:</span> <span class="n">unknown</span> <span class="n">metric</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">name</span> <span class="k">for</span> <span class="s1">&#39;metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;new.metric&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -209,8 +203,8 @@ put: unknown metric: No such name for &#39;metrics&#39;: &#39;new.metric&#39;
         <li class="right" >
           <a href="rollup.html" title="rollup"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

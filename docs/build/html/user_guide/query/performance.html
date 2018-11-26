@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Query Performance &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Query Performance &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Query Examples" href="examples.html" />
     <link rel="prev" title="Downsampling" href="downsampling.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="downsampling.html" title="Downsampling"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -86,14 +83,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -115,8 +109,8 @@
 </div>
 <div class="section" id="one-out-of-many-queries">
 <h2>One Out of Many Queries</h2>
-<p>If you commonly have queries where you're looking for one or two time series amongst a metric with vary high cardinality (i.e. many tag values) then make sure you are using version 2.3 or later with <code class="docutils literal"><span class="pre">explicitTags</span></code> enabled in your query. The query must list all of the tag keys associated with the data you are looking for but it will enable a special filter on HBase that will help to reduce the number of rows scanned. See <a class="reference internal" href="filters.html"><em>Query Filters</em></a> for details.</p>
-<p>Alternatively, if you place a high-cardinality tag in the metric name, this will greatly reduce the amount of data scanned at query time and improve performance. See <a class="reference internal" href="../writing/index.html"><em>Writing Data</em></a> for more information.</p>
+<p>If you commonly have queries where you're looking for one or two time series amongst a metric with vary high cardinality (i.e. many tag values) then make sure you are using version 2.3 or later with <code class="docutils literal"><span class="pre">explicitTags</span></code> enabled in your query. The query must list all of the tag keys associated with the data you are looking for but it will enable a special filter on HBase that will help to reduce the number of rows scanned. See <a class="reference internal" href="filters.html"><span class="doc">Query Filters</span></a> for details.</p>
+<p>Alternatively, if you place a high-cardinality tag in the metric name, this will greatly reduce the amount of data scanned at query time and improve performance. See <a class="reference internal" href="../writing/index.html"><span class="doc">Writing Data</span></a> for more information.</p>
 </div>
 <div class="section" id="high-cardinality-query">
 <h2>High Cardinality Query</h2>
@@ -163,9 +157,9 @@
         <li class="right" >
           <a href="downsampling.html" title="Downsampling"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

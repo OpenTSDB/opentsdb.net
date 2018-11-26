@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/uid/tsmeta &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/uid/tsmeta &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/uid" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/uid/uidmeta" href="uidmeta.html" />
     <link rel="prev" title="/api/uid/assign" href="assign.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="assign.html" title="/api/uid/assign"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/uid</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -91,14 +88,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -131,13 +125,13 @@
 </ul>
 <div class="section" id="example-tsuid-get-request">
 <h3>Example TSUID GET Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-metric-get-request">
 <h3>Example Metric GET Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga
 </pre></div>
 </div>
 </div>
@@ -146,7 +140,7 @@
 <h2>POST/PUT Requests</h2>
 <p>By default, you may only write data to a TS meta object if it already exists. TS meta data is created via the meta sync CLI command or in real-time as data points are written. If you attempt to write data to the tsmeta endpoint for a TSUID that does not exist, an error will be returned and no data will be saved.</p>
 <p>Fields that can be supplied with a request include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -173,7 +167,7 @@
 <td>String</td>
 <td>Required</td>
 <td>A hexadecimal representation of the timeseries UID</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>tsuid</td>
 <td>RO</td>
 <td>00002A000001000001</td>
@@ -182,7 +176,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>A brief description of what the UID represents</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>description</td>
 <td>RW</td>
 <td>System processor time</td>
@@ -191,7 +185,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>A short name that can be displayed in GUIs instead of the default name</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>display_name</td>
 <td>RW</td>
 <td>System CPU Time</td>
@@ -200,7 +194,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>Detailed notes about what the UID represents</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>notes</td>
 <td>RW</td>
 <td>Details</td>
@@ -210,7 +204,7 @@
 <td>Optional</td>
 <td>A key/value map to store custom fields and values</td>
 <td>null</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>RW</td>
 <td><em>See Below</em></td>
 </tr>
@@ -218,7 +212,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>Units reflective of the data stored in the timeseries, may be used in GUIs or calculations</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>units</td>
 <td>RW</td>
 <td>Mbps</td>
@@ -227,7 +221,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>The kind of data stored in the timeseries such as <code class="docutils literal"><span class="pre">counter</span></code>, <code class="docutils literal"><span class="pre">gauge</span></code>, <code class="docutils literal"><span class="pre">absolute</span></code>, etc. These may be defined later but they should be similar to Data Source Types in an <a class="reference external" href="http://oss.oetiker.ch/rrdtool">RRD</a></td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>data_type</td>
 <td>RW</td>
 <td>counter</td>
@@ -275,18 +269,18 @@
 <li><strong>create</strong> - A flag with a value of <code class="docutils literal"><span class="pre">true</span></code></li>
 </ul>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post
 </pre></div>
 </div>
 <p>If a TS meta object already exists in storage for the given metric and tags, the fields will be updated or overwritten.</p>
 <div class="section" id="example-post-or-put-request">
 <h3>Example POST or PUT Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time
 </pre></div>
 </div>
 <p><em>JSON Content:</em></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
     <span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="s2">&quot;System CPU Time for Webserver 01&quot;</span><span class="p">,</span>
     <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -301,11 +295,11 @@
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete
 </pre></div>
 </div>
 <p><em>JSON Content:</em></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -316,7 +310,7 @@
 <h2>Response</h2>
 <p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full TS meta data object with any given changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested TSUID did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -343,7 +337,7 @@
 </tr>
 <tr class="row-even"><td>created</td>
 <td>Integer</td>
-<td>A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the <a class="reference internal" href="../../user_guide/cli/uid.html"><em>uid</em></a> utility to synchronize meta data.</td>
+<td>A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the <a class="reference internal" href="../../user_guide/cli/uid.html"><span class="doc">uid</span></a> utility to synchronize meta data.</td>
 <td>1350425579</td>
 </tr>
 <tr class="row-odd"><td>lastReceived</td>
@@ -360,7 +354,7 @@
 </table>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;00002A&quot;</span><span class="p">,</span>
@@ -435,9 +429,9 @@
         <li class="right" >
           <a href="assign.html" title="/api/uid/assign"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/uid</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/uid</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/search/lookup &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/search/lookup &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -37,14 +35,14 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -67,14 +65,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -94,7 +89,7 @@
 <p>Lookup queries use either the meta data table or the main data table to determine what time series are associated with a given metric, tag name, tag value, tag pair or combination thereof. For example, if you want to know what metrics are available for a tag pair <code class="docutils literal"><span class="pre">host=web01</span></code> you can execute a lookup to find out. Lookups do not require a search plugin to be installed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Lookups are performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table. You must enable real-time meta data creation or perform a <code class="docutils literal"><span class="pre">metasync</span></code> using the <code class="docutils literal"><span class="pre">uid</span></code> command in order to retreive data from a lookup. Lookups can be executed against the raw data table using the CLI command only: <a class="reference internal" href="../../user_guide/cli/search.html"><em>search</em></a></p>
+<p class="last">Lookups are performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table. You must enable real-time meta data creation or perform a <code class="docutils literal"><span class="pre">metasync</span></code> using the <code class="docutils literal"><span class="pre">uid</span></code> command in order to retreive data from a lookup. Lookups can be executed against the raw data table using the CLI command only: <a class="reference internal" href="../../user_guide/cli/search.html"><span class="doc">search</span></a></p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -106,7 +101,7 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>Parameters used by the lookup endpoint include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -133,9 +128,9 @@
 <td>String</td>
 <td>Required</td>
 <td>A lookup query as defined below.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>m</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>tsd.hbase.rpcs{type=*}</td>
 </tr>
 <tr class="row-odd"><td>useMeta</td>
@@ -144,16 +139,16 @@
 <td>Whether or not to use the meta data table or the raw data table. The raw table will be much slower.</td>
 <td>False</td>
 <td>use_meta</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>True</td>
 </tr>
 <tr class="row-even"><td>limit</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The maximum number of items returned in the result set. Currently the limit is ignored for lookup queries</td>
+<td>The maximum number of items returned in the result set.</td>
 <td>25</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>100</td>
 </tr>
 <tr class="row-odd"><td>startIndex</td>
@@ -161,8 +156,8 @@
 <td>Optional</td>
 <td>Ignored for lookup queries, always the default.</td>
 <td>0</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>10</td>
 </tr>
 </tbody>
@@ -172,7 +167,7 @@
 <p>A lookup query consists of at least one metric, tag name (tagk) or tag value (tagv). Each value must be a literal name in the UID table. If a given name cannot be resolved to a UID, an exception will be returned. Only one metric can be supplied per query but multiple tagk, tagv or tag pairs may be provided.</p>
 <p>Normally, tags a provided in the format <code class="docutils literal"><span class="pre">&lt;tagk&gt;=&lt;tagv&gt;</span></code> and a value is required on either side of the equals sign. However for lookups, one value may an asterisk <code class="docutils literal"><span class="pre">*</span></code>, i.e. <code class="docutils literal"><span class="pre">&lt;tagk&gt;=*</span></code> or <code class="docutils literal"><span class="pre">*=&lt;tagv&gt;</span></code>. In these cases, the asterisk acts as a wildcard meaning any time series with the given tagk or tagv will be returned. For example, if we issue a query for <code class="docutils literal"><span class="pre">host=*</span></code> then we will get all of the time series with a <code class="docutils literal"><span class="pre">host</span></code> tagk such as <code class="docutils literal"><span class="pre">host=web01</span></code> and <code class="docutils literal"><span class="pre">host=web02</span></code>.</p>
 <p>For complex queries with multiple values, each type is <code class="docutils literal"><span class="pre">AND</span></code>'d with the other types and <code class="docutils literal"><span class="pre">OR</span></code>'d with it's own type.</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;metric&gt; AND (&lt;tagk1&gt;=[&lt;tagv1&gt;] OR &lt;tagk1&gt;=[&lt;tagv2&gt;]) AND ([&lt;tagk2&gt;]=&lt;tagv3&gt; OR [&lt;tagk2&gt;]=&lt;tagv4&gt;)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">metric</span><span class="o">&gt;</span> <span class="n">AND</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">tagk1</span><span class="o">&gt;=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">tagv1</span><span class="o">&gt;</span><span class="p">]</span> <span class="n">OR</span> <span class="o">&lt;</span><span class="n">tagk1</span><span class="o">&gt;=</span><span class="p">[</span><span class="o">&lt;</span><span class="n">tagv2</span><span class="o">&gt;</span><span class="p">])</span> <span class="n">AND</span> <span class="p">([</span><span class="o">&lt;</span><span class="n">tagk2</span><span class="o">&gt;</span><span class="p">]</span><span class="o">=&lt;</span><span class="n">tagv3</span><span class="o">&gt;</span> <span class="n">OR</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">tagk2</span><span class="o">&gt;</span><span class="p">]</span><span class="o">=&lt;</span><span class="n">tagv4</span><span class="o">&gt;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>For example, the query <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=tsd3}</span></code> would return only the time series with the metric <code class="docutils literal"><span class="pre">tsd.hbase.rpcs</span></code> and the <code class="docutils literal"><span class="pre">type</span></code> tagk with any value and a <code class="docutils literal"><span class="pre">host</span></code> tag with either <code class="docutils literal"><span class="pre">tsd1</span></code> or <code class="docutils literal"><span class="pre">tsd2</span></code> or <code class="docutils literal"><span class="pre">tsd3</span></code>. Unlike a data query, you may supply multiple tagks with the same name as seen in the example above. Wildcards always take priority so if your query looked like <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=tsd1,host=tsd2,host=*}</span></code>, then the query would effectively be treated as <code class="docutils literal"><span class="pre">tsd.hbase.rpcs{type=*,host=*}</span></code>.</p>
@@ -181,12 +176,12 @@
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p>Query String:</p>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/search/lookup?m=tsd.hbase.rpcs{type=*}
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/search/lookup?m=tsd.hbase.rpcs{type=*}
 </pre></div>
 </div>
 <p>POST:</p>
-<p>JSON requests follow the search query format on the <a class="reference internal" href="index.html"><em>/api/search</em></a> page. Limits and startNote that tags are supplied as a list of objects. The value for the <code class="docutils literal"><span class="pre">key</span></code> should be a <code class="docutils literal"><span class="pre">tagk</span></code> and the value for <code class="docutils literal"><span class="pre">value</span></code> should be a <code class="docutils literal"><span class="pre">tagv</span></code> or wildcard.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<p>JSON requests follow the search query format on the <a class="reference internal" href="index.html"><span class="doc">/api/search</span></a> page. Limits and startNote that tags are supplied as a list of objects. The value for the <code class="docutils literal"><span class="pre">key</span></code> should be a <code class="docutils literal"><span class="pre">tagk</span></code> and the value for <code class="docutils literal"><span class="pre">value</span></code> should be a <code class="docutils literal"><span class="pre">tagv</span></code> or wildcard.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.rpcs&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
         <span class="p">{</span>
@@ -202,7 +197,7 @@
 <div class="section" id="response">
 <h2>Response</h2>
 <p>Depending on the endpoint called, the output will change slightly. However common fields include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -225,11 +220,11 @@
 <tr class="row-odd"><td>query</td>
 <td>String</td>
 <td>Ignored for lookup queries.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>limit</td>
 <td>Integer</td>
-<td>The maximum number of items returned in the result set. Currently the limit is ignored for lookup queries</td>
+<td>The maximum number of items returned in the result set.</td>
 <td>25</td>
 </tr>
 <tr class="row-odd"><td>startIndex</td>
@@ -268,7 +263,7 @@
 </div>
 <div class="section" id="example-response">
 <h2>Example Response</h2>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;LOOKUP&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.rpcs&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
@@ -322,7 +317,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

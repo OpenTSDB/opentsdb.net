@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Downsampling &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Downsampling &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Query Performance" href="performance.html" />
     <link rel="prev" title="Aggregation" href="aggregators.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="aggregators.html" title="Aggregation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -78,14 +75,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -102,10 +96,10 @@
 <p>Downsamplers require at least two components:</p>
 <ul class="simple">
 <li><strong>Interval</strong> - A time range (or <em>bucket</em>) across which to aggregate the values. For example we could aggregate multiple values for 1 minute or 1 hour or even a whole day. Intervals are specified in the format <code class="docutils literal"><span class="pre">&lt;Size&gt;&lt;Units&gt;</span></code> such as <code class="docutils literal"><span class="pre">1h</span></code> for 1 hour or <code class="docutils literal"><span class="pre">30m</span></code> for 30 minutes. As of <em>2.3</em> the <code class="docutils literal"><span class="pre">all</span></code> interval is now available to downsample all results in the time range to one value. E.g. <code class="docutils literal"><span class="pre">0all-sum</span></code> will sum all values from query start to end. Note that a numeric value is still required but it can be zero or any other value.</li>
-<li><strong>Aggregation Function</strong> - A mathematical function that determines how to merge the values in the interval. Aggregation functions from the <a class="reference internal" href="aggregators.html"><em>Aggregation</em></a> documentation are used for the function.</li>
+<li><strong>Aggregation Function</strong> - A mathematical function that determines how to merge the values in the interval. Aggregation functions from the <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> documentation are used for the function.</li>
 </ul>
 <p>For example, take the following time series <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code>. The data points cover a 70 second time span, a value every 10 seconds. Let's say we want to downsample that to 30 seconds since the user is looking at a graph for a wider time span. Additionally we're grouping these two series into one using a sum aggregator. We can specify a downsampler of <code class="docutils literal"><span class="pre">30s-sum</span></code> that will create 30 second buckets and sum all of the data points in each bucket. This will give us three data points for each series:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="30%" />
 <col width="10%" />
@@ -139,11 +133,11 @@
 </tr>
 <tr class="row-odd"><td>A <code class="docutils literal"><span class="pre">sum</span></code> Downsampled</td>
 <td>5 + 5 + 10 = 20</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>15 + 20 + 5 = 40</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>1 = 1</td>
 </tr>
 <tr class="row-even"><td>B</td>
@@ -157,20 +151,20 @@
 </tr>
 <tr class="row-odd"><td>B <code class="docutils literal"><span class="pre">sum</span></code> Downsampled</td>
 <td>10 + 5 + 20 = 35</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>15 + 10 + 0 = 25</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>5 = 5</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">sum</span></code> Aggregated Result</td>
 <td>55</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>65</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>6</td>
 </tr>
 </tbody>
@@ -201,7 +195,7 @@
 </ul>
 <p>To use a fill policy, append the policy name (the terms in parentheses) to the end of the downsampling aggregation function separated by a hyphen. E.g. <code class="docutils literal"><span class="pre">1h-sum-nan</span></code> or <code class="docutils literal"><span class="pre">1m-avg-zero</span></code>.</p>
 <p>In this example we have data reported every 10 seconds and we want to enforce a query-time policy of 10 seconds reporting by downsampling every 10 seconds and filling missing values with NaNs via <code class="docutils literal"><span class="pre">10s-sum-nan</span></code>:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="22%" />
 <col width="11%" />
@@ -225,21 +219,21 @@
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>A</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>15</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>5</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>B</td>
 <td>10</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>20</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>20</td>
 </tr>
 <tr class="row-even"><td>A <code class="docutils literal"><span class="pre">sum</span></code> Downsampled</td>
@@ -293,9 +287,9 @@
         <li class="right" >
           <a href="aggregators.html" title="Aggregation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

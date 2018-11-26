@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Understanding Metrics and Time Series &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Understanding Metrics and Time Series &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Dates and Times" href="dates.html" />
     <link rel="prev" title="Querying or Reading Data" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="index.html" title="Querying or Reading Data"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -88,14 +85,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -115,8 +109,8 @@
 <div class="section" id="your-first-datapoints">
 <h2>Your first datapoints</h2>
 <p>Without going into too much detail on how collectors send data to the TSD , you write a collector that periodically sends the current value of these datapoints for each server to the TSD. So the TSD can aggregate the data from multiple hosts, you tag each value with a &quot;host&quot; tag. So, if you have web servers A, B, C, etc, they each periodically send something like this to the TSD:</p>
-<div class="highlight-python"><div class="highlight"><pre>put http.hits 1234567890 34877 host=A
-put proc.loadavg.1min 1234567890 1.35 host=A
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">put</span> <span class="n">http</span><span class="o">.</span><span class="n">hits</span> <span class="mi">1234567890</span> <span class="mi">34877</span> <span class="n">host</span><span class="o">=</span><span class="n">A</span>
+<span class="n">put</span> <span class="n">proc</span><span class="o">.</span><span class="n">loadavg</span><span class="o">.</span><span class="mi">1</span><span class="nb">min</span> <span class="mi">1234567890</span> <span class="mf">1.35</span> <span class="n">host</span><span class="o">=</span><span class="n">A</span>
 </pre></div>
 </div>
 <p>Here &quot;1234567890&quot; is the current epoch time (date +%s) in seconds. The next number is the value of the metric at this time. This is data from host A, so it's tagged with <code class="docutils literal"><span class="pre">host=A</span></code>. Data from host B would be tagged with <code class="docutils literal"><span class="pre">host=B</span></code>, and so forth. Over time, you'll get a bunch of time series stored in OpenTSDB.</p>
@@ -189,9 +183,9 @@ put proc.loadavg.1min 1234567890 1.35 host=A
         <li class="right" >
           <a href="index.html" title="Querying or Reading Data"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

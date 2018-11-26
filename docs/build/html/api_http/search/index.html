@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/search &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/search &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="HTTP API" href="../index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/serializers" href="../serializers.html" />
     <link rel="prev" title="/api/query/last" href="../query/last.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="../query/last.html" title="/api/query/last"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -87,14 +84,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -115,12 +109,12 @@
 <div class="section" id="search-api-endpoints">
 <h2>Search API Endpoints</h2>
 <ul class="simple">
-<li><a class="reference internal" href="lookup.html"><em>/api/search/lookup</em></a></li>
-<li>/api/search/tsmeta - <a class="reference internal" href="#tsmeta-endpoint"><span>TSMETA Response</span></a></li>
-<li>/api/search/tsmeta_summary - <a class="reference internal" href="#tsmeta-summary-endpoint"><span>TSMETA_SUMMARY Response</span></a></li>
-<li>/api/search/tsuids - <a class="reference internal" href="#tsuids-endpoint"><span>TSUIDS Response</span></a></li>
-<li>/api/search/uidmeta - <a class="reference internal" href="#uidmeta-endpoint"><span>UIDMETA Response</span></a></li>
-<li>/api/search/annotation - <a class="reference internal" href="#annotation-endpoint"><span>Annotation Response</span></a></li>
+<li><a class="reference internal" href="lookup.html"><span class="doc">/api/search/lookup</span></a></li>
+<li>/api/search/tsmeta - <a class="reference internal" href="#tsmeta-endpoint"><span class="std std-ref">TSMETA Response</span></a></li>
+<li>/api/search/tsmeta_summary - <a class="reference internal" href="#tsmeta-summary-endpoint"><span class="std std-ref">TSMETA_SUMMARY Response</span></a></li>
+<li>/api/search/tsuids - <a class="reference internal" href="#tsuids-endpoint"><span class="std std-ref">TSUIDS Response</span></a></li>
+<li>/api/search/uidmeta - <a class="reference internal" href="#uidmeta-endpoint"><span class="std std-ref">UIDMETA Response</span></a></li>
+<li>/api/search/annotation - <a class="reference internal" href="#annotation-endpoint"><span class="std std-ref">Annotation Response</span></a></li>
 </ul>
 </div>
 <div class="section" id="verbs">
@@ -133,7 +127,7 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>Parameters used by the search endpoint include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -160,9 +154,9 @@
 <td>String</td>
 <td>Optional</td>
 <td>The string based query to pass to the search engine. This will be parsed by the engine or plugin to perform the actual search. Allowable values depends on the plugin. Ignored for lookups.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>query</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>name:sys.cpu.*</td>
 </tr>
 <tr class="row-odd"><td>limit</td>
@@ -171,7 +165,7 @@
 <td>Limits the number of results returned per query so as not to override the TSD or search engine. Allowable values depends on the plugin. Ignored for lookups.</td>
 <td>25</td>
 <td>limit</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>100</td>
 </tr>
 <tr class="row-even"><td>startIndex</td>
@@ -180,7 +174,7 @@
 <td>Used in combination with the <code class="docutils literal"><span class="pre">limit</span></code> value to page through results. Allowable values depends on the plugin. Ignored for lookups.</td>
 <td>0</td>
 <td>start_index</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>42</td>
 </tr>
 <tr class="row-odd"><td>metric</td>
@@ -189,28 +183,28 @@
 <td>The name of a metric or a wildcard for lookup queries</td>
 <td>*</td>
 <td>metric</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>tsd.hbase.rpcs</td>
 </tr>
 <tr class="row-even"><td>tags</td>
 <td>Array</td>
 <td>Optional</td>
-<td>One or more key/value objects with tag names and/or tag values for lookup queries. See <a class="reference internal" href="lookup.html"><em>/api/search/lookup</em></a></td>
-<td>&nbsp;</td>
+<td>One or more key/value objects with tag names and/or tag values for lookup queries. See <a class="reference internal" href="lookup.html"><span class="doc">/api/search/lookup</span></a></td>
+<td>&#160;</td>
 <td>tags</td>
-<td>&nbsp;</td>
-<td>See <a class="reference internal" href="lookup.html"><em>/api/search/lookup</em></a></td>
+<td>&#160;</td>
+<td>See <a class="reference internal" href="lookup.html"><span class="doc">/api/search/lookup</span></a></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p>Query String:</p>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/search/tsmeta?query=name:*&amp;limit=3&amp;start_index=0
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/search/tsmeta?query=name:*&amp;limit=3&amp;start_index=0
 </pre></div>
 </div>
 <p>POST:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
     <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">5</span>
@@ -222,7 +216,7 @@
 <div class="section" id="response">
 <h2>Response</h2>
 <p>Depending on the endpoint called, the output will change slightly. However common fields include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -292,7 +286,7 @@
 <div class="section" id="tsmeta-response">
 <span id="tsmeta-endpoint"></span><h2>TSMETA Response</h2>
 <p>The TSMeta endpoint returns a list of matching TSMeta objects.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSMETA&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -402,7 +396,7 @@
 <div class="section" id="tsmeta-summary-response">
 <span id="tsmeta-summary-endpoint"></span><h2>TSMETA_SUMMARY Response</h2>
 <p>The TSMeta Summary endpoint returns just the basic information associated with a timeseries including the TSUID, the metric name and tags. The search is run against the same index as the TSMeta query but returns a subset of the data.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSMETA_SUMMARY&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -441,7 +435,7 @@
 <div class="section" id="tsuids-response">
 <span id="tsuids-endpoint"></span><h2>TSUIDS Response</h2>
 <p>The TSUIDs endpoint returns a list of TSUIDS that match the query. The search is run against the same index as the TSMeta query but returns a subset of the data.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSUIDS&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -462,7 +456,7 @@
 <div class="section" id="uidmeta-response">
 <span id="uidmeta-endpoint"></span><h2>UIDMETA Response</h2>
 <p>The UIDMeta endpoint returns a list of UIDMeta objects that match the query.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;UIDMETA&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -510,7 +504,7 @@
 <div class="section" id="annotation-response">
 <span id="annotation-endpoint"></span><h2>Annotation Response</h2>
 <p>The Annotation endpoint returns a list of Annotation objects that match the query.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;ANNOTATION&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;description:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -556,8 +550,8 @@
         <li class="right" >
           <a href="../query/last.html" title="/api/query/last"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

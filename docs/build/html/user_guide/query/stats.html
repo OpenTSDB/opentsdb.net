@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Query Details and Stats &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Query Details and Stats &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="Querying or Reading Data" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Rollup And Pre-Aggregates" href="../rollups.html" />
     <link rel="prev" title="Query Examples" href="examples.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="examples.html" title="Query Examples"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -98,14 +95,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -123,7 +117,7 @@
 <div class="section" id="query">
 <h2>Query</h2>
 <p>This section is a serialization of the query given by the user. In the logs and stats page this will be the full query with timing and global options. When returned with the query results, only the sub query (metric and filters) are returned with the associated result set for identification purposes (e.g. if you request the same metric twice with two different aggregators, you need to know which data set corresponds to which aggregator).</p>
-<p>For the fields and what they mean, see <a class="reference internal" href="../../api_http/query/index.html"><em>/api/query</em></a>. Some notes about the fields:</p>
+<p>For the fields and what they mean, see <a class="reference internal" href="../../api_http/query/index.html"><span class="doc">/api/query</span></a>. Some notes about the fields:</p>
 <ul class="simple">
 <li>The <code class="docutils literal"><span class="pre">tags</span></code> map should have the same number of entries as the <code class="docutils literal"><span class="pre">filters</span></code> array has <code class="docutils literal"><span class="pre">group_by</span></code> entries. This is due to backwards compatibility with 2.1 and 1.0. Old style queries are converted into filtered queries and function the same way.</li>
 <li>A number of extra fields may be shown here with their default values such as <code class="docutils literal"><span class="pre">null</span></code>.</li>
@@ -131,7 +125,7 @@
 </ul>
 <div class="section" id="example">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1455531250181&quot;</span><span class="p">,</span>
       <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">&quot;timezone&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -222,7 +216,7 @@
 <p>If the query failed, this field will include the message string and the first line of the stack trace for pinpointing. If the query was successful, this field will be null.</p>
 <div class="section" id="id1">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;No such name for &#39;metrics&#39;: &#39;nosuchmetric&#39; net.opentsdb.uid.UniqueId$1GetIdCB.call(UniqueId.java:315)&quot;</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;No such name for &#39;metrics&#39;: &#39;nosuchmetric&#39; net.opentsdb.uid.UniqueId$1GetIdCB.call(UniqueId.java:315)&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -236,7 +230,7 @@
 <p>This is a map of the headers sent with the HTTP request. In a mediocre effort at security, the <code class="docutils literal"><span class="pre">Cookie</span></code> header field is obfuscated with asterisks in the case that it contains user identifiable or secure information. Each request is different so lookup the headers in the HTTP RFCs or your web browser or clients documentation.</p>
 <div class="section" id="id2">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;Accept-Language&quot;</span><span class="o">:</span> <span class="s2">&quot;en-US,en;q=0.8&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Host&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdhost:4242&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Content-Length&quot;</span><span class="o">:</span> <span class="s2">&quot;440&quot;</span><span class="p">,</span>
@@ -257,7 +251,7 @@
 <p>This field contains the numeric HTTP response code and a textual representation of that code.</p>
 <div class="section" id="id3">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
         <span class="s2">&quot;reasonPhrase&quot;</span><span class="o">:</span> <span class="s2">&quot;OK&quot;</span>
 <span class="p">}</span>
@@ -268,7 +262,7 @@
 <div class="section" id="other-fields">
 <h2>Other Fields</h2>
 <p>The output for log files and the stats page include other fields with single values as listed below:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="20%" />
@@ -317,7 +311,7 @@
 <p class="first admonition-title">Note</p>
 <p class="last">All timings in the table below are in milliseconds. Also note that times can be inflated by JVM GCs so make sure to enable GC logging if something seems off.</p>
 </div>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="10%" />
@@ -421,7 +415,7 @@
 </table>
 <div class="section" id="id4">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;statsSummary&quot;</span><span class="o">:</span> <span class="p">{</span>
               <span class="s2">&quot;avgAggregationTime&quot;</span><span class="o">:</span> <span class="mf">3.784976</span><span class="p">,</span>
               <span class="s2">&quot;avgHBaseTime&quot;</span><span class="o">:</span> <span class="mf">8.530751</span><span class="p">,</span>
@@ -863,9 +857,9 @@
         <li class="right" >
           <a href="examples.html" title="Query Examples"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Querying or Reading Data</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

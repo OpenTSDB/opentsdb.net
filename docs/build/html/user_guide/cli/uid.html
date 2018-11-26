@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>uid &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>uid &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="CLI Tools" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="mkmetric" href="mkmetric.html" />
     <link rel="prev" title="CLI Tools" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="index.html" title="CLI Tools"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">CLI Tools</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -131,14 +128,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -153,7 +147,7 @@
 <h1>uid</h1>
 <p>The UID utility provides various functions to search or modify information in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data.</p>
 <p>Use the UID utility with the command line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">uid</span> <span class="o">&lt;</span><span class="n">subcommands</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">arguments</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">uid</span> <span class="o">&lt;</span><span class="n">subcommands</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">arguments</span><span class="p">]</span>
 </pre></div>
 </div>
 <div class="section" id="common-cli-parameters">
@@ -165,20 +159,20 @@
 <p>The lookup command is the default for <code class="docutils literal"><span class="pre">uid</span></code> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
 <div class="section" id="command-format">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre>&lt;kind&gt; &lt;name&gt;
-&lt;kind&gt; &lt;UID&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">UID</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-command">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid tagk host
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">tagk</span> <span class="n">host</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-python"><div class="highlight"><pre>tagk host: [0, 0, 1]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tagk</span> <span class="n">host</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -186,7 +180,7 @@
 <div class="section" id="grep">
 <h2>grep</h2>
 <p>The grep sub command performs a regular expression search for the given UID type and returns a list of all UID names that match the expression. Fields required for the grep command include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -206,35 +200,35 @@
 <tr class="row-even"><td>kind</td>
 <td>String</td>
 <td>The type of the UID to search for. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>tagk</td>
 </tr>
 <tr class="row-odd"><td>expression</td>
 <td>String</td>
 <td>The regex expression to search with</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>disk.*write</td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="id1">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s1">&#39;&lt;expression&gt;&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s1">&#39;&lt;expression&gt;&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id2">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid grep metrics &#39;disk.*write&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">grep</span> <span class="n">metrics</span> <span class="s1">&#39;disk.*write&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id3">
 <h3>Example Response</h3>
-<div class="highlight-python"><div class="highlight"><pre>metrics iostat.disk.msec_write: [0, 3, -67]
-metrics iostat.disk.write_merged: [0, 3, -69]
-metrics iostat.disk.write_requests: [0, 3, -70]
-metrics iostat.disk.write_sectors: [0, 3, -68]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">msec_write</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">67</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_merged</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">69</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_requests</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_sectors</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -242,7 +236,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <div class="section" id="assign">
 <h2>assign</h2>
 <p>This sub command is used to assign IDs to new unique names for metrics, tag names or tag values. Supply a list of one or more values to assign UIDs and the list of assignments will be returned.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -271,13 +265,13 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </table>
 <div class="section" id="id4">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre>assign &lt;kind&gt; &lt;name&gt; [&lt;name&gt;...]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">assign</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;...</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id5">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid assign metrics disk.d0 disk.d1 disk.d2 disk.d3
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">assign</span> <span class="n">metrics</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span> <span class="n">disk</span><span class="o">.</span><span class="n">d1</span> <span class="n">disk</span><span class="o">.</span><span class="n">d2</span> <span class="n">disk</span><span class="o">.</span><span class="n">d3</span>
 </pre></div>
 </div>
 </div>
@@ -290,9 +284,9 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <p>Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">After changing a UID name you must flush the cache (see <a class="reference internal" href="../../api_http/dropcaches.html"><em>/api/dropcaches</em></a>) or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.</p>
+<p class="last">After changing a UID name you must flush the cache (see <a class="reference internal" href="../../api_http/dropcaches.html"><span class="doc">/api/dropcaches</span></a>) or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.</p>
 </div>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -326,13 +320,13 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </table>
 <div class="section" id="id7">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre>rename &lt;kind&gt; &lt;name&gt; &lt;newname&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rename</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">newname</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id8">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid rename metrics disk.d0 disk.d0.bytes_read
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">rename</span> <span class="n">metrics</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span><span class="o">.</span><span class="n">bytes_read</span>
 </pre></div>
 </div>
 </div>
@@ -348,7 +342,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <p class="first admonition-title">Warning</p>
 <p class="last">Deleting a UID will not delete the underlying data associated with the UIDs (we're working on that). For metrics this is safe, it won't affect queries. But for tag names and values, if a query scans over data containing the old UID, the query will fail with an exception because it can no longer find the name mapping.</p>
 </div>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -377,13 +371,13 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </table>
 <div class="section" id="id9">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre>delete &lt;kind&gt; &lt;name&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">delete</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id10">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid delete disk.d0
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">delete</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span>
 </pre></div>
 </div>
 </div>
@@ -391,7 +385,7 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 <div class="section" id="fsck">
 <h2>fsck</h2>
 <p>The UID FSCK command will scan the entire UID table for errors pertaining to name and UID mappings. By default, the run will scan every column in the table and log any errors that were found. With version 2.1 it is possible to fix errors in the table by passing the &quot;fix&quot; flag. UIDMeta objects are skipped during scanning. Possible errors include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="33%" />
 <col width="34%" />
@@ -449,32 +443,32 @@ metrics iostat.disk.write_sectors: [0, 3, -68]
 </ul>
 <div class="section" id="id11">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">fsck</span> <span class="p">[</span><span class="n">fix</span><span class="p">]</span> <span class="p">[</span><span class="n">delete_unknown</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fsck</span> <span class="p">[</span><span class="n">fix</span><span class="p">]</span> <span class="p">[</span><span class="n">delete_unknown</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id12">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid fsck fix
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">fsck</span> <span class="n">fix</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id13">
 <h3>Example Response</h3>
-<div class="highlight-python"><div class="highlight"><pre>INFO  [main] UidManager: ----------------------------------
-INFO  [main] UidManager: -    Running fsck in FIX mode    -
-INFO  [main] UidManager: -      Remove Unknowns: false    -
-INFO  [main] UidManager: ----------------------------------
-INFO  [main] UidManager: Maximum ID for metrics: 2
-INFO  [main] UidManager: Maximum ID for tagk: 4
-INFO  [main] UidManager: Maximum ID for tagv: 2
-ERROR [main] UidManager: Forward tagk mapping is missing reverse mapping: bar -&gt; 000004
-INFO  [main] UidManager: FIX: Restoring tagk reverse mapping: 000004 -&gt; bar
-ERROR [main] UidManager: Inconsistent reverse tagk mapping 000003 -&gt; bar vs 000004 -&gt; bar / bar -&gt; 000004
-INFO  [main] UidManager: FIX: Removed tagk reverse mapping: 000003 -&gt; bar
-ERROR [main] UidManager: tagk: Found 2 errors.
-INFO  [main] UidManager: 17 KVs analyzed in 334ms (~50 KV/s)
-WARN  [main] UidManager: 2 errors found.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">----------------------------------</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">-</span>    <span class="n">Running</span> <span class="n">fsck</span> <span class="ow">in</span> <span class="n">FIX</span> <span class="n">mode</span>    <span class="o">-</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">-</span>      <span class="n">Remove</span> <span class="n">Unknowns</span><span class="p">:</span> <span class="n">false</span>    <span class="o">-</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">----------------------------------</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Maximum</span> <span class="n">ID</span> <span class="k">for</span> <span class="n">metrics</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Maximum</span> <span class="n">ID</span> <span class="k">for</span> <span class="n">tagk</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Maximum</span> <span class="n">ID</span> <span class="k">for</span> <span class="n">tagv</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">ERROR</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Forward</span> <span class="n">tagk</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="n">missing</span> <span class="n">reverse</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">bar</span> <span class="o">-&gt;</span> <span class="mi">000004</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">FIX</span><span class="p">:</span> <span class="n">Restoring</span> <span class="n">tagk</span> <span class="n">reverse</span> <span class="n">mapping</span><span class="p">:</span> <span class="mi">000004</span> <span class="o">-&gt;</span> <span class="n">bar</span>
+<span class="n">ERROR</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Inconsistent</span> <span class="n">reverse</span> <span class="n">tagk</span> <span class="n">mapping</span> <span class="mi">000003</span> <span class="o">-&gt;</span> <span class="n">bar</span> <span class="n">vs</span> <span class="mi">000004</span> <span class="o">-&gt;</span> <span class="n">bar</span> <span class="o">/</span> <span class="n">bar</span> <span class="o">-&gt;</span> <span class="mi">000004</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">FIX</span><span class="p">:</span> <span class="n">Removed</span> <span class="n">tagk</span> <span class="n">reverse</span> <span class="n">mapping</span><span class="p">:</span> <span class="mi">000003</span> <span class="o">-&gt;</span> <span class="n">bar</span>
+<span class="n">ERROR</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">tagk</span><span class="p">:</span> <span class="n">Found</span> <span class="mi">2</span> <span class="n">errors</span><span class="o">.</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="mi">17</span> <span class="n">KVs</span> <span class="n">analyzed</span> <span class="ow">in</span> <span class="mi">334</span><span class="n">ms</span> <span class="p">(</span><span class="o">~</span><span class="mi">50</span> <span class="n">KV</span><span class="o">/</span><span class="n">s</span><span class="p">)</span>
+<span class="n">WARN</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="mi">2</span> <span class="n">errors</span> <span class="n">found</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -485,13 +479,13 @@ WARN  [main] UidManager: 2 errors found.
 <p>It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.</p>
 <div class="section" id="id14">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">metasync</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">metasync</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id15">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid metasync
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">metasync</span>
 </pre></div>
 </div>
 </div>
@@ -501,13 +495,13 @@ WARN  [main] UidManager: 2 errors found.
 <p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <code class="docutils literal"><span class="pre">metasync</span></code>.</p>
 <div class="section" id="id16">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">metapurge</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">metapurge</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id17">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid metapurge
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">metapurge</span>
 </pre></div>
 </div>
 </div>
@@ -517,13 +511,13 @@ WARN  [main] UidManager: 2 errors found.
 <p>Runs through the list of TSMeta objects in the UID table and processes each through all configured and enabled trees to compile branches. This command may be run at any time and will not affect existing objects.</p>
 <div class="section" id="id18">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">treesync</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">treesync</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id19">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid treesync
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">treesync</span>
 </pre></div>
 </div>
 </div>
@@ -531,7 +525,7 @@ WARN  [main] UidManager: 2 errors found.
 <div class="section" id="treepurge">
 <h2>treepurge</h2>
 <p>Removes all branches, collision, not matched data and optionally the tree definition itself for a given tree. Parameters include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -560,13 +554,13 @@ WARN  [main] UidManager: 2 errors found.
 </table>
 <div class="section" id="id20">
 <h3>Command Format</h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">treepurge</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">definition</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">treepurge</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">definition</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id21">
 <h3>Example Command</h3>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb uid treepurge 1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">treepurge</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
@@ -591,9 +585,9 @@ WARN  [main] UidManager: 2 errors found.
         <li class="right" >
           <a href="index.html" title="CLI Tools"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >CLI Tools</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

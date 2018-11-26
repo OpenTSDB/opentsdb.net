@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/query &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/query &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="HTTP API" href="../index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/query/exp" href="exp.html" />
     <link rel="prev" title="/api/histogram" href="../histogram.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="../histogram.html" title="/api/histogram"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -97,14 +94,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -144,7 +138,7 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>Request parameters include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -170,28 +164,28 @@
 <tr class="row-even"><td>start</td>
 <td>String, Integer</td>
 <td>Required</td>
-<td>The start time for the query. This can be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Querying or Reading Data</em></a> for details.</td>
-<td>&nbsp;</td>
+<td>The start time for the query. This can be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><span class="doc">Querying or Reading Data</span></a> for details.</td>
+<td>&#160;</td>
 <td>start</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>1h-ago</td>
 </tr>
 <tr class="row-odd"><td>end</td>
 <td>String, Integer</td>
 <td>Optional</td>
-<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><em>Querying or Reading Data</em></a> for details.</td>
+<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><span class="doc">Querying or Reading Data</span></a> for details.</td>
 <td><em>current time</em></td>
 <td>end</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>1s-ago</td>
 </tr>
 <tr class="row-even"><td>queries</td>
 <td>Array</td>
 <td>Required</td>
 <td>One or more sub queries used to select the time series to return. These may be metric <code class="docutils literal"><span class="pre">m</span></code> or TSUID <code class="docutils literal"><span class="pre">tsuids</span></code> queries</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>m or tsuids</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td><em>See below</em></td>
 </tr>
 <tr class="row-odd"><td>noAnnotations</td>
@@ -200,7 +194,7 @@
 <td>Whether or not to return annotations with a query. The default is to return annotations for the requested timespan but this flag can disable the return. This affects both local and global notes and overrides <code class="docutils literal"><span class="pre">globalAnnotations</span></code></td>
 <td>false</td>
 <td>no_annotations</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>false</td>
 </tr>
 <tr class="row-even"><td>globalAnnotations</td>
@@ -209,7 +203,7 @@
 <td>Whether or not the query should retrieve global annotations for the requested timespan</td>
 <td>false</td>
 <td>global_annotations</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 <tr class="row-odd"><td>msResolution (or ms)</td>
@@ -218,7 +212,7 @@
 <td>Whether or not to output data point timestamps in milliseconds or seconds. The msResolution flag is recommended. If this flag is not provided and there are multiple data points within a second, those data points will be down sampled using the query's aggregation function.</td>
 <td>false</td>
 <td>ms</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 <tr class="row-even"><td>showTSUIDs</td>
@@ -227,25 +221,25 @@
 <td>Whether or not to output the TSUIDs associated with timeseries in the results. If multiple time series were aggregated into one set, multiple TSUIDs will be returned in a sorted manner</td>
 <td>false</td>
 <td>show_tsuids</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 <tr class="row-odd"><td>showSummary <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to show a summary of timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects. See <a class="reference internal" href="../../user_guide/query/stats.html"><em>Query Details and Stats</em></a></td>
+<td>Whether or not to show a summary of timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects. See <a class="reference internal" href="../../user_guide/query/stats.html"><span class="doc">Query Details and Stats</span></a></td>
 <td>false</td>
 <td>show_summary</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 <tr class="row-even"><td>showStats <em>(2.2)</em></td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not to show detailed timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects. See <a class="reference internal" href="../../user_guide/query/stats.html"><em>Query Details and Stats</em></a></td>
+<td>Whether or not to show detailed timings surrounding the query in the results. This creates another object in the map that is unlike the data point objects. See <a class="reference internal" href="../../user_guide/query/stats.html"><span class="doc">Query Details and Stats</span></a></td>
 <td>false</td>
 <td>show_stats</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 <tr class="row-odd"><td>showQuery <em>(2.2)</em></td>
@@ -254,7 +248,7 @@
 <td>Whether or not to return the original sub query with the query results. If the request contains many sub queries then this is a good way to determine which results belong to which sub query. Note that in the case of a <code class="docutils literal"><span class="pre">*</span></code> or wildcard query, this can produce a lot of duplicate output.</td>
 <td>false</td>
 <td>show_query</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 <tr class="row-even"><td>delete</td>
@@ -262,7 +256,7 @@
 <td>Optional</td>
 <td>Can be passed to the JSON with a POST to delete any data points that match the given query.</td>
 <td>false</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>W</td>
 <td>true</td>
 </tr>
@@ -272,7 +266,7 @@
 <td>An optional timezone for calendar-based downsampling. Must be a valid <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">timezone</a> database name supported by the JRE installed on the TSD server.</td>
 <td>UTC</td>
 <td>timezone</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>Asia/Kabul</td>
 </tr>
 <tr class="row-even"><td>useCalendar <em>(2.3)</em></td>
@@ -280,8 +274,8 @@
 <td>Optional</td>
 <td>Whether or not use the calendar based on the given timezone for downsampling intervals</td>
 <td>false</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 </tbody>
@@ -296,7 +290,7 @@
 </ul>
 <p>A query can include more than one sub query and any mixture of the two types. When submitting a query via content body, if a list of TSUIDs is supplied, the metric and tags for that particular sub query will be ignored.</p>
 <p>Each sub query can retrieve individual or groups of timeseries data, performing aggregation or grouping calculations on each set. Fields for each sub query include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -318,15 +312,15 @@
 <tr class="row-even"><td>aggregator</td>
 <td>String</td>
 <td>Required</td>
-<td>The name of an aggregation function to use. See <a class="reference internal" href="../aggregators.html"><em>/api/aggregators</em></a></td>
-<td>&nbsp;</td>
+<td>The name of an aggregation function to use. See <a class="reference internal" href="../aggregators.html"><span class="doc">/api/aggregators</span></a></td>
+<td>&#160;</td>
 <td>sum</td>
 </tr>
 <tr class="row-odd"><td>metric</td>
 <td>String</td>
 <td>Required</td>
 <td>The name of a metric stored in the system</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>sys.cpu.0</td>
 </tr>
 <tr class="row-even"><td>rate</td>
@@ -354,14 +348,14 @@
 <td>Map</td>
 <td>Optional</td>
 <td>To drill down to specific timeseries or group results by tag, supply one or more map values in the same format as the query string. Tags are converted to filters in 2.2. See the notes below about conversions. Note that if no tags are specified, all metrics in the system will be aggregated into the results. <em>Deprecated in 2.2</em></td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td><em>See Below</em></td>
 </tr>
 <tr class="row-even"><td>filters <em>(2.2)</em></td>
 <td>List</td>
 <td>Optional</td>
 <td>Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td><em>See Below</em></td>
 </tr>
 <tr class="row-odd"><td>explicitTags <em>(2.3)</em></td>
@@ -375,7 +369,7 @@
 <td>List</td>
 <td>Optional</td>
 <td>Fetches histogram data for the metric and computes the given list of percentiles on the data. Percentiles are floating point values from 0 to 100. More details below.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>[99.9, 95.0, 75.0]</td>
 </tr>
 </tbody>
@@ -383,7 +377,7 @@
 <div class="section" id="rate-options">
 <h3>Rate Options</h3>
 <p>When passing rate options in a query string, the options must be enclosed in curly braces. For example:  <code class="docutils literal"><span class="pre">m=sum:rate{counter,,1000}:if.octets.in</span></code>. If you wish to use the default <code class="docutils literal"><span class="pre">counterMax</span></code> but do want to supply a <code class="docutils literal"><span class="pre">resetValue</span></code>, you must add two commas as in the previous example. Additional fields in the <code class="docutils literal"><span class="pre">rateOptions</span></code> object include the following:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -436,23 +430,23 @@
 <div class="section" id="downsampling">
 <h3>Downsampling</h3>
 <p>Downsample specifications const if an interval, a unit of time, the <code class="docutils literal"><span class="pre">c</span></code> flag to use calendar based downsampling (as of 2.3), an aggregator and (as of 2.2) an optional fill policy. The format of a downsample spec is:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;interval&gt;&lt;units&gt;-&lt;aggregator&gt;[c][-&lt;fill policy&gt;]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">interval</span><span class="o">&gt;&lt;</span><span class="n">units</span><span class="o">&gt;-&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="o">-&lt;</span><span class="n">fill</span> <span class="n">policy</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>1h-sum
-30m-avg-nan
-24h-max-zero
-1dc-sum
-0all-sum
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="n">h</span><span class="o">-</span><span class="nb">sum</span>
+<span class="mi">30</span><span class="n">m</span><span class="o">-</span><span class="n">avg</span><span class="o">-</span><span class="n">nan</span>
+<span class="mi">24</span><span class="n">h</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">zero</span>
+<span class="mi">1</span><span class="n">dc</span><span class="o">-</span><span class="nb">sum</span>
+<span class="mi">0</span><span class="nb">all</span><span class="o">-</span><span class="nb">sum</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="../../user_guide/query/downsampling.html"><em>Downsampling</em></a> for details on downsampling, a list of supported fill policies and how calendar based downsampling operates.</p>
+<p>See <a class="reference internal" href="../../user_guide/query/downsampling.html"><span class="doc">Downsampling</span></a> for details on downsampling, a list of supported fill policies and how calendar based downsampling operates.</p>
 </div>
 <div class="section" id="filters">
 <h3>Filters</h3>
-<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><em>Query Filters</em></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
-<table border="1" class="docutils">
+<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><span class="doc">Query Filters</span></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -474,22 +468,22 @@
 <tr class="row-even"><td>type</td>
 <td>String</td>
 <td>Required</td>
-<td>The name of the filter to invoke. See <a class="reference internal" href="../config/filters.html"><em>/api/config/filters</em></a></td>
-<td>&nbsp;</td>
+<td>The name of the filter to invoke. See <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a></td>
+<td>&#160;</td>
 <td>regexp</td>
 </tr>
 <tr class="row-odd"><td>tagk</td>
 <td>String</td>
 <td>Required</td>
 <td>The tag key to invoke the filter on</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>host</td>
 </tr>
 <tr class="row-even"><td>filter</td>
 <td>String</td>
 <td>Required</td>
 <td>The filter expression to evaluate and depends on the filter being used</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>web.*.mysite.com</td>
 </tr>
 <tr class="row-odd"><td>groupBy</td>
@@ -514,7 +508,7 @@
 <div class="section" id="filter-conversions">
 <h3>Filter Conversions</h3>
 <p>Values in the POST query <code class="docutils literal"><span class="pre">tags</span></code> map and the <em>group by</em> curly brace of URI queries are automatically converted to filters to provide backwards compatibility with existing systems. The auto conversions include:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="25%" />
 <col width="75%" />
@@ -552,29 +546,29 @@
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>m=&lt;aggregator&gt;:[rate[{counter[,&lt;counter_max&gt;[,&lt;reset_value&gt;]]]}:][&lt;down_sampler&gt;:][percentiles\[&lt;p1&gt;, &lt;pn&gt;\]:][explicit_tags:]&lt;metric_name&gt;[{&lt;tag_name1&gt;=&lt;grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;grouping_filter&gt;]}][{&lt;tag_name1&gt;=&lt;non grouping filter&gt;[,...&lt;tag_nameN&gt;=&lt;non_grouping_filter&gt;]}]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">:[</span><span class="n">rate</span><span class="p">[{</span><span class="n">counter</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">counter_max</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">reset_value</span><span class="o">&gt;</span><span class="p">]]]}:][</span><span class="o">&lt;</span><span class="n">down_sampler</span><span class="o">&gt;</span><span class="p">:][</span><span class="n">percentiles</span>\<span class="p">[</span><span class="o">&lt;</span><span class="n">p1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">pn</span><span class="o">&gt;</span>\<span class="p">]:][</span><span class="n">explicit_tags</span><span class="p">:]</span><span class="o">&lt;</span><span class="n">metric_name</span><span class="o">&gt;</span><span class="p">[{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">grouping_filter</span><span class="o">&gt;</span><span class="p">]}][{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">non</span> <span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">non_grouping_filter</span><span class="o">&gt;</span><span class="p">]}]</span>
 </pre></div>
 </div>
-<p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><em>Query Examples</em></a>.</p>
+<p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><span class="doc">Query Examples</span></a>.</p>
 </div>
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>
 <p>TSUID queries are simpler than Metric queries. Simply pass a list of one or more hexadecimal encoded TSUIDs separated by commas:</p>
-<div class="highlight-python"><div class="highlight"><pre>tsuid=&lt;aggregator&gt;:&lt;tsuid1&gt;[,...&lt;tsuidN&gt;]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tsuid</span><span class="o">=&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">tsuid1</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tsuidN</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-query-string-requests">
 <h3>Example Query String Requests</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/query?start=1h-ago&amp;m=sum:rate:proc.stat.cpu{host=foo,type=idle}
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/query?start=1h-ago&amp;m=sum:rate:proc.stat.cpu{host=foo,type=idle}
 http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,000001000002000043
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-content-request">
 <h3>Example Content Request</h3>
-<p>Please see the serializer documentation for request information: <a class="reference internal" href="../serializers/index.html"><em>HTTP Serializers</em></a>. The following examples pertain to the default JSON serializer.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<p>Please see the serializer documentation for request information: <a class="reference internal" href="../serializers/index.html"><span class="doc">HTTP Serializers</span></a>. The following examples pertain to the default JSON serializer.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="mi">1356998400</span><span class="p">,</span>
     <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="mi">1356998460</span><span class="p">,</span>
     <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -592,15 +586,14 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
             <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
                 <span class="s2">&quot;000001000002000042&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;000001000002000043&quot;</span>
-              <span class="p">]</span>
-            <span class="p">}</span>
+            <span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>2.2 query with filters</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="mi">1356998400</span><span class="p">,</span>
     <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="mi">1356998460</span><span class="p">,</span>
     <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -620,7 +613,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
                    <span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="s2">&quot;dc&quot;</span><span class="p">,</span>
                    <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;lga|lga1|lga2&quot;</span><span class="p">,</span>
                    <span class="s2">&quot;groupBy&quot;</span><span class="o">:</span><span class="kc">false</span>
-                <span class="p">},</span>
+                <span class="p">}</span>
             <span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
@@ -628,8 +621,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
             <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
                 <span class="s2">&quot;000001000002000042&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;000001000002000043&quot;</span>
-              <span class="p">]</span>
-            <span class="p">}</span>
+            <span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -639,8 +631,8 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output generated for a query depends heavily on the chosen serializer <a class="reference internal" href="../serializers/index.html"><em>HTTP Serializers</em></a>. A request may result in multiple sets of data returned, particularly if the request included multiple queries or grouping was requested. Some common fields included with each data set in the response will be:</p>
-<table border="1" class="docutils">
+<p>The output generated for a query depends heavily on the chosen serializer <a class="reference internal" href="../serializers/index.html"><span class="doc">HTTP Serializers</span></a>. A request may result in multiple sets of data returned, particularly if the request included multiple queries or grouping was requested. Some common fields included with each data set in the response will be:</p>
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="80%" />
@@ -672,13 +664,13 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </tbody>
 </table>
 <p>Unless there was an error with the query, you will generally receive a <code class="docutils literal"><span class="pre">200</span></code> status with content. However if your query couldn't find any data, it will return an empty result set. In the case of the JSON serializer, the result will be an empty array:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[]</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[]</span>
 </pre></div>
 </div>
 <p>For the JSON serializer, the timestamp will always be a Unix epoch style integer followed by the value as an integer or a floating point. For example, the default output is <code class="docutils literal"><span class="pre">&quot;dps&quot;{&quot;&lt;timestamp&gt;&quot;:&lt;value&gt;}</span></code>. By default the timestamps will be in seconds. If the <code class="docutils literal"><span class="pre">msResolution</span></code> flag is set, then the timestamps will be in milliseconds.</p>
 <div class="section" id="example-aggregated-default-response">
 <h3>Example Aggregated Default Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
@@ -724,7 +716,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </div>
 <div class="section" id="example-aggregated-array-response">
 <h3>Example Aggregated Array Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
@@ -754,7 +746,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 <div class="section" id="example-multi-set-response">
 <h3>Example Multi-Set Response</h3>
 <p>For the following example, two TSDs were running and the query was: <code class="docutils literal"><span class="pre">http://localhost:4242/api/query?start=1h-ago&amp;m=sum:tsd.hbase.puts{host=*}</span></code>. This returns two explicit time series.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -787,8 +779,8 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </div>
 <div class="section" id="example-with-show-summary-and-query">
 <h3>Example With Show Summary and Query</h3>
-<p>See <a class="reference internal" href="../../user_guide/query/stats.html"><em>Query Details and Stats</em></a></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<p>See <a class="reference internal" href="../../user_guide/query/stats.html"><span class="doc">Query Details and Stats</span></a></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
@@ -856,8 +848,8 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
         <li class="right" >
           <a href="../histogram.html" title="/api/histogram"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

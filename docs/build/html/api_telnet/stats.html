@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>stats &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>stats &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="Telnet Style API" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="version" href="version.html" />
-    <link rel="prev" title="rollup" href="rollup.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="histogram" href="histogram.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -51,10 +48,10 @@
           <a href="version.html" title="version"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="rollup.html" title="rollup"
+          <a href="histogram.html" title="histogram"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -72,22 +69,19 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="rollup.html"
-                        title="previous chapter">rollup</a></p>
+  <p class="topless"><a href="histogram.html"
+                        title="previous chapter">histogram</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="version.html"
                         title="next chapter">version</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -100,11 +94,11 @@
             
   <div class="section" id="stats">
 <h1>stats</h1>
-<p>This command is similar to the HTTP <a class="reference internal" href="../api_http/stats/index.html"><em>/api/stats</em></a> endpoint in that it will return a list of the TSD stats, one per line, in the <code class="docutils literal"><span class="pre">put</span></code> format. This command does not modify TSD in any way.</p>
+<p>This command is similar to the HTTP <a class="reference internal" href="../api_http/stats/index.html"><span class="doc">/api/stats</span></a> endpoint in that it will return a list of the TSD stats, one per line, in the <code class="docutils literal"><span class="pre">put</span></code> format. This command does not modify TSD in any way.</p>
 <div class="section" id="request">
 <h2>Request</h2>
 <p>The command format is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">stats</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">stats</span>
 </pre></div>
 </div>
 </div>
@@ -113,15 +107,15 @@
 <p>A set of time series with data about the running TSD.</p>
 <div class="section" id="example">
 <h3>Example</h3>
-<div class="highlight-python"><div class="highlight"><pre>tsd.hbase.rpcs 1479600574 0 type=increment host=web01
-tsd.hbase.rpcs 1479600574 0 type=delete host=web01
-tsd.hbase.rpcs 1479600574 1 type=get host=web01
-tsd.hbase.rpcs 1479600574 0 type=put host=web01
-tsd.hbase.rpcs 1479600574 0 type=append host=web01
-tsd.hbase.rpcs 1479600574 0 type=rowLock host=web01
-tsd.hbase.rpcs 1479600574 0 type=openScanner host=web01
-tsd.hbase.rpcs 1479600574 0 type=scan host=web01
-tsd.hbase.rpcs.batched 1479600574 0 host=web01
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">increment</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">delete</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">1</span> <span class="nb">type</span><span class="o">=</span><span class="n">get</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">put</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">append</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">rowLock</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">openScanner</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">scan</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span><span class="o">.</span><span class="n">batched</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
 </pre></div>
 </div>
 </div>
@@ -144,10 +138,10 @@ tsd.hbase.rpcs.batched 1479600574 0 host=web01
           <a href="version.html" title="version"
              >next</a> |</li>
         <li class="right" >
-          <a href="rollup.html" title="rollup"
+          <a href="histogram.html" title="histogram"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

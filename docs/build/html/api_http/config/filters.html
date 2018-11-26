@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/config/filters &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/config/filters &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="/api/config" href="index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/dropcaches" href="../dropcaches.html" />
     <link rel="prev" title="/api/config" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,9 +50,9 @@
         <li class="right" >
           <a href="index.html" title="/api/config"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/config</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/config</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -85,14 +82,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -120,7 +114,7 @@ This endpoint lists the various filters loaded by the TSD and some information a
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/config/filters
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">filters</span>
 </pre></div>
 </div>
 </div>
@@ -130,7 +124,7 @@ This endpoint lists the various filters loaded by the TSD and some information a
 <p>The response is a map of filter names or types and sub maps of examples and descriptions. The examples show how to use them in both URI and JSON queries.</p>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;iliteral_or&quot;</span><span class="o">:</span> <span class="p">{</span>
       <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=iliteral_or(web01),  host=iliteral_or(web01|web02|web03)  {\&quot;type\&quot;:\&quot;iliteral_or\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;web01|web02|web03\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
       <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Accepts one or more exact values and matches if the series contains any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case insensitive and will not allow characters that TSDB does not allow at write time.&quot;</span>
@@ -188,9 +182,9 @@ This endpoint lists the various filters loaded by the TSD and some information a
         <li class="right" >
           <a href="index.html" title="/api/config"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/config</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/config</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

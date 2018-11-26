@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Rollup And Pre-Aggregates &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Rollup And Pre-Aggregates &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="UIDs and TSUIDs" href="uids.html" />
     <link rel="prev" title="Query Details and Stats" href="query/stats.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="query/stats.html" title="Query Details and Stats"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -96,14 +93,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -119,12 +113,12 @@
 <p>While TSDB is designed to store original, full resolution data as long as there is space, queries for wide time ranges or over many tag combinations can be quite painful. Such queries can take a long time to complete or, in the worst case, kill TSDs with out-of-memory exceptions. As of OpenTSDB 2.4, a set of new APIs allow for storing and querying lower resolution data to answer such queries much quicker. This page will give you an overview of what rollups and pre-aggregates are, how they work in TSDB and how best to use them. Look in the API's section for specific implementation details.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">OpenTSDB does not itself calculate and store rollup or pre-aggregated data. There are multiple ways to compute the results but they all have benefits and drawbacks depending on the scale and accuracy requirements. See the <a class="reference internal" href="#generating"><span>Generating Rollups and Pre-Aggregates</span></a> section discussing how to create this data.</p>
+<p class="last">OpenTSDB does not itself calculate and store rollup or pre-aggregated data. There are multiple ways to compute the results but they all have benefits and drawbacks depending on the scale and accuracy requirements. See the <a class="reference internal" href="#generating"><span class="std std-ref">Generating Rollups and Pre-Aggregates</span></a> section discussing how to create this data.</p>
 </div>
 <div class="section" id="example-data">
 <h2>Example Data</h2>
 <p>To help describe the lower resolution data, lets look at some full resolution (also known as <em>raw</em> data) example data. The first table defines the time series with a short-cut identifier.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="30%" />
@@ -169,7 +163,7 @@
 </table>
 <p>Notice that they all have the same <code class="docutils literal"><span class="pre">metric</span></code> and <code class="docutils literal"><span class="pre">interface</span></code> tag, but different <code class="docutils literal"><span class="pre">host</span></code> and <code class="docutils literal"><span class="pre">colo</span></code> tags.</p>
 <p>Next for some data written at 15 minute intervals:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="10%" />
@@ -210,7 +204,7 @@
 <td>8</td>
 <td>-9</td>
 <td>4</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>1</td>
 <td>1</td>
 </tr>
@@ -225,7 +219,7 @@
 <td>2</td>
 </tr>
 <tr class="row-odd"><td>ts4</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>2</td>
 <td>5</td>
 <td>2</td>
@@ -254,7 +248,7 @@
 <div class="section" id="rollup-example">
 <h3>Rollup Example</h3>
 <p>Given the series above, lets store the <code class="docutils literal"><span class="pre">sum</span></code> and <code class="docutils literal"><span class="pre">count</span></code> with an interval of <code class="docutils literal"><span class="pre">1h</span></code>.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="50%" />
 <col width="25%" />
@@ -308,7 +302,7 @@
 <h3>Averaging Rollup Example</h3>
 <p>When rollups are enabled and you request a downsampler with the <code class="docutils literal"><span class="pre">avg</span></code> function from OpenTSDB, the TSD will scan storage for <code class="docutils literal"><span class="pre">SUM</span></code> and <code class="docutils literal"><span class="pre">COUNT</span></code> values. Then while iterating over the data it will accurately compute the average.</p>
 <p>The timestamps for count and sum values must match. However, if the expected count value for a sum is missing, the sum will be kicked out of the results. Take the following example set from above where we're now missing a count data point in <code class="docutils literal"><span class="pre">ts2</span></code>.</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="50%" />
 <col width="25%" />
@@ -335,12 +329,12 @@
 </tr>
 <tr class="row-odd"><td>ts2 COUNT</td>
 <td>4</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
 <p>The resulting <code class="docutils literal"><span class="pre">avg</span></code> for a <code class="docutils literal"><span class="pre">2h</span></code> downsampling query would look like this:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="67%" />
 <col width="33%" />
@@ -372,7 +366,7 @@
 <div class="section" id="pre-aggregate-example">
 <h3>Pre-Aggregate Example</h3>
 <p>Given the example set at the top, we may want to look at the total interface traffic by colo (data center). In that case, we can aggregate by <code class="docutils literal"><span class="pre">SUM</span></code> and <code class="docutils literal"><span class="pre">COUNT</span></code> similarly to the rollups. The result would be four <strong>new</strong> time series with meta data like:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="30%" />
@@ -415,7 +409,7 @@
 <p class="last">With rollups enabled, if you plan to use pre-aggregates, you may want to help differentiate raw data from pre-aggregates by having TSDB automatically inject <code class="docutils literal"><span class="pre">_aggregate=RAW</span></code>. Just configure the <code class="docutils literal"><span class="pre">tsd.rollups.tag_raw</span></code> setting to true.</p>
 </div>
 <p>Now for the resulting data:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
 <col width="10%" />
@@ -543,7 +537,7 @@
 <h2>Configuration</h2>
 <p id="rollup-configuration">For Opentsdb 2.4, the rollup configuration is referenced by the opentsdb.conf key <code class="docutils literal"><span class="pre">tsd.rollups.config</span></code>. The value of this key must either but a quote-escaped JSON string without newlines or, preferably, the path to a JSON file containing the configuration. The file name must end with <code class="docutils literal"><span class="pre">.json</span></code> as in <code class="docutils literal"><span class="pre">rollup_config.json</span></code>.</p>
 <p>The JSON configuration should look something like this:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;aggregationIds&quot;</span><span class="o">:</span> <span class="p">{</span>
               <span class="s2">&quot;sum&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
               <span class="s2">&quot;count&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -587,7 +581,7 @@
 <li><strong>Rollup Interval</strong> - Any interval with <code class="docutils literal"><span class="pre">&quot;defaultInterval&quot;:false</span></code> or the default interval not set. These are rollup tables where values are snapped to interval boundaries.</li>
 </ul>
 <p>The following fields should be defined:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="15%" />
 <col width="10%" />
@@ -663,8 +657,8 @@
         <li class="right" >
           <a href="query/stats.html" title="Query Details and Stats"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

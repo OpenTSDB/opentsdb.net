@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Quick Start &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>Quick Start &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -37,14 +35,14 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -64,14 +62,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -84,11 +79,11 @@
             
   <div class="section" id="quick-start">
 <h1>Quick Start</h1>
-<p>Once you have a TSD up and running (after following the <a class="reference internal" href="../installation.html"><em>Installation</em></a> guide) you can follow the steps below to get some data into OpenTSDB. After you have some data stored, pull up the GUI and try generating some graphs.</p>
+<p>Once you have a TSD up and running (after following the <a class="reference internal" href="../installation.html"><span class="doc">Installation</span></a> guide) you can follow the steps below to get some data into OpenTSDB. After you have some data stored, pull up the GUI and try generating some graphs.</p>
 <div class="section" id="create-your-first-metrics">
 <h2>Create Your First Metrics</h2>
 <p>Metrics need to be registered before you can start storing data points for them. This helps to avoid ingesting unwanted data and catch typos. You can enable auto-metric creation via configuration. To register one or more metrics, call the <code class="docutils literal"><span class="pre">mkmetric</span></code> CLI:</p>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb mkmetric mysql.bytes_received mysql.bytes_sent
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">mkmetric</span> <span class="n">mysql</span><span class="o">.</span><span class="n">bytes_received</span> <span class="n">mysql</span><span class="o">.</span><span class="n">bytes_sent</span>
 </pre></div>
 </div>
 <p>This will create 2 metrics: <code class="docutils literal"><span class="pre">mysql.bytes_received</span></code> and <code class="docutils literal"><span class="pre">mysql.bytes_sent</span></code></p>
@@ -97,7 +92,7 @@
 <div class="section" id="start-collecting-data">
 <h2>Start Collecting Data</h2>
 <p>So now that we have our 2 metrics, we can start sending data to the TSD. Let's write a little shell script to collect some data off of MySQL and send it to the TSD:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &gt;mysql-collector.sh &lt;&lt;\EOF
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &gt;mysql-collector.sh &lt;&lt;\EOF
 #!/bin/bash
 set -e
 while true; do
@@ -113,7 +108,7 @@ nohup ./mysql-collector.sh &amp;
 </div>
 <p>Every 15 seconds, the script will collect 2 data points from MySQL and send them to the TSD. You can use a smaller sleep interval for greater granularity.</p>
 <p>What does the script do? If you're not a big fan of shell and awk scripting, it may not be obvious how this works. But it's simple. The <code class="docutils literal"><span class="pre">set</span> <span class="pre">-e</span></code> command simply instructs bash to exit with an error if any of the commands fail. This simplifies error handling. The script then enters an infinite loop. In this loop, we query MySQL to retrieve 2 of its status variables:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mysql -u USER -pPASS --execute &quot;SHOW STATUS LIKE &#39;bytes%&#39;&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mysql -u USER -pPASS --execute &quot;SHOW STATUS LIKE &#39;bytes%&#39;&quot;
 +----------------+-------+
 | Variable_name  | Value |
 +----------------+-------+
@@ -125,7 +120,7 @@ nohup ./mysql-collector.sh &amp;
 <p>The <code class="docutils literal"><span class="pre">--batch</span> <span class="pre">-N</span></code> flags ask the mysql command to remove the human friendly fluff so we don't have to filter it out ourselves. Then the output is piped to awk, which is told to split fields on tabs <code class="docutils literal"><span class="pre">-F&quot;\t&quot;</span></code> because with the <code class="docutils literal"><span class="pre">--batch</span></code> flag that's what mysql will use. We also create a couple of variables, one named <code class="docutils literal"><span class="pre">now`</span> <span class="pre">and</span> <span class="pre">initialize</span> <span class="pre">it</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">timestamp,</span> <span class="pre">the</span> <span class="pre">other</span> <span class="pre">named</span> <span class="pre">``host`</span> <span class="pre">and</span> <span class="pre">set</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">hostname</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">local</span> <span class="pre">machine.</span> <span class="pre">Then,</span> <span class="pre">for</span> <span class="pre">every</span> <span class="pre">line,</span> <span class="pre">we</span> <span class="pre">print</span> <span class="pre">put</span> <span class="pre">``mysql.</span></code>, followed by the lower-case form of the first word, then by a space, then by the current timestamp, then by the second word (the value), another space, and finally <code class="docutils literal"><span class="pre">host=</span></code> and the current hostname. Rinse and repeat every 15 seconds. The <code class="docutils literal"><span class="pre">-w</span> <span class="pre">30</span></code> parameter given to <code class="docutils literal"><span class="pre">nc</span></code> simply sets a timeout on the connection to the TSD.
 Bear in mind, this is just an example, in practice you can use tcollector's MySQL collector.</p>
 <p>If you don't have a MySQL server to monitor, you can try this instead to collect basic load metrics from your Linux servers:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &gt;loadavg-collector.sh &lt;&lt;\EOF
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &gt;loadavg-collector.sh &lt;&lt;\EOF
 #!/bin/bash
 set -e
 while true; do
@@ -140,36 +135,36 @@ nohup ./loadavg-collector.sh &amp;
 </pre></div>
 </div>
 <p>This will store a reading of the 1-minute and 5-minute load average of your server in OpenTSDB by sending simple &quot;telnet-style commands&quot; to the TSD:</p>
-<div class="highlight-python"><div class="highlight"><pre>put proc.loadavg.1m 1288946927 0.36 host=foo
-put proc.loadavg.5m 1288946927 0.62 host=foo
-put proc.loadavg.1m 1288946942 0.43 host=foo
-put proc.loadavg.5m 1288946942 0.62 host=foo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">put</span> <span class="n">proc</span><span class="o">.</span><span class="n">loadavg</span><span class="o">.</span><span class="mi">1</span><span class="n">m</span> <span class="mi">1288946927</span> <span class="mf">0.36</span> <span class="n">host</span><span class="o">=</span><span class="n">foo</span>
+<span class="n">put</span> <span class="n">proc</span><span class="o">.</span><span class="n">loadavg</span><span class="o">.</span><span class="mi">5</span><span class="n">m</span> <span class="mi">1288946927</span> <span class="mf">0.62</span> <span class="n">host</span><span class="o">=</span><span class="n">foo</span>
+<span class="n">put</span> <span class="n">proc</span><span class="o">.</span><span class="n">loadavg</span><span class="o">.</span><span class="mi">1</span><span class="n">m</span> <span class="mi">1288946942</span> <span class="mf">0.43</span> <span class="n">host</span><span class="o">=</span><span class="n">foo</span>
+<span class="n">put</span> <span class="n">proc</span><span class="o">.</span><span class="n">loadavg</span><span class="o">.</span><span class="mi">5</span><span class="n">m</span> <span class="mi">1288946942</span> <span class="mf">0.62</span> <span class="n">host</span><span class="o">=</span><span class="n">foo</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="batch-imports">
 <h2>Batch Imports</h2>
 <p>Let's imagine that you have a cron job that crunches gigabytes of application logs every day or every hour to extract profiling data. For instance, you could be logging the time taken to process a request and your cron job would compute an average for every 30 second window. Maybe you're particularly interested in 2 types of requests handled by your application, so you'll compute separate averages for those requests, and an another average for every other request type. So your cron job may produce an output file that looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>1288900000 42 foo
-1288900000 51 bar
-1288900000 69 other
-1288900030 40 foo
-1288900030 59 bar
-1288900030 80 other
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1288900000</span> <span class="mi">42</span> <span class="n">foo</span>
+<span class="mi">1288900000</span> <span class="mi">51</span> <span class="n">bar</span>
+<span class="mi">1288900000</span> <span class="mi">69</span> <span class="n">other</span>
+<span class="mi">1288900030</span> <span class="mi">40</span> <span class="n">foo</span>
+<span class="mi">1288900030</span> <span class="mi">59</span> <span class="n">bar</span>
+<span class="mi">1288900030</span> <span class="mi">80</span> <span class="n">other</span>
 </pre></div>
 </div>
 <p>The first column is a timestamp, the second is the average latency for that 30 second window, and the third is the type of request we're talking about. If you run your cron job on a day worth of logs, you'll end up with 8640 such lines. In order to import those into OpenTSDB, you need to adjust your cron job slightly to produce its output in the following format:</p>
-<div class="highlight-python"><div class="highlight"><pre>myservice.latency.avg 1288900000 42 reqtype=foo
-myservice.latency.avg 1288900000 51 reqtype=bar
-myservice.latency.avg 1288900000 69 reqtype=other
-myservice.latency.avg 1288900030 40 reqtype=foo
-myservice.latency.avg 1288900030 59 reqtype=bar
-myservice.latency.avg 1288900030 80 reqtype=other
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myservice</span><span class="o">.</span><span class="n">latency</span><span class="o">.</span><span class="n">avg</span> <span class="mi">1288900000</span> <span class="mi">42</span> <span class="n">reqtype</span><span class="o">=</span><span class="n">foo</span>
+<span class="n">myservice</span><span class="o">.</span><span class="n">latency</span><span class="o">.</span><span class="n">avg</span> <span class="mi">1288900000</span> <span class="mi">51</span> <span class="n">reqtype</span><span class="o">=</span><span class="n">bar</span>
+<span class="n">myservice</span><span class="o">.</span><span class="n">latency</span><span class="o">.</span><span class="n">avg</span> <span class="mi">1288900000</span> <span class="mi">69</span> <span class="n">reqtype</span><span class="o">=</span><span class="n">other</span>
+<span class="n">myservice</span><span class="o">.</span><span class="n">latency</span><span class="o">.</span><span class="n">avg</span> <span class="mi">1288900030</span> <span class="mi">40</span> <span class="n">reqtype</span><span class="o">=</span><span class="n">foo</span>
+<span class="n">myservice</span><span class="o">.</span><span class="n">latency</span><span class="o">.</span><span class="n">avg</span> <span class="mi">1288900030</span> <span class="mi">59</span> <span class="n">reqtype</span><span class="o">=</span><span class="n">bar</span>
+<span class="n">myservice</span><span class="o">.</span><span class="n">latency</span><span class="o">.</span><span class="n">avg</span> <span class="mi">1288900030</span> <span class="mi">80</span> <span class="n">reqtype</span><span class="o">=</span><span class="n">other</span>
 </pre></div>
 </div>
 <p>Notice we're simply associating each data point with the name of a metric (myservice.latency.avg) and naming the tag that represents the request type. If each server has its own logs and you process them separately, you may want to add another tag to each line like the <code class="docutils literal"><span class="pre">host=foo</span></code> tag we saw in the previous section. This way you'll be able to plot the latency of each server individually, in addition to your average latency across the board and/or per request type.
 In order to import a data file in the format above (metric timestamp value tags) simply run the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>./tsdb import your-file
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="kn">import</span> <span class="nn">your</span><span class="o">-</span><span class="n">file</span>
 </pre></div>
 </div>
 <p>If your data file is large, consider gzip'ing it first. This can be as simple as piping the output of your cron job to <code class="docutils literal"><span class="pre">gzip</span> <span class="pre">-9</span> <span class="pre">&gt;output.gz</span></code> instead of writing directly to a file. The import command is able to read gzip'ed files and it greatly helps performance for large batch imports.</p>
@@ -177,14 +172,14 @@ In order to import a data file in the format above (metric timestamp value tags)
 <div class="section" id="self-monitoring">
 <h2>Self Monitoring</h2>
 <p>Each TSD exports some stats about itself through the simple stats command. You can collect those stats and feed them back to the TSD every few seconds. First, create the necessary metrics:</p>
-<div class="highlight-python"><div class="highlight"><pre>echo stats | nc -w 1 localhost 4242 \
-| awk &#39;{ print $1 }&#39; | sort -u \
-| xargs ./tsdb mkmetric
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">stats</span> <span class="o">|</span> <span class="n">nc</span> <span class="o">-</span><span class="n">w</span> <span class="mi">1</span> <span class="n">localhost</span> <span class="mi">4242</span> \
+<span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{ print $1 }&#39;</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">u</span> \
+<span class="o">|</span> <span class="n">xargs</span> <span class="o">./</span><span class="n">tsdb</span> <span class="n">mkmetric</span>
 </pre></div>
 </div>
 <p>This requests the stats from the TSD (assuming it's running on the local host and listening to port 4242), extract the names of the metrics from the stats and assigns them UIDs.
 Then you can use this simple script to collect stats and store them in OpenTSDB:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
+<div class="highlight-default"><div class="highlight"><pre><span></span>#!/bin/bash
 INTERVAL=15
 while :; do
   echo stats || exit
@@ -217,7 +212,7 @@ done | nc -w 30 localhost $1 \
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

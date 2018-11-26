@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>/api/tree &mdash; OpenTSDB 2.3 documentation</title>
-    
+    <title>/api/tree &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '2.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="OpenTSDB 2.3 documentation" href="../../index.html" />
-    <link rel="up" title="HTTP API" href="../index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/tree/branch" href="branch.html" />
     <link rel="prev" title="/api/suggest" href="../suggest.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   })();
 </script>
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -53,8 +50,8 @@
         <li class="right" >
           <a href="../suggest.html" title="/api/suggest"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -97,14 +94,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -148,7 +142,7 @@
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>The following fields can be used for all tree endpoint requests:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="5%" />
@@ -175,7 +169,7 @@
 <td>Integer</td>
 <td>Required*</td>
 <td>Used to fetch or modify a specific tree. <a href="#id1"><span class="problematic" id="id2">*</span></a>When creating a new tree, the <code class="docutils literal"><span class="pre">tree</span></code> value must not be present.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>treeid</td>
 <td>RO</td>
 <td>1</td>
@@ -184,7 +178,7 @@
 <td>String</td>
 <td>Required*</td>
 <td>A brief, descriptive name for the tree. <a href="#id3"><span class="problematic" id="id4">*</span></a>Required only when creating a tree.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>name</td>
 <td>RW</td>
 <td>Network Infrastructure</td>
@@ -193,7 +187,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>A longer description of what the tree contains</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>description</td>
 <td>RW</td>
 <td>Tree containing all network gear</td>
@@ -202,10 +196,10 @@
 <td>String</td>
 <td>Optional</td>
 <td>Detailed notes about the tree</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>notes</td>
 <td>RW</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>strictMatch</td>
 <td>Boolean</td>
@@ -240,7 +234,7 @@
 <td>Used only when <code class="docutils literal"><span class="pre">DELETE</span></code> ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries</td>
 <td>false</td>
 <td>definition</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>true</td>
 </tr>
 </tbody>
@@ -250,7 +244,7 @@
 <h2>Response</h2>
 <p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return tree objects with optinally requested changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested tree did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
 <col width="10%" />
@@ -283,13 +277,13 @@
 <p>A <code class="docutils literal"><span class="pre">GET</span></code> request to <code class="docutils literal"><span class="pre">/api/tree</span></code> without a tree ID will return a list of all of the trees configured in the system. The results will include configured rules for each tree. If no trees have been configured yet, the list will be empty.</p>
 <div class="section" id="example-get-all-trees-query">
 <h3>Example GET All Trees Query</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">tree</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Test Tree&quot;</span><span class="p">,</span>
         <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;My Description&quot;</span><span class="p">,</span>
@@ -385,13 +379,13 @@
 </div>
 <div class="section" id="example-get-single-tree">
 <h3>Example GET Single Tree</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/treeId?tree=1
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/treeId?tree=1
 </pre></div>
 </div>
 </div>
 <div class="section" id="id7">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;2nd Tree&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Other Tree&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -448,13 +442,13 @@
 </div>
 <div class="section" id="example-post-create-request">
 <h3>Example POST Create Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree?name=Network%20Tree&amp;method_override=post
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?name=Network%20Tree&amp;method_override=post
 </pre></div>
 </div>
 </div>
 <div class="section" id="id8">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -470,13 +464,13 @@
 </div>
 <div class="section" id="example-post-edit-request">
 <h3>Example POST Edit Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree?treeId=3&amp;description=Network%20Device%20Information&amp;method_override=post
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?treeId=3&amp;description=Network%20Device%20Information&amp;method_override=post
 </pre></div>
 </div>
 </div>
 <div class="section" id="id9">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Network Device Information&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -504,7 +498,7 @@
 </div>
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
-<div class="highlight-python"><div class="highlight"><pre>http://localhost:4242/api/tree?tree=1&amp;method_override=delete
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?tree=1&amp;method_override=delete
 </pre></div>
 </div>
 </div>
@@ -529,8 +523,8 @@
         <li class="right" >
           <a href="../suggest.html" title="/api/suggest"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

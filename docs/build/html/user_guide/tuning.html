@@ -67,6 +67,9 @@
 <li><a class="reference internal" href="#date-tierd-compaction">Date Tierd Compaction</a></li>
 <li><a class="reference internal" href="#hbase-read-write-queues">HBase Read/Write Queues</a></li>
 <li><a class="reference internal" href="#hbase-cache">HBase Cache</a></li>
+<li><a class="reference internal" href="#hbase-compaction">HBase Compaction</a></li>
+<li><a class="reference internal" href="#hbase-regions">HBase Regions</a></li>
+<li><a class="reference internal" href="#hbase-memstore">HBase Memstore</a></li>
 </ul>
 </li>
 </ul>
@@ -153,6 +156,24 @@
 <span class="n">hbase</span><span class="o">.</span><span class="n">lru</span><span class="o">.</span><span class="n">blockcache</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">percentage</span><span class="o">=.</span><span class="mi">01</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="hbase-compaction">
+<h3>HBase Compaction</h3>
+<p>Compaction is the process of merging multiple stores on disk for a region into fewer files to reduce space and query times. You can tune the number of threads and thresholds for compaction to avoid using too many resources when the focus should be on writes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hbase</span><span class="o">.</span><span class="n">hstore</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">ratio</span><span class="o">=</span><span class="mf">1.2</span>
+<span class="n">hbase</span><span class="o">.</span><span class="n">regionserver</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">large</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">hbase</span><span class="o">.</span><span class="n">regionserver</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">small</span><span class="o">=</span><span class="mi">6</span>
+<span class="n">hbase</span><span class="o">.</span><span class="n">regionserver</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">throttle</span><span class="o">=</span><span class="mi">524288000</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hbase-regions">
+<h3>HBase Regions</h3>
+<p>For OpenTSDB we've observed that 10G regions are a good size for a large cluster <cite>hbase.hregion.max.filesize=10737418240</cite>.</p>
+</div>
+<div class="section" id="hbase-memstore">
+<h3>HBase Memstore</h3>
+<p>Try flushing the mem store to disk (and cache) more often, particularly for heavy write loads. We've seen good behavior with 16MBs <cite>hbase.hregion.memstore.flush.size=16777216</cite>. Also try reducing the memstore size limit via <cite>hbase.regionserver.global.memstore.lowerLimit=.20</cite> and <cite>hbase.regionserver.global.memstore.upperLimit=.30</cite>.</p>
 </div>
 </div>
 </div>

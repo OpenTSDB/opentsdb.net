@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/search &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -83,12 +74,14 @@
                         title="next chapter">/api/serializers</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -101,10 +94,10 @@
             
   <div class="section" id="api-search">
 <h1>/api/search</h1>
-<p>This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table when enabled. Optionally, a search plugin can be installed to send and retreive information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen.</p>
+<p>This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the <code class="docutils literal notranslate"><span class="pre">tsdb-meta</span></code> table when enabled. Optionally, a search plugin can be installed to send and retreive information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If the plugin is not configured or enabled, endpoints other than <code class="docutils literal"><span class="pre">/api/search/lookup</span></code> will return an exception.</p>
+<p class="last">If the plugin is not configured or enabled, endpoints other than <code class="docutils literal notranslate"><span class="pre">/api/search/lookup</span></code> will return an exception.</p>
 </div>
 <div class="section" id="search-api-endpoints">
 <h2>Search API Endpoints</h2>
@@ -171,7 +164,7 @@
 <tr class="row-even"><td>startIndex</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>Used in combination with the <code class="docutils literal"><span class="pre">limit</span></code> value to page through results. Allowable values depends on the plugin. Ignored for lookups.</td>
+<td>Used in combination with the <code class="docutils literal notranslate"><span class="pre">limit</span></code> value to page through results. Allowable values depends on the plugin. Ignored for lookups.</td>
 <td>0</td>
 <td>start_index</td>
 <td>&#160;</td>
@@ -200,11 +193,11 @@
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p>Query String:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/search/tsmeta?query=name:*&amp;limit=3&amp;start_index=0
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/search/tsmeta?query=name:*&amp;limit=3&amp;start_index=0
 </pre></div>
 </div>
 <p>POST:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
     <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">5</span>
@@ -281,12 +274,12 @@
 </tr>
 </tbody>
 </table>
-<p>This endpoint will almost always return a <code class="docutils literal"><span class="pre">200</span></code> with content body. If the query doesn't match any results, the <code class="docutils literal"><span class="pre">results</span></code> field will be an empty array and <code class="docutils literal"><span class="pre">totalResults</span></code> will be 0. If an error occurs, such as the plugin being disabled or not configured, an exception will be returned.</p>
+<p>This endpoint will almost always return a <code class="docutils literal notranslate"><span class="pre">200</span></code> with content body. If the query doesn’t match any results, the <code class="docutils literal notranslate"><span class="pre">results</span></code> field will be an empty array and <code class="docutils literal notranslate"><span class="pre">totalResults</span></code> will be 0. If an error occurs, such as the plugin being disabled or not configured, an exception will be returned.</p>
 </div>
 <div class="section" id="tsmeta-response">
 <span id="tsmeta-endpoint"></span><h2>TSMETA Response</h2>
 <p>The TSMeta endpoint returns a list of matching TSMeta objects.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSMETA&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -396,7 +389,7 @@
 <div class="section" id="tsmeta-summary-response">
 <span id="tsmeta-summary-endpoint"></span><h2>TSMETA_SUMMARY Response</h2>
 <p>The TSMeta Summary endpoint returns just the basic information associated with a timeseries including the TSUID, the metric name and tags. The search is run against the same index as the TSMeta query but returns a subset of the data.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSMETA_SUMMARY&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -435,7 +428,7 @@
 <div class="section" id="tsuids-response">
 <span id="tsuids-endpoint"></span><h2>TSUIDS Response</h2>
 <p>The TSUIDs endpoint returns a list of TSUIDS that match the query. The search is run against the same index as the TSMeta query but returns a subset of the data.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSUIDS&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -456,7 +449,7 @@
 <div class="section" id="uidmeta-response">
 <span id="uidmeta-endpoint"></span><h2>UIDMETA Response</h2>
 <p>The UIDMeta endpoint returns a list of UIDMeta objects that match the query.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;UIDMETA&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -504,7 +497,7 @@
 <div class="section" id="annotation-response">
 <span id="annotation-endpoint"></span><h2>Annotation Response</h2>
 <p>The Annotation endpoint returns a list of Annotation objects that match the query.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;ANNOTATION&quot;</span><span class="p">,</span>
     <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;description:*&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
@@ -555,7 +548,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

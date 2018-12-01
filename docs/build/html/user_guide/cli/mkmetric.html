@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>mkmetric &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -74,12 +65,14 @@
                         title="next chapter">import</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -92,23 +85,23 @@
             
   <div class="section" id="mkmetric">
 <h1>mkmetric</h1>
-<p>mkmetric is a shortcut to the <code class="docutils literal"><span class="pre">uid</span> <span class="pre">assign</span> <span class="pre">metrics</span> <span class="pre">&lt;metric&gt;</span></code> command where you can provide multiple metric names in a single call and UIDs will be assigned or retrieved. If any of the metrics already exist, the assigned UID will be returned.</p>
+<p>mkmetric is a shortcut to the <code class="docutils literal notranslate"><span class="pre">uid</span> <span class="pre">assign</span> <span class="pre">metrics</span> <span class="pre">&lt;metric&gt;</span></code> command where you can provide multiple metric names in a single call and UIDs will be assigned or retrieved. If any of the metrics already exist, the assigned UID will be returned.</p>
 <div class="section" id="parameters">
 <h2>Parameters</h2>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkmetric metric <span class="o">[</span>metrics<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkmetric metric <span class="o">[</span>metrics<span class="o">]</span>
 </pre></div>
 </div>
 <p>Simply supply one or more space separate metric names in the call.</p>
 <p>Example</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkmetric sys.cpu.user sys.cpu.nice sys.cpu.idle
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkmetric sys.cpu.user sys.cpu.nice sys.cpu.idle
 </pre></div>
 </div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The response is the literal &quot;metrics&quot; followed by the name of the metric and a Java formatted byte array representing the UID assigned or retrieved for each metric, one per line.</p>
+<p>The response is the literal “metrics” followed by the name of the metric and a Java formatted byte array representing the UID assigned or retrieved for each metric, one per line.</p>
 <p>Example</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>metrics sys.cpu.user: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, -58<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>metrics sys.cpu.user: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, -58<span class="o">]</span>
 metrics sys.cpu.nice: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, -57<span class="o">]</span>
 metrics sys.cpu.idle: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, -59<span class="o">]</span>
 </pre></div>
@@ -140,7 +133,7 @@ metrics sys.cpu.idle: <span class="o">[</span><span class="m">0</span>, <span cl
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

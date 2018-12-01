@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cassandra &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -74,12 +65,14 @@
                         title="next chapter">CLI Tools</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -92,14 +85,14 @@
             
   <div class="section" id="cassandra">
 <h1>Cassandra</h1>
-<p>Cassandra is an eventually consistent key value store similar to HBase and Google`s Bigtable. It implements a distributed hash map with column families originally it supported a Thrift based API very close to HBase`s. Lately Cassandra has moved towards a SQL like query language with much more flexibility around data types, joints and filters. Thankfully the Thrift interface is still there so it`s easy to convert the OpenTSDB HBase schema and calls to Cassandra at a low level through the AsyncHBase <code class="docutils literal"><span class="pre">HBaseClient</span></code> API. <a class="reference external" href="https://github.com/OpenTSDB/asynccassandra">AsyncCassandra</a> is a shim between OpenTSDB and Cassandra for trying out TSDB with an alternate backend.</p>
+<p>Cassandra is an eventually consistent key value store similar to HBase and Google`s Bigtable. It implements a distributed hash map with column families originally it supported a Thrift based API very close to HBase`s. Lately Cassandra has moved towards a SQL like query language with much more flexibility around data types, joints and filters. Thankfully the Thrift interface is still there so it`s easy to convert the OpenTSDB HBase schema and calls to Cassandra at a low level through the AsyncHBase <code class="docutils literal notranslate"><span class="pre">HBaseClient</span></code> API. <a class="reference external" href="https://github.com/OpenTSDB/asynccassandra">AsyncCassandra</a> is a shim between OpenTSDB and Cassandra for trying out TSDB with an alternate backend.</p>
 <div class="section" id="setup">
 <h2>Setup</h2>
 <ol class="arabic simple">
-<li>Setup a Cassandra cluster using the <code class="docutils literal"><span class="pre">ByteOrderedPartitioner</span></code>. This is critical as we require the row keys to be sorted. Because this setting affects the entire node, you may need to setup a cluster dedicated to OpenTSDB.</li>
+<li>Setup a Cassandra cluster using the <code class="docutils literal notranslate"><span class="pre">ByteOrderedPartitioner</span></code>. This is critical as we require the row keys to be sorted. Because this setting affects the entire node, you may need to setup a cluster dedicated to OpenTSDB.</li>
 <li>Create the proper keyspsaces and column families by using the <cite>cassandra-cli</cite> script:</li>
 </ol>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">create</span> <span class="n">keyspace</span> <span class="n">tsdb</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">create</span> <span class="n">keyspace</span> <span class="n">tsdb</span><span class="p">;</span>
 <span class="n">use</span> <span class="n">tsdb</span><span class="p">;</span>
 <span class="n">create</span> <span class="n">column</span> <span class="n">family</span> <span class="n">t</span> <span class="k">with</span> <span class="n">comparator</span> <span class="o">=</span> <span class="n">BytesType</span><span class="p">;</span>
 
@@ -113,7 +106,7 @@
 <li>Build TSDB by executing <cite>sh build-cassandra.sh</cite> (or if you prefer Maven, <cite>sh build-cassandra.sh pom.xml</cite>)</li>
 <li>Modify your <cite>opentsdb.conf</cite> file with the <cite>asynccassandra.seeds</cite> parameter, e.g. <cite>asynccassandra.seeds=127.0.0.1:9160</cite>.</li>
 <li>In the config file, set <cite>tsd.storage.hbase.uid_table=tsdbuid</cite></li>
-<li>Run the tsd via <cite>build/tsdb tsd --config=&lt;path&gt;/opentsdb.conf</cite></li>
+<li>Run the tsd via <cite>build/tsdb tsd –config=&lt;path&gt;/opentsdb.conf</cite></li>
 </ol>
 <p>If you intend to use meta data or tree features, repeat the keyspace creation with the proper table name.</p>
 </div>
@@ -178,7 +171,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/query/exp &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -62,11 +53,11 @@
 <li><a class="reference internal" href="#">/api/query/exp</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
-<li><a class="reference internal" href="#time">&quot;time&quot;</a></li>
-<li><a class="reference internal" href="#filters">&quot;filters&quot;</a></li>
-<li><a class="reference internal" href="#metrics">&quot;metrics&quot;</a></li>
-<li><a class="reference internal" href="#expressions">&quot;expressions&quot;</a></li>
-<li><a class="reference internal" href="#outputs">&quot;outputs&quot;</a></li>
+<li><a class="reference internal" href="#time">“time”</a></li>
+<li><a class="reference internal" href="#filters">“filters”</a></li>
+<li><a class="reference internal" href="#metrics">“metrics”</a></li>
+<li><a class="reference internal" href="#expressions">“expressions”</a></li>
+<li><a class="reference internal" href="#outputs">“outputs”</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#response">Response</a><ul>
@@ -85,12 +76,14 @@
                         title="next chapter">/api/query/gexp</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -105,9 +98,9 @@
 <h1>/api/query/exp</h1>
 <p>This endpoint allows for querying data using expressions. The query is broken up into different sections.</p>
 <p>Two set operations (or Joins) are allowed. The union of all time series ore the intersection.</p>
-<p>For example we can compute &quot;a + b&quot; with a group by on the host field. Both metrics queried alone would emit a time series per host, e.g. maybe one for &quot;web01&quot;, &quot;web02&quot; and &quot;web03&quot;. Lets say metric &quot;a&quot; has values for all 3 hosts but metric &quot;b&quot; is missing &quot;web03&quot;.</p>
-<p>With the intersection operator, the expression will effectively add &quot;a.web01 + b.web01&quot; and &quot;a.web02 + b.web02&quot; but will skip emitting anything for &quot;web03&quot;. Be aware of this if you see fewer outputs that you expected or you see errors about no series available after intersection.</p>
-<p>With the union operator the expression will add the <code class="docutils literal"><span class="pre">web01</span></code> and <code class="docutils literal"><span class="pre">web02</span></code> series but for metric &quot;b&quot;, it will substitute the metric's fill policy value for the results.</p>
+<p>For example we can compute “a + b” with a group by on the host field. Both metrics queried alone would emit a time series per host, e.g. maybe one for “web01”, “web02” and “web03”. Lets say metric “a” has values for all 3 hosts but metric “b” is missing “web03”.</p>
+<p>With the intersection operator, the expression will effectively add “a.web01 + b.web01” and “a.web02 + b.web02” but will skip emitting anything for “web03”. Be aware of this if you see fewer outputs that you expected or you see errors about no series available after intersection.</p>
+<p>With the union operator the expression will add the <code class="docutils literal notranslate"><span class="pre">web01</span></code> and <code class="docutils literal notranslate"><span class="pre">web02</span></code> series but for metric “b”, it will substitute the metric’s fill policy value for the results.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Supported as of version 2.3</p>
@@ -122,7 +115,7 @@
 <h2>Requests</h2>
 <p>The various sections implemented include:</p>
 <div class="section" id="time">
-<h3>&quot;time&quot;</h3>
+<h3>“time”</h3>
 <p>The time section is required and is a single JSON object. This affects the time range and optional reductions for all metrics requested.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -181,7 +174,7 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;time&quot;</span><span class="o">:</span><span class="p">{</span> <span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;10m-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;downsampler&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;interval&quot;</span><span class="o">:</span><span class="s2">&quot;15m&quot;</span><span class="p">,</span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;time&quot;</span><span class="o">:</span><span class="p">{</span> <span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;10m-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;downsampler&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;interval&quot;</span><span class="o">:</span><span class="s2">&quot;15m&quot;</span><span class="p">,</span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Downsampler</strong></p>
@@ -207,7 +200,7 @@
 <tr class="row-even"><td>interval</td>
 <td>String</td>
 <td>Required</td>
-<td>A downsampling interval, i.e. what time span to rollup raw values into. The format is <code class="docutils literal"><span class="pre">&lt;#&gt;&lt;unit&gt;</span></code>, e.g. <code class="docutils literal"><span class="pre">15m</span></code></td>
+<td>A downsampling interval, i.e. what time span to rollup raw values into. The format is <code class="docutils literal notranslate"><span class="pre">&lt;#&gt;&lt;unit&gt;</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">15m</span></code></td>
 <td>&#160;</td>
 <td>1h</td>
 </tr>
@@ -228,7 +221,7 @@
 </tbody>
 </table>
 <p><strong>Fill Policies</strong></p>
-<p>These are used to replace &quot;missing&quot; values, i.e. when a data point was expected but couldn't be found in storage.</p>
+<p>These are used to replace “missing” values, i.e. when a data point was expected but couldn’t be found in storage.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
@@ -276,7 +269,7 @@
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>nan</td>
-<td>Emits a NaN if all values in the aggregation function were NaN or &quot;missing&quot;. For aggregators, NaNs are treated as &quot;sentinel&quot; values that cause the function to skip over the values. Note that if a series emits a NaN in an expression, the NaN is infectious and will cause the output of that expression to be NaN. At serialization the NaN will be emitted.</td>
+<td>Emits a NaN if all values in the aggregation function were NaN or “missing”. For aggregators, NaNs are treated as “sentinel” values that cause the function to skip over the values. Note that if a series emits a NaN in an expression, the NaN is infectious and will cause the output of that expression to be NaN. At serialization the NaN will be emitted.</td>
 </tr>
 <tr class="row-odd"><td>null</td>
 <td>Emits a Null at serialization time. During computation the values are treated as NaNs.</td>
@@ -285,18 +278,18 @@
 <td>Emits a zero when the value is missing</td>
 </tr>
 <tr class="row-odd"><td>scalar</td>
-<td>Emits a user defined value when a data point is missing. Must specify the value with <code class="docutils literal"><span class="pre">value</span></code>. The value can be an integer or floating point.</td>
+<td>Emits a user defined value when a data point is missing. Must specify the value with <code class="docutils literal notranslate"><span class="pre">value</span></code>. The value can be an integer or floating point.</td>
 </tr>
 </tbody>
 </table>
-<p>Note that if you try to supply a value that is incompatible with the type the query will throw an exception. E.g. supplying a value with the NaN that isn't NaN will throw an error.</p>
+<p>Note that if you try to supply a value that is incompatible with the type the query will throw an exception. E.g. supplying a value with the NaN that isn’t NaN will throw an error.</p>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;policy&quot;</span><span class="o">:</span><span class="s2">&quot;scalar&quot;</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;policy&quot;</span><span class="o">:</span><span class="s2">&quot;scalar&quot;</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="filters">
-<h3>&quot;filters&quot;</h3>
+<h3>“filters”</h3>
 <p>Filters are for selecting various time series based on the tag keys and values. At least one filter must be specified (for now) with at least an aggregation function supplied. Fields include:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -334,7 +327,7 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="p">[</span>
   <span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span>
   <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
     <span class="p">{</span>
@@ -354,7 +347,7 @@
 </pre></div>
 </div>
 <p><strong>Filter Fields</strong></p>
-<p>Within the &quot;tags&quot; field you can have one or more filter. The list of filters can be found via the <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a> endpoint.</p>
+<p>Within the “tags” field you can have one or more filter. The list of filters can be found via the <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a> endpoint.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
@@ -406,7 +399,7 @@
 </table>
 </div>
 <div class="section" id="metrics">
-<h3>&quot;metrics&quot;</h3>
+<h3>“metrics”</h3>
 <p>The metrics list determines which metrics are included in the expression. There must be at least one metric.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -451,8 +444,8 @@
 <tr class="row-odd"><td>aggregator</td>
 <td>String</td>
 <td>Optional</td>
-<td>An optional aggregation function to overload the global function in <code class="docutils literal"><span class="pre">time</span></code> for just this metric</td>
-<td><code class="docutils literal"><span class="pre">time</span></code>'s aggregator</td>
+<td>An optional aggregation function to overload the global function in <code class="docutils literal notranslate"><span class="pre">time</span></code> for just this metric</td>
+<td><code class="docutils literal notranslate"><span class="pre">time</span></code>’s aggregator</td>
 <td>count</td>
 </tr>
 <tr class="row-even"><td>fillPolicy</td>
@@ -465,12 +458,12 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;cpunice&quot;</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="s2">&quot;system.cpu.nice&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;cpunice&quot;</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="s2">&quot;system.cpu.nice&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="expressions">
-<h3>&quot;expressions&quot;</h3>
+<h3>“expressions”</h3>
 <p>A list of one or more expressions over the metrics. The variables in an expression <strong>MUST</strong> refer to either a metric ID field or an expression ID field. Nested expressions are supported but exceptions will be thrown if a self reference or circular dependency is detected. So far only basic operations are supported such as addition, subtraction, multiplication, division, modulo</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -508,21 +501,21 @@
 <tr class="row-even"><td>join</td>
 <td>Object</td>
 <td>Optional</td>
-<td>The set operation or &quot;join&quot; to perform for series across sets.</td>
+<td>The set operation or “join” to perform for series across sets.</td>
 <td>union</td>
 <td>See below</td>
 </tr>
 <tr class="row-odd"><td>fillPolicy</td>
 <td>Object</td>
 <td>Optional</td>
-<td>An optional fill policy for the expression when it is used in a nested expression and doesn't have a value</td>
+<td>An optional fill policy for the expression when it is used in a nested expression and doesn’t have a value</td>
 <td>NaN</td>
 <td>See above</td>
 </tr>
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;cpubusy&quot;</span><span class="p">,</span>
   <span class="s2">&quot;expr&quot;</span><span class="o">:</span> <span class="s2">&quot;(((a + b + c + d + e + f + g) - g) / (a + b + c + d + e + f + g)) * 100&quot;</span><span class="p">,</span>
   <span class="s2">&quot;join&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -579,7 +572,7 @@
 </table>
 </div>
 <div class="section" id="outputs">
-<h3>&quot;outputs&quot;</h3>
+<h3>“outputs”</h3>
 <p>These determine the output behavior and allow you to eliminate some expressions from the results or include the raw metrics. By default, if this section is missing, all expressions and only the expressions will be serialized. The field is a list of one or more output objects. More fields will be added later with flags to affect the output.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -617,15 +610,15 @@
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="o">:</span><span class="s2">&quot;System Busy&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="o">:</span><span class="s2">&quot;System Busy&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal"><span class="pre">id</span></code> field for all objects can not contain spaces, special characters or periods at this time.</p>
+<p class="last">The <code class="docutils literal notranslate"><span class="pre">id</span></code> field for all objects can not contain spaces, special characters or periods at this time.</p>
 </div>
 <p><strong>Complete Example</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1y-ago&quot;</span><span class="p">,</span>
        <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;sum&quot;</span>
@@ -690,7 +683,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output will contain a list of objects in the <code class="docutils literal"><span class="pre">outputs</span></code> array with the results in an array of arrays representing each time series followed by meta data for each series and the query overall. Also included is the original query and some summary statistics. The fields include:</p>
+<p>The output will contain a list of objects in the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> array with the results in an array of arrays representing each time series followed by meta data for each series and the query overall. Also included is the original query and some summary statistics. The fields include:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
@@ -709,7 +702,7 @@
 <td>The array of results. Each sub array starts with the timestamp in ms as the first (offset 0) value. The remaining values are the results for each series when a group by was applied.</td>
 </tr>
 <tr class="row-even"><td>dpsMeta</td>
-<td>Meta data around the query including the first and last timestamps, number of result &quot;sets&quot;, or sub arrays, and the number of series represented.</td>
+<td>Meta data around the query including the first and last timestamps, number of result “sets”, or sub arrays, and the number of series represented.</td>
 </tr>
 <tr class="row-odd"><td>datapoints</td>
 <td>The total number of data points returned to the user after aggregation</td>
@@ -719,7 +712,7 @@
 </tr>
 </tbody>
 </table>
-<p>The meta section contains ordered information about each time series in the output arrays. The first element in the array will always have a <code class="docutils literal"><span class="pre">metrics</span></code> value of <code class="docutils literal"><span class="pre">timestamp</span></code> and no other data.</p>
+<p>The meta section contains ordered information about each time series in the output arrays. The first element in the array will always have a <code class="docutils literal notranslate"><span class="pre">metrics</span></code> value of <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> and no other data.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="20%" />
@@ -753,7 +746,7 @@
 </table>
 <div class="section" id="example-responses">
 <h3>Example Responses</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[</span>
       <span class="p">{</span>
           <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;Mega expression&quot;</span><span class="p">,</span>
@@ -994,7 +987,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

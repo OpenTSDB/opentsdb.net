@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/tree &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -93,12 +84,14 @@
                         title="next chapter">/api/tree/branch</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -111,7 +104,7 @@
             
   <div class="section" id="api-tree">
 <h1>/api/tree</h1>
-<p>Trees are meta data used to organize time series in a hierarchical structure for browsing similar to a typical file system. A number of endpoints under the <code class="docutils literal"><span class="pre">/tree</span></code> root allow working with various tree related data:</p>
+<p>Trees are meta data used to organize time series in a hierarchical structure for browsing similar to a typical file system. A number of endpoints under the <code class="docutils literal notranslate"><span class="pre">/tree</span></code> root allow working with various tree related data:</p>
 <div class="section" id="tree-api-endpoints">
 <h2>Tree API Endpoints</h2>
 <div class="toctree-wrapper compound">
@@ -124,10 +117,10 @@
 <li class="toctree-l1"><a class="reference internal" href="test.html">/api/tree/test</a></li>
 </ul>
 </div>
-<p>The <code class="docutils literal"><span class="pre">/tree</span></code> endpoint allows for creating or modifying a tree definition. Tree definitions include configuration and meta data accessible via this endpoint, as well as the rule set accessiable via <code class="docutils literal"><span class="pre">/tree/rule</span></code> or <code class="docutils literal"><span class="pre">/tree/rules</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">/tree</span></code> endpoint allows for creating or modifying a tree definition. Tree definitions include configuration and meta data accessible via this endpoint, as well as the rule set accessiable via <code class="docutils literal notranslate"><span class="pre">/tree/rule</span></code> or <code class="docutils literal notranslate"><span class="pre">/tree/rules</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When creating a tree it will have the <code class="docutils literal"><span class="pre">enabled</span></code> field set to <code class="docutils literal"><span class="pre">false</span></code> by default. After creating a tree you should add rules then use the <code class="docutils literal"><span class="pre">tree/test</span></code> endpoint with a few TSUIDs to make sure the resulting tree will be what you expected. After you have verified the results, you can set the <code class="docutils literal"><span class="pre">enabled</span></code> field to <code class="docutils literal"><span class="pre">true</span></code> and new TSMeta objects or a tree synchronization will start to populate branches.</p>
+<p class="last">When creating a tree it will have the <code class="docutils literal notranslate"><span class="pre">enabled</span></code> field set to <code class="docutils literal notranslate"><span class="pre">false</span></code> by default. After creating a tree you should add rules then use the <code class="docutils literal notranslate"><span class="pre">tree/test</span></code> endpoint with a few TSUIDs to make sure the resulting tree will be what you expected. After you have verified the results, you can set the <code class="docutils literal notranslate"><span class="pre">enabled</span></code> field to <code class="docutils literal notranslate"><span class="pre">true</span></code> and new TSMeta objects or a tree synchronization will start to populate branches.</p>
 </div>
 </div>
 <div class="section" id="verbs">
@@ -168,7 +161,7 @@
 <tr class="row-even"><td>treeId</td>
 <td>Integer</td>
 <td>Required*</td>
-<td>Used to fetch or modify a specific tree. <a href="#id1"><span class="problematic" id="id2">*</span></a>When creating a new tree, the <code class="docutils literal"><span class="pre">tree</span></code> value must not be present.</td>
+<td>Used to fetch or modify a specific tree. <a href="#id1"><span class="problematic" id="id2">*</span></a>When creating a new tree, the <code class="docutils literal notranslate"><span class="pre">tree</span></code> value must not be present.</td>
 <td>&#160;</td>
 <td>treeid</td>
 <td>RO</td>
@@ -213,7 +206,7 @@
 <tr class="row-odd"><td>enabled</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not TSMeta should be processed through the tree. By default this is set to <code class="docutils literal"><span class="pre">false</span></code> so that you can setup rules and test some objects before building branches.</td>
+<td>Whether or not TSMeta should be processed through the tree. By default this is set to <code class="docutils literal notranslate"><span class="pre">false</span></code> so that you can setup rules and test some objects before building branches.</td>
 <td>false</td>
 <td>enabled</td>
 <td>RW</td>
@@ -222,7 +215,7 @@
 <tr class="row-even"><td>storeFailures</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Whether or not collisions and 'not matched' TSUIDs should be recorded. This can create very wide rows.</td>
+<td>Whether or not collisions and ‘not matched’ TSUIDs should be recorded. This can create very wide rows.</td>
 <td>false</td>
 <td>store_failures</td>
 <td>RW</td>
@@ -231,7 +224,7 @@
 <tr class="row-odd"><td>definition</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Used only when <code class="docutils literal"><span class="pre">DELETE</span></code> ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries</td>
+<td>Used only when <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries</td>
 <td>false</td>
 <td>definition</td>
 <td>&#160;</td>
@@ -242,7 +235,7 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return tree objects with optinally requested changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested tree did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
+<p>A successful response to a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request will return tree objects with optinally requested changes. Successful <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal notranslate"><span class="pre">304</span></code> without any body content. If the requested tree did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an <code class="docutils literal notranslate"><span class="pre">400</span></code> error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -261,7 +254,7 @@
 <tbody valign="top">
 <tr class="row-even"><td>rules</td>
 <td>Map</td>
-<td>A map or dictionary with rules defined for the tree organized by <code class="docutils literal"><span class="pre">level</span></code> and <code class="docutils literal"><span class="pre">order</span></code>. If no rules have been defined yet, the value will be <code class="docutils literal"><span class="pre">null</span></code></td>
+<td>A map or dictionary with rules defined for the tree organized by <code class="docutils literal notranslate"><span class="pre">level</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code>. If no rules have been defined yet, the value will be <code class="docutils literal notranslate"><span class="pre">null</span></code></td>
 <td><em>See Examples</em></td>
 </tr>
 <tr class="row-odd"><td>created</td>
@@ -274,16 +267,16 @@
 </div>
 <div class="section" id="get">
 <h2>GET</h2>
-<p>A <code class="docutils literal"><span class="pre">GET</span></code> request to <code class="docutils literal"><span class="pre">/api/tree</span></code> without a tree ID will return a list of all of the trees configured in the system. The results will include configured rules for each tree. If no trees have been configured yet, the list will be empty.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">GET</span></code> request to <code class="docutils literal notranslate"><span class="pre">/api/tree</span></code> without a tree ID will return a list of all of the trees configured in the system. The results will include configured rules for each tree. If no trees have been configured yet, the list will be empty.</p>
 <div class="section" id="example-get-all-trees-query">
 <h3>Example GET All Trees Query</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">tree</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">tree</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Test Tree&quot;</span><span class="p">,</span>
         <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;My Description&quot;</span><span class="p">,</span>
@@ -375,17 +368,17 @@
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>To fetch a specific tree, supply a <a href="#id5"><span class="problematic" id="id6">``</span></a>treeId' value. The response will include the tree object if found. If the requested tree does not exist, a 404 exception will be returned.</p>
+<p>To fetch a specific tree, supply a <a href="#id5"><span class="problematic" id="id6">``</span></a>treeId’ value. The response will include the tree object if found. If the requested tree does not exist, a 404 exception will be returned.</p>
 </div>
 <div class="section" id="example-get-single-tree">
 <h3>Example GET Single Tree</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/treeId?tree=1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/treeId?tree=1
 </pre></div>
 </div>
 </div>
 <div class="section" id="id7">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;2nd Tree&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Other Tree&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -435,20 +428,20 @@
 </div>
 <div class="section" id="post-put">
 <h2>POST/PUT</h2>
-<p>Using the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> methods, you can create a new tree or edit most of the fields for an existing tree. New trees require a <code class="docutils literal"><span class="pre">name</span></code> value and for the <code class="docutils literal"><span class="pre">treeId'</span> <span class="pre">value</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">empty.</span> <span class="pre">Existing</span> <span class="pre">trees</span> <span class="pre">require</span> <span class="pre">a</span> <span class="pre">valid</span> <span class="pre">``treeId</span></code> ID and any fields that require modification. A successful request will return the modified tree object.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> methods, you can create a new tree or edit most of the fields for an existing tree. New trees require a <code class="docutils literal notranslate"><span class="pre">name</span></code> value and for the <code class="docutils literal notranslate"><span class="pre">treeId'</span> <span class="pre">value</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">empty.</span> <span class="pre">Existing</span> <span class="pre">trees</span> <span class="pre">require</span> <span class="pre">a</span> <span class="pre">valid</span> <span class="pre">``treeId</span></code> ID and any fields that require modification. A successful request will return the modified tree object.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">A new tree will not have any rules. Your next call should probably be to <code class="docutils literal"><span class="pre">/tree/rule</span></code> or <code class="docutils literal"><span class="pre">/tree/rules</span></code>.</p>
+<p class="last">A new tree will not have any rules. Your next call should probably be to <code class="docutils literal notranslate"><span class="pre">/tree/rule</span></code> or <code class="docutils literal notranslate"><span class="pre">/tree/rules</span></code>.</p>
 </div>
 <div class="section" id="example-post-create-request">
 <h3>Example POST Create Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?name=Network%20Tree&amp;method_override=post
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?name=Network%20Tree&amp;method_override=post
 </pre></div>
 </div>
 </div>
 <div class="section" id="id8">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -464,13 +457,13 @@
 </div>
 <div class="section" id="example-post-edit-request">
 <h3>Example POST Edit Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?treeId=3&amp;description=Network%20Device%20Information&amp;method_override=post
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?treeId=3&amp;description=Network%20Device%20Information&amp;method_override=post
 </pre></div>
 </div>
 </div>
 <div class="section" id="id9">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Network Device Information&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -487,18 +480,18 @@
 </div>
 <div class="section" id="delete">
 <h2>DELETE</h2>
-<p>Using the <code class="docutils literal"><span class="pre">DELETE</span></code> method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the <code class="docutils literal"><span class="pre">defintion</span></code> flag in the query string with a value of <code class="docutils literal"><span class="pre">true</span></code> and the tree and rule definitions will be removed as well.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the <code class="docutils literal notranslate"><span class="pre">defintion</span></code> flag in the query string with a value of <code class="docutils literal notranslate"><span class="pre">true</span></code> and the tree and rule definitions will be removed as well.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This method cannot be undone. Once executed, the purge will continue running unless the TSD is shutdown.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Before executing a <code class="docutils literal"><span class="pre">DELETE</span></code> query, you should make sure that a manual tree syncronization is not running somehwere on your data. If it is, there may be some orphaned branches or leaves stored during the purge. Use the _____ CLi tool sometime after the delete to cleanup left over branches or leaves.</p>
+<p class="last">Before executing a <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> query, you should make sure that a manual tree syncronization is not running somehwere on your data. If it is, there may be some orphaned branches or leaves stored during the purge. Use the _____ CLi tool sometime after the delete to cleanup left over branches or leaves.</p>
 </div>
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?tree=1&amp;method_override=delete
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?tree=1&amp;method_override=delete
 </pre></div>
 </div>
 </div>
@@ -528,7 +521,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

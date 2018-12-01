@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Query Details and Stats &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -94,12 +85,14 @@
                         title="next chapter">Rollup And Pre-Aggregates</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -113,19 +106,19 @@
   <div class="section" id="query-details-and-stats">
 <h1>Query Details and Stats</h1>
 <p>With version 2.2 of OpenTSDB a number of details are now available around queries as we focus on improving flexibility and performance. Query details include who made the request (via headers and socket), what the response was (HTTP status codes and/or exceptions) and timing around the various processes the TSD takes.</p>
-<p>Each HTTP query can include some of these details such as the original query and the timing information using the  <code class="docutils literal"><span class="pre">showSummary</span></code> and <code class="docutils literal"><span class="pre">showQuery</span></code> parameters. Other details can be found in the <code class="docutils literal"><span class="pre">/api/stats/query</span></code> output including headers, status and exceptions. And full details (minus the actual result data) can be logged to disk via the logging config. This page details the various query sections and the information found therein.</p>
+<p>Each HTTP query can include some of these details such as the original query and the timing information using the  <code class="docutils literal notranslate"><span class="pre">showSummary</span></code> and <code class="docutils literal notranslate"><span class="pre">showQuery</span></code> parameters. Other details can be found in the <code class="docutils literal notranslate"><span class="pre">/api/stats/query</span></code> output including headers, status and exceptions. And full details (minus the actual result data) can be logged to disk via the logging config. This page details the various query sections and the information found therein.</p>
 <div class="section" id="query">
 <h2>Query</h2>
 <p>This section is a serialization of the query given by the user. In the logs and stats page this will be the full query with timing and global options. When returned with the query results, only the sub query (metric and filters) are returned with the associated result set for identification purposes (e.g. if you request the same metric twice with two different aggregators, you need to know which data set corresponds to which aggregator).</p>
 <p>For the fields and what they mean, see <a class="reference internal" href="../../api_http/query/index.html"><span class="doc">/api/query</span></a>. Some notes about the fields:</p>
 <ul class="simple">
-<li>The <code class="docutils literal"><span class="pre">tags</span></code> map should have the same number of entries as the <code class="docutils literal"><span class="pre">filters</span></code> array has <code class="docutils literal"><span class="pre">group_by</span></code> entries. This is due to backwards compatibility with 2.1 and 1.0. Old style queries are converted into filtered queries and function the same way.</li>
-<li>A number of extra fields may be shown here with their default values such as <code class="docutils literal"><span class="pre">null</span></code>.</li>
+<li>The <code class="docutils literal notranslate"><span class="pre">tags</span></code> map should have the same number of entries as the <code class="docutils literal notranslate"><span class="pre">filters</span></code> array has <code class="docutils literal notranslate"><span class="pre">group_by</span></code> entries. This is due to backwards compatibility with 2.1 and 1.0. Old style queries are converted into filtered queries and function the same way.</li>
+<li>A number of extra fields may be shown here with their default values such as <code class="docutils literal notranslate"><span class="pre">null</span></code>.</li>
 <li>You can copy and paste the query into a POST client to execute and find out what data was returned.</li>
 </ul>
 <div class="section" id="example">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1455531250181&quot;</span><span class="p">,</span>
       <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">&quot;timezone&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -216,21 +209,21 @@
 <p>If the query failed, this field will include the message string and the first line of the stack trace for pinpointing. If the query was successful, this field will be null.</p>
 <div class="section" id="id1">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;No such name for &#39;metrics&#39;: &#39;nosuchmetric&#39; net.opentsdb.uid.UniqueId$1GetIdCB.call(UniqueId.java:315)&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;No such name for &#39;metrics&#39;: &#39;nosuchmetric&#39; net.opentsdb.uid.UniqueId$1GetIdCB.call(UniqueId.java:315)&quot;</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="user">
 <h2>User</h2>
-<p>For future use, this field can be used to extract user information from queries and help debug who is using a TSD the most. It's fairly easy to modify the TSD code to extract the user from an HTTP header.</p>
+<p>For future use, this field can be used to extract user information from queries and help debug who is using a TSD the most. It’s fairly easy to modify the TSD code to extract the user from an HTTP header.</p>
 </div>
 <div class="section" id="requestheaders">
 <h2>RequestHeaders</h2>
-<p>This is a map of the headers sent with the HTTP request. In a mediocre effort at security, the <code class="docutils literal"><span class="pre">Cookie</span></code> header field is obfuscated with asterisks in the case that it contains user identifiable or secure information. Each request is different so lookup the headers in the HTTP RFCs or your web browser or clients documentation.</p>
+<p>This is a map of the headers sent with the HTTP request. In a mediocre effort at security, the <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> header field is obfuscated with asterisks in the case that it contains user identifiable or secure information. Each request is different so lookup the headers in the HTTP RFCs or your web browser or clients documentation.</p>
 <div class="section" id="id2">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;Accept-Language&quot;</span><span class="o">:</span> <span class="s2">&quot;en-US,en;q=0.8&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Host&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdhost:4242&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Content-Length&quot;</span><span class="o">:</span> <span class="s2">&quot;440&quot;</span><span class="p">,</span>
@@ -251,7 +244,7 @@
 <p>This field contains the numeric HTTP response code and a textual representation of that code.</p>
 <div class="section" id="id3">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
         <span class="s2">&quot;reasonPhrase&quot;</span><span class="o">:</span> <span class="s2">&quot;OK&quot;</span>
 <span class="p">}</span>
@@ -306,7 +299,7 @@
 <li><strong>Per-Sub Query</strong> - Metrics pertaining to a single sub query (if multiple are present) including max and average timings of scanner.</li>
 <li><strong>Per-Scanner</strong> - Metrics around each individual scanner (useful when salting is enabled)</li>
 </ul>
-<p>Global stats are printed to the standard log, stats page. The full global, sub query and scanner details are available in the query log and via the query API when <code class="docutils literal"><span class="pre">showSummary</span></code> is present. Timing stats at a lower level are aggregated into max and average values at the upper level. Counters at each lower level are also aggregated at each upper level so you'll see the same counter metrics at each level. A table of stats and sections appears below.</p>
+<p>Global stats are printed to the standard log, stats page. The full global, sub query and scanner details are available in the query log and via the query API when <code class="docutils literal notranslate"><span class="pre">showSummary</span></code> is present. Timing stats at a lower level are aggregated into max and average values at the upper level. Counters at each lower level are also aggregated at each upper level so you’ll see the same counter metrics at each level. A table of stats and sections appears below.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">All timings in the table below are in milliseconds. Also note that times can be inflated by JVM GCs so make sure to enable GC logging if something seems off.</p>
@@ -354,7 +347,7 @@
 <tr class="row-odd"><td>successfulScan</td>
 <td>Integer</td>
 <td>Scanner, Query, Global</td>
-<td>How many scanners completed successfully. Per query, this should be equal to the number of salting buckets, or <code class="docutils literal"><span class="pre">1</span></code> if salting is disabled.</td>
+<td>How many scanners completed successfully. Per query, this should be equal to the number of salting buckets, or <code class="docutils literal notranslate"><span class="pre">1</span></code> if salting is disabled.</td>
 </tr>
 <tr class="row-even"><td>uidPairsResolved</td>
 <td>Integer</td>
@@ -374,7 +367,7 @@
 <tr class="row-odd"><td>queryScanTime</td>
 <td>Float</td>
 <td>Query</td>
-<td>Total time spent waiting on the scanners to return results. This includes the <code class="docutils literal"><span class="pre">groupByTime</span></code>.</td>
+<td>Total time spent waiting on the scanners to return results. This includes the <code class="docutils literal notranslate"><span class="pre">groupByTime</span></code>.</td>
 </tr>
 <tr class="row-even"><td>saltScannerMergeTime</td>
 <td>Float</td>
@@ -384,7 +377,7 @@
 <tr class="row-odd"><td>serializationTime</td>
 <td>Float</td>
 <td>Query</td>
-<td>Total time spent serializing the query results. This includes <code class="docutils literal"><span class="pre">aggregationTime</span></code> and <code class="docutils literal"><span class="pre">uidToStringTime</span></code>.</td>
+<td>Total time spent serializing the query results. This includes <code class="docutils literal notranslate"><span class="pre">aggregationTime</span></code> and <code class="docutils literal notranslate"><span class="pre">uidToStringTime</span></code>.</td>
 </tr>
 <tr class="row-even"><td>uidToStringTime</td>
 <td>Float</td>
@@ -415,7 +408,7 @@
 </table>
 <div class="section" id="id4">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;statsSummary&quot;</span><span class="o">:</span> <span class="p">{</span>
               <span class="s2">&quot;avgAggregationTime&quot;</span><span class="o">:</span> <span class="mf">3.784976</span><span class="p">,</span>
               <span class="s2">&quot;avgHBaseTime&quot;</span><span class="o">:</span> <span class="mf">8.530751</span><span class="p">,</span>
@@ -863,7 +856,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

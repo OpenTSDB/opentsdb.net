@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Dates and Times &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -76,12 +67,14 @@
                         title="next chapter">Query Filters</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -97,7 +90,7 @@
 <p>OpenTSDB supports a number of date and time formats when querying for data. The following formats are supported in queries submitted through the GUI, CliQuery tool or HTTP API. Every query requires a <strong>start time</strong> and an optional <strong>end time</strong>. If the end time is not specified, the current time on the system where the TSD is running will be used.</p>
 <div class="section" id="relative">
 <h2>Relative</h2>
-<p>If you don't know the exact timestamp to request you can submit a time in the past relative to the time on the system where the TSD is running. Relative times follow the format <code class="docutils literal"><span class="pre">&lt;amount&gt;&lt;time</span> <span class="pre">unit&gt;-ago</span></code> where <code class="docutils literal"><span class="pre">&lt;amount&gt;</span></code> is the number of time units and <code class="docutils literal"><span class="pre">&lt;time</span> <span class="pre">unit&gt;</span></code> is the unit of time, such as hours, days, etc. For example, if we provide a <strong>start time</strong> of <code class="docutils literal"><span class="pre">1h-ago</span></code> and leave out the <strong>end time</strong>, our query will return data start at 1 hour ago to the current time. Possible units of time include:</p>
+<p>If you don’t know the exact timestamp to request you can submit a time in the past relative to the time on the system where the TSD is running. Relative times follow the format <code class="docutils literal notranslate"><span class="pre">&lt;amount&gt;&lt;time</span> <span class="pre">unit&gt;-ago</span></code> where <code class="docutils literal notranslate"><span class="pre">&lt;amount&gt;</span></code> is the number of time units and <code class="docutils literal notranslate"><span class="pre">&lt;time</span> <span class="pre">unit&gt;</span></code> is the unit of time, such as hours, days, etc. For example, if we provide a <strong>start time</strong> of <code class="docutils literal notranslate"><span class="pre">1h-ago</span></code> and leave out the <strong>end time</strong>, our query will return data start at 1 hour ago to the current time. Possible units of time include:</p>
 <ul class="simple">
 <li>ms - Milliseconds</li>
 <li>s - Seconds</li>
@@ -115,8 +108,8 @@
 </div>
 <div class="section" id="absolute-unix-time">
 <h2>Absolute Unix Time</h2>
-<p>Internally, all data is associated with a Unix (or POSIX) style timestamp. Unix times are defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. Timestamps are represented as a positive integer such as <code class="docutils literal"><span class="pre">1364410924</span></code>, representing <code class="docutils literal"><span class="pre">ISO</span> <span class="pre">8601:2013-03-27T19:02:04Z</span></code>. Since calls to store data in OpenTSDB require a Unix timestamp, it makes sense to support the format in queries. Thus you can supply an integer for a start or end time in a query.</p>
-<p>Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of <code class="docutils literal"><span class="pre">1364410924000</span></code> and an end time of <code class="docutils literal"><span class="pre">1364410924250</span></code> will return data within a 250 millisecond window. Millisecond timestamps may also be supplied with a period separating the seconds from the milliseconds as in <code class="docutils literal"><span class="pre">1364410924.250</span></code>. Any integers with 13 (or 14) characters will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds. Milliseconds may only be supplied with 3 digit precision. If your tool outputs more than 3 digits you must truncate or round the value.</p>
+<p>Internally, all data is associated with a Unix (or POSIX) style timestamp. Unix times are defined as the number of seconds that have elapsed since January 1st, 1970 at 00:00:00 UTC time. Timestamps are represented as a positive integer such as <code class="docutils literal notranslate"><span class="pre">1364410924</span></code>, representing <code class="docutils literal notranslate"><span class="pre">ISO</span> <span class="pre">8601:2013-03-27T19:02:04Z</span></code>. Since calls to store data in OpenTSDB require a Unix timestamp, it makes sense to support the format in queries. Thus you can supply an integer for a start or end time in a query.</p>
+<p>Queries using Unix timestamps can also support millisecond precision by simply appending three digits. For example providing a start time of <code class="docutils literal notranslate"><span class="pre">1364410924000</span></code> and an end time of <code class="docutils literal notranslate"><span class="pre">1364410924250</span></code> will return data within a 250 millisecond window. Millisecond timestamps may also be supplied with a period separating the seconds from the milliseconds as in <code class="docutils literal notranslate"><span class="pre">1364410924.250</span></code>. Any integers with 13 (or 14) characters will be treated as a millisecond timestamp. Anything 10 characters or less represent seconds. Milliseconds may only be supplied with 3 digit precision. If your tool outputs more than 3 digits you must truncate or round the value.</p>
 </div>
 <div class="section" id="absolute-formatted-time">
 <h2>Absolute Formatted Time</h2>
@@ -128,8 +121,8 @@
 <li>yyyy/MM/dd HH:mm</li>
 <li>yyyy/MM/dd</li>
 </ul>
-<p><code class="docutils literal"><span class="pre">yyyy</span></code> represents the year as a four digit value, e.g. <code class="docutils literal"><span class="pre">2013</span></code>. <code class="docutils literal"><span class="pre">MM</span></code> represents the month of year starting at <code class="docutils literal"><span class="pre">01</span></code> for January to <code class="docutils literal"><span class="pre">12</span></code> for December. <code class="docutils literal"><span class="pre">dd</span></code> represents the day of the month starting at <code class="docutils literal"><span class="pre">01</span></code>. <code class="docutils literal"><span class="pre">HH</span></code> represents the hour of day in 24 hour format starting at <code class="docutils literal"><span class="pre">00</span></code> to <code class="docutils literal"><span class="pre">23</span></code>. <code class="docutils literal"><span class="pre">mm</span></code> represents the minutes starting at <code class="docutils literal"><span class="pre">00</span></code> to <code class="docutils literal"><span class="pre">59</span></code> and <code class="docutils literal"><span class="pre">ss</span></code> represents seconds starting at <code class="docutils literal"><span class="pre">00</span></code> to <code class="docutils literal"><span class="pre">59</span></code>. All months, days, hours, minutes and seconds that are single digits must be preceeded by a 0, e.g. the 5th day of the month must be given as <code class="docutils literal"><span class="pre">05</span></code>. When supplying on the data without a time, the system will assume midnight of the given day.</p>
-<p>Examples include <code class="docutils literal"><span class="pre">2013/01/23-12:50:42</span></code> or <code class="docutils literal"><span class="pre">2013/01/23</span></code>. Formatted times are converted from the default timezone of the host running the TSD to UTC. HTTP API queries can accept a user supplied time zone to override the local zone.</p>
+<p><code class="docutils literal notranslate"><span class="pre">yyyy</span></code> represents the year as a four digit value, e.g. <code class="docutils literal notranslate"><span class="pre">2013</span></code>. <code class="docutils literal notranslate"><span class="pre">MM</span></code> represents the month of year starting at <code class="docutils literal notranslate"><span class="pre">01</span></code> for January to <code class="docutils literal notranslate"><span class="pre">12</span></code> for December. <code class="docutils literal notranslate"><span class="pre">dd</span></code> represents the day of the month starting at <code class="docutils literal notranslate"><span class="pre">01</span></code>. <code class="docutils literal notranslate"><span class="pre">HH</span></code> represents the hour of day in 24 hour format starting at <code class="docutils literal notranslate"><span class="pre">00</span></code> to <code class="docutils literal notranslate"><span class="pre">23</span></code>. <code class="docutils literal notranslate"><span class="pre">mm</span></code> represents the minutes starting at <code class="docutils literal notranslate"><span class="pre">00</span></code> to <code class="docutils literal notranslate"><span class="pre">59</span></code> and <code class="docutils literal notranslate"><span class="pre">ss</span></code> represents seconds starting at <code class="docutils literal notranslate"><span class="pre">00</span></code> to <code class="docutils literal notranslate"><span class="pre">59</span></code>. All months, days, hours, minutes and seconds that are single digits must be preceeded by a 0, e.g. the 5th day of the month must be given as <code class="docutils literal notranslate"><span class="pre">05</span></code>. When supplying on the data without a time, the system will assume midnight of the given day.</p>
+<p>Examples include <code class="docutils literal notranslate"><span class="pre">2013/01/23-12:50:42</span></code> or <code class="docutils literal notranslate"><span class="pre">2013/01/23</span></code>. Formatted times are converted from the default timezone of the host running the TSD to UTC. HTTP API queries can accept a user supplied time zone to override the local zone.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">When using the CliQuery tool, you must use the format that separates the date from the time with a dash. This is because the command line is split on spaces, so if you put a space in the timestamp, it will fail to parse execute properly.</p>
@@ -138,8 +131,8 @@
 <div class="section" id="time-zones">
 <h2>Time Zones</h2>
 <p>When converting human readable timestamps, OpenTSDB will convert to UTC from the timezone configured on the system where the TSD is running. While many servers are configured to UTC, and we recommend that all systems running OpenTSDB use UTC, sometimes a local timezone is used.</p>
-<p>Queries via query string to the HTTP API can specify a <code class="docutils literal"><span class="pre">tz</span></code> parameter with a timezone identification string in a format applicable to the localization settings of the system running the TSD. For example, we could specify <code class="docutils literal"><span class="pre">tz=America/Los_Angeles</span></code> to convert our timestamp from Los Angeles local time to UTC.</p>
-<p>Alternatively, if you are unable to change the system timezone, you can provide an override via the config file <code class="docutils literal"><span class="pre">tsd.core.timezone</span></code> property.</p>
+<p>Queries via query string to the HTTP API can specify a <code class="docutils literal notranslate"><span class="pre">tz</span></code> parameter with a timezone identification string in a format applicable to the localization settings of the system running the TSD. For example, we could specify <code class="docutils literal notranslate"><span class="pre">tz=America/Los_Angeles</span></code> to convert our timestamp from Los Angeles local time to UTC.</p>
+<p>Alternatively, if you are unable to change the system timezone, you can provide an override via the config file <code class="docutils literal notranslate"><span class="pre">tsd.core.timezone</span></code> property.</p>
 </div>
 </div>
 
@@ -167,7 +160,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

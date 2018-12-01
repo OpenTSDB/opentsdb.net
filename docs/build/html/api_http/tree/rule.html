@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/tree/rule &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -90,12 +81,14 @@
                         title="next chapter">/api/tree/rules</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -108,10 +101,10 @@
             
   <div class="section" id="api-tree-rule">
 <h1>/api/tree/rule</h1>
-<p>Each rule in a tree is an individual object in storage, thus the <code class="docutils literal"><span class="pre">/api/tree/rule</span></code> endpoint allows for easy modification of a single rule in the set. Rules are addressed by their <code class="docutils literal"><span class="pre">tree</span></code> ID, <code class="docutils literal"><span class="pre">level</span></code> and <code class="docutils literal"><span class="pre">order</span></code> and all requests require these three parameters.</p>
+<p>Each rule in a tree is an individual object in storage, thus the <code class="docutils literal notranslate"><span class="pre">/api/tree/rule</span></code> endpoint allows for easy modification of a single rule in the set. Rules are addressed by their <code class="docutils literal notranslate"><span class="pre">tree</span></code> ID, <code class="docutils literal notranslate"><span class="pre">level</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> and all requests require these three parameters.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If a manual tree synchronization is running somewhere or there is a large number of TSMeta objects being created or edited, the tree rule may be cached and modifications to a tree's rule set may take some time to propagate. If you make any modifications to the rule set, other than to meta information such as the <code class="docutils literal"><span class="pre">description</span></code> and <code class="docutils literal"><span class="pre">notes</span></code>, you may want to flush the tree data and perform a manual synchronization so that branches and leaves reflect the new rules.</p>
+<p class="last">If a manual tree synchronization is running somewhere or there is a large number of TSMeta objects being created or edited, the tree rule may be cached and modifications to a tree’s rule set may take some time to propagate. If you make any modifications to the rule set, other than to meta information such as the <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">notes</span></code>, you may want to flush the tree data and perform a manual synchronization so that branches and leaves reflect the new rules.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -178,7 +171,7 @@
 <tr class="row-odd"><td>description</td>
 <td>String</td>
 <td>Optional</td>
-<td>A brief description of the rule's purpose</td>
+<td>A brief description of the rule’s purpose</td>
 <td>&#160;</td>
 <td>description</td>
 <td>RW</td>
@@ -214,7 +207,7 @@
 <tr class="row-odd"><td>customField</td>
 <td>String</td>
 <td>Optional</td>
-<td>The name of a <code class="docutils literal"><span class="pre">TSMeta</span></code> custom field for the rule to operate on. Note that the <code class="docutils literal"><span class="pre">field</span></code> value must also be configured or an exception will be raised.</td>
+<td>The name of a <code class="docutils literal notranslate"><span class="pre">TSMeta</span></code> custom field for the rule to operate on. Note that the <code class="docutils literal notranslate"><span class="pre">field</span></code> value must also be configured or an exception will be raised.</td>
 <td>&#160;</td>
 <td>custom_field</td>
 <td>RW</td>
@@ -227,7 +220,7 @@
 <td>&#160;</td>
 <td>regex</td>
 <td>RW</td>
-<td>^.*\.([a-zA-Z]{3,4})[0-9]{0,1}\..*\..*$</td>
+<td>^.*.([a-zA-Z]{3,4})[0-9]{0,1}..*..*$</td>
 </tr>
 <tr class="row-odd"><td>separator</td>
 <td>String</td>
@@ -236,7 +229,7 @@
 <td>&#160;</td>
 <td>separator</td>
 <td>RW</td>
-<td>\.</td>
+<td>.</td>
 </tr>
 <tr class="row-even"><td>regexGroupIdx</td>
 <td>Integer</td>
@@ -250,7 +243,7 @@
 <tr class="row-odd"><td>displayFormat</td>
 <td>String</td>
 <td>Optional</td>
-<td>A display format string to alter the <code class="docutils literal"><span class="pre">display_name</span></code> value of the resulting branch or leaf. See <a class="reference internal" href="../../user_guide/trees.html"><span class="doc">Trees</span></a></td>
+<td>A display format string to alter the <code class="docutils literal notranslate"><span class="pre">display_name</span></code> value of the resulting branch or leaf. See <a class="reference internal" href="../../user_guide/trees.html"><span class="doc">Trees</span></a></td>
 <td>&#160;</td>
 <td>display_format</td>
 <td>RW</td>
@@ -260,25 +253,25 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When supplying a <code class="docutils literal"><span class="pre">separator</span></code> or a <code class="docutils literal"><span class="pre">regex</span></code> value, you must supply a valid regular expression. For separators, the most common use is to split dotted metrics into branches. E.g. you may want &quot;sys.cpu.0.user&quot; to be split into &quot;sys&quot;, &quot;cpu&quot;, &quot;0&quot; and &quot;user&quot; branches. You cannot supply just a &quot;.&quot; for the separator value as that will not match properly. Instead, escape the period via &quot;.&quot;. Note that if you are supplying JSON via a POST request, you must escape the backslash as well and supply &quot;\.&quot;. GET request responses will escape all backslashes.</p>
+<p class="last">When supplying a <code class="docutils literal notranslate"><span class="pre">separator</span></code> or a <code class="docutils literal notranslate"><span class="pre">regex</span></code> value, you must supply a valid regular expression. For separators, the most common use is to split dotted metrics into branches. E.g. you may want “sys.cpu.0.user” to be split into “sys”, “cpu”, “0” and “user” branches. You cannot supply just a “.” for the separator value as that will not match properly. Instead, escape the period via “.”. Note that if you are supplying JSON via a POST request, you must escape the backslash as well and supply “.”. GET request responses will escape all backslashes.</p>
 </div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full rule object with optional requested changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested tree or rule did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
+<p>A successful response to a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request will return the full rule object with optional requested changes. Successful <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal notranslate"><span class="pre">304</span></code> without any body content. If the requested tree or rule did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal notranslate"><span class="pre">400</span></code> error will be returned.</p>
 </div>
 <div class="section" id="get">
 <h2>GET</h2>
-<p>A <code class="docutils literal"><span class="pre">GET</span></code> request requires a specific tree ID, rule level and order. Otherwise a <code class="docutils literal"><span class="pre">400</span></code> will be returned. To fetch all of the rules for a tree, use the <code class="docutils literal"><span class="pre">/api/tree</span></code> endpoint with a <a href="#id3"><span class="problematic" id="id4">``</span></a>treeId' value.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">GET</span></code> request requires a specific tree ID, rule level and order. Otherwise a <code class="docutils literal notranslate"><span class="pre">400</span></code> will be returned. To fetch all of the rules for a tree, use the <code class="docutils literal notranslate"><span class="pre">/api/tree</span></code> endpoint with a <a href="#id3"><span class="problematic" id="id4">``</span></a>treeId’ value.</p>
 <div class="section" id="example-get-query">
 <h3>Example GET Query</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
     <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -298,16 +291,16 @@
 </div>
 <div class="section" id="post-put">
 <h2>POST/PUT</h2>
-<p>Using the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> methods, you can create a new rule or edit an existing rule. New rules require a <code class="docutils literal"><span class="pre">type</span></code> value. Existing trees require a valid <code class="docutils literal"><span class="pre">treeId</span></code> ID and any fields that require modification. A successful request will return the modified rule object. Note that if a rule exists at the given level and order, any changes will be merged with or overwrite the existing rule.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> methods, you can create a new rule or edit an existing rule. New rules require a <code class="docutils literal notranslate"><span class="pre">type</span></code> value. Existing trees require a valid <code class="docutils literal notranslate"><span class="pre">treeId</span></code> ID and any fields that require modification. A successful request will return the modified rule object. Note that if a rule exists at the given level and order, any changes will be merged with or overwrite the existing rule.</p>
 <div class="section" id="example-query-string-request">
 <h3>Example Query String Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=\.&amp;method_override=post
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=\.&amp;method_override=post
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-content-request">
 <h3>Example Content Request</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
     <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;\\.&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Split the metric on periods&quot;</span><span class="p">,</span>
@@ -320,7 +313,7 @@
 </div>
 <div class="section" id="id5">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
     <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -340,14 +333,14 @@
 </div>
 <div class="section" id="delete">
 <h2>DELETE</h2>
-<p>Using the <code class="docutils literal"><span class="pre">DELETE</span></code> method will remove a rule from a tree. A successful deletion will respond with a <code class="docutils literal"><span class="pre">204</span></code> status code and no content body. If the rule did not exist, a <code class="docutils literal"><span class="pre">404</span></code> error will be returned.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> method will remove a rule from a tree. A successful deletion will respond with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no content body. If the rule did not exist, a <code class="docutils literal notranslate"><span class="pre">404</span></code> error will be returned.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This method cannot be undone.</p>
 </div>
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;method_override=delete
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;method_override=delete
 </pre></div>
 </div>
 </div>
@@ -378,7 +371,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

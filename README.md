@@ -32,7 +32,8 @@ used create the HTML files from ReStructuredText files. The source files
 are found in `docs/source`. Please only edit the `.rst` files. Install
 Sphinx using your favorite Python package manager, then from the `docs` 
 directory run `make html`. Verify your updates appeared properly in the 
-generated HTML output, commit your changes and send us a PR.
+generated HTML output using `python -m SimpleHTTPServer`, commit your 
+changes and send us a PR.
 
 **Note:** Changes made directly to the HTML pages but not the `.rst`
 files may disappear the next time code is updated.

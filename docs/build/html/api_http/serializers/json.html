@@ -2,20 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>JSON Serializer &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -34,8 +26,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -64,12 +55,14 @@
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -82,10 +75,10 @@
             
   <div class="section" id="json-serializer">
 <h1>JSON Serializer</h1>
-<p>The default OpenTSDB serializer parses and returns JSON formatted data. Below you'll find details about the serializer and request parameters that affect only the the JSON serializer. If the serializer has extra parameters for a specific endpoint, they'll be listed below.</p>
+<p>The default OpenTSDB serializer parses and returns JSON formatted data. Below you’ll find details about the serializer and request parameters that affect only the the JSON serializer. If the serializer has extra parameters for a specific endpoint, they’ll be listed below.</p>
 <div class="section" id="serializer-name">
 <h2>Serializer Name</h2>
-<p><code class="docutils literal"><span class="pre">json</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">json</span></code></p>
 </div>
 <div class="section" id="serializer-options">
 <h2>Serializer Options</h2>
@@ -113,7 +106,7 @@
 <td>String</td>
 <td>Optional</td>
 <td>Wraps the response in a JavaScript function name passed to the parameter.</td>
-<td><code class="docutils literal"><span class="pre">empty</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">empty</span></code></td>
 <td>jsonp=callback</td>
 </tr>
 </tbody>
@@ -121,16 +114,16 @@
 </div>
 <div class="section" id="jsonp">
 <h2>JSONP</h2>
-<p>The JSON formatter can wrap responses in a JavaScript function using the <code class="docutils literal"><span class="pre">jsonp</span></code> query string parameter. Supply the name of the function you wish to use and the result will be wrapped.</p>
+<p>The JSON formatter can wrap responses in a JavaScript function using the <code class="docutils literal notranslate"><span class="pre">jsonp</span></code> query string parameter. Supply the name of the function you wish to use and the result will be wrapped.</p>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/version?jsonp=callback
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/version?jsonp=callback
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">callback</span><span class="p">({</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">callback</span><span class="p">({</span>
     <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="s2">&quot;1362712695&quot;</span><span class="p">,</span>
     <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;DF81QBM1&quot;</span><span class="p">,</span>
     <span class="s2">&quot;repo&quot;</span><span class="o">:</span> <span class="s2">&quot;/c/temp/a/opentsdb/build&quot;</span><span class="p">,</span>
@@ -194,7 +187,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2017, OpenTSDB.
+        &copy; Copyright 2018, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

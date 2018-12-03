@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Filters &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Filters</a><ul>
+<li><a class="reference internal" href="#chain">Chain</a></li>
+<li><a class="reference internal" href="#metricliteral">MetricLiteral</a></li>
+<li><a class="reference internal" href="#metricregex">MetricRegex</a></li>
+<li><a class="reference internal" href="#tagkeyliteralor">TagKeyLiteralOr</a></li>
+<li><a class="reference internal" href="#tagkeyliteralregex">TagKeyLiteralRegex</a></li>
+<li><a class="reference internal" href="#tagvalueliteralor">TagValueLiteralOr</a></li>
+<li><a class="reference internal" href="#tagvaluewildcard">TagValueWildcard</a></li>
+<li><a class="reference internal" href="#tagvaluerange">TagValueRange</a></li>
+<li><a class="reference internal" href="#tagvalueregex">TagValueRegex</a></li>
+<li><a class="reference internal" href="#explicittags">ExplicitTags</a></li>
+<li><a class="reference internal" href="#not">Not</a></li>
+<li><a class="reference internal" href="#anyfieldregex">AnyFieldRegex</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="filters">
+<h1>Filters</h1>
+<p>Filters allow for fetching a select set of time series with a common metric. 3.x filters are much more capable than 2.x filters with the ability to search across multiple fields and combine them for boolean queries.</p>
+<p>A filter is a single object and in places where filters are used, only the one object is allowed. However multiple filters can be combined in various ways via the <code class="docutils literal"><span class="pre">chain</span></code> filter. Chains allow for <code class="docutils literal"><span class="pre">AND</span></code> ing operations or <code class="docutils literal"><span class="pre">OR</span></code> ing filtering as well as nested chains for complex filtering. Additional modifying filters are available such as the <code class="docutils literal"><span class="pre">Not</span></code> filter that negates nested filters.</p>
+<p><strong>Note</strong> that we're still working out some bugs with the filters, particularly with legacy data sources so file any that you see.</p>
+<p><strong>TYPE</strong></p>
+<p>All filter definitions require the <code class="docutils literal"><span class="pre">type</span></code> field that is the name of the filter from these documents. The type must be loaded in the registry as the ID of the plugin.</p>
+<p>Filters currently built-in to OpenTSDB include:</p>
+<div class="section" id="chain">
+<h2>Chain</h2>
+<p>Combines one or more filters with a logical <code class="docutils literal"><span class="pre">AND</span></code> (the default) or a logical <code class="docutils literal"><span class="pre">OR</span></code>. Fields include:</p>
+<ul class="simple">
+<li><strong>op</strong> - Either the literal <code class="docutils literal"><span class="pre">AND</span></code> (default) or <code class="docutils literal"><span class="pre">OR</span></code>.</li>
+<li><strong>filters</strong> - A list of one or more filter objects. These can be any type of filter.</li>
+</ul>
+</div>
+<div class="section" id="metricliteral">
+<h2>MetricLiteral</h2>
+<p>Matches a single metric in the data store.</p>
+<ul class="simple">
+<li><strong>metric</strong> - The literal, case-sensitive name of the metric.</li>
+</ul>
+</div>
+<div class="section" id="metricregex">
+<h2>MetricRegex</h2>
+<p>Executes the regular expression against metrics to fetch all metrics that match.</p>
+<ul class="simple">
+<li><strong>metric</strong> - The valid regular expression to use.</li>
+</ul>
+</div>
+<div class="section" id="tagkeyliteralor">
+<h2>TagKeyLiteralOr</h2>
+<p>Matches one or more literal tag keys. Multiple values are separated by a pipe.</p>
+<ul class="simple">
+<li><strong>filter</strong> - A pipe separated list of case-sensitive tag keys.</li>
+</ul>
+</div>
+<div class="section" id="tagkeyliteralregex">
+<h2>TagKeyLiteralRegex</h2>
+<p>Matches the regular expression against tag keys.</p>
+<ul class="simple">
+<li>** filter** - The valid regular expression to use.</li>
+</ul>
+</div>
+<div class="section" id="tagvalueliteralor">
+<h2>TagValueLiteralOr</h2>
+<p>Matches one or more literal tag values. Multiple values are separated by a pipe.</p>
+<ul class="simple">
+<li><strong>tagKey</strong> - The literal case-sensitive name of a tag key.</li>
+<li><strong>filter</strong> - A pipe separated list of case-sensitive tag values.</li>
+</ul>
+</div>
+<div class="section" id="tagvaluewildcard">
+<h2>TagValueWildcard</h2>
+<p>Matches on the globs of a case-sensitive tag value using the literal <code class="docutils literal"><span class="pre">*</span></code> as the wildcard place-holder.</p>
+<ul class="simple">
+<li><strong>tagKey</strong> - The literal case-sensitive name of a tag key.</li>
+<li><strong>filter</strong> - A case-sensitive tag value with asterisks for the wildcard. Must include at least one asterisk. If the value is just <code class="docutils literal"><span class="pre">*</span></code> then it will match all series with the given <code class="docutils literal"><span class="pre">tagKey</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="tagvaluerange">
+<h2>TagValueRange</h2>
+<p>Expands a syntax into multiple literal values. E.g. <code class="docutils literal"><span class="pre">web{01-05}.{dc1|dc2}</span></code> would generate 10 values such as <code class="docutils literal"><span class="pre">web01.dc1`</span> <span class="pre">through</span> <span class="pre">``web05.dc2</span></code>.
+TODO - docs</p>
+<ul class="simple">
+<li><strong>tagKey</strong> - The literal case-sensitive name of a tag key.</li>
+<li><strong>filter</strong> - The range expression.</li>
+</ul>
+</div>
+<div class="section" id="tagvalueregex">
+<h2>TagValueRegex</h2>
+<p>Matches a regular expression on the tag value.</p>
+<ul class="simple">
+<li><strong>tagKey</strong> - The literal case-sensitive name of a tag key.</li>
+<li><strong>filter</strong> - A properly formed regular expression.</li>
+</ul>
+</div>
+<div class="section" id="explicittags">
+<h2>ExplicitTags</h2>
+<p>Must be used as the top-level filter if applicable and means that a time series must have all of the tag keys specified in the nested filter set and no other tags.</p>
+<ul class="simple">
+<li><strong>filter</strong> - A required nested filter.</li>
+</ul>
+</div>
+<div class="section" id="not">
+<h2>Not</h2>
+<p>Negates the nested filter.</p>
+<ul class="simple">
+<li><strong>filter</strong> - A required nested filter.</li>
+</ul>
+</div>
+<div class="section" id="anyfieldregex">
+<h2>AnyFieldRegex</h2>
+<p>Matches on any field including the metric, tag keys and tag values.</p>
+<ul class="simple">
+<li><strong>filter</strong> - A properly formed regular expression.</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

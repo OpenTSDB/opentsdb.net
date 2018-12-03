@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>What&#39;s New &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">What's New</a><ul>
+<li><a class="reference internal" href="#x-planned">3.X (Planned)</a></li>
+<li><a class="reference internal" href="#planned">2.4 (Planned)</a></li>
+<li><a class="reference internal" href="#id1">2.3</a></li>
+<li><a class="reference internal" href="#id2">2.2</a></li>
+<li><a class="reference internal" href="#id3">2.1</a></li>
+<li><a class="reference internal" href="#id4">2.0</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="what-s-new">
+<h1>What's New</h1>
+<p>OpenTSDB has a thriving community who contributed and requested a number of new features.</p>
+<div class="section" id="x-planned">
+<h2>3.X (Planned)</h2>
+<p>While 3.0 is still a ways off, we'll be pushing some of the new features into a new branch of the repo. Some are in progress and other features are planned. If you have any features that you want to see, let us know.</p>
+<ul class="simple">
+<li>Distributed Queries - Based on the great work of Turn on <a class="reference external" href="https://github.com/turn/splicer">Splicer</a> we have a distributed query layer to split queries amongst multiple TSDs for greater throughput.</li>
+<li>Query Caching - Improve queries with time-sharded caching of results.</li>
+<li>Improved Expressions - Perform group by, downsampling and arithmetic modifications in any order. Potentially support UDFs as well.</li>
+<li>Anomaly Processing/Forecasting - Integrate with modeling libraries (such as <a class="reference external" href="https://github.com/yahoo/egads">EGADs</a>) for deeper time series analysis.</li>
+</ul>
+</div>
+<div class="section" id="planned">
+<h2>2.4 (Planned)</h2>
+<ul class="simple">
+<li>Rollup/Pre-Aggregates - Support for storing and querying time-based rolled up data and/or pre-aggregated values.</li>
+<li>Distributed Percentile - Store histograms (or sketches) for calculating proper percentiles over multiple sources.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>2.3</h2>
+<ul class="simple">
+<li>Expressions - Query time computations using time series data. For example, dividing one metric by another.</li>
+<li>Graphite Style Functions - Additional filtering and mutation of data at query time using Graphite style functions.</li>
+<li>Calendar Based Downsampling - The ability to align downsampled data on Gregorian calendar boundaries.</li>
+<li>Bigtable Support - Run TSDB in the cloud using Google's hosted Bigtable service.</li>
+<li>Cassandra Support - Support for running OpenTSDB on legacy Cassandra clusters.</li>
+<li>Write Filters - Block or allow time series or UID assignments based on plugins or whitelists.</li>
+<li>New Aggregators - None for returning raw data. First and Last to return the first or last data points during downsampling.</li>
+<li>Meta Data Cache Plugin - A new API for caching meta data to improve query performance.</li>
+<li>Startup Plugins - APIs to help with service discovery on TSD startup.</li>
+<li>Example Java API usage classes.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>2.2</h2>
+<ul class="simple">
+<li>Appends - Support writing all data points for an hour in a single column. This saves the need for TSD compactions and reduces network traffic at query time.</li>
+<li>Salting - Enables greater distribution of writes for high cardinality metrics as well as asynchronous scanning for improved query speed. (Non backwards compatible)</li>
+<li>Random Metric UIDs - Enables better distribution of writes when creating new metrics</li>
+<li>Storage Exception Plugin - Enables various handling of data points when HBase is unavailable</li>
+<li>Secure AsyncHBase - Access HBase clusters requiring Kerberos or simple authentication along with optional encryption.</li>
+<li>Fill Policy - Enable emitting NaNs or Nulls via the JSON query endpoint when data points are &quot;missing&quot;</li>
+<li>Count and Percentiles - New aggregator functions</li>
+<li>More Stats - Gives greater insight into query performance via the query stats endpoint and new stats for threads, region clients and the JVM</li>
+<li>Annotations - Scan for multiple annotations only via the /api/annotations endpoint</li>
+<li>Query Filters - New filters for flexibility including case (in)sensitive literals, wildcards and regular expressions.</li>
+<li>Override Tag Widths - You can now override tag widths in the config instead of having to recompile the code.</li>
+<li>Compaction Tuning - New parameters allow for tuning the TSD compaction process.</li>
+<li>Delete Data And UIDs - Allow for deleting data at query time as well as removing UIDs from the system.</li>
+<li>Synchronous Writing - The HTTP Put API now supports synchronous writing to make sure data is flushed to HBase.</li>
+<li>Query Stats - Query details are now logged that include timing statistics. A new endpoint also shows running and completed queries.</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>2.1</h2>
+<ul class="simple">
+<li>Downsampling - Timestamps are now aligned on modulus boundaries, reducing the need to interpolation across series.</li>
+<li>Last Data Point API - Query for the last data point for specific time series within a certain time window</li>
+<li>Duplicates - Handle duplicate data points at query time or during FSCK</li>
+<li>FSCK - An updated FSCK utility that iterates over the main data table, finding and fixing errors</li>
+<li>Read/Write Modes - Block assigning UIDs on individual TSDs for backup clusters</li>
+<li>UID Cache - Preload portions of the UID table on startup to improve writes</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>2.0</h2>
+<ul class="simple">
+<li>Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names, or values</li>
+<li>Restful API - Provides access to all of OpenTSDB's features as well as offering new options, defaulting to JSON</li>
+<li>Cross Origin Resource Sharing - For the API so you can make AJAX calls easily</li>
+<li>Store Data Via HTTP - Write data points over HTTP as an alternative to Telnet</li>
+<li>Configuration File - A key/value file shared by the TSD and command line tools</li>
+<li>Pluggable Serializers - Enable different inputs and outputs for the API</li>
+<li>Annotations - Record meta data about specific time series or data points</li>
+<li>Meta Data - Record meta data for each time series, metrics, tag names, or values</li>
+<li>Trees - Flatten metric and tag combinations into a single name for navigation or usage with different tools</li>
+<li>Search Plugins - Send meta data to search engines to delve into your data and figure out what's in your database</li>
+<li>Real-Time Publishing Plugin - Send data to external systems as they arrive to your TSD</li>
+<li>Ingest Plugins - Accept data points in different formats</li>
+<li>Millisecond Resolution - Optionally store data with millisecond precision</li>
+<li>Variable Length Encoding - Use less storage space for smaller integer values</li>
+<li>Non-Interpolating Aggregation Functions - For situations where you require raw data</li>
+<li>Rate Counter Calculations - Handle roll-over and anomaly supression</li>
+<li>Additional Statistics - Including the number of UIDs assigned and available</li>
+</ul>
+<p>Thank you to everyone who has contributed to 3.0. Help us out by sharing your ideas and code at <a class="reference external" href="https://github.com/OpenTSDB">GitHub</a></p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/query/gexp &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/query/gexp</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-query-string-requests">Example Query String Requests</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a></li>
+<li><a class="reference internal" href="#functions">Functions</a><ul>
+<li><a class="reference internal" href="#absolute-metric">absolute(&lt;metric&gt;)</a></li>
+<li><a class="reference internal" href="#diffseries-metric-metricn">diffSeries(&lt;metric&gt;[,&lt;metricN&gt;])</a></li>
+<li><a class="reference internal" href="#divideseries-metric-metricn">divideSeries(&lt;metric&gt;[,&lt;metricN&gt;])</a></li>
+<li><a class="reference internal" href="#highestcurrent-metric-n">highestCurrent(&lt;metric&gt;,&lt;n&gt;)</a></li>
+<li><a class="reference internal" href="#highestmax-metric-n">highestMax(&lt;metric&gt;,&lt;n&gt;)</a></li>
+<li><a class="reference internal" href="#movingaverage-metric-window">movingAverage(&lt;metric&gt;,&lt;window&gt;)</a></li>
+<li><a class="reference internal" href="#multiplyseries-metric-metricn">multiplySeries(&lt;metric&gt;[,&lt;metricN&gt;])</a></li>
+<li><a class="reference internal" href="#scale-metric-factor">scale(&lt;metric&gt;,&lt;factor&gt;)</a></li>
+<li><a class="reference internal" href="#sumseries-metric-metricn">sumSeries(&lt;metric&gt;[,&lt;metricN&gt;])</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-query-gexp">
+<h1>/api/query/gexp</h1>
+<p>Graphite is an excellent storage system for time series data with a number of built in functions to manipulate the data. To support transitions from Graphite to OpenTSDB, the <code class="docutils literal"><span class="pre">/api/query/gexp</span></code> endpoint supports URI queries <em>similar</em> but not <em>identical</em> to Graphite`s expressions. Graphite functions are generally formatted as <code class="docutils literal"><span class="pre">func(&lt;series&gt;[,</span> <span class="pre">param1][,</span> <span class="pre">paramN])</span></code> with the ability to nest functions. TSD`s implementation follows the same pattern but uses an <code class="docutils literal"><span class="pre">m</span></code> style query (e.g. <code class="docutils literal"><span class="pre">sum:proc.stat.cpu{host=foo,type=idle}</span></code>) in place of the <code class="docutils literal"><span class="pre">&lt;series&gt;</span></code>. Nested functions are supported.</p>
+<p>TSDB implements a subset of Graphite functions though we hope to add more in the future. For a list of Graphite functions and descriptions, see the <a class="reference external" href="http://graphite.readthedocs.org/en/latest/functions.html">Documentation</a>. TSD supported functions appear below.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Supported as of version 2.3</p>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Queries can only be executed via GET using the URI at this time. (In the future, the <a class="reference internal" href="exp.html"><span class="doc">/api/query/exp</span></a> endpoint will support more flexibility.) This is an extension of the main <a class="reference internal" href="index.html"><span class="doc">/api/query</span></a> endpoint so parameters in the request table are also supported here. Additional parameters include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="55%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>exp</td>
+<td>String</td>
+<td>Required</td>
+<td>The Graphite style expression to execute. The first parameter of a function must either be another function or a URI formatted <strong>Sub Query</strong></td>
+<td>scale(sum:if.bytes_in{host=*},1024)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-query-string-requests">
+<h3>Example Query String Requests</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/query/gexp?start=1h-ago&amp;exp=scale(sum:if.bytes_in{host=*},1024)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The output is identical to <a class="reference internal" href="index.html"><span class="doc">/api/query</span></a>.</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions</h2>
+<p>Functions that accept a single metric query will operate across each time series result. E.g. if a query includes a group by on host such as <code class="docutils literal"><span class="pre">scale(sum:if.bytes_in{host=*},1024)</span></code>, and multiple hosts exist with that metric, then a series for each host will be emitted and the function applied. For functions that take multiple metrics, a union is performed across each metric and the function is executed across each resulting series with matching tags. E.g with the query <code class="docutils literal"><span class="pre">sum(sum:if.bytes_in{host=*},sum:if.bytes_out{host=*})</span></code>, assume two hosts exist, <code class="docutils literal"><span class="pre">web01</span></code> and <code class="docutils literal"><span class="pre">web02</span></code>. In this case, the output will be <code class="docutils literal"><span class="pre">if.bytes_in{host=web01}</span> <span class="pre">+</span> <span class="pre">if.bytes_out{host=web01}</span></code> and <code class="docutils literal"><span class="pre">if.bytes_in{host=web02}</span> <span class="pre">+</span> <span class="pre">if.bytes_out{host=web02}</span></code>. Missing series in any metric result set will be filled with the default fill value of the function.</p>
+<p>Currently supported expressions include:</p>
+<div class="section" id="absolute-metric">
+<h3>absolute(&lt;metric&gt;)</h3>
+<p>Emits the results as absolute values, converting negative values to positive.</p>
+</div>
+<div class="section" id="diffseries-metric-metricn">
+<h3>diffSeries(&lt;metric&gt;[,&lt;metricN&gt;])</h3>
+<p>Returns the difference of all series in the list. Performs a UNION across tags in each metric result sets, defaulting to a fill value of zero. A maximum of 26 series are supported at this time.</p>
+</div>
+<div class="section" id="divideseries-metric-metricn">
+<h3>divideSeries(&lt;metric&gt;[,&lt;metricN&gt;])</h3>
+<p>Returns the quotient of all series in the list. Performs a UNION across tags in each metric result sets, defaulting to a fill value of zero. A maximum of 26 series are supported at this time.</p>
+</div>
+<div class="section" id="highestcurrent-metric-n">
+<h3>highestCurrent(&lt;metric&gt;,&lt;n&gt;)</h3>
+<p>Sorts all resulting time series by their most recent value and emits <code class="docutils literal"><span class="pre">n</span></code> number of series with the highest values. <code class="docutils literal"><span class="pre">n</span></code> must be a positive integer value.</p>
+</div>
+<div class="section" id="highestmax-metric-n">
+<h3>highestMax(&lt;metric&gt;,&lt;n&gt;)</h3>
+<p>Sorts all resulting time series by the maximum value for the time span and emits <code class="docutils literal"><span class="pre">n</span></code> number of series with the highest values. <code class="docutils literal"><span class="pre">n</span></code> must be a positive integer value.</p>
+</div>
+<div class="section" id="movingaverage-metric-window">
+<h3>movingAverage(&lt;metric&gt;,&lt;window&gt;)</h3>
+<p>Emits a sliding window moving average for each data point and series in the metric. The <code class="docutils literal"><span class="pre">window</span></code> parameter may either be a positive integer that reflects the number of data points to maintain in the window (non-timed) or a time span specified by an integer followed by time unit such as <code class="docutils literal"><span class="pre">`60s`</span></code> or <code class="docutils literal"><span class="pre">`60m`</span></code> or <code class="docutils literal"><span class="pre">`24h`</span></code>. Timed windows must be in single quotes.</p>
+</div>
+<div class="section" id="multiplyseries-metric-metricn">
+<h3>multiplySeries(&lt;metric&gt;[,&lt;metricN&gt;])</h3>
+<p>Returns the product of all series in the list. Performs a UNION across tags in each metric result sets, defaulting to a fill value of zero. A maximum of 26 series are supported at this time.</p>
+</div>
+<div class="section" id="scale-metric-factor">
+<h3>scale(&lt;metric&gt;,&lt;factor&gt;)</h3>
+<p>Multiplies each series by the factor where the factor can be a positive or negative floating point or integer value.</p>
+</div>
+<div class="section" id="sumseries-metric-metricn">
+<h3>sumSeries(&lt;metric&gt;[,&lt;metricN&gt;])</h3>
+<p>Returns the sum of all series in the list. Performs a UNION across tags in each metric result sets, defaulting to a fill value of zero. A maximum of 26 series are supported at this time.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

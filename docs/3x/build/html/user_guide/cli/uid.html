@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>uid &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">uid</a><ul>
+<li><a class="reference internal" href="#common-cli-parameters">Common CLI Parameters</a></li>
+<li><a class="reference internal" href="#lookup">Lookup</a><ul>
+<li><a class="reference internal" href="#command-format">Command Format</a></li>
+<li><a class="reference internal" href="#example-command">Example Command</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grep">grep</a><ul>
+<li><a class="reference internal" href="#id1">Command Format</a></li>
+<li><a class="reference internal" href="#id2">Example Command</a></li>
+<li><a class="reference internal" href="#id3">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#assign">assign</a><ul>
+<li><a class="reference internal" href="#id4">Command Format</a></li>
+<li><a class="reference internal" href="#id5">Example Command</a></li>
+<li><a class="reference internal" href="#id6">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rename">rename</a><ul>
+<li><a class="reference internal" href="#id7">Command Format</a></li>
+<li><a class="reference internal" href="#id8">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delete">delete</a><ul>
+<li><a class="reference internal" href="#id9">Command Format</a></li>
+<li><a class="reference internal" href="#id10">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fsck">fsck</a><ul>
+<li><a class="reference internal" href="#id11">Command Format</a></li>
+<li><a class="reference internal" href="#id12">Example Command</a></li>
+<li><a class="reference internal" href="#id13">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metasync">metasync</a><ul>
+<li><a class="reference internal" href="#id14">Command Format</a></li>
+<li><a class="reference internal" href="#id15">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metapurge">metapurge</a><ul>
+<li><a class="reference internal" href="#id16">Command Format</a></li>
+<li><a class="reference internal" href="#id17">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#treesync">treesync</a><ul>
+<li><a class="reference internal" href="#id18">Command Format</a></li>
+<li><a class="reference internal" href="#id19">Example Command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#treepurge">treepurge</a><ul>
+<li><a class="reference internal" href="#id20">Command Format</a></li>
+<li><a class="reference internal" href="#id21">Example Command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="uid">
+<h1>uid</h1>
+<p>The UID utility provides various functions to search or modify information in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data.</p>
+<p>Use the UID utility with the command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">uid</span> <span class="o">&lt;</span><span class="n">subcommands</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">arguments</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="common-cli-parameters">
+<h2>Common CLI Parameters</h2>
+<p>Parameters specific to the UID utility include:</p>
+</div>
+<div class="section" id="lookup">
+<h2>Lookup</h2>
+<p>The lookup command is the default for <code class="docutils literal"><span class="pre">uid</span></code> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
+<div class="section" id="command-format">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">UID</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-command">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">tagk</span> <span class="n">host</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tagk</span> <span class="n">host</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="grep">
+<h2>grep</h2>
+<p>The grep sub command performs a regular expression search for the given UID type and returns a list of all UID names that match the expression. Fields required for the grep command include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="50%" />
+<col width="10%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID to search for. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
+<td>&#160;</td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>expression</td>
+<td>String</td>
+<td>The regex expression to search with</td>
+<td>&#160;</td>
+<td>disk.*write</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s1">&#39;&lt;expression&gt;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">grep</span> <span class="n">metrics</span> <span class="s1">&#39;disk.*write&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Example Response</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">msec_write</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">67</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_merged</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">69</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_requests</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_sectors</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="assign">
+<h2>assign</h2>
+<p>This sub command is used to assign IDs to new unique names for metrics, tag names or tag values. Supply a list of one or more values to assign UIDs and the list of assignments will be returned.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID the names represent. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>String</td>
+<td>One or more names to assign UIDs to. Names must not be in quotes and cannot contain spaces.</td>
+<td>owner</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id4">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">assign</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;...</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">assign</span> <span class="n">metrics</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span> <span class="n">disk</span><span class="o">.</span><span class="n">d1</span> <span class="n">disk</span><span class="o">.</span><span class="n">d2</span> <span class="n">disk</span><span class="o">.</span><span class="n">d3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Example Response</h3>
+</div>
+</div>
+<div class="section" id="rename">
+<h2>rename</h2>
+<p>Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After changing a UID name you must flush the cache (see <a class="reference internal" href="../../api_http/dropcaches.html"><span class="doc">/api/dropcaches</span></a>) or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.</p>
+</div>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID the name represent. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>String</td>
+<td>The existing UID name</td>
+<td>owner</td>
+</tr>
+<tr class="row-even"><td>newname</td>
+<td>String</td>
+<td>The new name UID name</td>
+<td>server_owner</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id7">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rename</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">newname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">rename</span> <span class="n">metrics</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span><span class="o">.</span><span class="n">bytes_read</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delete">
+<h2>delete</h2>
+<p>Removes the mapping of the UID from the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table. Make sure all sources are no longer writing data using the UID and that sufficient time has passed so that users would not query for data that used the UIDs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After deleting a UID, it may still remain in the caches of running TSD servers. Make sure to flush their caches after deleting an entry.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Deleting a UID will not delete the underlying data associated with the UIDs (we're working on that). For metrics this is safe, it won't affect queries. But for tag names and values, if a query scans over data containing the old UID, the query will fail with an exception because it can no longer find the name mapping.</p>
+</div>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>kind</td>
+<td>String</td>
+<td>The type of the UID the name represent. Must be one of <code class="docutils literal"><span class="pre">metrics</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
+<td>tagk</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>String</td>
+<td>The existing UID name</td>
+<td>owner</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id9">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">delete</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">delete</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="fsck">
+<h2>fsck</h2>
+<p>The UID FSCK command will scan the entire UID table for errors pertaining to name and UID mappings. By default, the run will scan every column in the table and log any errors that were found. With version 2.1 it is possible to fix errors in the table by passing the &quot;fix&quot; flag. UIDMeta objects are skipped during scanning. Possible errors include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="34%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Error</th>
+<th class="head">Description</th>
+<th class="head">Fix</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Max ID for metrics is 42 but only 41 entries were found.  Maybe 1 IDs were deleted?</td>
+<td>This indicates one or more UIDs were not used for mapping entries. If a UID was deleted, this message is normal. If UIDs were not deleted, this can indicate wasted UIDs due to auto-assignments by TSDs where data was coming in too fast. Try assigning UIDs up-front as much as possible.</td>
+<td>No fix necessary</td>
+</tr>
+<tr class="row-odd"><td>We found an ID of 42 for metrics but the max ID is only 41!  Future IDs may be double-assigned!</td>
+<td>If this happens it is usually due to a corruption and indicates the max ID row was not updated properly.</td>
+<td>Set the max ID row to the largest detected value</td>
+</tr>
+<tr class="row-even"><td>Invalid maximum ID for metrics: should be on 8 bytes</td>
+<td>Indicates a corruption in the max ID row.</td>
+<td>No fix yet.</td>
+</tr>
+<tr class="row-odd"><td>Forward metrics mapping is missing reverse mapping: foo -&gt; 000001</td>
+<td>This may occur if a TSD crashes before the reverse map is written and would only prevent queries from executing against time series using the UID as they would not be able to lookukp the name.</td>
+<td>The fix is to restore the missing reverse map.</td>
+</tr>
+<tr class="row-even"><td>Forward metrics mapping bar -&gt; 000001 is different than reverse mapping: 000001 -&gt; foo</td>
+<td>The reverse map points to a different name than the forward map and this should rarely happen. It will be paired with another message.</td>
+<td>Depends on the second message</td>
+</tr>
+<tr class="row-odd"><td>Inconsistent forward metrics mapping bar -&gt; 000001 vs bar -&gt; foo / foo -&gt; 000001</td>
+<td>With a forward/reverse miss-match, it is possible that a UID was assigned to multiple names for the same type. If this occurs, then data for two different names has been written to the same time series and that data is effectively corrupt.</td>
+<td>The fix is to delete the forward maps for all names that map to the same UID. Then the UID is given a new name that is a dot seperated concatenation of the previous names with an &quot;fsck&quot; prefix. E.g. in the example above we would have a new name of &quot;fsck.bar.foo&quot;. This name may be used to access data from the corrupt time series. The next time data is written for the errant names, new UIDs will be assigned to each and new time series created.</td>
+</tr>
+<tr class="row-even"><td>Duplicate forward metrics mapping bar -&gt; 000002 and null -&gt; foo</td>
+<td>In this case the UID was not used more than once but the reverse mapping was incorrect.</td>
+<td>The reverse map will be restored, in this case: 000002 -&gt; bar</td>
+</tr>
+<tr class="row-odd"><td>Reverse metrics mapping is missing forward mapping: bar -&gt; 000002</td>
+<td>A reverse map was found without a forward map. The UID may have been deleted.</td>
+<td>Remove the reverse map</td>
+</tr>
+<tr class="row-even"><td>Inconsistent reverse metrics mapping 000003 -&gt; foo vs 000001 -&gt; foo / foo -&gt; 000001</td>
+<td>If an orphaned reverse map points to a resolved forward map, this error occurs.</td>
+<td>Remove the reverse map</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Options</strong></p>
+<ul class="simple">
+<li>fix - Attempts to fix errors per the table above</li>
+<li>delete_unknown - Removes any columns in the UID table that do not belong to OpenTSDB</li>
+</ul>
+<div class="section" id="id11">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fsck</span> <span class="p">[</span><span class="n">fix</span><span class="p">]</span> <span class="p">[</span><span class="n">delete_unknown</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">fsck</span> <span class="n">fix</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>Example Response</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">----------------------------------</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">-</span>    <span class="n">Running</span> <span class="n">fsck</span> <span class="ow">in</span> <span class="n">FIX</span> <span class="n">mode</span>    <span class="o">-</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">-</span>      <span class="n">Remove</span> <span class="n">Unknowns</span><span class="p">:</span> <span class="n">false</span>    <span class="o">-</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">----------------------------------</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Maximum</span> <span class="n">ID</span> <span class="k">for</span> <span class="n">metrics</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Maximum</span> <span class="n">ID</span> <span class="k">for</span> <span class="n">tagk</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Maximum</span> <span class="n">ID</span> <span class="k">for</span> <span class="n">tagv</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">ERROR</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Forward</span> <span class="n">tagk</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="n">missing</span> <span class="n">reverse</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">bar</span> <span class="o">-&gt;</span> <span class="mi">000004</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">FIX</span><span class="p">:</span> <span class="n">Restoring</span> <span class="n">tagk</span> <span class="n">reverse</span> <span class="n">mapping</span><span class="p">:</span> <span class="mi">000004</span> <span class="o">-&gt;</span> <span class="n">bar</span>
+<span class="n">ERROR</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">Inconsistent</span> <span class="n">reverse</span> <span class="n">tagk</span> <span class="n">mapping</span> <span class="mi">000003</span> <span class="o">-&gt;</span> <span class="n">bar</span> <span class="n">vs</span> <span class="mi">000004</span> <span class="o">-&gt;</span> <span class="n">bar</span> <span class="o">/</span> <span class="n">bar</span> <span class="o">-&gt;</span> <span class="mi">000004</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">FIX</span><span class="p">:</span> <span class="n">Removed</span> <span class="n">tagk</span> <span class="n">reverse</span> <span class="n">mapping</span><span class="p">:</span> <span class="mi">000003</span> <span class="o">-&gt;</span> <span class="n">bar</span>
+<span class="n">ERROR</span> <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="n">tagk</span><span class="p">:</span> <span class="n">Found</span> <span class="mi">2</span> <span class="n">errors</span><span class="o">.</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="mi">17</span> <span class="n">KVs</span> <span class="n">analyzed</span> <span class="ow">in</span> <span class="mi">334</span><span class="n">ms</span> <span class="p">(</span><span class="o">~</span><span class="mi">50</span> <span class="n">KV</span><span class="o">/</span><span class="n">s</span><span class="p">)</span>
+<span class="n">WARN</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="mi">2</span> <span class="n">errors</span> <span class="n">found</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="metasync">
+<h2>metasync</h2>
+<p>This command will run through the entire data table, scanning each row of timeseries data and generate missing TSMeta objects and UIDMeta objects or update the created timestamps for each object type if necessary. Use this command after enabling meta tracking with existing data or if you suspect that some timeseries may not have been indexed properly. The command will also push new or updated meta entries to a search engine if a plugin has been configured. If existing meta is corrupted, meaning the TSD is unable to deserialize the object, it will be replaced with a new entry.</p>
+<p>It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.</p>
+<div class="section" id="id14">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">metasync</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">metasync</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="metapurge">
+<h2>metapurge</h2>
+<p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <code class="docutils literal"><span class="pre">metasync</span></code>.</p>
+<div class="section" id="id16">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">metapurge</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">metapurge</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="treesync">
+<h2>treesync</h2>
+<p>Runs through the list of TSMeta objects in the UID table and processes each through all configured and enabled trees to compile branches. This command may be run at any time and will not affect existing objects.</p>
+<div class="section" id="id18">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">treesync</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id19">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">treesync</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="treepurge">
+<h2>treepurge</h2>
+<p>Removes all branches, collision, not matched data and optionally the tree definition itself for a given tree. Parameters include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Integer</td>
+<td>ID of the tree to purge</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>definition</td>
+<td>Flag</td>
+<td>Add this literal after the ID to delete the definition of the tree as well as the data</td>
+<td>definition</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id20">
+<h3>Command Format</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">treepurge</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">definition</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id21">
+<h3>Example Command</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">treepurge</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

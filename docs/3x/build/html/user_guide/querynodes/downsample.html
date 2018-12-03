@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Downsample &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Downsample</a><ul>
+<li><a class="reference internal" href="#timespecification">timeSpecification</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="downsample">
+<h1>Downsample</h1>
+<p>Normalizes and/or reduces the resolution of the source data. For example, if data comes in every second and you want to plot a week of data, that would be too many data points for most graph libraries to handle. Instead, downsample the data to emit a value every hour and it will be much more legible.</p>
+<p>The 3.0 downsampler offers some new features including auto downsampling, infectious NaNs as well as interpolation and fill policies.</p>
+<p>Fields for the downsample config include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>interval</td>
+<td>String</td>
+<td>Required</td>
+<td>The new resolution (or size of buckets) to convert the data to. Formated as a TSDB duration. May also be <code class="docutils literal"><span class="pre">0all</span></code> if <code class="docutils literal"><span class="pre">runAll</span></code> is set to true in which case the full query timespan is aggregated into a single value. May also be <code class="docutils literal"><span class="pre">auto</span></code> for automatic downsampling based on the query span.</td>
+<td>null</td>
+<td>1m</td>
+</tr>
+<tr class="row-odd"><td>aggregator</td>
+<td>String</td>
+<td>Required</td>
+<td>The ID of a registered aggregation function in the Registry to use when merging multiple values into a downsample bucket.</td>
+<td>null</td>
+<td>sum</td>
+</tr>
+<tr class="row-even"><td>infectiousNan</td>
+<td>boolean</td>
+<td>Optional</td>
+<td>Whether or not NaNs from the source data should infect each bucket when aggregating values. E.g. if one value out of 20 are <code class="docutils literal"><span class="pre">NaN</span></code> in a bucket and this is true, the bucket will return a <code class="docutils literal"><span class="pre">NaN</span></code>. If all values in a bucket are <code class="docutils literal"><span class="pre">NaN</span></code> then the result will be <code class="docutils literal"><span class="pre">NaN</span></code> regardless..</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>runAll</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to merge all of the values for the query span into a single resulting bucket.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>fill</td>
+<td>boolean</td>
+<td>Optional</td>
+<td>Whether or not to fill empty buckets with values based on the <code class="docutils literal"><span class="pre">interpolatorConfig</span></code>. If false, then empty buckets return <code class="docutils literal"><span class="pre">null</span></code> or <code class="docutils literal"><span class="pre">NaN</span></code>.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>timeZone</td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional Java time zone ID that, when given, switches the downsampling to calendar mode where bucket boundaries are computed based on the time zone, e.g. accounting for daylight savings and offsets from UTC.</td>
+<td>null</td>
+<td>America/Denver</td>
+</tr>
+<tr class="row-even"><td>interpolatorConfig</td>
+<td>List</td>
+<td>Required <em>for now</em></td>
+<td>A list of interpolator configs for the downsampler to deal with empty buckets.</td>
+<td>null</td>
+<td>See <a class="reference internal" href="interpolator.html"><span class="doc">Interpolators</span></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a downsample node is present in a query graph and the output is the standard V3 serializer, a <code class="docutils literal"><span class="pre">timeSpecification</span></code> will be present in the output and the values will be serialized in an array without timestamps.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu_ds&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;5m&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+    <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+  <span class="p">}],</span>
+  <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="timespecification">
+<h2>timeSpecification</h2>
+<p>The time specification in a v3 query output has the following fields:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>start</td>
+<td>The first timestamp in Unix Epoch seconds (or milliseconds if requested).</td>
+</tr>
+<tr class="row-odd"><td>end</td>
+<td>The last timestamp in Unix Epoch seconds (or milliseconds if requested).</td>
+</tr>
+<tr class="row-even"><td>intervalISO</td>
+<td>The interval of the downsample in ISO format.</td>
+</tr>
+<tr class="row-odd"><td>interval</td>
+<td>The interval as a TSDB duration.</td>
+</tr>
+<tr class="row-even"><td>timeZone</td>
+<td>The timezone of the downsampler.</td>
+</tr>
+<tr class="row-odd"><td>units</td>
+<td>The units of the downsample interval.</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;timeSpecification&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="mi">1537903080</span><span class="p">,</span>
+  <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="mi">1537906620</span><span class="p">,</span>
+  <span class="s2">&quot;intervalISO&quot;</span><span class="o">:</span> <span class="s2">&quot;PT1M&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;timeZone&quot;</span><span class="o">:</span> <span class="s2">&quot;UTC&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;units&quot;</span><span class="o">:</span> <span class="s2">&quot;Minutes&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When representing data in a plot or with a timestamp, if the <code class="docutils literal"><span class="pre">timeZone</span></code> is NOT equal to UTC, make sure to use a library to add the interval to the start for each bucket. This make sure the results will line up with daylight savings changes, etc.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

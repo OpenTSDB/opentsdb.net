@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Plugins &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Plugins</a><ul>
+<li><a class="reference internal" href="#manifest">Manifest</a></li>
+<li><a class="reference internal" href="#startup-plugins">Startup Plugins</a><ul>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
+<li><a class="reference internal" href="#initialize">Initialize</a></li>
+<li><a class="reference internal" href="#ready">Ready</a></li>
+<li><a class="reference internal" href="#shutdown">Shutdown</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="plugins">
+<h1>Plugins</h1>
+<p>OpenTSDB implements a very simple plugin model to extend the application. Plugins use the <em>service</em> and <em>service provider</em> facilities built into Java 1.6 that allows for dynamically loading JAR files and instantiating plugin implementations after OpenTSDB has been started. While not as flexible as many framework implementations, all we need to do is load a plugin on startup, initialize the implementation, and start passing data to or through it.</p>
+<p>To create a plugin, all you have to do is extend one of the <em>abstract</em> plugin classes, write a service description/manifest, compile, drop your JAR (along with any dependencies needed) into the OpenTSDB plugin folder, edit the TSD config and restart. That's all there is to it. No fancy frameworks, no worrying about loading and unloading at strange times, etc.</p>
+<div class="section" id="manifest">
+<h2>Manifest</h2>
+<p>A plugin JAR requires a manifest with a special <em>services</em> folder and file to enable the <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to load it properly. Here are the steps for creating the proper files:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">Create a <code class="docutils literal"><span class="pre">META-INF</span></code> directory under your <code class="docutils literal"><span class="pre">src</span></code> directory. Some IDEs can automatically generate this</p>
+</li>
+<li><p class="first">Within the <code class="docutils literal"><span class="pre">META-INF</span></code> directory, create a file named <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code>. Again some IDEs can generate this automatically.</p>
+</li>
+<li><p class="first">Edit the <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code> file and add:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Manifest</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>making sure to end with a blank line. You can add more manifest information if you like. This is the bare minimum to satisfy plugin requirements.</p>
+</li>
+<li><p class="first">Create a <code class="docutils literal"><span class="pre">services</span></code> directory under <code class="docutils literal"><span class="pre">META-INF</span></code></p>
+</li>
+<li><p class="first">Within <code class="docutils literal"><span class="pre">services</span></code> create a file with the canonical class name of the abstract plugin class you are implementing. E.g. if you implement <code class="docutils literal"><span class="pre">net.opentsdb.search.SearchPlugin</span></code>, use that for the name of the file.</p>
+</li>
+<li><p class="first">Edit the new file and put the canonical name of each class that implements the abstract interface on a new line of the file. E.g. if your implementation is called <code class="docutils literal"><span class="pre">net.opentsdb.search.ElasticSearch</span></code>, put that on a line. Some quick notes about this file:</p>
+<ul>
+<li><p class="first">You can put comments in the service implementation file. The comment character is the <code class="docutils literal"><span class="pre">#</span></code>, just like a Java properties file. E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch plugin written by John Doe</span>
+<span class="c1"># that sends data over HTTP to a number of ElasticSearch servers</span>
+<span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearch</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You can have more than one implementation of the same abstract class in one JAR and in this file.
+NOTE: If you have widely different implementations, start a different project and JAR. E.g. if you implement a search plugin for ElasticSearch and another for Solr, put Solr in a different project. However if you have two implementations that are very similar but slightly different, you can create one project. For example you could write an ElasticSearch plugin that uses HTTP for a protocol and another that uses Thrift. In that case, you could have a file like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch HTTP</span>
+<span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchHTTP</span>
+<span class="c1"># ElasticSearch Thrift</span>
+<span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchThrift</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you're going command line, try this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">cvmf</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">MANIFEST</span><span class="o">.</span><span class="n">MF</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">plugin</span> <span class="n">jar</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">of</span> <span class="k">class</span> <span class="nc">files</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Where the <code class="docutils literal"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></code> includes the services file that you created above. E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">cvmf</span> <span class="n">META</span><span class="o">-</span><span class="n">INF</span><span class="o">/</span><span class="n">MANIFEST</span><span class="o">.</span><span class="n">MF</span> <span class="n">searchplugin</span><span class="o">.</span><span class="n">jar</span> <span class="o">../</span><span class="nb">bin</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">opentsdb</span><span class="o">/</span><span class="n">search</span><span class="o">/</span><span class="n">myplugin</span><span class="o">.</span><span class="k">class</span> <span class="nc">META</span><span class="o">-</span><span class="n">INF</span><span class="o">/</span><span class="n">services</span><span class="o">/</span><span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">SearchPlugin</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="startup-plugins">
+<h2>Startup Plugins</h2>
+<p>Startup Plugins can be used to perform additional initialization steps during the OpenTSDB startup process.</p>
+<dl class="docutils">
+<dt>There are four hooks available, and they are called in this order:</dt>
+<dd><ul class="first last simple">
+<li>Constructor</li>
+<li>Initialize</li>
+<li>Ready</li>
+<li>Shutdown</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="constructor">
+<h3>Constructor</h3>
+<p>In the constructor for your plugin, you should initialize your plugin and make any external connections required here. For example, to connect to a service discovery tool such as Etcd or Curator.</p>
+</div>
+<div class="section" id="initialize">
+<h3>Initialize</h3>
+<p>The Initialize hook is called once OpenTSDB has fully read the configuration options, both from the file, and the command line. This is called prior to creating the TSDB object so you can modify the configuration at this time.</p>
+<p>This hook could be used to register OpenTSDB with a service discovery mechanism or look up the location of an HBase cluster dynamically and populate the connfiguration. You could potentially create HBase tables if they do not exist at this time.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You will want to make sure you set the status to PENDING or some other non-ready state in your service discovery system when this is called. TSDB has not been initialized yet at this point.</p>
+</div>
+</div>
+<div class="section" id="ready">
+<h3>Ready</h3>
+<p>This hook is called once OpenTSDB has been fully initialized and is ready to serve traffic. This hook could be used to set the status to READY in a service discovery system, change the state of in a load balancer or perform other tasks which require a fully functioning OpenTSDB instance.</p>
+</div>
+<div class="section" id="shutdown">
+<h3>Shutdown</h3>
+<p>This hook is called when OpenTSDB is performing shutdown tasks. No work should be done here which requires a functioning and connected OpenTSDB instance. You could use this to update the status of this node within your service discovery mechanism.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

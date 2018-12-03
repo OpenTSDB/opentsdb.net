@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/serializers &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/serializers</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#response">Response</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-serializers">
+<h1>/api/serializers</h1>
+<p>This endpoint lists the serializer plugins loaded by the running TSD. Information given includes the name, implemented methods, content types and methods.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>No parameters are available, this is a read-only endpoint that simply returns system data.</p>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is an array of serializer objects. Each object has the following fields:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>serializer</td>
+<td>String</td>
+<td>The name of the serializer, suitable for use in the query string <code class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></code> parameter</td>
+<td>xml</td>
+</tr>
+<tr class="row-odd"><td>formatters</td>
+<td>Array&lt;String&gt;</td>
+<td>An array of methods or endpoints that the serializer implements to convert response data. These usually map to an endpoint such as <code class="docutils literal"><span class="pre">/api/suggest</span></code> mapping to <code class="docutils literal"><span class="pre">Suggest</span></code>. If the serializer does not implement a certain method, the default formatter will respond. Each name also ends with the API version supported, e.g. <code class="docutils literal"><span class="pre">V1</span></code> will support version 1 API calls.</td>
+<td>&quot;Error&quot;,&quot;Suggest&quot;</td>
+</tr>
+<tr class="row-even"><td>parsers</td>
+<td>Array&lt;String&gt;</td>
+<td>An array of methods or endpoints that the serializer implements to parse user input in the HTTP request body. These usually map to an endpoint such as <code class="docutils literal"><span class="pre">/api/suggest</span></code> will map to <code class="docutils literal"><span class="pre">Suggest</span></code>. If a serializer does not implement a parser, the default serializer will be used. Each name also ends with the API version supported, e.g. <code class="docutils literal"><span class="pre">V1</span></code> will support version 1 API calls.</td>
+<td>&quot;Suggest&quot;,&quot;Put&quot;</td>
+</tr>
+</tbody>
+</table>
+<p>This endpoint should always return data with the JSON serializer as the default. If you think the TSD should have other formatters listed, check the plugin documentation to make sure you have the proper plugin and it's located in the right directory.</p>
+</div>
+<div class="section" id="example-response">
+<h2>Example Response</h2>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;formatters&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;SuggestV1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;SerializersV1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ErrorV1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ErrorV1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;NotFoundV1&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;serializer&quot;</span><span class="o">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;parsers&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;SuggestV1&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.HttpJsonSerializer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;response_content_type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json; charset=UTF-8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;request_content_type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

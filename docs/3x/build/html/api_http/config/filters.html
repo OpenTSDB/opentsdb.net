@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/config/filters &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/config/filters</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-config-filters">
+<h1>/api/config/filters</h1>
+<p><strong>(Version 2.2 and later)</strong>
+This endpoint lists the various filters loaded by the TSD and some information about how to use them.</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>This endpoint does not require any parameters via query string or body.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p><strong>Query String</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">filters</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is a map of filter names or types and sub maps of examples and descriptions. The examples show how to use them in both URI and JSON queries.</p>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;iliteral_or&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=iliteral_or(web01),  host=iliteral_or(web01|web02|web03)  {\&quot;type\&quot;:\&quot;iliteral_or\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;web01|web02|web03\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Accepts one or more exact values and matches if the series contains any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case insensitive and will not allow characters that TSDB does not allow at write time.&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;wildcard&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=wildcard(web*),  host=wildcard(web*.tsdb.net)  {\&quot;type\&quot;:\&quot;wildcard\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;web*.tsdb.net\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Performs pre, post and in-fix glob matching of values. The globs are case sensitive and multiple wildcards can be used. The wildcard character is the * (asterisk). At least one wildcard must be present in the filter value. A wildcard by itself can be used as well to match on any value for the tag key.&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;not_literal_or&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=not_literal_or(web01),  host=not_literal_or(web01|web02|web03)  {\&quot;type\&quot;:\&quot;not_literal_or\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;web01|web02|web03\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Accepts one or more exact values and matches if the series does NOT contain any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case sensitive and will not allow characters that TSDB does not allow at write time.&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;not_iliteral_or&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=not_iliteral_or(web01),  host=not_iliteral_or(web01|web02|web03)  {\&quot;type\&quot;:\&quot;not_iliteral_or\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;web01|web02|web03\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Accepts one or more exact values and matches if the series does NOT contain any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case insensitive and will not allow characters that TSDB does not allow at write time.&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;not_key&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=not_key()  {\&quot;type\&quot;:\&quot;not_key\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Skips any time series with the given tag key, regardless of the value. This can be useful for situations where a metric has inconsistent tag sets. NOTE: The filter value must be null or an empty string.&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;iwildcard&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=iwildcard(web*),  host=iwildcard(web*.tsdb.net)  {\&quot;type\&quot;:\&quot;iwildcard\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;web*.tsdb.net\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Performs pre, post and in-fix glob matching of values. The globs are case insensitive and multiple wildcards can be used. The wildcard character is the * (asterisk). Case insensitivity is achieved by dropping all values to lower case. At least one wildcard must be present in the filter value. A wildcard by itself can be used as well to match on any value for the tag key.&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;literal_or&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=literal_or(web01),  host=literal_or(web01|web02|web03)  {\&quot;type\&quot;:\&quot;literal_or\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;web01|web02|web03\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Accepts one or more exact values and matches if the series contains any of them. Multiple values can be included and must be separated by the | (pipe) character. The filter is case sensitive and will not allow characters that TSDB does not allow at write time.&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;regexp&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;examples&quot;</span><span class="o">:</span> <span class="s2">&quot;host=regexp(.*)  {\&quot;type\&quot;:\&quot;regexp\&quot;,\&quot;tagk\&quot;:\&quot;host\&quot;,\&quot;filter\&quot;:\&quot;.*\&quot;,\&quot;groupBy\&quot;:false}&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Provides full, POSIX compliant regular expression using the built in Java Pattern class. Note that an expression containing curly braces {} will not parse properly in URLs. If the pattern is not a valid regular expression then an exception will be raised.&quot;</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>}</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

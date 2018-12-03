@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Index &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/dates.html#index-3">Absolute Human Time</a>
+</li>
+      <li><a href="user_guide/query/dates.html#index-2">Absolute Unix Time</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-0">Aggregation</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/metadata.html#index-3">Annotations</a>
+</li>
+      <li><a href="user_guide/writing/index.html#index-8">Appends</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-2">avg</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/quickstart.html#index-1">Batch Importing</a>
+</li>
+      <li><a href="user_guide/backends/bigtable.html#index-0">Bigtable</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/trees.html#index-1">Branches</a>
+</li>
+      <li><a href="development/development.html#index-0">Build System</a>
+</li>
+      <li><a href="user_guide/trees.html#index-4">Building Trees</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/performance.html#index-1">Caching</a>
+</li>
+      <li><a href="user_guide/query/downsampling.html#index-1">Calendars</a>
+</li>
+      <li><a href="user_guide/definitions.html#index-2">Cardinality</a>
+</li>
+      <li><a href="user_guide/backends/cassandra.html#index-0">Cassandra</a>
+</li>
+      <li><a href="user_guide/cli/index.html#index-0">CLI</a>
+</li>
+      <li><a href="user_guide/cli/fsck.html#index-0">CLI FSCK</a>
+</li>
+      <li><a href="user_guide/cli/import.html#index-0">CLI Import</a>
+</li>
+      <li><a href="user_guide/cli/mkmetric.html#index-0">CLI mkmetric</a>
+</li>
+      <li><a href="user_guide/cli/index.html#index-1">CLI Parameters</a>
+</li>
+      <li><a href="user_guide/cli/query.html#index-0">CLI Query</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/cli/scan.html#index-0">CLI Scan</a>
+</li>
+      <li><a href="user_guide/cli/search.html#index-0">CLI Search</a>
+</li>
+      <li><a href="user_guide/cli/tsd.html#index-0">CLI TSD</a>
+</li>
+      <li><a href="user_guide/cli/uid.html#index-0">CLI UID</a>
+</li>
+      <li><a href="user_guide/trees.html#index-6">Collisions</a>
+</li>
+      <li><a href="user_guide/definitions.html#index-3">Compaction</a>
+</li>
+      <li><a href="user_guide/configuration.html#index-1">Config File</a>
+</li>
+      <li><a href="user_guide/configuration.html#index-2">Config Locations</a>
+</li>
+      <li><a href="user_guide/configuration.html#index-0">Configuration</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-3">count</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/definitions.html#index-4">Data Point</a>
+</li>
+      <li><a href="user_guide/query/dates.html#index-0">Date and Time</a>
+</li>
+      <li><a href="user_guide/definitions.html#index-0">Definitions</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-4">dev</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="development/index.html#index-0">Development</a>
+</li>
+      <li><a href="user_guide/querynodes/downsample.html#index-0">downsample</a>
+</li>
+      <li><a href="user_guide/query/downsampling.html#index-0">Downsampling</a>
+</li>
+      <li><a href="user_guide/writing/index.html#index-5">Duplicates</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-5">Estimated Percentiles</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/filters.html#index-3">Explicit Tags</a>
+</li>
+      <li><a href="user_guide/querynodes/expression.html#index-0">expression</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/downsampling.html#index-2">Fill Policy</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-0">Filters</a>
+</li>
+      <li><a href="user_guide/querynodes/filters.html#index-0">filters</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-6">first</a>
+</li>
+      <li><a href="user_guide/writing/index.html#index-3">Floating Point</a>
+</li>
+      <li><a href="_themes/sphinx-bootstrap-theme/demo/source/examples.html#format_exception">format_exception() (built-in function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/definitions.html#index-1">Glossary</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-2">Group By</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/querynodes/groupby.html#index-0">groupby</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-1">Grouping</a>
+</li>
+      <li><a href="user_guide/guis/index.html#index-0">GUI</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/backends/hbase.html#index-0">HBase</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-1">HTTP /aggregators</a>
+</li>
+      <li><a href="api_http/aggregators.html#index-0">HTTP /api/aggregators</a>
+</li>
+      <li><a href="api_http/annotation/index.html#index-0">HTTP /api/annotation</a>
+</li>
+      <li><a href="api_http/annotation/bulk.html#index-0">HTTP /api/annotation/bulk</a>
+</li>
+      <li><a href="api_http/config/index.html#index-0">HTTP /api/config</a>
+</li>
+      <li><a href="api_http/config/filters.html#index-0">HTTP /api/config/filters</a>
+</li>
+      <li><a href="api_http/dropcaches.html#index-0">HTTP /api/dropcaches</a>
+</li>
+      <li><a href="api_http/histogram.html#index-0">HTTP /api/histogram</a>
+</li>
+      <li><a href="api_http/search/lookup.html#index-0">HTTP /api/lookup</a>
+</li>
+      <li><a href="api_http/put.html#index-0">HTTP /api/put</a>
+</li>
+      <li><a href="api_http/query/index.html#index-0">HTTP /api/query</a>
+</li>
+      <li><a href="api_http/query/exp.html#index-0">HTTP /api/query/exp</a>
+</li>
+      <li><a href="api_http/query/gexp.html#index-0">HTTP /api/query/gexp</a>
+</li>
+      <li><a href="api_http/query/graph.html#index-0">HTTP /api/query/graph</a>
+</li>
+      <li><a href="api_http/query/last.html#index-0">HTTP /api/query/last</a>
+</li>
+      <li><a href="api_http/registry/index.html#index-0">HTTP /api/registry</a>
+</li>
+      <li><a href="api_http/registry/datatypes.html#index-0">HTTP /api/registry/datatypes</a>
+</li>
+      <li><a href="api_http/registry/plugins.html#index-0">HTTP /api/registry/plugins</a>
+</li>
+      <li><a href="api_http/registry/shared.html#index-0">HTTP /api/registry/shared</a>
+</li>
+      <li><a href="api_http/rollup.html#index-0">HTTP /api/rollup</a>
+</li>
+      <li><a href="api_http/search/index.html#index-0">HTTP /api/search</a>
+</li>
+      <li><a href="api_http/stats/index.html#index-0">HTTP /api/stats</a>
+</li>
+      <li><a href="api_http/stats/jmx.html#index-0">HTTP /api/stats/jvm</a>, <a href="api_http/stats/jvm.html#index-0">[1]</a>
+</li>
+      <li><a href="api_http/stats/query.html#index-0">HTTP /api/stats/query</a>
+</li>
+      <li><a href="api_http/stats/region_clients.html#index-0">HTTP /api/stats/region_clients</a>
+</li>
+      <li><a href="api_http/stats/threads.html#index-0">HTTP /api/stats/threads</a>
+</li>
+      <li><a href="api_http/suggest.html#index-0">HTTP /api/suggest</a>
+</li>
+      <li><a href="api_http/tree/index.html#index-0">HTTP /api/tree</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_http/tree/branch.html#index-0">HTTP /api/tree/branch</a>
+</li>
+      <li><a href="api_http/tree/collisions.html#index-0">HTTP /api/tree/collisions</a>
+</li>
+      <li><a href="api_http/tree/notmatched.html#index-0">HTTP /api/tree/notmatched</a>
+</li>
+      <li><a href="api_http/tree/rule.html#index-0">HTTP /api/tree/rule</a>
+</li>
+      <li><a href="api_http/tree/rules.html#index-0">HTTP /api/tree/rules</a>
+</li>
+      <li><a href="api_http/tree/test.html#index-0">HTTP /api/tree/test</a>
+</li>
+      <li><a href="api_http/uid/index.html#index-0">HTTP /api/uid</a>
+</li>
+      <li><a href="api_http/uid/assign.html#index-0">HTTP /api/uid/assign</a>
+</li>
+      <li><a href="api_http/uid/tsmeta.html#index-0">HTTP /api/uid/tsmeta</a>
+</li>
+      <li><a href="api_http/uid/uidmeta.html#index-0">HTTP /api/uid/uidmeta</a>
+</li>
+      <li><a href="api_http/version.html#index-0">HTTP /api/version</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-2">HTTP /diediedie</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-3">HTTP /dropcaches</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-4">HTTP /logs</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-5">HTTP /q</a>
+</li>
+      <li><a href="api_http/s.html#index-0">HTTP /s</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-6">HTTP /stats</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-7">HTTP /suggest</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-8">HTTP /version</a>
+</li>
+      <li><a href="api_http/index.html#index-0">HTTP API</a>
+</li>
+      <li><a href="api_http/index.html#index-1">HTTP Authentication</a>
+</li>
+      <li><a href="api_http/index.html#index-5">HTTP CORs</a>
+</li>
+      <li><a href="api_http/deprecated.html#index-0">HTTP Deprecated</a>
+</li>
+      <li><a href="api_http/index.html#index-6">HTTP Documentation</a>
+</li>
+      <li><a href="api_http/index.html#index-7">HTTP Endpoints</a>
+</li>
+      <li><a href="api_http/index.html#index-3">HTTP Errors</a>
+</li>
+      <li><a href="api_http/serializers/json.html#index-0">HTTP JSON Serializer</a>
+</li>
+      <li><a href="api_http/index.html#index-2">HTTP Response Codes</a>
+</li>
+      <li><a href="api_http/index.html#index-4">HTTP Verbs</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="development/development.html#index-1">IDEs</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-5">iliteral_or</a>
+</li>
+      <li><a href="installation.html#index-0">Installation</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/writing/index.html#index-2">Integers</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-1">Interpolation</a>
+</li>
+      <li><a href="user_guide/querynodes/interpolator.html#index-0">interpolator</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-9">iwildcard</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/querynodes/join.html#index-0">join</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-7">last</a>
+</li>
+      <li><a href="user_guide/trees.html#index-2">Leaves</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/filters.html#index-4">literal_or</a>
+</li>
+      <li><a href="user_guide/logging.html#index-0">Logging</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-8">max</a>
+</li>
+      <li><a href="user_guide/metadata.html#index-0">Metadata</a>
+</li>
+      <li><a href="user_guide/definitions.html#index-5">Metric</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-10">mimmax</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-9">mimmin</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-11">min</a>
+</li>
+      <li><a href="user_guide/quickstart.html#index-2">Monitoring TSDs</a>
+</li>
+      <li><a href="_themes/sphinx-bootstrap-theme/demo/source/examples.html#MyAnimal">MyAnimal() (class)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/writing/index.html#index-1">Naming Schema</a>
+</li>
+      <li><a href="changes.html#index-0">News</a>, <a href="new.html#index-0">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-12">none</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-7">not_iliteral_or</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-6">not_literal_or</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/index.html#index-3">Order of Operations</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/writing/index.html#index-4">Ordering</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-13">percentiles</a>
+</li>
+      <li><a href="user_guide/plugins.html#index-0">Plugins</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/rollups.html#index-1">Pre-Aggregates</a>
+</li>
+      <li><a href="user_guide/writing/index.html#index-9">Pre-Split Regions</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/index.html#index-1">Query Components</a>
+</li>
+      <li><a href="user_guide/query/examples.html#index-0">Query Examples</a>
+</li>
+      <li><a href="user_guide/query/performance.html#index-0">Query Performance</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/index.html#index-0">Querying or Reading Data</a>
+</li>
+      <li><a href="user_guide/querynodes/index.html#index-0">querynodes</a>
+</li>
+      <li><a href="user_guide/quickstart.html#index-0">Quick Start</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/writing/index.html#index-6">Random</a>
+</li>
+      <li><a href="user_guide/query/index.html#index-2">Rate</a>
+</li>
+      <li><a href="user_guide/querynodes/rate.html#index-0">rate</a>
+</li>
+      <li><a href="user_guide/query/filters.html#index-10">regexp</a>
+</li>
+      <li><a href="user_guide/query/dates.html#index-1">Relative Times</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="installation.html#index-1">Requirements</a>
+</li>
+      <li><a href="resources.html#index-0">Resources</a>
+</li>
+      <li><a href="user_guide/rollups.html#index-0">Rollups</a>
+</li>
+      <li><a href="user_guide/trees.html#index-5">Rule Order</a>
+</li>
+      <li><a href="user_guide/trees.html#index-3">Rules</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/writing/index.html#index-7">Salting</a>
+</li>
+      <li><a href="user_guide/querynodes/slidingwindow.html#index-0">slidingwindow</a>
+</li>
+      <li><a href="user_guide/stats.html#index-0">Stats</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/stats.html#index-0">stats</a>
+</li>
+      <li><a href="user_guide/query/aggregators.html#index-14">sum</a>
+</li>
+      <li><a href="user_guide/querynodes/summarizer.html#index-0">summarizer</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/definitions.html#index-6">Tags</a>
+</li>
+      <li><a href="api_telnet/index.html#index-0">Telnet API</a>
+</li>
+      <li><a href="api_telnet/diediedie.html#index-0">Telnet diediedie</a>
+</li>
+      <li><a href="api_telnet/dropcaches.html#index-0">Telnet dropcaches</a>
+</li>
+      <li><a href="api_telnet/help.html#index-0">Telnet help</a>
+</li>
+      <li><a href="api_telnet/histogram.html#index-0">Telnet histogram</a>
+</li>
+      <li><a href="api_telnet/put.html#index-0">Telnet put</a>
+</li>
+      <li><a href="api_telnet/rollup.html#index-0">Telnet rollup</a>
+</li>
+      <li><a href="api_telnet/stats.html#index-0">Telnet stats</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_telnet/version.html#index-0">Telnet version</a>
+</li>
+      <li><a href="user_guide/definitions.html#index-7">Time Series</a>
+</li>
+      <li><a href="user_guide/querynodes/timeseriesdatasource.html#index-0">timeseriesdatasource</a>
+</li>
+      <li><a href="user_guide/definitions.html#index-8">Timestamp</a>
+</li>
+      <li><a href="user_guide/querynodes/topn.html#index-0">topn</a>
+</li>
+      <li><a href="user_guide/trees.html#index-0">Trees</a>
+</li>
+      <li><a href="user_guide/troubleshooting.html#index-0">Troubleshooting</a>
+</li>
+      <li><a href="user_guide/metadata.html#index-2">TSMeta</a>
+</li>
+      <li><a href="user_guide/uids.html#index-1">TSUIDs</a>
+</li>
+      <li><a href="user_guide/tuning.html#index-0">Tuning</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/metadata.html#index-1">UIDMeta</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/uids.html#index-0">UIDs</a>
+</li>
+      <li><a href="user_guide/query/timeseries.html#index-0">Understanding Time Series</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/definitions.html#index-9">Value</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/filters.html#index-8">wildcard</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/writing/index.html#index-0">Writing</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_guide/query/aggregators.html#index-15">zimsum</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

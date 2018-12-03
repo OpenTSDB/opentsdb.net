@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Deprecated HTTP API &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Deprecated HTTP API</a><ul>
+<li><a class="reference internal" href="#generalities">Generalities</a></li>
+<li><a class="reference internal" href="#id1">/</a></li>
+<li><a class="reference internal" href="#aggregators-deprecated">/aggregators (<strong>Deprecated</strong>)</a></li>
+<li><a class="reference internal" href="#diediedie-deprecated">/diediedie (<strong>Deprecated</strong>)</a></li>
+<li><a class="reference internal" href="#dropcaches-deprecated">/dropcaches (<strong>Deprecated</strong>)</a></li>
+<li><a class="reference internal" href="#logs-deprecated">/logs (<strong>Deprecated</strong>)</a></li>
+<li><a class="reference internal" href="#q-deprecated">/q (<strong>Deprecated</strong>)</a></li>
+<li><a class="reference internal" href="#s">/s</a></li>
+<li><a class="reference internal" href="#stats-deprecated">/stats (<strong>Deprecated</strong>)</a></li>
+<li><a class="reference internal" href="#suggest-deprecated">/suggest (<strong>Deprecated</strong>)</a></li>
+<li><a class="reference internal" href="#version-deprecated">/version (<strong>Deprecated</strong>)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="deprecated-http-api">
+<h1>Deprecated HTTP API</h1>
+<p>Version 1.0 of OpenTSDB included a rudimentary HTTP API that allowed for querying data, suggesting metric or tag names and a means of accessing static files. The 1.0 API has been carried over to 2.0 for backwards compatibility though most of the calls have been deprecated. Below is a list of the different endpoints and how to use them.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Version 3.0 may discard these deprecated methods so if you are developing tools against the HTTP API, make sure to use the 2.0 version.</p>
+</div>
+<p>If an endpoint is marked as (<strong>Deprecated</strong>) below, it should not be used for future development work.</p>
+<div class="section" id="generalities">
+<h2>Generalities</h2>
+<p>Most of the endpoints can return data in one or more of the following formats:</p>
+<ul class="simple">
+<li>Plain Test - Or ASCII, the default for many requests will return a simple page of data with the Content-Type <code class="docutils literal"><span class="pre">text/plain</span></code></li>
+<li>HTML - If a request is bad or there was an exception, the response will often be in HTML, hard-coded and not using templates</li>
+<li>JSON - Many calls can respond in a JSON format when the <code class="docutils literal"><span class="pre">json</span></code> query string parameter is appended</li>
+<li>PNG - Some requests, including exceptions and errors, can generate an image file. In these cases, an error is sent to GnuPlot and the resulting empty graph with a title consisting of the message is returned. Append the parameter <code class="docutils literal"><span class="pre">png</span></code> to the query string.</li>
+</ul>
+<p>The correct Content-Type is returned for each response, e.g. <code class="docutils literal"><span class="pre">text/html;</span> <span class="pre">charset=UTF-8</span></code> for HTML, <code class="docutils literal"><span class="pre">application/json</span></code> for JSON and <code class="docutils literal"><span class="pre">image/png</span></code> for images.</p>
+<p>Selecting a different output format is done with the <code class="docutils literal"><span class="pre">png</span></code> or <code class="docutils literal"><span class="pre">json</span></code> query string parameter. The value for the parameter is ignored. For example you can request <code class="docutils literal"><span class="pre">http://localhost:4242/suggest?type=metrics&amp;q=sys&amp;json</span></code> to return JSON data.</p>
+</div>
+<div class="section" id="id1">
+<h2>/</h2>
+<p>Requests the root which is the GWT generated OpenTSDB GUI. This endpoint only returns HTML and cannot return other data.</p>
+</div>
+<div class="section" id="aggregators-deprecated">
+<h2>/aggregators (<strong>Deprecated</strong>)</h2>
+<p>Returns a list of available aggregation functions in JSON format only. Other formats are ignored. This method does not accept any query string parameters.</p>
+<p>Example Request:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">aggregators</span>
+</pre></div>
+</div>
+<p>Example Response:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">,</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span><span class="s2">&quot;max&quot;</span><span class="p">,</span><span class="s2">&quot;avg&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="diediedie-deprecated">
+<h2>/diediedie (<strong>Deprecated</strong>)</h2>
+<p>Accessing this endpoint causes the TSD to perform a graceful shutdown and exit. A graceful shutdown prevents data loss by flushing all the buffered edits to HBase before exiting. The endpoint does not return any data and does not accept any parameters.</p>
+</div>
+<div class="section" id="dropcaches-deprecated">
+<h2>/dropcaches (<strong>Deprecated</strong>)</h2>
+<p>Clears all internal caches such as the UID to name and name to UID maps. It should be used if you have renamed a metric, tagk or tagv.</p>
+</div>
+<div class="section" id="logs-deprecated">
+<h2>/logs (<strong>Deprecated</strong>)</h2>
+<p>Returns the latest lines logged by the TSD internally, returning the most recent entries first. OpenTSDB uses LogBack and the <code class="docutils literal"><span class="pre">src/logback.xml</span></code> file must have a Cyclic Buffer appender configured for this endpoint to function. The XML configuration determines how many lines will be returned with each call. Output defaults to plain text with message components separated by tabs, or it can be returned as JSON with the proper query string.</p>
+<p>This endpoint can also change the logging level of ______ at runtime. The query string parameter to use is <code class="docutils literal"><span class="pre">level=&lt;logging_level&gt;</span></code>. For example, you can call <code class="docutils literal"><span class="pre">http://localhost:4242/logs?level=INFO</span></code> to set the log level to <code class="docutils literal"><span class="pre">INFO</span></code>. Valid parameter values are (from the most verbose to the least): <code class="docutils literal"><span class="pre">ALL</span></code> <code class="docutils literal"><span class="pre">TRACE</span></code> <code class="docutils literal"><span class="pre">DEBUG</span></code> <code class="docutils literal"><span class="pre">INFO</span></code> <code class="docutils literal"><span class="pre">WARN</span></code> <code class="docutils literal"><span class="pre">ERROR</span></code> <code class="docutils literal"><span class="pre">OFF</span></code> (names are case insensitive).  Note that this method does not change the <code class="docutils literal"><span class="pre">logback.xml</span></code> configuration file and restarting the TSD will reload from that file.</p>
+</div>
+<div class="section" id="q-deprecated">
+<h2>/q (<strong>Deprecated</strong>)</h2>
+<p>Queries the TSD for data.</p>
+</div>
+<div class="section" id="s">
+<h2>/s</h2>
+<p>Serves static files, such as JavaScript generated by the GWT compiler or favicon.ico. The TSD needs a <code class="docutils literal"><span class="pre">--staticroot</span></code> or <code class="docutils literal"><span class="pre">tsd.http.staticroot</span></code> argument to start. This argument is the path to a directory that contains the files served by this end point.</p>
+<p>When a request for <code class="docutils literal"><span class="pre">GET</span> <span class="pre">/s/queryui.nocache.js</span></code> comes in, for instance, the file <code class="docutils literal"><span class="pre">${staticroot}/queryui.nocache.js</span></code> is sent to the browser.</p>
+<p>Note: The TSD will allow clients to cache static files for 1 year by default, and will report the age of the file on disk. If the file name contains nocache, then the TSD will tell clients to not cache the file (this idiom is used by GWT).</p>
+</div>
+<div class="section" id="stats-deprecated">
+<h2>/stats (<strong>Deprecated</strong>)</h2>
+<p>Returns statistics about the running TSD</p>
+</div>
+<div class="section" id="suggest-deprecated">
+<h2>/suggest (<strong>Deprecated</strong>)</h2>
+<p>Used for auto-complete calls to match metrics, tag names or tag values on the given string. Returns JSON data only.</p>
+<p>Parameters:</p>
+<ul class="simple">
+<li>type - The type of value to suggest. Must be either <code class="docutils literal"><span class="pre">metrics</span></code> for metrics, <code class="docutils literal"><span class="pre">tagk</span></code> for tag names or <code class="docutils literal"><span class="pre">tagv</span></code> for tag values.</li>
+<li>q - The string to match on. The match is case-sensitive and only matches on the first characters of each type of data. For example, <code class="docutils literal"><span class="pre">type=metrics&amp;q=sys</span></code> would only return the names of metrics that start with <code class="docutils literal"><span class="pre">sys</span></code> such as <code class="docutils literal"><span class="pre">sys.cpu.0.system</span></code></li>
+<li>max - An optional maximum number of results to return. The default is 25 and given values must be greater than 0.</li>
+</ul>
+<p>Both parameters are required or you will receive an exception.</p>
+<p>Example Request:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/suggest?type=metrics&amp;q=df
+</pre></div>
+</div>
+<p>Example Response:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="s2">&quot;df.1kblocks.free&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;df.1kblocks.total&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;df.1kblocks.used&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;df.inodes.free&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;df.inodes.total&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;df.inodes.used&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="version-deprecated">
+<h2>/version (<strong>Deprecated</strong>)</h2>
+<p>Returns version information about the build of the running TSD. Can be returned in either the default of plain-text or JSON.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

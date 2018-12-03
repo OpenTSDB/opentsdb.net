@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Installation &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Changes in 3.0" href="changes.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="changes.html" title="Previous Chapter: Changes in 3.0"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Changes in 3.0</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#runtime-requirements">Runtime Requirements</a></li>
+<li><a class="reference internal" href="#id1">Installation</a></li>
+<li><a class="reference internal" href="#compile">Compile</a></li>
+<li><a class="reference internal" href="#docker">Docker</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="installation">
+<h1>Installation</h1>
+<p>OpenTSDB, so far, must be compiled from source. You can use the compiled libs directly or build a Docker image. The source is at <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/tree/3.0">https://github.com/OpenTSDB/opentsdb/tree/3.0</a>, just make sure to checkout the 3.0 branch.</p>
+<div class="section" id="runtime-requirements">
+<h2>Runtime Requirements</h2>
+<p>To actually run OpenTSDB, you'll need to meet the following:</p>
+<ul class="simple">
+<li>A Linux system (or Windows with manual building)</li>
+<li>Java Runtime Environment 1.8 or later</li>
+<li>HBase 0.92 or later</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>Installation</h2>
+<p>3.0 has a built-in super simple and inefficient in-memory data store that you can read and write from. If the <code class="docutils literal"><span class="pre">MockBase</span></code> plugin is loaded, you can query some data as soon as you start the process and write using the <code class="docutils literal"><span class="pre">/api/put</span></code> HTTP API.</p>
+<p>If you have data in HBase (TODO, Bigtable support is kinda working but it's slow right now) then you can query it without problem. If you want to test with HBase, follow the 2.x documentation to install HBase and configure the tables.</p>
+</div>
+<div class="section" id="compile">
+<h2>Compile</h2>
+<p>From the root directory, run <code class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span></code> and look in the <code class="docutils literal"><span class="pre">distribution/target/</span></code> directory. There will be a tarball you can move around and uncompress, e.g. to some place like <code class="docutils literal"><span class="pre">/opt/opentsdb/</span></code> or <code class="docutils literal"><span class="pre">/usr/share/opentsdb</span></code>. That directory will contain sub directories including <cite>bin</cite> where the exec script is located, <code class="docutils literal"><span class="pre">conf</span></code> where configurations lie and <cite>lib</cite> where the JARs are located. To start a TSD, run <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb_dev.yaml</span></code> to run the in-memory store or <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb.yaml</span></code> to run it with HBase (and make sure to modify the config for your HBase settings).</p>
+</div>
+<div class="section" id="docker">
+<h2>Docker</h2>
+<p>To build the Docker image, from the root directory run <code class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span> <span class="pre">-Pdocker</span></code> and it should build and install an image in your local docker repo (assuming Docker is installed). NOTE: We could use some help on properly building docker and getting instructions together on how to upload the image somewhere).</p>
+<p>To start the docker image, run <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--name</span> <span class="pre">opentsdb</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opentsdb</span></code>.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

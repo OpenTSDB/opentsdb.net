@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Plugins &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Plugins</a><ul>
+<li><a class="reference internal" href="#general">General</a><ul>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#serializers">Serializers</a><ul>
+<li><a class="reference internal" href="#id1">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#authentication">Authentication</a><ul>
+<li><a class="reference internal" href="#id2">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#startup-and-service-discovery">Startup and Service Discovery</a><ul>
+<li><a class="reference internal" href="#id3">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#search">Search</a><ul>
+<li><a class="reference internal" href="#id4">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#real-time-publishing">Real Time Publishing</a><ul>
+<li><a class="reference internal" href="#id5">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rpc">RPC</a><ul>
+<li><a class="reference internal" href="#id6">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#storage-exception-handler">Storage Exception Handler</a><ul>
+<li><a class="reference internal" href="#id7">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#http-rpc-plugin">HTTP RPC Plugin</a><ul>
+<li><a class="reference internal" href="#id8">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#histogram-plugins">Histogram Plugins</a><ul>
+<li><a class="reference internal" href="#id9">Plugins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="plugins">
+<h1>Plugins</h1>
+<p>OpenTSDB 2.0 introduced a plugin framework, allowing varous contributors to quickly and easily customize their TSDs. This document gives you an overview of the plugin system and will link to some available implementations.</p>
+<div class="section" id="general">
+<h2>General</h2>
+<p>Plugins are loaded at run time by a TSD or command line utility. Once the program or daemon is running, plugin configurations cannot be changed. You must restart the program for changes to take effect.</p>
+<p>Plugins are JAR files that must be downloaded to a directory accessible by OpenTSDB. Once a directory is created, it must be specified in the <code class="docutils literal"><span class="pre">opentsdb.conf</span></code> config file via the <code class="docutils literal"><span class="pre">tsd.core.plugin_path</span></code> property. If the plugin has dependency JARs that were not compiled into the plugin and are not located in the standard class path, they must be copied to this plugin directory as well.</p>
+<p>Once the JARs are in place, they must be selected in the configuration file for the type of plugin specified. Usually this will be the fully qualified Java class name such as &quot;net.opentsdb.search.ElasticSearch&quot;. Each plugin should have an &quot;enabled&quot; property as well that must be set to <code class="docutils literal"><span class="pre">true</span></code> for the plugin to be loaded. Plugins may also have configuration settings that must be added to the <code class="docutils literal"><span class="pre">opentsdb.conf</span></code> file before they can operate properly. See your plugin's documentation. See <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> for details.</p>
+<p>When starting a TSD or CLI tool, a number of errors may prevent a successful launch due to plugin issues. If something happens you should see an exception in the logs related to a plugin. Some things to troubleshoot include:</p>
+<ul class="simple">
+<li>Make sure the <code class="docutils literal"><span class="pre">tsd.core.plugin_path</span></code> is configured</li>
+<li>Check that the path is readable for the user OpenTSDB is running under, i.e. check permissions</li>
+<li>Check for typos in the config file. Case matters for plugin names.</li>
+<li>The plugin may not have access to the dependencies it needs. If it has dependencies that are not included with OpenTSDB or packaged into it's own JAR you need to drop the dependencies in the plugin path.</li>
+<li>The plugin may be missing configuration settings required for it to be initialized. Read the docs and see if anything is missing.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should always test a new plugin in a development or QA environment before enabling them in production. Plugins may adversely affect write or read performance so be sure to do some load testing to avoid taking down your TSDs and losing data.</p>
+</div>
+<div class="section" id="logging">
+<h3>Logging</h3>
+<p>Plugins and their dependencies can be pretty chatty so you may want to tweak your Logback settings to reduce the number of messages.</p>
+</div>
+</div>
+<div class="section" id="serializers">
+<h2>Serializers</h2>
+<p>The HTTP API provides a plugin interface for serializing and deserializing data in formats other than the default JSON formats. These plugins do not require a plugin name or enable flag in the configuration file. Instead simply drop the plugin in the plugin directory and it will be loaded when the TSD is launched. More than one serializer plugin can be loaded on startup. Serializer plugins may require configuration properties, so check the documentation before using them.</p>
+<div class="section" id="id1">
+<h3>Plugins</h3>
+<p>No implementations, aside from the default, at this time.</p>
+</div>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication</h2>
+<p>Authentication plugins allow OpenTSDB to authenticate a request prior to handling it. This plugin is inserted into the Netty pipeline and will remove itself for that connection once the authentication has been completed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Added in 2.4.0</p>
+</div>
+<div class="section" id="id2">
+<h3>Plugins</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/inst-tech/opentsdb-plugins/blob/master/src/main/java/io/tsdb/opentsdb/authentication/SimpleAuthenticationPlugin.java">Basic Authentication</a> - An example which checks a provided username and password against a list of accepted users. Not for production use, does not persist or store users, and really isn't all that secure. This plugin is intended to show the basics of implementing an authentication plugin and for testing the plugin interface.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="startup-and-service-discovery">
+<h2>Startup and Service Discovery</h2>
+<p>OpenTSDB is sometimes used within environments where additional initialization or registration is desired beyond what OpenTSDB typically can do out of the box. Startup plugins can be enabled which will be called when OpenTSDB is initializing, when it is ready to serve traffic, and when it is being shutdown. The <code class="docutils literal"><span class="pre">tsd.startup.plugin</span></code> property can be used to specify the plugin class and <code class="docutils literal"><span class="pre">tsd.startup.enable</span></code> will instruct OpenTSDB to attempt to load the startup plugin.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Added in 2.3.0</p>
+</div>
+<div class="section" id="id3">
+<h3>Plugins</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/inst-tech/opentsdb-discoveryplugins/blob/master/src/main/java/io/tsdb/opentsdb/discoveryplugins/IdentityPlugin.java">Identity Plugin</a> - An example plugin which does nothing but can be used as a starting point for future Startup Plugins and can be used to test the registration mechanism.</li>
+<li><a class="reference external" href="https://github.com/inst-tech/opentsdb-discoveryplugins/blob/master/src/main/java/io/tsdb/opentsdb/discoveryplugins/CuratorPlugin.java">Apache Curator</a> - A beta plugin which can be used to register OpenTSDB in Zookeeper using Apache Curator's Service Discovery mechanism</li>
+</ul>
+</div>
+</div>
+<div class="section" id="search">
+<h2>Search</h2>
+<p>OpenTSDB can emit meta data and annotations to a search engine for complex querying. A single search plugin can be enabled for a TSD to push data or execute queries. The <code class="docutils literal"><span class="pre">tsd.search.plugin</span></code> property lets you select a search plugin and <code class="docutils literal"><span class="pre">tsd.search.enable</span></code> will start sending data and queries. Search plugins will be loaded by TSDs and select command line tools such as the UID Manager tool.</p>
+<div class="section" id="id4">
+<h3>Plugins</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/manolama/opentsdb-elasticsearch">Elastic Search</a> - A beta plugin that connects to an Elastic Search cluster</li>
+</ul>
+</div>
+</div>
+<div class="section" id="real-time-publishing">
+<h2>Real Time Publishing</h2>
+<p>Every data point received by a TSD can be sent to another destination for real time processing. One plugin for this type may be enabled at a time. The <code class="docutils literal"><span class="pre">tsd.rtpublisher.plugin</span></code> property lets you select a plugin and <code class="docutils literal"><span class="pre">tsd.rtpublisher.enable</span></code> will start sending data.</p>
+<div class="section" id="id5">
+<h3>Plugins</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/manolama/opentsdb-rtpub-rabbitmq">RabbitMQ</a> - A proof-of-concept plugin to publish to a RabbitMQ cluster by metric name</li>
+<li><a class="reference external" href="https://github.com/gutefrage/OpenTsdbSkylinePublisher">Skyline</a> - A proof-of-concept plugin to publish to an  Etsy Skyline processor</li>
+</ul>
+</div>
+</div>
+<div class="section" id="rpc">
+<h2>RPC</h2>
+<p>Natively, OpenTSDB supports ingesting data points via Telnet or HTTP. The RPC plugin interface allows users to implement and choose alternative protocols such as Protobufs, Thrift, Memcache or any other means of storing information. More than one plugin can be loaded at a time via the <code class="docutils literal"><span class="pre">tsd.rpc.plugins</span></code> or <cite>tsd.http.rpc.plugins`</cite> configuration property. Simply list the class name of any RPC plugins you wish to load, separated by a comma if you have more than one. RPC plugins are only initialized when running a TSD.</p>
+<div class="section" id="id6">
+<h3>Plugins</h3>
+<p>No implementations at this time.</p>
+</div>
+</div>
+<div class="section" id="storage-exception-handler">
+<h2>Storage Exception Handler</h2>
+<p>If a write to the underlying storage layer fails for any reason, an exception is raised. When this happens, if a a storage exception handler plugin is enabled, the data points that couldn't be written can be retried at a later date by spooling to disk or passing to a messaging system. (v2.2)</p>
+<div class="section" id="id7">
+<h3>Plugins</h3>
+<p>No implementations at this time.</p>
+</div>
+</div>
+<div class="section" id="http-rpc-plugin">
+<h2>HTTP RPC Plugin</h2>
+<p>This is an interface used to implement additional HTTP API endpoints for OpenTSDB. (v2.2)</p>
+<div class="section" id="id8">
+<h3>Plugins</h3>
+<p>No implementations at this time.</p>
+</div>
+</div>
+<div class="section" id="histogram-plugins">
+<h2>Histogram Plugins</h2>
+<p>These are implementations of histograms, digests or sketches for storing multiple measurements in one interval then extracting data such as quantiles in an accurate manner.</p>
+<div class="section" id="id9">
+<h3>Plugins</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/OpenTSDB/opentsdb-datasketches">Yahoo Data Sketches</a> - A set of algorithms for collecting various metrics, merging the results from distributed sources, and computing useful metrics from the results. This implementation uses the quantiles sketch for encoding and storing fixed error rated latency measurements.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

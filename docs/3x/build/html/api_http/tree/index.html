@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/tree &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/tree</a><ul>
+<li><a class="reference internal" href="#tree-api-endpoints">Tree API Endpoints</a></li>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a></li>
+<li><a class="reference internal" href="#response">Response</a></li>
+<li><a class="reference internal" href="#get">GET</a><ul>
+<li><a class="reference internal" href="#example-get-all-trees-query">Example GET All Trees Query</a></li>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+<li><a class="reference internal" href="#example-get-single-tree">Example GET Single Tree</a></li>
+<li><a class="reference internal" href="#id7">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#post-put">POST/PUT</a><ul>
+<li><a class="reference internal" href="#example-post-create-request">Example POST Create Request</a></li>
+<li><a class="reference internal" href="#id8">Example Response</a></li>
+<li><a class="reference internal" href="#example-post-edit-request">Example POST Edit Request</a></li>
+<li><a class="reference internal" href="#id9">Example Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delete">DELETE</a><ul>
+<li><a class="reference internal" href="#example-delete-request">Example DELETE Request</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-tree">
+<h1>/api/tree</h1>
+<p>Trees are meta data used to organize time series in a hierarchical structure for browsing similar to a typical file system. A number of endpoints under the <code class="docutils literal"><span class="pre">/tree</span></code> root allow working with various tree related data:</p>
+<div class="section" id="tree-api-endpoints">
+<h2>Tree API Endpoints</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="branch.html">/api/tree/branch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions.html">/api/tree/collisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notmatched.html">/api/tree/notmatched</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rule.html">/api/tree/rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">/api/tree/rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">/api/tree/test</a></li>
+</ul>
+</div>
+<p>The <code class="docutils literal"><span class="pre">/tree</span></code> endpoint allows for creating or modifying a tree definition. Tree definitions include configuration and meta data accessible via this endpoint, as well as the rule set accessiable via <code class="docutils literal"><span class="pre">/tree/rule</span></code> or <code class="docutils literal"><span class="pre">/tree/rules</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When creating a tree it will have the <code class="docutils literal"><span class="pre">enabled</span></code> field set to <code class="docutils literal"><span class="pre">false</span></code> by default. After creating a tree you should add rules then use the <code class="docutils literal"><span class="pre">tree/test</span></code> endpoint with a few TSUIDs to make sure the resulting tree will be what you expected. After you have verified the results, you can set the <code class="docutils literal"><span class="pre">enabled</span></code> field to <code class="docutils literal"><span class="pre">true</span></code> and new TSMeta objects or a tree synchronization will start to populate branches.</p>
+</div>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET - Retrieve one or more tree definitions</li>
+<li>POST - Edit tree fields</li>
+<li>PUT - Replace tree fields</li>
+<li>DELETE - Delete the results of a tree and/or the tree definition</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>The following fields can be used for all tree endpoint requests:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>treeId</td>
+<td>Integer</td>
+<td>Required*</td>
+<td>Used to fetch or modify a specific tree. <a href="#id1"><span class="problematic" id="id2">*</span></a>When creating a new tree, the <code class="docutils literal"><span class="pre">tree</span></code> value must not be present.</td>
+<td>&#160;</td>
+<td>treeid</td>
+<td>RO</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>String</td>
+<td>Required*</td>
+<td>A brief, descriptive name for the tree. <a href="#id3"><span class="problematic" id="id4">*</span></a>Required only when creating a tree.</td>
+<td>&#160;</td>
+<td>name</td>
+<td>RW</td>
+<td>Network Infrastructure</td>
+</tr>
+<tr class="row-even"><td>description</td>
+<td>String</td>
+<td>Optional</td>
+<td>A longer description of what the tree contains</td>
+<td>&#160;</td>
+<td>description</td>
+<td>RW</td>
+<td>Tree containing all network gear</td>
+</tr>
+<tr class="row-odd"><td>notes</td>
+<td>String</td>
+<td>Optional</td>
+<td>Detailed notes about the tree</td>
+<td>&#160;</td>
+<td>notes</td>
+<td>RW</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>strictMatch</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not timeseries should be included in the tree if they fail to match one or more rule levels.</td>
+<td>false</td>
+<td>strict_match</td>
+<td>RW</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>enabled</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not TSMeta should be processed through the tree. By default this is set to <code class="docutils literal"><span class="pre">false</span></code> so that you can setup rules and test some objects before building branches.</td>
+<td>false</td>
+<td>enabled</td>
+<td>RW</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>storeFailures</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not collisions and 'not matched' TSUIDs should be recorded. This can create very wide rows.</td>
+<td>false</td>
+<td>store_failures</td>
+<td>RW</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>definition</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Used only when <code class="docutils literal"><span class="pre">DELETE</span></code> ing a tree, if this flag is set to true, then the entire tree definition will be deleted along with all branches, collisions and not matched entries</td>
+<td>false</td>
+<td>definition</td>
+<td>&#160;</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return tree objects with optinally requested changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested tree did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
+<p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>rules</td>
+<td>Map</td>
+<td>A map or dictionary with rules defined for the tree organized by <code class="docutils literal"><span class="pre">level</span></code> and <code class="docutils literal"><span class="pre">order</span></code>. If no rules have been defined yet, the value will be <code class="docutils literal"><span class="pre">null</span></code></td>
+<td><em>See Examples</em></td>
+</tr>
+<tr class="row-odd"><td>created</td>
+<td>Integer</td>
+<td>A Unix Epoch timestamp in seconds when the tree was originally created.</td>
+<td>1350425579</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="get">
+<h2>GET</h2>
+<p>A <code class="docutils literal"><span class="pre">GET</span></code> request to <code class="docutils literal"><span class="pre">/api/tree</span></code> without a tree ID will return a list of all of the trees configured in the system. The results will include configured rules for each tree. If no trees have been configured yet, the list will be empty.</p>
+<div class="section" id="example-get-all-trees-query">
+<h3>Example GET All Trees Query</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">tree</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Test Tree&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;My Description&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;Details&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Hostname rule&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;Metric rule&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1356998400</span><span class="p">,</span>
+        <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;2nd Tree&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Other Tree&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
+        <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>To fetch a specific tree, supply a <a href="#id5"><span class="problematic" id="id6">``</span></a>treeId' value. The response will include the tree object if found. If the requested tree does not exist, a 404 exception will be returned.</p>
+</div>
+<div class="section" id="example-get-single-tree">
+<h3>Example GET Single Tree</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/treeId?tree=1
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;2nd Tree&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Other Tree&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
+    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="post-put">
+<h2>POST/PUT</h2>
+<p>Using the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> methods, you can create a new tree or edit most of the fields for an existing tree. New trees require a <code class="docutils literal"><span class="pre">name</span></code> value and for the <code class="docutils literal"><span class="pre">treeId'</span> <span class="pre">value</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">empty.</span> <span class="pre">Existing</span> <span class="pre">trees</span> <span class="pre">require</span> <span class="pre">a</span> <span class="pre">valid</span> <span class="pre">``treeId</span></code> ID and any fields that require modification. A successful request will return the modified tree object.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A new tree will not have any rules. Your next call should probably be to <code class="docutils literal"><span class="pre">/tree/rule</span></code> or <code class="docutils literal"><span class="pre">/tree/rules</span></code>.</p>
+</div>
+<div class="section" id="example-post-create-request">
+<h3>Example POST Create Request</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?name=Network%20Tree&amp;method_override=post
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
+    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-post-edit-request">
+<h3>Example POST Edit Request</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?treeId=3&amp;description=Network%20Device%20Information&amp;method_override=post
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Network Device Information&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rules&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1368964815</span><span class="p">,</span>
+    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;strictMatch&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;storeFailures&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delete">
+<h2>DELETE</h2>
+<p>Using the <code class="docutils literal"><span class="pre">DELETE</span></code> method will remove only collisions, not matched entries and branches for the given tree from storage. This endpoint starts a delete. Because the delete can take some time, the endpoint will return a successful 204 response without data if the delete completed. If the tree was not found, it will return a 404. If you want to delete the tree definition itself, you can supply the <code class="docutils literal"><span class="pre">defintion</span></code> flag in the query string with a value of <code class="docutils literal"><span class="pre">true</span></code> and the tree and rule definitions will be removed as well.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This method cannot be undone. Once executed, the purge will continue running unless the TSD is shutdown.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before executing a <code class="docutils literal"><span class="pre">DELETE</span></code> query, you should make sure that a manual tree syncronization is not running somehwere on your data. If it is, there may be some orphaned branches or leaves stored during the purge. Use the _____ CLi tool sometime after the delete to cleanup left over branches or leaves.</p>
+</div>
+<div class="section" id="example-delete-request">
+<h3>Example DELETE Request</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree?tree=1&amp;method_override=delete
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

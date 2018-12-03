@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Query Examples &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Query Examples</a><ul>
+<li><a class="reference internal" href="#sample-data">Sample Data</a></li>
+<li><a class="reference internal" href="#under-the-hood">Under the Hood</a></li>
+<li><a class="reference internal" href="#query-1-all-time-series-for-a-metric">Query 1 - All Time Series for a Metric</a></li>
+<li><a class="reference internal" href="#query-2-filter-on-a-tag">Query 2 - Filter on a Tag</a></li>
+<li><a class="reference internal" href="#query-3-specific-time-series">Query 3 - Specific Time Series</a></li>
+<li><a class="reference internal" href="#query-4-tsuid-query">Query 4 - TSUID Query</a></li>
+<li><a class="reference internal" href="#query-5-multi-tsuid-query">Query 5 - Multi-TSUID Query</a></li>
+<li><a class="reference internal" href="#query-6-grouping">Query 6 - Grouping</a></li>
+<li><a class="reference internal" href="#query-7-group-and-filter">Query 7 - Group and Filter</a></li>
+<li><a class="reference internal" href="#query-8-grouping-with-or">Query 8 - Grouping With OR</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="query-examples">
+<h1>Query Examples</h1>
+<p>The following is a list of example queries using an example data set. We'll illustrate a number of common query types that may be encountered so you can get an understanding of how the query system works. Each time series in the example set has only a single data point stored and the UIDs have been truncated to a single byte to make it easier to read. The example queries are all <em>Metric</em> queries from the HTTP API and only show the <code class="docutils literal"><span class="pre">m=</span></code> component. See <a class="reference internal" href="../../api_http/query/index.html"><span class="doc">/api/query</span></a> for details. If you are using a CLI tool, the query format will differ slightly so read the documentation for the particular command.</p>
+<div class="section" id="sample-data">
+<h2>Sample Data</h2>
+<p><strong>Time Series</strong></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="20%" />
+<col width="50%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">TS#</th>
+<th class="head">Metric</th>
+<th class="head">Tags</th>
+<th class="head">TSUID</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>sys.cpu.system</td>
+<td>dc=dal host=web01</td>
+<td>0102040101</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>sys.cpu.system</td>
+<td>dc=dal host=web02</td>
+<td>0102040102</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>sys.cpu.system</td>
+<td>dc=dal host=web03</td>
+<td>0102040103</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>sys.cpu.system</td>
+<td>host=web01</td>
+<td>010101</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>sys.cpu.system</td>
+<td>host=web01 owner=jdoe</td>
+<td>0101010306</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>sys.cpu.system</td>
+<td>dc=lax host=web01</td>
+<td>0102050101</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>sys.cpu.system</td>
+<td>dc=lax host=web02</td>
+<td>0102050102</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>sys.cpu.user</td>
+<td>dc=dal host=web01</td>
+<td>0202040101</td>
+</tr>
+<tr class="row-even"><td>9</td>
+<td>sys.cpu.user</td>
+<td>dc=dal host=web02</td>
+<td>0202040102</td>
+</tr>
+</tbody>
+</table>
+<p><strong>UIDs</strong></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">UID</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Metrics</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>cpu.system</td>
+<td>01</td>
+</tr>
+<tr class="row-even"><td>cpu.user</td>
+<td>02</td>
+</tr>
+<tr class="row-odd"><td><strong>Tagks</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>host</td>
+<td>01</td>
+</tr>
+<tr class="row-odd"><td>dc</td>
+<td>02</td>
+</tr>
+<tr class="row-even"><td>owner</td>
+<td>03</td>
+</tr>
+<tr class="row-odd"><td><strong>Tagvs</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>web01</td>
+<td>01</td>
+</tr>
+<tr class="row-odd"><td>web02</td>
+<td>02</td>
+</tr>
+<tr class="row-even"><td>web03</td>
+<td>03</td>
+</tr>
+<tr class="row-odd"><td>dal</td>
+<td>04</td>
+</tr>
+<tr class="row-even"><td>lax</td>
+<td>05</td>
+</tr>
+<tr class="row-odd"><td>jdoe</td>
+<td>06</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This isn't necesarily the best way to setup your metrics and tags, rather it's meant to be illustrative of how the query system works. In particular, TS #4 and 5, while legitimate timeseries, may screw up your queries unless you know how they work. In general, try to maintain the same number and type of tags for each timeseries.</p>
+</div>
+</div>
+<div class="section" id="under-the-hood">
+<h2>Under the Hood</h2>
+<p>You may want to read up on how OpenTSDB stores timeseries data here: <a class="reference internal" href="../backends/index.html"><span class="doc">Storage</span></a>. Otherwise, remember that each row in storage has a unique key formatted:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">metricID</span><span class="o">&gt;&lt;</span><span class="n">normalized_timestamp</span><span class="o">&gt;&lt;</span><span class="n">tagkID1</span><span class="o">&gt;&lt;</span><span class="n">tagvID1</span><span class="o">&gt;</span><span class="p">[</span><span class="o">...&lt;</span><span class="n">tagkIDN</span><span class="o">&gt;&lt;</span><span class="n">tagvIDN</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The data table above would be stored as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">0101</span>
+<span class="mi">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">01010306</span>
+<span class="mi">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">02040101</span>
+<span class="mi">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">02040102</span>
+<span class="mi">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">02040103</span>
+<span class="mi">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">02050101</span>
+<span class="mi">01</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">02050102</span>
+<span class="mi">02</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">02040101</span>
+<span class="mi">02</span><span class="o">&lt;</span><span class="n">ts</span><span class="o">&gt;</span><span class="mi">02040102</span>
+</pre></div>
+</div>
+<p>When you query OpenTSDB, here's what happens under the hood.</p>
+<ul class="simple">
+<li>The query is parsed and verified to make sure that the format is correct and that the metrics, tag names and tag values exist. If a single metric, tag name or value doesn't exist in the system, it will kick back an error.</li>
+<li>Then it sets up a scanner for the underlying storage system.<ul>
+<li>If the query doesn't have any tags or tag values, then it will grab any rows of data that match <code class="docutils literal"><span class="pre">&lt;metricID&gt;&lt;timestamp&gt;</span></code>, so if you have a ton of time series for a particular metric, this could be many, many rows.</li>
+<li>If the query does have one or more tags defined, then it will still scan all of the rows matching <code class="docutils literal"><span class="pre">&lt;metricID&gt;&lt;timestamp&gt;</span></code>, but also perform a regex to return only the rows that contain the requested tag.</li>
+</ul>
+</li>
+<li>Once all of the data has been returned, OpenTSDB organizes it into groups, if required</li>
+<li>If downsampling was requested, each individual time series is down sampled into smaller time spans using the proper aggregator</li>
+<li>Then each group of data is aggregated using the specific aggregation function</li>
+<li>If the <code class="docutils literal"><span class="pre">rate</span></code> flag was detected, each aggregate will then be adjusted to get the rate.</li>
+<li>Results are returned to the caller</li>
+</ul>
+</div>
+<div class="section" id="query-1-all-time-series-for-a-metric">
+<h2>Query 1 - All Time Series for a Metric</h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="n">cpu</span><span class="o">.</span><span class="n">system</span>
+</pre></div>
+</div>
+<p>This is the simplest query to make. TSDB will setup a scanner to fetch all data points for the metric UID <code class="docutils literal"><span class="pre">01</span></code> between <em>&lt;start&gt;</em> and <em>&lt;end&gt;</em>. The result will be the a single dataset with time series #1 through #7 summed together. If you have thousands of unique tag combinations for a given metric, they will all be added together into one series.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;host&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;010101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0101010306&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102040101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102040102&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102040103&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050102&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">130.29999923706055</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="query-2-filter-on-a-tag">
+<h2>Query 2 - Filter on a Tag</h2>
+<p>Usually aggregating all of the time series for a metric isn't particularly useful. Instead we can drill down a little by filtering for time series that contain a specific tagk/tagv pair combination. Simply put the pair in curly braces:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="n">cpu</span><span class="o">.</span><span class="n">system</span><span class="p">{</span><span class="n">host</span><span class="o">=</span><span class="n">web01</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This will return an aggregate of time series #1, #4, #5 and #6 since they're the only series that include <code class="docutils literal"><span class="pre">host=web01</span></code>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;010101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0101010306&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102040101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050101&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">63.59999942779541</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="query-3-specific-time-series">
+<h2>Query 3 - Specific Time Series</h2>
+<p>What if you want a specific timeseries? You have to include every tag and coresponding value.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="n">cpu</span><span class="o">.</span><span class="n">system</span><span class="p">{</span><span class="n">host</span><span class="o">=</span><span class="n">web01</span><span class="p">,</span><span class="n">dc</span><span class="o">=</span><span class="n">lax</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This will return the data from timeseries #6 only.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lax&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102050101&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">15.199999809265137</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is where a tagging scheme will stand or fall. Let's say you want to get just the data from timeseries #4. With the current system, you are unable to. You would send in query #2 <code class="docutils literal"><span class="pre">m=sum:cpu.system{host=web01}</span></code> thinking that it will return just the data from #4, but as we saw, you'll get the aggregate results for #1, #4, #5 and #6. To prevent such an occurance, you would need to add another tag to #4 that differentiates it from other timeseries in the group. Or if you've already commited, you can use TSUID queries.</p>
+</div>
+</div>
+<div class="section" id="query-4-tsuid-query">
+<h2>Query 4 - TSUID Query</h2>
+<p>If you know the exact TSUID of the timeseries that you want to retrieve, you can simply pass it in like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tsuids</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="mi">0102040102</span>
+</pre></div>
+</div>
+<p>The results will be the data points that you requested.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lax&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102050101&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">15.199999809265137</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="query-5-multi-tsuid-query">
+<h2>Query 5 - Multi-TSUID Query</h2>
+<p>You can also aggregate multiple TSUIDs in the same query, provided they share the same metric. If you attempt to aggregate multiple metrics, the API will issue an error.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tsuids</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="mi">0102040101</span><span class="p">,</span><span class="mi">0102050101</span>
+</pre></div>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;dc&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102040101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050101&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">33.19999980926514</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="query-6-grouping">
+<h2>Query 6 - Grouping</h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="n">cpu</span><span class="o">.</span><span class="n">system</span><span class="p">{</span><span class="n">host</span><span class="o">=*</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">*</span></code> (asterisk) is a grouping operator that will return a data set for each unique value of the tag name given. Every timeseries that includes the given metric and the given tag name, regardless of other tags or values, will be included in the results. After the individual timeseries results are grouped, they'll be aggregated and returned.</p>
+<p>In this example, we will have 3 groups returned:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Group</th>
+<th class="head">Time Series Included</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>web01</td>
+<td>#1, #4, #5, #6</td>
+</tr>
+<tr class="row-odd"><td>web02</td>
+<td>#2, #7</td>
+</tr>
+<tr class="row-even"><td>web03</td>
+<td>#3</td>
+</tr>
+</tbody>
+</table>
+<p>TSDB found 7 total timeseries that included the &quot;host&quot; tag. There were 3 unique values for that tag (web01, web02, and web03).</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;010101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0101010306&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102040101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050101&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">63.59999942779541</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;dc&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102040102&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050102&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">24.199999809265137</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web03&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102040103&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">42.5</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="query-7-group-and-filter">
+<h2>Query 7 - Group and Filter</h2>
+<p>Note that the in example #2, the <code class="docutils literal"><span class="pre">web01</span></code> group included the odd-ball timeseries #4 and #5. We can filter those out by specifying a second tag ala:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="n">cpu</span><span class="o">.</span><span class="n">nice</span><span class="p">{</span><span class="n">host</span><span class="o">=*</span><span class="p">,</span><span class="n">dc</span><span class="o">=</span><span class="n">dal</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Now we'll only get results for #1 - #3, but we lose the <code class="docutils literal"><span class="pre">dc=lax</span></code> values.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102040101&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mi">18</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102040102&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mi">9</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;dal&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web03&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102040103&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">42.5</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="query-8-grouping-with-or">
+<h2>Query 8 - Grouping With OR</h2>
+<p>The <code class="docutils literal"><span class="pre">*</span></code> operator is greedy and will return <em>all</em> values that are assigned to a tag name. If you only want a few tag values, you can use the <code class="docutils literal"><span class="pre">|</span></code> (pipe) operator instead.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="nb">sum</span><span class="p">:</span><span class="n">cpu</span><span class="o">.</span><span class="n">nice</span><span class="p">{</span><span class="n">host</span><span class="o">=</span><span class="n">web01</span><span class="o">|</span><span class="n">web02</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This will find all of the timeseries that include &quot;host&quot; values for &quot;web01&quot; OR &quot;web02&quot;, then group them by value, similar to the <code class="docutils literal"><span class="pre">*</span></code> operator. Our groups, this time, will look like this:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Group</th>
+<th class="head">Time Series Included</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>web01</td>
+<td>#1, #4, #5, #6</td>
+</tr>
+<tr class="row-odd"><td>web02</td>
+<td>#2, #7</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;010101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0101010306&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102040101&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050101&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">63.59999942779541</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;cpu.system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;aggregated_tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;dc&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;0102040102&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0102050102&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;1346846400&quot;</span><span class="o">:</span> <span class="mf">24.199999809265137</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

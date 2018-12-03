@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Logging &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Logging</a><ul>
+<li><a class="reference internal" href="#levels">Levels</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li><a class="reference internal" href="#appenders">Appenders</a></li>
+<li><a class="reference internal" href="#loggers">Loggers</a></li>
+<li><a class="reference internal" href="#root">Root</a></li>
+<li><a class="reference internal" href="#log-to-rotating-file">Log to Rotating File</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="logging">
+<h1>Logging</h1>
+<p>OpenTSDB uses the <a class="reference external" href="http://www.slf4j.org/">SLF4J</a> abstraction layer along with <a class="reference external" href="http://logback.qos.ch/">Logback</a> for logging flexibility. Configuration is performed via an XML file and there are many different formatting, level and destination options.</p>
+<div class="section" id="levels">
+<h2>Levels</h2>
+<p>Every log message is accompanied by a descriptive severity level. Levels employed by OpenTSDB include:</p>
+<ul class="simple">
+<li><strong>ERROR</strong> - Something failed, be it invalid data, a failed connection or a bug in the code. You should pay attention to these and figure out what caused the error. Check with the user group for assistance.</li>
+<li><strong>WARN</strong> - These are often caused by bad user data or something else that was wrong but not a critical error. Look for warnings if you are not receiving the results you expect when using OpenTSDB.</li>
+<li><strong>INFO</strong> - Informational messages are notifications of expected or normal behavior. They can be useful during troubleshooting. Most logging appenders should be set to <code class="docutils literal"><span class="pre">INFO</span></code>.</li>
+<li><strong>DEBUG</strong> - If you require further troubleshooting you can enable <code class="docutils literal"><span class="pre">DEBUG</span></code> logging that will give much greater detail about what OpenTSDB is doing under the hood. Be careful enabling this level as it can return a vast amount of data.</li>
+<li><strong>OFF</strong> - To drop any logging messages from a class, simply set the level to <code class="docutils literal"><span class="pre">OFF</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration</h2>
+<p>A file called <code class="docutils literal"><span class="pre">logback.xml</span></code> is included in the <code class="docutils literal"><span class="pre">/src</span></code> directory and copied for distributions. On startup, OpenTSDB will search the class path for this file and if found, load the configuration. The default config from GIT will log INFO level events to console and store the 1,024 latest messages in a round-robin buffer to be accessed from the GUI. However by default, it won't log to disk. Packages built from GIT have file logging enabled by default. As of 2.2, all queries can be logged to a separate file for parsing and automating. This log is disabled by default but can be enabled by setting the proper log level.</p>
+<div class="section" id="appenders">
+<h3>Appenders</h3>
+<p>Appenders are destinations where logging information is sent. Typically logging configs send results to the console and a file. Optionally you can send logs to Syslog, email, sockets, databases and more. Each appender section defines a destination, a format and an optional trigger. Read about appenders in the <a class="reference external" href="http://logback.qos.ch/manual/appenders.html">Logback Manual</a>.</p>
+</div>
+<div class="section" id="loggers">
+<h3>Loggers</h3>
+<p>Loggers determine what data and what level of data is routed to the appenders. Loggers can match a particular Java class namespace and affect all messages emitted from that space. The default OpenTSDB config explicitly lists some loggers for Zookeeper, AsyncHBase and the Async libraries to set their levels to <code class="docutils literal"><span class="pre">INFO</span></code> so as to avoid chatty outputs that are not relevant most of the time. If you enable a plugin and start seeing a lot of messages that you don't care about, add a logger entry to suppress the messages.</p>
+<p><strong>Query Log</strong>
+To enable the Query log, find the following section:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;QueryLog&quot;</span> <span class="na">level=</span><span class="s">&quot;OFF&quot;</span> <span class="na">additivity=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&quot;QUERY_LOG&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/logger&gt;</span>
+</pre></div>
+</div>
+<p>and set the <code class="docutils literal"><span class="pre">level</span></code> to <code class="docutils literal"><span class="pre">INFO</span></code>.</p>
+<p><strong>Log File</strong>
+To enable the main log file, find the following section:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="c">&lt;!--&lt;appender-ref ref=&quot;FILE&quot;/&gt;--&gt;</span>
+</pre></div>
+</div>
+<p>and remove the comments so it appears as <code class="docutils literal"><span class="pre">&lt;appender-ref</span> <span class="pre">ref=&quot;FILE&quot;/&gt;</span></code>.</p>
+</div>
+<div class="section" id="root">
+<h3>Root</h3>
+<p>The root section is the catch-all logger that determines that default logging level for all messages that don't match an explicit logger. It also handles routing to the different appenders.</p>
+</div>
+<div class="section" id="log-to-rotating-file">
+<h3>Log to Rotating File</h3>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;FILE&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;file&gt;</span>/var/log/opentsdb/opentsdb.log<span class="nt">&lt;/file&gt;</span>
+  <span class="nt">&lt;append&gt;</span>true<span class="nt">&lt;/append&gt;</span>
+
+  <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.rolling.FixedWindowRollingPolicy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;fileNamePattern&gt;</span>/var/log/opentsdb/opentsdb.log.%i<span class="nt">&lt;/fileNamePattern&gt;</span>
+    <span class="nt">&lt;minIndex&gt;</span>1<span class="nt">&lt;/minIndex&gt;</span>
+    <span class="nt">&lt;maxIndex&gt;</span>3<span class="nt">&lt;/maxIndex&gt;</span>
+  <span class="nt">&lt;/rollingPolicy&gt;</span>
+
+  <span class="nt">&lt;triggeringPolicy</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;maxFileSize&gt;</span>128MB<span class="nt">&lt;/maxFileSize&gt;</span>
+  <span class="nt">&lt;/triggeringPolicy&gt;</span>
+
+  <span class="c">&lt;!-- encoders are assigned the type</span>
+<span class="c">       ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
+  <span class="nt">&lt;encoder&gt;</span>
+    <span class="nt">&lt;pattern&gt;</span>%d{HH:mm:ss.SSS} %-5level [%logger{0}.%M] - %msg%n<span class="nt">&lt;/pattern&gt;</span>
+  <span class="nt">&lt;/encoder&gt;</span>
+<span class="nt">&lt;/appender&gt;</span>
+</pre></div>
+</div>
+<p>This appender will write to a log file called <code class="docutils literal"><span class="pre">/var/log/opentsdb/opentsdb.log</span></code>. When the file reaches 128MB in size, it will rotate the log to <code class="docutils literal"><span class="pre">opentsdb.log.1</span></code> and start a new <code class="docutils literal"><span class="pre">opentsdb.log</span></code> file. Once the new log fills up, it bumps <code class="docutils literal"><span class="pre">.1</span></code> to <code class="docutils literal"><span class="pre">.2</span></code>, <code class="docutils literal"><span class="pre">.log</span></code> to <code class="docutils literal"><span class="pre">.1</span></code> and creates a new one. It repeats this until there are four log files in total. The next time the log fills up, the last log is deleted. This way you are gauranteed to only use up to 512MB of disk space. Many other appenders are available so see what fits your needs the best.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

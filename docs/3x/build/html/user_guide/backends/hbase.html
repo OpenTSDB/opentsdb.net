@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>HBase Schema &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">HBase Schema</a><ul>
+<li><a class="reference internal" href="#data-table-schema">Data Table Schema</a><ul>
+<li><a class="reference internal" href="#data-point-columns">Data Point Columns</a></li>
+<li><a class="reference internal" href="#compactions">Compactions</a></li>
+<li><a class="reference internal" href="#annotations-or-other-objects">Annotations or Other Objects</a></li>
+<li><a class="reference internal" href="#append-data-points">Append Data Points</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#uid-table-schema">UID Table Schema</a><ul>
+<li><a class="reference internal" href="#id-column-family"><code class="docutils literal"><span class="pre">id</span></code> Column Family</a></li>
+<li><a class="reference internal" href="#name-column-family"><code class="docutils literal"><span class="pre">name</span></code> Column Family</a></li>
+<li><a class="reference internal" href="#uid-assignment-row">UID Assignment Row</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#meta-table-schema">Meta Table Schema</a><ul>
+<li><a class="reference internal" href="#row-key">Row Key</a></li>
+<li><a class="reference internal" href="#tsmeta-column">TSMeta Column</a></li>
+<li><a class="reference internal" href="#counter-column">Counter Column</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tree-table-schema">Tree Table Schema</a><ul>
+<li><a class="reference internal" href="#id1">Row Key</a></li>
+<li><a class="reference internal" href="#tree-column">Tree Column</a></li>
+<li><a class="reference internal" href="#rule-column">Rule Column</a></li>
+<li><a class="reference internal" href="#tree-collision-column">Tree Collision Column</a></li>
+<li><a class="reference internal" href="#not-matched-column">Not Matched Column</a></li>
+<li><a class="reference internal" href="#branch-column">Branch Column</a></li>
+<li><a class="reference internal" href="#leaf-column">Leaf Column</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rollup-tables-schema">Rollup Tables Schema</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#pre-aggregate-schema">Pre-Aggregate Schema</a></li>
+<li><a class="reference internal" href="#rollup-schema">Rollup Schema</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="hbase-schema">
+<h1>HBase Schema</h1>
+<div class="section" id="data-table-schema">
+<h2>Data Table Schema</h2>
+<p>All OpenTSDB data points are stored in a single, massive table, named <code class="docutils literal"><span class="pre">tsdb</span></code> by default. This is to take advantage of HBase's ordering and region distribution. All values are stored in the <code class="docutils literal"><span class="pre">t</span></code> column family.</p>
+<p><strong>Row Key</strong> - Row keys are byte arrays comprised of an optional salt, the metric UID, a base timestamp and the UID for tagk/v pairs:  <code class="docutils literal"><span class="pre">[salt]&lt;metric_uid&gt;&lt;timestamp&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></code>. By default, UIDs are encoded on 3 bytes.</p>
+<p>With salting enabled (as of OpenTSDB 2.2) the first byte (or bytes) are a hashed salt ID to better distribute data across multiple regions and/or region servers.</p>
+<p>The timestamp is a Unix epoch value in seconds encoded on 4 bytes. Rows are broken up into hour increments, reflected by the timestamp in each row. Thus each timestamp will be normalized to an hour value, e.g. <em>2013-01-01 08:00:00</em>. This is to avoid stuffing too many data points in a single row as that would affect region distribution. Also, since HBase sorts on the row key, data for the same metric and time bucket, but with different tags, will be grouped together for efficient queries.</p>
+<p>Some example unsalted row keys, represented as hex are:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">00000150E22700000001000001</span>
+<span class="mf">00000150E22700000001000001000002000004</span>
+<span class="mf">00000150E22700000001000002</span>
+<span class="mf">00000150E22700000001000003</span>
+<span class="mf">00000150E23510000001000001</span>
+<span class="mf">00000150E23510000001000001000002000004</span>
+<span class="mf">00000150E23510000001000002</span>
+<span class="mf">00000150E23510000001000003</span>
+<span class="mf">00000150E24320000001000001</span>
+<span class="mf">00000150E24320000001000001000002000004</span>
+<span class="mf">00000150E24320000001000002</span>
+<span class="mf">00000150E24320000001000003</span>
+</pre></div>
+</div>
+<p>where:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">00000150E22700000001000001</span>
+<span class="s1">&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;</span>
+<span class="n">metric</span>  <span class="n">time</span>   <span class="n">tagk</span>  <span class="n">tagv</span>
+</pre></div>
+</div>
+<p>This represents a single metric but four time series across three hours. Note how there is one time series with two sets of tags:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">00000150E22700000001000001000002000004</span>
+<span class="s1">&#39;----&#39;&#39;------&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;&#39;----&#39;</span>
+<span class="n">metric</span>  <span class="n">time</span>   <span class="n">tagk</span>  <span class="n">tagv</span>  <span class="n">tagk</span>  <span class="n">tagv</span>
+</pre></div>
+</div>
+<p>Tag names (tagk) are sorted alphabetically before storage, so the &quot;host&quot; tag will always appear first in the row key/TSUID ahead of &quot;owner&quot;.</p>
+<div class="section" id="data-point-columns">
+<h3>Data Point Columns</h3>
+<p>By far the most common column are data points. These are the actual values recorded when data is sent to the TSD for storage.</p>
+<p><strong>Column Qualifiers</strong> - The qualifier is comprised of 2 or 4 bytes that encode an offset from the row's base time and flags to determine if the value is an integer or a decimal value. Qualifiers encode an offset from the row base time as well as the format and length of the data stored.</p>
+<p>Columns with 2 byte qualifiers have an offset in seconds. The first 12 bits of the qualifier represent an integer that is a delta from the timestamp in the row key. For example, if the row key is normalized to <code class="docutils literal"><span class="pre">1292148000</span></code> and a data point comes in for <code class="docutils literal"><span class="pre">1292148123</span></code>, the recorded delta will be <code class="docutils literal"><span class="pre">123</span></code>. The last 4 bits are format flags</p>
+<p>Columns with 4 byte qualifiers have an offset in milliseconds. The first 4 <em>bits</em> of the qualifier will always be set to <code class="docutils literal"><span class="pre">1</span></code> or <code class="docutils literal"><span class="pre">F</span></code> in hex. The next 22 bits encode the offset in milliseconds as an unsigned integer. The next 2 bits are reserved and the final 4 bits are format flags.</p>
+<p>The last 4 bits of either column type describe the data stored. The first bit is a flag that indicates whether or not the value is an integer or floating point. A value of 0 indicates an integer, 1 indicates a float. The last 3 bits indicate the length of the data, offset by 1. A value of <code class="docutils literal"><span class="pre">000</span></code> indicates a 1 byte value while <code class="docutils literal"><span class="pre">010</span></code> indicates a 2 byte value. The length must reflect a value of 1, 2, 4 or 8. Anything else indicates an error.</p>
+<p>For example, <code class="docutils literal"><span class="pre">0100</span></code> means the column value is an 8 byte, signed integer. <code class="docutils literal"><span class="pre">1011</span></code> indicates the column value is a 4 byte floating point value So the qualifier for the data point at <code class="docutils literal"><span class="pre">1292148123</span></code> with an integer value of 4294967296 would have a qualifier of <code class="docutils literal"><span class="pre">0000011110110100</span></code> or <code class="docutils literal"><span class="pre">07B4</span></code> in hex.</p>
+<p><strong>Column Values</strong> - 1 to 8 bytes encoded as indicated by the qualifier flag.</p>
+</div>
+<div class="section" id="compactions">
+<h3>Compactions</h3>
+<p>If compactions have been enabled for a TSD, a row may be compacted after it's base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The OpenTSDB compaction process is entirely separate in scope and definition than the HBase idea of compactions.</p>
+</div>
+<p><strong>Column Qualifiers</strong> - The qualifier for a compacted column will always be an even number of bytes and is simply a concatenation of the qualifiers for every data point that was in the row. Since we know each data point qualifier is 2 bytes, it's simple to split this up. A qualifier in hex with 2 data points may look like <code class="docutils literal"><span class="pre">07B407D4</span></code>.</p>
+<p><strong>Column Values</strong> - The value is also a concatenation of all of the individual data points. The qualifier is split first and the flags for each data point determine if the parser consumes 4 or 8 bytes</p>
+</div>
+<div class="section" id="annotations-or-other-objects">
+<h3>Annotations or Other Objects</h3>
+<p>A row may store notes about the timeseries inline with the datapoints. Objects differ from data points by having an odd number of bytes in the qualifier.</p>
+<p><strong>Column Qualifiers</strong> - The qualifier is on 3 or 5 bytes with the first byte an ID that denotes the column as a qualifier. The first byte will always have a hex value of <code class="docutils literal"><span class="pre">0x01</span></code> for annotations (future object types will have a different prefix). The remaining bytes encode the timestamp delta from the row base time in a manner similar to a data point, though without the flags. If the qualifier is 3 bytes in length, the offset is in seconds. If the qualifier is 5 bytes in length, the offset is in milliseconds. Thus if we record an annotation at <code class="docutils literal"><span class="pre">1292148123</span></code>, the delta will be <code class="docutils literal"><span class="pre">123</span></code> and the qualifier, in hex, will be <code class="docutils literal"><span class="pre">01007B</span></code>.</p>
+<p><strong>Column Values</strong> - Annotation values are UTF-8 encoded JSON objects. Do not modify this value directly. The order of the fields is important, affecting CAS calls.</p>
+</div>
+<div class="section" id="append-data-points">
+<h3>Append Data Points</h3>
+<p>OpenTSDB 2.2 introduced the idea of writing numeric data points to OpenTSDB using the <code class="docutils literal"><span class="pre">append</span></code> method instead of the normal <code class="docutils literal"><span class="pre">put</span></code> method. This saves space in HBase by writing all data for a row in a single column, enabling the benefits of TSD compactions while avoiding problems with reading massive amounts of data back into TSDs and re-writing them to HBase. The drawback is that the schema is incompatible with regular data points and requires greater CPU usage on HBase region servers as they perform a read, modify, write operation for each value.</p>
+<p><strong>Row Key</strong> - Same as regular values.</p>
+<p><strong>Column Qualifier</strong> - The qualifier is always the object prefix <code class="docutils literal"><span class="pre">0x05</span></code> with an offset of 0 from the base time on two bytes. E.g. <code class="docutils literal"><span class="pre">0x050000</span></code>.</p>
+<p><strong>Column Values</strong> - Each column value is the concatenation of original data point qualifier offsets and values in the format <code class="docutils literal"><span class="pre">&lt;offset1&gt;&lt;value1&gt;&lt;offset2&gt;&lt;value2&gt;...&lt;offsetN&gt;&lt;valueN&gt;</span></code>. Values can appear in any order and are sorted at query time (with the option to re-write the sorted result back to HBase.).</p>
+</div>
+</div>
+<div class="section" id="uid-table-schema">
+<h2>UID Table Schema</h2>
+<p>A separate, smaller table called <code class="docutils literal"><span class="pre">tsdb-uid</span></code> stores UID mappings, both forward and reverse. Two columns exist, one named <code class="docutils literal"><span class="pre">name</span></code> that maps a UID to a string and another <code class="docutils literal"><span class="pre">id</span></code> mapping strings to UIDs. Each row in the column family will have at least one of three columns with mapping values. The standard column qualifiers are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">metrics</span></code> for mapping metric names to UIDs</li>
+<li><code class="docutils literal"><span class="pre">tagk</span></code> for mapping tag names to UIDs</li>
+<li><code class="docutils literal"><span class="pre">tagv</span></code> for mapping tag values to UIDs.</li>
+</ul>
+<p>The <code class="docutils literal"><span class="pre">name</span></code> family may also contain additional meta-data columns if configured.</p>
+<div class="section" id="id-column-family">
+<h3><code class="docutils literal"><span class="pre">id</span></code> Column Family</h3>
+<p><strong>Row Key</strong> - This will be the string assigned to the UID. E.g. for a metric we may have a value of <code class="docutils literal"><span class="pre">sys.cpu.user</span></code> or for a tag value it may be <code class="docutils literal"><span class="pre">42</span></code>.</p>
+<p><strong>Column Qualifiers</strong> - One of the standard column types above.</p>
+<p><strong>Column Value</strong> - An unsigned integer encoded on 3 bytes by default reflecting the UID assigned to the string for the column type. If the UID length has been changed in the source code, the width may vary.</p>
+</div>
+<div class="section" id="name-column-family">
+<h3><code class="docutils literal"><span class="pre">name</span></code> Column Family</h3>
+<p><strong>Row Key</strong> - The unsigned integer UID encoded on 3 bytes by default. If the UID length has been changed in the source code, the width may be different.</p>
+<p><strong>Column Qualifiers</strong> - One of the standard column types above OR one of <code class="docutils literal"><span class="pre">metrics_meta</span></code>, <code class="docutils literal"><span class="pre">tagk_meta</span></code> or <code class="docutils literal"><span class="pre">tagv_meta</span></code>.</p>
+<p><strong>Column Value</strong> - For the standard qualifiers above, the string assigned to the UID. For a <code class="docutils literal"><span class="pre">*_meta</span></code> column, the value will be a UTF-8 encoded, JSON formatted UIDMeta Object as a string. Do not modify the column value outside of OpenTSDB. The order of the fields is important, affecting CAS calls.</p>
+</div>
+<div class="section" id="uid-assignment-row">
+<h3>UID Assignment Row</h3>
+<p>Within the <code class="docutils literal"><span class="pre">id</span></code> column family is a row with a single byte key of <code class="docutils literal"><span class="pre">\x00</span></code>. This is the UID row that is incremented for the proper column type (metrics, tagk or tagv) when a new UID is assigned. The column values are 8 byte signed integers and reflect the maximum UID assigned for each type. On assignment, OpenTSDB calls HBase's atomic increment command on the proper column to fetch a new UID.</p>
+</div>
+</div>
+<div class="section" id="meta-table-schema">
+<h2>Meta Table Schema</h2>
+<p>This table is an index of the different time series stored in OpenTSDB and can contain meta-data for each series as well as the number of data points stored for each series. Note that data will only be written to this table if OpenTSDB has been configured to track meta-data or the user creates a TSMeta object via the API. Only one column family is used, the <code class="docutils literal"><span class="pre">name</span></code> family and currently there are two types of columns, the meta column and the counter column.</p>
+<div class="section" id="row-key">
+<h3>Row Key</h3>
+<p>This is the same as a data point table row key without the timestamp. E.g. <code class="docutils literal"><span class="pre">&lt;metric_uid&gt;&lt;tagk1&gt;&lt;tagv1&gt;[...&lt;tagkN&gt;&lt;tagvN&gt;]</span></code>. It is shared for all column types.</p>
+</div>
+<div class="section" id="tsmeta-column">
+<h3>TSMeta Column</h3>
+<p>These columns store UTF-8 encoded, JSON formatted objects similar to UIDMeta objects. The qualifier is always <code class="docutils literal"><span class="pre">ts_meta</span></code>. Do not modify these column values outside of OpenTSDB or it may break CAS calls.</p>
+</div>
+<div class="section" id="counter-column">
+<h3>Counter Column</h3>
+<p>These columns are atomic incrementers that count the number of data points stored for a time series. The qualifier is <code class="docutils literal"><span class="pre">ts_counter</span></code> and the value is an 8 byte signed integer.</p>
+</div>
+</div>
+<div class="section" id="tree-table-schema">
+<h2>Tree Table Schema</h2>
+<p>This table behaves as an index, organizing time series into a hierarchical structure similar to a file system for use with tools such as Graphite or other dashboards. A tree is defined by a set of rules that process a TSMeta object to determine where in the hierarchy, if at all, a time series should appear.</p>
+<p>Each tree is assigned a Unique ID consisting of an unsigned integer starting with <code class="docutils literal"><span class="pre">1</span></code> for the first tree. All rows related to a tree are prefixed with this ID encoded as a two byte array. E.g. <code class="docutils literal"><span class="pre">\x00\x01</span></code> for UID <code class="docutils literal"><span class="pre">1</span></code>.</p>
+<div class="section" id="id1">
+<h3>Row Key</h3>
+<p>Tree definition rows are keyed with the ID of the tree on two bytes. Columns pertaining to the tree definition, as well as the root branch, appear in this row. Definitions are generated by the user.</p>
+<p>Two special rows may be included. They are keyed on <code class="docutils literal"><span class="pre">&lt;tree</span> <span class="pre">ID&gt;\x01</span></code> for the <code class="docutils literal"><span class="pre">collisions</span></code> row and <code class="docutils literal"><span class="pre">&lt;tree</span> <span class="pre">ID&gt;\x02</span></code> for the <code class="docutils literal"><span class="pre">not</span> <span class="pre">matched</span></code> row. These are generated during tree processing and will be described later.</p>
+<p>The remaining rows are branch and leaf rows containing information about the hierarchy. The rows are keyed on <code class="docutils literal"><span class="pre">&lt;tree</span> <span class="pre">ID&gt;&lt;branch</span> <span class="pre">ID&gt;</span></code> where the <code class="docutils literal"><span class="pre">branch</span> <span class="pre">ID</span></code> is a concatenation of hashes of the branch display names. For example, if we have a flattened branch <code class="docutils literal"><span class="pre">dal.web01.myapp.bytes_sent</span></code> where each branch name is separated by a period, we would have 3 levels of branching. <code class="docutils literal"><span class="pre">dal</span></code>, <code class="docutils literal"><span class="pre">web01</span></code> and <code class="docutils literal"><span class="pre">myapp</span></code>. The leaf would be named <code class="docutils literal"><span class="pre">bytes_sent</span></code> and links to a TSUID. Hashing each branch name in Java returns a 4 byte integer and converting to hex for readability yields:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">dal</span></code> = x00x01x83x8F</li>
+<li><code class="docutils literal"><span class="pre">web01</span></code> = x06xBCx4Cx55</li>
+<li><code class="docutils literal"><span class="pre">myapp</span></code> = x06x38x7CxF5</li>
+</ul>
+<p>If this branch belongs to tree <code class="docutils literal"><span class="pre">1</span></code>, the row key for <code class="docutils literal"><span class="pre">dal</span></code> would be <code class="docutils literal"><span class="pre">\x00\x01\x00\x01\x83\x8F</span></code>. The branch for <code class="docutils literal"><span class="pre">myapp</span></code> would be <code class="docutils literal"><span class="pre">\x00\x01\x00\x01\x83\x8F\x06\xBC\x4C\x55\x06\x38\x7C\xF5</span></code>. This schema allows for navigation by providing a row key filter using a prefix including the tree ID and current branch level and a wild-card to match any number of child branch levels (usually only one level down).</p>
+</div>
+<div class="section" id="tree-column">
+<h3>Tree Column</h3>
+<p>A Tree is defined as a UTF-8 encoded JSON object in the <code class="docutils literal"><span class="pre">tree</span></code> column of a tree row (identified by the tree's ID). The object contains descriptions and configuration settings for processing time series through the tree. Do not modify this object outside of OpenTSDB as it may break CAS calls.</p>
+</div>
+<div class="section" id="rule-column">
+<h3>Rule Column</h3>
+<p>In the tree row there are 0 or more rule columns that define a specific processing task on a time series. These columns are also UTF-8 encoded JSON objects and are modified with CAS calls. The qualifier id of the format <code class="docutils literal"><span class="pre">rule:&lt;level&gt;:&lt;order&gt;</span></code> where <code class="docutils literal"><span class="pre">&lt;level&gt;</span></code> is the main processing order of a rule in the set (starting at 0) and <code class="docutils literal"><span class="pre">order</span></code> is the processing order of a rule (starting at 0) within a given level. For example <code class="docutils literal"><span class="pre">rule:1:0</span></code> defines a rule at level 1 and order 0.</p>
+</div>
+<div class="section" id="tree-collision-column">
+<h3>Tree Collision Column</h3>
+<p>If collision storage is enabled for a tree, a column is recorded for each time series that would have created a leaf that was already created for a previous time series. These columns are used to debug rule sets and only appear rin the collision row for a tree. The qualifier is of the format <code class="docutils literal"><span class="pre">tree_collision:&lt;tsuid&gt;</span></code> where the TSUID is a byte array representing the time series identifier. This allows for a simple <code class="docutils literal"><span class="pre">getRequest</span></code> call to determine if a particular time series did not appear in a tree due to a collision. The value of a colission column is the byte array of the TSUID that was recorded as a leaf.</p>
+</div>
+<div class="section" id="not-matched-column">
+<h3>Not Matched Column</h3>
+<p>Similar to collisions, when enabled for a tree, a column can be recorded for each time series that failed to match any rules in the rule set and therefore, did not appear in the tree. These columns only appear in the not matched row for a tree. The qualifier is of the format <code class="docutils literal"><span class="pre">tree_not_matched:&lt;TSUID&gt;</span></code> where the TSUID is a byte array representing the time series identifier. The value of a not matched column is the byte array of the TSUID that failed to match a rule.</p>
+</div>
+<div class="section" id="branch-column">
+<h3>Branch Column</h3>
+<p>Branch columns have the qualifier <code class="docutils literal"><span class="pre">branch</span></code> and contain a UTF-8 JSON encoded object describing the current branch and any child branches that may exist. A branch column may appear in any row except the collision or not matched columns. Branches in the tree definition row are the <code class="docutils literal"><span class="pre">root</span></code> branch and link to the first level of child branches. These links are used to traverse the heirarchy.</p>
+</div>
+<div class="section" id="leaf-column">
+<h3>Leaf Column</h3>
+<p>Leaves are mappings to specific time series and represent the end of a hierarchy. Leaf columns have a qualifier format of <code class="docutils literal"><span class="pre">leaf:&lt;TSUID&gt;</span></code> where the TUID is a byte array representing the time series identifier. The value of a leaf is a UTF-8 encoded JSON object describing the leaf. Leaves may appear in any row other than the collision or not matched rows.</p>
+</div>
+</div>
+<div class="section" id="rollup-tables-schema">
+<h2>Rollup Tables Schema</h2>
+<p>As of OpenTSDB 2.4 is the concept of rollup and pre-aggregation tables. While TSDB does a great job of storing raw values as long as you want, querying for wide timespans across massive amounts of raw data can slow queries to a crawl and potentially OOM a JVM. Instead, individual time series can be rolled up (or downsampled) by time and stored as separate values that allow for scanning much wider timespans at a lower resolution. Additionally, for metrics with high cardinalities, pre-aggregate groups can be stored to improve query speed dramatically.</p>
+<p>There are three types of rolled up data:</p>
+<ul class="simple">
+<li>Rollup - This is a downsampled value across time for a single time series. It's similar to using a downsampler in query where the time series may have a data point every minute but is downsampled to a data point every hour using the <code class="docutils literal"><span class="pre">sum</span></code> aggregation. In that case, the resulting rolled up value is the sum of 60 values. E.g. if the value for each 1 minute data point is <code class="docutils literal"><span class="pre">1</span></code> then the resulting rollup value would be <code class="docutils literal"><span class="pre">60</span></code>.</li>
+<li>Pre-Aggregate - For a metric with high cardinality (many unique tag values), scanning for all of the series can be costly. Take a metric <code class="docutils literal"><span class="pre">system.interface.bytes.out</span></code> where there are 10,000 hosts spread across 5 data centers. If users often look at the total data output by data center ( the query would look similar to aggregation = sum and data_center = <a href="#id2"><span class="problematic" id="id3">*</span></a>) then pre-calculating the sum across each data center would result in 5 data points being fetched per time period from storage instead of 10K. The resulting pre-aggregate would have a different tag set than the raw time series. In the example above, each series would likely have a <code class="docutils literal"><span class="pre">host</span></code> tag along with a <code class="docutils literal"><span class="pre">data_center</span></code> tag. After pre-aggregation, the <code class="docutils literal"><span class="pre">host</span></code> tag would be dropped, leaving only the <code class="docutils literal"><span class="pre">data_center</span></code> tag.</li>
+<li>Rolled-up Pre-Aggregate - Pre-aggregated data can also be rolled up on time similar to raw time series. This can improve query speed for wide time spans over pre-aggregated data.</li>
+</ul>
+<div class="section" id="configuration">
+<h3>Configuration</h3>
+<p><strong>TODO</strong> - Settle on a config. Rollup configs consist of a table name, interval span and rollup interval. Raw pre-aggs can be stored in the data table or rollup tables as well.</p>
+</div>
+<div class="section" id="pre-aggregate-schema">
+<h3>Pre-Aggregate Schema</h3>
+<p>In OpenTSDB's implementation, a new, users configurable tag is added to all time series when rollups are enabled. The default key is <code class="docutils literal"><span class="pre">_aggegate</span></code> with a value of <code class="docutils literal"><span class="pre">raw</span></code> or an aggregation function. The tag is used to differentiate pre-aggregated data from raw (original) values. Therefore pre-aggregated data is stored in the same manner as original time series and can either be written to the original data table or stored in a separate table for greater query performance.</p>
+</div>
+<div class="section" id="rollup-schema">
+<h3>Rollup Schema</h3>
+<p>Rolled up data must be stored in a separate table from the raw data as to avoid existing schema conflicts and to allow for more performant queries.</p>
+<p><strong>Row Key</strong> - The row key for rollups is in the same format as the original data table.</p>
+<p><strong>Column Qualifier</strong> - Columns are different for rolled up data and consist of <code class="docutils literal"><span class="pre">&lt;aggregation_function&gt;:&lt;time</span> <span class="pre">offset&gt;&lt;type</span> <span class="pre">+</span> <span class="pre">length&gt;</span></code> where the aggregation function is an upper-case string consisting of the function name used to generate the rollup and time offset is an offset from the row base time and the type + length describes the column value encoding.</p>
+<ul class="simple">
+<li>Aggregation Function - This is the name of a function such as <code class="docutils literal"><span class="pre">SUM</span></code>, <code class="docutils literal"><span class="pre">COUNT</span></code>, <code class="docutils literal"><span class="pre">MAX</span></code> or <code class="docutils literal"><span class="pre">MIN</span></code>.</li>
+<li>Time Offset - This is an offset based on the rollup table config, generally on 2 bytes. The offset is not a specific number of seconds or minutes from the base, instead it's the index of an interval of an offset. For example, if the table is configured to store 1 day of data at a resolution of 1 hour per row, then the base timestamp of the row key will align on daily boundaries (on Unix epoch timestamps). Then there would be a potential of 24 offsets (1 for each hour in the day) for the row. A data point at midnight for the given day would have an offset of 0 whereas the 23:00 hour value would have an offset of 22. Since rollup timestamps are aligned to time boundaries, qualifiers can save a fair amount of space.</li>
+<li>Type and Length - Similar to the original data table, the last 4 bits of each offset byte array contains the encoding of the data value including it's length and whether or not it's a floating point value.</li>
+</ul>
+<p>An example column qualifier for the daily 1 hour interval table looks like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SUM</span><span class="p">:</span><span class="mi">0010</span>
+<span class="s1">&#39;-&#39;&#39;---&#39;</span>
+<span class="n">agg</span> <span class="n">offset</span>
+</pre></div>
+</div>
+<p>Where the aggregator is <code class="docutils literal"><span class="pre">SUM</span></code>, the offset is <code class="docutils literal"><span class="pre">1</span></code> and the length is 1 byte of an integer value.</p>
+<p><strong>Column Value</strong> - The values are the same as in the main data table.</p>
+<p><strong>TODOs</strong> - Some further work that's needed:</p>
+<ul class="simple">
+<li>Compactions/Appends - The current schema does not support compacted or append data types. These can be implemented by denoting a single column per aggregation function (e.g. <code class="docutils literal"><span class="pre">SUM</span></code>, <code class="docutils literal"><span class="pre">COUNT</span></code>) and storing the offsets and values in the column value similar to the main data table.</li>
+<li>Additional Data Types - Currently only numeric data points are written to the pre-agg and rollup tables. We need to support rolling up annotations and other types of data.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

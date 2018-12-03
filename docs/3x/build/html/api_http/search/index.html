@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/search &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/search</a><ul>
+<li><a class="reference internal" href="#search-api-endpoints">Search API Endpoints</a></li>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a></li>
+<li><a class="reference internal" href="#tsmeta-response">TSMETA Response</a></li>
+<li><a class="reference internal" href="#tsmeta-summary-response">TSMETA_SUMMARY Response</a></li>
+<li><a class="reference internal" href="#tsuids-response">TSUIDS Response</a></li>
+<li><a class="reference internal" href="#uidmeta-response">UIDMETA Response</a></li>
+<li><a class="reference internal" href="#annotation-response">Annotation Response</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-search">
+<h1>/api/search</h1>
+<p>This endpoint provides a basic means of searching OpenTSDB meta data. Lookups can be performed against the <code class="docutils literal"><span class="pre">tsdb-meta</span></code> table when enabled. Optionally, a search plugin can be installed to send and retreive information from an external search indexing service such as Elastic Search. It is up to each search plugin to implement various parts of this endpoint and return data in a consistent format. The type of object searched and returned depends on the endpoint chosen.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the plugin is not configured or enabled, endpoints other than <code class="docutils literal"><span class="pre">/api/search/lookup</span></code> will return an exception.</p>
+</div>
+<div class="section" id="search-api-endpoints">
+<h2>Search API Endpoints</h2>
+<ul class="simple">
+<li><a class="reference internal" href="lookup.html"><span class="doc">/api/search/lookup</span></a></li>
+<li>/api/search/tsmeta - <a class="reference internal" href="#tsmeta-endpoint"><span class="std std-ref">TSMETA Response</span></a></li>
+<li>/api/search/tsmeta_summary - <a class="reference internal" href="#tsmeta-summary-endpoint"><span class="std std-ref">TSMETA_SUMMARY Response</span></a></li>
+<li>/api/search/tsuids - <a class="reference internal" href="#tsuids-endpoint"><span class="std std-ref">TSUIDS Response</span></a></li>
+<li>/api/search/uidmeta - <a class="reference internal" href="#uidmeta-endpoint"><span class="std std-ref">UIDMETA Response</span></a></li>
+<li>/api/search/annotation - <a class="reference internal" href="#annotation-endpoint"><span class="std std-ref">Annotation Response</span></a></li>
+</ul>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Parameters used by the search endpoint include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>query</td>
+<td>String</td>
+<td>Optional</td>
+<td>The string based query to pass to the search engine. This will be parsed by the engine or plugin to perform the actual search. Allowable values depends on the plugin. Ignored for lookups.</td>
+<td>&#160;</td>
+<td>query</td>
+<td>&#160;</td>
+<td>name:sys.cpu.*</td>
+</tr>
+<tr class="row-odd"><td>limit</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Limits the number of results returned per query so as not to override the TSD or search engine. Allowable values depends on the plugin. Ignored for lookups.</td>
+<td>25</td>
+<td>limit</td>
+<td>&#160;</td>
+<td>100</td>
+</tr>
+<tr class="row-even"><td>startIndex</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Used in combination with the <code class="docutils literal"><span class="pre">limit</span></code> value to page through results. Allowable values depends on the plugin. Ignored for lookups.</td>
+<td>0</td>
+<td>start_index</td>
+<td>&#160;</td>
+<td>42</td>
+</tr>
+<tr class="row-odd"><td>metric</td>
+<td>String</td>
+<td>Optional</td>
+<td>The name of a metric or a wildcard for lookup queries</td>
+<td>*</td>
+<td>metric</td>
+<td>&#160;</td>
+<td>tsd.hbase.rpcs</td>
+</tr>
+<tr class="row-even"><td>tags</td>
+<td>Array</td>
+<td>Optional</td>
+<td>One or more key/value objects with tag names and/or tag values for lookup queries. See <a class="reference internal" href="lookup.html"><span class="doc">/api/search/lookup</span></a></td>
+<td>&#160;</td>
+<td>tags</td>
+<td>&#160;</td>
+<td>See <a class="reference internal" href="lookup.html"><span class="doc">/api/search/lookup</span></a></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p>Query String:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/search/tsmeta?query=name:*&amp;limit=3&amp;start_index=0
+</pre></div>
+</div>
+<p>POST:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">5</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>Depending on the endpoint called, the output will change slightly. However common fields include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>String</td>
+<td>The type of query submitted, i.e. the endpoint called. Will be one of the endpoints listed above.</td>
+<td>TSMETA</td>
+</tr>
+<tr class="row-odd"><td>query</td>
+<td>String</td>
+<td>The query string submitted. May be altered by the plugin</td>
+<td>name:sys.cpu.*</td>
+</tr>
+<tr class="row-even"><td>limit</td>
+<td>Integer</td>
+<td>The maximum number of items returned in the result set. Note that the actual number returned may be less than the limit.</td>
+<td>25</td>
+</tr>
+<tr class="row-odd"><td>startIndex</td>
+<td>Integer</td>
+<td>The starting index for the current result set as provided in the query</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>metric</td>
+<td>String</td>
+<td>The metric used for the lookup</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>Array</td>
+<td>The list of tag pairs used for lookup queries. May be an empty list.</td>
+<td>[ ]</td>
+</tr>
+<tr class="row-even"><td>time</td>
+<td>Integer</td>
+<td>The amount of time it took, in milliseconds, to complete the query</td>
+<td>120</td>
+</tr>
+<tr class="row-odd"><td>totalResults</td>
+<td>Integer</td>
+<td>The total number of results matched by the query</td>
+<td>1024</td>
+</tr>
+<tr class="row-even"><td>results</td>
+<td>Array</td>
+<td>The result set. The format depends on the endpoint requested.</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<p>This endpoint will almost always return a <code class="docutils literal"><span class="pre">200</span></code> with content body. If the query doesn't match any results, the <code class="docutils literal"><span class="pre">results</span></code> field will be an empty array and <code class="docutils literal"><span class="pre">totalResults</span></code> will be 0. If an error occurs, such as the plugin being disabled or not configured, an exception will be returned.</p>
+</div>
+<div class="section" id="tsmeta-response">
+<span id="tsmeta-endpoint"></span><h2>TSMETA Response</h2>
+<p>The TSMeta endpoint returns a list of matching TSMeta objects.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSMETA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="mi">675</span><span class="p">,</span>
+    <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;0000150000070010D0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000015&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;app.apache.connections&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362655264</span><span class="p">,</span>
+                <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000007&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;fqdn&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362655264</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;0010D0&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web01.mysite.com&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362720007</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362740528</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;retention&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;totalDatapoints&quot;</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;0000150000070010D5&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000015&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;app.apache.connections&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362655264</span><span class="p">,</span>
+                <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000007&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;fqdn&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362655264</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;0010D5&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web02.mysite.com&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362720007</span><span class="p">,</span>
+                    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362882263</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;retention&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;totalDatapoints&quot;</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;totalResults&quot;</span><span class="o">:</span> <span class="mi">9688066</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tsmeta-summary-response">
+<span id="tsmeta-summary-endpoint"></span><h2>TSMETA_SUMMARY Response</h2>
+<p>The TSMeta Summary endpoint returns just the basic information associated with a timeseries including the TSUID, the metric name and tags. The search is run against the same index as the TSMeta query but returns a subset of the data.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSMETA_SUMMARY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="mi">565</span><span class="p">,</span>
+    <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;fqdn&quot;</span><span class="o">:</span> <span class="s2">&quot;web01.mysite.com&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;app.apache.connections&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;0000150000070010D0&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;fqdn&quot;</span><span class="o">:</span> <span class="s2">&quot;web02.mysite.com&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;app.apache.connections&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;0000150000070010D5&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;fqdn&quot;</span><span class="o">:</span> <span class="s2">&quot;web03.mysite.com&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;app.apache.connections&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;0000150000070010D6&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;totalResults&quot;</span><span class="o">:</span> <span class="mi">9688066</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tsuids-response">
+<span id="tsuids-endpoint"></span><h2>TSUIDS Response</h2>
+<p>The TSUIDs endpoint returns a list of TSUIDS that match the query. The search is run against the same index as the TSMeta query but returns a subset of the data.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TSUIDS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="mi">517</span><span class="p">,</span>
+    <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;0000150000070010D0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;0000150000070010D5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;0000150000070010D6&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;totalResults&quot;</span><span class="o">:</span> <span class="mi">9688066</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uidmeta-response">
+<span id="uidmeta-endpoint"></span><h2>UIDMETA Response</h2>
+<p>The UIDMeta endpoint returns a list of UIDMeta objects that match the query.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;UIDMETA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;name:*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="mi">517</span><span class="p">,</span>
+    <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000007&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;fqdn&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362655264</span><span class="p">,</span>
+            <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;0010D0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web01.mysite.com&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362720007</span><span class="p">,</span>
+            <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;0010D5&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web02.mysite.com&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1362720007</span><span class="p">,</span>
+            <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;totalResults&quot;</span><span class="o">:</span> <span class="mi">9688066</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="annotation-response">
+<span id="annotation-endpoint"></span><h2>Annotation Response</h2>
+<p>The Annotation endpoint returns a list of Annotation objects that match the query.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;ANNOTATION&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="s2">&quot;description:*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span>
+    <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1369141261</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;startIndex&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;totalResults&quot;</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

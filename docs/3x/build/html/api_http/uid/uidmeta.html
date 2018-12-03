@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/uid/uidmeta &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/uid/uidmeta</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-get-request">Example GET Request</a></li>
+<li><a class="reference internal" href="#example-post-or-put-request">Example POST or PUT Request</a></li>
+<li><a class="reference internal" href="#example-delete-request">Example DELETE Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-uid-uidmeta">
+<h1>/api/uid/uidmeta</h1>
+<p>This endpoint enables editing or deleting UID meta data information, that is meta data associated with <em>metrics</em>, <em>tag names</em> and <em>tag values</em>. Some fields are set by the TSD but others can be set by the user. When using the <code class="docutils literal"><span class="pre">POST</span></code> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <code class="docutils literal"><span class="pre">PUT</span></code> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Deleting a meta data entry will not delete the UID assignment nor will it delete any data points or associated timeseries information. Deletion only removes the specified meta data object, not the actual value. If you query for the same UID, you'll see the default meta data with empty fields.</p>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET - Query string only</li>
+<li>POST - Updates only the fields provided</li>
+<li>PUT - Overwrites all user configurable meta data fields</li>
+<li>DELETE - Deletes the UID meta data</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Fields that can be supplied with a request include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>uid</td>
+<td>String</td>
+<td>Required</td>
+<td>A hexadecimal representation of the UID</td>
+<td>&#160;</td>
+<td>uid</td>
+<td>RO</td>
+<td>00002A</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>String</td>
+<td>Required</td>
+<td>The type of UID, must be <code class="docutils literal"><span class="pre">metric</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> or <code class="docutils literal"><span class="pre">tagv</span></code></td>
+<td>&#160;</td>
+<td>type</td>
+<td>RO</td>
+<td>metric</td>
+</tr>
+<tr class="row-even"><td>description</td>
+<td>String</td>
+<td>Optional</td>
+<td>A brief description of what the UID represents</td>
+<td>&#160;</td>
+<td>description</td>
+<td>RW</td>
+<td>System processor time</td>
+</tr>
+<tr class="row-odd"><td>displayName</td>
+<td>String</td>
+<td>Optional</td>
+<td>A short name that can be displayed in GUIs instead of the default name</td>
+<td>&#160;</td>
+<td>display_name</td>
+<td>RW</td>
+<td>System CPU Time</td>
+</tr>
+<tr class="row-even"><td>notes</td>
+<td>String</td>
+<td>Optional</td>
+<td>Detailed notes about what the UID represents</td>
+<td>&#160;</td>
+<td>notes</td>
+<td>RW</td>
+<td>Details</td>
+</tr>
+<tr class="row-odd"><td>custom</td>
+<td>Map</td>
+<td>Optional</td>
+<td>A key/value map to store custom fields and values</td>
+<td>null</td>
+<td>&#160;</td>
+<td>RW</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Custom fields cannot be passed via query string. You must use the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> verbs.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If your request uses <code class="docutils literal"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal"><span class="pre">description</span></code> field will be set to an emtpy string and the <code class="docutils literal"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal"><span class="pre">null</span></code>.</p>
+</div>
+<div class="section" id="example-get-request">
+<h3>Example GET Request</h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/uidmeta?uid=00002A&amp;type=metric
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-post-or-put-request">
+<h3>Example POST or PUT Request</h3>
+<p><em>Query String:</em></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/uidmeta?uid=00002A&amp;type=metric&amp;method=post&amp;display_name=System%20CPU%20Time
+</pre></div>
+</div>
+<p><em>JSON Content:</em></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;metric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="s2">&quot;System CPU Time&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;department&quot;</span><span class="o">:</span> <span class="s2">&quot;Operations&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;assetTag&quot;</span><span class="o">:</span> <span class="s2">&quot;12345&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-delete-request">
+<h3>Example DELETE Request</h3>
+<p><em>Query String:</em></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/uidmeta?uid=00002A&amp;type=metric&amp;method=delete
+</pre></div>
+</div>
+<p><em>JSON Content:</em></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;metric&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full UID meta data object with any given changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested UID did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
+<p>All <strong>Request</strong> fields will be present in the response in addition to a couple of others:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>String</td>
+<td>The name of the UID as given when the data point was stored or the UID assigned</td>
+<td>sys.cpu.0</td>
+</tr>
+<tr class="row-odd"><td>created</td>
+<td>Integer</td>
+<td>A Unix epoch timestamp in seconds when the UID was first created. If the meta data was not stored when the UID was assigned, this value may be 0.</td>
+<td>1350425579</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;00002A&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web01.mysite.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Website hosting server&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;This server needs a new boot disk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1350425579</span><span class="p">,</span>
+    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;department&quot;</span><span class="o">:</span> <span class="s2">&quot;Operations&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;assetTag&quot;</span><span class="o">:</span> <span class="s2">&quot;12345&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;Webserver 01&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Definitions &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Definitions</a><ul>
+<li><a class="reference internal" href="#cardinality">Cardinality</a></li>
+<li><a class="reference internal" href="#compaction">Compaction</a></li>
+<li><a class="reference internal" href="#data-point">Data Point</a></li>
+<li><a class="reference internal" href="#metric">Metric</a></li>
+<li><a class="reference internal" href="#tags">Tags</a></li>
+<li><a class="reference internal" href="#time-series">Time Series</a></li>
+<li><a class="reference internal" href="#timestamp">Timestamp</a></li>
+<li><a class="reference internal" href="#value">Value</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="definitions">
+<h1>Definitions</h1>
+<span class="target" id="index-0"></span><p>When it comes to timeseries data, there are lots of terms tossed about that can lead to some confusion. This page is a sort of glossary that helps to define words related to the use of OpenTSDB.</p>
+<div class="section" id="cardinality">
+<h2>Cardinality</h2>
+<p>Cardinality is a mathematical term defined as the number of elements in a set. In database lingo, it's often used to refer to the number of unique items in an index. With regards to OpenTSDB it can refer to:</p>
+<ul class="simple">
+<li>The number of unique time series for a given metric</li>
+<li>The number of unique tag values associated with a tag name</li>
+</ul>
+<p>Due to the nature of the OpenTSDB storage schema, metrics with higher cardinality may take longer return results during query execution than those with lower cardinality. E.g. we may have metric <code class="docutils literal"><span class="pre">foo</span></code> with the tag name <code class="docutils literal"><span class="pre">datacenter</span></code> and there are 100 possible values for datacenter. Then we have metric <code class="docutils literal"><span class="pre">bar</span></code> with the tag <code class="docutils literal"><span class="pre">host</span></code> and 50,000 possible values for host. Metric <code class="docutils literal"><span class="pre">bar</span></code> has a higher cardinality than <code class="docutils literal"><span class="pre">foo</span></code>: 50,000 possible time series for <code class="docutils literal"><span class="pre">bar</span></code> an only 100 for <code class="docutils literal"><span class="pre">foo</span></code>.</p>
+</div>
+<div class="section" id="compaction">
+<h2>Compaction</h2>
+<p>An OpenTSDB compaction takes multiple columns in an HBase row and merges them into a single column to reduce disk space. This is not to be confused with HBase compactions where multiple edits to a region are merged into one. OpenTSDB compactions can occur periodically for a TSD after data has been written, or during a query.</p>
+</div>
+<div class="section" id="data-point">
+<h2>Data Point</h2>
+<p>Each of the metrics above can be recorded as a number at a specific time. For example, we could record that Sue worked 8 hours at the end of each day. Or that &quot;mylogo.jpg&quot; was downloaded 400 times in the past hour. Thus a datapoint consists of:</p>
+<ul class="simple">
+<li>A metric</li>
+<li>A numeric value</li>
+<li>A timestamp when the value was recorded</li>
+<li>One or more sets of tags</li>
+</ul>
+</div>
+<div class="section" id="metric">
+<h2>Metric</h2>
+<p>A metric is simply the name of a quantitative measurement. Metrics include things like:</p>
+<ul class="simple">
+<li>hours worked by an employee</li>
+<li>webserver downloads of a file</li>
+<li>snow accumulation in a region</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Notice that the <code class="docutils literal"><span class="pre">metric</span></code> did not include a specific number or a time. That is becaue a <code class="docutils literal"><span class="pre">metric</span></code> is just a label of what you are measuring. The actual measurements are called <code class="docutils literal"><span class="pre">datapoints</span></code>, as you'll see later.</p>
+</div>
+<p>Unfortunately OpenTSDB requires metrics to be named as a single, long word without spaces. Thus metrics are usually recorded using &quot;dotted notation&quot;. For example, the metrics above would have names like:</p>
+<ul class="simple">
+<li>hours.worked</li>
+<li>webserver.downloads</li>
+<li>accumulation.snow</li>
+</ul>
+</div>
+<div class="section" id="tags">
+<h2>Tags</h2>
+<p>A <code class="docutils literal"><span class="pre">metric</span></code> should be descriptive of what is being measured, but with OpenTSDB, it should not be too specific. Instead, it is better to use <code class="docutils literal"><span class="pre">tags</span></code> to differentiate and organize different items that may share a common metric. Tags are pairs of words that provide a means of associating a metric with a specific item. Each pair consists of a <code class="docutils literal"><span class="pre">tagk</span></code> that represents the group or category of the following <code class="docutils literal"><span class="pre">tagv</span></code> that represents a specific item, object, location or other noun.</p>
+<p>Expanding on the metric examples above:</p>
+<ul class="simple">
+<li>A business may have four employees, Sue, John, Kelly and Paul. Therefore we may configure a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">employee</span></code> with their names as the <code class="docutils literal"><span class="pre">tagv</span></code>. These would be recorded as <code class="docutils literal"><span class="pre">employee=sue</span></code>, <code class="docutils literal"><span class="pre">employee=john</span></code> etc.</li>
+<li>Webservers usually have many files so we could have a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">file</span></code> to arrive at <code class="docutils literal"><span class="pre">file=logo.jpg</span></code> or <code class="docutils literal"><span class="pre">file=index.php</span></code></li>
+<li>Snow falls in many regions so we may record a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">region</span></code> to get <code class="docutils literal"><span class="pre">region=new_england</span></code> or <code class="docutils literal"><span class="pre">region=north_west</span></code></li>
+</ul>
+</div>
+<div class="section" id="time-series">
+<h2>Time Series</h2>
+<p>A collection of two or more data points for a single metric and group of tag name/value pairs.</p>
+</div>
+<div class="section" id="timestamp">
+<h2>Timestamp</h2>
+<p>Timestamps are simply the absolute time when a value for a given metric was recorded.</p>
+</div>
+<div class="section" id="value">
+<h2>Value</h2>
+<p>A value represents the actual numeric measurement of the given metric. One of our employees, Sue, worked 8 hours yesterday, thus the value would be <code class="docutils literal"><span class="pre">8</span></code>. There were 1,024 downloads of <code class="docutils literal"><span class="pre">logo.jpg</span></code> from our webserver in the past hour. And 12 inches of snow fell in New England today.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

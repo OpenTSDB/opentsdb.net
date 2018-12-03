@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/put &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/put</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-single-data-point-put">Example Single Data Point Put</a></li>
+<li><a class="reference internal" href="#example-multiple-data-point-put">Example Multiple Data Point Put</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response-with-summary">Example Response with Summary</a></li>
+<li><a class="reference internal" href="#example-response-with-details">Example Response With Details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-put">
+<h1>/api/put</h1>
+<p>This endpoint allows for storing data in OpenTSDB over HTTP as an alternative to the Telnet interface. Put requests can only be performed via content associated with the POST method. The format of the content is dependent on the serializer selected. However there are some common parameters and responses as documented below.</p>
+<p>To save on bandwidth, the put API allows clients to store multiple data points in a single request. The data points do not have to be related in any way. Each data point is processed individually and an error with one piece of data will not affect the storing of good data. This means if your request has 100 data points and 1 of them has an error, 99 data points will still be written and one will be rejected. See the Response section below for details on determining what data point was not stored.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the content you provide with the request cannot be parsed, such JSON content missing a quotation mark or curly brace, then all of the datapoints will be discarded. The API will return an error with details about what went wrong.</p>
+</div>
+<p>While the API does support multiple data points per request, the API will not return until every one has been processed. That means metric and tag names/values must be verified, the value parsed and the data queued for storage. If your put request has a large number of data points, it may take a long time for the API to respond, particularly if OpenTSDB has to assign UIDs to tag names or values. Therefore it is a good idea to limit the maximum number of data points per request; 50 per request is a good starting point.</p>
+<p>Another recommendation is to enable keep-alives on your HTTP client so that you can re-use your connection to the server every time you put data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When using HTTP for puts, you may need to enable support for chunks if your HTTP client automatically breaks large requests into smaller packets. For example, CURL will break up messages larger than 2 or 3 data points and by default, OpenTSDB disables chunk support. Enable it by setting <code class="docutils literal"><span class="pre">tsd.http.request.enable_chunked</span></code> to true in the config file.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the <code class="docutils literal"><span class="pre">tsd.mode</span></code> is set to <code class="docutils literal"><span class="pre">ro</span></code>, the <code class="docutils literal"><span class="pre">/api/put</span></code> endpoint will be unavailable and all calls will return a 404 error.</p>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>POST</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>Some query string parameters can be supplied that alter the response to a put request:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>summary</td>
+<td>Present</td>
+<td>Optional</td>
+<td>Whether or not to return summary information</td>
+<td>false</td>
+<td>summary</td>
+<td>&#160;</td>
+<td>/api/put?summary</td>
+</tr>
+<tr class="row-odd"><td>details</td>
+<td>Present</td>
+<td>Optional</td>
+<td>Whether or not to return detailed information</td>
+<td>false</td>
+<td>details</td>
+<td>&#160;</td>
+<td>/api/put?details</td>
+</tr>
+<tr class="row-even"><td>sync</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to wait for the data to be flushed to storage before returning the results.</td>
+<td>false</td>
+<td>sync</td>
+<td>&#160;</td>
+<td>/api/put?sync</td>
+</tr>
+<tr class="row-odd"><td>sync_timeout</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A timeout, in milliseconds, to wait for the data to be flushed to storage before returning with an error. When a timeout occurs, using the <code class="docutils literal"><span class="pre">details</span></code> flag will tell how many data points failed and how many succeeded. <code class="docutils literal"><span class="pre">sync</span></code> must also be given for this to take effect. A value of 0 means the write will not timeout.</td>
+<td>0</td>
+<td>sync_timeout</td>
+<td>&#160;</td>
+<td>/api/put/?sync&amp;sync_timeout=60000</td>
+</tr>
+</tbody>
+</table>
+<p>If both <code class="docutils literal"><span class="pre">detailed</span></code> and <code class="docutils literal"><span class="pre">summary</span></code> are present in a query string, the API will respond with <code class="docutils literal"><span class="pre">detailed</span></code> information.</p>
+<p>The fields and examples below refer to the default JSON serializer.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">QS</th>
+<th class="head">RW</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>metric</td>
+<td>String</td>
+<td>Required</td>
+<td>The name of the metric you are storing</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>W</td>
+<td>sys.cpu.nice</td>
+</tr>
+<tr class="row-odd"><td>timestamp</td>
+<td>Integer</td>
+<td>Required</td>
+<td>A Unix epoch style timestamp in seconds or milliseconds. The timestamp must not contain non-numeric characters.</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>W</td>
+<td>1365465600</td>
+</tr>
+<tr class="row-even"><td>value</td>
+<td>Integer, Float, String</td>
+<td>Required</td>
+<td>The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: <span class="xref std std-doc">../../user_guide/writing</span></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>W</td>
+<td>42.5</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>Map</td>
+<td>Required</td>
+<td>A map of tag name/tag value pairs. At least one pair must be supplied.</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>W</td>
+<td>{&quot;host&quot;:&quot;web01&quot;}</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-single-data-point-put">
+<h3>Example Single Data Point Put</h3>
+<p>You can supply a single data point in a request:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-multiple-data-point-put">
+<h3>Example Multiple Data Point Put</h3>
+<p>Multiple data points must be encased in an array:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+           <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+           <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>By default, the put endpoint will respond with a <code class="docutils literal"><span class="pre">204</span></code> HTTP status code and no content if all data points were stored successfully. If one or more datapoints had an error, the API will return a <code class="docutils literal"><span class="pre">400</span></code> with an error message in the content.</p>
+<p>For debugging purposes, you can ask for the response to include a summary of how many data points were stored successfully and failed, or get details about what data points could not be stored and why so that you can fix your client code. Also, errors with a data point will be logged in the TSD's log file so you can look there for issues.</p>
+<p>Fields present in <code class="docutils literal"><span class="pre">summary</span></code> or <code class="docutils literal"><span class="pre">detailed</span></code> responses include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>success</td>
+<td>Integer</td>
+<td>The number of data points that were queued successfully for storage</td>
+</tr>
+<tr class="row-odd"><td>failed</td>
+<td>Integer</td>
+<td>The number of data points that could not be queued for storage</td>
+</tr>
+<tr class="row-even"><td>errors</td>
+<td>Array</td>
+<td>A list of data points that failed be queued and why. Present in the <code class="docutils literal"><span class="pre">details</span></code> response only.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-response-with-summary">
+<h3>Example Response with Summary</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;failed&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-response-with-details">
+<h3>Example Response With Details</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;errors&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;datapoint&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1365465600</span><span class="p">,</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;Unable to parse value to a number&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;failed&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

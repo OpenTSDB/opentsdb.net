@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>fsck &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">fsck</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#full-table-vs-queries">Full Table Vs Queries</a></li>
+<li><a class="reference internal" href="#results">Results</a></li>
+<li><a class="reference internal" href="#types-of-errors-and-fixes">Types of Errors and Fixes</a><ul>
+<li><a class="reference internal" href="#bad-row-keys">Bad Row Keys</a></li>
+<li><a class="reference internal" href="#orphaned-rows">Orphaned Rows</a></li>
+<li><a class="reference internal" href="#compact-row">Compact Row</a></li>
+<li><a class="reference internal" href="#bad-compacted-column-error">Bad Compacted Column Error</a></li>
+<li><a class="reference internal" href="#compacted-last-byte-error">Compacted Last Byte Error</a></li>
+<li><a class="reference internal" href="#value-too-long-or-short">Value Too Long Or Short</a></li>
+<li><a class="reference internal" href="#old-version-floats">Old Version Floats</a></li>
+<li><a class="reference internal" href="#byte-floats-with-8-byte-value-ok">4 Byte Floats with 8 Byte Value OK</a></li>
+<li><a class="reference internal" href="#byte-floats-with-8-byte-value-bad">4 Byte Floats with 8 Byte Value Bad</a></li>
+<li><a class="reference internal" href="#unknown-object">Unknown Object</a></li>
+<li><a class="reference internal" href="#future-object">Future Object</a></li>
+<li><a class="reference internal" href="#duplicate-timestamps">Duplicate Timestamps</a></li>
+<li><a class="reference internal" href="#variable-length-encoding">Variable-Length Encoding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="fsck">
+<h1>fsck</h1>
+<p>Similar to a file system check, the fsck command will scan and, optionally, attempt to repair problems with data points in OpenTSDB's data table. The fsck command only operates on the <code class="docutils literal"><span class="pre">tsdb</span></code> storage table, scanning the entire data table or any rows of data that match on a given query. Fsck can be used to repair errors and also reclaim space by compacting rows that were not compacted by a TSD and variable-length encoding data points from previous versions of OpenTSDB.</p>
+<p>By default, running fsck will only report errors found by the query. No changes are made to the underlying data unless you supply the <code class="docutils literal"><span class="pre">--fix</span></code> or <code class="docutils literal"><span class="pre">--fix-all</span></code> flags. Generally you should run an fsck without a fix flag first and verify issues found in the log file. If you're confident in the repairs, add a fix flag. Not all errors can be repaired automatically.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Running fsck with <code class="docutils literal"><span class="pre">--fix</span></code> or <code class="docutils literal"><span class="pre">--fix-all</span></code> may delete data points, columns or entire rows and deleted data is unrecoverable unless you restore from a backup. (or perform some HBase trickery to restore the data before a major compaction)</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This page documents the OpenTSDB 2.1 fsck utility. For previous versions, only the <code class="docutils literal"><span class="pre">--fix</span></code> flag is available and only data within a query may be fsckd.</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters</h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>fsck <span class="o">[</span>flags<span class="o">]</span> <span class="o">[</span>START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]]</span>
+</pre></div>
+</div>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="5%" />
+<col width="40%" />
+<col width="5%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>--fix</td>
+<td>Flag</td>
+<td>Optional flag that will attempt to repair errors. By itself, fix will only repair sign extension bugs, 8 byte floats with 4 byte qualifiers and VLE stand-alone data points. Use in conjunction with other flags to repair more issues.</td>
+<td>Not set</td>
+<td>--fix</td>
+</tr>
+<tr class="row-odd"><td>--fix-all</td>
+<td>Flag</td>
+<td>Sets all repair flags to attempt to fix all issues at once. <strong>Use with caution</strong></td>
+<td>Not set</td>
+<td>--fix</td>
+</tr>
+<tr class="row-even"><td>--compact</td>
+<td>Flag</td>
+<td>Compacts non-compacted rows during a repair.</td>
+<td>Not Set</td>
+<td>--compact</td>
+</tr>
+<tr class="row-odd"><td>--delete-bad-compacts</td>
+<td>Flag</td>
+<td>Removes columns that appear to be compacted but failed parsing. If a column parses properly but the final byte of the value is not set to a 0 or a 1, the column will be left alone.</td>
+<td>Not Set</td>
+<td>--delete-bad-compacts</td>
+</tr>
+<tr class="row-even"><td>--delete-bad-rows</td>
+<td>Flag</td>
+<td>Removes any row that doesn't match the OpenTSDB row key format of a metric UID followed by a timestamp and tag UIDs.</td>
+<td>Not Set</td>
+<td>--delete-bad-rows</td>
+</tr>
+<tr class="row-odd"><td>--delete-bad-values</td>
+<td>Flag</td>
+<td>Removes any stand-alone data points that could not be repaired or did not conform to the OpenTSDB specification.</td>
+<td>Not Set</td>
+<td>--delete-bad-values</td>
+</tr>
+<tr class="row-even"><td>--delete-orphans</td>
+<td>Flag</td>
+<td>Removes rows where one or more UIDs could not be resolved to a name.</td>
+<td>Not Set</td>
+<td>--delete-orphans</td>
+</tr>
+<tr class="row-odd"><td>--delete-unknown_columns</td>
+<td>Flag</td>
+<td>Removes any column that does not appear to be a compacted column, a stand-alone data point or a known or future OpenTSDB object.</td>
+<td>Not Set</td>
+<td>--delete-unknown-columns</td>
+</tr>
+<tr class="row-even"><td>--resolve-duplicates</td>
+<td>Flag</td>
+<td>Enables duplicate data point resolution by deleting all but the latest or oldest data point. Also see <code class="docutils literal"><span class="pre">--last-write-wins</span></code>.</td>
+<td>Not Set</td>
+<td>--resolve-duplicates</td>
+</tr>
+<tr class="row-odd"><td>--last-write-wins</td>
+<td>Flag</td>
+<td>When set, deletes all but the most recently written data point when resolving duplicates. If the config value <code class="docutils literal"><span class="pre">tsd.storage.fix_duplicates</span></code> is set to true, then the latest data point will be kept regardless of this value.</td>
+<td>Not Set</td>
+<td>--last-write-wins</td>
+</tr>
+<tr class="row-even"><td>--full-scan</td>
+<td>Flag</td>
+<td>Scans the entire data table. <strong>Note:</strong> This can take a very long time to complete.</td>
+<td>Not Set</td>
+<td>--full-scan</td>
+</tr>
+<tr class="row-odd"><td>--threads</td>
+<td>Integer</td>
+<td>The number of threads to use when performing a full scan. The default is twice the number of CPU cores.</td>
+<td>2 x CPU Cores</td>
+<td>--threads=16</td>
+</tr>
+<tr class="row-even"><td>START-DATE</td>
+<td>String or Integer</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><span class="doc">Dates and Times</span></a> for details</td>
+<td>&#160;</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-odd"><td>END-DATE</td>
+<td>String or Integer</td>
+<td>Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><span class="doc">Dates and Times</span></a> for details</td>
+<td>Current timestamp</td>
+<td>2014/01/01-00:00:00</td>
+</tr>
+<tr class="row-even"><td>query</td>
+<td>String</td>
+<td>One or more command line queries</td>
+<td>&#160;</td>
+<td>sum tsd.hbase.rpcs type=put</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="examples">
+<h2>Examples</h2>
+<p><strong>Query</strong></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>fsck --fix 1h-ago now sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>scan
+</pre></div>
+</div>
+<p><strong>Full Table</strong></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>fsck --full-scan --threads<span class="o">=</span><span class="m">8</span> --fix --resolve-duplicates --compact
+</pre></div>
+</div>
+</div>
+<div class="section" id="full-table-vs-queries">
+<h2>Full Table Vs Queries</h2>
+<p>Using the <code class="docutils literal"><span class="pre">--full-scan</span></code> flag, the entire OpenTSDB <code class="docutils literal"><span class="pre">tsdb</span></code> data table will be scanned. By default the utility will launch <code class="docutils literal"><span class="pre">2</span> <span class="pre">x</span> <span class="pre">CPU</span> <span class="pre">core</span></code> threads for optimal performance. Data is stored with the metric UID as the start of each row key so the utility will determine the maximum metric UID and split up the main data table equally among threads. If your data is distributed among metrics fairly evenly, then each thread should complete in roughly the same amount of time. However some metrics usually have more data or time series than others so these threads may be running much longer than others. Future updates to OpenTSDB will be able to divy up the workload in a more efficient manner.</p>
+<p>Alternatively you can spcify a CLI query to fsck over a smaller timespan and look at a specific metric or time series. These queries will almost always complete much faster than a full scan and will uncover similar issues. However orphaned metrics will not found as the query will only operate on known time series. Orphans where tag names or values have been deleted will still be found.</p>
+<p>Regardless of the method used, fsck only looks at the most recent column value in HBase. If the table is configured to store multiple versions, older versions of a column are ignored.</p>
+</div>
+<div class="section" id="results">
+<h2>Results</h2>
+<p>The results will be logged with settings in the <code class="docutils literal"><span class="pre">logback.xml</span></code> file. For long fscks, it's recommended to run in the background and configure LogBack to have plenty of space for writing data. On completion, statistics about the run will be printed. An example looks like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">610</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Starting</span> <span class="n">full</span> <span class="n">table</span> <span class="n">scan</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">619</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Max</span> <span class="n">metric</span> <span class="n">ID</span> <span class="ow">is</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">619</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Spooling</span> <span class="n">up</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">worker</span> <span class="n">threads</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">358</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Thread</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">Finished</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">358</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Key</span> <span class="n">Values</span> <span class="n">Processed</span><span class="p">:</span> <span class="mi">301</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">358</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Rows</span> <span class="n">Processed</span><span class="p">:</span> <span class="mi">1</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">359</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Valid</span> <span class="n">Datapoints</span><span class="p">:</span> <span class="mi">300</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">359</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Annotations</span><span class="p">:</span> <span class="mi">1</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">359</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">Row</span> <span class="n">Keys</span> <span class="n">Found</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">360</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">Rows</span> <span class="n">Deleted</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">360</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Duplicate</span> <span class="n">Datapoints</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">360</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Duplicate</span> <span class="n">Datapoints</span> <span class="n">Resolved</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">361</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Orphaned</span> <span class="n">UID</span> <span class="n">Rows</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">361</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Orphaned</span> <span class="n">UID</span> <span class="n">Rows</span> <span class="n">Deleted</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">361</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Possible</span> <span class="n">Future</span> <span class="n">Objects</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">362</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Unknown</span> <span class="n">Objects</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">362</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Unknown</span> <span class="n">Objects</span> <span class="n">Deleted</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">362</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Unparseable</span> <span class="n">Datapoint</span> <span class="n">Values</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">362</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Unparseable</span> <span class="n">Datapoint</span> <span class="n">Values</span> <span class="n">Deleted</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">363</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Improperly</span> <span class="n">Encoded</span> <span class="n">Floating</span> <span class="n">Point</span> <span class="n">Values</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">363</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Improperly</span> <span class="n">Encoded</span> <span class="n">Floating</span> <span class="n">Point</span> <span class="n">Values</span> <span class="n">Fixed</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">363</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Unparseable</span> <span class="n">Compacted</span> <span class="n">Columns</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">364</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Unparseable</span> <span class="n">Compacted</span> <span class="n">Columns</span> <span class="n">Deleted</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">364</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Datapoints</span> <span class="n">Qualified</span> <span class="k">for</span> <span class="n">VLE</span> <span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">364</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Datapoints</span> <span class="n">Compressed</span> <span class="k">with</span> <span class="n">VLE</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">365</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Bytes</span> <span class="n">Saved</span> <span class="k">with</span> <span class="n">VLE</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">365</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Total</span> <span class="n">Errors</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">366</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Total</span> <span class="n">Correctable</span> <span class="n">Errors</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">366</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Total</span> <span class="n">Errors</span> <span class="n">Fixed</span><span class="p">:</span> <span class="mi">0</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">366</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Completed</span> <span class="n">fsck</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">seconds</span>
+</pre></div>
+</div>
+<p>For the most part, these statistics should be self-explanatory. <code class="docutils literal"><span class="pre">Key</span> <span class="pre">Values</span> <span class="pre">Processed</span></code> indicates the number of individual columns in HBase. <code class="docutils literal"><span class="pre">VLE</span></code> referse to <code class="docutils literal"><span class="pre">variable</span> <span class="pre">length</span> <span class="pre">encoding</span></code>.</p>
+<p>During a run, progress will be reported every 5 seconds so that you know the utility is still working. You should see lines similar to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">00.518</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">Fsck</span><span class="o">.</span><span class="n">run</span><span class="p">]</span> <span class="o">-</span> <span class="n">Processed</span> <span class="mi">47689680000</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">449891670779</span> <span class="n">valid</span> <span class="n">datapoints</span>
+<span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">01.518</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">Fsck</span><span class="o">.</span><span class="n">run</span><span class="p">]</span> <span class="o">-</span> <span class="n">Processed</span> <span class="mi">47689730000</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">449892264237</span> <span class="n">valid</span> <span class="n">datapoints</span>
+<span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mf">02.519</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">Fsck</span><span class="o">.</span><span class="n">run</span><span class="p">]</span> <span class="o">-</span> <span class="n">Processed</span> <span class="mi">47689780000</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">449892880333</span> <span class="n">valid</span> <span class="n">datapoints</span>
+</pre></div>
+</div>
+<p>Any time an error is found (and possibly fixed), the log will be updated immediately. Errors will usually include the column where the error was found in the output. Byte arrays are represented in either Java style signed bytes, e.g. <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">-42]</span></code> or hex encoded strings, e.g. <code class="docutils literal"><span class="pre">00000000000000040000000000000005</span></code>. Short-hand references include (k) for the row key, (q) for the qualifier and (v) for the value.</p>
+</div>
+<div class="section" id="types-of-errors-and-fixes">
+<h2>Types of Errors and Fixes</h2>
+<p>The following is a list of errors and/or fixes that can be found or performed with fsck.</p>
+<div class="section" id="bad-row-keys">
+<h3>Bad Row Keys</h3>
+<p>If a row key is found that doesn't conform to the OpenTSDB data table specification <code class="docutils literal"><span class="pre">&lt;metric_UID&gt;&lt;base_timestamp&gt;&lt;tagk1_UID&gt;&lt;tagv1_UID&gt;[...&lt;tagkn_UID&gt;&lt;tagvn_UID&gt;]</span></code>, the entire row is considered invalid.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">15</span>:03:46,483 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Invalid row key.</span>
+      Key: <span class="m">000001</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>If <code class="docutils literal"><span class="pre">--delete-bad-rows</span></code> is set, then the entire row will be removed from HBase.</p>
+</div>
+<div class="section" id="orphaned-rows">
+<h3>Orphaned Rows</h3>
+<p>If a row key is parsed as a proper OpenTSDB row, then the UIDs for the time series ID (TSUID) of the row are resolved to their names. If any of the UIDs does not match a name in the <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table, then the row is considered an orphan. This can happen if a UID is manually deleted from the UID table or a deletion does not complete properly.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">15</span>:08:45,057 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Unable to resolve the metric from the row key.</span>
+      Key: 00000150E22700000001000001
+      No such unique ID <span class="k">for</span> <span class="s1">&#39;metric&#39;</span>: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>If <code class="docutils literal"><span class="pre">--delete-orphans</span></code> is set, then the entire row will be removed from HBase.</p>
+</div>
+<div class="section" id="compact-row">
+<h3>Compact Row</h3>
+<p>While it's not strictly an error, fsck can be used to compact rows into a single column. Compacting rows saves storage space by merging multiple columns into one. This cuts down on HBase overhead. If a TSD that is configured to compact columns crashes, some rows may be missed and remain in stand-alone data point form. As compaction can consume resources, you can use fsck to compact rows when the load on your cluster is reduced.</p>
+<p>Specifying the <code class="docutils literal"><span class="pre">--compact</span></code> flag along with <code class="docutils literal"><span class="pre">--fix</span></code> will compact any row that has stand-alone data points within the query range. During compaction, any data points from old OpenTSDB versions that qualify for VLE will be re-encoded.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a row is repaired for any reason and has one or more compacted columns, the row will be re-compacted regardless of the <code class="docutils literal"><span class="pre">--compact</span></code> flag.</p>
+</div>
+</div>
+<div class="section" id="bad-compacted-column-error">
+<h3>Bad Compacted Column Error</h3>
+<p>These errors occur when compacted column is found that cannot be parsed into individual data points. This can happen if the qualifier appears correct but the number of bytes in the value array do not match the lengths encoded in the qualifier. Compacted columns with their data points out of order are not considered bad columns. Instead, the column will be sorted properly and re-written if the <code class="docutils literal"><span class="pre">--fix</span></code> or <code class="docutils literal"><span class="pre">--fix-all</span></code> flags are present.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">13</span>:29:40,251 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Corrupted value: couldn&#39;t break down into individual values (consumed 20 bytes, but was expecting to consume 24): [k &#39;00000150E22700000001000001&#39; q &#39;000700270033&#39; v &#39;00000000000000040000000000000005000000000000000600&#39;], cells so far: [Cell([0, 7], [0, 0, 0, 0, 0, 0, 0, 4]), Cell([0, 39], [0, 0, 0, 0, 0, 0, 0, 5]), Cell([0, 51], [0, 0, 0, 0])]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>The only fix for this error is to delete the column by specifying the <code class="docutils literal"><span class="pre">--delete-bad-compacts</span></code> flag.</p>
+</div>
+<div class="section" id="compacted-last-byte-error">
+<h3>Compacted Last Byte Error</h3>
+<p>The last byte of a compacted value is for storing meta data. It will usually be <code class="docutils literal"><span class="pre">0</span></code> if all of the data points are encoded in seconds or milliseconds. If there is a mixture of seconds and milliseconds will be set to <code class="docutils literal"><span class="pre">1</span></code>. If the value is something else then it may be from a future version of OpenTSDB or the column may be invalid.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">18</span>:13:35.979 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - The last byte of a compacted should be <span class="m">0</span> or <span class="m">1</span>. Either this value is corrupted or it was written by a future version of OpenTSDB.
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;00070027&#39;</span> v <span class="s1">&#39;00000000000000040000000000000005&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>Currently this is not repaired. You can manually set the last byte to 0 or 1 to prevent the error from being thrown. The <code class="docutils literal"><span class="pre">--delete-bad-compacts</span></code> flag will not remove these columns.</p>
+</div>
+<div class="section" id="value-too-long-or-short">
+<h3>Value Too Long Or Short</h3>
+<p>This may occur if a value is recorded on greater than 8 bytes for a single data point column. Individual data points are stored on 2 or 4 byte qualifiers. This error cannot happen for a data point within a compacted column. If it was compacted, the column would throw a bad compacted column error as it wouldn't be parseable.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:50:44,022 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: This floating point value must be encoded either on 4 or 8 bytes, but it&#39;s on 9 bytes.</span>
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;F000020B&#39;</span> v <span class="s1">&#39;000000000000000005&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p><code class="docutils literal"><span class="pre">--delete-bad-values</span></code> will remove the column.</p>
+</div>
+<div class="section" id="old-version-floats">
+<h3>Old Version Floats</h3>
+<p>Early OpenTSDB versions had a bug in the floating point value storage where the first 4 bytes of an 8 byte value were written with all bits set to 1. The value should be on the last four bytes as the qualifier encodes the length as four bytes. However if the invalid data was compacted, the data cannot be parsed properly and an error will be recorded.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">18</span>:43:35.297 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - Floating point value with 0xFF most significant bytes, probably caused by sign extension bug present in revisions <span class="o">[</span><span class="m">96908436</span>..607256fc<span class="o">]</span>.
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;002B&#39;</span> v <span class="s1">&#39;FFFFFFFF43FA6666&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>The <code class="docutils literal"><span class="pre">--fix</span></code> flag will repair these errors by rewriting the value without the first four bytes. The qualifier remains unchanged.</p>
+</div>
+<div class="section" id="byte-floats-with-8-byte-value-ok">
+<h3>4 Byte Floats with 8 Byte Value OK</h3>
+<p>Some versions of OpenTSDB may have encoded floating point values on 8 bytes when setting the qualifier length to 4 bytes. The first four bytes should be 0. If the value was compacted, the compacted column will be invalid as parsing is no longer possible.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:33:34,498 WARN  <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Floating point value was marked as 4 bytes long but was actually 8 bytes long</span>
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;000B&#39;</span> v <span class="s1">&#39;0000000040866666&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>The <code class="docutils literal"><span class="pre">--fix</span></code> flag will repair these errors by rewriting the value without the first four bytes. The qualifier remains unchanged.</p>
+</div>
+<div class="section" id="byte-floats-with-8-byte-value-bad">
+<h3>4 Byte Floats with 8 Byte Value Bad</h3>
+<p>In this case a value was encoded on 8 bytes with the first four bytes set to a non-zero value. It could be that the value is an 8 byte double since OpenTSDB never actually encoded on 8 bytes, the value is likely corrupt. If the value was compacted, the compacted column will be invalid as parsing is no longer possible.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:37:02,717 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Floating point value was marked as 4 bytes long but was actually 8 bytes long and the first four bytes were not zeroed</span>
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;002B&#39;</span> v <span class="s1">&#39;FB02F40F43FA6666&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>The <code class="docutils literal"><span class="pre">--delete-bad-values</span></code> flag will remove the column. You could try parsing the value as a Double manually and see if it looks valid, otherwise it's likely a corrupt column.</p>
+</div>
+<div class="section" id="unknown-object">
+<h3>Unknown Object</h3>
+<p>OpenTSDB 2.0 supports objects such as annotations in the data table. If a column is found that doesn't match an OpenTSDB object, a compacted column or a stand-alone data point, it is considered an unknown object and can likely be deleted.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:55:03,019 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Unknown qualifier, must be 2, 3, 5 or an even number of bytes.</span>
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;00270401010101&#39;</span> v <span class="s1">&#39;0000000000000005&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>The <code class="docutils literal"><span class="pre">--delete-unknown-columns</span></code> flag will remove this column from the row.</p>
+</div>
+<div class="section" id="future-object">
+<h3>Future Object</h3>
+<p>Objects are encoded on 3 or 5 byte qualifiers and the type is determined by a prefix. If a prefix is found that OpenTSDB doesn't recognize, then it will report the object but it will not be deleted. Note that this may actually be an unknown or corrupted column as fsck only looks at the qualifier length and the first byte of the qualifier. If that is the case, you can safely delete this column manually.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:57:15,858 WARN  <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Found an object possibly from a future version of OpenTSDB</span>
+      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;042704&#39;</span> v <span class="s1">&#39;467574757265204F626A656374&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>Future objects are left alone during fsck. Querying over the data with a TSD that doesn't support the object will throw an exception but versions that do support the object should procede normally.</p>
+</div>
+<div class="section" id="duplicate-timestamps">
+<h3>Duplicate Timestamps</h3>
+<p>Due to the use of encoding length and type for datapoints in qualifiers, it's possible to record a data point for the same timestamp with two different qualifiers. For example if you post an integer value for time <code class="docutils literal"><span class="pre">1</span></code> and then post a float value for time <code class="docutils literal"><span class="pre">1</span></code>, two different columns will be created. Duplicates can also happen if a row has been compacted and the TSD writes a new stand-alone column that matches a timestamp in the compacted column. At query time, an exception will be thrown as TSD does not know which value is the correct one.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">15</span>:22:43,231 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: More than one column had a value for the same timestamp: (1356998400000)</span>
+  row key: <span class="o">(</span>00000150E22700000001000001<span class="o">)</span>
+  write time: <span class="o">(</span><span class="m">1388534400000</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">7</span><span class="o">]</span>  &lt;--- Keep oldest
+  write time: <span class="o">(</span><span class="m">1388534400001</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">11</span><span class="o">]</span>
+  write time: <span class="o">(</span><span class="m">1388534400002</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">3</span><span class="o">]</span>
+  write time: <span class="o">(</span><span class="m">1388534400003</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">1</span><span class="o">]</span>
+</pre></div>
+</div>
+<p><em>Fix:</em></p>
+<p>If <code class="docutils literal"><span class="pre">--resolve-duplicates</span></code> is set, then all data points except for the latest or the oldest value will be deleted. The fix applies to both stand-alone and compacted data points. If the <code class="docutils literal"><span class="pre">--last-write-wins</span></code> flag is set, then the latest value is saved. Without the <code class="docutils literal"><span class="pre">--last-write-wins</span></code> flag, then the oldest value is saved.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the <code class="docutils literal"><span class="pre">tsd.storage.fix_duplicates</span></code> configuration value is set to <code class="docutils literal"><span class="pre">true</span></code> then the latest value will be saved regardless of <code class="docutils literal"><span class="pre">--last-write-wins</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">With compactions enabled, it is possible (though unlikely) that a data point is written while a row is being compacted. In this case, the compacted column will have a <em>later</em> timestamp than a data point written during the compaction. Therefore the default result of <code class="docutils literal"><span class="pre">--resolve-duplicates</span></code> will keep the stand-alone data point or, if last writes win, then the compacted value.</p>
+</div>
+</div>
+<div class="section" id="variable-length-encoding">
+<h3>Variable-Length Encoding</h3>
+<p>Early OpenTSDB implementations always encoded integer values on 8 bytes. With 2.0, integers were written on the smallest number of bytes possible, either 1, 2, 4 or 8. During fsck, any 8 byte encoded integers detected will be re-written with VLE if the <code class="docutils literal"><span class="pre">--fix</span></code> or <code class="docutils literal"><span class="pre">--fix-all</span></code> flags are specified. This includes stand-alone and compacted values. At the end of a run, the number of bytes saved with VLE are displayed.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

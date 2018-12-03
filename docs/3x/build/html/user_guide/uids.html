@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>UIDs and TSUIDs &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">UIDs and TSUIDs</a><ul>
+<li><a class="reference internal" href="#uid">UID</a><ul>
+<li><a class="reference internal" href="#assignment">Assignment</a></li>
+<li><a class="reference internal" href="#storage">Storage</a></li>
+<li><a class="reference internal" href="#display">Display</a></li>
+<li><a class="reference internal" href="#modification">Modification</a></li>
+<li><a class="reference internal" href="#why-uids">Why UIDs?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raw-names">Raw Names</a></li>
+<li><a class="reference internal" href="#hashes">Hashes</a></li>
+<li><a class="reference internal" href="#tsuids">TSUIDs</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="uids-and-tsuids">
+<h1>UIDs and TSUIDs</h1>
+<p>In OpenTSDB, when you write a timeseries data point, it is always associated with a metric and at least one tag name/value pair. Each metric, tag name and tag value is assigned a unique identifier (UID) the first time it is encountered or when explicitly assigned via the API or a CLI tool. The combination of metric and tag name/value pairs create a timeseries UID or TSUID.</p>
+<div class="section" id="uid">
+<h2>UID</h2>
+<p>Types of UID objects include:</p>
+<ul class="simple">
+<li><strong>metric</strong> - A metric such as <code class="docutils literal"><span class="pre">sys.cpu.0</span></code> or <code class="docutils literal"><span class="pre">trades.per.second</span></code></li>
+<li><strong>tagk</strong> - A tag name such as <code class="docutils literal"><span class="pre">host</span></code> or <code class="docutils literal"><span class="pre">symbol</span></code>. This is always the &quot;key&quot; (the first value) in a tag key/value pair.</li>
+<li><strong>tagv</strong> - A tag value such as <code class="docutils literal"><span class="pre">web01</span></code> or <code class="docutils literal"><span class="pre">goog</span></code>. This is always the &quot;value&quot; (the second value) in a tag key/value pair.</li>
+</ul>
+<div class="section" id="assignment">
+<h3>Assignment</h3>
+<p>The UID is a positive integer that is unique to the name of the UID object and it's type. Within the storage system there is a counter that is incremented for each <code class="docutils literal"><span class="pre">metric</span></code>, <code class="docutils literal"><span class="pre">tagk</span></code> and <code class="docutils literal"><span class="pre">tagv</span></code>. When you create a new <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table, this counter is set to 0 for each type. So if you put a new data point with a metric of <code class="docutils literal"><span class="pre">sys.cpu.0</span></code> and a tag pair of <code class="docutils literal"><span class="pre">host=web01</span></code> you will have 3 new UID objects, each with a UID of 1.</p>
+<p>UIDs are assigned automatically for new <code class="docutils literal"><span class="pre">tagk</span></code> and <code class="docutils literal"><span class="pre">tagv</span></code> objects when data points are written to a TSD. <code class="docutils literal"><span class="pre">metric</span></code> objects also receive new UIDs but only if the <em>auto metric</em> setting has been configured to <code class="docutils literal"><span class="pre">true</span></code>. Otherwise data points with new metrics are rejected. The UIDs are looked up in a cached map for every incoming data point. If the lookup fails, then the TSD will attempt to assign a new UID.</p>
+</div>
+<div class="section" id="storage">
+<h3>Storage</h3>
+<p>By default, UIDs are encoded on 3 bytes in storage, giving a maximum unique ID of 16,777,215 for each UID type. This is done to reduce the amount of space taken up in storage and to reduce the memory footprint of a TSD. For the vast majority of users, 16 million unique metrics, 16 million unique tag names and 16 million unique tag values should be enough. But if you do need more of a particular type, you can modify the OpenTSDB source code and recompile with 4 bytes or more. As of version 2.2 you can override the UID size via the config file.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you do adjust the byte encoding number, you must start with a fresh <code class="docutils literal"><span class="pre">tsdb</span></code> and fresh <code class="docutils literal"><span class="pre">tsdb-uid</span></code> table, otherwise the results will be unexpected. If you have data in an existing setup, you must export it, drop all tables, create them from scratch and re-import the data.</p>
+</div>
+</div>
+<div class="section" id="display">
+<h3>Display</h3>
+<p>UIDs can be displayed in a few ways. The most common method is via the HTTP API where the 3 bytes of UID data are encoded as a hexadecimal string. For example, the UID of <code class="docutils literal"><span class="pre">1</span></code> would be written in binary as <code class="docutils literal"><span class="pre">000000000000000000000001</span></code>. As an array of unsigned byte values, you could imagine it as <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">1]</span></code>. Encoded as a hex string, the value would be <code class="docutils literal"><span class="pre">000001</span></code> where the string is padded with 0s for each byte. The UID of 255 would result in a hex value of <code class="docutils literal"><span class="pre">0000FF</span></code> (or as a byte array, <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">255]</span></code>. To convert between a decimal UID to a hex, use any kind of hex conversion tool you prefer and put 0s in front of the resulting value until you have a total of 6 characters. To convert from a hex UID to decimal, simply drop any 0s from the front, then use a tool to convert the hex string to a decimal.</p>
+<p>In some CLI tools and log files, a UID may be displayed as an array of signed bytes (thanks to Java) such as the above example of <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">1]</span></code> or <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">-28]</span></code>. To convert from this signed array to an an array of unsigned bytes, then to hex. For example, <code class="docutils literal"><span class="pre">-28</span></code> would be binary <code class="docutils literal"><span class="pre">10011100</span></code> which results in a decimal value of <code class="docutils literal"><span class="pre">156</span></code> and a hex value of <code class="docutils literal"><span class="pre">9C</span></code>.</p>
+</div>
+<div class="section" id="modification">
+<h3>Modification</h3>
+<p>UIDs can be renamed or deleted. Renaming can be accomplished via the CLI and is generally safe but will affect EVERY time series that includes the renamed ID. E.g. if we have a series <code class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=web01</span></code> and another <code class="docutils literal"><span class="pre">apache.requests</span> <span class="pre">host=web01</span></code> and rename the <code class="docutils literal"><span class="pre">web01</span></code> tag value to <code class="docutils literal"><span class="pre">web01.mysite.org</span></code>, then both series will now reflect the new host name and all queries referring to the old name must be updated.. If a data point comes in that has the previous string, a new UID will be assigned.</p>
+<p>Deleting UIDs can be tricky as of version 2.2. Deleting a metric is safe in that users may no longer query for the data and it won't show up in calls to the suggest API. However deleting a tag name or value can cause queries to fail. E.g. if you have time series for the metric <code class="docutils literal"><span class="pre">sys.cpu.user</span></code> with hosts <code class="docutils literal"><span class="pre">web01</span></code>, <code class="docutils literal"><span class="pre">web02</span></code>, <code class="docutils literal"><span class="pre">web03</span></code>, etc. and you delete the UID for <code class="docutils literal"><span class="pre">web02</span></code>, any query that would scan over data that includes the series <code class="docutils literal"><span class="pre">sys.cpu.user</span> <span class="pre">host=web02</span></code> will throw an exception to the user because the data remains in storage. We highly recommend you run an FSCK with a query to repair such issues.</p>
+</div>
+<div class="section" id="why-uids">
+<h3>Why UIDs?</h3>
+<p>This question is asked often enough it's worth laying out the reasons here. Looking up or assigning a UID takes up precious cycles in the TSD so folks wonder if it wouldn't be faster to use the raw name of the metric or computer a hash. Indeed, from a write perspective it would be slightly faster, but there are a number of drawbacks that become apparent.</p>
+</div>
+</div>
+<div class="section" id="raw-names">
+<h2>Raw Names</h2>
+<p>Since OpenTSDB uses HBase as the storage layer, you could use strings as the row key. Following the current schema, you may have a row key that looked like <code class="docutils literal"><span class="pre">sys.cpu.0.user</span> <span class="pre">1292148000</span> <span class="pre">host=websv01.lga.mysite.com</span> <span class="pre">owner=operations</span></code>. Ordering would be similar to the existing schema, but now you're using up 70 bytes of storage each hour instead of 19. Additionally, the row key must be written and returned with every query to HBase, so you're increasing your network usage as well. So resorting to UIDs can help save space.</p>
+</div>
+<div class="section" id="hashes">
+<h2>Hashes</h2>
+<p>Another idea is to simply bump up the UIDs to 4 bytes then calculate a hash on the strings and store the hash with forward and reverse maps as we currently do. This would certainly reduce the amount of time it takes to assign a UID, but there are a few problems. First, you will encounter collisions where different names return the same hash. You could try different algorithms and even try increasing the hash to 8 bytes, but you'll always have the issue of colliding hashes. Second, you are now adding a hash calculation to every data put since it would have to determine the hash, then lookup the hash in the UID table to see if it's been mapped yet. Right now, each data point only performs the lookup. Third, you can't pre-split your HBase regions as easily. If you know you will have roughly 800 metrics in your system (the tags are irrelevant for this purpose), you can pre-split your HBase table to evenly distribute those 800 metrics and increase your initial write performance.</p>
+</div>
+<div class="section" id="tsuids">
+<h2>TSUIDs</h2>
+<p>When a data point is written to OpenTSDB, the row key is formatted as <code class="docutils literal"><span class="pre">&lt;metric_UID&gt;&lt;timestamp&gt;&lt;tagk1_UID&gt;&lt;tagv1_UID&gt;[...&lt;tagkN_UID&gt;&lt;tagvN_UID&gt;]</span></code>. By simply dropping the timestamp from the row key, we have a long array of UIDs that combined, form a unique timeseries ID. Encoding the bytes as a hex string will give us a useful TSUID that can be passed around various API calls. Thus from our UID example above where each metric, tag name and value has a UID of 1, our TSUID, encoded as a hexadecimal string, would be <code class="docutils literal"><span class="pre">000001000001000001</span></code>.</p>
+<p>While this TSUID format may be long and ugly, particularly with all of the 0s for early UIDs, there are a few reasons why this is useful:</p>
+<ul class="simple">
+<li>If you know the width of each UID (by default 3 bytes as stated above), then you can easily parse the UID for each metric, tag name and value from the UID string.</li>
+<li>Assigning a unique numeric ID for each timeseries creates issues with lock contention and/or synchronization issues where a timeseries may be missed if the UID could not be incremented.</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

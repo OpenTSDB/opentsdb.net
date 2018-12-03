@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>scan &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">scan</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#raw-output">Raw Output</a><ul>
+<li><a class="reference internal" href="#row-key-format">Row Key Format</a></li>
+<li><a class="reference internal" href="#single-data-point-column-format">Single Data Point Column Format</a></li>
+<li><a class="reference internal" href="#compacted-column-format">Compacted Column Format</a></li>
+<li><a class="reference internal" href="#annotation-column-format">Annotation Column Format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#import-format">Import Format</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="scan">
+<h1>scan</h1>
+<p>The scan command is useful for debugging and exporting data points. Provide a start time, optional end time and one or more queries and the response will be raw byte data from storage or data points in a text format acceptable for use with the <strong>import</strong> command. Scan also provides a rudimentary means of deleting data. The scan command accepts common CLI arguments. Data is emitted to standard out.</p>
+<p>Note that while queries require an aggregator, it is effectively ignored. If a query encompasses many time series, the scan output may be extremely large so be careful when crafting queries.</p>
+<div class="section" id="parameters">
+<h2>Parameters</h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>scan <span class="o">[</span>--delete<span class="p">|</span>--import<span class="o">]</span> START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]</span>
+</pre></div>
+</div>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="5%" />
+<col width="40%" />
+<col width="5%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>--delete</td>
+<td>Flag</td>
+<td>Optional flag that deletes data in any row that matches the query. See warning below.</td>
+<td>Not set</td>
+<td>--delete</td>
+</tr>
+<tr class="row-odd"><td>--import</td>
+<td>flag</td>
+<td>Optional flag that outputs results in a text format useful for importing or storing as a backup.</td>
+<td>Not set</td>
+<td>--import</td>
+</tr>
+<tr class="row-even"><td>START-DATE</td>
+<td>String or Integer</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><span class="doc">Dates and Times</span></a> for details</td>
+<td>&#160;</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-odd"><td>END-DATE</td>
+<td>String or Integer</td>
+<td>Optional end time for the query. If not provided, the current time is used. This may be an absolute or relative time. See <a class="reference internal" href="../query/dates.html"><span class="doc">Dates and Times</span></a> for details</td>
+<td>Current timestamp</td>
+<td>2014/01/01-00:00:00</td>
+</tr>
+<tr class="row-even"><td>query</td>
+<td>String</td>
+<td>One or more command line queries</td>
+<td>&#160;</td>
+<td>sum tsd.hbase.rpcs type=put</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>scan --import 1h-ago now sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>scan
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>If you include the <code class="docutils literal"><span class="pre">--delete</span></code> flag, <strong>ALL</strong> data in 'any' row that matches on the query will be deleted permanently. Rows are separated on 1 hour boundaries so that if you issued a scan command with a start and end time that covered 10 minutes within a single hour, the entire hour of data will be deleted.</p>
+<p class="last">Deletions will also delete any Annotations or non-TSDB related data in a row.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The scan command returns data on row boundaries (1 hour) so results may include data previous to and after the specified start and end times.</p>
+</div>
+</div>
+<div class="section" id="raw-output">
+<h2>Raw Output</h2>
+<p>The default output for <code class="docutils literal"><span class="pre">scan</span></code> is a raw dump of the rows and columns that match the given queries. This is useful in debugging situations such as data point collisions or encoding issues. As the output includes raw byte arrays and the format changes slightly depending on the data, it is not easily machine paresable.</p>
+<p>Row keys, column qualifiers and column values are emitted as Java byte arrays. These are surrounded by square brackets and individual bytes are represented as signed integers (as Java does not have native unsigned ints). Row keys are printed first followed by a new line. Then each column is printed on it's own row and is indented with two spaces to indicate it belongs to the previous row. If a compacted column is found, the raw data and number of compacted values is printed followed by a new line. Each compacted data point is printed on it's own indented line. Annotations are also emitted in raw mode.</p>
+<p>The various formats are listed below. The <code class="docutils literal"><span class="pre">\t</span></code> expression represents a tab. <code class="docutils literal"><span class="pre">space</span></code> indicates a space character.</p>
+<div class="section" id="row-key-format">
+<h3>Row Key Format</h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>&lt;row key&gt;<span class="o">]</span> &lt;metric name&gt; &lt;row timestamp&gt; <span class="o">(</span>&lt;datetime&gt;<span class="o">)</span> &lt;tag/value pairs&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>row key</strong> Is the raw byte array of the row key</li>
+<li><strong>metric name</strong> Is the decoded name of the metric the row represents</li>
+<li><strong>row timestamp</strong> Is the base timestamp of the row in seconds (on 1 hour boundaries)</li>
+<li><strong>datetime</strong> Is the system default formatted human readable timestamp</li>
+<li><strong>tag/value pairs</strong> Are the tags associated with the time series</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span>, <span class="m">80</span>, -30, <span class="m">39</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span><span class="o">]</span> sys.cpu.user <span class="m">1356998400</span> <span class="o">(</span>Mon Dec <span class="m">31</span> <span class="m">19</span>:00:00 EST <span class="m">2012</span><span class="o">)</span> <span class="o">{</span><span class="nv">host</span><span class="o">=</span>web01<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="single-data-point-column-format">
+<h3>Single Data Point Column Format</h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;l<span class="p">|</span>f&gt;<span class="se">\t</span>&lt;timestamp&gt;<span class="se">\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>qualifier</strong> Is the raw byte array of the column qualifier</li>
+<li><strong>value</strong> Is the raw byte array of the column value</li>
+<li><strong>offset</strong> Is the number of seconds or milliseconds (based on timestamp) of offset from the row base timestamp</li>
+<li><strong>l|f</strong> Is either <code class="docutils literal"><span class="pre">l</span></code> to indicate the value is an Integer (Java Long) or <code class="docutils literal"><span class="pre">f</span></code> for a floating point value.</li>
+<li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
+<li><strong>datetime</strong> Is the system default formatted human readable timestamp</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">0</span>, <span class="m">17</span><span class="o">]</span>       <span class="o">[</span><span class="m">0</span>, <span class="m">17</span><span class="o">]</span> <span class="o">[</span><span class="m">1</span>, <span class="m">1</span><span class="o">]</span>  <span class="m">1</span>       l       <span class="m">1356998401</span>      <span class="o">(</span>Mon Dec <span class="m">31</span> <span class="m">19</span>:00:01 EST <span class="m">2012</span><span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compacted-column-format">
+<h3>Compacted Column Format</h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span> <span class="o">=</span> &lt;number of datapoints&gt; values:
+</pre></div>
+</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>qualifier</strong> Is the raw byte array of the column qualifier</li>
+<li><strong>value</strong> Is the raw byte array of the column value</li>
+<li><strong>number of datapoints</strong> Is the number of data points in the compacted column</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>-16, <span class="m">0</span>, <span class="m">0</span>, <span class="m">7</span>, -16, <span class="m">0</span>, <span class="m">2</span>, <span class="m">7</span>, -16, <span class="m">0</span>, <span class="m">1</span>, <span class="m">7</span><span class="o">]</span>    <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">4</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">5</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">6</span>, <span class="m">0</span><span class="o">]</span> <span class="o">=</span> <span class="m">3</span> values:
+</pre></div>
+</div>
+<p>Each data point within the compacted column follows the same format as a single column with the addition of two spaces of indentation.</p>
+</div>
+<div class="section" id="annotation-column-format">
+<h3>Annotation Column Format</h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;two spaces&gt;<span class="o">[</span>&lt;qualifier&gt;<span class="o">]</span><span class="se">\t</span><span class="o">[</span>&lt;value&gt;<span class="o">]</span><span class="se">\t</span>&lt;offset&gt;<span class="se">\t</span>&lt;JSON<span class="se">\&gt;\t</span>&lt;timestamp<span class="se">\&gt;\t</span><span class="o">(</span>&lt;datetime&gt;<span class="o">)</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>qualifier</strong> Is the raw byte array of the column qualifier</li>
+<li><strong>value</strong> Is the raw byte array of the column value</li>
+<li><strong>offset</strong> Is the number of seconds or milliseconds (based on timestamp) of offset from the row base timestamp</li>
+<li><strong>JSON</strong> Is the decoded JSON data stored in the column</li>
+<li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
+<li><strong>datetime</strong> Is the system default formatted human readable timestamp</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">1</span>, <span class="m">0</span>, <span class="m">0</span><span class="o">]</span>     <span class="o">[</span><span class="m">123</span>, <span class="m">34</span>...<span class="o">]</span>    <span class="m">0</span>       <span class="o">{</span><span class="s2">&quot;tsuid&quot;</span>:<span class="s2">&quot;000001000001000001&quot;</span>,<span class="s2">&quot;startTime&quot;</span>:1356998400,<span class="s2">&quot;endTime&quot;</span>:0,<span class="s2">&quot;description&quot;</span>:<span class="s2">&quot;Annotation on seconds&quot;</span>,<span class="s2">&quot;notes&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;custom&quot;</span>:null<span class="o">}</span>        <span class="m">1356998416000</span>   <span class="o">(</span>Mon Dec <span class="m">31</span> <span class="m">19</span>:00:16 EST <span class="m">2012</span><span class="o">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="import-format">
+<h2>Import Format</h2>
+<p>The import format is the same as a Telnet style <code class="docutils literal"><span class="pre">put</span></code> command.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;metric&gt; &lt;timestamp&gt; &lt;value&gt; &lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">[</span>...&lt;<span class="nv">tagk</span><span class="o">=</span>tagv&gt;<span class="o">]</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>metric</strong> Is the name of the metric as a string</li>
+<li><strong>timestamp</strong> Is the absolute timestamp of the data point in seconds or milliseconds</li>
+<li><strong>value</strong> Is the value of the data point</li>
+<li><strong>tagk=tagv</strong> Are tag name/value pairs separated by spaces</li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sys.cpu.user <span class="m">1356998400</span> <span class="m">42</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span><span class="m">0</span>
+sys.cpu.user <span class="m">1356998401</span> <span class="m">24</span> <span class="nv">host</span><span class="o">=</span>web01 <span class="nv">cpu</span><span class="o">=</span><span class="m">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

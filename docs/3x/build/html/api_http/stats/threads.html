@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/stats/threads &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/stats/threads</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-stats-threads">
+<h1>/api/stats/threads</h1>
+<p>The threads endpoint is used for debugging the TSD and providing insight into the state and execution of various threads without having to resort to a JStack trace. (v2.2)</p>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>No parameters available.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p><strong>Query String</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">threads</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is an array of objects. Fields in the response include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="60%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>threadID</td>
+<td>Integer</td>
+<td>Numeric ID of the thread</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>priority</td>
+<td>Integer</td>
+<td>Execution priority for the thread</td>
+<td>5</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>String</td>
+<td>String name of the thread, usually assigned by default</td>
+<td>New I/O worker #23</td>
+</tr>
+<tr class="row-odd"><td>interrupted</td>
+<td>Boolean</td>
+<td>Whether or not the thread was interrupted</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>state</td>
+<td>String</td>
+<td>One of the valid Java thread states</td>
+<td>RUNNABLE</td>
+</tr>
+<tr class="row-odd"><td>stack</td>
+<td>Array&lt;String&gt;</td>
+<td>A stack trace showing where execution is currently located</td>
+<td><em>See Below</em></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">33</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;AsyncHBase I/O Worker #23&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;RUNNABLE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:136)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:69)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:69)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.SelectorImpl.select(SelectorImpl.java:80)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.SelectorUtil.select(SelectorUtil.java:68)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.AbstractNioSelector.select(AbstractNioSelector.java:415)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:212)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.lang.Thread.run(Thread.java:695)&quot;</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Signal Dispatcher&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;RUNNABLE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack&quot;</span><span class="o">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;AsyncHBase I/O Worker #11&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;RUNNABLE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:136)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:69)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:69)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sun.nio.ch.SelectorImpl.select(SelectorImpl.java:80)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.SelectorUtil.select(SelectorUtil.java:68)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.AbstractNioSelector.select(AbstractNioSelector.java:415)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:212)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.lang.Thread.run(Thread.java:695)&quot;</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Reference Handler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;WAITING&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;java.lang.Object.wait(Native Method)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.lang.Object.wait(Object.java:485)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)&quot;</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">44</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;OpenTSDB Timer TSDB Timer #1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;TIMED_WAITING&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stack&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;java.lang.Thread.sleep(Native Method)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.util.HashedWheelTimer$Worker.waitForNextTick(HashedWheelTimer.java:483)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:392)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;java.lang.Thread.run(Thread.java:695)&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

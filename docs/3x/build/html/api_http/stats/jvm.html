@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>/api/stats/jvm &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">/api/stats/jvm</a><ul>
+<li><a class="reference internal" href="#verbs">Verbs</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#example-request">Example Request</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response">Response</a><ul>
+<li><a class="reference internal" href="#example-response">Example Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="api-stats-jvm">
+<h1>/api/stats/jvm</h1>
+<p>The threads endpoint is used for debugging the TSD's JVM process and includes stats about the garbage collector, system load and memory usage. (v2.2)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The information printed will change depending on the JVM you are running the TSD under. In particular, the pools and GC sections will differ quite a bit.</p>
+</div>
+<div class="section" id="verbs">
+<h2>Verbs</h2>
+<ul class="simple">
+<li>GET</li>
+</ul>
+</div>
+<div class="section" id="requests">
+<h2>Requests</h2>
+<p>No parameters available.</p>
+<div class="section" id="example-request">
+<h3>Example Request</h3>
+<p><strong>Query String</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">jvm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="response">
+<h2>Response</h2>
+<p>The response is an object with multiple sub objects. Top level objects include</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>os</td>
+<td>Object</td>
+<td>Information about the system</td>
+</tr>
+<tr class="row-odd"><td>gc</td>
+<td>Object</td>
+<td>Information about the various garbage collectors such as how many times GC occurred and how long the process spent collecting.</td>
+</tr>
+<tr class="row-even"><td>runtime</td>
+<td>Object</td>
+<td>Details about the JVM including version and vendor, start timestamp (in millieconds) and the uptime.</td>
+</tr>
+<tr class="row-odd"><td>pools</td>
+<td>Object</td>
+<td>Details about each of the memory pools, particularly when used with a generational collector.</td>
+</tr>
+<tr class="row-even"><td>memory</td>
+<td>Object</td>
+<td>Information about the JVM's memory usage.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example-response">
+<h3>Example Response</h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;os&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;systemLoadAverage&quot;</span><span class="o">:</span> <span class="mf">4.85</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;gc&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;parNew&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;collectionTime&quot;</span><span class="o">:</span> <span class="mi">26027510</span><span class="p">,</span>
+            <span class="s2">&quot;collectionCount&quot;</span><span class="o">:</span> <span class="mi">361039</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;concurrentMarkSweep&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;collectionTime&quot;</span><span class="o">:</span> <span class="mi">333710</span><span class="p">,</span>
+            <span class="s2">&quot;collectionCount&quot;</span><span class="o">:</span> <span class="mi">396</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;runtime&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mi">1441069233346</span><span class="p">,</span>
+        <span class="s2">&quot;vmVersion&quot;</span><span class="o">:</span> <span class="s2">&quot;24.60-b09&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uptime&quot;</span><span class="o">:</span> <span class="mi">1033439220</span><span class="p">,</span>
+        <span class="s2">&quot;vmVendor&quot;</span><span class="o">:</span> <span class="s2">&quot;Oracle Corporation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vmName&quot;</span><span class="o">:</span> <span class="s2">&quot;Java HotSpot(TM) 64-Bit Server VM&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;pools&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;cMSPermGen&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;collectionUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">21757952</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">30044544</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">50077696</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">85983232</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">21757952</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">30045408</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">50077696</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">85983232</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;NON_HEAP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peakUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">21757952</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">30045408</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">50077696</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">85983232</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;parSurvivorSpace&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;collectionUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">157024256</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">32838400</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">157024256</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">157024256</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">157024256</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">32838400</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">157024256</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">157024256</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;HEAP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peakUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">157024256</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">157024256</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">157024256</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">157024256</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;codeCache&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;collectionUsage&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">2555904</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">8754368</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">8978432</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">50331648</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;NON_HEAP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peakUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">2555904</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">8767040</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">8978432</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">50331648</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;cMSOldGen&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;collectionUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">15609561088</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">1886862056</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">15609561088</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">15609561088</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">15609561088</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">5504187904</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">15609561088</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">15609561088</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;HEAP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peakUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">15609561088</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">11849865176</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">15609561088</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">15609561088</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;parEdenSpace&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;collectionUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">1256259584</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">1256259584</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">1256259584</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;usage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">1256259584</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">825272064</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">1256259584</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">1256259584</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;HEAP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;peakUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">1256259584</span><span class="p">,</span>
+                <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">1256259584</span><span class="p">,</span>
+                <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">1256259584</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">1256259584</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;memory&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;objectsPendingFinalization&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;nonHeapMemoryUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">24313856</span><span class="p">,</span>
+            <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">38798912</span><span class="p">,</span>
+            <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">59056128</span><span class="p">,</span>
+            <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">136314880</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;heapMemoryUsage&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;init&quot;</span><span class="o">:</span> <span class="mi">17179869184</span><span class="p">,</span>
+            <span class="s2">&quot;used&quot;</span><span class="o">:</span> <span class="mi">6351794296</span><span class="p">,</span>
+            <span class="s2">&quot;committed&quot;</span><span class="o">:</span> <span class="mi">17022844928</span><span class="p">,</span>
+            <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mi">17022844928</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

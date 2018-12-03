@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Querying or Reading Data &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Querying or Reading Data</a><ul>
+<li><a class="reference internal" href="#query-components">Query Components</a></li>
+<li><a class="reference internal" href="#times">Times</a></li>
+<li><a class="reference internal" href="#filters">Filters</a></li>
+<li><a class="reference internal" href="#aggregation">Aggregation</a></li>
+<li><a class="reference internal" href="#downsampling">Downsampling</a></li>
+<li><a class="reference internal" href="#rate">Rate</a></li>
+<li><a class="reference internal" href="#order-of-operations">Order of Operations</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="querying-or-reading-data">
+<h1>Querying or Reading Data</h1>
+<p>OpenTSDB offers a number of means to extract, manipulate and analyze data. Data can be queried via  CLI tools, an HTTP API and viewed as a GnuPlot graph. Open source tools such as <a class="reference external" href="http://grafana.org/">Grafana</a> and <a class="reference external" href="https://bosun.org/">Bosun</a> can also access TSDB data. Querying with OpenTSDB's tag based system can be a bit tricky so read through this document and checkout the following pages for deeper information. Example queries on this page follow the HTTP API format.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="timeseries.html">Understanding Metrics and Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dates.html">Dates and Times</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Query Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aggregators.html">Aggregation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downsampling.html">Downsampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Query Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Query Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Query Details and Stats</a></li>
+</ul>
+</div>
+<p>This page offers a quick overview of the typical query components. For details on each component, see the page referred to in the text or the table of contents above.</p>
+<div class="section" id="query-components">
+<h2>Query Components</h2>
+<p>OpenTSDB provides a number of tools and endpoints allowing for various query specifications that have evolved over time. The original syntax allowed for simple filtering, aggregation and downsampling. Later versions added support for functions and expressions. In general, each query has the following components:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="10%" />
+<col width="5%" />
+<col width="50%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Date Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Start Time</td>
+<td>String or Integer</td>
+<td>Required</td>
+<td>Starting time for the query. This may be an absolute or relative time. See <a class="reference internal" href="dates.html"><span class="doc">Dates and Times</span></a> for details</td>
+<td>24h-ago</td>
+</tr>
+<tr class="row-odd"><td>End Time</td>
+<td>String or Integer</td>
+<td>Optional</td>
+<td>An end time for the query. If the end time is not supplied, the current time on the TSD will be used. See <a class="reference internal" href="dates.html"><span class="doc">Dates and Times</span></a> for details.</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-even"><td>Metric</td>
+<td>String</td>
+<td>Required</td>
+<td>The full name of a metric in the system. Must be the complete name and it is always case sensitive</td>
+<td>sys.cpu.user</td>
+</tr>
+<tr class="row-odd"><td>Aggregation Function</td>
+<td>String</td>
+<td>Required</td>
+<td>A mathematical function to use in combining multiple time series (i.e. how to merge time series in a group)</td>
+<td>sum</td>
+</tr>
+<tr class="row-even"><td>Filter</td>
+<td>String</td>
+<td>Optional</td>
+<td>Filters on tag values to reduce the number of time series picked up in a query or group and aggregate on various tags.</td>
+<td>host=*,dc=lax</td>
+</tr>
+<tr class="row-odd"><td>Downsampler</td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional interval and function to reduce the number of data points returned across time</td>
+<td>1h-avg</td>
+</tr>
+<tr class="row-even"><td>Rate</td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional flag to calculate the rate of change, per second, for the result</td>
+<td>rate</td>
+</tr>
+<tr class="row-odd"><td>Functions</td>
+<td>String</td>
+<td>Optional</td>
+<td>Data manipulation functions such as additional filtering, time shifting, etc.</td>
+<td>highestMax(...)</td>
+</tr>
+<tr class="row-even"><td>Expressions</td>
+<td>String</td>
+<td>Optional</td>
+<td>Data manipulation functions across time series such as dividing one series by another.</td>
+<td>(m2 / (m1 + m2)) * 100</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="times">
+<h2>Times</h2>
+<p>Absolute time stamps are supported in human readable format or Unix style integers. Relative times may be used for refreshing dashboards. Currently, all queries are able to cover a single time span. In the future we hope to provide an offset query parameter that would allow for aggregations or graphing of a metric over different time periods, such as comparing last week to 1 year ago. See <a class="reference internal" href="dates.html"><span class="doc">Dates and Times</span></a> for details on what is permissible.</p>
+<p>While OpenTSDB can store data with millisecond resolution, by default, queries will return the data with second resolution to provide backwards compatibility for existing tools. If you are storing multiple data points per second, make sure that any query you issue includes a <cite>1s-&lt;func&gt;</cite> downsampler to read the right data. Otherwise an indeterminate value will be emitted.</p>
+<p>To extract data with millisecond resolution, use the <code class="docutils literal"><span class="pre">/api/query</span></code> endpoint and specify the <code class="docutils literal"><span class="pre">msResolution</span></code> (<code class="docutils literal"><span class="pre">ms</span></code> is also okay, but not recommended) JSON parameter or query string flag and it will bypass down sampling (unless specified) and return all timestamps in Unix epoch millisecond resolution. Also, the <code class="docutils literal"><span class="pre">scan</span></code> command line utility will return the timestamp as written in storage.</p>
+</div>
+<div class="section" id="filters">
+<h2>Filters</h2>
+<p>Every time series is comprised of a metric and one or more tag name/value pairs. In OpenTSDB, filters are applied against tag values (at this time TSDB does not provide filtering on metrics or tag keys). Since filters are optional in queries, if you request only the metric name, then every metric with any number or value of tags will be returned in the aggregated results. Filters are similar to the predicates following a <code class="docutils literal"><span class="pre">WHERE</span></code> clause in SQL. For example, if we have a stored data set:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver01</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">0</span>  <span class="mi">1356998400</span>  <span class="mi">1</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver01</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">1</span>  <span class="mi">1356998400</span>  <span class="mi">4</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver02</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">0</span>  <span class="mi">1356998400</span>  <span class="mi">2</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver02</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">1</span>  <span class="mi">1356998400</span>  <span class="mi">1</span>
+</pre></div>
+</div>
+<p>and craft a simple query with the minimum requirements of a <em>start time</em>, <em>aggregator</em> and <em>metric</em> such as: <code class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user</span></code>, we will get a value of <code class="docutils literal"><span class="pre">8</span></code> at <code class="docutils literal"><span class="pre">1356998400</span></code> that aggregates and groups all 4 time series into one.</p>
+<p>If we want to zoom into a particular series or set of series, we can use filters. For example, we can filter on the <code class="docutils literal"><span class="pre">host</span></code> tag via: <code class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01}</span></code>. This query will return a value of <code class="docutils literal"><span class="pre">5</span></code>, incorporating only the time series where <code class="docutils literal"><span class="pre">host=webserver01</span></code>. To drill down to a specific time series, you must include all of the tags for the series, e.g. the query <code class="docutils literal"><span class="pre">start=1356998400&amp;m=sum:sys.cpu.user{host=webserver01,cpu=0}</span></code> will return <code class="docutils literal"><span class="pre">1</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Inconsistent tags can cause unexpected results when querying. See <a class="reference internal" href="../writing/index.html"><span class="doc">Writing Data</span></a> for details. Also see <em>Explicit Tags</em> below.</p>
+</div>
+<p>Read the <a class="reference internal" href="filters.html"><span class="doc">Query Filters</span></a> documentation for details.</p>
+</div>
+<div class="section" id="aggregation">
+<h2>Aggregation</h2>
+<p>A powerful feature of OpenTSDB is the ability to perform on-the-fly aggregations of multiple time series into a single set of data points. The original data is always available in storage but we can quickly extract the data in meaningful ways. Aggregation functions are means of merging two or more data points for a single time stamp into a single value.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">OpenTSDB aggregates data by default and requires an aggregation operator for every query. Each aggregator has to handle missing or data points at different time stamps for multiple series. This is performed via interpolation and can lead to unexpected results at query time if users are unaware of what TSDB is doing.</p>
+</div>
+<p>See <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> for details.</p>
+</div>
+<div class="section" id="downsampling">
+<h2>Downsampling</h2>
+<p>OpenTSDB can ingest a large amount of data, even a data point every second for a given time series. Thus queries may return a large number of data points. Accessing the results of a query with a large number of points from the API can eat up bandwidth. High frequencies of data can easily overwhelm Javascript graphing libraries, hence the choice to use GnuPlot. Graphs created by the GUI can be difficult to read, resulting in thick lines such as the graph below:</p>
+<img alt="../../_images/gui_downsampling_off1.png" src="../../_images/gui_downsampling_off1.png" />
+<p>Downsampling can be used at query time to reduce the number of data points returned so that you can extract better information from a graph or pass less data over a connection. Down sampling requires an <strong>aggregation</strong> function and a <strong>time interval</strong>. The aggregation function is used to compute a new data point across all of the data points in the specified interval with the proper mathematical function. For example, if the aggregation <code class="docutils literal"><span class="pre">sum</span></code> is used, then all of the data points within the interval will be summed together into a single value. If <code class="docutils literal"><span class="pre">avg</span></code> is chosen, then the average of all data points within the interval will be returned.</p>
+<p>Using downsampling we can cleanup the previous graph to arrive at something much more useful:</p>
+<img alt="../../_images/gui_downsampling_on1.png" src="../../_images/gui_downsampling_on1.png" />
+<p>For details, see <a class="reference internal" href="downsampling.html"><span class="doc">Downsampling</span></a>.</p>
+</div>
+<div class="section" id="rate">
+<h2>Rate</h2>
+<p>A number of data sources return values as constantly incrementing counters. One example is a web site hit counter. When you start a web server, it may have a hit counter of 0. After five minutes the value may be 1,024. After another five minutes it may be 2,048. The graph for a counter will be a somewhat straight line angling up to the right and isn't always very useful. OpenTSDB provides a <strong>rate</strong> conversion function that calculates the rate of change in values over time. This will transform counters into lines with spikes to show you when activity occurred and can be much more useful.</p>
+<p>The rate is the first derivative of the values. It's defined as <code class="docutils literal"><span class="pre">(v2</span> <span class="pre">-</span> <span class="pre">v1)</span> <span class="pre">/</span> <span class="pre">(t2</span> <span class="pre">-</span> <span class="pre">t1)</span></code> where the times are in seconds. Therefore you will get the rate of change per second. Currently the rate of change between millisecond values defaults to a per second calculation.</p>
+<p>OpenTSDB 2.0 provides support for special monotonically increasing counter data handling including the ability to set a &quot;rollover&quot; value and suppress anomalous fluctuations. When the <code class="docutils literal"><span class="pre">counterMax</span></code> value is specified in a query, if a data point approaches this value and the point after is less than the previous, the max value will be used to calculate an accurate rate given the two points. For example, if we were recording an integer counter on 2 bytes, the maximum value would be 65,535. If the value at <code class="docutils literal"><span class="pre">t0</span></code> is <code class="docutils literal"><span class="pre">64000</span></code> and the value at <code class="docutils literal"><span class="pre">t1</span></code> is <code class="docutils literal"><span class="pre">1000</span></code>, the resulting rate per second would be calculated as <code class="docutils literal"><span class="pre">-63000</span></code>. However we know that it's likely the counter rolled over so we can set the max to <code class="docutils literal"><span class="pre">65535</span></code> and now the calculation will be <code class="docutils literal"><span class="pre">65535</span> <span class="pre">-</span> <span class="pre">t0</span> <span class="pre">+</span> <span class="pre">t1</span></code> to give us <code class="docutils literal"><span class="pre">2535</span></code>.</p>
+<p>Systems that track data in counters often revert to 0 when restarted. When that happens and we could get a spurious result when using the max counter feature. For example, if the counter has reached <code class="docutils literal"><span class="pre">2000</span></code> at <code class="docutils literal"><span class="pre">t0</span></code> and someone reboots the server, the next value may be <code class="docutils literal"><span class="pre">500</span></code> at <code class="docutils literal"><span class="pre">t1</span></code>. If we set our max to <code class="docutils literal"><span class="pre">65535</span></code> the result would be <code class="docutils literal"><span class="pre">65535</span> <span class="pre">-</span> <span class="pre">2000</span> <span class="pre">+</span> <span class="pre">500</span></code> to give us <code class="docutils literal"><span class="pre">64035</span></code>. If the normal rate is a few points per second, this particular spike, with <code class="docutils literal"><span class="pre">30s</span></code> between points, would create a rate spike of <code class="docutils literal"><span class="pre">2,134.5</span></code>! To avoid this, we can set the <code class="docutils literal"><span class="pre">resetValue</span></code> which will, when the rate exceeds this value, return a data point of <code class="docutils literal"><span class="pre">0</span></code> so as to avoid spikes in either direction. For the example above, if we know that our rate almost never exceeds 100, we could configure a <code class="docutils literal"><span class="pre">resetValue</span></code> of <code class="docutils literal"><span class="pre">100</span></code> and when the data point above is calculated, it will return <code class="docutils literal"><span class="pre">0</span></code> instead of <code class="docutils literal"><span class="pre">2,134.5</span></code>. The default value of 0 means the reset value will be ignored, no rates will be suppressed.</p>
+</div>
+<div class="section" id="order-of-operations">
+<h2>Order of Operations</h2>
+<p>Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:</p>
+<ol class="arabic simple">
+<li>Filtering</li>
+<li>Grouping</li>
+<li>Downsampling</li>
+<li>Interpolation</li>
+<li>Aggregation</li>
+<li>Rate Conversion</li>
+<li>Functions</li>
+<li>Expressions</li>
+</ol>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

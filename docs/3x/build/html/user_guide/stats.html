@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Stats &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Stats</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="stats">
+<h1>Stats</h1>
+<p>OpenTSDB offers a number of metrics about its performance, accessible via various API endpoints. The main stats are accessible from the GUI via the &quot;Stats&quot; tab, from the Http API at <code class="docutils literal"><span class="pre">/api/stats</span></code> or the legacy API at <code class="docutils literal"><span class="pre">/stats</span></code>. The Telnet style API also supports the &quot;stats&quot; command for fetching over CLI. These can easily be published right back into OpenTSDB at any interval you like.</p>
+<p>Additional stats available include JVM information, storage details (e.g. per-region-client HBase stats) and executed query details. See <a class="reference internal" href="../api_http/stats/index.html"><span class="doc">/api/stats</span></a> for more details about the other endpoints.</p>
+<p>All metrics from the main stats endpoint include a <code class="docutils literal"><span class="pre">host</span></code> tag that includes the name of the host where the TSD is running. If the <code class="docutils literal"><span class="pre">tsd.stats.canonical</span></code> configuration flag is set, this will change to <code class="docutils literal"><span class="pre">fqdn</span></code> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">/api/stats</span></code> endpoint is a good place to execute a health check for your TSD as it will execute a query to storage for fetching UID stats. If the TSD is unable to reach the backing store, the API will return an exception.</p>
+</div>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="10%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Metric</th>
+<th class="head">Tags</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tsd.connectionmgr.connections</td>
+<td>type=open</td>
+<td>Gauge</td>
+<td>The number of currently open Telnet and HTTP connections.</td>
+</tr>
+<tr class="row-odd"><td>tsd.connectionmgr.connections</td>
+<td>type=total</td>
+<td>Counter</td>
+<td>The total number of connections made to OpenTSDB. This includes all Telnet and HTTP connections.</td>
+</tr>
+<tr class="row-even"><td>tsd.connectionmgr.exceptions</td>
+<td>type=closed</td>
+<td>Counter</td>
+<td>The total number of exceptions caused by writes to a channel that was already closed. This can occur if a query takes too long, the client closes their connection gracefully, and the TSD attempts to write to the socket. This includes all Telnet and HTTP connections.</td>
+</tr>
+<tr class="row-odd"><td>tsd.connectionmgr.exceptions</td>
+<td>type=reset</td>
+<td>Counter</td>
+<td>The total number of exceptions caused by a client disconnecting without closing the socket. This includes all Telnet and HTTP connections.</td>
+</tr>
+<tr class="row-even"><td>tsd.connectionmgr.exceptions</td>
+<td>type=timeout</td>
+<td>Counter</td>
+<td>The total exceptions caused by a socket inactivity timeout, i.e. the TSD neither wrote nor received data from a socket within the timeout period. This includes all Telnet and HTTP connections.</td>
+</tr>
+<tr class="row-odd"><td>tsd.connectionmgr.exceptions</td>
+<td>type=unknown</td>
+<td>Counter</td>
+<td>The total exceptions with an unknown cause. Check the logs for details. This includes all Telnet and HTTP connections.</td>
+</tr>
+<tr class="row-even"><td>tsd.rpc.received</td>
+<td>type=telnet</td>
+<td>Counter</td>
+<td>The total number of telnet RPC requests received</td>
+</tr>
+<tr class="row-odd"><td>tsd.rpc.received</td>
+<td>type=http</td>
+<td>Counter</td>
+<td>The total number of Http RPC requests received</td>
+</tr>
+<tr class="row-even"><td>tsd.rpc.received</td>
+<td>type=http_plugin</td>
+<td>Counter</td>
+<td>The total number of Http RPC requests received and handled by a plugin instead of the built-in APIs. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.rpc.exceptions</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number exceptions caught during RPC calls. These may be user error or bugs.</td>
+</tr>
+<tr class="row-even"><td>tsd.http.latency_50pct</td>
+<td>type=all</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer HTTP requests for the 50th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.latency_75pct</td>
+<td>type=all</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer HTTP requests for the 75th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.http.latency_90pct</td>
+<td>type=all</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer HTTP requests for the 90th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.latency_95pct</td>
+<td>type=all</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer HTTP requests for the 95th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.http.latency_50pct</td>
+<td>type=graph</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer graphing requests for the 50th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.latency_75pct</td>
+<td>type=graph</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer graphing requests for the 75th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.http.latency_90pct</td>
+<td>type=graph</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer graphing requests for the 90th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.latency_95pct</td>
+<td>type=graph</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to answer graphing requests for the 95th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.http.latency_50pct</td>
+<td>type=gnuplot</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 50th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.latency_75pct</td>
+<td>type=gnuplot</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 75th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.http.latency_90pct</td>
+<td>type=gnuplot</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 90th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.latency_95pct</td>
+<td>type=gnuplot</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to generate the GnuPlot graphs for the 95th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.http.graph.requests</td>
+<td>cache=disk</td>
+<td>Counter</td>
+<td>The total number of graph requests satisfied from the disk cache</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.graph.requests</td>
+<td>cache=miss</td>
+<td>Counter</td>
+<td>The total number of graph requests that were not cached and required a fetch from storage</td>
+</tr>
+<tr class="row-even"><td>tsd.http.query.invalid_requests</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number data queries sent to the /api/query endpoint that were invalid due to user errors such as using the wrong HTTP method, missing parameters or using metrics and tags without UIDs. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.http.query.exceptions</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number data queries sent to the /api/query endpoint that threw an exception due to bad user input or an underlying error. See logs for details. (v2.2)</td>
+</tr>
+<tr class="row-even"><td>tsd.http.query.success</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number data queries sent to the /api/query endpoint that completed successfully. Note that these may have returned an empty result. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.rpc.received</td>
+<td>type=put</td>
+<td>Counter</td>
+<td>The total number of <code class="docutils literal"><span class="pre">put</span></code> requests for writing data points</td>
+</tr>
+<tr class="row-even"><td>tsd.rpc.errors</td>
+<td>type=hbase_errors</td>
+<td>Counter</td>
+<td>The total number of RPC errors caused by HBase exceptions</td>
+</tr>
+<tr class="row-odd"><td>tsd.rpc.errors</td>
+<td>type=invalid_values</td>
+<td>Counter</td>
+<td>The total number of RPC errors caused invalid <code class="docutils literal"><span class="pre">put</span></code> values from user requests, such as a string instead of a number</td>
+</tr>
+<tr class="row-even"><td>tsd.rpc.errors</td>
+<td>type=illegal_arguments</td>
+<td>Counter</td>
+<td>The total number of RPC errors caused by bad data from the user</td>
+</tr>
+<tr class="row-odd"><td>tsd.rpc.errors</td>
+<td>type=socket_writes_blocked</td>
+<td>Counter</td>
+<td>The total number of times the TSD was unable to write back to the telnet socket due to a full buffer. If this happens it likely means a number of exceptions were happening. (v2.2)</td>
+</tr>
+<tr class="row-even"><td>tsd.rpc.errors</td>
+<td>type=unknown_metrics</td>
+<td>Counter</td>
+<td>The total number of RPC errors caused by attempts to <code class="docutils literal"><span class="pre">put</span></code> a metric without an assigned UID. This only increments if <em>auto metrics</em> is disabled.</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.cache-hit</td>
+<td>kind=metrics</td>
+<td>Counter</td>
+<td>The total number of successful cache lookups for metric UIDs</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.cache-miss</td>
+<td>kind=metrics</td>
+<td>Counter</td>
+<td>The total number of failed cache lookups for metric UIDs that required a call to storage</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.cache-size</td>
+<td>kind=metrics</td>
+<td>Gauge</td>
+<td>The current number of cached metric UIDs</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.ids-used</td>
+<td>kind=metrics</td>
+<td>Counter</td>
+<td>The current number of assigned metric UIDs. (NOTE: if random metric UID generation is enabled ids-used will always be 0)</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.ids-available</td>
+<td>kind=metrics</td>
+<td>Counter</td>
+<td>The current number of available metric UIDs, decrements as UIDs are assigned. (NOTE: if random metric UID generation is enabled ids-used will always be 0)</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.random-collisions</td>
+<td>kind=metrics</td>
+<td>Counter</td>
+<td>How many times metric UIDs attempted a reassignment due to a collision with an existing UID. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.cache-hit</td>
+<td>kind=tagk</td>
+<td>Counter</td>
+<td>The total number of successful cache lookups for tagk UIDs</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.cache-miss</td>
+<td>kind=tagk</td>
+<td>Counter</td>
+<td>The total number of failed cache lookups for tagk UIDs that required a call to storage</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.cache-size</td>
+<td>kind=tagk</td>
+<td>Gauge</td>
+<td>The current number of cached tagk UIDs</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.ids-used</td>
+<td>kind=tagk</td>
+<td>Counter</td>
+<td>The current number of assigned tagk UIDs</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.ids-available</td>
+<td>kind=tagk</td>
+<td>Counter</td>
+<td>The current number of available tagk UIDs, decrements as UIDs are assigned.</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.cache-hit</td>
+<td>kind=tagv</td>
+<td>Counter</td>
+<td>The total number of successful cache lookups for tagv UIDs</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.cache-miss</td>
+<td>kind=tagv</td>
+<td>Counter</td>
+<td>The total number of failed cache lookups for tagv UIDs that required a call to storage</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.cache-size</td>
+<td>kind=tagv</td>
+<td>Gauge</td>
+<td>The current number of cached tagv UIDs</td>
+</tr>
+<tr class="row-odd"><td>tsd.uid.ids-used</td>
+<td>kind=tagv</td>
+<td>Counter</td>
+<td>The current number of assigned tagv UIDs</td>
+</tr>
+<tr class="row-even"><td>tsd.uid.ids-available</td>
+<td>kind=tagv</td>
+<td>Counter</td>
+<td>The current number of available tagv UIDs, decrements as UIDs are assigned.</td>
+</tr>
+<tr class="row-odd"><td>tsd.jvm.ramfree</td>
+<td>&#160;</td>
+<td>Gauge</td>
+<td>The number of bytes reported as free by the JVM's Runtime.freeMemory()</td>
+</tr>
+<tr class="row-even"><td>tsd.jvm.ramused</td>
+<td>&#160;</td>
+<td>Gauge</td>
+<td>The number of bytes reported as used by the JVM's Runtime.totalMemory()</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.latency_50pct</td>
+<td>method=put</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Put call for the 50th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.latency_75pct</td>
+<td>method=put</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Put call for the 75th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.latency_90pct</td>
+<td>method=put</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Put call for the 90th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.latency_95pct</td>
+<td>method=put</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Put call for the 95th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.latency_50pct</td>
+<td>method=scan</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Scan call for the 50th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.latency_75pct</td>
+<td>method=scan</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Scan call for the 75th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.latency_90pct</td>
+<td>method=scan</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Scan call for the 90th percentile cases</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.latency_95pct</td>
+<td>method=scan</td>
+<td>Gauge</td>
+<td>The time it took, in milliseconds, to execute a Scan call for the 95th percentile cases</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.root_lookups</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of root lookups performed by the client</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.meta_lookups</td>
+<td>type=uncontended</td>
+<td>Counter</td>
+<td>The total number of uncontended meta table lookups performed by the client</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.meta_lookups</td>
+<td>type=contended</td>
+<td>Counter</td>
+<td>The total number of contended meta table lookups performed by the client</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<td>type=increment</td>
+<td>Counter</td>
+<td>The total number of Increment requests performed by the client</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.rpcs</td>
+<td>type=delete</td>
+<td>Counter</td>
+<td>The total number of Delete requests performed by the client</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<td>type=get</td>
+<td>Counter</td>
+<td>The total number of Get requests performed by the client</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.rpcs</td>
+<td>type=put</td>
+<td>Counter</td>
+<td>The total number of Put requests performed by the client</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<td>type=rowLock</td>
+<td>Counter</td>
+<td>The total number of Row Lock requests performed by the client</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.rpcs</td>
+<td>type=openScanner</td>
+<td>Counter</td>
+<td><dl class="first last docutils">
+<dt>The total number of Open Scanner requests performed by the</dt>
+<dd>client</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.rpcs</td>
+<td>type=scan</td>
+<td>Counter</td>
+<td>The total number of Scan requests performed by the client. These indicate a scan-&gt;next() call.</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.rpcs.batched</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of batched requests sent by the client</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.flushes</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of flushes performed by the client</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.connections.created</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of connections made by the client to region servers</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.nsre</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of No Such Region Exceptions caught. These can happen when a region server crashes, is taken offline or when a region splits (?)</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.nsre.rpcs_delayed</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of calls delayed due to an NSRE that were later successfully executed</td>
+</tr>
+<tr class="row-even"><td>tsd.hbase.region_clients.open</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of connections opened to region servers since the TSD started. If this number is climbing the region servers may be crashing and restarting. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.hbase.region_clients.idle_closed</td>
+<td>&#160;</td>
+<td>Counter</td>
+<td>The total number of connections to region servers that were closed due to idle connections. This indicates nothing was read from or written to a server in some time and the TSD will reconnect when it needs to. (v2.2)</td>
+</tr>
+<tr class="row-even"><td>tsd.compaction.count</td>
+<td>type=trivial</td>
+<td>Counter</td>
+<td>The total number of trivial compactions performed by the TSD</td>
+</tr>
+<tr class="row-odd"><td>tsd.compaction.count</td>
+<td>type=complex</td>
+<td>Counter</td>
+<td>The total number of complex compactions performed by the TSD</td>
+</tr>
+<tr class="row-even"><td>tsd.compaction.duplicates</td>
+<td>type=identical</td>
+<td>Counter</td>
+<td>The total number of data points found during compaction that were duplicates at the same time and with the same value. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.compaction.duplicates</td>
+<td>type=variant</td>
+<td>Counter</td>
+<td>The total number of data points found during compaction that were duplicates at the same time but with a different value. (v2.2)</td>
+</tr>
+<tr class="row-even"><td>tsd.compaction.queue.size</td>
+<td>&#160;</td>
+<td>Gauge</td>
+<td>How many rows of data are currently in the queue to be compacted. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.compaction.errors</td>
+<td>type=read</td>
+<td>Counter</td>
+<td>The total number of rows that couldn't be read from storage due to an error of some sort. (v2.2)</td>
+</tr>
+<tr class="row-even"><td>tsd.compaction.errors</td>
+<td>type=put</td>
+<td>Counter</td>
+<td>The total number of rows that couldn't be re-written to storage due to an error of some sort. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.compaction.errors</td>
+<td>type=delete</td>
+<td>Counter</td>
+<td>The total number of rows that couldn't have the old non-compacted data deleted from storage due to an error of some sort. (v2.2)</td>
+</tr>
+<tr class="row-even"><td>tsd.compaction.writes</td>
+<td>type=read</td>
+<td>Counter</td>
+<td>The total number of writes back to storage of compacted values. (v2.2)</td>
+</tr>
+<tr class="row-odd"><td>tsd.compaction.deletes</td>
+<td>type=read</td>
+<td>Counter</td>
+<td>The total number of delete calls made to storage to remove old data that has been compacted. (v2.2)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

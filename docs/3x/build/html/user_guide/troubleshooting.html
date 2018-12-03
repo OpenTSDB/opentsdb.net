@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Troubleshooting &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#opentsdb-compactions-trigger-large-tmp-files-and-region-server-crashes-in-hbase">OpenTSDB compactions trigger large .tmp files and region server crashes in HBase</a></li>
+<li><a class="reference internal" href="#tsds-are-slow-to-respond-after-region-splits-or-over-long-run-times">TSDs are slow to respond after region splits or over long run times</a></li>
+<li><a class="reference internal" href="#tsds-are-stuck-in-gc-or-crashing-due-to-out-of-memory-exceptions">TSDs are stuck in GC or crashing due to Out of Memory Exceptions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="troubleshooting">
+<h1>Troubleshooting</h1>
+<p>This page lists common issues encountered by users of OpenTSDB along with various troubleshooting steps. If you run into an issue, please check the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">OpenTSDB Google Group</a> or the <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">Github Issues</a>. If you can't find an answer, please include your operating system, TSD version and HBase version in your question.</p>
+<div class="section" id="opentsdb-compactions-trigger-large-tmp-files-and-region-server-crashes-in-hbase">
+<h2>OpenTSDB compactions trigger large .tmp files and region server crashes in HBase</h2>
+<p>This can be caused if you use millisecond timestamps and write thousands of data points for a single metric in a single hour. In this case, the column qualifier and row key can grow larger than the configured <code class="docutils literal"><span class="pre">hfile.index.block.max.size</span></code>. In this situation we recommend that you disable TSD compaction code. In the future we will support appends which will allow for compacted columns with small qualifiers.</p>
+</div>
+<div class="section" id="tsds-are-slow-to-respond-after-region-splits-or-over-long-run-times">
+<h2>TSDs are slow to respond after region splits or over long run times</h2>
+<p>During region splits or region migrations, OpenTSDB's AsyncHBase client will buffer RPCs in memory and attempt to flush them once the regions are back online. Each region has a 10,000 RPC buffer by default and if many regions are down then the RPCs can eventually fill up the TSD heap and cause long garbage collection pauses. If this happens, you can either increase your heap to accommodate more region splits or decrease the NSRE queue size by modifying the <code class="docutils literal"><span class="pre">hbase.nsre.high_watermark</span></code> config parameter in AsyncHBase 1.7 and OpenTSDB 2.2.</p>
+</div>
+<div class="section" id="tsds-are-stuck-in-gc-or-crashing-due-to-out-of-memory-exceptions">
+<h2>TSDs are stuck in GC or crashing due to Out of Memory Exceptions</h2>
+<p>There are a number of potential causes for this problem including:</p>
+<ul class="simple">
+<li>Multiple NSREs from HBase - See the section above about TSDs being slow to respond.</li>
+<li>Too many writes - If the rate of writes to TSD is high, queues can build up in AsyncHBase (see above) or in the compaction queue. If this is the case, check HBase performance and try disabling compactions.</li>
+<li>Large queries - A very large query with many time series or for a long range can cause the TSD to OOM. Try reducing query size or break large queries up into smaller chunks.</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

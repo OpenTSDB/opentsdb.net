@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Downsampling &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Downsampling</a><ul>
+<li><a class="reference internal" href="#calendar-boundaries">Calendar Boundaries</a></li>
+<li><a class="reference internal" href="#fill-policies">Fill Policies</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="downsampling">
+<h1>Downsampling</h1>
+<p>Downsampling (or in signal processing, <em>decimation</em>) is the process of reducing the sampling rate, or resolution, of data. For example, lets say a temperature sensor is sending data to an OpenTSDB system every second. If a user queries for data over an hour time span, they would receive 3,600 data points, something that could be graphed fairly easily. However now if the user asks for a full week of data they'll receive 604,800 data points and suddenly the graph may become pretty messy. Using a downsampler, multiple data points within a time range for a single time series are aggregated together with a mathematical function into a single value at an aligned timestamp. This way we can reduce the number of values from say, 604,800 to 168.</p>
+<p>Downsamplers require at least two components:</p>
+<ul class="simple">
+<li><strong>Interval</strong> - A time range (or <em>bucket</em>) across which to aggregate the values. For example we could aggregate multiple values for 1 minute or 1 hour or even a whole day. Intervals are specified in the format <code class="docutils literal"><span class="pre">&lt;Size&gt;&lt;Units&gt;</span></code> such as <code class="docutils literal"><span class="pre">1h</span></code> for 1 hour or <code class="docutils literal"><span class="pre">30m</span></code> for 30 minutes. As of <em>2.3</em> the <code class="docutils literal"><span class="pre">all</span></code> interval is now available to downsample all results in the time range to one value. E.g. <code class="docutils literal"><span class="pre">0all-sum</span></code> will sum all values from query start to end. Note that a numeric value is still required but it can be zero or any other value.</li>
+<li><strong>Aggregation Function</strong> - A mathematical function that determines how to merge the values in the interval. Aggregation functions from the <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> documentation are used for the function.</li>
+</ul>
+<p>For example, take the following time series <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code>. The data points cover a 70 second time span, a value every 10 seconds. Let's say we want to downsample that to 30 seconds since the user is looking at a graph for a wider time span. Additionally we're grouping these two series into one using a sum aggregator. We can specify a downsampler of <code class="docutils literal"><span class="pre">30s-sum</span></code> that will create 30 second buckets and sum all of the data points in each bucket. This will give us three data points for each series:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Time Series</th>
+<th class="head">t0</th>
+<th class="head">t0+10s</th>
+<th class="head">t0+20s</th>
+<th class="head">t0+30s</th>
+<th class="head">t0+40s</th>
+<th class="head">t0+50s</th>
+<th class="head">t0+60</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>5</td>
+<td>5</td>
+<td>10</td>
+<td>15</td>
+<td>20</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>A <code class="docutils literal"><span class="pre">sum</span></code> Downsampled</td>
+<td>5 + 5 + 10 = 20</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>15 + 20 + 5 = 40</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>1 = 1</td>
+</tr>
+<tr class="row-even"><td>B</td>
+<td>10</td>
+<td>5</td>
+<td>20</td>
+<td>15</td>
+<td>10</td>
+<td>0</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>B <code class="docutils literal"><span class="pre">sum</span></code> Downsampled</td>
+<td>10 + 5 + 20 = 35</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>15 + 10 + 0 = 25</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>5 = 5</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">sum</span></code> Aggregated Result</td>
+<td>55</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>65</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see, for each time series, we generate a synthetic series with a timestamp normalized on interval boundaries (every 30 seconds) so that we'll have a value at <code class="docutils literal"><span class="pre">t0</span></code>, <code class="docutils literal"><span class="pre">t0+30s</span></code> and <code class="docutils literal"><span class="pre">t0+60s</span></code>. Each interval, or bucket, will contain the data points that are inclusive of the bucket timestamp (the start) and exclusive of the following bucket's timestamp (the end). In this case, the first bucket would extend from <code class="docutils literal"><span class="pre">t0</span></code> to <code class="docutils literal"><span class="pre">t0+29.9999s</span></code>. Using the provided aggregator, all of the values are merged into a new one. E.g. for series <code class="docutils literal"><span class="pre">A</span></code>, we sum up the values for <code class="docutils literal"><span class="pre">t0</span></code>, <code class="docutils literal"><span class="pre">t0+10s</span></code> and <code class="docutils literal"><span class="pre">t0+20s</span></code> to arrive at a new value of <code class="docutils literal"><span class="pre">20</span></code> at <code class="docutils literal"><span class="pre">t0</span></code>. Finally, the query is group-by'd using sum so that we add the two synthetic time series. At this time, OpenTSDB always performs group-by aggregation <em>after</em> downsampling.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For early versions of OpenTSDB, the actual time stamps for the new data points will be an average of the time stamps for each data point in the time span. As of 2.1 and later, the timestamp for each point is aligned to the start of a time bucket based on a modulo of the current time and the downsample interval.</p>
+</div>
+<p>Downsampled timestamps are normalized based on the remainder of the original data point timestamp divided by the downsampling interval in milliseconds, i.e. the modulus. In Java the code is <code class="docutils literal"><span class="pre">timestamp</span> <span class="pre">-</span> <span class="pre">(timestamp</span> <span class="pre">%</span> <span class="pre">interval_ms)</span></code>. For example, given a timestamp of <code class="docutils literal"><span class="pre">1388550980000</span></code>, or <code class="docutils literal"><span class="pre">1/1/2014</span> <span class="pre">04:36:20</span> <span class="pre">UTC</span></code> and an hourly interval that equates to 3600000 milliseconds, the resulting timestamp will be rounded to <code class="docutils literal"><span class="pre">1388548800000</span></code>. All data points between 4 and 5 UTC will wind up in the 4 AM bucket. If you query for a day's worth of data downsampling on 1 hour, you will receive 24 data points (assuming there is data for all 24 hours).</p>
+<p>When using the <code class="docutils literal"><span class="pre">0all-</span></code> interval, the timestamp of the result will be the start time of the query.</p>
+<p>Normalization works very well for common queries such as a day's worth of data downsampled to 1 minute or 1 hour. However if you try to downsample on an odd interval, such as 36 minutes, then the timestamps may look a little strange due to the nature of the modulus calculation. Given an interval of 36 minutes and our example above, the interval would be <code class="docutils literal"><span class="pre">2160000</span></code> milliseconds and the resulting timestamp <code class="docutils literal"><span class="pre">1388549520</span></code> or <code class="docutils literal"><span class="pre">04:12:00</span> <span class="pre">UTC</span></code>. All data points between <code class="docutils literal"><span class="pre">04:12</span></code> and <code class="docutils literal"><span class="pre">04:48</span></code> would wind up in a single bucket.</p>
+<div class="section" id="calendar-boundaries">
+<h2>Calendar Boundaries</h2>
+<p>Starting with OpenTSDB 2.3, users can specify calendar based downsampling instead of the quick modulus method. This is much more useful for reporting purposes such as looking at values relating to human times such as months, weeks or days. Additionally downsampling can account for timezones and incorporate daylight savings time shifts and zone offsets.</p>
+<p>To use calendar boundaries, check the documentation for the endpoint you're making a query from. For example, the V2 URI endpoint has a specific timezone parameter to be used such as <code class="docutils literal"><span class="pre">&amp;timezone=Asia/Kabul</span></code> and calendar based downsampling is enabled by appending a <code class="docutils literal"><span class="pre">c</span></code> to the interval time units as in <code class="docutils literal"><span class="pre">&amp;m=sum:1dc-sum:my.metric</span></code>. For JSON queries, a separate <code class="docutils literal"><span class="pre">timezone</span></code> field is used at the top level along with a <code class="docutils literal"><span class="pre">useCalendar</span></code> boolean flag. If no timezone is provided, calendars use UTC time.</p>
+<p>With calendar downsampling, the first interval is snapped to January 1st at 00:00:00 of the query year in the timezone specified. From there, the interval buckets are calculated until the end of the query. Each bucket is marked with the timestamp of the start of the bucket, inclusive, and includes all values until the start of the next bucket, exclusive.</p>
+</div>
+<div class="section" id="fill-policies">
+<h2>Fill Policies</h2>
+<p>Downsampling is often used to align timestamps to avoid interpolation when performing a group-by. Because OpenTSDB does not impose constraints on time alignment or when values are supposed to exist, such constraints must be specified at query time. When performing a group-by aggregation with downsampling, if all series are missing values for an expected interval, nothing is emitted. For example, if a series is writing data every minute from <code class="docutils literal"><span class="pre">t0</span></code> to <code class="docutils literal"><span class="pre">t0+6m</span></code>, but for some reason the source fails to write data at <code class="docutils literal"><span class="pre">t0+3m</span></code>, only 5 values will be serialized when the user may expect 6. With fill policies in 2.2 and later, you can now choose what value is emitted for <code class="docutils literal"><span class="pre">t0+3m</span></code> so that the user (or application) will <em>see</em> that a value was missing for a specific timestamp instead of having to figure out which timestamp was missing. Fill policies simply emit a pre-defined value any time a downsample bucket is empty.</p>
+<p>Available polices include:</p>
+<ul class="simple">
+<li>None (<code class="docutils literal"><span class="pre">none</span></code>) - The default behavior that does not emit missing values during serialization and performs linear interpolation (or otherwise specified interpolation) when aggregating series.</li>
+<li>NaN (<code class="docutils literal"><span class="pre">nan</span></code>) - Emits a <code class="docutils literal"><span class="pre">NaN</span></code> in the serialization output when all values are missing in a series. Skips series in aggregations when the value is missing instead of converting an entire group-by calculation to NaN.</li>
+<li>Null (<code class="docutils literal"><span class="pre">null</span></code>) - Same behavior as NaN except that during serialization it emits a <code class="docutils literal"><span class="pre">null</span></code> instead of a <code class="docutils literal"><span class="pre">NaN</span></code>.</li>
+<li>Zero (<code class="docutils literal"><span class="pre">zero</span></code>) - Substitutes a zero when a timestamp is missing. The zero value will be incorporated in aggregated results.</li>
+</ul>
+<p>To use a fill policy, append the policy name (the terms in parentheses) to the end of the downsampling aggregation function separated by a hyphen. E.g. <code class="docutils literal"><span class="pre">1h-sum-nan</span></code> or <code class="docutils literal"><span class="pre">1m-avg-zero</span></code>.</p>
+<p>In this example we have data reported every 10 seconds and we want to enforce a query-time policy of 10 seconds reporting by downsampling every 10 seconds and filling missing values with NaNs via <code class="docutils literal"><span class="pre">10s-sum-nan</span></code>:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="22%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Time Series</th>
+<th class="head">t0</th>
+<th class="head">t0+10s</th>
+<th class="head">t0+20s</th>
+<th class="head">t0+30s</th>
+<th class="head">t0+40s</th>
+<th class="head">t0+50s</th>
+<th class="head">t0+60s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>15</td>
+<td>&#160;</td>
+<td>5</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>10</td>
+<td>&#160;</td>
+<td>20</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>A <code class="docutils literal"><span class="pre">sum</span></code> Downsampled</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>15</td>
+<td>NaN</td>
+<td>5</td>
+<td>NaN</td>
+</tr>
+<tr class="row-odd"><td>B <code class="docutils literal"><span class="pre">sum</span></code> Downsampled</td>
+<td>10</td>
+<td>NaN</td>
+<td>20</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">sum</span></code> Aggregated Result</td>
+<td>10</td>
+<td>NaN</td>
+<td>20</td>
+<td>15</td>
+<td>NaN</td>
+<td>5</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>If we requested the output without a fill policy, no value or timestamp at <code class="docutils literal"><span class="pre">t0+20s</span></code> or <code class="docutils literal"><span class="pre">t0+40s</span></code> would be emitted. Additionally, values at <code class="docutils literal"><span class="pre">t0+30s</span></code> and <code class="docutils literal"><span class="pre">t0+50s</span></code> for series <code class="docutils literal"><span class="pre">B</span></code> would be linearly interpolated to fill in values to be summed with series <code class="docutils literal"><span class="pre">A</span></code>.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

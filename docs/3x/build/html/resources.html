@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Additional Resources &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Additional Resources</a><ul>
+<li><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li><a class="reference internal" href="#docker-images">Docker Images</a></li>
+<li><a class="reference internal" href="#front-ends">Front Ends</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
+<li><a class="reference internal" href="#clients">Clients</a></li>
+<li><a class="reference internal" href="#references-to-opentsdb">References to OpenTSDB</a></li>
+<li><a class="reference internal" href="#statistical-analysis-tools">Statistical Analysis Tools</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="additional-resources">
+<h1>Additional Resources</h1>
+<p>These are just some of the awesome front-ends, utilities, libraries and resources created by the OpenTSDB community. Please let us know if you have a project you'd like to see listed and if you don't see something you need, search for it on Github (new projects are popping up all the time) or your favorite search engine.</p>
+<div class="section" id="monitoring">
+<h2>Monitoring</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://bosun.org/">Bosun</a> - A monitoring and alerting system built on OpenTSDB from the folks at <a class="reference external" href="http://stackexchange.com/">Stack Exchange</a>.</li>
+</ul>
+</div>
+<div class="section" id="docker-images">
+<h2>Docker Images</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://registry.hub.docker.com/u/petergrace/opentsdb-docker/">petergrace/opentsdb-docker</a> - A prebuilt Docker image with HBase and OpenTSDB already configured and ready to run!  If you have Docker installed, execute <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">petergrace/opentsdb-docker</span></code> to create an opentsdb instance running on port 4242.</li>
+<li><a class="reference external" href="https://registry.hub.docker.com/u/opower/opentsdb/">opower/opentsdb</a> - A Docker image containing OpenTSDB, HBase, and tcollector. Comes in both 2.0.1 and 2.1 versions (latest defaults to 2.1). Execute <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opower/opentsdb</span></code> to create an OpenTSDB instance running on port 4242.</li>
+</ul>
+</div>
+<div class="section" id="front-ends">
+<h2>Front Ends</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/box/StatusWolf">Status Wolf</a> - A PHP and MySQL based dashboard for creating and storing dynamic custom graphs with OpenTSDB data including anonmaly detection.</li>
+<li><a class="reference external" href="https://github.com/Ticketmaster/metrilyx-2.0">Metrilyx</a> - A Python and Django based dashboard system with dynamic graphs from Ticketmaster.</li>
+<li><a class="reference external" href="https://github.com/clover/opentsdb-dashboard">Opentsdb-Dashboard</a> - An HBase based dashboard system for OpenTSDB 1.x from Clover.</li>
+<li><a class="reference external" href="https://github.com/facebook/tsdash">TSDash</a> - A Java based UI and dashboard from Facebook.</li>
+<li><a class="reference external" href="https://github.com/turn/opentsdb-dashboard">OpenTSDB Dashboard</a> - A JQuery based dashboard from Turn.</li>
+<li><a class="reference external" href="http://grafana.org">Grafana</a> - A dashboard and graph editor with OpenTSDB support.</li>
+<li><a class="reference external" href="https://github.com/mikebryant/graphite-opentsdb-finder">Graphite OpenTSDB Finder</a> - A Graphite plugin to load TSDB data.</li>
+</ul>
+</div>
+<div class="section" id="utilities">
+<h2>Utilities</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/noca/opentsdbjsonproxy">opentsdbjsonproxy</a> - An HTTP proxy to convert 1.x ASCII output from the <code class="docutils literal"><span class="pre">/q</span></code> endpoint to JSON for use with High Charts or other libraries.</li>
+<li><a class="reference external" href="https://github.com/auxesis/collectd-opentsdb">Collectd-opentsdb</a> - A Collectd plugin to emmit stats to a TSD.</li>
+<li><a class="reference external" href="https://github.com/dotcloud/collectd-opentsdb">Collectd-opentsdb Java</a> - A Collectd plugin to that uses the OpenTSDB Java API to push data to a TSD.</li>
+<li><cite>TSD_proxy</cite> &lt;<a class="reference external" href="https://github.com/aravind/tsd_proxy">https://github.com/aravind/tsd_proxy</a>&gt;`_ - A buffering write proxy for OpenTSDB and alternate DBs.</li>
+<li><a class="reference external" href="https://github.com/99designs/vacuumetrix">Vacuumetrix</a> - Utility to pull data from various cloud services or APIs and store the results in backends such as Graphite, Ganglia and OpenTSDB.</li>
+<li><a class="reference external" href="https://github.com/charms/opentsdb">JuJu Deployment Charm</a> - Utility to compile OpenTSDB from GIT and deploy on a cluster.</li>
+<li><a class="reference external" href="https://github.com/danslimmon/statsd-opentsdb-backend">Statsd Publisher</a> - A statsd backend to publish data to a TSD.</li>
+<li><a class="reference external" href="https://github.com/nimbusproject/opentsdbproxy">OpenTSDB Proxy</a> - A Django based proxy with authentication and SSL support to run in front of the TSDs.</li>
+<li><a class="reference external" href="https://github.com/mburger/puppet-opentsdb">Puppet Module</a> - A puppet deployment module.</li>
+<li><a class="reference external" href="https://github.com/yandex/opentsdb-flume">Flume Module</a> - Write data from Flume to a TSD.</li>
+<li><a class="reference external" href="https://github.com/looztra/opentsdb-cookbook">Chef Cookbook</a> - Deploy from source via Chef.</li>
+<li><ul class="first">
+<li><a class="reference external" href="https://github.com/acaiafa/opentsdb-cookbook">OpenTSDB Cookbook</a> - A Chef cookbook for CentOS or Ubuntu.</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://github.com/sps/metrics-opentsdb">Coda Hale Metrics Reporter</a> - Writes data to OpenTSDB from the Java Metrics library.</li>
+<li><a class="reference external" href="https://github.com/stuart-warren/metrics-opentsdb">Alternative Coda Hale Metrics Reporter</a> - Writes data to OpenTSDB from the Java Metrics library.</li>
+<li><a class="reference external" href="https://github.com/frogmaster/opentsdb-snmp">opentsdb-snmp</a> - Fetches data from SNMP enabled devices and writes to OpenTSDB.</li>
+<li><a class="reference external" href="https://github.com/worldline/proxyTSDB">proxTSDB</a> - A metric data gateway capable of buffering data to RAM or disk if the TSD is down.</li>
+<li><a class="reference external" href="https://github.com/santosh-d3vpl3x/opentsdb-udfs">OpenTSDB Pig UDFs</a> - Integrate OpenTSDB with Apache Pig for large data set processing.</li>
+</ul>
+</div>
+<div class="section" id="clients">
+<h2>Clients</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/holstius/opentsdbr">R Client</a> - A client to pull data from OpenTSDB into R.</li>
+<li><a class="reference external" href="https://github.com/bradfordw/gen_opentsdb">Erlang Client</a> - A simple client to publish data to a TSD from Erlang.</li>
+<li><a class="reference external" href="https://github.com/opower/time-series">time-series</a> - A Ruby client that supports both reading and writing to OpenTSDB 2.x - contains support for synthetic time series calculations.</li>
+<li><a class="reference external" href="https://github.com/j05h/continuum">Ruby</a> - A read-only client for querying data from the 1.x API.</li>
+<li><a class="reference external" href="https://github.com/johnewart/ruby-opentsdb">Ruby</a> A write-only client for pushing data to a TSD.</li>
+<li><a class="reference external" href="https://github.com/bzub/go-opentsdb">Go</a> - Work with OpenTSDB data in Go.</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/potsdb">Potsdb</a> - A Python client for writing data.</li>
+<li><a class="reference external" href="https://github.com/cyngn/vertx-opentsdb">vert.x OpenTsDb</a> - A library to write data to OpenTSDB from Vert.x.</li>
+</ul>
+</div>
+<div class="section" id="references-to-opentsdb">
+<h2>References to OpenTSDB</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.manning.com/dimidukkhurana/">HBase in Action</a> (Manning Publications) - Chapter 7: HBase by Example: OpenTSDB</li>
+<li><a class="reference external" href="http://www.wrox.com/WileyCDA/WroxTitle/Professional-NoSQL.productCd-047094224X.html">Professional NoSQL</a> (Wrox Publishing) - Mentioned in Chapter 17: Tools and Utilities</li>
+<li><a class="reference external" href="http://www.youtube.com/watch?v=WlsyqhrhRZA">OSCon Data 2011</a> - Presentation from Benoit Sigoure</li>
+<li><a class="reference external" href="http://www.slideshare.net/geoffanderson/monitoring-mysql-with-opentsdb-19982758">Percona Live 2013</a> Presentation from Geoffrey Anderson</li>
+<li><a class="reference external" href="http://www.hbasecon.com/sessions/opentsdb-at-scale/">HBaseCon 2013</a> - Presentation from Jonathan Creasy and Geoffrey Anderson</li>
+<li><a class="reference external" href="http://strataconf.com/strata2011/public/schedule/detail/16996">Strata 2011</a> - Presentation by Benoit Sigoure</li>
+</ul>
+</div>
+<div class="section" id="statistical-analysis-tools">
+<h2>Statistical Analysis Tools</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.gnuplot.info/">GnuPlot</a> - Graphing library used by OpenTSDB</li>
+<li><a class="reference external" href="http://www.r-project.org/">R</a> - Statistical computing framework</li>
+<li><a class="reference external" href="http://www.scipy.org/">SciPy</a> - Python libraries for dealing with numbers (Pandas library has time series support)</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

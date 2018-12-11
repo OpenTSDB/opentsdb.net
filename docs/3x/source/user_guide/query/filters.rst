@@ -114,7 +114,7 @@ Examples
 The following examples use the v2 HTTP URI syntax wherein the ``m`` parameter consists of the aggregator, a colon, the ``explicit_tags`` URI flag, then the metric and tag filters in brackets separated by equal signs.
 
 **Example 1:** 
-``http://host:4242/q?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=web01}``
+``http://host:4242/api/query?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=web01}``
 
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
@@ -125,7 +125,7 @@ The following examples use the v2 HTTP URI syntax wherein the ``m`` parameter co
 This solves the issue of inconsistent tag keys, allowing us to pick out only time series *#4*.
 
 **Example 2:** 
-``http://host:4242/q?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}``
+``http://host:4242/api/query?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}``
 
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
@@ -139,7 +139,7 @@ This query uses the v2 URI syntax to avoid grouping on the ``dc`` tag key by put
 
 .. NOTE:: When using HBase (0.98 and later) or Bigtable, make sure ``tsd.query.enable_fuzzy_filter`` is enabled in the config (enabled by default). A special filter is given to the backend that enables skipping ahead to rows that we need for the query instead of iterating over every row key and comparing a regular expression.
 
-.. NOTE:: With 2.4, TSDB will issue multiple ``get`` requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only `literal_or``'s.
+.. NOTE:: With 2.4, TSDB will issue multiple ``get`` requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only ``literal_or``'s.
 
 Built-in 2.x Filters
 --------------------

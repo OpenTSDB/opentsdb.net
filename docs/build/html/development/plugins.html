@@ -2,12 +2,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Plugins &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -28,7 +36,8 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -70,14 +79,12 @@
                         title="next chapter">HTTP API</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -91,30 +98,30 @@
   <div class="section" id="plugins">
 <h1>Plugins</h1>
 <p>OpenTSDB implements a very simple plugin model to extend the application. Plugins use the <em>service</em> and <em>service provider</em> facilities built into Java 1.6 that allows for dynamically loading JAR files and instantiating plugin implementations after OpenTSDB has been started. While not as flexible as many framework implementations, all we need to do is load a plugin on startup, initialize the implementation, and start passing data to or through it.</p>
-<p>To create a plugin, all you have to do is extend one of the <em>abstract</em> plugin classes, write a service description/manifest, compile, drop your JAR (along with any dependencies needed) into the OpenTSDB plugin folder, edit the TSD config and restart. That’s all there is to it. No fancy frameworks, no worrying about loading and unloading at strange times, etc.</p>
+<p>To create a plugin, all you have to do is extend one of the <em>abstract</em> plugin classes, write a service description/manifest, compile, drop your JAR (along with any dependencies needed) into the OpenTSDB plugin folder, edit the TSD config and restart. That's all there is to it. No fancy frameworks, no worrying about loading and unloading at strange times, etc.</p>
 <div class="section" id="manifest">
 <h2>Manifest</h2>
 <p>A plugin JAR requires a manifest with a special <em>services</em> folder and file to enable the <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to load it properly. Here are the steps for creating the proper files:</p>
 <blockquote>
 <div><ul>
-<li><p class="first">Create a <code class="docutils literal notranslate"><span class="pre">META-INF</span></code> directory under your <code class="docutils literal notranslate"><span class="pre">src</span></code> directory. Some IDEs can automatically generate this</p>
+<li><p class="first">Create a <code class="docutils literal"><span class="pre">META-INF</span></code> directory under your <code class="docutils literal"><span class="pre">src</span></code> directory. Some IDEs can automatically generate this</p>
 </li>
-<li><p class="first">Within the <code class="docutils literal notranslate"><span class="pre">META-INF</span></code> directory, create a file named <code class="docutils literal notranslate"><span class="pre">MANIFEST.MF</span></code>. Again some IDEs can generate this automatically.</p>
+<li><p class="first">Within the <code class="docutils literal"><span class="pre">META-INF</span></code> directory, create a file named <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code>. Again some IDEs can generate this automatically.</p>
 </li>
-<li><p class="first">Edit the <code class="docutils literal notranslate"><span class="pre">MANIFEST.MF</span></code> file and add:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Manifest</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">1.0</span>
+<li><p class="first">Edit the <code class="docutils literal"><span class="pre">MANIFEST.MF</span></code> file and add:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Manifest</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">1.0</span>
 </pre></div>
 </div>
 <p>making sure to end with a blank line. You can add more manifest information if you like. This is the bare minimum to satisfy plugin requirements.</p>
 </li>
-<li><p class="first">Create a <code class="docutils literal notranslate"><span class="pre">services</span></code> directory under <code class="docutils literal notranslate"><span class="pre">META-INF</span></code></p>
+<li><p class="first">Create a <code class="docutils literal"><span class="pre">services</span></code> directory under <code class="docutils literal"><span class="pre">META-INF</span></code></p>
 </li>
-<li><p class="first">Within <code class="docutils literal notranslate"><span class="pre">services</span></code> create a file with the canonical class name of the abstract plugin class you are implementing. E.g. if you implement <code class="docutils literal notranslate"><span class="pre">net.opentsdb.search.SearchPlugin</span></code>, use that for the name of the file.</p>
+<li><p class="first">Within <code class="docutils literal"><span class="pre">services</span></code> create a file with the canonical class name of the abstract plugin class you are implementing. E.g. if you implement <code class="docutils literal"><span class="pre">net.opentsdb.search.SearchPlugin</span></code>, use that for the name of the file.</p>
 </li>
-<li><p class="first">Edit the new file and put the canonical name of each class that implements the abstract interface on a new line of the file. E.g. if your implementation is called <code class="docutils literal notranslate"><span class="pre">net.opentsdb.search.ElasticSearch</span></code>, put that on a line. Some quick notes about this file:</p>
+<li><p class="first">Edit the new file and put the canonical name of each class that implements the abstract interface on a new line of the file. E.g. if your implementation is called <code class="docutils literal"><span class="pre">net.opentsdb.search.ElasticSearch</span></code>, put that on a line. Some quick notes about this file:</p>
 <ul>
-<li><p class="first">You can put comments in the service implementation file. The comment character is the <code class="docutils literal notranslate"><span class="pre">#</span></code>, just like a Java properties file. E.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch plugin written by John Doe</span>
+<li><p class="first">You can put comments in the service implementation file. The comment character is the <code class="docutils literal"><span class="pre">#</span></code>, just like a Java properties file. E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch plugin written by John Doe</span>
 <span class="c1"># that sends data over HTTP to a number of ElasticSearch servers</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearch</span>
 </pre></div>
@@ -122,7 +129,7 @@
 </li>
 <li><p class="first">You can have more than one implementation of the same abstract class in one JAR and in this file.
 NOTE: If you have widely different implementations, start a different project and JAR. E.g. if you implement a search plugin for ElasticSearch and another for Solr, put Solr in a different project. However if you have two implementations that are very similar but slightly different, you can create one project. For example you could write an ElasticSearch plugin that uses HTTP for a protocol and another that uses Thrift. In that case, you could have a file like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch HTTP</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ElasticSearch HTTP</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchHTTP</span>
 <span class="c1"># ElasticSearch Thrift</span>
 <span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">ElasticSearchThrift</span>
@@ -131,12 +138,12 @@ NOTE: If you have widely different implementations, start a different project an
 </li>
 </ul>
 </li>
-<li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you’re going command line, try this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">cvmf</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">MANIFEST</span><span class="o">.</span><span class="n">MF</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">plugin</span> <span class="n">jar</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">of</span> <span class="k">class</span> <span class="nc">files</span><span class="o">&gt;</span>
+<li><p class="first">Now compile your JAR and make sure to include the manifest file. Each IDE handles this differently. If you're going command line, try this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">cvmf</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">MANIFEST</span><span class="o">.</span><span class="n">MF</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">plugin</span> <span class="n">jar</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">of</span> <span class="k">class</span> <span class="nc">files</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>Where the <code class="docutils literal notranslate"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></code> includes the services file that you created above. E.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">cvmf</span> <span class="n">META</span><span class="o">-</span><span class="n">INF</span><span class="o">/</span><span class="n">MANIFEST</span><span class="o">.</span><span class="n">MF</span> <span class="n">searchplugin</span><span class="o">.</span><span class="n">jar</span> <span class="o">../</span><span class="nb">bin</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">opentsdb</span><span class="o">/</span><span class="n">search</span><span class="o">/</span><span class="n">myplugin</span><span class="o">.</span><span class="k">class</span> <span class="nc">META</span><span class="o">-</span><span class="n">INF</span><span class="o">/</span><span class="n">services</span><span class="o">/</span><span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">SearchPlugin</span>
+<p>Where the <code class="docutils literal"><span class="pre">&lt;list</span> <span class="pre">of</span> <span class="pre">class</span> <span class="pre">files&gt;</span></code> includes the services file that you created above. E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="n">cvmf</span> <span class="n">META</span><span class="o">-</span><span class="n">INF</span><span class="o">/</span><span class="n">MANIFEST</span><span class="o">.</span><span class="n">MF</span> <span class="n">searchplugin</span><span class="o">.</span><span class="n">jar</span> <span class="o">../</span><span class="nb">bin</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">opentsdb</span><span class="o">/</span><span class="n">search</span><span class="o">/</span><span class="n">myplugin</span><span class="o">.</span><span class="k">class</span> <span class="nc">META</span><span class="o">-</span><span class="n">INF</span><span class="o">/</span><span class="n">services</span><span class="o">/</span><span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">SearchPlugin</span>
 </pre></div>
 </div>
 </li>

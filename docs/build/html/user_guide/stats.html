@@ -2,12 +2,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Stats &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -28,7 +36,8 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -55,14 +64,12 @@
                         title="next chapter">Definitions</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -75,12 +82,12 @@
             
   <div class="section" id="stats">
 <h1>Stats</h1>
-<p>OpenTSDB offers a number of metrics about its performance, accessible via various API endpoints. The main stats are accessible from the GUI via the “Stats” tab, from the Http API at <code class="docutils literal notranslate"><span class="pre">/api/stats</span></code> or the legacy API at <code class="docutils literal notranslate"><span class="pre">/stats</span></code>. The Telnet style API also supports the “stats” command for fetching over CLI. These can easily be published right back into OpenTSDB at any interval you like.</p>
+<p>OpenTSDB offers a number of metrics about its performance, accessible via various API endpoints. The main stats are accessible from the GUI via the &quot;Stats&quot; tab, from the Http API at <code class="docutils literal"><span class="pre">/api/stats</span></code> or the legacy API at <code class="docutils literal"><span class="pre">/stats</span></code>. The Telnet style API also supports the &quot;stats&quot; command for fetching over CLI. These can easily be published right back into OpenTSDB at any interval you like.</p>
 <p>Additional stats available include JVM information, storage details (e.g. per-region-client HBase stats) and executed query details. See <a class="reference internal" href="../api_http/stats/index.html"><span class="doc">/api/stats</span></a> for more details about the other endpoints.</p>
-<p>All metrics from the main stats endpoint include a <code class="docutils literal notranslate"><span class="pre">host</span></code> tag that includes the name of the host where the TSD is running. If the <code class="docutils literal notranslate"><span class="pre">tsd.stats.canonical</span></code> configuration flag is set, this will change to <code class="docutils literal notranslate"><span class="pre">fqdn</span></code> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
+<p>All metrics from the main stats endpoint include a <code class="docutils literal"><span class="pre">host</span></code> tag that includes the name of the host where the TSD is running. If the <code class="docutils literal"><span class="pre">tsd.stats.canonical</span></code> configuration flag is set, this will change to <code class="docutils literal"><span class="pre">fqdn</span></code> and the TSD will try to resolve its host name to return the fully qualified domain name. Currently all stats are integer values. Each request for stats will fetch statistics in real time so the timestamp will reflect the current time on the TSD host.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">/api/stats</span></code> endpoint is a good place to execute a health check for your TSD as it will execute a query to storage for fetching UID stats. If the TSD is unable to reach the backing store, the API will return an exception.</p>
+<p class="last">The <code class="docutils literal"><span class="pre">/api/stats</span></code> endpoint is a good place to execute a health check for your TSD as it will execute a query to storage for fetching UID stats. If the TSD is unable to reach the backing store, the API will return an exception.</p>
 </div>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -235,7 +242,7 @@
 <tr class="row-odd"><td>tsd.rpc.received</td>
 <td>type=put</td>
 <td>Counter</td>
-<td>The total number of <code class="docutils literal notranslate"><span class="pre">put</span></code> requests for writing data points</td>
+<td>The total number of <code class="docutils literal"><span class="pre">put</span></code> requests for writing data points</td>
 </tr>
 <tr class="row-even"><td>tsd.rpc.errors</td>
 <td>type=hbase_errors</td>
@@ -245,7 +252,7 @@
 <tr class="row-odd"><td>tsd.rpc.errors</td>
 <td>type=invalid_values</td>
 <td>Counter</td>
-<td>The total number of RPC errors caused invalid <code class="docutils literal notranslate"><span class="pre">put</span></code> values from user requests, such as a string instead of a number</td>
+<td>The total number of RPC errors caused invalid <code class="docutils literal"><span class="pre">put</span></code> values from user requests, such as a string instead of a number</td>
 </tr>
 <tr class="row-even"><td>tsd.rpc.errors</td>
 <td>type=illegal_arguments</td>
@@ -260,7 +267,7 @@
 <tr class="row-even"><td>tsd.rpc.errors</td>
 <td>type=unknown_metrics</td>
 <td>Counter</td>
-<td>The total number of RPC errors caused by attempts to <code class="docutils literal notranslate"><span class="pre">put</span></code> a metric without an assigned UID. This only increments if <em>auto metrics</em> is disabled.</td>
+<td>The total number of RPC errors caused by attempts to <code class="docutils literal"><span class="pre">put</span></code> a metric without an assigned UID. This only increments if <em>auto metrics</em> is disabled.</td>
 </tr>
 <tr class="row-odd"><td>tsd.uid.cache-hit</td>
 <td>kind=metrics</td>
@@ -345,12 +352,12 @@
 <tr class="row-odd"><td>tsd.jvm.ramfree</td>
 <td>&#160;</td>
 <td>Gauge</td>
-<td>The number of bytes reported as free by the JVM’s Runtime.freeMemory()</td>
+<td>The number of bytes reported as free by the JVM's Runtime.freeMemory()</td>
 </tr>
 <tr class="row-even"><td>tsd.jvm.ramused</td>
 <td>&#160;</td>
 <td>Gauge</td>
-<td>The number of bytes reported as used by the JVM’s Runtime.totalMemory()</td>
+<td>The number of bytes reported as used by the JVM's Runtime.totalMemory()</td>
 </tr>
 <tr class="row-odd"><td>tsd.hbase.latency_50pct</td>
 <td>method=put</td>
@@ -509,17 +516,17 @@
 <tr class="row-odd"><td>tsd.compaction.errors</td>
 <td>type=read</td>
 <td>Counter</td>
-<td>The total number of rows that couldn’t be read from storage due to an error of some sort. (v2.2)</td>
+<td>The total number of rows that couldn't be read from storage due to an error of some sort. (v2.2)</td>
 </tr>
 <tr class="row-even"><td>tsd.compaction.errors</td>
 <td>type=put</td>
 <td>Counter</td>
-<td>The total number of rows that couldn’t be re-written to storage due to an error of some sort. (v2.2)</td>
+<td>The total number of rows that couldn't be re-written to storage due to an error of some sort. (v2.2)</td>
 </tr>
 <tr class="row-odd"><td>tsd.compaction.errors</td>
 <td>type=delete</td>
 <td>Counter</td>
-<td>The total number of rows that couldn’t have the old non-compacted data deleted from storage due to an error of some sort. (v2.2)</td>
+<td>The total number of rows that couldn't have the old non-compacted data deleted from storage due to an error of some sort. (v2.2)</td>
 </tr>
 <tr class="row-even"><td>tsd.compaction.writes</td>
 <td>type=read</td>

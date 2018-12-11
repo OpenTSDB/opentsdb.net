@@ -5,7 +5,7 @@ A critical function of any database system is to enable fetching subsets of the 
 
 **Example Data**
 
-As each filter is explained below, the following data se tis used. It consists of a single metric with multiple time series defined on various tags. Only one data point is given at *T1* as an example.
+As each filter is explained below, the following data set is used. It consists of a single metric with multiple time series defined on various tags. Only one data point is given at *T1* as an example.
 
 .. csv-table::
    :header: "TS#", "Metric", "Tags", "Value @ T1"

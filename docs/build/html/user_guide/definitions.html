@@ -2,12 +2,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Definitions &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -28,7 +36,8 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -70,14 +79,12 @@
                         title="next chapter">Storage</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -93,12 +100,12 @@
 <span class="target" id="index-0"></span><p>When it comes to timeseries data, there are lots of terms tossed about that can lead to some confusion. This page is a sort of glossary that helps to define words related to the use of OpenTSDB.</p>
 <div class="section" id="cardinality">
 <h2>Cardinality</h2>
-<p>Cardinality is a mathematical term defined as the number of elements in a set. In database lingo, it’s often used to refer to the number of unique items in an index. With regards to OpenTSDB it can refer to:</p>
+<p>Cardinality is a mathematical term defined as the number of elements in a set. In database lingo, it's often used to refer to the number of unique items in an index. With regards to OpenTSDB it can refer to:</p>
 <ul class="simple">
 <li>The number of unique time series for a given metric</li>
 <li>The number of unique tag values associated with a tag name</li>
 </ul>
-<p>Due to the nature of the OpenTSDB storage schema, metrics with higher cardinality may take longer return results during query execution than those with lower cardinality. E.g. we may have metric <code class="docutils literal notranslate"><span class="pre">foo</span></code> with the tag name <code class="docutils literal notranslate"><span class="pre">datacenter</span></code> and there are 100 possible values for datacenter. Then we have metric <code class="docutils literal notranslate"><span class="pre">bar</span></code> with the tag <code class="docutils literal notranslate"><span class="pre">host</span></code> and 50,000 possible values for host. Metric <code class="docutils literal notranslate"><span class="pre">bar</span></code> has a higher cardinality than <code class="docutils literal notranslate"><span class="pre">foo</span></code>: 50,000 possible time series for <code class="docutils literal notranslate"><span class="pre">bar</span></code> an only 100 for <code class="docutils literal notranslate"><span class="pre">foo</span></code>.</p>
+<p>Due to the nature of the OpenTSDB storage schema, metrics with higher cardinality may take longer return results during query execution than those with lower cardinality. E.g. we may have metric <code class="docutils literal"><span class="pre">foo</span></code> with the tag name <code class="docutils literal"><span class="pre">datacenter</span></code> and there are 100 possible values for datacenter. Then we have metric <code class="docutils literal"><span class="pre">bar</span></code> with the tag <code class="docutils literal"><span class="pre">host</span></code> and 50,000 possible values for host. Metric <code class="docutils literal"><span class="pre">bar</span></code> has a higher cardinality than <code class="docutils literal"><span class="pre">foo</span></code>: 50,000 possible time series for <code class="docutils literal"><span class="pre">bar</span></code> an only 100 for <code class="docutils literal"><span class="pre">foo</span></code>.</p>
 </div>
 <div class="section" id="compaction">
 <h2>Compaction</h2>
@@ -106,7 +113,7 @@
 </div>
 <div class="section" id="data-point">
 <h2>Data Point</h2>
-<p>Each of the metrics above can be recorded as a number at a specific time. For example, we could record that Sue worked 8 hours at the end of each day. Or that “mylogo.jpg” was downloaded 400 times in the past hour. Thus a datapoint consists of:</p>
+<p>Each of the metrics above can be recorded as a number at a specific time. For example, we could record that Sue worked 8 hours at the end of each day. Or that &quot;mylogo.jpg&quot; was downloaded 400 times in the past hour. Thus a datapoint consists of:</p>
 <ul class="simple">
 <li>A metric</li>
 <li>A numeric value</li>
@@ -124,9 +131,9 @@
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Notice that the <code class="docutils literal notranslate"><span class="pre">metric</span></code> did not include a specific number or a time. That is becaue a <code class="docutils literal notranslate"><span class="pre">metric</span></code> is just a label of what you are measuring. The actual measurements are called <code class="docutils literal notranslate"><span class="pre">datapoints</span></code>, as you’ll see later.</p>
+<p class="last">Notice that the <code class="docutils literal"><span class="pre">metric</span></code> did not include a specific number or a time. That is becaue a <code class="docutils literal"><span class="pre">metric</span></code> is just a label of what you are measuring. The actual measurements are called <code class="docutils literal"><span class="pre">datapoints</span></code>, as you'll see later.</p>
 </div>
-<p>Unfortunately OpenTSDB requires metrics to be named as a single, long word without spaces. Thus metrics are usually recorded using “dotted notation”. For example, the metrics above would have names like:</p>
+<p>Unfortunately OpenTSDB requires metrics to be named as a single, long word without spaces. Thus metrics are usually recorded using &quot;dotted notation&quot;. For example, the metrics above would have names like:</p>
 <ul class="simple">
 <li>hours.worked</li>
 <li>webserver.downloads</li>
@@ -135,12 +142,12 @@
 </div>
 <div class="section" id="tags">
 <h2>Tags</h2>
-<p>A <code class="docutils literal notranslate"><span class="pre">metric</span></code> should be descriptive of what is being measured, but with OpenTSDB, it should not be too specific. Instead, it is better to use <code class="docutils literal notranslate"><span class="pre">tags</span></code> to differentiate and organize different items that may share a common metric. Tags are pairs of words that provide a means of associating a metric with a specific item. Each pair consists of a <code class="docutils literal notranslate"><span class="pre">tagk</span></code> that represents the group or category of the following <code class="docutils literal notranslate"><span class="pre">tagv</span></code> that represents a specific item, object, location or other noun.</p>
+<p>A <code class="docutils literal"><span class="pre">metric</span></code> should be descriptive of what is being measured, but with OpenTSDB, it should not be too specific. Instead, it is better to use <code class="docutils literal"><span class="pre">tags</span></code> to differentiate and organize different items that may share a common metric. Tags are pairs of words that provide a means of associating a metric with a specific item. Each pair consists of a <code class="docutils literal"><span class="pre">tagk</span></code> that represents the group or category of the following <code class="docutils literal"><span class="pre">tagv</span></code> that represents a specific item, object, location or other noun.</p>
 <p>Expanding on the metric examples above:</p>
 <ul class="simple">
-<li>A business may have four employees, Sue, John, Kelly and Paul. Therefore we may configure a <code class="docutils literal notranslate"><span class="pre">tagk</span></code> of <code class="docutils literal notranslate"><span class="pre">employee</span></code> with their names as the <code class="docutils literal notranslate"><span class="pre">tagv</span></code>. These would be recorded as <code class="docutils literal notranslate"><span class="pre">employee=sue</span></code>, <code class="docutils literal notranslate"><span class="pre">employee=john</span></code> etc.</li>
-<li>Webservers usually have many files so we could have a <code class="docutils literal notranslate"><span class="pre">tagk</span></code> of <code class="docutils literal notranslate"><span class="pre">file</span></code> to arrive at <code class="docutils literal notranslate"><span class="pre">file=logo.jpg</span></code> or <code class="docutils literal notranslate"><span class="pre">file=index.php</span></code></li>
-<li>Snow falls in many regions so we may record a <code class="docutils literal notranslate"><span class="pre">tagk</span></code> of <code class="docutils literal notranslate"><span class="pre">region</span></code> to get <code class="docutils literal notranslate"><span class="pre">region=new_england</span></code> or <code class="docutils literal notranslate"><span class="pre">region=north_west</span></code></li>
+<li>A business may have four employees, Sue, John, Kelly and Paul. Therefore we may configure a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">employee</span></code> with their names as the <code class="docutils literal"><span class="pre">tagv</span></code>. These would be recorded as <code class="docutils literal"><span class="pre">employee=sue</span></code>, <code class="docutils literal"><span class="pre">employee=john</span></code> etc.</li>
+<li>Webservers usually have many files so we could have a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">file</span></code> to arrive at <code class="docutils literal"><span class="pre">file=logo.jpg</span></code> or <code class="docutils literal"><span class="pre">file=index.php</span></code></li>
+<li>Snow falls in many regions so we may record a <code class="docutils literal"><span class="pre">tagk</span></code> of <code class="docutils literal"><span class="pre">region</span></code> to get <code class="docutils literal"><span class="pre">region=new_england</span></code> or <code class="docutils literal"><span class="pre">region=north_west</span></code></li>
 </ul>
 </div>
 <div class="section" id="time-series">
@@ -153,7 +160,7 @@
 </div>
 <div class="section" id="value">
 <h2>Value</h2>
-<p>A value represents the actual numeric measurement of the given metric. One of our employees, Sue, worked 8 hours yesterday, thus the value would be <code class="docutils literal notranslate"><span class="pre">8</span></code>. There were 1,024 downloads of <code class="docutils literal notranslate"><span class="pre">logo.jpg</span></code> from our webserver in the past hour. And 12 inches of snow fell in New England today.</p>
+<p>A value represents the actual numeric measurement of the given metric. One of our employees, Sue, worked 8 hours yesterday, thus the value would be <code class="docutils literal"><span class="pre">8</span></code>. There were 1,024 downloads of <code class="docutils literal"><span class="pre">logo.jpg</span></code> from our webserver in the past hour. And 12 inches of snow fell in New England today.</p>
 </div>
 </div>
 

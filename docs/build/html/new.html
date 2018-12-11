@@ -2,12 +2,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>What’s New &#8212; OpenTSDB 2.3 documentation</title>
+    <title>What&#39;s New &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -28,7 +36,8 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -48,7 +57,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">What’s New</a><ul>
+<li><a class="reference internal" href="#">What's New</a><ul>
 <li><a class="reference internal" href="#x-planned">3.X (Planned)</a></li>
 <li><a class="reference internal" href="#planned">2.4 (Planned)</a></li>
 <li><a class="reference internal" href="#id1">2.3</a></li>
@@ -67,14 +76,12 @@
                         title="next chapter">Installation</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -86,11 +93,11 @@
           <div class="body" role="main">
             
   <div class="section" id="what-s-new">
-<h1>What’s New</h1>
+<h1>What's New</h1>
 <p>OpenTSDB has a thriving community who contributed and requested a number of new features.</p>
 <div class="section" id="x-planned">
 <h2>3.X (Planned)</h2>
-<p>While 3.0 is still a ways off, we’ll be pushing some of the new features into a new branch of the repo. Some are in progress and other features are planned. If you have any features that you want to see, let us know.</p>
+<p>While 3.0 is still a ways off, we'll be pushing some of the new features into a new branch of the repo. Some are in progress and other features are planned. If you have any features that you want to see, let us know.</p>
 <ul class="simple">
 <li>Distributed Queries - Based on the great work of Turn on <a class="reference external" href="https://github.com/turn/splicer">Splicer</a> we have a distributed query layer to split queries amongst multiple TSDs for greater throughput.</li>
 <li>Query Caching - Improve queries with time-sharded caching of results.</li>
@@ -111,7 +118,7 @@
 <li>Expressions - Query time computations using time series data. For example, dividing one metric by another.</li>
 <li>Graphite Style Functions - Additional filtering and mutation of data at query time using Graphite style functions.</li>
 <li>Calendar Based Downsampling - The ability to align downsampled data on Gregorian calendar boundaries.</li>
-<li>Bigtable Support - Run TSDB in the cloud using Google’s hosted Bigtable service.</li>
+<li>Bigtable Support - Run TSDB in the cloud using Google's hosted Bigtable service.</li>
 <li>Cassandra Support - Support for running OpenTSDB on legacy Cassandra clusters.</li>
 <li>Write Filters - Block or allow time series or UID assignments based on plugins or whitelists.</li>
 <li>New Aggregators - None for returning raw data. First and Last to return the first or last data points during downsampling.</li>
@@ -128,7 +135,7 @@
 <li>Random Metric UIDs - Enables better distribution of writes when creating new metrics</li>
 <li>Storage Exception Plugin - Enables various handling of data points when HBase is unavailable</li>
 <li>Secure AsyncHBase - Access HBase clusters requiring Kerberos or simple authentication along with optional encryption.</li>
-<li>Fill Policy - Enable emitting NaNs or Nulls via the JSON query endpoint when data points are “missing”</li>
+<li>Fill Policy - Enable emitting NaNs or Nulls via the JSON query endpoint when data points are &quot;missing&quot;</li>
 <li>Count and Percentiles - New aggregator functions</li>
 <li>More Stats - Gives greater insight into query performance via the query stats endpoint and new stats for threads, region clients and the JVM</li>
 <li>Annotations - Scan for multiple annotations only via the /api/annotations endpoint</li>
@@ -155,7 +162,7 @@
 <h2>2.0</h2>
 <ul class="simple">
 <li>Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names, or values</li>
-<li>Restful API - Provides access to all of OpenTSDB’s features as well as offering new options, defaulting to JSON</li>
+<li>Restful API - Provides access to all of OpenTSDB's features as well as offering new options, defaulting to JSON</li>
 <li>Cross Origin Resource Sharing - For the API so you can make AJAX calls easily</li>
 <li>Store Data Via HTTP - Write data points over HTTP as an alternative to Telnet</li>
 <li>Configuration File - A key/value file shared by the TSD and command line tools</li>
@@ -163,7 +170,7 @@
 <li>Annotations - Record meta data about specific time series or data points</li>
 <li>Meta Data - Record meta data for each time series, metrics, tag names, or values</li>
 <li>Trees - Flatten metric and tag combinations into a single name for navigation or usage with different tools</li>
-<li>Search Plugins - Send meta data to search engines to delve into your data and figure out what’s in your database</li>
+<li>Search Plugins - Send meta data to search engines to delve into your data and figure out what's in your database</li>
 <li>Real-Time Publishing Plugin - Send data to external systems as they arrive to your TSD</li>
 <li>Ingest Plugins - Accept data points in different formats</li>
 <li>Millisecond Resolution - Optionally store data with millisecond precision</li>

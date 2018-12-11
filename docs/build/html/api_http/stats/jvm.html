@@ -2,12 +2,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>/api/stats/jvm &#8212; OpenTSDB 2.3 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -28,7 +36,8 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -72,14 +81,12 @@
                         title="next chapter">/api/stats/query</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -92,7 +99,7 @@
             
   <div class="section" id="api-stats-jvm">
 <h1>/api/stats/jvm</h1>
-<p>The threads endpoint is used for debugging the TSD’s JVM process and includes stats about the garbage collector, system load and memory usage. (v2.2)</p>
+<p>The threads endpoint is used for debugging the TSD's JVM process and includes stats about the garbage collector, system load and memory usage. (v2.2)</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The information printed will change depending on the JVM you are running the TSD under. In particular, the pools and GC sections will differ quite a bit.</p>
@@ -109,7 +116,7 @@
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">jvm</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">jvm</span>
 </pre></div>
 </div>
 </div>
@@ -148,13 +155,13 @@
 </tr>
 <tr class="row-even"><td>memory</td>
 <td>Object</td>
-<td>Information about the JVM’s memory usage.</td>
+<td>Information about the JVM's memory usage.</td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;os&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;systemLoadAverage&quot;</span><span class="o">:</span> <span class="mf">4.85</span>
     <span class="p">},</span>

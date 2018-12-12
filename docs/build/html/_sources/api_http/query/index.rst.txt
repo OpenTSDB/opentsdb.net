@@ -72,6 +72,7 @@ Each sub query can retrieve individual or groups of timeseries data, performing 
   "filters *(2.2)*", "List", "Optional", "Filters the time series emitted in the results. Note that if no filters are specified, all time series for the given metric will be aggregated into the results.", "", "*See Below*"
   "explicitTags *(2.3)*", "Boolean", "Optional", "Returns the series that include only the tag keys provided in the filters.", "false", "true"
   "percentiles *(2.4)*", "List", "Optional", "Fetches histogram data for the metric and computes the given list of percentiles on the data. Percentiles are floating point values from 0 to 100. More details below.", "", "[99.9, 95.0, 75.0]"
+  "rollupUsage *(2.4)*", "String", "Optional", "An optional fallback mode when fetching rollup data. Can either be ``ROLLUP_RAW`` to skip rollups, ``ROLLUP_NOFALLBACK`` to only query the auto-detected rollup table, ``ROLLUP_FALLBACK`` to fallback to matching rollup tables in sequence or ``ROLLUP_FALLBACK_RAW`` to fall back to the raw table if nothing was found in the first auto table.", "ROLLUP_NOFALLBACK", "ROLLUP_RAW"
 
 Rate Options
 ------------

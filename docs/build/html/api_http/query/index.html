@@ -372,6 +372,13 @@
 <td>&#160;</td>
 <td>[99.9, 95.0, 75.0]</td>
 </tr>
+<tr class="row-odd"><td>rollupUsage <em>(2.4)</em></td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional fallback mode when fetching rollup data. Can either be <code class="docutils literal"><span class="pre">ROLLUP_RAW</span></code> to skip rollups, <code class="docutils literal"><span class="pre">ROLLUP_NOFALLBACK</span></code> to only query the auto-detected rollup table, <code class="docutils literal"><span class="pre">ROLLUP_FALLBACK</span></code> to fallback to matching rollup tables in sequence or <code class="docutils literal"><span class="pre">ROLLUP_FALLBACK_RAW</span></code> to fall back to the raw table if nothing was found in the first auto table.</td>
+<td>ROLLUP_NOFALLBACK</td>
+<td>ROLLUP_RAW</td>
+</tr>
 </tbody>
 </table>
 <div class="section" id="rate-options">

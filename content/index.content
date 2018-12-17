@@ -55,7 +55,7 @@
   </ol>
   <div class="carousel-inner">
     <div class="text-center item">
-      <h3>OpenTSDB 2.3.3</h3>
+      <h3>OpenTSDB 2.3.2</h3>
       <p><b>2018-12-16</b> - OpenTSDB 2.3.2 has been released with bug fixes. Please download it from <a href="https://github.com/OpenTSDB/opentsdb/releases/tag/v2.3.2">GitHub</a> and help us find bugs!</p> 
     </div>
     <div class="text-center item active">

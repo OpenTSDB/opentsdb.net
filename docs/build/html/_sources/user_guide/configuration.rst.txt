@@ -82,7 +82,7 @@ documentation for details.
    E.g. America/Los_Angeles", "System Configured", ""
    "tsd.core.tree.enable_processing", "Boolean", "Optional", "Whether or not to enable processing new/edited TSMeta through tree rule sets", "false", ""
    "tsd.core.uid.random_metrics *(2.2)*", "Boolean", "Optional", "Whether or not to randomly assign UIDs to new metrics as they are created", "false", ""
-   "tsd.core.bulk.allow_out_of_order_timestamps *(2.3)", "Boolean", "Optional", "Whether or not to allow out-of-order values when bulk importing data from a text file.", "false", ""
+   "tsd.core.bulk.allow_out_of_order_timestamps *(2.3.2)", "Boolean", "Optional", "Whether or not to allow out-of-order values when bulk importing data from a text file.", "false", ""
    "tsd.core.authentication.enable *(2.4)", "Boolean", "Optional", "Whether or not to enable the specified Authentication plugin", "false", ""
    "tsd.core.authentication.plugin *(2.4)", "String", "Optional", "The class name of an authentication plugin to instantiate. If ``tsd.core.authentication.enable`` is set to false, this value is ignored.", "", ""
    "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written.

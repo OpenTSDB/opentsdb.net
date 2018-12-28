@@ -106,9 +106,9 @@
 </div>
 <p>In this case the rollup spec is one of:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">&lt;interval&gt;:&lt;aggregator&gt;</span></code> for a <em>raw</em> or <em>non-pre-aggregated</em> <strong>rollup</strong> over the interval.</li>
+<li><code class="docutils literal"><span class="pre">&lt;interval&gt;-&lt;aggregator&gt;</span></code> for a <em>raw</em> or <em>non-pre-aggregated</em> <strong>rollup</strong> over the interval.</li>
 <li><code class="docutils literal"><span class="pre">&lt;group_by_aggregator&gt;</span></code> for a <em>raw</em> <strong>pre-aggregated</strong> value that has not been rolled up over time.</li>
-<li><code class="docutils literal"><span class="pre">&lt;interval&gt;:&lt;aggregator&gt;:&lt;group_by_aggregator&gt;</span></code> for a <em>rolled up</em> <em>pre-aggregated</em> value.</li>
+<li><code class="docutils literal"><span class="pre">&lt;interval&gt;-&lt;aggregator&gt;:&lt;group_by_aggregator&gt;</span></code> for a <em>rolled up</em> <em>pre-aggregated</em> value.</li>
 </ul>
 <p>Note:</p>
 <ul class="simple">
@@ -119,9 +119,9 @@
 </ul>
 <div class="section" id="examples">
 <h3>Examples</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="mi">1</span><span class="n">h</span><span class="p">:</span><span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="k">if</span><span class="o">.</span><span class="n">bytes</span><span class="o">.</span><span class="n">out</span> <span class="mi">1479412800</span> <span class="mf">1.3E3</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span> <span class="n">interface</span><span class="o">=</span><span class="n">eth0</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="mi">1</span><span class="n">h</span><span class="o">-</span><span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="k">if</span><span class="o">.</span><span class="n">bytes</span><span class="o">.</span><span class="n">out</span> <span class="mi">1479412800</span> <span class="mf">1.3E3</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span> <span class="n">interface</span><span class="o">=</span><span class="n">eth0</span>
 <span class="n">rollup</span> <span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="n">procs</span><span class="o">.</span><span class="n">running</span> <span class="mi">1479496100</span> <span class="mi">42</span> <span class="n">colo</span><span class="o">=</span><span class="n">lga</span>
-<span class="n">rollup</span> <span class="mi">1</span><span class="n">h</span><span class="p">:</span><span class="n">SUM</span><span class="p">:</span><span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="n">procs</span><span class="o">.</span><span class="n">running</span> <span class="mi">1479412800</span> <span class="mi">24</span> <span class="n">colo</span><span class="o">=</span><span class="n">lga</span>
+<span class="n">rollup</span> <span class="mi">1</span><span class="n">h</span><span class="o">-</span><span class="n">SUM</span><span class="p">:</span><span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="n">procs</span><span class="o">.</span><span class="n">running</span> <span class="mi">1479412800</span> <span class="mi">24</span> <span class="n">colo</span><span class="o">=</span><span class="n">lga</span>
 </pre></div>
 </div>
 </div>

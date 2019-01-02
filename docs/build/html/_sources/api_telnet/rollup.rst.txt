@@ -15,9 +15,9 @@ The command format is:
 
 In this case the rollup spec is one of:
 
-* ``<interval>:<aggregator>`` for a *raw* or *non-pre-aggregated* **rollup** over the interval.
+* ``<interval>-<aggregator>`` for a *raw* or *non-pre-aggregated* **rollup** over the interval.
 * ``<group_by_aggregator>`` for a *raw* **pre-aggregated** value that has not been rolled up over time.
-* ``<interval>:<aggregator>:<group_by_aggregator>`` for a *rolled up* *pre-aggregated* value.
+* ``<interval>-<aggregator>:<group_by_aggregator>`` for a *rolled up* *pre-aggregated* value.
 
 Note:
 
@@ -31,9 +31,9 @@ Examples
 
 ::
   
-  rollup 1h:SUM sys.if.bytes.out 1479412800 1.3E3 host=web01 interface=eth0
+  rollup 1h-SUM sys.if.bytes.out 1479412800 1.3E3 host=web01 interface=eth0
   rollup SUM sys.procs.running 1479496100 42 colo=lga
-  rollup 1h:SUM:SUM sys.procs.running 1479412800 24 colo=lga
+  rollup 1h-SUM:SUM sys.procs.running 1479412800 24 colo=lga
 
 Response
 ^^^^^^^^

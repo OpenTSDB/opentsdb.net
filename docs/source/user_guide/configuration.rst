@@ -15,7 +15,7 @@ blocked by a hash symbol ``#``. For example::
 
   # List of Zookeeper hosts that manage the HBase cluster
   tsd.storage.hbase.zk_quorum = 192.168.1.100
-  
+
 will configure the TSD to connect to Zookeeper on ``192.168.1.100``.
 
 When combining configuration files and command line arguments, the order of
@@ -23,7 +23,7 @@ processing is as follows:
 
 #. Default values are loaded
 #. Configuration file values are loaded, overriding default values
-#. Command line parameters are loaded, overriding config file and default values 
+#. Command line parameters are loaded, overriding config file and default values
 
 File Locations
 ^^^^^^^^^^^^^^
@@ -112,7 +112,7 @@ documentation for details.
    "tsd.query.allow_simultaneous_duplicates *(2.2)*", "Boolean", "Optional", "Whether or not to allow simultaneous duplicate queries from the same host. If disabled, a second query that comes in matching one already running will receive an exception.", "False", ""
    "tsd.query.filter.expansion_limit *(2.2)*", "Integer", "Optional", "The maximum number of tag values to include in the regular expression sent to storage during scanning for data. A larger value means more computation on the HBase region servers.", "4096", ""
    "tsd.query.limits.bytes.allow_override, *(2.4)*", "Boolean", "Optional", "Whether or not the query byte limiter can be overiden on a per-query basis.", "False", "True"
-   "tsd.query.limits.bytes.default *(2.4)*", "Integer", "Optional", "A limit on the number of bytes fetched from storage. When this limit is hit, the query will return with an exception. A value of `0` disables the limitter.", "0", "268435456" 
+   "tsd.query.limits.bytes.default *(2.4)*", "Integer", "Optional", "A limit on the number of bytes fetched from storage. When this limit is hit, the query will return with an exception. A value of `0` disables the limitter.", "0", "268435456"
    "tsd.query.limits.data_points.allow_override *(2.4)*", "Boolean", "Optional", "Whether or not the query data point limiter can be overiden on a per-query basis.", "False", "True"
    "tsd.query.limits.data_points.default *(2.4)*", "Integer", "Optional", "A limit on the number of data points fetched from storage. When this limit is hit, the query will return with an exception. A value of `0` disables the limiter.", "0", "1000000"
    "tsd.query.limits.overrides.interval *(2.4)*", "Integer", "Optional", "How often, in milliseconds, to reload the byte and data point query limiter plugin configuration.", "60000", ""
@@ -143,7 +143,7 @@ documentation for details.
    "tsd.storage.compaction.flush_interval *(2.2)*", "Integer", "Optional", "How long, in seconds, to wait in between compaction queue flush calls", "10", ""
    "tsd.storage.compaction.flush_speed *(2.2)*", "Integer", "Optional", "A multiplier used to determine how quickly to attempt flushing the compaction queue. E.g. a value of 2 means it will try to flush the entire queue within 30 minutes. A value of 1 would take an hour.", "2", ""
    "tsd.storage.compaction.max_concurrent_flushes *(2.2)*", "Integer", "Optional", "The maximum number of compaction calls inflight to HBase at any given time", "10000", ""
-   "tsd.storage.compaction.min_flush_threshold *(2.2)*", "Integer", "Optional", "Size of the compaction queue that must be exceeded before flushing is triggered", "100", "" 
+   "tsd.storage.compaction.min_flush_threshold *(2.2)*", "Integer", "Optional", "Size of the compaction queue that must be exceeded before flushing is triggered", "100", ""
    "tsd.storage.enable_appends *(2.2)*", "Boolean", "Optional", "Whether or not to append data to columns when writing data points instead of creating new columns for each value. Avoids the need for compactions after each hour but can use more resources on HBase.", "False", ""
    "tsd.storage.enable_compaction", "Boolean", "Optional", "Whether or not to enable compactions", "True", ""
    "tsd.storage.fix_duplicates *(2.1)*", "Boolean", "Optional", "Whether or not to accept the last written value when parsing data points with duplicate timestamps. When enabled in conjunction with compactions, a compacted column will be written with the latest data points.", "False", ""
@@ -158,7 +158,7 @@ documentation for details.
    "tsd.storage.hbase.zk_basedir", "String", "Optional", "Path under which the znode for the -ROOT- region is located", "/hbase", "--zkbasedir"
    "tsd.storage.hbase.zk_quorum", "String", "Optional", "A comma-separated list of ZooKeeper hosts to connect to, with or without port specifiers. E.g. ``192.168.1.1:2181,192.168.1.2:2181``", "localhost", "--zkquorum"
    "tsd.storage.repair_appends *(2.2)*", "Boolean", "Optional", "Whether or not to re-write appended data point columns at query time when the columns contain duplicate or out of order data.", "False", ""
-   "tsd.storage.max_tags *(2.2)*", "Integer", "Optional", "The maximum number of tags allowed per data point.  **NOTE** Please be aware of the performance tradeoffs of overusing tags :doc:`writing`", "8", ""
+   "tsd.storage.max_tags *(2.2)*", "Integer", "Optional", "The maximum number of tags allowed per data point. This value can be changed after cluster creation. **NOTE** Please be aware of the performance tradeoffs of overusing tags :doc:`writing`", "8", ""
    "tsd.storage.salt.buckets *(2.2)*", "Integer", "Optional", "The number of salt buckets used to distribute load across regions. **NOTE** Changing this value after writing data may cause TSUID based queries to fail.", "20", ""
    "tsd.storage.salt.width *(2.2)*", "Integer", "Optional", "The width, in bytes, of the salt prefix used to indicate which bucket a time series belongs in. A value of 0 means salting is disabled. **WARNING** Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.", "0", ""
    "tsd.timeseriesfilter.enable *(2.3)*", "Boolean", "Optional", "Whether or not the data writing filter plugins are enabled.", "False", "True"
@@ -174,7 +174,7 @@ documentation for details.
    "tsd.uid.lru.id.size *(2.4)*", "Integer", "Optional", "The total number of entries in the reverse UID to string map. Multiply this by 3 to get the total number of entries available, one per UID type (metric, tag key, tag value).", "5000000", "1000000"
    "tsd.uid.lru.name.size *(2.4)*", "Integer", "Optional", "The total number of entries in the forward string to UID map. Multiply this by 3 to get the total number of entries available, one per UID type (metric, tag key, tag value).", "5000000", "1000000"
    "tsd.uid.use_mode *(2.4)*", "Boolean", "Optional", "Determines if the name and/or ID caches should be populated based on the `tsd.mode` setting. ", "False", "True"
-   
+
 Data Types
 ^^^^^^^^^^
 
@@ -185,16 +185,16 @@ Some configuration values require special consideration:
   * ``1``
   * ``true``
   * ``yes``
-  
+
   Any other values will result in a ``False``. Parsing is case insensitive
-  
+
 * Strings - Strings, even those with spaces, do not require quotation marks, but some considerations apply:
 
   * Special characters must be escaped with a backslash include: ``#``, ``!``, ``=``, and ``:``
     E.g.::
-    
+
       my.property = Hello World\!
-      
+
   * Unicode characters must be escaped with their hexadecimal representation, e.g.::
-  
+
       my.property = \u0009

@@ -10,7 +10,7 @@ As each filter is explained below, the following data set is used. It consists o
 .. csv-table::
    :header: "TS#", "Metric", "Tags", "Value @ T1"
    :widths: 10, 20, 50, 20
-   
+
    "1", "sys.cpu.system", "dc=dal host=web01", "3"
    "2", "sys.cpu.system", "dc=dal host=web02", "2"
    "3", "sys.cpu.system", "dc=dal host=web03", "10"
@@ -42,15 +42,15 @@ Examples
 
 The following examples use the v1 HTTP URI syntax wherein the ``m`` parameter consists of the aggregator, a colon, then the metric and tag filters in brackets separated by equal signs.
 
-**Example 1:** 
+**Example 1:**
 ``http://host:4242/q?start=1h-ago&m=sum:sys.cpu.system{host=web01}``
 
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
    :widths: 40, 25, 25, 10
-   
+
    "1, 4, 5, 6", "host=web01", "", "16"
-   
+
 In this case the aggregated tags set will be empty as time series 4 and 5 have tags that are not in common with the entire set.
 
 **Example 2:**
@@ -59,7 +59,7 @@ In this case the aggregated tags set will be empty as time series 4 and 5 have t
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
    :widths: 40, 25, 25, 10
-   
+
    "1", "host=web01,dc=dal", "", "3"
 
 **Example 3:**
@@ -68,7 +68,7 @@ In this case the aggregated tags set will be empty as time series 4 and 5 have t
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
    :widths: 40, 25, 25, 10
-   
+
    "1", "host=web01,dc=dal", "", "3"
    "2", "host=web02,dc=dal", "", "2"
    "3", "host=web03,dc=dal", "", "10"
@@ -81,7 +81,7 @@ This time we provided the ``*`` for the host and an explicit match for ``dc``. T
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
    :widths: 40, 25, 25, 10
-   
+
    "1, 2, 3", "dc=dal", "host", "15"
    "6, 7", "dc=lax", "host", "12"
 
@@ -98,6 +98,8 @@ Multiple filters on the same tag key are allowed and when processed, they are *A
 
 .. WARNING:: Some type of filters may cause queries to execute slower than others, particularly the ``regexp``, ``wildcard`` and case-insensitive filters. Before fetching data from storage, the filters are processed to create a database filter based on UIDs so using the case sensitive ``literal_or`` filter is always faster than ``regexp`` because we can resolve the strings to UIDs and send those to the storage system for filtering. Instead if you ask for regex or wildcards with pre, post or infix filtering the TSD must retrieve all of the rows from storage with the tag key UID, then for each unique row, resolve the UIDs back to strings and then run the filter over the results. Also, filter sets with a large list of literals will be processed post storage to avoid creating a massive filter for the backing store to process. This limit defaults to ``4096`` and can be configured via the ``tsd.query.filter.expansion_limit`` parameter.
 
+.. ``curl`` and escaping:: If you are testing v2 API endpoints with ``curl`` or other CLI HTTP tools, you will need to escape any ``{}`` characters in your query string, e.g. ``curl "http://host:4242/api/query?start=1h-ago&m=sum:explicit_tags:sys.cpu.system\{host=web01\}"``
+
 Explicit Tags
 -------------
 .. index:: Explicit Tags
@@ -113,24 +115,24 @@ Examples
 
 The following examples use the v2 HTTP URI syntax wherein the ``m`` parameter consists of the aggregator, a colon, the ``explicit_tags`` URI flag, then the metric and tag filters in brackets separated by equal signs.
 
-**Example 1:** 
-``http://host:4242/q?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=web01}``
+**Example 1:**
+``http://host:4242/api/query?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=web01}``
 
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
    :widths: 40, 25, 25, 10
-   
+
    "4", "host=web01", "", "1"
 
 This solves the issue of inconsistent tag keys, allowing us to pick out only time series *#4*.
 
-**Example 2:** 
-``http://host:4242/q?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}``
+**Example 2:**
+``http://host:4242/api/query?start=1h-ago&m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}``
 
 .. csv-table::
    :header: "Time Series Included", "Tags", "Aggregated Tags", "Value @ T1"
    :widths: 40, 25, 25, 10
-   
+
    "1, 6", "host=web01", "dc", "11"
    "2, 7", "host=web02", "dc", "6"
    "3", "host=web03,dc=dal", "", "10"
@@ -139,7 +141,7 @@ This query uses the v2 URI syntax to avoid grouping on the ``dc`` tag key by put
 
 .. NOTE:: When using HBase (0.98 and later) or Bigtable, make sure ``tsd.query.enable_fuzzy_filter`` is enabled in the config (enabled by default). A special filter is given to the backend that enables skipping ahead to rows that we need for the query instead of iterating over every row key and comparing a regular expression.
 
-.. NOTE:: With 2.4, TSDB will issue multiple ``get`` requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only `literal_or``'s.
+.. NOTE:: With 2.4, TSDB will issue multiple ``get`` requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only ``literal_or``'s.
 
 Built-in 2.x Filters
 --------------------

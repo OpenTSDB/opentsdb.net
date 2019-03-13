@@ -17,7 +17,7 @@ When starting a TSD or CLI tool, a number of errors may prevent a successful lau
 * Make sure the ``tsd.core.plugin_path`` is configured
 * Check that the path is readable for the user OpenTSDB is running under, i.e. check permissions
 * Check for typos in the config file. Case matters for plugin names.
-* The plugin may not have access to the dependencies it needs. If it has dependencies that are not included with OpenTSDB or packaged into it's own JAR you need to drop the dependencies in the plugin path.
+* The plugin may not have access to the dependencies it needs. If it has dependencies that are not included with OpenTSDB or packaged into its own JAR you need to drop the dependencies in the plugin path.
 * The plugin may be missing configuration settings required for it to be initialized. Read the docs and see if anything is missing.
 
 .. NOTE:: You should always test a new plugin in a development or QA environment before enabling them in production. Plugins may adversely affect write or read performance so be sure to do some load testing to avoid taking down your TSDs and losing data.

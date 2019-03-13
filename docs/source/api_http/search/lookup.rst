@@ -38,7 +38,7 @@ A lookup query consists of at least one metric, tag name (tagk) or tag value (ta
 
 Normally, tags a provided in the format ``<tagk>=<tagv>`` and a value is required on either side of the equals sign. However for lookups, one value may an asterisk ``*``, i.e. ``<tagk>=*`` or ``*=<tagv>``. In these cases, the asterisk acts as a wildcard meaning any time series with the given tagk or tagv will be returned. For example, if we issue a query for ``host=*`` then we will get all of the time series with a ``host`` tagk such as ``host=web01`` and ``host=web02``. 
 
-For complex queries with multiple values, each type is ``AND``'d with the other types and ``OR``'d with it's own type. 
+For complex queries with multiple values, each type is ``AND``'d with the other types and ``OR``'d with its own type.
 
 ::
 

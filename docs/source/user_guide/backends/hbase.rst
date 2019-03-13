@@ -67,7 +67,7 @@ For example, ``0100`` means the column value is an 8 byte, signed integer. ``101
 Compactions
 -----------
 
-If compactions have been enabled for a TSD, a row may be compacted after it's base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.
+If compactions have been enabled for a TSD, a row may be compacted after its base hour has passed or a query has run over the row. Compacted columns simply squash all of the data points together to reduce the amount of overhead consumed by disparate data points. Data is initially written to individual columns for speed, then compacted later for storage efficiency. Once a row is compacted, the individual data points are deleted. Data may be written back to the row and compacted again later.
 
 .. Note:: The OpenTSDB compaction process is entirely separate in scope and definition than the HBase idea of compactions.
 
@@ -233,7 +233,7 @@ Rolled up data must be stored in a separate table from the raw data as to avoid 
 
 * Aggregation Function - This is the name of a function such as ``SUM``, ``COUNT``, ``MAX`` or ``MIN``.
 * Time Offset - This is an offset based on the rollup table config, generally on 2 bytes. The offset is not a specific number of seconds or minutes from the base, instead it's the index of an interval of an offset. For example, if the table is configured to store 1 day of data at a resolution of 1 hour per row, then the base timestamp of the row key will align on daily boundaries (on Unix epoch timestamps). Then there would be a potential of 24 offsets (1 for each hour in the day) for the row. A data point at midnight for the given day would have an offset of 0 whereas the 23:00 hour value would have an offset of 22. Since rollup timestamps are aligned to time boundaries, qualifiers can save a fair amount of space.
-* Type and Length - Similar to the original data table, the last 4 bits of each offset byte array contains the encoding of the data value including it's length and whether or not it's a floating point value.
+* Type and Length - Similar to the original data table, the last 4 bits of each offset byte array contains the encoding of the data value including its length and whether or not it's a floating point value.
 
 An example column qualifier for the daily 1 hour interval table looks like:
 ::

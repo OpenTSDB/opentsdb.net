@@ -19,7 +19,7 @@ Whenever a new UIDMeta object is created or modified, it will be pushed to the S
 TSMeta
 ^^^^^^
 .. index:: TSMeta
-Each timeseries in OpenTSDB is uniquely identified by the combination of it's metric UID and tag name/value UIDs, creating a TSUID as per :doc:`uids`. When a new timeseries is received, a TSMeta object can be recorded in the ``tsdb-uid`` table in a row identified by the TSUID. The meta object includes some immutable fields such as the ``tsuid``, ``metric``, ``tags``, ``lastReceived`` and ``created`` timestamp that reflects the time when the TSMeta was first received. Additionally some fields can be edited such as a ``description``, ``notes`` and others. See :doc:`../api_http/uid/tsmeta` for details.
+Each timeseries in OpenTSDB is uniquely identified by the combination of its metric UID and tag name/value UIDs, creating a TSUID as per :doc:`uids`. When a new timeseries is received, a TSMeta object can be recorded in the ``tsdb-uid`` table in a row identified by the TSUID. The meta object includes some immutable fields such as the ``tsuid``, ``metric``, ``tags``, ``lastReceived`` and ``created`` timestamp that reflects the time when the TSMeta was first received. Additionally some fields can be edited such as a ``description``, ``notes`` and others. See :doc:`../api_http/uid/tsmeta` for details.
 
 Enabling Metadata
 ^^^^^^^^^^^^^^^^^

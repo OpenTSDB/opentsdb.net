@@ -15,7 +15,7 @@ Types of UID objects include:
 Assignment
 ----------
 
-The UID is a positive integer that is unique to the name of the UID object and it's type. Within the storage system there is a counter that is incremented for each ``metric``, ``tagk`` and ``tagv``. When you create a new ``tsdb-uid`` table, this counter is set to 0 for each type. So if you put a new data point with a metric of ``sys.cpu.0`` and a tag pair of ``host=web01`` you will have 3 new UID objects, each with a UID of 1.
+The UID is a positive integer that is unique to the name of the UID object and its type. Within the storage system there is a counter that is incremented for each ``metric``, ``tagk`` and ``tagv``. When you create a new ``tsdb-uid`` table, this counter is set to 0 for each type. So if you put a new data point with a metric of ``sys.cpu.0`` and a tag pair of ``host=web01`` you will have 3 new UID objects, each with a UID of 1.
 
 UIDs are assigned automatically for new ``tagk`` and ``tagv`` objects when data points are written to a TSD. ``metric`` objects also receive new UIDs but only if the *auto metric* setting has been configured to ``true``. Otherwise data points with new metrics are rejected. The UIDs are looked up in a cached map for every incoming data point. If the lookup fails, then the TSD will attempt to assign a new UID. 
 

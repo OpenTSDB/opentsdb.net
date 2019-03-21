@@ -224,7 +224,11 @@
 <span class="s2">&quot;expression&quot;</span><span class="o">:</span> <span class="s2">&quot;m01 * 1024&quot;</span><span class="p">,</span>
 <span class="s2">&quot;join&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;Join&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;joinType&quot;</span><span class="o">:</span> <span class="s2">&quot;NATURAL&quot;</span>
+  <span class="s2">&quot;joinType&quot;</span><span class="o">:</span> <span class="s2">&quot;INNER&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;joins&quot;</span><span class="o">:</span><span class="p">{</span>
+    <span class="s2">&quot;Host&quot;</span><span class="o">:</span><span class="s2">&quot;host&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc&quot;</span><span class="o">:</span><span class="s2">&quot;dc&quot;</span>
+  <span class="p">}</span>
 <span class="p">},</span>
 <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
   <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
@@ -250,7 +254,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2018, OpenTSDB.<br/>
+        &copy; Copyright 2019, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>

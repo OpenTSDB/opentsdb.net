@@ -47,7 +47,11 @@ Examples:
   "expression": "m01 * 1024",
   "join": {
     "type": "Join",
-    "joinType": "NATURAL"
+    "joinType": "INNER",
+    "joins":{
+      "Host":"host",
+      "dc":"dc"
+    }
   },
   "interpolatorConfigs": [{
     "dataType": "numeric",

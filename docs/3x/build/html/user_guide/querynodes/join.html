@@ -152,8 +152,20 @@
 <li><strong>RIGHT</strong> - Returns series from the right, joining only when the left has the same series.</li>
 <li><strong>RIGHT_DISJOINT</strong> - A series must be present in the <strong>R NOT L</strong>, no cross.</li>
 <li><strong>NATURAL</strong> - Joins all tags exactly for the series in <strong>L AND R</strong>, no cross product.</li>
+<li><strong>NATURAL_OUTER</strong> - Joins all tags exactly for the series in <strong>L AND R</strong> but also include disjoint series on the left and right, no cross product.</li>
 <li><strong>CROSS</strong> - A full cross join of the left and right sides. <strong>WARNING</strong> Will have a hard limit to avoid blowing up the system.</li>
 </ul>
+<p>Examples:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;join&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;Join&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;joinType&quot;</span><span class="o">:</span> <span class="s2">&quot;INNER&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;joins&quot;</span><span class="o">:</span><span class="p">{</span>
+    <span class="s2">&quot;Host&quot;</span><span class="o">:</span><span class="s2">&quot;host&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc&quot;</span><span class="o">:</span><span class="s2">&quot;dc&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -169,7 +181,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2018, OpenTSDB.<br/>
+        &copy; Copyright 2019, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>

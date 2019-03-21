@@ -175,7 +175,7 @@
 <li>Use the same number and type of tags for each metric. E.g. don't store <code class="docutils literal"><span class="pre">my.metric</span> <span class="pre">host=foo</span></code> and <code class="docutils literal"><span class="pre">my.metric</span> <span class="pre">datacenter=lga</span></code>.</li>
 <li>Think about the most common queries you'll be executing and optimize your schema for those queries</li>
 <li>Think about how you may want to drill down when querying</li>
-<li>Don't use too many tags, keep it to a fairly small number, usually up to 4 or 5 tags (By default, OpenTSDB supports a maximum of 8 tags).</li>
+<li>Don't use too many tags, keep it to a fairly small number, usually up to 4 or 5 tags (By default, OpenTSDB supports a maximum of 8 tags). If absolutely needed, you _can_ increase the number of tags available for your cluster at any time.</li>
 </ul>
 </div>
 </div>
@@ -364,7 +364,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2018, OpenTSDB.
+        &copy; Copyright 2019, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

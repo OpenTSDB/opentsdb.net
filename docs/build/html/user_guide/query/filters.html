@@ -324,7 +324,7 @@
 <h3>Examples</h3>
 <p>The following examples use the v2 HTTP URI syntax wherein the <code class="docutils literal"><span class="pre">m</span></code> parameter consists of the aggregator, a colon, the <code class="docutils literal"><span class="pre">explicit_tags</span></code> URI flag, then the metric and tag filters in brackets separated by equal signs.</p>
 <p><strong>Example 1:</strong>
-<code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=web01}</span></code></p>
+<code class="docutils literal"><span class="pre">http://host:4242/api/query?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=web01}</span></code></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
@@ -349,7 +349,7 @@
 </table>
 <p>This solves the issue of inconsistent tag keys, allowing us to pick out only time series <em>#4</em>.</p>
 <p><strong>Example 2:</strong>
-<code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}</span></code></p>
+<code class="docutils literal"><span class="pre">http://host:4242/api/query?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}</span></code></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
@@ -389,7 +389,7 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">With 2.4, TSDB will issue multiple <code class="docutils literal"><span class="pre">get</span></code> requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only <cite>literal_or`</cite>'s.</p>
+<p class="last">With 2.4, TSDB will issue multiple <code class="docutils literal"><span class="pre">get</span></code> requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only <code class="docutils literal"><span class="pre">literal_or</span></code>'s.</p>
 </div>
 </div>
 </div>
@@ -487,7 +487,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2018, OpenTSDB.
+        &copy; Copyright 2019, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

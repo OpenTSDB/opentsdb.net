@@ -62,7 +62,36 @@
      href="../../index.html">Documentation <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"></ul>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
 </li>
               
             
@@ -341,7 +370,7 @@
 <h3>Examples</h3>
 <p>The following examples use the v2 HTTP URI syntax wherein the <code class="docutils literal"><span class="pre">m</span></code> parameter consists of the aggregator, a colon, the <code class="docutils literal"><span class="pre">explicit_tags</span></code> URI flag, then the metric and tag filters in brackets separated by equal signs.</p>
 <p><strong>Example 1:</strong>
-<code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=web01}</span></code></p>
+<code class="docutils literal"><span class="pre">http://host:4242/api/query?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=web01}</span></code></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
@@ -366,7 +395,7 @@
 </table>
 <p>This solves the issue of inconsistent tag keys, allowing us to pick out only time series <em>#4</em>.</p>
 <p><strong>Example 2:</strong>
-<code class="docutils literal"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}</span></code></p>
+<code class="docutils literal"><span class="pre">http://host:4242/api/query?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}</span></code></p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="40%" />
@@ -406,7 +435,7 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">With 2.4, TSDB will issue multiple <code class="docutils literal"><span class="pre">get</span></code> requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only <cite>literal_or`</cite>'s.</p>
+<p class="last">With 2.4, TSDB will issue multiple <code class="docutils literal"><span class="pre">get</span></code> requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only <code class="docutils literal"><span class="pre">literal_or</span></code>'s.</p>
 </div>
 </div>
 </div>
@@ -492,7 +521,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2018, OpenTSDB.<br/>
+        &copy; Copyright 2019, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>

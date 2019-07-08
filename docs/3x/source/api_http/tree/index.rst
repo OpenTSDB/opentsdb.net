@@ -172,7 +172,7 @@ Example GET Single Tree
 ^^^^^^^^^^^^^^^^^^^^^^^
 ::
 
-  http://localhost:4242/api/treeId?tree=1
+  http://localhost:4242/api/tree?treeid=1
   
 Example Response
 ^^^^^^^^^^^^^^^^
@@ -257,7 +257,7 @@ Example POST Edit Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
 
-  http://localhost:4242/api/tree?treeId=3&description=Network%20Device%20Information&method_override=post
+  http://localhost:4242/api/tree?treeid=3&description=Network%20Device%20Information&method_override=post
   
 Example Response
 ^^^^^^^^^^^^^^^^
@@ -288,5 +288,5 @@ Example DELETE Request
 ^^^^^^^^^^^^^^^^^^^^^^
 ::
 
-  http://localhost:4242/api/tree?tree=1&method_override=delete
+  http://localhost:4242/api/tree?treeid=1&method_override=delete
   

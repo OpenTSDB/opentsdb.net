@@ -2,23 +2,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>version &#8212; OpenTSDB 2.3 documentation</title>
+    <meta charset="utf-8" />
+    <title>version &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="help" href="help.html" />
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,13 +41,13 @@
         <li class="right" >
           <a href="stats.html" title="stats"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">version</a><ul>
 <li><a class="reference internal" href="#request">Request</a></li>
@@ -75,13 +66,13 @@
   <p class="topless"><a href="help.html"
                         title="next chapter">help</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -98,7 +89,7 @@
 <div class="section" id="request">
 <h2>Request</h2>
 <p>The command format is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">version</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">version</span>
 </pre></div>
 </div>
 </div>
@@ -107,7 +98,7 @@
 <p>A set of lines with version information.</p>
 <div class="section" id="example">
 <h3>Example</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">tools</span> <span class="n">BuildData</span> <span class="n">built</span> <span class="n">at</span> <span class="n">revision</span> <span class="n">a7a0980</span> <span class="p">(</span><span class="n">MODIFIED</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">tools</span> <span class="n">BuildData</span> <span class="n">built</span> <span class="n">at</span> <span class="n">revision</span> <span class="n">a7a0980</span> <span class="p">(</span><span class="n">MODIFIED</span><span class="p">)</span>
 <span class="n">Built</span> <span class="n">on</span> <span class="mi">2016</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">03</span> <span class="mi">19</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span><span class="mi">50</span> <span class="o">+</span><span class="mi">0000</span> <span class="n">by</span> <span class="n">clarsen</span><span class="nd">@tsdvm</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">clarsen</span><span class="o">/</span><span class="n">Documents</span><span class="o">/</span><span class="n">opentsdb</span><span class="o">/</span><span class="n">opentsdb_dev</span>
 </pre></div>
 </div>
@@ -133,7 +124,7 @@
         <li class="right" >
           <a href="stats.html" title="stats"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &#187;</li> 
       </ul>
     </div>

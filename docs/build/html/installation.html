@@ -2,27 +2,19 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Installation &#8212; OpenTSDB 2.3 documentation</title>
+    <meta charset="utf-8" />
+    <title>Installation &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="User Guide" href="user_guide/index.html" />
-    <link rel="prev" title="What&#39;s New" href="new.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="What’s New" href="new.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -48,14 +39,14 @@
           <a href="user_guide/index.html" title="User Guide"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="new.html" title="What&#39;s New"
+          <a href="new.html" title="What’s New"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.4 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#runtime-requirements">Runtime Requirements</a></li>
@@ -76,18 +67,18 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="new.html"
-                        title="previous chapter">What's New</a></p>
+                        title="previous chapter">What’s New</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="user_guide/index.html"
                         title="next chapter">User Guide</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -103,19 +94,19 @@
 <p>OpenTSDB may be compiled from source or installed from a package. Releases can be found on <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/releases">Github</a>.</p>
 <div class="section" id="runtime-requirements">
 <h2>Runtime Requirements</h2>
-<p>To actually run OpenTSDB, you'll need to meet the following:</p>
+<p>To actually run OpenTSDB, you’ll need to meet the following:</p>
 <ul class="simple">
-<li>A Linux system (or Windows with manual building)</li>
-<li>Java Runtime Environment 1.6 or later</li>
-<li>HBase 0.92 or later</li>
-<li>GnuPlot 4.2 or later</li>
+<li><p>A Linux system (or Windows with manual building)</p></li>
+<li><p>Java Runtime Environment 1.6 or later</p></li>
+<li><p>HBase 0.92 or later</p></li>
+<li><p>GnuPlot 4.2 or later</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
 <h2>Installation</h2>
-<p>First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the <a class="reference external" href="https://hbase.apache.org/book/quickstart.html">Apache Quick Start</a> guide. Alternatively you could try a packaged distribution such as <a class="reference external" href="http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html">Cloudera's CDH</a>, <a class="reference external" href="http://hortonworks.com/products/hdp-2/">Hortonworks HDP</a> or <a class="reference external" href="https://www.mapr.com/">MapR</a>.</p>
-<p>Before proceeding with OpenTSDB, make certain that Zookeeper is accessible. One method is to simply telnet to the proper port and execute the <code class="docutils literal"><span class="pre">stats</span></code> command.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@host</span><span class="p">:</span><span class="o">~</span><span class="c1"># telnet localhost 2181</span>
+<p>First, you need to setup HBase. If you are brand new to HBase and/or OpenTSDB we recommend you test with a stand-alone instance as this is the easiest to get up and running. The best place to start is to follow the <a class="reference external" href="https://hbase.apache.org/book/quickstart.html">Apache Quick Start</a> guide. Alternatively you could try a packaged distribution such as <a class="reference external" href="http://www.cloudera.com/content/cloudera/en/products-and-services/cloudera-express.html">Cloudera’s CDH</a>, <a class="reference external" href="http://hortonworks.com/products/hdp-2/">Hortonworks HDP</a> or <a class="reference external" href="https://www.mapr.com/">MapR</a>.</p>
+<p>Before proceeding with OpenTSDB, make certain that Zookeeper is accessible. One method is to simply telnet to the proper port and execute the <code class="docutils literal notranslate"><span class="pre">stats</span></code> command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@host</span><span class="p">:</span><span class="o">~</span><span class="c1"># telnet localhost 2181</span>
 <span class="n">Trying</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">...</span>
 <span class="n">Connected</span> <span class="n">to</span> <span class="n">myhost</span><span class="o">.</span>
 <span class="n">Escape</span> <span class="n">character</span> <span class="ow">is</span> <span class="s1">&#39;^]&#39;</span><span class="o">.</span>
@@ -133,127 +124,127 @@
 <span class="n">Connection</span> <span class="n">closed</span> <span class="n">by</span> <span class="n">foreign</span> <span class="n">host</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>If you can't connect to Zookeeper, check IPs and name resolution. HBase can be finicky.</p>
+<p>If you can’t connect to Zookeeper, check IPs and name resolution. HBase can be finicky.</p>
 <p>If HBase is running, you can choose to install OpenTSDB from a package (available under <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/releases">Releases</a> in Github) or from source using GIT or a source tarball.</p>
 <div class="section" id="compiling-from-source">
 <h3>Compiling From Source</h3>
 <p>Compilation requirements include:</p>
 <ul class="simple">
-<li>A Linux system</li>
-<li>Java Development Kit 1.6 or later</li>
-<li>GnuPlot 4.2 or later</li>
-<li>Autotools</li>
-<li>Make</li>
-<li>Python</li>
-<li>Git</li>
-<li>An Internet connection</li>
+<li><p>A Linux system</p></li>
+<li><p>Java Development Kit 1.6 or later</p></li>
+<li><p>GnuPlot 4.2 or later</p></li>
+<li><p>Autotools</p></li>
+<li><p>Make</p></li>
+<li><p>Python</p></li>
+<li><p>Git</p></li>
+<li><p>An Internet connection</p></li>
 </ul>
-<p>Download the latest version using <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code> command or download a release from the site or Github. Then just run the <code class="docutils literal"><span class="pre">build.sh</span></code> script. This script helps run all the processes needed to compile OpenTSDB: it runs <code class="docutils literal"><span class="pre">./bootstrap</span></code> (only once, when you first check out the code), followed by <code class="docutils literal"><span class="pre">./configure</span></code> and <code class="docutils literal"><span class="pre">make</span></code>. The output of the build process is put into a <code class="docutils literal"><span class="pre">build</span></code> folder and JARs required by OpenTSDB will be downloaded.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">OpenTSDB</span><span class="o">/</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">git</span>
+<p>Download the latest version using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> command or download a release from the site or Github. Then just run the <code class="docutils literal notranslate"><span class="pre">build.sh</span></code> script. This script helps run all the processes needed to compile OpenTSDB: it runs <code class="docutils literal notranslate"><span class="pre">./bootstrap</span></code> (only once, when you first check out the code), followed by <code class="docutils literal notranslate"><span class="pre">./configure</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span></code>. The output of the build process is put into a <code class="docutils literal notranslate"><span class="pre">build</span></code> folder and JARs required by OpenTSDB will be downloaded.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">OpenTSDB</span><span class="o">/</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">opentsdb</span>
 <span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>If compilation was successfully, you should have a tsdb jar file in <code class="docutils literal"><span class="pre">./build</span></code> along with a <code class="docutils literal"><span class="pre">tsdb</span></code> script. You can now execute command-line tool by invoking <code class="docutils literal"><span class="pre">./build/tsdb</span></code> or you can run <code class="docutils literal"><span class="pre">make</span> <span class="pre">install</span></code> to install OpenTSDB on your system. Should you ever change your mind, there is also <code class="docutils literal"><span class="pre">make</span> <span class="pre">uninstall</span></code>, so there are no strings attached.</p>
-<p>If you need to distribute OpenTSDB to machines without an Internet connection, call <code class="docutils literal"><span class="pre">./build.sh</span> <span class="pre">dist</span></code> to wrap the build directory into a tarball that you can then copy to additional machines.</p>
+<p>If compilation was successfully, you should have a tsdb jar file in <code class="docutils literal notranslate"><span class="pre">./build</span></code> along with a <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> script. You can now execute command-line tool by invoking <code class="docutils literal notranslate"><span class="pre">./build/tsdb</span></code> or you can run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> to install OpenTSDB on your system. Should you ever change your mind, there is also <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">uninstall</span></code>, so there are no strings attached.</p>
+<p>If you need to distribute OpenTSDB to machines without an Internet connection, call <code class="docutils literal notranslate"><span class="pre">./build.sh</span> <span class="pre">dist</span></code> to wrap the build directory into a tarball that you can then copy to additional machines.</p>
 </div>
 <div class="section" id="source-layout">
 <h3>Source Layout</h3>
 <p>There are four main branches in the GIT repo.</p>
 <ul class="simple">
-<li><strong>master</strong> This is the current release of OpenTSDB. It has been marked as stable and in between releases, only bug-fixes are applied. This is always suitable for running in production.</li>
-<li><strong>maintenance</strong> This was the previous release of OpenTSDB and may have bug fixes applied in between releases.</li>
-<li><strong>next</strong> The current version of OpenTSDB under development. This version is suitable for development environments and may have new features as well as bug fixes. If a release candidate has been cut, this branch will only contain bug fixes and is suitable for a staging environment.</li>
-<li><strong>put</strong> The next version of OpenTSDB that may have new features when a release candidate is present in the <strong>next</strong> branch.</li>
+<li><p><strong>master</strong> This is the current release of OpenTSDB. It has been marked as stable and in between releases, only bug-fixes are applied. This is always suitable for running in production.</p></li>
+<li><p><strong>maintenance</strong> This was the previous release of OpenTSDB and may have bug fixes applied in between releases.</p></li>
+<li><p><strong>next</strong> The current version of OpenTSDB under development. This version is suitable for development environments and may have new features as well as bug fixes. If a release candidate has been cut, this branch will only contain bug fixes and is suitable for a staging environment.</p></li>
+<li><p><strong>put</strong> The next version of OpenTSDB that may have new features when a release candidate is present in the <strong>next</strong> branch.</p></li>
 </ul>
 </div>
 <div class="section" id="debian-package">
 <h3>Debian Package</h3>
-<p>You can generate a Debian package by calling <code class="docutils literal"><span class="pre">sh</span> <span class="pre">build.sh</span> <span class="pre">debian</span></code>. The package will be located at <code class="docutils literal"><span class="pre">./build/opentsdb-2.x.x/opentsdb-2.x.x_all.deb</span></code>. Then simply distribute the package and install it as you regularly would. For example <code class="docutils literal"><span class="pre">dpkg</span> <span class="pre">-i</span> <span class="pre">opentsdb-2.0.0_all.deb</span></code>.</p>
+<p>You can generate a Debian package by calling <code class="docutils literal notranslate"><span class="pre">sh</span> <span class="pre">build.sh</span> <span class="pre">debian</span></code>. The package will be located at <code class="docutils literal notranslate"><span class="pre">./build/opentsdb-2.x.x/opentsdb-2.x.x_all.deb</span></code>. Then simply distribute the package and install it as you regularly would. For example <code class="docutils literal notranslate"><span class="pre">dpkg</span> <span class="pre">-i</span> <span class="pre">opentsdb-2.0.0_all.deb</span></code>.</p>
 <p>The Debian package will create the following directories:</p>
 <ul class="simple">
-<li>/etc/opentsdb - Configuration files</li>
-<li>/tmp/opentsdb - Temporary cache files</li>
-<li>/usr/share/opentsdb - Application files</li>
-<li>/usr/share/opentsdb/bin - The &quot;tsdb&quot; startup script that launches a TSD or command line tools</li>
-<li>/usr/share/opentsdb/lib - Java JAR library files</li>
-<li>/usr/share/opentsdb/plugins - Location for plugin files and dependencies</li>
-<li>/usr/share/opentsdb/static - Static files for the GUI</li>
-<li>/usr/share/opentsdb/tools - Scripts and other tools</li>
-<li>/var/log/opentsdb - Logs</li>
+<li><p>/etc/opentsdb - Configuration files</p></li>
+<li><p>/tmp/opentsdb - Temporary cache files</p></li>
+<li><p>/usr/share/opentsdb - Application files</p></li>
+<li><p>/usr/share/opentsdb/bin - The “tsdb” startup script that launches a TSD or command line tools</p></li>
+<li><p>/usr/share/opentsdb/lib - Java JAR library files</p></li>
+<li><p>/usr/share/opentsdb/plugins - Location for plugin files and dependencies</p></li>
+<li><p>/usr/share/opentsdb/static - Static files for the GUI</p></li>
+<li><p>/usr/share/opentsdb/tools - Scripts and other tools</p></li>
+<li><p>/var/log/opentsdb - Logs</p></li>
 </ul>
-<p>Installation includes an init script at <code class="docutils literal"><span class="pre">/etc/init.d/opentsdb</span></code> that can start, stop and restart OpenTSDB. Simply call <code class="docutils literal"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">start</span></code> to start the tsd and <code class="docutils literal"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">stop</span></code> to gracefully shutdown. Note after install, the tsd will not be running so that you can edit the configuration file. Edit the config file, then start the TSD.</p>
-<p>The Debian package also creates an <code class="docutils literal"><span class="pre">opentsdb</span></code> user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can't use the default locations, please change them in <code class="docutils literal"><span class="pre">/etc/opentsdb/opentsdb.conf</span></code> and <code class="docutils literal"><span class="pre">/etc/opentsdb/logback.xml</span></code> respectively and apply the proper permissions for the <code class="docutils literal"><span class="pre">opentsdb</span></code> user.</p>
-<p>If you install OpenTSDB for the first time, you'll need to create the HBase tables using the script located at <code class="docutils literal"><span class="pre">/usr/share/opentsdb/tools/create_table.sh</span></code>. Follow the steps below.</p>
+<p>Installation includes an init script at <code class="docutils literal notranslate"><span class="pre">/etc/init.d/opentsdb</span></code> that can start, stop and restart OpenTSDB. Simply call <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">start</span></code> to start the tsd and <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">opentsdb</span> <span class="pre">stop</span></code> to gracefully shutdown. Note after install, the tsd will not be running so that you can edit the configuration file. Edit the config file, then start the TSD.</p>
+<p>The Debian package also creates an <code class="docutils literal notranslate"><span class="pre">opentsdb</span></code> user and group for the TSD to run under for increased security. TSD only requires write permission to the temporary and logging directories. If you can’t use the default locations, please change them in <code class="docutils literal notranslate"><span class="pre">/etc/opentsdb/opentsdb.conf</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/opentsdb/logback.xml</span></code> respectively and apply the proper permissions for the <code class="docutils literal notranslate"><span class="pre">opentsdb</span></code> user.</p>
+<p>If you install OpenTSDB for the first time, you’ll need to create the HBase tables using the script located at <code class="docutils literal notranslate"><span class="pre">/usr/share/opentsdb/tools/create_table.sh</span></code>. Follow the steps below.</p>
 </div>
 <div class="section" id="create-tables">
 <h3>Create Tables</h3>
 <p>If this is the first time that you are running OpenTSDB with your HBase instance, you first need to create the necessary HBase tables. A simple script is provided to create the proper tables with the ability to enable or disable compression. Execute:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="n">COMPRESSION</span><span class="o">=</span><span class="n">NONE</span> <span class="n">HBASE_HOME</span><span class="o">=</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">hbase</span><span class="o">-</span><span class="mf">0.94</span><span class="o">.</span><span class="n">X</span> <span class="o">./</span><span class="n">src</span><span class="o">/</span><span class="n">create_table</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="n">COMPRESSION</span><span class="o">=</span><span class="n">NONE</span> <span class="n">HBASE_HOME</span><span class="o">=</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">hbase</span><span class="o">-</span><span class="mf">0.94</span><span class="o">.</span><span class="n">X</span> <span class="o">./</span><span class="n">src</span><span class="o">/</span><span class="n">create_table</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>where the <code class="docutils literal"><span class="pre">COMPRESSION</span></code> value is either <code class="docutils literal"><span class="pre">NONE</span></code>, <code class="docutils literal"><span class="pre">LZO</span></code>, <code class="docutils literal"><span class="pre">GZIP</span></code> or <code class="docutils literal"><span class="pre">SNAPPY</span></code>. This will create four tables: <code class="docutils literal"><span class="pre">tsdb</span></code>, <code class="docutils literal"><span class="pre">tsdb-uid</span></code>, <code class="docutils literal"><span class="pre">tsdb-tree</span></code> and <code class="docutils literal"><span class="pre">tsdb-meta</span></code>. If you're just evaluating OpenTSDB, don't worry about compression for now. In production and at scale, make sure you use a valid compression library as it will save on storage tremendously.</p>
+<p>where the <code class="docutils literal notranslate"><span class="pre">COMPRESSION</span></code> value is either <code class="docutils literal notranslate"><span class="pre">NONE</span></code>, <code class="docutils literal notranslate"><span class="pre">LZO</span></code>, <code class="docutils literal notranslate"><span class="pre">GZIP</span></code> or <code class="docutils literal notranslate"><span class="pre">SNAPPY</span></code>. This will create four tables: <code class="docutils literal notranslate"><span class="pre">tsdb</span></code>, <code class="docutils literal notranslate"><span class="pre">tsdb-uid</span></code>, <code class="docutils literal notranslate"><span class="pre">tsdb-tree</span></code> and <code class="docutils literal notranslate"><span class="pre">tsdb-meta</span></code>. If you’re just evaluating OpenTSDB, don’t worry about compression for now. In production and at scale, make sure you use a valid compression library as it will save on storage tremendously.</p>
 </div>
 <div class="section" id="start-a-tsd">
 <h3>Start a TSD</h3>
-<p>OpenTSDB 2.3 works off a configuration file that is shared between the daemon and command line tools. If you compiled from source, copy the <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code> file to a proper directory as documented in <a class="reference internal" href="user_guide/configuration.html"><span class="doc">Configuration</span></a> and edit the following, required settings:</p>
+<p>OpenTSDB 2.4 works off a configuration file that is shared between the daemon and command line tools. If you compiled from source, copy the <code class="docutils literal notranslate"><span class="pre">./src/opentsdb.conf</span></code> file to a proper directory as documented in <a class="reference internal" href="user_guide/configuration.html"><span class="doc">Configuration</span></a> and edit the following, required settings:</p>
 <ul class="simple">
-<li><strong>tsd.http.cachedir</strong> - Path to write temporary files to</li>
-<li><strong>tsd.http.staticroot</strong> - Path to the static GUI files found in <code class="docutils literal"><span class="pre">./build/staticroot</span></code></li>
-<li><strong>tsd.storage.hbase.zk_quorum</strong> - If HBase and Zookeeper are not running on the same machine, specify the host and port here.</li>
+<li><p><strong>tsd.http.cachedir</strong> - Path to write temporary files to</p></li>
+<li><p><strong>tsd.http.staticroot</strong> - Path to the static GUI files found in <code class="docutils literal notranslate"><span class="pre">./build/staticroot</span></code></p></li>
+<li><p><strong>tsd.storage.hbase.zk_quorum</strong> - If HBase and Zookeeper are not running on the same machine, specify the host and port here.</p></li>
 </ul>
 <p>With the config file written, you can start a tsd with the command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">tsdb</span> <span class="n">tsd</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">tsdb</span> <span class="n">tsd</span>
 </pre></div>
 </div>
 <p>Alternatively, you can also use the following commands to create a temporary directory and pass in only command line flags:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>tsdtmp=${TMPDIR-&#39;/tmp&#39;}/tsd    # For best performance, make sure
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tsdtmp=${TMPDIR-&#39;/tmp&#39;}/tsd    # For best performance, make sure
 mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
 ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir=&quot;$tsdtmp&quot; --zkquorum=myhost:2181
 </pre></div>
 </div>
-<p>At this point you can access the TSD's web interface through <a class="reference external" href="http://127.0.0.1:4242">http://127.0.0.1:4242</a> (if it's running on your local machine).</p>
+<p>At this point you can access the TSD’s web interface through <a class="reference external" href="http://127.0.0.1:4242">http://127.0.0.1:4242</a> (if it’s running on your local machine).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <strong>Cache Directory</strong> stores temporary files generated when a graph is requested via the built-in GUI. These files should be purged periodically to free up space. OpenTSDB doesn't clean up after itself at this time but there is a script that should be run as a cron at least once a day located at <code class="docutils literal"><span class="pre">tools/clean_cache.sh</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>The <strong>Cache Directory</strong> stores temporary files generated when a graph is requested via the built-in GUI. These files should be purged periodically to free up space. OpenTSDB doesn’t clean up after itself at this time but there is a script that should be run as a cron at least once a day located at <code class="docutils literal notranslate"><span class="pre">tools/clean_cache.sh</span></code>.</p>
 </div>
 </div>
 </div>
 <div class="section" id="upgrading-from-1-x">
 <h2>Upgrading from 1.x</h2>
-<p>OpenTSDB 2.3 is fully backwards compatible with 1.x data. We've taken great pains to make sure you can download 2.3, compile, stop your old TSD and start the new one. Your existing tools will read and write to the TSD without a problem. 2.3 introduces two new tables to HBase schema for storing meta-data. From the directory where you downloaded the source (or the tools directory if installed with the Debian package), execute:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="n">COMPRESSION</span><span class="o">=</span><span class="n">NONE</span> <span class="n">HBASE_HOME</span><span class="o">=</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">hbase</span><span class="o">-</span><span class="mf">0.94</span><span class="o">.</span><span class="n">X</span> <span class="o">./</span><span class="n">src</span><span class="o">/</span><span class="n">upgrade_1to2</span><span class="o">.</span><span class="n">sh</span>
+<p>OpenTSDB 2.4 is fully backwards compatible with 1.x data. We’ve taken great pains to make sure you can download 2.4, compile, stop your old TSD and start the new one. Your existing tools will read and write to the TSD without a problem. 2.4 introduces two new tables to HBase schema for storing meta-data. From the directory where you downloaded the source (or the tools directory if installed with the Debian package), execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="n">COMPRESSION</span><span class="o">=</span><span class="n">NONE</span> <span class="n">HBASE_HOME</span><span class="o">=</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">hbase</span><span class="o">-</span><span class="mf">0.94</span><span class="o">.</span><span class="n">X</span> <span class="o">./</span><span class="n">src</span><span class="o">/</span><span class="n">upgrade_1to2</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal"><span class="pre">COMPRESSION</span></code> is the same as your existing production table compression format.</p>
-<p>While you can start a 2.3 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <code class="docutils literal"><span class="pre">./src/opentsdb.conf</span></code>. Or if you install from a package, you'll want to edit the included default config. The config file includes many more options than are accessible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><span class="doc">Configuration</span></a> for details.</p>
-<p>You do not have to upgrade all of your TSDs to 2.3 at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">COMPRESSION</span></code> is the same as your existing production table compression format.</p>
+<p>While you can start a 2.4 TSD with the same command line options as a 1.0 TSD, we highly recommend that you create a configuration file based on the config included at <code class="docutils literal notranslate"><span class="pre">./src/opentsdb.conf</span></code>. Or if you install from a package, you’ll want to edit the included default config. The config file includes many more options than are accessible via command line and the file is shared with CLI tools. See <a class="reference internal" href="user_guide/configuration.html"><span class="doc">Configuration</span></a> for details.</p>
+<p>You do not have to upgrade all of your TSDs to 2.4 at the same time. Some users upgrade their read-only TSDs first to gain access to the full HTTP API and test the new features. Later on you can upgrade the write-only TSDs at leisure. You can also perform a rolling upgrade without issues. Simply stop traffic to one TSD, upgrade it, restore traffic, and continue on until you have upgraded all of your TSDs.</p>
 <p>If you do perform a rolling upgrade where you have multiple TSDs, heed the following warning:</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Do not write <strong>Annotations</strong> or <strong>Data point with Millisecond Timestamps</strong> while you run a mixture of 1.x and 2.x. Because these data are stored in the same rows as regular data points, they can affect compactions and queries.</p>
+<p class="admonition-title">Warning</p>
+<p>Do not write <strong>Annotations</strong> or <strong>Data point with Millisecond Timestamps</strong> while you run a mixture of 1.x and 2.x. Because these data are stored in the same rows as regular data points, they can affect compactions and queries.</p>
 </div>
 <p>Before upgrading to 2.x, you may want to upgrade all of your TSDs to OpenTSDB 1.2. This release is fully forwards compatible in that it will ignore annotations and millisecond timestamps and operate as expected. With 1.2 running, if you accidentally record an annotation or millisecond data point, your 1.2 TSDs will operate normally.</p>
 </div>
 <div class="section" id="upgrading-from-2-x-to-a-later-2-x">
 <h2>Upgrading from 2.x to a Later 2.x</h2>
-<p>In general, upgrading within a single major release branch is simply a matter of updating the binaries or package and restarting a TSD. Within a branch we'll maintain settings, APIs and schema. However new features may be added with each minor version that include new configuration settings with useful defaults.</p>
+<p>In general, upgrading within a single major release branch is simply a matter of updating the binaries or package and restarting a TSD. Within a branch we’ll maintain settings, APIs and schema. However new features may be added with each minor version that include new configuration settings with useful defaults.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The exception so far has been the introduction of salted rows in 2.2.0. Disabled by default, using this feature requires creating a new HBase table with a new set of pre-splits and modifying the configuration of every TSD to use the new table with salting enabled. The schema for salted and unsalted tables is incompatible so if users have a lot of data in a previous table, it may be best to leave a few TSDs running to query against the old table and new TSDs to write to and read from the new salted table. For smaller amounts of data, the <a class="reference internal" href="user_guide/cli/scan.html"><span class="doc">scan</span></a> tool can be used to export and re-import your data.</p>
+<p class="admonition-title">Note</p>
+<p>The exception so far has been the introduction of salted rows in 2.2.0. Disabled by default, using this feature requires creating a new HBase table with a new set of pre-splits and modifying the configuration of every TSD to use the new table with salting enabled. The schema for salted and unsalted tables is incompatible so if users have a lot of data in a previous table, it may be best to leave a few TSDs running to query against the old table and new TSDs to write to and read from the new salted table. For smaller amounts of data, the <a class="reference internal" href="user_guide/cli/scan.html"><span class="doc">scan</span></a> tool can be used to export and re-import your data.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Likewise with 2.3, the introduction of new backends (Bigtable or Cassandra) requires setting up new storage tables and migrating data.</p>
+<p class="admonition-title">Note</p>
+<p>Likewise with 2.3, the introduction of new backends (Bigtable or Cassandra) requires setting up new storage tables and migrating data.</p>
 </div>
 </div>
 <div class="section" id="downgrading">
 <h2>Downgrading</h2>
-<p>Because we've worked hard to maintain backwards compatibility, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the <code class="docutils literal"><span class="pre">tsdb-tree</span></code> and <code class="docutils literal"><span class="pre">tsdb-meta</span></code> tables if you so desire.</p>
+<p>Because we’ve worked hard to maintain backwards compatibility, you can turn off a 2.x TSD and restart your old 1.x TSD. The only exceptions are if you have written annotations or milliseconds as you saw in the warning above. In these cases you must downgrade to 1.2 or later. You may also delete the <code class="docutils literal notranslate"><span class="pre">tsdb-tree</span></code> and <code class="docutils literal notranslate"><span class="pre">tsdb-meta</span></code> tables if you so desire.</p>
 <p>Downgrades within a major version are idempotent.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If you wrote data using a salted table or changed the UID widths for metrics, tag keys or tag values then you cannot downgrade. Create a new table and export the data from the old table, then re-write the data to the new table using the older TSD version.</p>
+<p class="admonition-title">Warning</p>
+<p>If you wrote data using a salted table or changed the UID widths for metrics, tag keys or tag values then you cannot downgrade. Create a new table and export the data from the old table, then re-write the data to the new table using the older TSD version.</p>
 </div>
 </div>
 </div>
@@ -274,9 +265,9 @@ mkdir -p &quot;$tsdtmp&quot;             # your temporary directory uses tmpfs
           <a href="user_guide/index.html" title="User Guide"
              >next</a> |</li>
         <li class="right" >
-          <a href="new.html" title="What&#39;s New"
+          <a href="new.html" title="What’s New"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.4 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">

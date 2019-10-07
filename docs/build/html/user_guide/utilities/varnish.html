@@ -2,23 +2,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Load Balancing with Varnish &#8212; OpenTSDB 2.3 documentation</title>
+    <meta charset="utf-8" />
+    <title>Load Balancing with Varnish &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Alerting with Nagios" href="nagios.html" />
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,7 +41,7 @@
         <li class="right" >
           <a href="tsddrain.html" title="tsddrain.py"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Utilities</a> &#187;</li> 
       </ul>
@@ -64,13 +55,13 @@
   <p class="topless"><a href="nagios.html"
                         title="next chapter">Alerting with Nagios</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -83,10 +74,10 @@
             
   <div class="section" id="load-balancing-with-varnish">
 <h1>Load Balancing with Varnish</h1>
-<p><a class="reference external" href="https://www.varnish-cache.org/">Varnish</a> is a powerful HTTP load balancer (reverse proxy), which is also very good at caching. When running multiple TSDs, Varnish comes in handy to distribute the HTTP traffic across the TSDs. Bear in mind that write traffic doesn't use the HTTP protocol by default, and as such you can only use Varnish for read queries. Using Varnish will help you easily scale the amount of read capacity of your TSD cluster.</p>
+<p><a class="reference external" href="https://www.varnish-cache.org/">Varnish</a> is a powerful HTTP load balancer (reverse proxy), which is also very good at caching. When running multiple TSDs, Varnish comes in handy to distribute the HTTP traffic across the TSDs. Bear in mind that write traffic doesn’t use the HTTP protocol by default, and as such you can only use Varnish for read queries. Using Varnish will help you easily scale the amount of read capacity of your TSD cluster.</p>
 <p>The following is a sample Varnish configuration recommended for use with OpenTSDB. It uses a slightly custom load balancing strategy to achieve optimal cache hit rate at the TSD level. This configuration requires at least Varnish 2.1.0 to run, but using Varnish 3.0 or above is strongly recommended.</p>
-<p>This sample configuration is for 2 backends, named <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code>. You need to substitute at least the host names.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># VCL configuration for OpenTSDB.</span>
+<p>This sample configuration is for 2 backends, named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. You need to substitute at least the host names.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># VCL configuration for OpenTSDB.</span>
 
 <span class="n">backend</span> <span class="n">foo</span> <span class="p">{</span>
     <span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
@@ -150,16 +141,16 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>On many Linux distros (including Debian and Ubuntu), you need to put the configuration above in <code class="docutils literal"><span class="pre">/etc/varnish/default.vcl</span></code>. We also recommend tweaking the command-line parameters of <code class="docutils literal"><span class="pre">varnishd</span></code> in order to use a memory-backed cache of about 1GB if you can afford it. On Debian/Ubuntu systems, this is done by editing <code class="docutils literal"><span class="pre">/etc/default/varnish</span></code> to make sure that <code class="docutils literal"><span class="pre">-s</span> <span class="pre">malloc,1G</span></code> is passed to <code class="docutils literal"><span class="pre">varnishd</span></code>.</p>
+<p>On many Linux distros (including Debian and Ubuntu), you need to put the configuration above in <code class="docutils literal notranslate"><span class="pre">/etc/varnish/default.vcl</span></code>. We also recommend tweaking the command-line parameters of <code class="docutils literal notranslate"><span class="pre">varnishd</span></code> in order to use a memory-backed cache of about 1GB if you can afford it. On Debian/Ubuntu systems, this is done by editing <code class="docutils literal notranslate"><span class="pre">/etc/default/varnish</span></code> to make sure that <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">malloc,1G</span></code> is passed to <code class="docutils literal notranslate"><span class="pre">varnishd</span></code>.</p>
 <p>Read more about Varnish:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.varnish-cache.org/docs/trunk/reference/vcl.html">The VCL configuration language</a></li>
-<li><a class="reference external" href="http://www.varnish-cache.org/trac/wiki/BackendPolling">Health checking backends</a></li>
-<li><a class="reference external" href="http://www.varnish-cache.org/trac/wiki/LoadBalancing">Tweaking the load balancing strategy</a></li>
+<li><p><a class="reference external" href="http://www.varnish-cache.org/docs/trunk/reference/vcl.html">The VCL configuration language</a></p></li>
+<li><p><a class="reference external" href="http://www.varnish-cache.org/trac/wiki/BackendPolling">Health checking backends</a></p></li>
+<li><p><a class="reference external" href="http://www.varnish-cache.org/trac/wiki/LoadBalancing">Tweaking the load balancing strategy</a></p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">if you're using Varnish 2.x (which is not recommended as we would strongly encourage you to migrate to 3.x) you have to replace each function call <code class="docutils literal"><span class="pre">hash_data(foo);</span></code> to set <code class="docutils literal"><span class="pre">req.hash</span> <span class="pre">+=</span> <span class="pre">foo;</span></code> in the VCL configuration above.</p>
+<p class="admonition-title">Note</p>
+<p>if you’re using Varnish 2.x (which is not recommended as we would strongly encourage you to migrate to 3.x) you have to replace each function call <code class="docutils literal notranslate"><span class="pre">hash_data(foo);</span></code> to set <code class="docutils literal notranslate"><span class="pre">req.hash</span> <span class="pre">+=</span> <span class="pre">foo;</span></code> in the VCL configuration above.</p>
 </div>
 </div>
 
@@ -181,7 +172,7 @@
         <li class="right" >
           <a href="tsddrain.html" title="tsddrain.py"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >Utilities</a> &#187;</li> 
       </ul>

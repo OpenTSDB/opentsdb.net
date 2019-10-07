@@ -2,23 +2,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>/api/suggest &#8212; OpenTSDB 2.3 documentation</title>
+    <meta charset="utf-8" />
+    <title>/api/suggest &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="/api/tree" href="tree/index.html" />
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,13 +41,13 @@
         <li class="right" >
           <a href="stats/threads.html" title="/api/stats/threads"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/api/suggest</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
@@ -79,13 +70,13 @@
   <p class="topless"><a href="tree/index.html"
                         title="next chapter">/api/tree</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -98,76 +89,76 @@
             
   <div class="section" id="api-suggest">
 <h1>/api/suggest</h1>
-<p>This endpoint provides a means of implementing an &quot;auto-complete&quot; call that can be accessed repeatedly as a user types a request in a GUI. It does not offer full text searching or wildcards, rather it simply matches the entire string passed in the query on the first characters of the stored data. For example, passing a query of <code class="docutils literal"><span class="pre">type=metrics&amp;q=sys</span></code> will return the top 25 metrics in the system that start with <code class="docutils literal"><span class="pre">sys</span></code>. Matching is case sensitive, so <code class="docutils literal"><span class="pre">sys</span></code> will not match <code class="docutils literal"><span class="pre">System.CPU</span></code>. Results are sorted alphabetically.</p>
+<p>This endpoint provides a means of implementing an “auto-complete” call that can be accessed repeatedly as a user types a request in a GUI. It does not offer full text searching or wildcards, rather it simply matches the entire string passed in the query on the first characters of the stored data. For example, passing a query of <code class="docutils literal notranslate"><span class="pre">type=metrics&amp;q=sys</span></code> will return the top 25 metrics in the system that start with <code class="docutils literal notranslate"><span class="pre">sys</span></code>. Matching is case sensitive, so <code class="docutils literal notranslate"><span class="pre">sys</span></code> will not match <code class="docutils literal notranslate"><span class="pre">System.CPU</span></code>. Results are sorted alphabetically.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET</li>
-<li>POST</li>
+<li><p>GET</p></li>
+<li><p>POST</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="15%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">QS</th>
-<th class="head">RW</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>QS</p></th>
+<th class="head"><p>RW</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>type</td>
-<td>String</td>
-<td>Required</td>
-<td>The type of data to auto complete on. Must be one of the following: <strong>metrics</strong>, <strong>tagk</strong> or <strong>tagv</strong></td>
-<td>&#160;</td>
-<td>type</td>
-<td>&#160;</td>
-<td>metrics</td>
+<tbody>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The type of data to auto complete on. Must be one of the following: <strong>metrics</strong>, <strong>tagk</strong> or <strong>tagv</strong></p></td>
+<td></td>
+<td><p>type</p></td>
+<td></td>
+<td><p>metrics</p></td>
 </tr>
-<tr class="row-odd"><td>q</td>
-<td>String</td>
-<td>Optional</td>
-<td>A string to match on for the given type</td>
-<td>&#160;</td>
-<td>q</td>
-<td>&#160;</td>
-<td>web</td>
+<tr class="row-odd"><td><p>q</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A string to match on for the given type</p></td>
+<td></td>
+<td><p>q</p></td>
+<td></td>
+<td><p>web</p></td>
 </tr>
-<tr class="row-even"><td>max</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>The maximum number of suggested results to return. Must be greater than 0</td>
-<td>25</td>
-<td>max</td>
-<td>&#160;</td>
-<td>10</td>
+<tr class="row-even"><td><p>max</p></td>
+<td><p>Integer</p></td>
+<td><p>Optional</p></td>
+<td><p>The maximum number of suggested results to return. Must be greater than 0</p></td>
+<td><p>25</p></td>
+<td><p>max</p></td>
+<td></td>
+<td><p>10</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/suggest?type=metrics&amp;q=sys&amp;max=10
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/suggest?type=metrics&amp;q=sys&amp;max=10
 </pre></div>
 </div>
 <p><strong>JSON Content</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;metrics&quot;</span><span class="p">,</span>
   <span class="s2">&quot;q&quot;</span><span class="o">:</span><span class="s2">&quot;sys&quot;</span><span class="p">,</span>
   <span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="mi">10</span>
@@ -181,7 +172,7 @@
 <p>The response is an array of strings of the given type that match the query. If nothing was found to match the query, an empty array will be returned.</p>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="s2">&quot;sys.cpu.0.nice&quot;</span><span class="p">,</span>
   <span class="s2">&quot;sys.cpu.0.system&quot;</span><span class="p">,</span>
   <span class="s2">&quot;sys.cpu.0.user&quot;</span><span class="p">,</span>
@@ -213,7 +204,7 @@
         <li class="right" >
           <a href="stats/threads.html" title="/api/stats/threads"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &#187;</li> 
       </ul>
     </div>

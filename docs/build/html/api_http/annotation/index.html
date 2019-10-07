@@ -2,23 +2,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>/api/annotation &#8212; OpenTSDB 2.3 documentation</title>
+    <meta charset="utf-8" />
+    <title>/api/annotation &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/annotation/bulk" href="bulk.html" />
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,13 +41,13 @@
         <li class="right" >
           <a href="../aggregators.html" title="/api/aggregators"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/api/annotation</a><ul>
 <li><a class="reference internal" href="#annotation-api-endpoints">Annotation API Endpoints</a></li>
@@ -81,13 +72,13 @@
   <p class="topless"><a href="bulk.html"
                         title="next chapter">/api/annotation/bulk</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -109,116 +100,116 @@
 <li class="toctree-l1"><a class="reference internal" href="bulk.html">/api/annotation/bulk</a></li>
 </ul>
 </div>
-<p>The default <code class="docutils literal"><span class="pre">/annotation</span></code> endpoint deals with one notation at a time. The <code class="docutils literal"><span class="pre">/annotation/bulk</span></code> endpoint allows for adding or updating multiple annotations at a time.</p>
+<p>The default <code class="docutils literal notranslate"><span class="pre">/annotation</span></code> endpoint deals with one notation at a time. The <code class="docutils literal notranslate"><span class="pre">/annotation/bulk</span></code> endpoint allows for adding or updating multiple annotations at a time.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET - Retrieve a single annotation</li>
-<li>POST - Create or modify an annotation</li>
-<li>PUT - Create or replace an annotation</li>
-<li>DELETE - Delete an annotation</li>
+<li><p>GET - Retrieve a single annotation</p></li>
+<li><p>POST - Create or modify an annotation</p></li>
+<li><p>PUT - Create or replace an annotation</p></li>
+<li><p>DELETE - Delete an annotation</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>All annotations are identified by the <code class="docutils literal"><span class="pre">startTime</span></code> field and optionally the <code class="docutils literal"><span class="pre">tsuid</span></code> field. Each note can be global, meaning it is associated with all timeseries, or it can be local, meaning it's associated with a specific tsuid. If the tsuid is not supplied or has an empty value, the annotation is considered to be a global note.</p>
-<table border="1" class="colwidths-given docutils">
+<p>All annotations are identified by the <code class="docutils literal notranslate"><span class="pre">startTime</span></code> field and optionally the <code class="docutils literal notranslate"><span class="pre">tsuid</span></code> field. Each note can be global, meaning it is associated with all timeseries, or it can be local, meaning it’s associated with a specific tsuid. If the tsuid is not supplied or has an empty value, the annotation is considered to be a global note.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="15%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">QS</th>
-<th class="head">RW</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>QS</p></th>
+<th class="head"><p>RW</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>startTime</td>
-<td>Integer</td>
-<td>Required</td>
-<td>A Unix epoch timestamp, in seconds, marking the time when the annotation event should be recorded</td>
-<td>&#160;</td>
-<td>start_time</td>
-<td>RW</td>
-<td>1369141261</td>
+<tbody>
+<tr class="row-even"><td><p>startTime</p></td>
+<td><p>Integer</p></td>
+<td><p>Required</p></td>
+<td><p>A Unix epoch timestamp, in seconds, marking the time when the annotation event should be recorded</p></td>
+<td></td>
+<td><p>start_time</p></td>
+<td><p>RW</p></td>
+<td><p>1369141261</p></td>
 </tr>
-<tr class="row-odd"><td>endTime</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>An optional end time for the event if it has completed or been resolved</td>
-<td>0</td>
-<td>end_time</td>
-<td>RW</td>
-<td>1369141262</td>
+<tr class="row-odd"><td><p>endTime</p></td>
+<td><p>Integer</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional end time for the event if it has completed or been resolved</p></td>
+<td><p>0</p></td>
+<td><p>end_time</p></td>
+<td><p>RW</p></td>
+<td><p>1369141262</p></td>
 </tr>
-<tr class="row-even"><td>tsuid</td>
-<td>String</td>
-<td>Optional</td>
-<td>A TSUID if the annotation is associated with a timeseries. This may be null or empty if the note was for a global event</td>
-<td>&#160;</td>
-<td>tsuid</td>
-<td>RW</td>
-<td>000001000001000001</td>
+<tr class="row-even"><td><p>tsuid</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A TSUID if the annotation is associated with a timeseries. This may be null or empty if the note was for a global event</p></td>
+<td></td>
+<td><p>tsuid</p></td>
+<td><p>RW</p></td>
+<td><p>000001000001000001</p></td>
 </tr>
-<tr class="row-odd"><td>description</td>
-<td>String</td>
-<td>Optional</td>
-<td>A brief description of the event. As this may appear on GnuPlot graphs, the description should be very short, ideally less than 25 characters.</td>
-<td>&#160;</td>
-<td>description</td>
-<td>RW</td>
-<td>Network Outage</td>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A brief description of the event. As this may appear on GnuPlot graphs, the description should be very short, ideally less than 25 characters.</p></td>
+<td></td>
+<td><p>description</p></td>
+<td><p>RW</p></td>
+<td><p>Network Outage</p></td>
 </tr>
-<tr class="row-even"><td>notes</td>
-<td>String</td>
-<td>Optional</td>
-<td>Detailed notes about the event</td>
-<td>&#160;</td>
-<td>notes</td>
-<td>RW</td>
-<td>Switch #5 died and was replaced</td>
+<tr class="row-even"><td><p>notes</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>Detailed notes about the event</p></td>
+<td></td>
+<td><p>notes</p></td>
+<td><p>RW</p></td>
+<td><p>Switch #5 died and was replaced</p></td>
 </tr>
-<tr class="row-odd"><td>custom</td>
-<td>Map</td>
-<td>Optional</td>
-<td>A key/value map to store custom fields and values</td>
-<td>null</td>
-<td>&#160;</td>
-<td>RW</td>
-<td><em>See Below</em></td>
+<tr class="row-odd"><td><p>custom</p></td>
+<td><p>Map</p></td>
+<td><p>Optional</p></td>
+<td><p>A key/value map to store custom fields and values</p></td>
+<td><p>null</p></td>
+<td></td>
+<td><p>RW</p></td>
+<td><p><em>See Below</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Custom fields cannot be passed via query string. You must use the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> verbs.</p>
+<p class="admonition-title">Note</p>
+<p>Custom fields cannot be passed via query string. You must use the <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> verbs.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If your request uses <code class="docutils literal"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal"><span class="pre">description</span></code> field will be set to an empty string and the <code class="docutils literal"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal"><span class="pre">null</span></code>.</p>
+<p class="admonition-title">Warning</p>
+<p>If your request uses <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal notranslate"><span class="pre">description</span></code> field will be set to an empty string and the <code class="docutils literal notranslate"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
 </div>
 <div class="section" id="example-get-request">
 <h3>Example GET Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/annotation?start_time=1369141261&amp;tsuid=000001000001000001
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/annotation?start_time=1369141261&amp;tsuid=000001000001000001
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-post-request">
 <h3>Example POST Request</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
   <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
   <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
@@ -234,10 +225,10 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full object with the requested changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested annotation did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal"><span class="pre">400</span></code> error will be returned.</p>
+<p>A successful response to a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request will return the full object with the requested changes. Successful <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <code class="docutils literal notranslate"><span class="pre">304</span></code> without any body content. If the requested annotation did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal notranslate"><span class="pre">400</span></code> error will be returned.</p>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
@@ -272,7 +263,7 @@
         <li class="right" >
           <a href="../aggregators.html" title="/api/aggregators"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li> 
       </ul>
     </div>

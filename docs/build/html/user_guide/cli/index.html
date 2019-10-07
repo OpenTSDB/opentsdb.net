@@ -2,23 +2,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>CLI Tools &#8212; OpenTSDB 2.3 documentation</title>
+    <meta charset="utf-8" />
+    <title>CLI Tools &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="uid" href="uid.html" />
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,13 +41,13 @@
         <li class="right" >
           <a href="../backends/cassandra.html" title="Cassandra"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">CLI Tools</a><ul>
 <li><a class="reference internal" href="#common-parameters">Common Parameters</a></li>
@@ -72,13 +63,13 @@
   <p class="topless"><a href="uid.html"
                         title="next chapter">uid</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -91,7 +82,7 @@
             
   <div class="section" id="cli-tools">
 <h1>CLI Tools</h1>
-<p>OpenTSDB consists of a single JAR file that uses a shell script to determine what actiosn the user wants to take. While the most common action is to start the TSD with the <code class="docutils literal"><span class="pre">tsd</span></code> command so that it can run all the time and process RPCs, other commands are available to work with OpenTSDB data. These commands include:</p>
+<p>OpenTSDB consists of a single JAR file that uses a shell script to determine what actiosn the user wants to take. While the most common action is to start the TSD with the <code class="docutils literal notranslate"><span class="pre">tsd</span></code> command so that it can run all the time and process RPCs, other commands are available to work with OpenTSDB data. These commands include:</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="uid.html">uid</a></li>
@@ -104,93 +95,93 @@
 <li class="toctree-l1"><a class="reference internal" href="tsd.html">tsd</a></li>
 </ul>
 </div>
-<p>Accessing a CLI tool is performed from the location of the <code class="docutils literal"><span class="pre">tsdb</span></code> file, built after compiling OpenTSDB. By default the tsdb file will be located in the <code class="docutils literal"><span class="pre">build</span></code> directory so you may access it via <code class="docutils literal"><span class="pre">./build/tsdb</span></code>. Provide the name of the CLI utility as in <code class="docutils literal"><span class="pre">./build/tsdb</span> <span class="pre">tsd</span></code>.</p>
+<p>Accessing a CLI tool is performed from the location of the <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> file, built after compiling OpenTSDB. By default the tsdb file will be located in the <code class="docutils literal notranslate"><span class="pre">build</span></code> directory so you may access it via <code class="docutils literal notranslate"><span class="pre">./build/tsdb</span></code>. Provide the name of the CLI utility as in <code class="docutils literal notranslate"><span class="pre">./build/tsdb</span> <span class="pre">tsd</span></code>.</p>
 <div class="section" id="common-parameters">
 <h2>Common Parameters</h2>
 <p>All command line utilities share some common command line parameters:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="5%" />
-<col width="40%" />
-<col width="5%" />
-<col width="35%" />
+<col style="width: 15%" />
+<col style="width: 5%" />
+<col style="width: 40%" />
+<col style="width: 5%" />
+<col style="width: 35%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>--config</td>
-<td>String</td>
-<td>The full or relative path to an OpenTSDB <a class="reference internal" href="../configuration.html"><span class="doc">Configuration</span></a> file. If this parameter is not provided, the command will attempt to load the default config file.</td>
-<td>See <a class="reference internal" href="../configuration.html"><span class="doc">Configuration</span></a></td>
-<td>--config=/usr/local/tempconfig.conf</td>
+<tbody>
+<tr class="row-even"><td><p>–config</p></td>
+<td><p>String</p></td>
+<td><p>The full or relative path to an OpenTSDB <a class="reference internal" href="../configuration.html"><span class="doc">Configuration</span></a> file. If this parameter is not provided, the command will attempt to load the default config file.</p></td>
+<td><p>See <a class="reference internal" href="../configuration.html"><span class="doc">Configuration</span></a></p></td>
+<td><p>–config=/usr/local/tempconfig.conf</p></td>
 </tr>
-<tr class="row-odd"><td>--table</td>
-<td>String</td>
-<td>Name of the HBase table where datapoints are stored</td>
-<td>tsdb</td>
-<td>--table=prod-tsdb</td>
+<tr class="row-odd"><td><p>–table</p></td>
+<td><p>String</p></td>
+<td><p>Name of the HBase table where datapoints are stored</p></td>
+<td><p>tsdb</p></td>
+<td><p>–table=prod-tsdb</p></td>
 </tr>
-<tr class="row-even"><td>--uidtable</td>
-<td>String</td>
-<td>Name of the HBase table where UID information is stored</td>
-<td>tsdb-uid</td>
-<td>--uidtable=prod-tsdb-uid</td>
+<tr class="row-even"><td><p>–uidtable</p></td>
+<td><p>String</p></td>
+<td><p>Name of the HBase table where UID information is stored</p></td>
+<td><p>tsdb-uid</p></td>
+<td><p>–uidtable=prod-tsdb-uid</p></td>
 </tr>
-<tr class="row-odd"><td>--verbose</td>
-<td>Boolean</td>
-<td>For some CLI tools, this command will allow for INFO and above logging per the logback.xml config. Otherwise without this flag, some tools may only log WARNing messages.</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>–verbose</p></td>
+<td><p>Boolean</p></td>
+<td><p>For some CLI tools, this command will allow for INFO and above logging per the logback.xml config. Otherwise without this flag, some tools may only log WARNing messages.</p></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>--zkbasedir</td>
-<td>String</td>
-<td>Path under which is the znode for the -ROOT- region</td>
-<td>/hbase</td>
-<td>--zkbasedir=/prod/hbase</td>
+<tr class="row-even"><td><p>–zkbasedir</p></td>
+<td><p>String</p></td>
+<td><p>Path under which is the znode for the -ROOT- region</p></td>
+<td><p>/hbase</p></td>
+<td><p>–zkbasedir=/prod/hbase</p></td>
 </tr>
-<tr class="row-odd"><td>--read-only</td>
-<td>Boolean</td>
-<td>Sets the mode for OpenTSDB</td>
-<td>false</td>
-<td>--read-only</td>
+<tr class="row-odd"><td><p>–read-only</p></td>
+<td><p>Boolean</p></td>
+<td><p>Sets the mode for OpenTSDB</p></td>
+<td><p>false</p></td>
+<td><p>–read-only</p></td>
 </tr>
-<tr class="row-even"><td>--zkquorum</td>
-<td>String</td>
-<td>Specification of the ZooKeeper quorum to use, i.e. a list of servers and/or ports in the ZooKeeper cluster</td>
-<td>localhost</td>
-<td>--zkquorum=zkhost1,zkhost2,zkhost3</td>
+<tr class="row-even"><td><p>–zkquorum</p></td>
+<td><p>String</p></td>
+<td><p>Specification of the ZooKeeper quorum to use, i.e. a list of servers and/or ports in the ZooKeeper cluster</p></td>
+<td><p>localhost</p></td>
+<td><p>–zkquorum=zkhost1,zkhost2,zkhost3</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="site-specific-configuration">
 <h2>Site-specific Configuration</h2>
-<p>The common parameters above are required by all the CLI commands. It can be tedious to manually type them over and over again. You can instead store typically used values in a file <code class="docutils literal"><span class="pre">./tsdb.local</span></code>. This file is expected to be a shell script and will be sourced by <code class="docutils literal"><span class="pre">./tsdb</span></code> if it exists.</p>
+<p>The common parameters above are required by all the CLI commands. It can be tedious to manually type them over and over again. You can instead store typically used values in a file <code class="docutils literal notranslate"><span class="pre">./tsdb.local</span></code>. This file is expected to be a shell script and will be sourced by <code class="docutils literal notranslate"><span class="pre">./tsdb</span></code> if it exists.</p>
 <p><em>Setting default values for common parameters</em></p>
-<p>If, for example, your ZooKeeper quorum is behind the DNS name &quot;zookeeper.example.com&quot; (a name with 5 A records), instead of always passing <code class="docutils literal"><span class="pre">--zkquorum=zookeeper.example.com</span></code> to the CLI tool each time you use it, you can create <code class="docutils literal"><span class="pre">./tsdb.local</span></code> with the following contents:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<p>If, for example, your ZooKeeper quorum is behind the DNS name “zookeeper.example.com” (a name with 5 A records), instead of always passing <code class="docutils literal notranslate"><span class="pre">--zkquorum=zookeeper.example.com</span></code> to the CLI tool each time you use it, you can create <code class="docutils literal notranslate"><span class="pre">./tsdb.local</span></code> with the following contents:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">MY_ARGS</span><span class="o">=</span><span class="s1">&#39;--zkquorum=zookeeper&#39;</span>
 <span class="nb">set</span> x <span class="nv">$MY_ARGS</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
 <span class="nb">shift</span>
 </pre></div>
 </div>
 <p><em>Overriding the timezone of the TSD</em></p>
-<p>Servers are frequently using UTC as their timezone. By default, the TSD renders graphs using the local timezone of the server. You can override this to have graphs in your local time by specifying a timezone in <code class="docutils literal"><span class="pre">./tsdb.local</span></code>. For example, if you're in California, this will force the TSD to use your timezone:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="nb">export</span> <span class="nv">TZ</span><span class="o">=</span>PST8PDT &gt;&gt;tsdb.local
+<p>Servers are frequently using UTC as their timezone. By default, the TSD renders graphs using the local timezone of the server. You can override this to have graphs in your local time by specifying a timezone in <code class="docutils literal notranslate"><span class="pre">./tsdb.local</span></code>. For example, if you’re in California, this will force the TSD to use your timezone:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="nb">export</span> <span class="nv">TZ</span><span class="o">=</span>PST8PDT &gt;&gt;tsdb.local
 </pre></div>
 </div>
-<p>On most Linux and BSD systems, you can look under <code class="docutils literal"><span class="pre">/usr/share/zoneinfo</span></code> for names of timezones supported on your system.</p>
+<p>On most Linux and BSD systems, you can look under <code class="docutils literal notranslate"><span class="pre">/usr/share/zoneinfo</span></code> for names of timezones supported on your system.</p>
 <p><em>Changing JVM parameters</em></p>
-<p>You might want to adjust JVM parameters, for instance to turn on GC activity logging or to set the size of various memory regions. In order to do so, simply set the variable JVMARGS in <code class="docutils literal"><span class="pre">./tsdb.local</span></code>.</p>
+<p>You might want to adjust JVM parameters, for instance to turn on GC activity logging or to set the size of various memory regions. In order to do so, simply set the variable JVMARGS in <code class="docutils literal notranslate"><span class="pre">./tsdb.local</span></code>.</p>
 <p>Here is an example that is recommended for production use:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">GCARGS</span><span class="o">=</span><span class="s2">&quot;-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">GCARGS</span><span class="o">=</span><span class="s2">&quot;-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps\</span>
 <span class="s2"> -XX:+PrintTenuringDistribution -Xloggc:/tmp/tsd-gc-`date +%s`.log&quot;</span>
 <span class="k">if</span> <span class="nb">test</span> -t <span class="m">0</span><span class="p">;</span> <span class="k">then</span> <span class="c1"># if stdin is a tty, don&#39;t turn on GC logging.</span>
   <span class="nv">GCARGS</span><span class="o">=</span>
@@ -223,7 +214,7 @@
         <li class="right" >
           <a href="../backends/cassandra.html" title="Cassandra"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>

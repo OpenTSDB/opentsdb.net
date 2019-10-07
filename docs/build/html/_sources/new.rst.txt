@@ -12,8 +12,8 @@ While 3.0 is still a ways off, we'll be pushing some of the new features into a 
 * Improved Expressions - Perform group by, downsampling and arithmetic modifications in any order. Potentially support UDFs as well.
 * Anomaly Processing/Forecasting - Integrate with modeling libraries (such as `EGADs <https://github.com/yahoo/egads>`_) for deeper time series analysis. 
 
-2.4 (Planned)
--------------
+2.4
+---
 
 * Rollup/Pre-Aggregates - Support for storing and querying time-based rolled up data and/or pre-aggregated values.
 * Distributed Percentile - Store histograms (or sketches) for calculating proper percentiles over multiple sources.

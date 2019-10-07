@@ -2,23 +2,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Troubleshooting &#8212; OpenTSDB 2.3 documentation</title>
+    <meta charset="utf-8" />
+    <title>Troubleshooting &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="HTTP API" href="../api_http/index.html" />
@@ -36,8 +28,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,13 +41,13 @@
         <li class="right" >
           <a href="tuning.html" title="Tuning"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Troubleshooting</a><ul>
 <li><a class="reference internal" href="#opentsdb-compactions-trigger-large-tmp-files-and-region-server-crashes-in-hbase">OpenTSDB compactions trigger large .tmp files and region server crashes in HBase</a></li>
@@ -73,13 +64,13 @@
   <p class="topless"><a href="../api_http/index.html"
                         title="next chapter">HTTP API</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -92,22 +83,22 @@
             
   <div class="section" id="troubleshooting">
 <h1>Troubleshooting</h1>
-<p>This page lists common issues encountered by users of OpenTSDB along with various troubleshooting steps. If you run into an issue, please check the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">OpenTSDB Google Group</a> or the <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">Github Issues</a>. If you can't find an answer, please include your operating system, TSD version and HBase version in your question.</p>
+<p>This page lists common issues encountered by users of OpenTSDB along with various troubleshooting steps. If you run into an issue, please check the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">OpenTSDB Google Group</a> or the <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">Github Issues</a>. If you can’t find an answer, please include your operating system, TSD version and HBase version in your question.</p>
 <div class="section" id="opentsdb-compactions-trigger-large-tmp-files-and-region-server-crashes-in-hbase">
 <h2>OpenTSDB compactions trigger large .tmp files and region server crashes in HBase</h2>
-<p>This can be caused if you use millisecond timestamps and write thousands of data points for a single metric in a single hour. In this case, the column qualifier and row key can grow larger than the configured <code class="docutils literal"><span class="pre">hfile.index.block.max.size</span></code>. In this situation we recommend that you disable TSD compaction code. In the future we will support appends which will allow for compacted columns with small qualifiers.</p>
+<p>This can be caused if you use millisecond timestamps and write thousands of data points for a single metric in a single hour. In this case, the column qualifier and row key can grow larger than the configured <code class="docutils literal notranslate"><span class="pre">hfile.index.block.max.size</span></code>. In this situation we recommend that you disable TSD compaction code. In the future we will support appends which will allow for compacted columns with small qualifiers.</p>
 </div>
 <div class="section" id="tsds-are-slow-to-respond-after-region-splits-or-over-long-run-times">
 <h2>TSDs are slow to respond after region splits or over long run times</h2>
-<p>During region splits or region migrations, OpenTSDB's AsyncHBase client will buffer RPCs in memory and attempt to flush them once the regions are back online. Each region has a 10,000 RPC buffer by default and if many regions are down then the RPCs can eventually fill up the TSD heap and cause long garbage collection pauses. If this happens, you can either increase your heap to accommodate more region splits or decrease the NSRE queue size by modifying the <code class="docutils literal"><span class="pre">hbase.nsre.high_watermark</span></code> config parameter in AsyncHBase 1.7 and OpenTSDB 2.2.</p>
+<p>During region splits or region migrations, OpenTSDB’s AsyncHBase client will buffer RPCs in memory and attempt to flush them once the regions are back online. Each region has a 10,000 RPC buffer by default and if many regions are down then the RPCs can eventually fill up the TSD heap and cause long garbage collection pauses. If this happens, you can either increase your heap to accommodate more region splits or decrease the NSRE queue size by modifying the <code class="docutils literal notranslate"><span class="pre">hbase.nsre.high_watermark</span></code> config parameter in AsyncHBase 1.7 and OpenTSDB 2.2.</p>
 </div>
 <div class="section" id="tsds-are-stuck-in-gc-or-crashing-due-to-out-of-memory-exceptions">
 <h2>TSDs are stuck in GC or crashing due to Out of Memory Exceptions</h2>
 <p>There are a number of potential causes for this problem including:</p>
 <ul class="simple">
-<li>Multiple NSREs from HBase - See the section above about TSDs being slow to respond.</li>
-<li>Too many writes - If the rate of writes to TSD is high, queues can build up in AsyncHBase (see above) or in the compaction queue. If this is the case, check HBase performance and try disabling compactions.</li>
-<li>Large queries - A very large query with many time series or for a long range can cause the TSD to OOM. Try reducing query size or break large queries up into smaller chunks.</li>
+<li><p>Multiple NSREs from HBase - See the section above about TSDs being slow to respond.</p></li>
+<li><p>Too many writes - If the rate of writes to TSD is high, queues can build up in AsyncHBase (see above) or in the compaction queue. If this is the case, check HBase performance and try disabling compactions.</p></li>
+<li><p>Large queries - A very large query with many time series or for a long range can cause the TSD to OOM. Try reducing query size or break large queries up into smaller chunks.</p></li>
 </ul>
 </div>
 </div>
@@ -130,7 +121,7 @@
         <li class="right" >
           <a href="tuning.html" title="Tuning"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>

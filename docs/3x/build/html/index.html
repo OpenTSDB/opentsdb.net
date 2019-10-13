@@ -69,11 +69,14 @@
 <li class="toctree-l2"><a class="reference internal" href="changes.html#whats-missing">Whats Missing</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#runtime-requirements">Runtime Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#compile">Compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#querying">Querying</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_http/index.html">HTTP API</a><ul>
@@ -155,7 +158,7 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changes in 3.0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_http/index.html">HTTP API</a></li>
 </ul>
 </div>
@@ -166,6 +169,10 @@
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We're also in the process of re-writing the 3.0 Java API a bit. Right now data is handled in a memory efficient manner but it doesn't take advantage of CPU caching and is rather slow. We're adding a <em>push</em> model that will allow for vectors similar to other TSDBs while also allowing for precise raw data processing.</p>
+</div>
 </div>
 
 

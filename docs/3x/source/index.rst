@@ -33,3 +33,7 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`search`
+
+.. Note::
+
+  We're also in the process of re-writing the 3.0 Java API a bit. Right now data is handled in a memory efficient manner but it doesn't take advantage of CPU caching and is rather slow. We're adding a *push* model that will allow for vectors similar to other TSDBs while also allowing for precise raw data processing.

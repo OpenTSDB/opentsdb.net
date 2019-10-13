@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Installation &#8212; OpenTSDB 3.0 documentation</title>
+    <title>Installation and Quick Start &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -70,11 +70,14 @@
 <li class="toctree-l2"><a class="reference internal" href="changes.html#whats-missing">Whats Missing</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation and Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#runtime-requirements">Runtime Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compile">Compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#querying">Querying</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_http/index.html">HTTP API</a><ul>
@@ -135,11 +138,20 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#">Installation and Quick Start</a><ul>
 <li><a class="reference internal" href="#runtime-requirements">Runtime Requirements</a></li>
-<li><a class="reference internal" href="#id1">Installation</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#compile">Compile</a></li>
-<li><a class="reference internal" href="#docker">Docker</a></li>
+<li><a class="reference internal" href="#docker">Docker</a><ul>
+<li><a class="reference internal" href="#quickstart">Quickstart</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#local">Local</a></li>
+<li><a class="reference internal" href="#id1">Docker</a></li>
+<li><a class="reference internal" href="#querying">Querying</a><ul>
+<li><a class="reference internal" href="#write-data">Write Data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -148,8 +160,8 @@
       </div>
     <div class="col-md-9 content">
       
-  <div class="section" id="installation">
-<h1>Installation</h1>
+  <div class="section" id="installation-and-quick-start">
+<h1>Installation and Quick Start</h1>
 <p>OpenTSDB, so far, must be compiled from source. You can use the compiled libs directly or build a Docker image. The source is at <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/tree/3.0">https://github.com/OpenTSDB/opentsdb/tree/3.0</a>, just make sure to checkout the 3.0 branch.</p>
 <div class="section" id="runtime-requirements">
 <h2>Runtime Requirements</h2>
@@ -157,22 +169,295 @@
 <ul class="simple">
 <li>A Linux system (or Windows with manual building)</li>
 <li>Java Runtime Environment 1.8 or later</li>
+<li><dl class="first docutils">
+<dt>A data store such as:</dt>
+<dd><ul class="first last">
 <li>HBase 0.92 or later</li>
+<li>Google Bigtable</li>
+<li>The dummy in-memory built-in store</li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </div>
-<div class="section" id="id1">
+<div class="section" id="installation">
 <h2>Installation</h2>
 <p>3.0 has a built-in super simple and inefficient in-memory data store that you can read and write from. If the <code class="docutils literal"><span class="pre">MockBase</span></code> plugin is loaded, you can query some data as soon as you start the process and write using the <code class="docutils literal"><span class="pre">/api/put</span></code> HTTP API.</p>
 <p>If you have data in HBase (TODO, Bigtable support is kinda working but it's slow right now) then you can query it without problem. If you want to test with HBase, follow the 2.x documentation to install HBase and configure the tables.</p>
 </div>
 <div class="section" id="compile">
 <h2>Compile</h2>
-<p>From the root directory, run <code class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span></code> and look in the <code class="docutils literal"><span class="pre">distribution/target/</span></code> directory. There will be a tarball you can move around and uncompress, e.g. to some place like <code class="docutils literal"><span class="pre">/opt/opentsdb/</span></code> or <code class="docutils literal"><span class="pre">/usr/share/opentsdb</span></code>. That directory will contain sub directories including <cite>bin</cite> where the exec script is located, <code class="docutils literal"><span class="pre">conf</span></code> where configurations lie and <cite>lib</cite> where the JARs are located. To start a TSD, run <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb_dev.yaml</span></code> to run the in-memory store or <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb.yaml</span></code> to run it with HBase (and make sure to modify the config for your HBase settings).</p>
+<p>From the root directory, run <code class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span></code> (append <cite>-Dmaven.test.skip=true</cite> if you don't want to run tests) and look in the <code class="docutils literal"><span class="pre">distribution/target/</span></code> directory. There will be a tarball you can move around and uncompress, e.g. to some place like <code class="docutils literal"><span class="pre">/opt/opentsdb/</span></code> or <code class="docutils literal"><span class="pre">/usr/share/opentsdb</span></code>. That directory will contain sub directories including <cite>bin</cite> where the exec script is located, <code class="docutils literal"><span class="pre">conf</span></code> where configurations lie and <cite>lib</cite> where the JARs are located.</p>
 </div>
 <div class="section" id="docker">
 <h2>Docker</h2>
 <p>To build the Docker image, from the root directory run <code class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span> <span class="pre">-Pdocker</span></code> and it should build and install an image in your local docker repo (assuming Docker is installed). NOTE: We could use some help on properly building docker and getting instructions together on how to upload the image somewhere).</p>
-<p>To start the docker image, run <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--name</span> <span class="pre">opentsdb</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opentsdb</span></code>.</p>
+<div class="section" id="quickstart">
+<h3>Quickstart</h3>
+</div>
+</div>
+<div class="section" id="local">
+<h2>Local</h2>
+<ul class="simple">
+<li>Create a logging directory named <cite>/var/log/opentsdb</cite>. If you're on a Mac, run <cite>sudo mkdir /var/log/opentsdb</cite> then run <cite>sudo chown &lt;your username&gt; /var/log/opentsdb</cite>. If you can't create that directory due to permissions, modify the <cite>conf/logback.xml</cite> file to write to a different directory.</li>
+<li>Change to <cite>cd distribution/target/opentsdb-3.0.90-SNAPSHOT/opentsdb/</cite> or the properly versioned directory.</li>
+<li>To start a TSD, run <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb_dev.yaml</span></code> to run the in-memory store or <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb.yaml</span></code> to run it with HBase (and make sure to modify the config for your HBase settings).</li>
+<li>Make sure the TSD is running by loading <cite>http://localhost:4242/api/registry/plugins</cite> in your browser or via a CLI tool.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>Docker</h2>
+<ul class="simple">
+<li>To start the docker image, run <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--name</span> <span class="pre">opentsdb</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opentsdb</span></code>.</li>
+<li>Make sure the TSD is running by loading <cite>http://localhost:4242/api/registry/plugins</cite> in your browser or via a CLI tool.</li>
+</ul>
+</div>
+<div class="section" id="querying">
+<h2>Querying</h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section assumes you are using the in-memory store. At startup, some dummy time series are written with dummy data using a timestamp around the startup time.</p>
+</div>
+<p>Using a CLI tool like CURL or a Restful API GUI tool like Postmane, make an HTTP POST V3 query to <cite>http://localhost:4242/api/query/graph</cite> with the following JSON:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mode&quot;</span><span class="o">:</span> <span class="s2">&quot;SINGLE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timezone&quot;</span><span class="o">:</span> <span class="s2">&quot;America/Denver&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;chain&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span>
+                    <span class="p">},{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;DEN&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;dc&quot;</span>
+                    <span class="p">}]</span>
+            <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;avg&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                    <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+            <span class="p">}],</span>
+            <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+    <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.out&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;chain&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span>
+                    <span class="p">},{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;DEN&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;dc&quot;</span>
+                    <span class="p">}]</span>
+            <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;avg&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                    <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+            <span class="p">}],</span>
+            <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span>
+    <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;e1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;expression&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;expression&quot;</span><span class="o">:</span> <span class="s2">&quot; m1 + m2 &quot;</span><span class="p">,</span>
+            <span class="s2">&quot;join&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;Join&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;joinType&quot;</span><span class="o">:</span> <span class="s2">&quot;NATURAL_OUTER&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;joins&quot;</span><span class="o">:</span> <span class="p">{}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                    <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+            <span class="p">}],</span>
+            <span class="s2">&quot;infectiousNan&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;substituteMissing&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="s2">&quot;variableInterpolators&quot;</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;ds&quot;</span><span class="p">,</span> <span class="s2">&quot;ds2&quot;</span><span class="p">]</span>
+    <span class="p">}],</span>
+    <span class="s2">&quot;serdesConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;JsonV3QuerySerdes&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;JsonV3QuerySerdes&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;e1&quot;</span><span class="p">]</span>
+    <span class="p">}],</span>
+    <span class="s2">&quot;logLevel&quot;</span><span class="o">:</span> <span class="s2">&quot;TRACE&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For a V2 query, use the endpoint <cite>http://localhost:4242/api/query/</cite> and post:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;2h-ago&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;zimsum&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mi">1</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;explicitTags&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
+      <span class="s2">&quot;downsample&quot;</span><span class="o">:</span> <span class="s2">&quot;60s-avg-nan&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;tot&quot;</span><span class="o">:</span> <span class="p">[],</span>
+      <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;wildcard&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;dc&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;groupBy&quot;</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;showQuery&quot;</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You should see some time series in the output and this will confirm that the TSD is up and running.</p>
+<div class="section" id="write-data">
+<h3>Write Data</h3>
+<p>Now that you can query data, try writing something. Currently we only have the HTTP JSON API available. As an example, <strong>POST</strong> the following JSON to <cite>http://localhost:4242/api/put/</cite>:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[{</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300800</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="p">{</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300800</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
+    <span class="p">}</span>
+<span class="p">},{</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300860</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="p">{</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300860</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">32.5</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>You should get a <cite>204</cite> response code without any content. This means the data was written successfully to the in-memory store. Turn around an <strong>POST</strong> the following query to <a href="#id2"><span class="problematic" id="id3">``</span></a>:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1546300000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;1546344000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mode&quot;</span><span class="o">:</span> <span class="s2">&quot;SINGLE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timezone&quot;</span><span class="o">:</span> <span class="s2">&quot;America/Denver&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span>
+            <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;gb&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;groupby&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tagKeys&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                    <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+            <span class="p">}],</span>
+            <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+    <span class="p">}],</span>
+    <span class="s2">&quot;serdesConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;JsonV3QuerySerdes&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;JsonV3QuerySerdes&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;gb&quot;</span><span class="p">]</span>
+    <span class="p">}],</span>
+    <span class="s2">&quot;logLevel&quot;</span><span class="o">:</span> <span class="s2">&quot;TRACE&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You should see a result like:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;gb:m1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;1546300800&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+                        <span class="s2">&quot;1546300860&quot;</span><span class="o">:</span> <span class="mi">2</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;1546300800&quot;</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+                        <span class="s2">&quot;1546300860&quot;</span><span class="o">:</span> <span class="mf">32.5</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;log&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;23:31:10,993  TRACE  CTX:1458874482 Q:8843409259624131098  [None] -  -------------------------\n[V] QueryContext (ContextNodeConfig)\n[V] m1 (DefaultTimeSeriesDataSourceConfig)\n[V] gb (GroupByConfig)\n\n[E] QueryContext =&gt; gb\n[E] gb =&gt; m1\n -------------------------\n&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;23:31:10,994  DEBUG  CTX:1458874482 Q:8843409259624131098  [m1] - [MockDataStore@68857875] DONE with filtering. net.opentsdb.storage.MockDataStore$LocalNode@2bfb5dae  Results: 4&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;23:31:10,995  TRACE  CTX:1458874482 Q:8843409259624131098  [gb] - Received response: gb:m1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;23:31:10,995  TRACE  CTX:1458874482 Q:8843409259624131098  [None] - Query serialization complete.&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now you're good to try out alternative configurations, different queries and more. Thanks!</p>
+</div>
 </div>
 </div>
 

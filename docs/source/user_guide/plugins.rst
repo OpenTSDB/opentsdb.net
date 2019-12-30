@@ -126,3 +126,13 @@ Plugins
 -------
 
 * `Yahoo Data Sketches <https://github.com/OpenTSDB/opentsdb-datasketches>`_ - A set of algorithms for collecting various metrics, merging the results from distributed sources, and computing useful metrics from the results. This implementation uses the quantiles sketch for encoding and storing fixed error rated latency measurements.
+
+Meta Data Cache Plugins
+^^^^^^^^^^^^^^^^^
+
+These are implementations of meta data caching, which allow plugins to reduce the cost of storing timeseries meta data.
+
+Plugins
+-------
+
+* `G-Research tsuid-ratelimiter <https://github.com/G-Research/opentsdb-tsuid-ratelimiter>`_ - Uses a local LRU cache to rate limit writes of TSMeta updates when you're running with tsuid tracking, massively reducing the cost of doing so.

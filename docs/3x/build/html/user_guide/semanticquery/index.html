@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Semantic Query (Version 3) &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Downsample" href="downsample.html" />
+    <link rel="prev" title="Users Guide" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Semantic Query (Version 3)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../index.html" title="Previous Chapter: Users Guide"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Users Guide</span>
+    </a>
+  </li>
+  <li>
+    <a href="downsample.html" title="Next Chapter: Downsample"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Downsample &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Semantic Query (Version 3)</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#execution-graph">Execution Graph</a><ul>
+<li><a class="reference internal" href="#common-query-node-fields">Common Query Node Fields</a></li>
+<li><a class="reference internal" href="#built-in-query-nodes">Built-in Query Nodes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#filters">Filters</a></li>
+<li><a class="reference internal" href="#serializer-configs">Serializer Configs</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="semantic-query-version-3">
+<h1>Semantic Query (Version 3)</h1>
+<p>OpenTSDB 3 has a new query syntax that finally allows for manipulating the time series data with various transforms, operators, etc. The new syntax is designed to allow the querant to provide a query <em>graph</em> that links one or more time series data sources with transformation nodes that are finally serialized.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The query syntax is verbose and ugly. It is intended as a <em>semantic</em> design, conveying the intent of the queryant, ontop of which we can overaly easier query languages like SQL, PromQL, possibly Flux and others. It does not support branches or loops at this time so it is not a Turing complete DSL but should support the vast majority of operations required for time series analysis.</p>
+</div>
+<p>These documents will include query examples in JSON as the most common use case will be querying an OpenTSDB instance via the HTTP interface. YAML may also be used over HTTP. For those importing the OpenTSDB JAR files, a <code class="docutils literal"><span class="pre">SemanticQuery.newBuilder()</span></code> method can be called to start constructing a query. We'll have documentation on making calls from Java later on.</p>
+<div class="section" id="overview">
+<h2>Overview</h2>
+<p>The top level query has the following fields:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>start</td>
+<td>String or Integer</td>
+<td>Required</td>
+<td>The start time for the query in relative or absolute timestamps. This field must have a value and if <code class="docutils literal"><span class="pre">end</span></code> is not set, data from this time until the current time on the TSD server will be fetched. See</td>
+<td>null</td>
+<td>1h-ago</td>
+</tr>
+<tr class="row-odd"><td>end</td>
+<td>String or Integer</td>
+<td>Optional</td>
+<td>The end time of the query in relative or absolute timestamps. If not set, the current time on the TSD server will be used. See.</td>
+<td>null</td>
+<td>5m-ago</td>
+</tr>
+<tr class="row-even"><td>executionGraph</td>
+<td>Array</td>
+<td>Required</td>
+<td>An array of one or more query node definitions to determine what data is fetched and how it is transformed.</td>
+<td>null</td>
+<td>See below</td>
+</tr>
+<tr class="row-odd"><td>filters</td>
+<td>Array</td>
+<td>Optional</td>
+<td>An optional array of named data filters that can be used by <code class="docutils literal"><span class="pre">TimeSeriesDataSource</span></code> query nodes for filtering.</td>
+<td>null</td>
+<td>See ___.</td>
+</tr>
+<tr class="row-even"><td>serdesConfigs</td>
+<td>Array</td>
+<td>Optional</td>
+<td>An optional array of serialization configurations to control what data is serialized in the response.</td>
+<td>null</td>
+<td>See----</td>
+</tr>
+<tr class="row-odd"><td>logLevel</td>
+<td>String</td>
+<td>Optional</td>
+<td>A string that determines how much data is returned in the <code class="docutils literal"><span class="pre">log</span></code> field of the query response. This can be a one of the following literal values in order from the most detailed information to least information: <code class="docutils literal"><span class="pre">TRACE</span></code>, <code class="docutils literal"><span class="pre">DEBUG</span></code>, <code class="docutils literal"><span class="pre">INFO</span></code>, <code class="docutils literal"><span class="pre">WARN</span></code>, <code class="docutils literal"><span class="pre">ERROR</span></code>. Note that <code class="docutils literal"><span class="pre">DEBUG</span></code> and <code class="docutils literal"><span class="pre">TRACE</span></code> can affect query performance as more measurements are captured and more log lines will be serialized. See ____</td>
+<td>ERROR</td>
+<td>INFO</td>
+</tr>
+<tr class="row-even"><td>cacheMode</td>
+<td>String</td>
+<td>Optional</td>
+<td>An optional caching mode when a query cache node is available. TODO</td>
+<td>null</td>
+<td>NORMAL</td>
+</tr>
+</tbody>
+</table>
+<p>At a minimum, every query must have a start time and an execution graph with a <a href="#id1"><span class="problematic" id="id2">``</span></a>TimeSeriesDataSource `` query node. For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+       <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+     <span class="p">}</span>
+   <span class="p">}]</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>This query would fetch all of the data for the metric <cite>sys.if.in</cite> from 1 hour in the past to the current wall-clock time and serialize each time series individually. (If there are many hosts emitting this metric, you could see a <em>lot</em> of data.)</p>
+<p>Note the <code class="docutils literal"><span class="pre">executionGraph</span></code> field. This is the most important part of the query.</p>
+</div>
+<div class="section" id="execution-graph">
+<h2>Execution Graph</h2>
+<p>A query execution graph consists of one or more &quot;Query Node&quot; entries that define a data source or transformation on data flowing through network of query nodes. Execution graphs are directed acyclic graphs or <a class="reference external" href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a> in computer science terms. Each node has an <code class="docutils literal"><span class="pre">id</span></code> field and links are created by adding an <code class="docutils literal"><span class="pre">id</span></code> to the <code class="docutils literal"><span class="pre">sources</span></code> list of another node.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Graphs cannot create a circular link, meaming a node cannot have itself as a soure or have the <cite>id</cite> of a node downstream of it as a source. E.g. if we have three nodes: <code class="docutils literal"><span class="pre">m1,</span> <span class="pre">ds,</span> <span class="pre">gb</span></code> and a link like <code class="docutils literal"><span class="pre">gb</span> <span class="pre">&lt;-</span> <span class="pre">ds</span> <span class="pre">&lt;-</span> <span class="pre">m1</span></code>, we cannot have <code class="docutils literal"><span class="pre">gb</span></code> be a source of <code class="docutils literal"><span class="pre">ds</span></code>.</p>
+</div>
+<p>An example execution graph with node configuration fields omitted:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span>
+     <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;gb1&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;ds1&quot;</span><span class="p">]</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m2&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span>
+     <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds2&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;gb2&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;ds2&quot;</span><span class="p">]</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;expression&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;gb1&quot;</span><span class="p">,</span> <span class="s2">&quot;gb2&quot;</span><span class="p">]</span>
+   <span class="p">}]</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>In this graph we have two metrics, <code class="docutils literal"><span class="pre">m1</span></code> and <code class="docutils literal"><span class="pre">m2</span></code> that are data sources. Each metric has a downsample node, <code class="docutils literal"><span class="pre">ds1</span></code> that has as a source <code class="docutils literal"><span class="pre">m1</span></code>, and <code class="docutils literal"><span class="pre">ds2</span></code> that has <code class="docutils literal"><span class="pre">m2</span></code> as a source. Each downsample feeds into a group by node, <code class="docutils literal"><span class="pre">gb1</span></code> and <code class="docutils literal"><span class="pre">gb2</span></code> respectively. Finally, the two group by nodes feed into a single expression node where we may perform some operation like <code class="docutils literal"><span class="pre">gb1</span> <span class="pre">/</span> <span class="pre">gb2</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are currently some bugs around feeding multiple sources through the same nodes. E.g. you could have <code class="docutils literal"><span class="pre">m1,m2</span> <span class="pre">-&gt;</span> <span class="pre">ds</span> <span class="pre">-&gt;</span> <span class="pre">gb</span> <span class="pre">-&gt;</span> <span class="pre">expression</span></code> to save two node definitions. We'll fix it eventually but for now, if you run into problems with queries timing out, try splitting out the nodes so they have independent execution paths.</p>
+</div>
+<p>Some important notes:</p>
+<ul class="simple">
+<li>At least one data source must be present or the TSD will respond with an exception.</li>
+<li>Note that in the query definition, nodes can appear in any order. They will be sorted by the TSD during query planning.</li>
+<li>Nodes without sources will simply be ignored.</li>
+<li>If a cycle (a circular link in the graph) is detected, the query will fail with an error.</li>
+<li>Parallel graphs are allowed and terminal leaf nodes will be serialized in the output.</li>
+</ul>
+<div class="section" id="common-query-node-fields">
+<h3>Common Query Node Fields</h3>
+<p>All query nodes have three fields defined below. Documentation for each node will ommit these fields:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>String</td>
+<td>Required</td>
+<td>A unique ID for the graph, i.e. no other node in the graph array can have the same ID. This can either be a descriptive name for the node such as <code class="docutils literal"><span class="pre">downsample_metric1</span></code> wherein the <code class="docutils literal"><span class="pre">type</span></code> field is the ID or name of a query node in the Registry, or it can be the ID of a node in the Registry and the <code class="docutils literal"><span class="pre">type</span></code> field can be missing.</td>
+<td>null</td>
+<td>m1</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>String</td>
+<td>Optional*</td>
+<td>The ID or name of a query node in the Registry. *If there is only one node in the list of the given type and the <code class="docutils literal"><span class="pre">id</span></code> is the name in the Registry, this field may be omitted. Otherwise the type must be specified.</td>
+<td>null</td>
+<td>timeseriesdatasource</td>
+</tr>
+<tr class="row-even"><td>sources</td>
+<td>List</td>
+<td>Optional</td>
+<td>A list of <code class="docutils literal"><span class="pre">id</span></code> s that should pass data into this node. This is how the graph is formed. <em>Note</em> that data source nodes cannot have sources.</td>
+<td>null</td>
+<td>[&quot;m1&quot;, &quot;m2&quot;]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="built-in-query-nodes">
+<h3>Built-in Query Nodes</h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="downsample.html">Downsample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expression.html">Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="groupby.html">GroupBy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolator.html">Interpolators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="join.html">Join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slidingwindow.html">Sliding Window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summarizer.html">Summarizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeseriesdatasource.html">TimeSeriesDataSource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topn.html">TopN</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="filters">
+<h2>Filters</h2>
+<p>Data filters can be defined in a time series data source query node but if you have multiple sources that share the same filter, it's cleaner and simpler to define the filter once and refer to it from each node. Imagine computing the percent of time a Linux CPU is busy on hosts for a role in a data center. This requires loading 8 different CPU metrics. Instead of defining the filter 8 times, define a named filter at the top level of the query and refer to the ID of the filter in each node.</p>
+<p>For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[{</span>
+    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;f1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;Chain&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;op&quot;</span><span class="o">:</span> <span class="s2">&quot;AND&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;phx&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;tagKey&quot;</span><span class="o">:</span> <span class="s2">&quot;dc&quot;</span>
+                            <span class="p">},</span> <span class="p">{</span>
+                                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web_server&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;tagKey&quot;</span><span class="o">:</span> <span class="s2">&quot;role&quot;</span>
+                            <span class="p">},</span> <span class="p">{</span>
+                                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;prod&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;tagKey&quot;</span><span class="o">:</span> <span class="s2">&quot;environment&quot;</span>
+                            <span class="p">}]</span>
+                    <span class="p">}</span>
+            <span class="p">}]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">filters</span></code> field is an array of one or more named filter objects. Each named filter consists of:</p>
+<ul class="simple">
+<li><strong>id</strong> - A unique alpha-numeric ID for the filter.</li>
+<li><strong>filter</strong> - The filter definition. Same as a regular data source filter.</li>
+</ul>
+<p>To use a top-level, named filter, reference the <code class="docutils literal"><span class="pre">id</span></code> in a data source query node definition, e.g. if we use the example above with an <code class="docutils literal"><span class="pre">id</span></code> of <code class="docutils literal"><span class="pre">f1</span></code>:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;f1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="serializer-configs">
+<h2>Serializer Configs</h2>
+<p>The <code class="docutils literal"><span class="pre">serdesConfigs</span></code> field is an optional array of configuration options that determine what data is emitted in the final, serialized results.</p>
+<p>By default, the terminal leaves of a graph are serialized (i.e. the query nodes that do not feed into another node.) Using the example execution graph above, only time series from the <code class="docutils literal"><span class="pre">expression</span></code> graph would be serialized. However, a common use case might be graphing the results of the group by nodes as well as the expression. Instead of defining another pair of parallel query graphs that would reprocess the data (or firing a separate query), you can tell the TDS to be more efficient by asking to serialize both the expression and the group by nodes. An example serialization config would look like this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;serdesConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;JsonV3QuerySerdes&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;gb1&quot;</span><span class="p">,</span> <span class="s2">&quot;gb2&quot;</span><span class="p">,</span> <span class="s2">&quot;expression&quot;</span><span class="p">]</span>
+    <span class="p">}]</span>
+</pre></div>
+</div>
+<p>Fields:</p>
+<ul class="simple">
+<li><strong>id</strong> - The ID of the serialization plugin or formatter to use. <strong>NOTE</strong> We only have one type available at this time, the <code class="docutils literal"><span class="pre">JsonV3QuerySerdes</span></code> that emitts JSON.</li>
+<li><strong>filter</strong> - An array of <a href="#id3"><span class="problematic" id="id4">``</span></a>id``s from query nodes. The order does not matter.</li>
+</ul>
+<p>If no <code class="docutils literal"><span class="pre">serdesConfigs</span></code> are defined in the query, defaults are used.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

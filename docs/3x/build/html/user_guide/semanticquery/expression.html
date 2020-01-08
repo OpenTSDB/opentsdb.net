@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Expression &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Filters" href="filters.html" />
+    <link rel="prev" title="Downsample" href="downsample.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Semantic Query (Version 3)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="downsample.html" title="Previous Chapter: Downsample"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Downsample</span>
+    </a>
+  </li>
+  <li>
+    <a href="filters.html" title="Next Chapter: Filters"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Filters &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Expression</a><ul>
+<li><a class="reference internal" href="#variable-names">Variable Names</a></li>
+<li><a class="reference internal" href="#literals">Literals</a></li>
+<li><a class="reference internal" href="#operators">Operators</a><ul>
+<li><a class="reference internal" href="#substitution">Substitution</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#joining-time-series">Joining Time Series</a><ul>
+<li><a class="reference internal" href="#joining-on-time">Joining On Time</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-query">Example Query</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="expression">
+<h1>Expression</h1>
+<p>Computes an arbitrary expression on time series fed to the node. It supports arithmentic, relational and logical operations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When combining arithmetic and relational/logical ops, we currently treat values &gt; 0 as true and &lt;= 0 as false. At some point we need to make it configurable.</p>
+</div>
+<p>Fields include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>expression</td>
+<td>String</td>
+<td>Required</td>
+<td>The expression string to compute.</td>
+<td>null</td>
+<td>m2 / (m1 + m2)</td>
+</tr>
+<tr class="row-odd"><td>as</td>
+<td>String</td>
+<td>Optional</td>
+<td>A name to substitute for the metric name for time series emitted from this node. If the <code class="docutils literal"><span class="pre">as</span></code> config is missing, the expression ID is substituted as the metric name. Tags are preserved.</td>
+<td>null</td>
+<td>Percent</td>
+</tr>
+<tr class="row-even"><td>joinConfig</td>
+<td>Object</td>
+<td>Required</td>
+<td>The join config to use when combining series.</td>
+<td>null</td>
+<td>See the Join section below.</td>
+</tr>
+<tr class="row-odd"><td>interpolatorConfig</td>
+<td>List</td>
+<td>Required <em>for now</em></td>
+<td>A list of interpolator configs for the downsampler to deal with empty buckets.</td>
+<td>null</td>
+<td>See <a class="reference internal" href="interpolator.html"><span class="doc">Interpolators</span></a></td>
+</tr>
+<tr class="row-even"><td>infectiousNan</td>
+<td>boolean</td>
+<td>Optional</td>
+<td>Whether or not NaNs from the source data should infect each timestamp when aggregating values. E.g. if one value out of 20 are <code class="docutils literal"><span class="pre">NaN</span></code> for a timestamp and this is true, the timestamp will return a <code class="docutils literal"><span class="pre">NaN</span></code>. If all values for the timestamp are <code class="docutils literal"><span class="pre">NaN</span></code> then the result will be <code class="docutils literal"><span class="pre">NaN</span></code> regardless.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="variable-names">
+<h2>Variable Names</h2>
+<p>Variable names in expressions can be one of two values:</p>
+<ul class="simple">
+<li>A <code class="docutils literal"><span class="pre">TimeSeriesDataSource</span></code> node ID such as <code class="docutils literal"><span class="pre">m1</span></code> if the node had that ID. This is also the data source ID.</li>
+<li>The full metric name such as <code class="docutils literal"><span class="pre">sys.cpu.busy</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="literals">
+<h2>Literals</h2>
+<p>Literals may also be used such as:</p>
+<ul class="simple">
+<li>Integers</li>
+<li>Double precision floating point values</li>
+<li><code class="docutils literal"><span class="pre">true</span></code> or <code class="docutils literal"><span class="pre">false</span></code></li>
+</ul>
+</div>
+<div class="section" id="operators">
+<h2>Operators</h2>
+<p>Currently supported operators include:</p>
+<ul class="simple">
+<li><strong>+</strong> - Addition</li>
+<li><strong>-</strong> - Subtraction</li>
+<li><strong>*</strong> - Multiplication</li>
+<li><strong>/</strong> - Division</li>
+<li><strong>%</strong> - Modulo</li>
+<li><strong>&gt;, &lt;, ==, !=, &lt;=, &gt;=</strong> - Conditionals</li>
+<li><strong>AND, OR, NOT</strong> - Relationals</li>
+</ul>
+<p>We'll have ternary support shortly.</p>
+<div class="section" id="substitution">
+<h3>Substitution</h3>
+<p>When a value is missing at a given timestamp for either side of an expression and the interpolator does not return a literal value, a value may be subsituted based on the operator in order to provide a useful result.</p>
+<ul class="simple">
+<li>For addition and subtraction, missing values are treated as zero.</li>
+<li>For all other operations, missing values are treated as infectious NaNs.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="joining-time-series">
+<h2>Joining Time Series</h2>
+<p>Because multiple time series are received in an expression node from multiple sources, the time series must be grouped so that time series from source A match up with those from source B based on the tag values. Additionally, when two time series are matched, the data points at each timestamp must be aligned as well.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We highly recommend that you apply a downsampling operator to all data sources before linking them into an expression node so that the values align cleanly and interpolation is skipped.</p>
+</div>
+<p>If we take the example query below, we'll see time series like the following:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Number</th>
+<th class="head">Source</th>
+<th class="head">Metric</th>
+<th class="head">Tags</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>m1</td>
+<td>sys.if.in</td>
+<td>host=web01, dc=PHX</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>m1</td>
+<td>sys.if.in</td>
+<td>host=web02, dc=PHX</td>
+</tr>
+<tr class="row-even"><td>TS3</td>
+<td>m1</td>
+<td>sys.if.in</td>
+<td>host=web01, dc=DEN</td>
+</tr>
+<tr class="row-odd"><td>TS4</td>
+<td>m2</td>
+<td>sys.if.out</td>
+<td>host=web01, dc=PHX</td>
+</tr>
+<tr class="row-even"><td>TS5</td>
+<td>m2</td>
+<td>sys.if.out</td>
+<td>host=web02, dc=PHX</td>
+</tr>
+<tr class="row-odd"><td>TS6</td>
+<td>m2</td>
+<td>sys.if.out</td>
+<td>host=web01, dc=DEN</td>
+</tr>
+</tbody>
+</table>
+<p>We have 6 total time series with 3 from each time series data source.</p>
+<p>Similar to a relational database, there are a number of join types that you can choose from. The most common join is the <code class="docutils literal"><span class="pre">NATURAL_OUTER</span></code> join that will attempt a one-to-one match using all of the tags in a time series and for those that do not align it will use substitution rules to handle the missing series. Using a <code class="docutils literal"><span class="pre">NATURAL_OUTER</span></code> join (or even an <code class="docutils literal"><span class="pre">INNER</span></code> join) we would match <code class="docutils literal"><span class="pre">TS1</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS3</span></code>, <code class="docutils literal"><span class="pre">TS2</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS4</span></code> and <code class="docutils literal"><span class="pre">TS3</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS5</span></code>. The result of the expression would have 3 time series:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="15%" />
+<col width="35%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Number</th>
+<th class="head">Metric</th>
+<th class="head">Tags</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS7</td>
+<td>if.in.pct_of_total</td>
+<td>host=web01, dc=PHX</td>
+</tr>
+<tr class="row-odd"><td>TS8</td>
+<td>if.in.pct_of_total</td>
+<td>host=web02, dc=PHX</td>
+</tr>
+<tr class="row-even"><td>TS9</td>
+<td>if.in.pct_of_total</td>
+<td>host=web01, dc=DEN</td>
+</tr>
+</tbody>
+</table>
+<p>As another example, lets assume that we are using the <code class="docutils literal"><span class="pre">INNER</span></code> join and <code class="docutils literal"><span class="pre">TS2</span></code> and <code class="docutils literal"><span class="pre">TS6</span></code> are both missing values for our query time range. In this case our output would only have 1 time series, that of <code class="docutils literal"><span class="pre">TS7</span></code> in the table above because an inner join requires that both time series on either side of an expression be present in order for it to be evaluated.</p>
+<p>When processing multi-variate expressions, the expression is broken into a tree of binary expressions. If a pair of time series at one level of the tree fails to satisfy join requirements, the rest of the tree is not evaluated.</p>
+<p>For simple expressions where a single variable is combined with a literal value, join configurations are essentially ignored.</p>
+<p>For more details on join configs see <a class="reference internal" href="join.html"><span class="doc">Join</span></a>.</p>
+<div class="section" id="joining-on-time">
+<h3>Joining On Time</h3>
+<p>Once two time series are joined on time, we must then proceede to compute the expression for each data point in each series. Expressions will follow the same logic as downsamplers and group by nodes in that when particular values are missing at a timestamp, an interpolated value is used.</p>
+</div>
+</div>
+<div class="section" id="example-query">
+<h2>Example Query</h2>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+                    <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                            <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                    <span class="p">}],</span>
+                    <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.out&quot;</span>
+                    <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                            <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                    <span class="p">}],</span>
+                    <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span>
+            <span class="p">},</span> <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;e1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;as&quot;</span><span class="o">:</span> <span class="s2">&quot;if.in.pct_of_total&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;expression&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;expression&quot;</span><span class="o">:</span> <span class="s2">&quot;(m1 / (m1 + m2)) * 100&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;join&quot;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;Join&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;joinType&quot;</span><span class="o">:</span> <span class="s2">&quot;NATURAL_OUTER&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                            <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                    <span class="p">}],</span>
+                    <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;ds1&quot;</span><span class="p">,</span> <span class="s2">&quot;ds2&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -70,11 +70,23 @@
 <li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/semanticquery/index.html">Semantic Query (Version 3)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/logging.html">Logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">HTTP API</a><ul class="current">
@@ -221,7 +233,7 @@
 <tr class="row-even"><td>start</td>
 <td>String, Integer</td>
 <td>Required</td>
-<td>The start time for the query. This can be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><span class="doc">Querying or Reading Data</span></a> for details.</td>
+<td>The start time for the query. This can be a relative or absolute timestamp. See <span class="xref std std-doc">../../user_guide/query/index</span> for details.</td>
 <td>&#160;</td>
 <td>start</td>
 <td>&#160;</td>
@@ -230,7 +242,7 @@
 <tr class="row-odd"><td>end</td>
 <td>String, Integer</td>
 <td>Optional</td>
-<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <a class="reference internal" href="../../user_guide/query/index.html"><span class="doc">Querying or Reading Data</span></a> for details.</td>
+<td>An end time for the query. If not supplied, the TSD will assume the local system time on the server. This may be a relative or absolute timestamp. See <span class="xref std std-doc">../../user_guide/query/index</span> for details.</td>
 <td><em>current time</em></td>
 <td>end</td>
 <td>&#160;</td>
@@ -434,11 +446,11 @@
 <span class="mi">0</span><span class="nb">all</span><span class="o">-</span><span class="nb">sum</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="../../user_guide/query/downsampling.html"><span class="doc">Downsampling</span></a> for details on downsampling, a list of supported fill policies and how calendar based downsampling operates.</p>
+<p>See <span class="xref std std-doc">../../user_guide/query/downsampling</span> for details on downsampling, a list of supported fill policies and how calendar based downsampling operates.</p>
 </div>
 <div class="section" id="filters">
 <h3>Filters</h3>
-<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a>. For descriptions of the built-in filters see <a class="reference internal" href="../../user_guide/query/filters.html"><span class="doc">Query Filters</span></a>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
+<p>New for 2.2, OpenTSDB includes expanded and plugable filters across tag key and value combinations. For a list of filters loaded in the TSD, see <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a>. For descriptions of the built-in filters see <span class="xref std std-doc">../../user_guide/query/filters</span>. Filters can be used in both query string and POST formatted queries. Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key. Fields for POST queries pertaining to filters include:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
 <col width="10%" />
@@ -542,7 +554,7 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">:[</span><span class="n">rate</span><span class="p">[{</span><span class="n">counter</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">counter_max</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">reset_value</span><span class="o">&gt;</span><span class="p">]]]}:][</span><span class="o">&lt;</span><span class="n">down_sampler</span><span class="o">&gt;</span><span class="p">:][</span><span class="n">percentiles</span>\<span class="p">[</span><span class="o">&lt;</span><span class="n">p1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">pn</span><span class="o">&gt;</span>\<span class="p">]:][</span><span class="n">explicit_tags</span><span class="p">:]</span><span class="o">&lt;</span><span class="n">metric_name</span><span class="o">&gt;</span><span class="p">[{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">grouping_filter</span><span class="o">&gt;</span><span class="p">]}][{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">non</span> <span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">non_grouping_filter</span><span class="o">&gt;</span><span class="p">]}]</span>
 </pre></div>
 </div>
-<p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><span class="doc">Query Examples</span></a>.</p>
+<p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <span class="xref std std-doc">../../user_guide/query/examples</span>.</p>
 </div>
 <div class="section" id="tsuid-query-string-format">
 <h3>TSUID Query String Format</h3>
@@ -772,7 +784,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
 </div>
 <div class="section" id="example-with-show-summary-and-query">
 <h3>Example With Show Summary and Query</h3>
-<p>See <a class="reference internal" href="../../user_guide/query/stats.html"><span class="doc">Query Details and Stats</span></a></p>
+<p>See <span class="xref std std-doc">../../user_guide/query/stats</span></p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.puts&quot;</span><span class="p">,</span>
@@ -835,7 +847,7 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
       
     </p>
     <p>
-        &copy; Copyright 2019, OpenTSDB.<br/>
+        &copy; Copyright 2020, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>

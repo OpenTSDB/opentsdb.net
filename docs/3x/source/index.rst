@@ -26,6 +26,8 @@ Contents
    
    changes
    installation
+   user_guide/index
+   admin_guide/index
    api_http/index
    
 Indices and tables

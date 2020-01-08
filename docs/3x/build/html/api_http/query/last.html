@@ -68,11 +68,23 @@
 <li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/semanticquery/index.html">Semantic Query (Version 3)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/logging.html">Logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">HTTP API</a><ul>
@@ -151,7 +163,7 @@
 <p>This endpoint (2.1 and later) provides support for accessing the latest value of individual time series. It provides an optimization over a regular query when only the last data point is required. Locating the last point can be done with the timestamp of the meta data counter or by scanning backwards from the current system time.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <a class="reference internal" href="../../user_guide/metadata.html"><span class="doc">Metadata</span></a>. You must set either <code class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></code> or <code class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></code>. Queries with a backscan parameter will skip the meta table.</p>
+<p class="last">In order for this endpoint to function with metric string queries by scanning for matching time series, the meta data table must exist and have been populated with counters or TSMeta objects using one of the methods specified in <span class="xref std std-doc">../../user_guide/metadata</span>. You must set either <code class="docutils literal"><span class="pre">tsd.core.meta.enable_tsuid_tracking</span></code> or <code class="docutils literal"><span class="pre">tsd.core.meta.enable_realtime_ts</span></code>. Queries with a backscan parameter will skip the meta table.</p>
 </div>
 <p>Similar to the standard query endpoint, there are two methods to use in selecting which time series should return data:</p>
 <ul class="simple">
@@ -366,7 +378,7 @@ http://localhost:4242/api/query/last?tsuids=000001000002000003,00000100000200000
       
     </p>
     <p>
-        &copy; Copyright 2019, OpenTSDB.<br/>
+        &copy; Copyright 2020, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>

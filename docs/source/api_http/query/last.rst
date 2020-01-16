@@ -86,7 +86,6 @@ Example Content Request
                   "000001000002000042",
                   "000001000002000043"
                 ]
-              }
           }
       ],
       "resolveNames":true,

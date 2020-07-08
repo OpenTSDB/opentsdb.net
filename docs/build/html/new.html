@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>What&#39;s New &#8212; OpenTSDB 2.3 documentation</title>
+    <title>What&#39;s New &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.3',
+        VERSION:     '2.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="installation.html" />
-    <link rel="prev" title="Documentation for OpenTSDB 2.3" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="Documentation for OpenTSDB 2.4" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -48,9 +48,9 @@
           <a href="installation.html" title="Installation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for OpenTSDB 2.3"
+          <a href="index.html" title="Documentation for OpenTSDB 2.4"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.4 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -59,18 +59,18 @@
   <ul>
 <li><a class="reference internal" href="#">What's New</a><ul>
 <li><a class="reference internal" href="#x-planned">3.X (Planned)</a></li>
-<li><a class="reference internal" href="#planned">2.4 (Planned)</a></li>
-<li><a class="reference internal" href="#id1">2.3</a></li>
-<li><a class="reference internal" href="#id2">2.2</a></li>
-<li><a class="reference internal" href="#id3">2.1</a></li>
-<li><a class="reference internal" href="#id4">2.0</a></li>
+<li><a class="reference internal" href="#id1">2.4</a></li>
+<li><a class="reference internal" href="#id2">2.3</a></li>
+<li><a class="reference internal" href="#id3">2.2</a></li>
+<li><a class="reference internal" href="#id4">2.1</a></li>
+<li><a class="reference internal" href="#id5">2.0</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Documentation for OpenTSDB 2.3</a></p>
+                        title="previous chapter">Documentation for OpenTSDB 2.4</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="installation.html"
                         title="next chapter">Installation</a></p>
@@ -105,14 +105,14 @@
 <li>Anomaly Processing/Forecasting - Integrate with modeling libraries (such as <a class="reference external" href="https://github.com/yahoo/egads">EGADs</a>) for deeper time series analysis.</li>
 </ul>
 </div>
-<div class="section" id="planned">
-<h2>2.4 (Planned)</h2>
+<div class="section" id="id1">
+<h2>2.4</h2>
 <ul class="simple">
 <li>Rollup/Pre-Aggregates - Support for storing and querying time-based rolled up data and/or pre-aggregated values.</li>
 <li>Distributed Percentile - Store histograms (or sketches) for calculating proper percentiles over multiple sources.</li>
 </ul>
 </div>
-<div class="section" id="id1">
+<div class="section" id="id2">
 <h2>2.3</h2>
 <ul class="simple">
 <li>Expressions - Query time computations using time series data. For example, dividing one metric by another.</li>
@@ -127,7 +127,7 @@
 <li>Example Java API usage classes.</li>
 </ul>
 </div>
-<div class="section" id="id2">
+<div class="section" id="id3">
 <h2>2.2</h2>
 <ul class="simple">
 <li>Appends - Support writing all data points for an hour in a single column. This saves the need for TSD compactions and reduces network traffic at query time.</li>
@@ -147,7 +147,7 @@
 <li>Query Stats - Query details are now logged that include timing statistics. A new endpoint also shows running and completed queries.</li>
 </ul>
 </div>
-<div class="section" id="id3">
+<div class="section" id="id4">
 <h2>2.1</h2>
 <ul class="simple">
 <li>Downsampling - Timestamps are now aligned on modulus boundaries, reducing the need to interpolation across series.</li>
@@ -158,7 +158,7 @@
 <li>UID Cache - Preload portions of the UID table on startup to improve writes</li>
 </ul>
 </div>
-<div class="section" id="id4">
+<div class="section" id="id5">
 <h2>2.0</h2>
 <ul class="simple">
 <li>Lock-less UID Assignment - Drastically improves write speed when storing new metrics, tag names, or values</li>
@@ -179,7 +179,7 @@
 <li>Rate Counter Calculations - Handle roll-over and anomaly supression</li>
 <li>Additional Statistics - Including the number of UIDs assigned and available</li>
 </ul>
-<p>Thank you to everyone who has contributed to 2.3. Help us out by sharing your ideas and code at <a class="reference external" href="https://github.com/OpenTSDB">GitHub</a></p>
+<p>Thank you to everyone who has contributed to 2.4. Help us out by sharing your ideas and code at <a class="reference external" href="https://github.com/OpenTSDB">GitHub</a></p>
 </div>
 </div>
 
@@ -199,13 +199,13 @@
           <a href="installation.html" title="Installation"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Documentation for OpenTSDB 2.3"
+          <a href="index.html" title="Documentation for OpenTSDB 2.4"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">OpenTSDB 2.4 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2019, OpenTSDB.
+        &copy; Copyright 2020, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

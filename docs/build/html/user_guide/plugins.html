@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Plugins &#8212; OpenTSDB 2.3 documentation</title>
+    <title>Plugins &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.3',
+        VERSION:     '2.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -50,7 +50,7 @@
         <li class="right" >
           <a href="guis/index.html" title="GUI"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
@@ -97,6 +97,10 @@
 </li>
 <li><a class="reference internal" href="#histogram-plugins">Histogram Plugins</a><ul>
 <li><a class="reference internal" href="#id9">Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#meta-data-cache-plugins">Meta Data Cache Plugins</a><ul>
+<li><a class="reference internal" href="#id10">Plugins</a></li>
 </ul>
 </li>
 </ul>
@@ -244,6 +248,16 @@
 </ul>
 </div>
 </div>
+<div class="section" id="meta-data-cache-plugins">
+<h2>Meta Data Cache Plugins</h2>
+<p>These are implementations of meta data caching, which allow plugins to reduce the cost of storing timeseries meta data.</p>
+<div class="section" id="id10">
+<h3>Plugins</h3>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/G-Research/opentsdb-tsuid-ratelimiter">G-Research tsuid-ratelimiter</a> - Uses a local LRU cache to rate limit writes of TSMeta updates when you're running with tsuid tracking, massively reducing the cost of doing so.</li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -264,12 +278,12 @@
         <li class="right" >
           <a href="guis/index.html" title="GUI"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2019, OpenTSDB.
+        &copy; Copyright 2020, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

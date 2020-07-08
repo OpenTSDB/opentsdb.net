@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Configuration &#8212; OpenTSDB 2.3 documentation</title>
+    <title>Configuration &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.3',
+        VERSION:     '2.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -50,7 +50,7 @@
         <li class="right" >
           <a href="index.html" title="User Guide"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
@@ -862,21 +862,21 @@ E.g. net.opentsdb.search.ElasticSearch</td>
 <tr class="row-odd"><td>tsd.storage.uid.width.metric <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The width, in bytes, of metric UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
+<td>The width, in bytes, of metric UIDs. Maximum value is 7. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
 <td>&#160;</td>
 </tr>
 <tr class="row-even"><td>tsd.storage.uid.width.tagk <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The width, in bytes, of tag name UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
+<td>The width, in bytes, of tag name UIDs. Maximum value is 7. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
 <td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>tsd.storage.uid.width.tagv <em>(2.2)</em></td>
 <td>Integer</td>
 <td>Optional</td>
-<td>The width, in bytes, of tag value UIDs. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
+<td>The width, in bytes, of tag value UIDs. Maximum value is 7. <strong>WARNING</strong> Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.</td>
 <td>3</td>
 <td>&#160;</td>
 </tr>
@@ -988,12 +988,12 @@ E.g.:</p>
         <li class="right" >
           <a href="index.html" title="User Guide"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2019, OpenTSDB.
+        &copy; Copyright 2020, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

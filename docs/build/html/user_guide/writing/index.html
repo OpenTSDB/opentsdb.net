@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Writing Data &#8212; OpenTSDB 2.3 documentation</title>
+    <title>Writing Data &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.3',
+        VERSION:     '2.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -50,7 +50,7 @@
         <li class="right" >
           <a href="../configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>
@@ -154,7 +154,7 @@
 <p>There is a limited number of unique IDs to assign for each metric, tag name and tag value. By default there are just over 16 million possible IDs per type. If, for example, you ran a very popular web service and tried to track the IP address of clients as a tag, e.g. <code class="docutils literal"><span class="pre">web.app.hits</span> <span class="pre">clientip=38.26.34.10</span></code>, you may quickly run into the UID assignment limit as there are over 4 billion possible IP version 4 addresses. Additionally, this approach would lead to creating a very sparse time series as the user at address <code class="docutils literal"><span class="pre">38.26.34.10</span></code> may only use your app sporadically, or perhaps never again from that specific address.</p>
 <p>For small installations with tags that rarely change (e.g. stock symbols or a fixed set of sensors), the UID size may not be an issue. A tag value is assigned a UID that is completely disassociated from its tag name. If you use numeric identifiers for tag values, the number is assigned a UID once and can be used with many tag names. For example, if we assign a UID to the number <code class="docutils literal"><span class="pre">2</span></code>, we could store timeseries with the tag pairs <code class="docutils literal"><span class="pre">cpu=2</span></code>, <code class="docutils literal"><span class="pre">interface=2</span></code>, <code class="docutils literal"><span class="pre">hdd=2</span></code> and <code class="docutils literal"><span class="pre">fan=2</span></code> while consuming only 1 tag value UID (<code class="docutils literal"><span class="pre">2</span></code>) and 4 tag name UIDs (<code class="docutils literal"><span class="pre">cpu</span></code>, <code class="docutils literal"><span class="pre">interface</span></code>, <code class="docutils literal"><span class="pre">hdd</span></code> and <code class="docutils literal"><span class="pre">fan</span></code>).</p>
 <p>If you think that the UID limit may impact you, first think about the queries that you want to execute. If we look at the <code class="docutils literal"><span class="pre">web.app.hits</span></code> example above, you probably only care about the total number of hits to your service and rarely need to drill down to a specific IP address. In that case, you may want to store the IP address as an annotation. That way you could still benefit from low cardinality but if you need to, you could search the results for that particular IP using external scripts.</p>
-<p>When storing data for sources that do have high or changing cardinality (e.g. a Docker swarm) then you can change the UID widths by setting <code class="docutils literal"><span class="pre">tsd.storage.uid.width.metric</span></code>, <code class="docutils literal"><span class="pre">tsd.storage.uid.width.tagk</span></code> or <code class="docutils literal"><span class="pre">tsd.storage.uid.width.tagv</span></code>. You can ONLY do this when creating a new TSDB installation.</p>
+<p>When storing data for sources that do have high or changing cardinality (e.g. a Docker swarm) then you can change the UID widths by setting <code class="docutils literal"><span class="pre">tsd.storage.uid.width.metric</span></code>, <code class="docutils literal"><span class="pre">tsd.storage.uid.width.tagk</span></code> or <code class="docutils literal"><span class="pre">tsd.storage.uid.width.tagv</span></code> (maximum value is 7). You can ONLY do this when creating a new TSDB installation.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">It is possible that your situation requires this value to be increased.  If you choose to modify this value, you must start with fresh data and a new UID table. Any data written with a TSD expecting 3-byte UID encoding will be incompatible with this change, so ensure that all of your TSDs are running with the same configuration and that any data you have stored in OpenTSDB prior to making this change has been exported to a location where it can be manipulated by external tools.</p>
@@ -359,12 +359,12 @@
         <li class="right" >
           <a href="../configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >User Guide</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2019, OpenTSDB.
+        &copy; Copyright 2020, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

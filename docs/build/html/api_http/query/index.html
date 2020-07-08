@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>/api/query &#8212; OpenTSDB 2.3 documentation</title>
+    <title>/api/query &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.3',
+        VERSION:     '2.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -50,7 +50,7 @@
         <li class="right" >
           <a href="../histogram.html" title="/api/histogram"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">HTTP API</a> &#187;</li> 
       </ul>
     </div>
@@ -437,7 +437,7 @@
 <div class="section" id="downsampling">
 <h3>Downsampling</h3>
 <p>Downsample specifications const if an interval, a unit of time, the <code class="docutils literal"><span class="pre">c</span></code> flag to use calendar based downsampling (as of 2.3), an aggregator and (as of 2.2) an optional fill policy. The format of a downsample spec is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">interval</span><span class="o">&gt;&lt;</span><span class="n">units</span><span class="o">&gt;-&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="o">-&lt;</span><span class="n">fill</span> <span class="n">policy</span><span class="o">&gt;</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">interval</span><span class="o">&gt;&lt;</span><span class="n">units</span><span class="o">&gt;</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">-&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">[</span><span class="o">-&lt;</span><span class="n">fill</span> <span class="n">policy</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>For example:</p>
@@ -553,7 +553,7 @@
 <div class="section" id="metric-query-string-format">
 <h3>Metric Query String Format</h3>
 <p>The full specification for a metric query string sub query is as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">:[</span><span class="n">rate</span><span class="p">[{</span><span class="n">counter</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">counter_max</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">reset_value</span><span class="o">&gt;</span><span class="p">]]]}:][</span><span class="o">&lt;</span><span class="n">down_sampler</span><span class="o">&gt;</span><span class="p">:][</span><span class="n">percentiles</span>\<span class="p">[</span><span class="o">&lt;</span><span class="n">p1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">pn</span><span class="o">&gt;</span>\<span class="p">]:][</span><span class="n">explicit_tags</span><span class="p">:]</span><span class="o">&lt;</span><span class="n">metric_name</span><span class="o">&gt;</span><span class="p">[{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">grouping_filter</span><span class="o">&gt;</span><span class="p">]}][{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">non</span> <span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">non_grouping_filter</span><span class="o">&gt;</span><span class="p">]}]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=&lt;</span><span class="n">aggregator</span><span class="o">&gt;</span><span class="p">:[</span><span class="n">rate</span><span class="p">[{</span><span class="n">counter</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">counter_max</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">reset_value</span><span class="o">&gt;</span><span class="p">]]}]:][</span><span class="o">&lt;</span><span class="n">down_sampler</span><span class="o">&gt;</span><span class="p">:][</span><span class="n">percentiles</span>\<span class="p">[</span><span class="o">&lt;</span><span class="n">p1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">pn</span><span class="o">&gt;</span>\<span class="p">]:][</span><span class="n">explicit_tags</span><span class="p">:]</span><span class="o">&lt;</span><span class="n">metric_name</span><span class="o">&gt;</span><span class="p">[{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">grouping_filter</span><span class="o">&gt;</span><span class="p">]}][{</span><span class="o">&lt;</span><span class="n">tag_name1</span><span class="o">&gt;=&lt;</span><span class="n">non</span> <span class="n">grouping</span> <span class="nb">filter</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">...&lt;</span><span class="n">tag_nameN</span><span class="o">&gt;=&lt;</span><span class="n">non_grouping_filter</span><span class="o">&gt;</span><span class="p">]}]</span>
 </pre></div>
 </div>
 <p>It can be a little daunting at first but you can break it down into components. If you're ever confused, try using the built-in GUI to plot a graph the way you want it, then look at the URL to see how the query is formatted. Changes to any of the form fields will update the URL (which you can actually copy and paste to share with other users). For examples, please see <a class="reference internal" href="../../user_guide/query/examples.html"><span class="doc">Query Examples</span></a>.</p>
@@ -855,12 +855,12 @@ http://localhost:4242/api/query?start=1h-ago&amp;tsuid=sum:000001000002000042,00
         <li class="right" >
           <a href="../histogram.html" title="/api/histogram"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2019, OpenTSDB.
+        &copy; Copyright 2020, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

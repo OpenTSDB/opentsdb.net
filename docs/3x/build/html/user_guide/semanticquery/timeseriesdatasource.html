@@ -149,7 +149,6 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">TimeSeriesDataSource</a><ul>
 <li><a class="reference internal" href="#time-shift">Time Shift</a></li>
-<li><a class="reference internal" href="#hacluster">HACluster</a></li>
 </ul>
 </li>
 </ul>
@@ -160,8 +159,8 @@
       
   <div class="section" id="timeseriesdatasource">
 <h1>TimeSeriesDataSource</h1>
-<p>Arguably the most important node in OpenTSDB, this type of node will retreive data and pass it through the execution graph.</p>
-<p>There can be many types of time series data sources in the system including caching sources that will pull from a cache before trying to query a data store, routing sources to pick from various data stores and direct storage sources.</p>
+<p>The most important node in OpenTSDB as every query must have one or more data sources, this type of node will retreive data and pass it through the execution graph.</p>
+<p>There can be a number of time series data sources configured for a TSD system.</p>
 <p>Fields common for all ata sources include:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -227,30 +226,16 @@
 <tr class="row-even"><td>timeShiftInterval</td>
 <td>String</td>
 <td>Optional</td>
-<td>A duration used when previous or next intervals are set to determine the amount of time shifted.</td>
+<td>An optional duration by which the data will be looked for in the past and timestamps shifted to align with the &quot;current&quot; time. See the Time Shift section below.</td>
 <td>null</td>
 <td>1d</td>
-</tr>
-<tr class="row-odd"><td>previousIntervals</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>The number of previous (earlier) periods of data to fetch. E.g. if the shift interval is set to <code class="docutils literal"><span class="pre">1d</span></code> then and this value is set to 2, the original query, the query shifted to the previous day and the data shifted to 2 days ago will be fetched</td>
-<td>0</td>
-<td>2</td>
-</tr>
-<tr class="row-even"><td>nextIntervals</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>The number of later or future periods of data to fetch.</td>
-<td>0</td>
-<td>2</td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="time-shift">
 <h2>Time Shift</h2>
-<p>When analyzing time series it's often useful to compare a time range of data against the same time maybe a day ago or a week ago. Using the <code class="docutils literal"><span class="pre">timeShiftInterval</span></code> and <code class="docutils literal"><span class="pre">previousIntervals</span></code> settings you can issue one query and fetch data for multiple periods offset by a given interval. The data returned is shifted to the same time range given in the original query so that the data can be plotted on the same graph or used in expressions.</p>
-<p>An example query may look like:</p>
+<p>When analyzing time series it's often useful to compare a time range of data against the same time range maybe a day ago or a week ago. Using the <code class="docutils literal"><span class="pre">timeShiftInterval</span></code> setting you can issue one query and fetch data for multiple periods offset by a given interval. The data returned is shifted to the same time range given in the original query so that the data can be plotted on the same graph or used in expressions where data will be aligned for the same time but shifted by an interval.</p>
+<p>An example query for three days of data:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
     <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
@@ -259,157 +244,28 @@
             <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
                     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
-            <span class="p">},</span>
-            <span class="s2">&quot;timeShiftInterval&quot;</span><span class="o">:</span><span class="s2">&quot;1h&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;previousIntervals&quot;</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
-            <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="p">{</span>
-                    <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;chain&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="p">[</span>
-                            <span class="p">{</span>
-                                    <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;PHX&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;tagKey&quot;</span><span class="o">:</span><span class="s2">&quot;dc&quot;</span>
-                            <span class="p">},</span>
-                            <span class="p">{</span>
-                                    <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;web01&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;tagKey&quot;</span><span class="o">:</span><span class="s2">&quot;host&quot;</span>
-                            <span class="p">}</span>
-                <span class="p">]</span>
             <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="p">]</span>
+    <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m0-1d&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;timeShiftInterval&quot;</span><span class="o">:</span> <span class="s2">&quot;1d&quot;</span>
+    <span class="p">},</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m0-1d&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;timeShiftInterval&quot;</span><span class="o">:</span> <span class="s2">&quot;2d&quot;</span>
+    <span class="p">}]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>For this query, we'll fetch the data from 1 hour ago until now, the data from 2 hours ago to 1 hour ago, and 3 hours ago to 2 hours ago. The result will look like:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;m0-time-shift:m0-previous-PT2H&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;1553634000&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;1553634060&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="p">...</span>
-                        <span class="s2">&quot;1553636520&quot;</span><span class="o">:</span> <span class="mi">42</span>
-                    <span class="p">},</span>
-                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;PHX&quot;</span>
-                    <span class="p">},</span>
-                    <span class="s2">&quot;aggregateTags&quot;</span><span class="o">:</span> <span class="p">[]</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;m0-time-shift:m0-previous-PT1H&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;1553632980&quot;</span><span class="o">:</span> <span class="mi">43</span><span class="p">,</span>
-                        <span class="s2">&quot;1553633040&quot;</span><span class="o">:</span> <span class="mi">44</span><span class="p">,</span>
-                        <span class="p">...</span>
-                        <span class="s2">&quot;1553636520&quot;</span><span class="o">:</span> <span class="mi">43</span>
-                    <span class="p">},</span>
-                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;PHX&quot;</span>
-                    <span class="p">},</span>
-                    <span class="s2">&quot;aggregateTags&quot;</span><span class="o">:</span> <span class="p">[]</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;m0:m0&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;1553632980&quot;</span><span class="o">:</span> <span class="mi">44</span><span class="p">,</span>
-                        <span class="s2">&quot;1553633040&quot;</span><span class="o">:</span> <span class="mi">45</span><span class="p">,</span>
-                        <span class="p">...</span>
-                        <span class="s2">&quot;1553636520&quot;</span><span class="o">:</span> <span class="mi">44</span>
-                    <span class="p">},</span>
-                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;PHX&quot;</span>
-                    <span class="p">},</span>
-                    <span class="s2">&quot;aggregateTags&quot;</span><span class="o">:</span> <span class="p">[]</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;log&quot;</span><span class="o">:</span> <span class="p">[]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Note that the original source is named <code class="docutils literal"><span class="pre">m0:m0</span></code> and the time shifted data comes from a node named <code class="docutils literal"><span class="pre">m0-time-shift</span></code>, just the metric name appended with <code class="docutils literal"><span class="pre">-time-shift</span></code> (and this can be different of course when piped through another node). The data sources are always named in the format <code class="docutils literal"><span class="pre">&lt;metric</span> <span class="pre">ID&gt;-&lt;previous|next&gt;-&lt;ISO</span> <span class="pre">offset&gt;</span></code> such as <code class="docutils literal"><span class="pre">m0-previous-PT1H</span></code>.</p>
-</div>
-<div class="section" id="hacluster">
-<h2>HACluster</h2>
-<p>This is a source that takes one or more downstream sources, sends the same query to each, then merge the results before sending them upstream. Use it when you write the same data to multiple clusters for high availability.</p>
-<p>TODO - talk about the config.</p>
-<p>Fields that can be set at query time include:</p>
-<table border="1" class="colwidths-given docutils">
-<colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>dataSources</td>
-<td>List</td>
-<td>Optional</td>
-<td>A means of overriding the configured data sources by, for example, selecting a subset of sources or different sources entirely.</td>
-<td>null</td>
-<td>[&quot;s1&quot;, &quot;s2&quot;]</td>
-</tr>
-<tr class="row-odd"><td>dataSourceConfigs</td>
-<td>List</td>
-<td>Optional</td>
-<td>An optional list of complete data source config nodes to execute downstream. This allows for custom configurations per source, e.g. maybe disable caching on one.</td>
-<td>null</td>
-<td>TODO</td>
-</tr>
-<tr class="row-even"><td>mergeAggregator</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional override of the configured aggregator</td>
-<td>null</td>
-<td>max</td>
-</tr>
-<tr class="row-odd"><td>primaryTimeout</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional override of the configured primary timeout (i.e. how long to wait for the primary source when a secondary source has responded). In the TSDB duration format.</td>
-<td>null</td>
-<td>10s</td>
-</tr>
-<tr class="row-even"><td>secondaryTimeout</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional override of the configured secondary timeout (i.e. how long to wait for at least one secondary source when the primary source has responded). In the TSDB duration format.</td>
-<td>null</td>
-<td>5s</td>
-</tr>
-</tbody>
-</table>
+<p>The response will have three data source sets, <code class="docutils literal"><span class="pre">m0,</span> <span class="pre">m0-1d</span> <span class="pre">and</span> <span class="pre">m0-2d</span></code>.</p>
 </div>
 </div>
 

@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Sliding Window" href="slidingwindow.html" />
-    <link rel="prev" title="Join" href="join.html" />
+    <link rel="prev" title="Moving Average" href="movingaverage.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -113,7 +113,7 @@
               
                 
   <li>
-    <a href="join.html" title="Previous Chapter: Join"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Join</span>
+    <a href="movingaverage.html" title="Previous Chapter: Moving Average"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Moving Average</span>
     </a>
   </li>
   <li>
@@ -357,7 +357,7 @@
 </div>
 <div class="section" id="rate-to-count">
 <h2>Rate to Count</h2>
-<p>Similar to the counter to rate, the rate to count node should be the first node after the data source. This setting will take the</p>
+<p>Similar to the counter to rate, the rate to count node should be the first node after the data source. This setting will take the recorded value and multiply it by a reporting interval to compute the &quot;count&quot; or number of operations per interval, converting a recorded rate back to a counter (albeit just the count for the interval, not a monotonically increasing count.)</p>
 <p>The two important settings are the <code class="docutils literal"><span class="pre">interval</span></code> that reflects the interval of the rate stored and the <code class="docutils literal"><span class="pre">dataInterval</span></code> wherein you should set it to the reporting interval of the data source. E.g. if the source reports every 10 seconds, set the <code class="docutils literal"><span class="pre">dataInterval</span></code> to <code class="docutils literal"><span class="pre">10s</span></code> or if the source comes in every minute, set it to <code class="docutils literal"><span class="pre">1m</span></code>. If you leave the <code class="docutils literal"><span class="pre">dataInterval</span></code> empty and the time series has missing values, you may see artifically inflated counts as the TSD will compute the time delta from the preivous existing value to the current value and multiple bny the interval to compute the count.</p>
 <p>As an example, assume the following values.</p>
 <table border="1" class="docutils">

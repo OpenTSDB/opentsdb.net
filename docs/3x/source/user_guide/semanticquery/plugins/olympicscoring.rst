@@ -1,6 +1,6 @@
-Rate
-====
-.. index:: rate
+EGADS: Olympic Scoring
+======================
+.. index:: olympicscoring
 The rate node is a bit complex with a number of flags and the following main features:
 
 * Turning a monotonically increasing counter into a rate (e.g. TSDB 1x and 2x metrics that mostly reported counters at a given timestamp)
@@ -92,7 +92,7 @@ TODO - more docs on the counter flags from the old TSD docs.
 Rate to Count
 -------------
   
-Similar to the counter to rate, the rate to count node should be the first node after the data source. This setting will take the recorded value and multiply it by a reporting interval to compute the "count" or number of operations per interval, converting a recorded rate back to a counter (albeit just the count for the interval, not a monotonically increasing count.)
+Similar to the counter to rate, the rate to count node should be the first node after the data source. This setting will take the 
 
 The two important settings are the ``interval`` that reflects the interval of the rate stored and the ``dataInterval`` wherein you should set it to the reporting interval of the data source. E.g. if the source reports every 10 seconds, set the ``dataInterval`` to ``10s`` or if the source comes in every minute, set it to ``1m``. If you leave the ``dataInterval`` empty and the time series has missing values, you may see artifically inflated counts as the TSD will compute the time delta from the preivous existing value to the current value and multiple bny the interval to compute the count.
 

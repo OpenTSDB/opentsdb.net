@@ -132,6 +132,7 @@ Built-in Query Nodes
    groupby
    interpolator
    join
+   movingaverage
    rate
    slidingwindow
    summarizer

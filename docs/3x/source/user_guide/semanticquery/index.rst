@@ -132,11 +132,22 @@ Built-in Query Nodes
    groupby
    interpolator
    join
+   movingaverage
    rate
    slidingwindow
    summarizer
    timeseriesdatasource
    topn
+
+Plugin Query Nodes
+^^^^^^^^^^^^^^^^^^
+
+OpenTSDB source includes some plugins that can be loaded by the system administrator. These plugins are:
+
+.. toctree:
+   :maxdepth: 1
+   
+   plugins/olympicscoring
    
 Filters
 -------
@@ -184,7 +195,7 @@ To use a top-level, named filter, reference the ``id`` in a data source query no
         "type": "MetricLiteral",
         "metric": "sys.if.in"
       },
-      "filter": "f1"
+      "filterId": "f1"
     }
 
 Serializer Configs

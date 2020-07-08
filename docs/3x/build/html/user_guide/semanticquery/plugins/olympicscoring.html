@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>EGADS: Olympic Scoring &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/opentsdb_logo_square_sm.png"></span>
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html">Semantic Query (Version 3)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../admin_guide/logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">EGADS: Olympic Scoring</a><ul>
+<li><a class="reference internal" href="#counter-to-rate">Counter To Rate</a></li>
+<li><a class="reference internal" href="#rate-to-count">Rate to Count</a></li>
+<li><a class="reference internal" href="#first-derivative-or-rate">First Derivative or Rate</a></li>
+<li><a class="reference internal" href="#delta">Delta</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="egads-olympic-scoring">
+<h1>EGADS: Olympic Scoring</h1>
+<p>The rate node is a bit complex with a number of flags and the following main features:</p>
+<ul class="simple">
+<li>Turning a monotonically increasing counter into a rate (e.g. TSDB 1x and 2x metrics that mostly reported counters at a given timestamp)</li>
+<li>Converting a stored rate back into a &quot;count&quot; over time.</li>
+<li>Compute the first derivative.</li>
+<li>Compute just the delta of values, ignoring time. (NOTE: We may push this into a separate node before a prod release).</li>
+</ul>
+<p>Depending on the configuration of the node, the location in the execution graph should change.</p>
+<p>Fields for the rate config include:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="10%" />
+<col width="5%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>interval</td>
+<td>String</td>
+<td>Optional</td>
+<td>A TSDB style duration to use when computing the rate. Defaults to per second.</td>
+<td>1s</td>
+<td>1m</td>
+</tr>
+<tr class="row-odd"><td>counter</td>
+<td>boolean</td>
+<td>Optional</td>
+<td>Whether or not the underlying series is a monotonically increasing counter and we should expect to handle resets.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>dropResets</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to drop values when resets occur and reset them to zero.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>counterMax</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The value at which we expect the counter to reset. The default is a 64 bit signed maximum integer value.</td>
+<td>Long.MAX_VALUE</td>
+<td>32000</td>
+</tr>
+<tr class="row-even"><td>resetValue</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>A value that, when exceeded, we reset to 0.</td>
+<td>0</td>
+<td>42</td>
+</tr>
+<tr class="row-odd"><td>dataInterval</td>
+<td>String</td>
+<td>Optional</td>
+<td>A TSDB style duration defining the expected reporting interval of the underlying data, used when converting a rate to a count via the <code class="docutils literal"><span class="pre">rateToCount</span></code> flag.</td>
+<td>null</td>
+<td>10s</td>
+</tr>
+<tr class="row-even"><td>rateToCount</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to convert the rate to a count over the interval. For the best results, also set <code class="docutils literal"><span class="pre">dataInterval</span></code>.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>deltaOnly</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Whether or not to compute only the delta between values instead of the derivative.</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="counter-to-rate">
+<h2>Counter To Rate</h2>
+<p>Some systems, such as network gear or previous OpenTSDB instances, report monotonically increasing counters over time. E.g. at T0, a metric may have a value of 5. At T1, it may become 10. At T2 it may stay at 10. The value will always stay the same or increase unless a <em>reset</em> occurs due to integer roll-over or a restart.</p>
+<p>For this use case, the <code class="docutils literal"><span class="pre">rate</span></code> node should immediately follow the data source node so that other functions can work on the rate data. Also make sure to set the <code class="docutils literal"><span class="pre">counter</span></code> flag to <code class="docutils literal"><span class="pre">true</span></code>.</p>
+<p>As an input example take:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>1</td>
+<td>2</td>
+<td>N/A</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>The results with a configuration of <code class="docutils literal"><span class="pre">interval=1s</span></code> would be:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>NaN</td>
+<td>0.2</td>
+<td>0</td>
+<td>0.3</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>NaN</td>
+<td>0.1</td>
+<td>N/A</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the first value may be NaN'd if no previous value was found for the given query time span. The storage engine should try to pad and return an extra value before the first in order to calculate a proper rate but this may not always happen.</p>
+<p>TODO - more docs on the counter flags from the old TSD docs.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+                    <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;rate1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;rate&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1s&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                            <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                    <span class="p">}],</span>
+                    <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;rate1&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rate-to-count">
+<h2>Rate to Count</h2>
+<p>Similar to the counter to rate, the rate to count node should be the first node after the data source. This setting will take the</p>
+<p>The two important settings are the <code class="docutils literal"><span class="pre">interval</span></code> that reflects the interval of the rate stored and the <code class="docutils literal"><span class="pre">dataInterval</span></code> wherein you should set it to the reporting interval of the data source. E.g. if the source reports every 10 seconds, set the <code class="docutils literal"><span class="pre">dataInterval</span></code> to <code class="docutils literal"><span class="pre">10s</span></code> or if the source comes in every minute, set it to <code class="docutils literal"><span class="pre">1m</span></code>. If you leave the <code class="docutils literal"><span class="pre">dataInterval</span></code> empty and the time series has missing values, you may see artifically inflated counts as the TSD will compute the time delta from the preivous existing value to the current value and multiple bny the interval to compute the count.</p>
+<p>As an example, assume the following values.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>1</td>
+<td>2</td>
+<td>N/A</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Lets assume <code class="docutils literal"><span class="pre">interval=1s</span></code> and <code class="docutils literal"><span class="pre">dataInterval=10s</span></code>. The results would be:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>10</td>
+<td>30</td>
+<td>20</td>
+<td>10</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>10</td>
+<td>20</td>
+<td>N/A</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>If <code class="docutils literal"><span class="pre">dataInterval</span></code> was not set, TS2 would have the following values:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS2</td>
+<td>10</td>
+<td>20</td>
+<td>N/A</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>The value at <code class="docutils literal"><span class="pre">T</span> <span class="pre">+</span> <span class="pre">30s</span></code> would subtract the time from <code class="docutils literal"><span class="pre">T</span> <span class="pre">+</span> <span class="pre">10s</span></code> to get a value of <code class="docutils literal"><span class="pre">20s</span></code> then multiply that by the interval of <code class="docutils literal"><span class="pre">1s</span></code>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                              <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+                      <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;rate1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;rate&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1s&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                      <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                      <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                      <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                      <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                              <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                      <span class="p">}],</span>
+                      <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;rate1&quot;</span><span class="p">]</span>
+              <span class="p">}</span>
+      <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="first-derivative-or-rate">
+<h2>First Derivative or Rate</h2>
+<p>If you aren't dealing with a monotonically increasing counter and just want to view the rate of change of any metric, then the rate node can be used in any locating in the execution graph. Just leave out the counter and other flags.</p>
+<p>For example with an <code class="docutils literal"><span class="pre">interval=1s</span></code> and an input of:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>1</td>
+<td>2</td>
+<td>N/A</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>The results would be:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>NaN</td>
+<td>0.2</td>
+<td>-0.1</td>
+<td>-0.1</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>NaN</td>
+<td>0.1</td>
+<td>N/A</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                              <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+                      <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                      <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                      <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                              <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                      <span class="p">}],</span>
+                      <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;rate1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;rate&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;10s&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;ds1&quot;</span><span class="p">]</span>
+              <span class="p">}</span>
+      <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delta">
+<h2>Delta</h2>
+<p>For cases where you just want the difference between values, set the the <code class="docutils literal"><span class="pre">deltaOnly</span></code> flag to true nad all other flags to false. The interval can be ignored. For an example input:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>1</td>
+<td>2</td>
+<td>N/A</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>The results would be:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Series</th>
+<th class="head">T0</th>
+<th class="head">T + 10s</th>
+<th class="head">T + 20s</th>
+<th class="head">T + 30s</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TS1</td>
+<td>NaN</td>
+<td>2</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+<tr class="row-odd"><td>TS2</td>
+<td>NaN</td>
+<td>1</td>
+<td>N/A</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                              <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+                      <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                      <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                      <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                              <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                      <span class="p">}],</span>
+                      <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;rate1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;rate&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1s&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;deltaOnly&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                      <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;ds1&quot;</span><span class="p">]</span>
+              <span class="p">}</span>
+      <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

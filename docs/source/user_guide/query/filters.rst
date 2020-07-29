@@ -169,8 +169,8 @@ Takes a single literal value or a ``|`` pipe delimited list of values and return
 * ``host=literal_or(web01|web02|web03)``  In SQL: ``WHERE host IN ('web01', 'web02', 'web03')``
 * ``host=literal_or(web01)``  In SQL: ``WHERE host = 'web01'``
 
-ilteral_or
-^^^^^^^^^^
+iliteral_or
+^^^^^^^^^^^
 .. index:: iliteral_or
 The same as a ``literal_or`` but is case insensitive. Note that this is not efficient like the literal or as it must post-process all rows from storage.
 

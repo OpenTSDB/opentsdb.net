@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Filters &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="GroupBy" href="groupby.html" />
@@ -31,9 +20,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -168,47 +160,47 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="filters">
 <h1>Filters</h1>
 <p>Filters allow for fetching a select set of time series with a common metric. 3.x filters are much more capable than 2.x filters with the ability to search across multiple fields and combine them for boolean queries.</p>
-<p>A filter is a single object and in places where filters are used, only the one object is allowed. However multiple filters can be combined in various ways via the <code class="docutils literal"><span class="pre">chain</span></code> filter. Chains allow for <code class="docutils literal"><span class="pre">AND</span></code> ing operations or <code class="docutils literal"><span class="pre">OR</span></code> ing filtering as well as nested chains for complex filtering. Additional modifying filters are available such as the <code class="docutils literal"><span class="pre">Not</span></code> filter that negates nested filters.</p>
+<p>A filter is a single object and in places where filters are used, only the one object is allowed. However multiple filters can be combined in various ways via the <code class="docutils literal notranslate"><span class="pre">chain</span></code> filter. Chains allow for <code class="docutils literal notranslate"><span class="pre">AND</span></code> ing operations or <code class="docutils literal notranslate"><span class="pre">OR</span></code> ing filtering as well as nested chains for complex filtering. Additional modifying filters are available such as the <code class="docutils literal notranslate"><span class="pre">Not</span></code> filter that negates nested filters.</p>
 <p>Thefield required for <em>all</em> filters is:</p>
 <ul class="simple">
-<li><strong>TYPE</strong> - All filter definitions require the <code class="docutils literal"><span class="pre">type</span></code> field that is the name of the filter from these documents. The type must be loaded in the registry as the ID of the plugin.</li>
+<li><p><strong>TYPE</strong> - All filter definitions require the <code class="docutils literal notranslate"><span class="pre">type</span></code> field that is the name of the filter from these documents. The type must be loaded in the registry as the ID of the plugin.</p></li>
 </ul>
 <p>Note that not all filters are supported by all endpoints or nodes. For example, at this time, time series data sources only support the tag value filters (and wrappers around them like chains, nots, etc) while event, meta or status sources may support all of them.</p>
 <p>Filters currently built-in to OpenTSDB include:</p>
 <div class="section" id="anyfieldregex">
 <h2>AnyFieldRegex</h2>
 <p>Matches on any field including the metric, tag keys and tag values or properties in an event or status. Not supported for time series data sources yet.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>filter</td>
-<td>Filter</td>
-<td>Required</td>
-<td>A properly formed PCRE regular expression.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>filter</p></td>
+<td><p>Filter</p></td>
+<td><p>Required</p></td>
+<td><p>A properly formed PCRE regular expression.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;AnyFieldRegex&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web0[123]&quot;</span>
 <span class="p">}</span>
@@ -217,40 +209,40 @@
 </div>
 <div class="section" id="chain">
 <h2>Chain</h2>
-<p>Combines one or more filters with a logical <code class="docutils literal"><span class="pre">AND</span></code> (the default) or a logical <code class="docutils literal"><span class="pre">OR</span></code>. We generally recommend using a chain filter as the top level filter if you're building a query by hand as it makes adding tag values easy. Fields include:</p>
-<table border="1" class="colwidths-given docutils">
+<p>Combines one or more filters with a logical <code class="docutils literal notranslate"><span class="pre">AND</span></code> (the default) or a logical <code class="docutils literal notranslate"><span class="pre">OR</span></code>. We generally recommend using a chain filter as the top level filter if you’re building a query by hand as it makes adding tag values easy. Fields include:</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>op</td>
-<td>String</td>
-<td>Optional</td>
-<td>Either the literal <code class="docutils literal"><span class="pre">AND</span></code> (default) or <code class="docutils literal"><span class="pre">OR</span></code></td>
-<td>OR</td>
+<tbody>
+<tr class="row-even"><td><p>op</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>Either the literal <code class="docutils literal notranslate"><span class="pre">AND</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">OR</span></code></p></td>
+<td><p>OR</p></td>
 </tr>
-<tr class="row-odd"><td>filters</td>
-<td>Array</td>
-<td>Required</td>
-<td>A list of one or more filter objects. These can be any type of filter and you can nest chain filters.</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>filters</p></td>
+<td><p>Array</p></td>
+<td><p>Required</p></td>
+<td><p>A list of one or more filter objects. These can be any type of filter and you can nest chain filters.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;chain&quot;</span><span class="p">,</span>
     <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[{</span>
                     <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
@@ -270,32 +262,32 @@
 <div class="section" id="explicittags">
 <h2>ExplicitTags</h2>
 <p>Must be used as the top-level filter if applicable and means that a time series must have all of the tag keys specified in the nested filter set and no other tags.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>filter</td>
-<td>Filter</td>
-<td>Required</td>
-<td>A nested filter definition.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>filter</p></td>
+<td><p>Filter</p></td>
+<td><p>Required</p></td>
+<td><p>A nested filter definition.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;ExplicitTags&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">{</span>
       <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;chain&quot;</span><span class="p">,</span>
@@ -317,39 +309,39 @@
 </div>
 <div class="section" id="fieldliteralor">
 <h2>FieldLiteralOr</h2>
-<p>Matches a non-tag field key and one or more values separated by a pipe character, similar to the <code class="docutils literal"><span class="pre">TagValueLiteralOr</span></code>.</p>
-<table border="1" class="colwidths-given docutils">
+<p>Matches a non-tag field key and one or more values separated by a pipe character, similar to the <code class="docutils literal notranslate"><span class="pre">TagValueLiteralOr</span></code>.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>key</td>
-<td>String</td>
-<td>Required</td>
-<td>A field name for the type of data being fetched.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A field name for the type of data being fetched.</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>A case sensitive literal value with multiple values delimited by a <code class="docutils literal"><span class="pre">|</span></code>.</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A case sensitive literal value with multiple values delimited by a <code class="docutils literal notranslate"><span class="pre">|</span></code>.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;FieldLiteralOr&quot;</span><span class="p">,</span>
        <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;0|1&quot;</span>
@@ -359,39 +351,39 @@
 </div>
 <div class="section" id="fieldregex">
 <h2>FieldRegex</h2>
-<p>Matches a non-tag field key and the value based on a given regular expression, similar to the <code class="docutils literal"><span class="pre">TagValueRegex</span></code>.</p>
-<table border="1" class="colwidths-given docutils">
+<p>Matches a non-tag field key and the value based on a given regular expression, similar to the <code class="docutils literal notranslate"><span class="pre">TagValueRegex</span></code>.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>key</td>
-<td>String</td>
-<td>Required</td>
-<td>A field name for the type of data being fetched.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A field name for the type of data being fetched.</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>A PCRE compatible regular expression.</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A PCRE compatible regular expression.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;FieldRegex&quot;</span><span class="p">,</span>
        <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;[01]&quot;</span>
@@ -402,33 +394,33 @@
 <div class="section" id="metricliteral">
 <h2>MetricLiteral</h2>
 <p>Matches a single metric in the data store. This is only applicable for meta queries and in the metric filter of a time series data source.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>metric</td>
-<td>String</td>
-<td>Required</td>
-<td>The literal, case-sensitive name of the metric.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>metric</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The literal, case-sensitive name of the metric.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
 <span class="p">}</span>
@@ -438,32 +430,32 @@
 <div class="section" id="metricregex">
 <h2>MetricRegex</h2>
 <p>Executes the regular expression against metrics to fetch all metrics that match. <strong>NOTE</strong> Currently only supported by meta queries, not time series data sources.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>metric</td>
-<td>String</td>
-<td>Required</td>
-<td>The valid PCRE compatible regular expression to use.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>metric</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The valid PCRE compatible regular expression to use.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricRegex&quot;</span><span class="p">,</span>
        <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.*&quot;</span>
 <span class="p">}</span>
@@ -472,33 +464,33 @@
 </div>
 <div class="section" id="not">
 <h2>Not</h2>
-<p>Negates the nested filter. If a chain is nested, the <code class="docutils literal"><span class="pre">not</span></code> filter negates the entire chain.</p>
-<table border="1" class="colwidths-given docutils">
+<p>Negates the nested filter. If a chain is nested, the <code class="docutils literal notranslate"><span class="pre">not</span></code> filter negates the entire chain.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>filter</td>
-<td>Filter</td>
-<td>Required</td>
-<td>A nested filter definition.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>filter</p></td>
+<td><p>Filter</p></td>
+<td><p>Required</p></td>
+<td><p>A nested filter definition.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;not&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">{</span>
               <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
@@ -512,32 +504,32 @@
 <div class="section" id="tagkeyliteralor">
 <h2>TagKeyLiteralOr</h2>
 <p>Matches one or more literal tag keys. Multiple values are separated by a pipe.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>A pipe separated list of case-sensitive tag keys.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A pipe separated list of case-sensitive tag keys.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagKeyLiteralOr&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;host|Host&quot;</span>
 <span class="p">}</span>
@@ -547,32 +539,32 @@
 <div class="section" id="tagkeyliteralregex">
 <h2>TagKeyLiteralRegex</h2>
 <p>Matches the regular expression against tag keys.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>The PRCE compatible regular expression to use.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The PRCE compatible regular expression to use.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagKeyLiteralRegex&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;[Hh]ost&quot;</span>
 <span class="p">}</span>
@@ -582,38 +574,38 @@
 <div class="section" id="tagvalueliteralor">
 <h2>TagValueLiteralOr</h2>
 <p>Matches one or more literal tag values. Multiple values are separated by a pipe.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>key</td>
-<td>String</td>
-<td>Required</td>
-<td>The literal case-sensitive name of a tag key.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The literal case-sensitive name of a tag key.</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>A pipe separated list of case-sensitive tag values.</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A pipe separated list of case-sensitive tag values.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
        <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web01|web02|web03&quot;</span>
@@ -623,39 +615,39 @@
 </div>
 <div class="section" id="tagvaluewildcard">
 <h2>TagValueWildcard</h2>
-<p>Matches on the globs of a case-sensitive tag value using the literal <code class="docutils literal"><span class="pre">*</span></code> as the wildcard place-holder.</p>
-<table border="1" class="colwidths-given docutils">
+<p>Matches on the globs of a case-sensitive tag value using the literal <code class="docutils literal notranslate"><span class="pre">*</span></code> as the wildcard place-holder.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>key</td>
-<td>String</td>
-<td>Required</td>
-<td>The literal case-sensitive name of a tag key.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The literal case-sensitive name of a tag key.</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>A case-sensitive tag value with asterisks for the wildcard. Must include at least one asterisk. If the value is just <code class="docutils literal"><span class="pre">*</span></code> then it will match all series with the given <code class="docutils literal"><span class="pre">key</span></code>.</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A case-sensitive tag value with asterisks for the wildcard. Must include at least one asterisk. If the value is just <code class="docutils literal notranslate"><span class="pre">*</span></code> then it will match all series with the given <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueLiteralOr&quot;</span><span class="p">,</span>
        <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web01|web02|web03&quot;</span>
@@ -665,40 +657,40 @@
 </div>
 <div class="section" id="tagvaluerange">
 <h2>TagValueRange</h2>
-<p>Expands a syntax into multiple literal values. E.g. <code class="docutils literal"><span class="pre">web{01-05}.{dc1|dc2}</span></code> would generate 10 values such as <code class="docutils literal"><span class="pre">web01.dc1`</span> <span class="pre">through</span> <span class="pre">``web05.dc2</span></code>.
+<p>Expands a syntax into multiple literal values. E.g. <code class="docutils literal notranslate"><span class="pre">web{01-05}.{dc1|dc2}</span></code> would generate 10 values such as <code class="docutils literal notranslate"><span class="pre">web01.dc1`</span> <span class="pre">through</span> <span class="pre">``web05.dc2</span></code>.
 TODO - docs</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>key</td>
-<td>String</td>
-<td>Required</td>
-<td>The literal case-sensitive name of a tag key.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The literal case-sensitive name of a tag key.</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>The range expression.</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The range expression.</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueRange&quot;</span><span class="p">,</span>
        <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web{01-03}&quot;</span>
@@ -709,38 +701,38 @@ TODO - docs</p>
 <div class="section" id="tagvalueregex">
 <h2>TagValueRegex</h2>
 <p>Matches a regular expression on the tag value.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="11%" />
-<col width="58%" />
-<col width="11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 58%" />
+<col style="width: 11%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>key</td>
-<td>String</td>
-<td>Required</td>
-<td>The literal case-sensitive name of a tag key.</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The literal case-sensitive name of a tag key.</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>A properly formed CPRE compatible regular expression</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A properly formed CPRE compatible regular expression</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TagValueRegex&quot;</span><span class="p">,</span>
        <span class="s2">&quot;key&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
        <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;web0[123]&quot;</span>
@@ -763,7 +755,7 @@ TODO - docs</p>
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ratio &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Sliding Window" href="slidingwindow.html" />
+    <link rel="prev" title="Rate" href="rate.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Semantic Query (Version 3)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="rate.html" title="Previous Chapter: Rate"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Rate</span>
+    </a>
+  </li>
+  <li>
+    <a href="slidingwindow.html" title="Next Chapter: Sliding Window"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Sliding Window &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Ratio</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="ratio">
+<h1>Ratio</h1>
+<p>For each time series in a set of time series, computes the ratio of that time series against the sum of all time series for the group matching the metric. For example, if you want to know the percentage of traffic each host is handling for a cluster in a data center, you can use the ratio to show that percentage over time. The output can be a percentage (e.g. 20.5) or a ratio (e.g. 0.205).</p>
+<p>Fields for the ratio config include:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dataSource</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The TimeSeriesDataSource node ID to match and compute a ratio on.</p></td>
+<td><p>null</p></td>
+<td><p>m1</p></td>
+</tr>
+<tr class="row-odd"><td><p>as</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The metric name to substitute for the output of the node.</p></td>
+<td><p>null</p></td>
+<td><p>host_traffic_ratio</p></td>
+</tr>
+<tr class="row-even"><td><p>asPercent</p></td>
+<td><p>boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to convert the ratio to a percentage (simply multyping it by 100).</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
+</tr>
+<tr class="row-odd"><td><p>infectiousNan</p></td>
+<td><p>boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not NaNs from the source data should infect each timestamp when aggregating values. E.g. if one value out of 20 are <code class="docutils literal notranslate"><span class="pre">NaN</span></code> for a timestamp and this is true, the timestamp will return a <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. If all values for the timestamp are <code class="docutils literal notranslate"><span class="pre">NaN</span></code> then the result will be <code class="docutils literal notranslate"><span class="pre">NaN</span></code> regardless.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
+</tr>
+<tr class="row-even"><td><p>interpolatorConfig</p></td>
+<td><p>List</p></td>
+<td><p>Required <em>for now</em></p></td>
+<td><p>A list of interpolator configs for the downsampler to deal with empty buckets.</p></td>
+<td><p>null</p></td>
+<td><p>See <a class="reference internal" href="interpolator.html"><span class="doc">Interpolators</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>  <span class="p">{</span>
+      <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeSeriesDataSource&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
+                              <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;MetricLiteral&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.if.in&quot;</span>
+                      <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;downsample&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;runAll&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                      <span class="s2">&quot;fill&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                      <span class="s2">&quot;interpolatorConfigs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                              <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;fillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NAN&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;realFillPolicy&quot;</span><span class="o">:</span> <span class="s2">&quot;NONE&quot;</span>
+                      <span class="p">}],</span>
+                      <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                              <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ratio&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;ratio&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;dataSource&quot;</span><span class="o">:</span><span class="s2">&quot;m1&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;as&quot;</span><span class="o">:</span><span class="s2">&quot;colo_ratio&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;asPercentage&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+                              <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;ds1&quot;</span><span class="p">]</span>
+                      <span class="p">}</span>
+      <span class="p">]</span>
+  <span class="p">}</span>
+
+<span class="nx">An</span> <span class="nx">implementation</span> <span class="nx">note</span><span class="o">:</span> <span class="nx">The</span> <span class="nx">node</span> <span class="nx">adds</span> <span class="nx">a</span> <span class="nx">Group</span> <span class="nx">By</span> <span class="nx">node</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">execution</span> <span class="nx">graph</span> <span class="nx">that</span> <span class="nx">sums</span> <span class="nx">all</span> <span class="nx">time</span> <span class="nx">series</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">data</span> <span class="nx">source</span> <span class="nx">ID</span><span class="p">.</span> <span class="nx">It</span> <span class="nx">then</span> <span class="nx">replaces</span> <span class="nx">itself</span> <span class="kd">with</span> <span class="nx">an</span> <span class="nx">expression</span> <span class="nx">node</span> <span class="nx">that</span> <span class="nx">divides</span> <span class="nx">each</span> <span class="nx">time</span> <span class="nx">series</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">group</span> <span class="nx">by</span> <span class="nx">result</span> <span class="nx">using</span> <span class="nx">a</span> <span class="nx">cross</span> <span class="nx">join</span><span class="p">.</span> <span class="nx">If</span> <span class="sb">`asPercentage`</span> <span class="nx">is</span> <span class="nx">set</span> <span class="nx">to</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">an</span> <span class="nx">extra</span> <span class="nx">expression</span> <span class="nx">node</span> <span class="nx">is</span> <span class="nx">added</span> <span class="nx">to</span> <span class="nx">multiply</span> <span class="nx">the</span> <span class="nx">ratio</span> <span class="nx">by</span> <span class="mf">100.</span>
+</pre></div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

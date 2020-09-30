@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HA Cluster &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -42,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -142,66 +134,66 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="ha-cluster">
 <h1>HA Cluster</h1>
 <p id="index-0">This is a source that takes one or more downstream sources, sends the same query to each, then merge the results before sending them upstream. Use it when you write the same data to multiple clusters for high availability.</p>
 <p>TODO - talk about the config.</p>
 <p>Fields that can be set at query time include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>dataSources</td>
-<td>List</td>
-<td>Optional</td>
-<td>A means of overriding the configured data sources by, for example, selecting a subset of sources or different sources entirely.</td>
-<td>null</td>
-<td>[&quot;s1&quot;, &quot;s2&quot;]</td>
+<tbody>
+<tr class="row-even"><td><p>dataSources</p></td>
+<td><p>List</p></td>
+<td><p>Optional</p></td>
+<td><p>A means of overriding the configured data sources by, for example, selecting a subset of sources or different sources entirely.</p></td>
+<td><p>null</p></td>
+<td><p>[“s1”, “s2”]</p></td>
 </tr>
-<tr class="row-odd"><td>dataSourceConfigs</td>
-<td>List</td>
-<td>Optional</td>
-<td>An optional list of complete data source config nodes to execute downstream. This allows for custom configurations per source, e.g. maybe disable caching on one.</td>
-<td>null</td>
-<td>TODO</td>
+<tr class="row-odd"><td><p>dataSourceConfigs</p></td>
+<td><p>List</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional list of complete data source config nodes to execute downstream. This allows for custom configurations per source, e.g. maybe disable caching on one.</p></td>
+<td><p>null</p></td>
+<td><p>TODO</p></td>
 </tr>
-<tr class="row-even"><td>mergeAggregator</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional override of the configured aggregator</td>
-<td>null</td>
-<td>max</td>
+<tr class="row-even"><td><p>mergeAggregator</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional override of the configured aggregator</p></td>
+<td><p>null</p></td>
+<td><p>max</p></td>
 </tr>
-<tr class="row-odd"><td>primaryTimeout</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional override of the configured primary timeout (i.e. how long to wait for the primary source when a secondary source has responded). In the TSDB duration format.</td>
-<td>null</td>
-<td>10s</td>
+<tr class="row-odd"><td><p>primaryTimeout</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional override of the configured primary timeout (i.e. how long to wait for the primary source when a secondary source has responded). In the TSDB duration format.</p></td>
+<td><p>null</p></td>
+<td><p>10s</p></td>
 </tr>
-<tr class="row-even"><td>secondaryTimeout</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional override of the configured secondary timeout (i.e. how long to wait for at least one secondary source when the primary source has responded). In the TSDB duration format.</td>
-<td>null</td>
-<td>5s</td>
+<tr class="row-even"><td><p>secondaryTimeout</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional override of the configured secondary timeout (i.e. how long to wait for at least one secondary source when the primary source has responded). In the TSDB duration format.</p></td>
+<td><p>null</p></td>
+<td><p>5s</p></td>
 </tr>
 </tbody>
 </table>
@@ -220,7 +212,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

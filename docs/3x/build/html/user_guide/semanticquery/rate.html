@@ -1,39 +1,31 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rate &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Sliding Window" href="slidingwindow.html" />
+    <link rel="next" title="Ratio" href="ratio.html" />
     <link rel="prev" title="Moving Average" href="movingaverage.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -117,7 +109,7 @@
     </a>
   </li>
   <li>
-    <a href="slidingwindow.html" title="Next Chapter: Sliding Window"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Sliding Window &raquo;</span>
+    <a href="ratio.html" title="Next Chapter: Ratio"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Ratio &raquo;</span>
     </a>
   </li>
               
@@ -158,167 +150,167 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="rate">
 <h1>Rate</h1>
 <p>The rate node is a bit complex with a number of flags and the following main features:</p>
 <ul class="simple">
-<li>Turning a monotonically increasing counter into a rate (e.g. TSDB 1x and 2x metrics that mostly reported counters at a given timestamp)</li>
-<li>Converting a stored rate back into a &quot;count&quot; over time.</li>
-<li>Compute the first derivative.</li>
-<li>Compute just the delta of values, ignoring time. (NOTE: We may push this into a separate node before a prod release).</li>
+<li><p>Turning a monotonically increasing counter into a rate (e.g. TSDB 1x and 2x metrics that mostly reported counters at a given timestamp)</p></li>
+<li><p>Converting a stored rate back into a “count” over time.</p></li>
+<li><p>Compute the first derivative.</p></li>
+<li><p>Compute just the delta of values, ignoring time. (NOTE: We may push this into a separate node before a prod release).</p></li>
 </ul>
 <p>Depending on the configuration of the node, the location in the execution graph should change.</p>
 <p>Fields for the rate config include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>interval</td>
-<td>String</td>
-<td>Optional</td>
-<td>A TSDB style duration to use when computing the rate. Defaults to per second.</td>
-<td>1s</td>
-<td>1m</td>
+<tbody>
+<tr class="row-even"><td><p>interval</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A TSDB style duration to use when computing the rate. Defaults to per second.</p></td>
+<td><p>1s</p></td>
+<td><p>1m</p></td>
 </tr>
-<tr class="row-odd"><td>counter</td>
-<td>boolean</td>
-<td>Optional</td>
-<td>Whether or not the underlying series is a monotonically increasing counter and we should expect to handle resets.</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-odd"><td><p>counter</p></td>
+<td><p>boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not the underlying series is a monotonically increasing counter and we should expect to handle resets.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
-<tr class="row-even"><td>dropResets</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to drop values when resets occur and reset them to zero.</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-even"><td><p>dropResets</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to drop values when resets occur and reset them to zero.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
-<tr class="row-odd"><td>counterMax</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>The value at which we expect the counter to reset. The default is a 64 bit signed maximum integer value.</td>
-<td>Long.MAX_VALUE</td>
-<td>32000</td>
+<tr class="row-odd"><td><p>counterMax</p></td>
+<td><p>Integer</p></td>
+<td><p>Optional</p></td>
+<td><p>The value at which we expect the counter to reset. The default is a 64 bit signed maximum integer value.</p></td>
+<td><p>Long.MAX_VALUE</p></td>
+<td><p>32000</p></td>
 </tr>
-<tr class="row-even"><td>resetValue</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>A value that, when exceeded, we reset to 0.</td>
-<td>0</td>
-<td>42</td>
+<tr class="row-even"><td><p>resetValue</p></td>
+<td><p>Integer</p></td>
+<td><p>Optional</p></td>
+<td><p>A value that, when exceeded, we reset to 0.</p></td>
+<td><p>0</p></td>
+<td><p>42</p></td>
 </tr>
-<tr class="row-odd"><td>dataInterval</td>
-<td>String</td>
-<td>Optional</td>
-<td>A TSDB style duration defining the expected reporting interval of the underlying data, used when converting a rate to a count via the <code class="docutils literal"><span class="pre">rateToCount</span></code> flag.</td>
-<td>null</td>
-<td>10s</td>
+<tr class="row-odd"><td><p>dataInterval</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A TSDB style duration defining the expected reporting interval of the underlying data, used when converting a rate to a count via the <code class="docutils literal notranslate"><span class="pre">rateToCount</span></code> flag.</p></td>
+<td><p>null</p></td>
+<td><p>10s</p></td>
 </tr>
-<tr class="row-even"><td>rateToCount</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to convert the rate to a count over the interval. For the best results, also set <code class="docutils literal"><span class="pre">dataInterval</span></code>.</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-even"><td><p>rateToCount</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to convert the rate to a count over the interval. For the best results, also set <code class="docutils literal notranslate"><span class="pre">dataInterval</span></code>.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
-<tr class="row-odd"><td>deltaOnly</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to compute only the delta between values instead of the derivative.</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-odd"><td><p>deltaOnly</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to compute only the delta between values instead of the derivative.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="counter-to-rate">
 <h2>Counter To Rate</h2>
 <p>Some systems, such as network gear or previous OpenTSDB instances, report monotonically increasing counters over time. E.g. at T0, a metric may have a value of 5. At T1, it may become 10. At T2 it may stay at 10. The value will always stay the same or increase unless a <em>reset</em> occurs due to integer roll-over or a restart.</p>
-<p>For this use case, the <code class="docutils literal"><span class="pre">rate</span></code> node should immediately follow the data source node so that other functions can work on the rate data. Also make sure to set the <code class="docutils literal"><span class="pre">counter</span></code> flag to <code class="docutils literal"><span class="pre">true</span></code>.</p>
+<p>For this use case, the <code class="docutils literal notranslate"><span class="pre">rate</span></code> node should immediately follow the data source node so that other functions can work on the rate data. Also make sure to set the <code class="docutils literal notranslate"><span class="pre">counter</span></code> flag to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 <p>As an input example take:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>1</td>
-<td>3</td>
-<td>3</td>
-<td>6</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>6</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>1</td>
-<td>2</td>
-<td>N/A</td>
-<td>4</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>N/A</p></td>
+<td><p>4</p></td>
 </tr>
 </tbody>
 </table>
-<p>The results with a configuration of <code class="docutils literal"><span class="pre">interval=1s</span></code> would be:</p>
-<table border="1" class="docutils">
+<p>The results with a configuration of <code class="docutils literal notranslate"><span class="pre">interval=1s</span></code> would be:</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>NaN</td>
-<td>0.2</td>
-<td>0</td>
-<td>0.3</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>NaN</p></td>
+<td><p>0.2</p></td>
+<td><p>0</p></td>
+<td><p>0.3</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>NaN</td>
-<td>0.1</td>
-<td>N/A</td>
-<td>0.1</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>NaN</p></td>
+<td><p>0.1</p></td>
+<td><p>N/A</p></td>
+<td><p>0.1</p></td>
 </tr>
 </tbody>
 </table>
-<p>Note that the first value may be NaN'd if no previous value was found for the given query time span. The storage engine should try to pad and return an extra value before the first in order to calculate a proper rate but this may not always happen.</p>
+<p>Note that the first value may be NaN’d if no previous value was found for the given query time span. The storage engine should try to pad and return an extra value before the first in order to calculate a proper rate but this may not always happen.</p>
 <p>TODO - more docs on the counter flags from the old TSD docs.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
     <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
                     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
@@ -357,100 +349,100 @@
 </div>
 <div class="section" id="rate-to-count">
 <h2>Rate to Count</h2>
-<p>Similar to the counter to rate, the rate to count node should be the first node after the data source. This setting will take the recorded value and multiply it by a reporting interval to compute the &quot;count&quot; or number of operations per interval, converting a recorded rate back to a counter (albeit just the count for the interval, not a monotonically increasing count.)</p>
-<p>The two important settings are the <code class="docutils literal"><span class="pre">interval</span></code> that reflects the interval of the rate stored and the <code class="docutils literal"><span class="pre">dataInterval</span></code> wherein you should set it to the reporting interval of the data source. E.g. if the source reports every 10 seconds, set the <code class="docutils literal"><span class="pre">dataInterval</span></code> to <code class="docutils literal"><span class="pre">10s</span></code> or if the source comes in every minute, set it to <code class="docutils literal"><span class="pre">1m</span></code>. If you leave the <code class="docutils literal"><span class="pre">dataInterval</span></code> empty and the time series has missing values, you may see artifically inflated counts as the TSD will compute the time delta from the preivous existing value to the current value and multiple bny the interval to compute the count.</p>
+<p>Similar to the counter to rate, the rate to count node should be the first node after the data source. This setting will take the recorded value and multiply it by a reporting interval to compute the “count” or number of operations per interval, converting a recorded rate back to a counter (albeit just the count for the interval, not a monotonically increasing count.)</p>
+<p>The two important settings are the <code class="docutils literal notranslate"><span class="pre">interval</span></code> that reflects the interval of the rate stored and the <code class="docutils literal notranslate"><span class="pre">dataInterval</span></code> wherein you should set it to the reporting interval of the data source. E.g. if the source reports every 10 seconds, set the <code class="docutils literal notranslate"><span class="pre">dataInterval</span></code> to <code class="docutils literal notranslate"><span class="pre">10s</span></code> or if the source comes in every minute, set it to <code class="docutils literal notranslate"><span class="pre">1m</span></code>. If you leave the <code class="docutils literal notranslate"><span class="pre">dataInterval</span></code> empty and the time series has missing values, you may see artifically inflated counts as the TSD will compute the time delta from the preivous existing value to the current value and multiple bny the interval to compute the count.</p>
 <p>As an example, assume the following values.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>1</td>
-<td>3</td>
-<td>2</td>
-<td>1</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>1</td>
-<td>2</td>
-<td>N/A</td>
-<td>2</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>N/A</p></td>
+<td><p>2</p></td>
 </tr>
 </tbody>
 </table>
-<p>Lets assume <code class="docutils literal"><span class="pre">interval=1s</span></code> and <code class="docutils literal"><span class="pre">dataInterval=10s</span></code>. The results would be:</p>
-<table border="1" class="docutils">
+<p>Lets assume <code class="docutils literal notranslate"><span class="pre">interval=1s</span></code> and <code class="docutils literal notranslate"><span class="pre">dataInterval=10s</span></code>. The results would be:</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>10</td>
-<td>30</td>
-<td>20</td>
-<td>10</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>10</p></td>
+<td><p>30</p></td>
+<td><p>20</p></td>
+<td><p>10</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>10</td>
-<td>20</td>
-<td>N/A</td>
-<td>20</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>10</p></td>
+<td><p>20</p></td>
+<td><p>N/A</p></td>
+<td><p>20</p></td>
 </tr>
 </tbody>
 </table>
-<p>If <code class="docutils literal"><span class="pre">dataInterval</span></code> was not set, TS2 would have the following values:</p>
-<table border="1" class="docutils">
+<p>If <code class="docutils literal notranslate"><span class="pre">dataInterval</span></code> was not set, TS2 would have the following values:</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS2</td>
-<td>10</td>
-<td>20</td>
-<td>N/A</td>
-<td>40</td>
+<tbody>
+<tr class="row-even"><td><p>TS2</p></td>
+<td><p>10</p></td>
+<td><p>20</p></td>
+<td><p>N/A</p></td>
+<td><p>40</p></td>
 </tr>
 </tbody>
 </table>
-<p>The value at <code class="docutils literal"><span class="pre">T</span> <span class="pre">+</span> <span class="pre">30s</span></code> would subtract the time from <code class="docutils literal"><span class="pre">T</span> <span class="pre">+</span> <span class="pre">10s</span></code> to get a value of <code class="docutils literal"><span class="pre">20s</span></code> then multiply that by the interval of <code class="docutils literal"><span class="pre">1s</span></code>.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<p>The value at <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">+</span> <span class="pre">30s</span></code> would subtract the time from <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">+</span> <span class="pre">10s</span></code> to get a value of <code class="docutils literal notranslate"><span class="pre">20s</span></code> then multiply that by the interval of <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
       <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
                       <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
@@ -489,72 +481,72 @@
 </div>
 <div class="section" id="first-derivative-or-rate">
 <h2>First Derivative or Rate</h2>
-<p>If you aren't dealing with a monotonically increasing counter and just want to view the rate of change of any metric, then the rate node can be used in any locating in the execution graph. Just leave out the counter and other flags.</p>
-<p>For example with an <code class="docutils literal"><span class="pre">interval=1s</span></code> and an input of:</p>
-<table border="1" class="docutils">
+<p>If you aren’t dealing with a monotonically increasing counter and just want to view the rate of change of any metric, then the rate node can be used in any locating in the execution graph. Just leave out the counter and other flags.</p>
+<p>For example with an <code class="docutils literal notranslate"><span class="pre">interval=1s</span></code> and an input of:</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>1</td>
-<td>3</td>
-<td>2</td>
-<td>1</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>1</td>
-<td>2</td>
-<td>N/A</td>
-<td>2</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>N/A</p></td>
+<td><p>2</p></td>
 </tr>
 </tbody>
 </table>
 <p>The results would be:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>NaN</td>
-<td>0.2</td>
-<td>-0.1</td>
-<td>-0.1</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>NaN</p></td>
+<td><p>0.2</p></td>
+<td><p>-0.1</p></td>
+<td><p>-0.1</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>NaN</td>
-<td>0.1</td>
-<td>N/A</td>
-<td>0</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>NaN</p></td>
+<td><p>0.1</p></td>
+<td><p>N/A</p></td>
+<td><p>0</p></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
       <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
                       <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
@@ -591,71 +583,71 @@
 </div>
 <div class="section" id="delta">
 <h2>Delta</h2>
-<p>For cases where you just want the difference between values, set the the <code class="docutils literal"><span class="pre">deltaOnly</span></code> flag to true nad all other flags to false. The interval can be ignored. For an example input:</p>
-<table border="1" class="docutils">
+<p>For cases where you just want the difference between values, set the the <code class="docutils literal notranslate"><span class="pre">deltaOnly</span></code> flag to true nad all other flags to false. The interval can be ignored. For an example input:</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>1</td>
-<td>3</td>
-<td>2</td>
-<td>1</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>1</td>
-<td>2</td>
-<td>N/A</td>
-<td>2</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>N/A</p></td>
+<td><p>2</p></td>
 </tr>
 </tbody>
 </table>
 <p>The results would be:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Series</th>
-<th class="head">T0</th>
-<th class="head">T + 10s</th>
-<th class="head">T + 20s</th>
-<th class="head">T + 30s</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Series</p></th>
+<th class="head"><p>T0</p></th>
+<th class="head"><p>T + 10s</p></th>
+<th class="head"><p>T + 20s</p></th>
+<th class="head"><p>T + 30s</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>NaN</td>
-<td>2</td>
-<td>-1</td>
-<td>-1</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>NaN</p></td>
+<td><p>2</p></td>
+<td><p>-1</p></td>
+<td><p>-1</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>NaN</td>
-<td>1</td>
-<td>N/A</td>
-<td>0</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>NaN</p></td>
+<td><p>1</p></td>
+<td><p>N/A</p></td>
+<td><p>0</p></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
       <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
                       <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
@@ -706,7 +698,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

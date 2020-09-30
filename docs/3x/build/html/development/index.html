@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Development &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -42,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -147,7 +139,7 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="development">
 <h1>Development</h1>
@@ -156,30 +148,32 @@
 <div class="section" id="guidelines">
 <h2>Guidelines</h2>
 <ul class="simple">
-<li>Please file <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">issues on GitHub</a> after checking to see if anyone has posted a bug already. Make sure your bug reports contain enough details so they can be easily understood by others and quickly fixed.</li>
-<li>Read the Development page for tips</li>
-<li>The best way to contribute code is to fork the main repo and <a class="reference external" href="https://help.github.com/articles/using-pull-requests">send a pull request</a> on GitHub.<ul>
-<li>Bug fixes should be done in the <code class="docutils literal"><span class="pre">master</span></code> branch</li>
-<li>New features or major changes should be done in the <code class="docutils literal"><span class="pre">next</span></code> branch</li>
+<li><p>Please file <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">issues on GitHub</a> after checking to see if anyone has posted a bug already. Make sure your bug reports contain enough details so they can be easily understood by others and quickly fixed.</p></li>
+<li><p>Read the Development page for tips</p></li>
+<li><p>The best way to contribute code is to fork the main repo and <a class="reference external" href="https://help.github.com/articles/using-pull-requests">send a pull request</a> on GitHub.</p>
+<ul>
+<li><p>Bug fixes should be done in the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch</p></li>
+<li><p>New features or major changes should be done in the <code class="docutils literal notranslate"><span class="pre">next</span></code> branch</p></li>
 </ul>
 </li>
-<li>Alternatively, you can send a plain-text patch to the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">mailing list</a>.</li>
-<li>Before your code changes can be included, please file the <a class="reference external" href="https://docs.google.com/spreadsheet/embeddedform?formkey=dFNiOFROLXJBbFBmMkQtb1hNMWhUUnc6MQ">Contribution License Agreement</a>.</li>
-<li>Unlike, say, the Apache Software Foundation, we do not require every single code change to be attached to an issue. Feel free to send as many small fixes as you want.</li>
-<li>Please break down your changes into as many small commits as possible.</li>
-<li>Please <em>respect the coding style of the code</em> you're changing.<ul>
-<li>Indent code with 2 spaces, no tabs</li>
-<li>Keep code to 80 columns</li>
-<li>Curly brace on the same line as <code class="docutils literal"><span class="pre">if</span></code>, <code class="docutils literal"><span class="pre">for</span></code>, <code class="docutils literal"><span class="pre">while</span></code>, etc</li>
-<li>Variables need descriptive names <code class="docutils literal"><span class="pre">like_this</span></code> (instead of the typical Java style of <code class="docutils literal"><span class="pre">likeThis</span></code>)</li>
-<li>Methods named <code class="docutils literal"><span class="pre">likeThis()</span></code> starting with lower case letters</li>
-<li>Classes named <code class="docutils literal"><span class="pre">LikeThis</span></code>, starting with upper case letters</li>
-<li>Use the <code class="docutils literal"><span class="pre">final</span></code> keyword as much as you can, particularly in method parameters and returns statements.</li>
-<li>Avoid checked exceptions as much as possible</li>
-<li>Always provide the most restrictive visibility to classes and members</li>
-<li>Javadoc all of your classes and methods. Some folks make use the Java API directly and we'll build docs for the site, so the more the merrier</li>
-<li>Don't add dependencies to the core OpenTSDB library unless absolutely necessary</li>
-<li>Add unit tests for any classes/methods you create and verify that your change doesn't break existing unit tests. We know UTs aren't fun, but they are useful</li>
+<li><p>Alternatively, you can send a plain-text patch to the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">mailing list</a>.</p></li>
+<li><p>Before your code changes can be included, please file the <a class="reference external" href="https://docs.google.com/spreadsheet/embeddedform?formkey=dFNiOFROLXJBbFBmMkQtb1hNMWhUUnc6MQ">Contribution License Agreement</a>.</p></li>
+<li><p>Unlike, say, the Apache Software Foundation, we do not require every single code change to be attached to an issue. Feel free to send as many small fixes as you want.</p></li>
+<li><p>Please break down your changes into as many small commits as possible.</p></li>
+<li><p>Please <em>respect the coding style of the code</em> you’re changing.</p>
+<ul>
+<li><p>Indent code with 2 spaces, no tabs</p></li>
+<li><p>Keep code to 80 columns</p></li>
+<li><p>Curly brace on the same line as <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code>, etc</p></li>
+<li><p>Variables need descriptive names <code class="docutils literal notranslate"><span class="pre">like_this</span></code> (instead of the typical Java style of <code class="docutils literal notranslate"><span class="pre">likeThis</span></code>)</p></li>
+<li><p>Methods named <code class="docutils literal notranslate"><span class="pre">likeThis()</span></code> starting with lower case letters</p></li>
+<li><p>Classes named <code class="docutils literal notranslate"><span class="pre">LikeThis</span></code>, starting with upper case letters</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">final</span></code> keyword as much as you can, particularly in method parameters and returns statements.</p></li>
+<li><p>Avoid checked exceptions as much as possible</p></li>
+<li><p>Always provide the most restrictive visibility to classes and members</p></li>
+<li><p>Javadoc all of your classes and methods. Some folks make use the Java API directly and we’ll build docs for the site, so the more the merrier</p></li>
+<li><p>Don’t add dependencies to the core OpenTSDB library unless absolutely necessary</p></li>
+<li><p>Add unit tests for any classes/methods you create and verify that your change doesn’t break existing unit tests. We know UTs aren’t fun, but they are useful</p></li>
 </ul>
 </li>
 </ul>
@@ -188,11 +182,11 @@
 <h2>Git Repository</h2>
 <p>OpenTSDB is maintained in <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/">GitHub</a>. There are a limited number of branches and the purpose of each branch is as follows:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">maintenance</span></code> - This was the previously released version of OpenTSDB, usually the last minor version. E.g. if 2.3.0 or 2.3.1 is the current release, <code class="docutils literal"><span class="pre">maintenance</span></code> will have the last 2.2.x version. This branch should rarely have PRs pointed at it. Rather patches against <code class="docutils literal"><span class="pre">master</span></code> that would apply to previous releases can be cherry-picked.</li>
-<li><code class="docutils literal"><span class="pre">master</span></code> - The current release version of OpenTSDB. Only pull requests with bug fixes should be given against <code class="docutils literal"><span class="pre">master</span></code>. When enough PRs have been merged, we'll cut another PATCH version, e.g. 2.2.0 to 2.2.1. Patches with new features or behavior modifications should point to <code class="docutils literal"><span class="pre">next</span></code>. Patches against master should be cherry-picked to the <em>downstream</em> branches.</li>
-<li><code class="docutils literal"><span class="pre">next</span></code> - This is the next minor release version of OpenTSDB and contains code in development or, when the version is marked as RC, then release candidate code. If the version is marked as a SNAPSHOT then new features can be applied to next. Once it moves to RC, then new features should be issued against the <code class="docutils literal"><span class="pre">put</span></code> branch. Otherwise only bug fixes should be given for RC code.</li>
-<li><code class="docutils literal"><span class="pre">put</span></code> - When the <code class="docutils literal"><span class="pre">next</span></code> branch is in an RC state, new features should be applied against <code class="docutils literal"><span class="pre">put</span></code> which will be the next minor version.</li>
-<li><code class="docutils literal"><span class="pre">X.0</span></code> - The next major version of OpenTSDB that may include breaking API changes. When the code is in a fairly stable state, it will be promoted up to <code class="docutils literal"><span class="pre">next</span></code> as an RC, then <code class="docutils literal"><span class="pre">master</span></code> for an official release.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maintenance</span></code> - This was the previously released version of OpenTSDB, usually the last minor version. E.g. if 2.3.0 or 2.3.1 is the current release, <code class="docutils literal notranslate"><span class="pre">maintenance</span></code> will have the last 2.2.x version. This branch should rarely have PRs pointed at it. Rather patches against <code class="docutils literal notranslate"><span class="pre">master</span></code> that would apply to previous releases can be cherry-picked.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> - The current release version of OpenTSDB. Only pull requests with bug fixes should be given against <code class="docutils literal notranslate"><span class="pre">master</span></code>. When enough PRs have been merged, we’ll cut another PATCH version, e.g. 2.2.0 to 2.2.1. Patches with new features or behavior modifications should point to <code class="docutils literal notranslate"><span class="pre">next</span></code>. Patches against master should be cherry-picked to the <em>downstream</em> branches.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next</span></code> - This is the next minor release version of OpenTSDB and contains code in development or, when the version is marked as RC, then release candidate code. If the version is marked as a SNAPSHOT then new features can be applied to next. Once it moves to RC, then new features should be issued against the <code class="docutils literal notranslate"><span class="pre">put</span></code> branch. Otherwise only bug fixes should be given for RC code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">put</span></code> - When the <code class="docutils literal notranslate"><span class="pre">next</span></code> branch is in an RC state, new features should be applied against <code class="docutils literal notranslate"><span class="pre">put</span></code> which will be the next minor version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X.0</span></code> - The next major version of OpenTSDB that may include breaking API changes. When the code is in a fairly stable state, it will be promoted up to <code class="docutils literal notranslate"><span class="pre">next</span></code> as an RC, then <code class="docutils literal notranslate"><span class="pre">master</span></code> for an official release.</p></li>
 </ul>
 <p>Any other branches are likely to be pruned at some point as they may contain stale code or temporary hacks.</p>
 </div>
@@ -221,7 +215,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

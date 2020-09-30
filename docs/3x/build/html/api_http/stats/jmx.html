@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/stats/jmx &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="/api/stats" href="index.html" />
@@ -30,9 +19,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -43,7 +35,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -158,72 +150,72 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="api-stats-jmx">
 <h1>/api/stats/jmx</h1>
-<p>This endpoint scrapes the running JVM's JMX for information and statistics, dumping it to a JSON output.</p>
+<p>This endpoint scrapes the running JVM’s JMX for information and statistics, dumping it to a JSON output.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The information printed will change depending on the JVM you are running the TSD under. In particular, the pools and GC sections will differ quite a bit.</p>
+<p class="admonition-title">Note</p>
+<p>The information printed will change depending on the JVM you are running the TSD under. In particular, the pools and GC sections will differ quite a bit.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET</li>
+<li><p>GET</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>Via a query parameter you can filter the output returned from the JMX store.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="15%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">QS</th>
-<th class="head">RW</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>QS</p></th>
+<th class="head"><p>RW</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>qry</td>
-<td>String</td>
-<td>Optional</td>
-<td>A JMX query to filter the results</td>
-<td>&#160;</td>
-<td>qry</td>
-<td>&#160;</td>
-<td>qry=org.glassfish.jersey:*</td>
+<tbody>
+<tr class="row-even"><td><p>qry</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A JMX query to filter the results</p></td>
+<td></td>
+<td><p>qry</p></td>
+<td></td>
+<td><p>qry=org.glassfish.jersey:*</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">jmx</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">jmx</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The response is an object with a <code class="docutils literal"><span class="pre">beans</span></code> array of JMX beans including their properties and reported measurements.</p>
+<p>The response is an object with a <code class="docutils literal notranslate"><span class="pre">beans</span></code> array of JMX beans including their properties and reported measurements.</p>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;beans&quot;</span><span class="o">:</span> <span class="p">[{</span>
                       <span class="s2">&quot;domain&quot;</span><span class="o">:</span> <span class="s2">&quot;org.glassfish.jersey&quot;</span><span class="p">,</span>
                       <span class="s2">&quot;properties&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -235,36 +227,36 @@
                               <span class="s2">&quot;detail&quot;</span><span class="o">:</span> <span class="s2">&quot;methods&quot;</span>
                       <span class="p">},</span>
                       <span class="s2">&quot;modelerType&quot;</span><span class="o">:</span> <span class="s2">&quot;org.glassfish.jersey.server.internal.monitoring.jmx.ExecutionStatisticsDynamicBean&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1m&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_1m&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1h&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_1h&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_1s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_15s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15m&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_15m&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                      <span class="s2">&quot;MinTime[ms]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1m&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_1m&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1h&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_1h&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_1s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_15s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15m&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_15m&quot;</span><span class="o">:</span> <span class="mf">0</span>
               <span class="p">},</span>
               <span class="p">{</span>
                       <span class="s2">&quot;domain&quot;</span><span class="o">:</span> <span class="s2">&quot;org.glassfish.jersey&quot;</span><span class="p">,</span>
@@ -277,36 +269,36 @@
                               <span class="s2">&quot;detail&quot;</span><span class="o">:</span> <span class="s2">&quot;methods&quot;</span>
                       <span class="p">},</span>
                       <span class="s2">&quot;modelerType&quot;</span><span class="o">:</span> <span class="s2">&quot;org.glassfish.jersey.server.internal.monitoring.jmx.ExecutionStatisticsDynamicBean&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1m&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_1m&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1h&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_1h&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_1s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_15s&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;MinTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;MaxTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;AverageTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15m&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                      <span class="s2">&quot;RequestCount_15m&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                      <span class="s2">&quot;MinTime[ms]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_total&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_1m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1m&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_1m&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_1h&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1h&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_1h&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_1s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_1s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_1s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_15s&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_15s&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;MinTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;MaxTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;AverageTime[ms]_15m&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestRate[requestsPerSeconds]_15m&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+                      <span class="s2">&quot;RequestCount_15m&quot;</span><span class="o">:</span> <span class="mf">0</span>
               <span class="p">}</span>
        <span class="p">]</span>
 <span class="p">}</span>
@@ -329,7 +321,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

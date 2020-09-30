@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/stats/threads &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -42,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -153,7 +145,7 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="api-stats-threads">
 <h1>/api/stats/threads</h1>
@@ -161,7 +153,7 @@
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET</li>
+<li><p>GET</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
@@ -170,7 +162,7 @@
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">threads</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">threads</span>
 </pre></div>
 </div>
 </div>
@@ -178,59 +170,59 @@
 <div class="section" id="response">
 <h2>Response</h2>
 <p>The response is an array of objects. Fields in the response include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="60%" />
-<col width="20%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 60%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Description</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>threadID</td>
-<td>Integer</td>
-<td>Numeric ID of the thread</td>
-<td>1</td>
+<tbody>
+<tr class="row-even"><td><p>threadID</p></td>
+<td><p>Integer</p></td>
+<td><p>Numeric ID of the thread</p></td>
+<td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td>priority</td>
-<td>Integer</td>
-<td>Execution priority for the thread</td>
-<td>5</td>
+<tr class="row-odd"><td><p>priority</p></td>
+<td><p>Integer</p></td>
+<td><p>Execution priority for the thread</p></td>
+<td><p>5</p></td>
 </tr>
-<tr class="row-even"><td>name</td>
-<td>String</td>
-<td>String name of the thread, usually assigned by default</td>
-<td>New I/O worker #23</td>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>String</p></td>
+<td><p>String name of the thread, usually assigned by default</p></td>
+<td><p>New I/O worker #23</p></td>
 </tr>
-<tr class="row-odd"><td>interrupted</td>
-<td>Boolean</td>
-<td>Whether or not the thread was interrupted</td>
-<td>false</td>
+<tr class="row-odd"><td><p>interrupted</p></td>
+<td><p>Boolean</p></td>
+<td><p>Whether or not the thread was interrupted</p></td>
+<td><p>false</p></td>
 </tr>
-<tr class="row-even"><td>state</td>
-<td>String</td>
-<td>One of the valid Java thread states</td>
-<td>RUNNABLE</td>
+<tr class="row-even"><td><p>state</p></td>
+<td><p>String</p></td>
+<td><p>One of the valid Java thread states</p></td>
+<td><p>RUNNABLE</p></td>
 </tr>
-<tr class="row-odd"><td>stack</td>
-<td>Array&lt;String&gt;</td>
-<td>A stack trace showing where execution is currently located</td>
-<td><em>See Below</em></td>
+<tr class="row-odd"><td><p>stack</p></td>
+<td><p>Array&lt;String&gt;</p></td>
+<td><p>A stack trace showing where execution is currently located</p></td>
+<td><p><em>See Below</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">33</span><span class="p">,</span>
-        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mf">33</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;AsyncHBase I/O Worker #23&quot;</span><span class="p">,</span>
         <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;RUNNABLE&quot;</span><span class="p">,</span>
@@ -253,16 +245,16 @@
         <span class="p">]</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
-        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mf">6</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mf">9</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Signal Dispatcher&quot;</span><span class="p">,</span>
         <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;RUNNABLE&quot;</span><span class="p">,</span>
         <span class="s2">&quot;stack&quot;</span><span class="o">:</span> <span class="p">[]</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
-        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mf">21</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;AsyncHBase I/O Worker #11&quot;</span><span class="p">,</span>
         <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;RUNNABLE&quot;</span><span class="p">,</span>
@@ -285,8 +277,8 @@
         <span class="p">]</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Reference Handler&quot;</span><span class="p">,</span>
         <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;WAITING&quot;</span><span class="p">,</span>
@@ -297,8 +289,8 @@
         <span class="p">]</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mi">44</span><span class="p">,</span>
-        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;threadID&quot;</span><span class="o">:</span> <span class="mf">44</span><span class="p">,</span>
+        <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;OpenTSDB Timer TSDB Timer #1&quot;</span><span class="p">,</span>
         <span class="s2">&quot;interrupted&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;TIMED_WAITING&quot;</span><span class="p">,</span>
@@ -330,7 +322,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/stats/query &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -42,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -153,7 +145,7 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="api-stats-query">
 <h1>/api/stats/query</h1>
@@ -161,7 +153,7 @@
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET</li>
+<li><p>GET</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
@@ -170,18 +162,18 @@
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">query</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">query</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The response includes two arrays. <code class="docutils literal"><span class="pre">completed</span></code> lists the 256 most recent queries that have finished execution, whether successfully or with an error. The <code class="docutils literal"><span class="pre">running</span></code> array contains a list of queries currently executing. If this list is growing, the TSD is under heavy load. Note that the running list will not contain an exception, response code or timing details.</p>
+<p>The response includes two arrays. <code class="docutils literal notranslate"><span class="pre">completed</span></code> lists the 256 most recent queries that have finished execution, whether successfully or with an error. The <code class="docutils literal notranslate"><span class="pre">running</span></code> array contains a list of queries currently executing. If this list is growing, the TSD is under heavy load. Note that the running list will not contain an exception, response code or timing details.</p>
 <p>For information on the various sections and data from the stats endpoint, see <span class="xref std std-doc">../../user_guide/query/stats</span>.</p>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;completed&quot;</span><span class="o">:</span> <span class="p">[{</span>
               <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="p">{</span>
                       <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1455531250181&quot;</span><span class="p">,</span>
@@ -213,8 +205,8 @@
                               <span class="p">}],</span>
                               <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mi">9223372036854775807</span><span class="p">,</span>
-                                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mf">9223372036854775807</span><span class="p">,</span>
+                                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
                                       <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">false</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -246,8 +238,8 @@
                               <span class="p">}],</span>
                               <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mi">9223372036854775807</span><span class="p">,</span>
-                                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mf">9223372036854775807</span><span class="p">,</span>
+                                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
                                       <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">false</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -266,7 +258,7 @@
                       <span class="s2">&quot;showSummary&quot;</span><span class="o">:</span> <span class="kc">false</span>
               <span class="p">},</span>
               <span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;null&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;executed&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="s2">&quot;executed&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
               <span class="s2">&quot;user&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
               <span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
                       <span class="s2">&quot;Accept-Language&quot;</span><span class="o">:</span> <span class="s2">&quot;en-US,en;q=0.8&quot;</span><span class="p">,</span>
@@ -280,13 +272,13 @@
                       <span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json;charset=UTF-8&quot;</span><span class="p">,</span>
                       <span class="s2">&quot;Accept&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json, text/plain, */*&quot;</span>
               <span class="p">},</span>
-              <span class="s2">&quot;numRunningQueries&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="s2">&quot;numRunningQueries&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
               <span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
-                      <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
+                      <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mf">200</span><span class="p">,</span>
                       <span class="s2">&quot;reasonPhrase&quot;</span><span class="o">:</span> <span class="s2">&quot;OK&quot;</span>
               <span class="p">},</span>
-              <span class="s2">&quot;queryStartTimestamp&quot;</span><span class="o">:</span> <span class="mi">1455552844368</span><span class="p">,</span>
-              <span class="s2">&quot;queryCompletedTimestamp&quot;</span><span class="o">:</span> <span class="mi">1455552844621</span><span class="p">,</span>
+              <span class="s2">&quot;queryStartTimestamp&quot;</span><span class="o">:</span> <span class="mf">1455552844368</span><span class="p">,</span>
+              <span class="s2">&quot;queryCompletedTimestamp&quot;</span><span class="o">:</span> <span class="mf">1455552844621</span><span class="p">,</span>
               <span class="s2">&quot;sentToClient&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
               <span class="s2">&quot;stats&quot;</span><span class="o">:</span> <span class="p">{</span>
                       <span class="s2">&quot;avgAggregationTime&quot;</span><span class="o">:</span> <span class="mf">2.11416</span><span class="p">,</span>
@@ -295,7 +287,7 @@
                       <span class="s2">&quot;avgScannerTime&quot;</span><span class="o">:</span> <span class="mf">200.474122</span><span class="p">,</span>
                       <span class="s2">&quot;avgScannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
                       <span class="s2">&quot;avgSerializationTime&quot;</span><span class="o">:</span> <span class="mf">2.124153</span><span class="p">,</span>
-                      <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mi">716</span><span class="p">,</span>
+                      <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mf">716</span><span class="p">,</span>
                       <span class="s2">&quot;maxAggregationTime&quot;</span><span class="o">:</span> <span class="mf">2.093369</span><span class="p">,</span>
                       <span class="s2">&quot;maxHBaseTime&quot;</span><span class="o">:</span> <span class="mf">241.708782</span><span class="p">,</span>
                       <span class="s2">&quot;maxQueryScanTime&quot;</span><span class="o">:</span> <span class="mf">240.637231</span><span class="p">,</span>
@@ -303,9 +295,9 @@
                       <span class="s2">&quot;maxSerializationTime&quot;</span><span class="o">:</span> <span class="mf">2.103411</span><span class="p">,</span>
                       <span class="s2">&quot;maxUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.059345</span><span class="p">,</span>
                       <span class="s2">&quot;processingPreWriteTime&quot;</span><span class="o">:</span> <span class="mf">253.050907</span><span class="p">,</span>
-                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">40</span><span class="p">,</span>
                       <span class="s2">&quot;totalTime&quot;</span><span class="o">:</span> <span class="mf">256.568992</span><span class="p">,</span>
-                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
               <span class="p">}</span>
       <span class="p">}],</span>
       <span class="s2">&quot;running&quot;</span><span class="o">:</span> <span class="p">[]</span>
@@ -329,7 +321,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

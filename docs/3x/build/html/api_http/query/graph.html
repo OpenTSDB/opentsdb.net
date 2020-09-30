@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/query/graph &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/registry" href="../registry/index.html" />
@@ -31,9 +20,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -169,95 +161,95 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="api-query-graph">
 <h1>/api/query/graph</h1>
 <p>This new 3.0 endpoint is a low-level querying API that supports a new DSL for building a directed acyclic query graph to fetch and analyze data from various sources. The DSL supports YAML or JSON queries.</p>
-<p>Yes, we know this DSL is incredibly verbose and extremely ugly. It's a direct mapping to the semantic query that executes on the TSD framework and idealy we will be adding other languages such as TSL, PromQL, possibly InfluxQL and SQL for easier interaction.</p>
+<p>Yes, we know this DSL is incredibly verbose and extremely ugly. It’s a direct mapping to the semantic query that executes on the TSD framework and idealy we will be adding other languages such as TSL, PromQL, possibly InfluxQL and SQL for easier interaction.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>POST</li>
+<li><p>POST</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>The query object or document includes the following fields:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>start</td>
-<td>String/Integer</td>
-<td>Required</td>
-<td>The start time for the query. This may be relative, absolute human readable or absolute Unix Epoch.</td>
-<td>&#160;</td>
-<td>1h-ago, 2015/05/05-00:00:00</td>
+<tbody>
+<tr class="row-even"><td><p>start</p></td>
+<td><p>String/Integer</p></td>
+<td><p>Required</p></td>
+<td><p>The start time for the query. This may be relative, absolute human readable or absolute Unix Epoch.</p></td>
+<td></td>
+<td><p>1h-ago, 2015/05/05-00:00:00</p></td>
 </tr>
-<tr class="row-odd"><td>end</td>
-<td>String/Integer</td>
-<td>Optional</td>
-<td>The end time for the query. If left out, the end is <em>now</em></td>
-<td>now</td>
-<td>1h-ago, 2015/05/05-00:00:00</td>
+<tr class="row-odd"><td><p>end</p></td>
+<td><p>String/Integer</p></td>
+<td><p>Optional</p></td>
+<td><p>The end time for the query. If left out, the end is <em>now</em></p></td>
+<td><p>now</p></td>
+<td><p>1h-ago, 2015/05/05-00:00:00</p></td>
 </tr>
-<tr class="row-even"><td>timeZone</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional Java Timezone ID string. Defaults to UTC</td>
-<td>UTC</td>
-<td>America/Denver</td>
+<tr class="row-even"><td><p>timeZone</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional Java Timezone ID string. Defaults to UTC</p></td>
+<td><p>UTC</p></td>
+<td><p>America/Denver</p></td>
 </tr>
-<tr class="row-odd"><td>mode</td>
-<td>String</td>
-<td>Optional</td>
-<td>A query execution mode such as a single query, validation or streaming query.</td>
-<td>SINGLE</td>
-<td>VALIDATE</td>
+<tr class="row-odd"><td><p>mode</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A query execution mode such as a single query, validation or streaming query.</p></td>
+<td><p>SINGLE</p></td>
+<td><p>VALIDATE</p></td>
 </tr>
-<tr class="row-even"><td>executionGraph</td>
-<td>Array</td>
-<td>Required</td>
-<td>A list of query node definitions that build the execution graph. Must include at least one data source.</td>
-<td>&#160;</td>
-<td>See TODO</td>
+<tr class="row-even"><td><p>executionGraph</p></td>
+<td><p>Array</p></td>
+<td><p>Required</p></td>
+<td><p>A list of query node definitions that build the execution graph. Must include at least one data source.</p></td>
+<td></td>
+<td><p>See TODO</p></td>
 </tr>
-<tr class="row-odd"><td>filters</td>
-<td>Array</td>
-<td>Optional</td>
-<td>An optional list of filter sets with IDs that can be referenced by data sources. Useful if there are multiple sources sharing the sa me filters.</td>
-<td>&#160;</td>
-<td>See TODO</td>
+<tr class="row-odd"><td><p>filters</p></td>
+<td><p>Array</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional list of filter sets with IDs that can be referenced by data sources. Useful if there are multiple sources sharing the sa me filters.</p></td>
+<td></td>
+<td><p>See TODO</p></td>
 </tr>
-<tr class="row-even"><td>serdesConfigs</td>
-<td>Array</td>
-<td>Optional</td>
-<td>An array of serialization configurations that allow for formatting variations and output filtering. If this list is null or empty then only the terminal nodes of the execution graph will be serialized.</td>
-<td>&#160;</td>
-<td>See TODO</td>
+<tr class="row-even"><td><p>serdesConfigs</p></td>
+<td><p>Array</p></td>
+<td><p>Optional</p></td>
+<td><p>An array of serialization configurations that allow for formatting variations and output filtering. If this list is null or empty then only the terminal nodes of the execution graph will be serialized.</p></td>
+<td></td>
+<td><p>See TODO</p></td>
 </tr>
-<tr class="row-odd"><td>logLevel</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional log level that can provide details and warnings about the underlying execution of the query. Note that at <code class="docutils literal"><span class="pre">DEBUG</span></code> or <code class="docutils literal"><span class="pre">TRACE</span></code> levels it may impact query performance and return a lot of information.</td>
-<td>ERROR</td>
-<td>TRACE</td>
+<tr class="row-odd"><td><p>logLevel</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional log level that can provide details and warnings about the underlying execution of the query. Note that at <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> or <code class="docutils literal notranslate"><span class="pre">TRACE</span></code> levels it may impact query performance and return a lot of information.</p></td>
+<td><p>ERROR</p></td>
+<td><p>TRACE</p></td>
 </tr>
 </tbody>
 </table>
@@ -266,102 +258,102 @@
 <h3>mode</h3>
 <p>The query mode is important as it determines how the query is executed. Possible values include:</p>
 <ul class="simple">
-<li><strong>SINGLE</strong> - Similar to the 1.x and 2.x wherein the query is executed and all sources must respond before results are serialized and returned to the user.</li>
-<li><strong>VALIDATE</strong> - The query is simply parsed and the execution graph configured with a response of OK or an error if parsing fails. This is good for validating things like expression queries or complex merges in that it will make sure the query parses and could be executed.</li>
+<li><p><strong>SINGLE</strong> - Similar to the 1.x and 2.x wherein the query is executed and all sources must respond before results are serialized and returned to the user.</p></li>
+<li><p><strong>VALIDATE</strong> - The query is simply parsed and the execution graph configured with a response of OK or an error if parsing fails. This is good for validating things like expression queries or complex merges in that it will make sure the query parses and could be executed.</p></li>
 </ul>
-<p>There are also parameters we're working on that allow for streaming queries using either follow-up HTTP calls or websockets.</p>
+<p>There are also parameters we’re working on that allow for streaming queries using either follow-up HTTP calls or websockets.</p>
 </div>
 <div class="section" id="executiongraph">
 <h3>executionGraph</h3>
 <p>The execution graph consists of one or more query node objects. Each object specifies either a data source or an operation on the data. Data flows from the sources through the nodes linked to them. Fields common to every query node include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>String</td>
-<td>Required</td>
-<td>A unique ID for the graph, i.e. no other node in the graph array can have the same ID. This can either be a descriptive name for the node such as <code class="docutils literal"><span class="pre">downsample_metric1</span></code> wherein the <code class="docutils literal"><span class="pre">type</span></code> field is the ID or name of a query node in the Registry, or it can be the ID of a node in the Registry and the <code class="docutils literal"><span class="pre">type</span></code> field can be missing.</td>
-<td>null</td>
-<td>m1</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A unique ID for the graph, i.e. no other node in the graph array can have the same ID. This can either be a descriptive name for the node such as <code class="docutils literal notranslate"><span class="pre">downsample_metric1</span></code> wherein the <code class="docutils literal notranslate"><span class="pre">type</span></code> field is the ID or name of a query node in the Registry, or it can be the ID of a node in the Registry and the <code class="docutils literal notranslate"><span class="pre">type</span></code> field can be missing.</p></td>
+<td><p>null</p></td>
+<td><p>m1</p></td>
 </tr>
-<tr class="row-odd"><td>type</td>
-<td>String</td>
-<td>Optional</td>
-<td>The ID or name of a query node in the Registry. If there is only one node in the list of the given type and the <code class="docutils literal"><span class="pre">id</span></code> is the name in the Registry, this field may be omitted.</td>
-<td>null</td>
-<td>timeseriesdatasource</td>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>The ID or name of a query node in the Registry. If there is only one node in the list of the given type and the <code class="docutils literal notranslate"><span class="pre">id</span></code> is the name in the Registry, this field may be omitted.</p></td>
+<td><p>null</p></td>
+<td><p>timeseriesdatasource</p></td>
 </tr>
-<tr class="row-even"><td>sources</td>
-<td>List</td>
-<td>Optional</td>
-<td>A list of <code class="docutils literal"><span class="pre">id</span></code> s that should pass data into this node. This is how the graph is formed. <em>Note</em> that data source nodes cannot have sources.</td>
-<td>null</td>
-<td>[&quot;m1&quot;, &quot;m2&quot;]</td>
+<tr class="row-even"><td><p>sources</p></td>
+<td><p>List</p></td>
+<td><p>Optional</p></td>
+<td><p>A list of <code class="docutils literal notranslate"><span class="pre">id</span></code> s that should pass data into this node. This is how the graph is formed. <em>Note</em> that data source nodes cannot have sources.</p></td>
+<td><p>null</p></td>
+<td><p>[“m1”, “m2”]</p></td>
 </tr>
 </tbody>
 </table>
 <p>Each node type has additional fields to be set, some required and others optional. For details on query nodes, see <span class="xref std std-doc">../../user_guide/querynodes/index</span></p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The ID for each node must be alpha-numeric with the addition of periods, underscores and dashes. It cannot contain punctuation or spaces.</p>
+<p class="admonition-title">Note</p>
+<p>The ID for each node must be alpha-numeric with the addition of periods, underscores and dashes. It cannot contain punctuation or spaces.</p>
 </div>
 </div>
 <div class="section" id="filters">
 <h3>filters</h3>
 <p>Data sources accept a filter in their node config. But if a query contains multiple data sources (e.g. many different metrics) that share the same filters, you can reduce the query payload size by providing a single (or more) named filters and each data source can reference the name. This field is an array of objects with the following fields:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>String</td>
-<td>Required</td>
-<td>A unique ID for the filter within the filter list. This ID must be referenced by the <code class="docutils literal"><span class="pre">filterId</span></code> field of data sources.</td>
-<td>null</td>
-<td>f1</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A unique ID for the filter within the filter list. This ID must be referenced by the <code class="docutils literal notranslate"><span class="pre">filterId</span></code> field of data sources.</p></td>
+<td><p>null</p></td>
+<td><p>f1</p></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>Object</td>
-<td>Required</td>
-<td>A filter definition, the same as that passed in a data source query node.</td>
-<td>null</td>
-<td>See Example Query</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>Object</p></td>
+<td><p>Required</p></td>
+<td><p>A filter definition, the same as that passed in a data source query node.</p></td>
+<td><p>null</p></td>
+<td><p>See Example Query</p></td>
 </tr>
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span>
 <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;f1&quot;</span><span class="p">,</span>
 <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;Chain&quot;</span><span class="p">,</span>
@@ -383,44 +375,44 @@
 </div>
 <div class="section" id="serdesconfigs">
 <h3>serdesConfigs</h3>
-<p>This section controls how data is serialized in the response. For now it controls filtering and later we'll have more options. If no config is given, then only the terminal nodes of the graph are serialized. This is an array of zero or one (for now) objects with the following fields:</p>
-<table border="1" class="colwidths-given docutils">
+<p>This section controls how data is serialized in the response. For now it controls filtering and later we’ll have more options. If no config is given, then only the terminal nodes of the graph are serialized. This is an array of zero or one (for now) objects with the following fields:</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>String</td>
-<td>Required</td>
-<td>For now must be the literal <code class="docutils literal"><span class="pre">JsonV3QuerySerdes</span></code></td>
-<td>null</td>
-<td>JsonV3QuerySerdes</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>For now must be the literal <code class="docutils literal notranslate"><span class="pre">JsonV3QuerySerdes</span></code></p></td>
+<td><p>null</p></td>
+<td><p>JsonV3QuerySerdes</p></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>List</td>
-<td>Required</td>
-<td>A list of query node <code class="docutils literal"><span class="pre">id</span></code> s that should be serialized.</td>
-<td>null</td>
-<td>[&quot;groupby&quot;, &quot;m1&quot;]</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>List</p></td>
+<td><p>Required</p></td>
+<td><p>A list of query node <code class="docutils literal notranslate"><span class="pre">id</span></code> s that should be serialized.</p></td>
+<td><p>null</p></td>
+<td><p>[“groupby”, “m1”]</p></td>
 </tr>
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span>
       <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;JsonV3QuerySerdes&quot;</span><span class="p">,</span>
       <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;groupby&quot;</span><span class="p">,</span> <span class="s2">&quot;m1&quot;</span><span class="p">]</span>
 <span class="p">}]</span>
@@ -430,7 +422,7 @@
 <div class="section" id="query-example">
 <h3>Query Example</h3>
 <p><strong>Complete Example</strong> (can be used to query data from the built-in mock in-memory store.)</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
  <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
  <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
@@ -493,28 +485,28 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The 3.x output is a fair bit different than the older results and is now dependent on the types of data returned. For example, if a <code class="docutils literal"><span class="pre">downsample</span></code> node is present, data serialized after that node will be given in an array of values without timestamps. Instead the timestamp information is provided as a separate field and timestamps must be calculated by the caller if required. This helps to reduce the data transfer from the server to the client.</p>
-<p>The response is now an object with various top-level fields including the <code class="docutils literal"><span class="pre">results</span></code> that return the actual data fetched by the query and <code class="docutils literal"><span class="pre">logs</span></code> that may include information about the query execution. We'll add additional fields on request such as the original query, resulting query plan, trace information, etc. This is now easier to parse out than the old style.</p>
+<p>The 3.x output is a fair bit different than the older results and is now dependent on the types of data returned. For example, if a <code class="docutils literal notranslate"><span class="pre">downsample</span></code> node is present, data serialized after that node will be given in an array of values without timestamps. Instead the timestamp information is provided as a separate field and timestamps must be calculated by the caller if required. This helps to reduce the data transfer from the server to the client.</p>
+<p>The response is now an object with various top-level fields including the <code class="docutils literal notranslate"><span class="pre">results</span></code> that return the actual data fetched by the query and <code class="docutils literal notranslate"><span class="pre">logs</span></code> that may include information about the query execution. We’ll add additional fields on request such as the original query, resulting query plan, trace information, etc. This is now easier to parse out than the old style.</p>
 <p>The top-level fields are:</p>
 <div class="section" id="results">
 <h3>results</h3>
-<p>An array of data results from the query. This may be empty if the query didn't find any data. For each result type you should see fields like these:</p>
-<table border="1" class="colwidths-given docutils">
+<p>An array of data results from the query. This may be empty if the query didn’t find any data. For each result type you should see fields like these:</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="80%" />
+<col style="width: 20%" />
+<col style="width: 80%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>source</td>
-<td>The ID of the node followed by a colon and the ID of the data source the data came from. E.g. <code class="docutils literal"><span class="pre">downsample:m1</span></code>.</td>
+<tbody>
+<tr class="row-even"><td><p>source</p></td>
+<td><p>The ID of the node followed by a colon and the ID of the data source the data came from. E.g. <code class="docutils literal notranslate"><span class="pre">downsample:m1</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td>data</td>
-<td>An array of data objects, usually individual time series.</td>
+<tr class="row-odd"><td><p>data</p></td>
+<td><p>An array of data objects, usually individual time series.</p></td>
 </tr>
 </tbody>
 </table>
@@ -526,8 +518,8 @@
 </div>
 <div class="section" id="example-responses">
 <h3>Example Responses</h3>
-<p>For the summarizer query above you'd see something like:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<p>For the summarizer query above you’d see something like:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
       <span class="p">{</span>
           <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;summarizer:m1&quot;</span><span class="p">,</span>
@@ -547,9 +539,9 @@
                       <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
                           <span class="p">{</span>
                               <span class="s2">&quot;1543780740&quot;</span><span class="o">:</span> <span class="p">[</span>
-                                  <span class="mi">1889</span><span class="p">,</span>
-                                  <span class="mi">60</span><span class="p">,</span>
-                                  <span class="mi">60</span>
+                                  <span class="mf">1889</span><span class="p">,</span>
+                                  <span class="mf">60</span><span class="p">,</span>
+                                  <span class="mf">60</span>
                               <span class="p">]</span>
                           <span class="p">}</span>
                       <span class="p">]</span>
@@ -564,14 +556,14 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>With a downsampler in-line you'd see:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<p>With a downsampler in-line you’d see:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
       <span class="p">{</span>
           <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;groupby:m1&quot;</span><span class="p">,</span>
           <span class="s2">&quot;timeSpecification&quot;</span><span class="o">:</span> <span class="p">{</span>
-              <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="mi">1543781400</span><span class="p">,</span>
-              <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="mi">1543784940</span><span class="p">,</span>
+              <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="mf">1543781400</span><span class="p">,</span>
+              <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="mf">1543784940</span><span class="p">,</span>
               <span class="s2">&quot;intervalISO&quot;</span><span class="o">:</span> <span class="s2">&quot;PT1M&quot;</span><span class="p">,</span>
               <span class="s2">&quot;interval&quot;</span><span class="o">:</span> <span class="s2">&quot;1m&quot;</span><span class="p">,</span>
               <span class="s2">&quot;timeZone&quot;</span><span class="o">:</span> <span class="s2">&quot;UTC&quot;</span><span class="p">,</span>
@@ -585,66 +577,66 @@
                   <span class="p">},</span>
                   <span class="s2">&quot;aggregateTags&quot;</span><span class="o">:</span> <span class="p">[],</span>
                   <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">[</span>
-                      <span class="mi">12</span><span class="p">,</span>
-                      <span class="mi">13</span><span class="p">,</span>
-                      <span class="mi">14</span><span class="p">,</span>
-                      <span class="mi">15</span><span class="p">,</span>
-                      <span class="mi">16</span><span class="p">,</span>
-                      <span class="mi">17</span><span class="p">,</span>
-                      <span class="mi">18</span><span class="p">,</span>
-                      <span class="mi">19</span><span class="p">,</span>
-                      <span class="mi">20</span><span class="p">,</span>
-                      <span class="mi">21</span><span class="p">,</span>
-                      <span class="mi">22</span><span class="p">,</span>
-                      <span class="mi">23</span><span class="p">,</span>
-                      <span class="mi">24</span><span class="p">,</span>
-                      <span class="mi">25</span><span class="p">,</span>
-                      <span class="mi">26</span><span class="p">,</span>
-                      <span class="mi">27</span><span class="p">,</span>
-                      <span class="mi">28</span><span class="p">,</span>
-                      <span class="mi">29</span><span class="p">,</span>
-                      <span class="mi">30</span><span class="p">,</span>
-                      <span class="mi">31</span><span class="p">,</span>
-                      <span class="mi">32</span><span class="p">,</span>
-                      <span class="mi">33</span><span class="p">,</span>
-                      <span class="mi">34</span><span class="p">,</span>
-                      <span class="mi">35</span><span class="p">,</span>
-                      <span class="mi">36</span><span class="p">,</span>
-                      <span class="mi">37</span><span class="p">,</span>
-                      <span class="mi">38</span><span class="p">,</span>
-                      <span class="mi">39</span><span class="p">,</span>
-                      <span class="mi">40</span><span class="p">,</span>
-                      <span class="mi">41</span><span class="p">,</span>
-                      <span class="mi">42</span><span class="p">,</span>
-                      <span class="mi">43</span><span class="p">,</span>
-                      <span class="mi">44</span><span class="p">,</span>
-                      <span class="mi">45</span><span class="p">,</span>
-                      <span class="mi">46</span><span class="p">,</span>
-                      <span class="mi">47</span><span class="p">,</span>
-                      <span class="mi">48</span><span class="p">,</span>
-                      <span class="mi">49</span><span class="p">,</span>
-                      <span class="mi">50</span><span class="p">,</span>
-                      <span class="mi">51</span><span class="p">,</span>
-                      <span class="mi">52</span><span class="p">,</span>
-                      <span class="mi">53</span><span class="p">,</span>
-                      <span class="mi">54</span><span class="p">,</span>
-                      <span class="mi">55</span><span class="p">,</span>
-                      <span class="mi">56</span><span class="p">,</span>
-                      <span class="mi">57</span><span class="p">,</span>
-                      <span class="mi">58</span><span class="p">,</span>
-                      <span class="mi">59</span><span class="p">,</span>
-                      <span class="mi">60</span><span class="p">,</span>
-                      <span class="mi">61</span><span class="p">,</span>
-                      <span class="mi">3</span><span class="p">,</span>
-                      <span class="mi">4</span><span class="p">,</span>
-                      <span class="mi">5</span><span class="p">,</span>
-                      <span class="mi">6</span><span class="p">,</span>
-                      <span class="mi">7</span><span class="p">,</span>
-                      <span class="mi">8</span><span class="p">,</span>
-                      <span class="mi">9</span><span class="p">,</span>
-                      <span class="mi">10</span><span class="p">,</span>
-                      <span class="mi">11</span><span class="p">,</span>
-                      <span class="mi">12</span>
+                      <span class="mf">12</span><span class="p">,</span>
+                      <span class="mf">13</span><span class="p">,</span>
+                      <span class="mf">14</span><span class="p">,</span>
+                      <span class="mf">15</span><span class="p">,</span>
+                      <span class="mf">16</span><span class="p">,</span>
+                      <span class="mf">17</span><span class="p">,</span>
+                      <span class="mf">18</span><span class="p">,</span>
+                      <span class="mf">19</span><span class="p">,</span>
+                      <span class="mf">20</span><span class="p">,</span>
+                      <span class="mf">21</span><span class="p">,</span>
+                      <span class="mf">22</span><span class="p">,</span>
+                      <span class="mf">23</span><span class="p">,</span>
+                      <span class="mf">24</span><span class="p">,</span>
+                      <span class="mf">25</span><span class="p">,</span>
+                      <span class="mf">26</span><span class="p">,</span>
+                      <span class="mf">27</span><span class="p">,</span>
+                      <span class="mf">28</span><span class="p">,</span>
+                      <span class="mf">29</span><span class="p">,</span>
+                      <span class="mf">30</span><span class="p">,</span>
+                      <span class="mf">31</span><span class="p">,</span>
+                      <span class="mf">32</span><span class="p">,</span>
+                      <span class="mf">33</span><span class="p">,</span>
+                      <span class="mf">34</span><span class="p">,</span>
+                      <span class="mf">35</span><span class="p">,</span>
+                      <span class="mf">36</span><span class="p">,</span>
+                      <span class="mf">37</span><span class="p">,</span>
+                      <span class="mf">38</span><span class="p">,</span>
+                      <span class="mf">39</span><span class="p">,</span>
+                      <span class="mf">40</span><span class="p">,</span>
+                      <span class="mf">41</span><span class="p">,</span>
+                      <span class="mf">42</span><span class="p">,</span>
+                      <span class="mf">43</span><span class="p">,</span>
+                      <span class="mf">44</span><span class="p">,</span>
+                      <span class="mf">45</span><span class="p">,</span>
+                      <span class="mf">46</span><span class="p">,</span>
+                      <span class="mf">47</span><span class="p">,</span>
+                      <span class="mf">48</span><span class="p">,</span>
+                      <span class="mf">49</span><span class="p">,</span>
+                      <span class="mf">50</span><span class="p">,</span>
+                      <span class="mf">51</span><span class="p">,</span>
+                      <span class="mf">52</span><span class="p">,</span>
+                      <span class="mf">53</span><span class="p">,</span>
+                      <span class="mf">54</span><span class="p">,</span>
+                      <span class="mf">55</span><span class="p">,</span>
+                      <span class="mf">56</span><span class="p">,</span>
+                      <span class="mf">57</span><span class="p">,</span>
+                      <span class="mf">58</span><span class="p">,</span>
+                      <span class="mf">59</span><span class="p">,</span>
+                      <span class="mf">60</span><span class="p">,</span>
+                      <span class="mf">61</span><span class="p">,</span>
+                      <span class="mf">3</span><span class="p">,</span>
+                      <span class="mf">4</span><span class="p">,</span>
+                      <span class="mf">5</span><span class="p">,</span>
+                      <span class="mf">6</span><span class="p">,</span>
+                      <span class="mf">7</span><span class="p">,</span>
+                      <span class="mf">8</span><span class="p">,</span>
+                      <span class="mf">9</span><span class="p">,</span>
+                      <span class="mf">10</span><span class="p">,</span>
+                      <span class="mf">11</span><span class="p">,</span>
+                      <span class="mf">12</span>
                   <span class="p">]</span>
               <span class="p">}</span>
           <span class="p">]</span>
@@ -673,7 +665,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

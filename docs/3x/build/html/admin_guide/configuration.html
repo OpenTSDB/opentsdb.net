@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TSDB Configuration &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Logging" href="logging.html" />
@@ -31,9 +20,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -165,65 +157,65 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="tsdb-configuration">
 <h1>TSDB Configuration</h1>
 <p>As of 3.0 OpenTSDB has a much more flexible configuration system with features like:</p>
 <ul class="simple">
-<li>Dynamic updates of configuration parameters to avoid JVM restarts (depends on the specific config)</li>
-<li>Secure key/value support like AWS Secrets</li>
-<li>Combining multiple configuration sources</li>
-<li>Configs via HTTP to for containerized deployments</li>
-<li>YAML or JSON support for objec configurations</li>
-<li>Plugins</li>
+<li><p>Dynamic updates of configuration parameters to avoid JVM restarts (depends on the specific config)</p></li>
+<li><p>Secure key/value support like AWS Secrets</p></li>
+<li><p>Combining multiple configuration sources</p></li>
+<li><p>Configs via HTTP to for containerized deployments</p></li>
+<li><p>YAML or JSON support for objec configurations</p></li>
+<li><p>Plugins</p></li>
 </ul>
 <div class="section" id="overview">
 <h2>Overview</h2>
 <p>OpenTSDB is now configured via one or more sources that are flattened into a single application wide configuration consisting of keys and values. Multiple sources can be provided with the same keys but different values and later values will override the earlier values. As an example, a common config may be available over HTTP with many settings but a local config may override some of those settings for a specific environment.</p>
 <p>Available built-in providers include:</p>
 <ul class="simple">
-<li><strong>Environment</strong> - Environment variables can be set with keys and values, useful in a containerized environment.</li>
-<li><strong>System Properties</strong> - JVM properties can be parsed such as those given over the command line in the <cite>-Dmy.key=my.value</cite> format.</li>
-<li><strong>Command Line</strong> - Traditional command line arguments like <cite>--my.key=my.value</cite></li>
-<li><strong>YAML/JSON File</strong> - Either a local file or available over HTTP(S). Suffixes supported include <cite>.yaml, .yml, .json, .jsn</cite>.</li>
-<li><strong>Java Properties File</strong> - Either a local file or available over HTTP(S). Suffixes supported include <cite>.conf, .config, .txt, .properties</cite>.</li>
-<li><strong>Secrets Support</strong> - A plugin to load encrypted values from a secure location like Amazon's AWS Secrets, a local key vault or other secure locations. Useful for credential storage.</li>
+<li><p><strong>Environment</strong> - Environment variables can be set with keys and values, useful in a containerized environment.</p></li>
+<li><p><strong>System Properties</strong> - JVM properties can be parsed such as those given over the command line in the <cite>-Dmy.key=my.value</cite> format.</p></li>
+<li><p><strong>Command Line</strong> - Traditional command line arguments like <cite>–my.key=my.value</cite></p></li>
+<li><p><strong>YAML/JSON File</strong> - Either a local file or available over HTTP(S). Suffixes supported include <cite>.yaml, .yml, .json, .jsn</cite>.</p></li>
+<li><p><strong>Java Properties File</strong> - Either a local file or available over HTTP(S). Suffixes supported include <cite>.conf, .config, .txt, .properties</cite>.</p></li>
+<li><p><strong>Secrets Support</strong> - A plugin to load encrypted values from a secure location like Amazon’s AWS Secrets, a local key vault or other secure locations. Useful for credential storage.</p></li>
 </ul>
-<p>The <cite>config.providers</cite> key is used to set the providers and order that they're loaded in. Providers are separated by commas and the last configuration in the list is loaded first, with earlier configs over-ridding the later configs (<strong>NOTE:</strong> If this is a pain we can reverse it before release, let us know what ya'll think). And example config may look like this:</p>
-<p><cite>--config.providers=secrets://net.opentsdb.configuration.providers.AWSSecretsProvider:AWS,https://tsdbconfig.mysite.com/stage/elasticsearch.yaml,https://tsdbconfig.mysite.com/stage/tsdr.yaml,https://tsdbconfig.mysite.com/stage/hbase.yaml,https://tsdbconfig.mysite.com/stage/common.yaml</cite></p>
+<p>The <cite>config.providers</cite> key is used to set the providers and order that they’re loaded in. Providers are separated by commas and the last configuration in the list is loaded first, with earlier configs over-ridding the later configs (<strong>NOTE:</strong> If this is a pain we can reverse it before release, let us know what ya’ll think). And example config may look like this:</p>
+<p><cite>–config.providers=secrets://net.opentsdb.configuration.providers.AWSSecretsProvider:AWS,https://tsdbconfig.mysite.com/stage/elasticsearch.yaml,https://tsdbconfig.mysite.com/stage/tsdr.yaml,https://tsdbconfig.mysite.com/stage/hbase.yaml,https://tsdbconfig.mysite.com/stage/common.yaml</cite></p>
 <p>With secrets, files and remote files, the configuration format uses protocols like <cite>https://</cite>, <cite>file://</cite> or <cite>secrets://</cite>. These protocols determine which plugin or built-in module parses the config. For remote and files, the suffix will also determine the parser.</p>
-<p>Because multiple configurations are flattened into a single structure, key values in earlier providers will be overwritten by those in later providers. For example, lets assume the following providers config: <cite>--config.providers=https://tsdbconfig.mysite.com/stage/tsdr.yaml,https://tsdbconfig.mysite.com/stage/common.yaml</cite>.</p>
+<p>Because multiple configurations are flattened into a single structure, key values in earlier providers will be overwritten by those in later providers. For example, lets assume the following providers config: <cite>–config.providers=https://tsdbconfig.mysite.com/stage/tsdr.yaml,https://tsdbconfig.mysite.com/stage/common.yaml</cite>.</p>
 <p>Lets say <cite>https://tsdbconfig.mysite.com/stage/common.yaml</cite> contains:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">tsd.stats.environment</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">development</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tsd.stats.environment</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">development</span>
 </pre></div>
 </div>
 <p>and <cite>https://tsdbconfig.mysite.com/stage/tsdr.yaml</cite> defines</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">tsd.stats.environment</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">stage</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tsd.stats.environment</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">stage</span>
 </pre></div>
 </div>
-<p>since we're in stage. The final value read by TSDB for <cite>tsd.stats.environment</cite> will be <cite>stage</cite>.</p>
+<p>since we’re in stage. The final value read by TSDB for <cite>tsd.stats.environment</cite> will be <cite>stage</cite>.</p>
 <div class="section" id="default-providers">
 <h3>Default Providers</h3>
 <p>The default provider set is <cite>PropertiesFile,Environment,SystemProperties,CommandLine,RuntimeOverride</cite> where the properties file will automatically search for Java property formatted files in the following locations:</p>
 <ul class="simple">
-<li>/etc/opentsdb.conf</li>
-<li>/etc/opentsdb/opentsdb.conf</li>
-<li>/opt/opentsdb/opentsdb.conf</li>
+<li><p>/etc/opentsdb.conf</p></li>
+<li><p>/etc/opentsdb/opentsdb.conf</p></li>
+<li><p>/opt/opentsdb/opentsdb.conf</p></li>
 </ul>
 <p>This is useful when migrating from an OpenTSDB 2.0 config file.</p>
 </div>
 <div class="section" id="plugin-location">
 <h3>Plugin Location</h3>
-<p>When secrets need to be loaded (and particularly when they need to be used during bootstraping) a path to a plugin directory can be provided via the <cite>config.plugin.path</cite> key. For example <cite>--config.plugin.path=/usr/share/opentsdb/plugins</cite> can be given on the command line.</p>
+<p>When secrets need to be loaded (and particularly when they need to be used during bootstraping) a path to a plugin directory can be provided via the <cite>config.plugin.path</cite> key. For example <cite>–config.plugin.path=/usr/share/opentsdb/plugins</cite> can be given on the command line.</p>
 </div>
 <div class="section" id="bootstrapping">
 <h3>Bootstrapping</h3>
 <p>On TSD startup, the configuration class will look for <cite>config.providers</cite> and <cite>config.plugin.path</cite> in the following locations and take the first value found:</p>
 <ul class="simple">
-<li>Environment variable</li>
-<li>System properties</li>
-<li>Command line</li>
+<li><p>Environment variable</p></li>
+<li><p>System properties</p></li>
+<li><p>Command line</p></li>
 </ul>
 </div>
 <div class="section" id="reloading">
@@ -234,19 +226,19 @@
 <div class="section" id="plugin-and-module-configuration">
 <h2>Plugin and Module Configuration</h2>
 <p>OpenTSDB is a flexible time series solution wherein a JVM can be configured as a query router or a data store. Therefore the most important configuration is the module config or <cite>tsd.plugin.config</cite>.</p>
-<p>Many modules or plugins are loaded automatically, e.g. aggregators, query nodes like the downsampler or group by. But some modules, like data sources or authentication methods, must be configured by the administrator or they won't load. There are four sections to the <cite>tsd.plugin.config</cite>:</p>
+<p>Many modules or plugins are loaded automatically, e.g. aggregators, query nodes like the downsampler or group by. But some modules, like data sources or authentication methods, must be configured by the administrator or they won’t load. There are four sections to the <cite>tsd.plugin.config</cite>:</p>
 <ul class="simple">
-<li><strong>configs</strong> - This is a list of one or more plugin configuration definitions that will be loaded in the order they are defined. See the configs section below for details.</li>
-<li><strong>pluginLocations</strong> - An optional list of directories in which to search for plugins (compiled as <cite>.jar</cite> files).</li>
-<li><strong>continueOnError</strong> - Whether or not to allow the TSD to startup when an error is encountered trying to load a plugin.</li>
-<li><strong>loadDefaultInstances</strong> - Whether or not to load default module instances.</li>
+<li><p><strong>configs</strong> - This is a list of one or more plugin configuration definitions that will be loaded in the order they are defined. See the configs section below for details.</p></li>
+<li><p><strong>pluginLocations</strong> - An optional list of directories in which to search for plugins (compiled as <cite>.jar</cite> files).</p></li>
+<li><p><strong>continueOnError</strong> - Whether or not to allow the TSD to startup when an error is encountered trying to load a plugin.</p></li>
+<li><p><strong>loadDefaultInstances</strong> - Whether or not to load default module instances.</p></li>
 </ul>
 <div class="section" id="configs">
 <h3>configs</h3>
 <p>Each module config entry is a map of keys and values with the following keys available:</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Each config must include either a non-empty <cite>id</cite> or <cite>isDefault</cite> must be set to true.</p>
+<p class="admonition-title">Note</p>
+<p>Each config must include either a non-empty <cite>id</cite> or <cite>isDefault</cite> must be set to true.</p>
 </div>
 <p>Each module or plugin may have various configurations that are required for it to load properly. These configs can appear in any config source and in any order. The configuration is loaded and flattened prior to module initialization.</p>
 <p>If a module has a dependency on another module, make sure the required module is listed <em>before</em> the dependent module in the configuration list.</p>
@@ -267,7 +259,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

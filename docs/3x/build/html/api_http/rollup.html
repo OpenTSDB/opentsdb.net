@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/rollup &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -42,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -151,149 +143,149 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="api-rollup">
 <h1>/api/rollup</h1>
 <p>This endpoint allows for storing rolled up and/or pre-aggregated data in OpenTSDB over HTTP. For details on rollups and pre-aggs, please see the user guide: <span class="xref std std-doc">../../user_guide/rollups</span>.</p>
-<p>Also see the <a class="reference internal" href="put.html"><span class="doc">/api/put</span></a> documentation for notes and common parameters that are shared with the <code class="docutils literal"><span class="pre">/api/rollup</span></code> endpoint. This page lays out the differences between the two.</p>
+<p>Also see the <a class="reference internal" href="put.html"><span class="doc">/api/put</span></a> documentation for notes and common parameters that are shared with the <code class="docutils literal notranslate"><span class="pre">/api/rollup</span></code> endpoint. This page lays out the differences between the two.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>POST</li>
+<li><p>POST</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>Rollup and pre-aggregate values are extensions of the <code class="docutils literal"><span class="pre">put</span></code> object with three additional fields. For completeness, all fields are listed below:</p>
-<table border="1" class="colwidths-given docutils">
+<p>Rollup and pre-aggregate values are extensions of the <code class="docutils literal notranslate"><span class="pre">put</span></code> object with three additional fields. For completeness, all fields are listed below:</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="15%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">QS</th>
-<th class="head">RW</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>QS</p></th>
+<th class="head"><p>RW</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>metric</td>
-<td>String</td>
-<td>Required</td>
-<td>The name of the metric you are storing</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>W</td>
-<td>sys.cpu.nice</td>
+<tbody>
+<tr class="row-even"><td><p>metric</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The name of the metric you are storing</p></td>
+<td></td>
+<td></td>
+<td><p>W</p></td>
+<td><p>sys.cpu.nice</p></td>
 </tr>
-<tr class="row-odd"><td>timestamp</td>
-<td>Integer</td>
-<td>Required</td>
-<td>A Unix epoch style timestamp in seconds or milliseconds. The timestamp must not contain non-numeric characters.</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>W</td>
-<td>1365465600</td>
+<tr class="row-odd"><td><p>timestamp</p></td>
+<td><p>Integer</p></td>
+<td><p>Required</p></td>
+<td><p>A Unix epoch style timestamp in seconds or milliseconds. The timestamp must not contain non-numeric characters.</p></td>
+<td></td>
+<td></td>
+<td><p>W</p></td>
+<td><p>1365465600</p></td>
 </tr>
-<tr class="row-even"><td>value</td>
-<td>Integer, Float, String</td>
-<td>Required</td>
-<td>The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: <span class="xref std std-doc">../../user_guide/writing</span></td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>W</td>
-<td>42.5</td>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>Integer, Float, String</p></td>
+<td><p>Required</p></td>
+<td><p>The value to record for this data point. It may be quoted or not quoted and must conform to the OpenTSDB value rules: <span class="xref std std-doc">../../user_guide/writing</span></p></td>
+<td></td>
+<td></td>
+<td><p>W</p></td>
+<td><p>42.5</p></td>
 </tr>
-<tr class="row-odd"><td>tags</td>
-<td>Map</td>
-<td>Required</td>
-<td>A map of tag name/tag value pairs. At least one pair must be supplied.</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>W</td>
-<td>{&quot;host&quot;:&quot;web01&quot;}</td>
+<tr class="row-odd"><td><p>tags</p></td>
+<td><p>Map</p></td>
+<td><p>Required</p></td>
+<td><p>A map of tag name/tag value pairs. At least one pair must be supplied.</p></td>
+<td></td>
+<td></td>
+<td><p>W</p></td>
+<td><p>{“host”:”web01”}</p></td>
 </tr>
-<tr class="row-even"><td>interval</td>
-<td>String</td>
-<td>Optional*</td>
-<td>A time interval reflecting what timespan the <strong>rollup</strong> value represents. The interval consists of <code class="docutils literal"><span class="pre">&lt;amount&gt;&lt;unit&gt;</span></code> similar to a downsampler or relative query timestamp. E.g. <code class="docutils literal"><span class="pre">6h</span></code> for 5 hours of data, <code class="docutils literal"><span class="pre">30m</span></code> for 30 minutes of data.</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>W</td>
-<td>1h</td>
+<tr class="row-even"><td><p>interval</p></td>
+<td><p>String</p></td>
+<td><p>Optional*</p></td>
+<td><p>A time interval reflecting what timespan the <strong>rollup</strong> value represents. The interval consists of <code class="docutils literal notranslate"><span class="pre">&lt;amount&gt;&lt;unit&gt;</span></code> similar to a downsampler or relative query timestamp. E.g. <code class="docutils literal notranslate"><span class="pre">6h</span></code> for 5 hours of data, <code class="docutils literal notranslate"><span class="pre">30m</span></code> for 30 minutes of data.</p></td>
+<td></td>
+<td></td>
+<td><p>W</p></td>
+<td><p>1h</p></td>
 </tr>
-<tr class="row-odd"><td>aggregator</td>
-<td>String</td>
-<td>Optional*</td>
-<td>An aggregation function used to generate the <strong>rollup</strong> value. Must match a supplied TSDB aggregator.</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>W</td>
-<td>SUM</td>
+<tr class="row-odd"><td><p>aggregator</p></td>
+<td><p>String</p></td>
+<td><p>Optional*</p></td>
+<td><p>An aggregation function used to generate the <strong>rollup</strong> value. Must match a supplied TSDB aggregator.</p></td>
+<td></td>
+<td></td>
+<td><p>W</p></td>
+<td><p>SUM</p></td>
 </tr>
-<tr class="row-even"><td>groupByAggregator</td>
-<td>String</td>
-<td>Optional*</td>
-<td>An aggregation function used to generate the <strong>pre-aggregate</strong> value. Must match a supplied TSDB aggregator.</td>
-<td>&#160;</td>
-<td>W</td>
-<td>COUNT</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>groupByAggregator</p></td>
+<td><p>String</p></td>
+<td><p>Optional*</p></td>
+<td><p>An aggregation function used to generate the <strong>pre-aggregate</strong> value. Must match a supplied TSDB aggregator.</p></td>
+<td></td>
+<td><p>W</p></td>
+<td><p>COUNT</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <p>While the aggregators and interval are marked as optional above, at least one of the combinations documented below must be satisfied for data to be recorded.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="70%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 70%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">interval</th>
-<th class="head">aggregator</th>
-<th class="head">groupByAggregator</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>interval</p></th>
+<th class="head"><p>aggregator</p></th>
+<th class="head"><p>groupByAggregator</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Set</td>
-<td>Set</td>
-<td>Empty</td>
-<td>Data represents a <em>raw</em> or <em>non-pre-aggregated</em> <strong>rollup</strong> over the interval.</td>
+<tbody>
+<tr class="row-even"><td><p>Set</p></td>
+<td><p>Set</p></td>
+<td><p>Empty</p></td>
+<td><p>Data represents a <em>raw</em> or <em>non-pre-aggregated</em> <strong>rollup</strong> over the interval.</p></td>
 </tr>
-<tr class="row-odd"><td>Empty</td>
-<td>Empty</td>
-<td>Set</td>
-<td>Data represents a <em>raw</em> <strong>pre-aggregated</strong> value that has not been rolled up over time.</td>
+<tr class="row-odd"><td><p>Empty</p></td>
+<td><p>Empty</p></td>
+<td><p>Set</p></td>
+<td><p>Data represents a <em>raw</em> <strong>pre-aggregated</strong> value that has not been rolled up over time.</p></td>
 </tr>
-<tr class="row-even"><td>Set</td>
-<td>Set</td>
-<td>Set</td>
-<td>Data represents a <em>rolled up</em> <em>pre-aggregated</em> value.</td>
+<tr class="row-even"><td><p>Set</p></td>
+<td><p>Set</p></td>
+<td><p>Set</p></td>
+<td><p>Data represents a <em>rolled up</em> <em>pre-aggregated</em> value.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-single-data-point-put">
 <h3>Example Single Data Point Put</h3>
 <p>You can supply a single data point in a request:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
-    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1346846400</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">18</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
        <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
@@ -308,11 +300,11 @@
 <div class="section" id="example-multiple-data-point-put">
 <h3>Example Multiple Data Point Put</h3>
 <p>Multiple data points must be encased in an array:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
-        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">18</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
@@ -323,8 +315,8 @@
     <span class="p">},</span>
     <span class="p">{</span>
         <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.nice&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1346846400</span><span class="p">,</span>
-        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1346846400</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">9</span><span class="p">,</span>
         <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
            <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
            <span class="s2">&quot;dc&quot;</span><span class="o">:</span> <span class="s2">&quot;lga&quot;</span>
@@ -357,7 +349,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

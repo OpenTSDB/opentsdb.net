@@ -45,7 +45,7 @@ For small installations with tags that rarely change (e.g. stock symbols or a fi
 
 If you think that the UID limit may impact you, first think about the queries that you want to execute. If we look at the ``web.app.hits`` example above, you probably only care about the total number of hits to your service and rarely need to drill down to a specific IP address. In that case, you may want to store the IP address as an annotation. That way you could still benefit from low cardinality but if you need to, you could search the results for that particular IP using external scripts. 
 
-When storing data for sources that do have high or changing cardinality (e.g. a Docker swarm) then you can change the UID widths by setting ``tsd.storage.uid.width.metric``, ``tsd.storage.uid.width.tagk`` or ``tsd.storage.uid.width.tagv`` (maximum value is 7). You can ONLY do this when creating a new TSDB installation.
+When storing data for sources that do have high or changing cardinality (e.g. a Docker swarm) then you can change the UID widths by setting ``tsd.storage.uid.width.metric``, ``tsd.storage.uid.width.tagk`` or ``tsd.storage.uid.width.tagv``. You can ONLY do this when creating a new TSDB installation.
 
 .. Warning:: It is possible that your situation requires this value to be increased.  If you choose to modify this value, you must start with fresh data and a new UID table. Any data written with a TSD expecting 3-byte UID encoding will be incompatible with this change, so ensure that all of your TSDs are running with the same configuration and that any data you have stored in OpenTSDB prior to making this change has been exported to a location where it can be manipulated by external tools.
 

@@ -46,8 +46,7 @@ Currently supported operators include:
 * **%** - Modulo
 * **>, <, ==, !=, <=, >=** - Conditionals
 * **AND, OR, NOT** - Relationals
-
-We'll have ternary support shortly.
+* **? :** - Ternary/Conditional Expression
 
 Substitution
 ^^^^^^^^^^^^
@@ -56,6 +55,19 @@ When a value is missing at a given timestamp for either side of an expression an
 
 * For addition and subtraction, missing values are treated as zero.
 * For all other operations, missing values are treated as infectious NaNs.
+
+Ternary or Conditional Expressions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A ternary expression is a simple if/else statement that evaluates a condition and returns one value if the result is true and a different value if the result is false. V3 supports single level ternary expressions at this time (nesting to come in the future).
+
+The condition of a ternary can be one of:
+
+* A relational condition such as ``m1 > 1 AND m2 > 1 ? 1 : 0``
+* A logical condition such as ``m1 > 1 ? 1 : 0``
+* A single metric such as ``m1 ? m1 : NaN`` in which case the value of the condition metric is treated as boolean according to the rules at the top of this document.
+
+Note that ``NaN`` can be used as a literal in a ternary operand.
 
 Joining Time Series
 -------------------

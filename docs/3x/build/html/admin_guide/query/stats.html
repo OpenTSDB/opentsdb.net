@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Query Details and Stats &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -42,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -166,24 +158,24 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="query-details-and-stats">
 <h1>Query Details and Stats</h1>
 <p>With version 2.2 of OpenTSDB a number of details are now available around queries as we focus on improving flexibility and performance. Query details include who made the request (via headers and socket), what the response was (HTTP status codes and/or exceptions) and timing around the various processes the TSD takes.</p>
-<p>Each HTTP query can include some of these details such as the original query and the timing information using the  <code class="docutils literal"><span class="pre">showSummary</span></code> and <code class="docutils literal"><span class="pre">showQuery</span></code> parameters. Other details can be found in the <code class="docutils literal"><span class="pre">/api/stats/query</span></code> output including headers, status and exceptions. And full details (minus the actual result data) can be logged to disk via the logging config. This page details the various query sections and the information found therein.</p>
+<p>Each HTTP query can include some of these details such as the original query and the timing information using the  <code class="docutils literal notranslate"><span class="pre">showSummary</span></code> and <code class="docutils literal notranslate"><span class="pre">showQuery</span></code> parameters. Other details can be found in the <code class="docutils literal notranslate"><span class="pre">/api/stats/query</span></code> output including headers, status and exceptions. And full details (minus the actual result data) can be logged to disk via the logging config. This page details the various query sections and the information found therein.</p>
 <div class="section" id="query">
 <h2>Query</h2>
 <p>This section is a serialization of the query given by the user. In the logs and stats page this will be the full query with timing and global options. When returned with the query results, only the sub query (metric and filters) are returned with the associated result set for identification purposes (e.g. if you request the same metric twice with two different aggregators, you need to know which data set corresponds to which aggregator).</p>
 <p>For the fields and what they mean, see <a class="reference internal" href="../../api_http/query/index.html"><span class="doc">/api/query</span></a>. Some notes about the fields:</p>
 <ul class="simple">
-<li>The <code class="docutils literal"><span class="pre">tags</span></code> map should have the same number of entries as the <code class="docutils literal"><span class="pre">filters</span></code> array has <code class="docutils literal"><span class="pre">group_by</span></code> entries. This is due to backwards compatibility with 2.1 and 1.0. Old style queries are converted into filtered queries and function the same way.</li>
-<li>A number of extra fields may be shown here with their default values such as <code class="docutils literal"><span class="pre">null</span></code>.</li>
-<li>You can copy and paste the query into a POST client to execute and find out what data was returned.</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">tags</span></code> map should have the same number of entries as the <code class="docutils literal notranslate"><span class="pre">filters</span></code> array has <code class="docutils literal notranslate"><span class="pre">group_by</span></code> entries. This is due to backwards compatibility with 2.1 and 1.0. Old style queries are converted into filtered queries and function the same way.</p></li>
+<li><p>A number of extra fields may be shown here with their default values such as <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p></li>
+<li><p>You can copy and paste the query into a POST client to execute and find out what data was returned.</p></li>
 </ul>
 <div class="section" id="example">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1455531250181&quot;</span><span class="p">,</span>
       <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">&quot;timezone&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -213,8 +205,8 @@
               <span class="p">}],</span>
               <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
                       <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mi">9223372036854775807</span><span class="p">,</span>
-                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mf">9223372036854775807</span><span class="p">,</span>
+                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
                       <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">false</span>
               <span class="p">},</span>
               <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -246,8 +238,8 @@
               <span class="p">}],</span>
               <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
                       <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mi">9223372036854775807</span><span class="p">,</span>
-                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mf">9223372036854775807</span><span class="p">,</span>
+                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
                       <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">false</span>
               <span class="p">},</span>
               <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -274,21 +266,21 @@
 <p>If the query failed, this field will include the message string and the first line of the stack trace for pinpointing. If the query was successful, this field will be null.</p>
 <div class="section" id="id1">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;No such name for &#39;metrics&#39;: &#39;nosuchmetric&#39; net.opentsdb.uid.UniqueId$1GetIdCB.call(UniqueId.java:315)&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;No such name for &#39;metrics&#39;: &#39;nosuchmetric&#39; net.opentsdb.uid.UniqueId$1GetIdCB.call(UniqueId.java:315)&quot;</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="user">
 <h2>User</h2>
-<p>For future use, this field can be used to extract user information from queries and help debug who is using a TSD the most. It's fairly easy to modify the TSD code to extract the user from an HTTP header.</p>
+<p>For future use, this field can be used to extract user information from queries and help debug who is using a TSD the most. It’s fairly easy to modify the TSD code to extract the user from an HTTP header.</p>
 </div>
 <div class="section" id="requestheaders">
 <h2>RequestHeaders</h2>
-<p>This is a map of the headers sent with the HTTP request. In a mediocre effort at security, the <code class="docutils literal"><span class="pre">Cookie</span></code> header field is obfuscated with asterisks in the case that it contains user identifiable or secure information. Each request is different so lookup the headers in the HTTP RFCs or your web browser or clients documentation.</p>
+<p>This is a map of the headers sent with the HTTP request. In a mediocre effort at security, the <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> header field is obfuscated with asterisks in the case that it contains user identifiable or secure information. Each request is different so lookup the headers in the HTTP RFCs or your web browser or clients documentation.</p>
 <div class="section" id="id2">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;Accept-Language&quot;</span><span class="o">:</span> <span class="s2">&quot;en-US,en;q=0.8&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Host&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdhost:4242&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Content-Length&quot;</span><span class="o">:</span> <span class="s2">&quot;440&quot;</span><span class="p">,</span>
@@ -309,8 +301,8 @@
 <p>This field contains the numeric HTTP response code and a textual representation of that code.</p>
 <div class="section" id="id3">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mf">200</span><span class="p">,</span>
         <span class="s2">&quot;reasonPhrase&quot;</span><span class="o">:</span> <span class="s2">&quot;OK&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -320,38 +312,38 @@
 <div class="section" id="other-fields">
 <h2>Other Fields</h2>
 <p>The output for log files and the stats page include other fields with single values as listed below:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="60%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 60%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Metric</th>
-<th class="head">Type</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>executed</td>
-<td>Counter</td>
-<td>If the same query was executed multiple times (same times, same agent, etc) then this integer counter will increment. Use this to find out when a client may want to start caching results.</td>
+<tbody>
+<tr class="row-even"><td><p>executed</p></td>
+<td><p>Counter</p></td>
+<td><p>If the same query was executed multiple times (same times, same agent, etc) then this integer counter will increment. Use this to find out when a client may want to start caching results.</p></td>
 </tr>
-<tr class="row-odd"><td>numRunningQueries</td>
-<td>Gauge</td>
-<td>How many queries were executing at the time the query was made (note that for the stats page this will always be up-to-date)</td>
+<tr class="row-odd"><td><p>numRunningQueries</p></td>
+<td><p>Gauge</p></td>
+<td><p>How many queries were executing at the time the query was made (note that for the stats page this will always be up-to-date)</p></td>
 </tr>
-<tr class="row-even"><td>queryStartTimestamp</td>
-<td>Timestamp (ms)</td>
-<td>The timestamp (Unix epoch in milliseconds) when the query was received and started processing.</td>
+<tr class="row-even"><td><p>queryStartTimestamp</p></td>
+<td><p>Timestamp (ms)</p></td>
+<td><p>The timestamp (Unix epoch in milliseconds) when the query was received and started processing.</p></td>
 </tr>
-<tr class="row-odd"><td>queryCompletedTimestamp</td>
-<td>Timestamp (ms)</td>
-<td>The timestamp (Unix epoch in milliseconds) when the query was finished and sent to the client.</td>
+<tr class="row-odd"><td><p>queryCompletedTimestamp</p></td>
+<td><p>Timestamp (ms)</p></td>
+<td><p>The timestamp (Unix epoch in milliseconds) when the query was finished and sent to the client.</p></td>
 </tr>
-<tr class="row-even"><td>sentToClient</td>
-<td>boolean</td>
-<td>Whether or not the query was successfully sent to the client. It may be blocked due to a socket exception or full write buffer.</td>
+<tr class="row-even"><td><p>sentToClient</p></td>
+<td><p>boolean</p></td>
+<td><p>Whether or not the query was successfully sent to the client. It may be blocked due to a socket exception or full write buffer.</p></td>
 </tr>
 </tbody>
 </table>
@@ -360,120 +352,120 @@
 <h2>Stats</h2>
 <p>A number of statistics are available around each query and more will be added over time. Various levels of detail are measured including:</p>
 <ul class="simple">
-<li><strong>Global</strong> - Metrics pertaining to the entire query including max and average timings of each sub query.</li>
-<li><strong>Per-Sub Query</strong> - Metrics pertaining to a single sub query (if multiple are present) including max and average timings of scanner.</li>
-<li><strong>Per-Scanner</strong> - Metrics around each individual scanner (useful when salting is enabled)</li>
+<li><p><strong>Global</strong> - Metrics pertaining to the entire query including max and average timings of each sub query.</p></li>
+<li><p><strong>Per-Sub Query</strong> - Metrics pertaining to a single sub query (if multiple are present) including max and average timings of scanner.</p></li>
+<li><p><strong>Per-Scanner</strong> - Metrics around each individual scanner (useful when salting is enabled)</p></li>
 </ul>
-<p>Global stats are printed to the standard log, stats page. The full global, sub query and scanner details are available in the query log and via the query API when <code class="docutils literal"><span class="pre">showSummary</span></code> is present. Timing stats at a lower level are aggregated into max and average values at the upper level. Counters at each lower level are also aggregated at each upper level so you'll see the same counter metrics at each level. A table of stats and sections appears below.</p>
+<p>Global stats are printed to the standard log, stats page. The full global, sub query and scanner details are available in the query log and via the query API when <code class="docutils literal notranslate"><span class="pre">showSummary</span></code> is present. Timing stats at a lower level are aggregated into max and average values at the upper level. Counters at each lower level are also aggregated at each upper level so you’ll see the same counter metrics at each level. A table of stats and sections appears below.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">All timings in the table below are in milliseconds. Also note that times can be inflated by JVM GCs so make sure to enable GC logging if something seems off.</p>
+<p class="admonition-title">Note</p>
+<p>All timings in the table below are in milliseconds. Also note that times can be inflated by JVM GCs so make sure to enable GC logging if something seems off.</p>
 </div>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="10%" />
-<col width="20%" />
-<col width="50%" />
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 20%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Metric</th>
-<th class="head">Type</th>
-<th class="head">Section</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Section</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>compactionTime</td>
-<td>Float</td>
-<td>Scanner</td>
-<td>Cumulative time spent running each row through the compaction code to create a single column and manage duplicate values.</td>
+<tbody>
+<tr class="row-even"><td><p>compactionTime</p></td>
+<td><p>Float</p></td>
+<td><p>Scanner</p></td>
+<td><p>Cumulative time spent running each row through the compaction code to create a single column and manage duplicate values.</p></td>
 </tr>
-<tr class="row-odd"><td>hbaseTime</td>
-<td>Float</td>
-<td>Scanner</td>
-<td>Cumulative time spent waiting on HBase to return data. (Includes AsyncHBase deserialization time).</td>
+<tr class="row-odd"><td><p>hbaseTime</p></td>
+<td><p>Float</p></td>
+<td><p>Scanner</p></td>
+<td><p>Cumulative time spent waiting on HBase to return data. (Includes AsyncHBase deserialization time).</p></td>
 </tr>
-<tr class="row-even"><td>scannerId</td>
-<td>String</td>
-<td>Scanner</td>
-<td>Details about the scanner including the table, start and end keys as well as filters used.</td>
+<tr class="row-even"><td><p>scannerId</p></td>
+<td><p>String</p></td>
+<td><p>Scanner</p></td>
+<td><p>Details about the scanner including the table, start and end keys as well as filters used.</p></td>
 </tr>
-<tr class="row-odd"><td>scannerTime</td>
-<td>Float</td>
-<td>Scanner</td>
-<td>The total time from initialization of the scanner to when the scanner completed and closed.</td>
+<tr class="row-odd"><td><p>scannerTime</p></td>
+<td><p>Float</p></td>
+<td><p>Scanner</p></td>
+<td><p>The total time from initialization of the scanner to when the scanner completed and closed.</p></td>
 </tr>
-<tr class="row-even"><td>scannerUidToStringTime</td>
-<td>Float</td>
-<td>Scanner</td>
-<td>Cumulative time spent resolving UIDs from row keys to strings for use with regex and wildcard filters. If neither filter is used this value should be zero.</td>
+<tr class="row-even"><td><p>scannerUidToStringTime</p></td>
+<td><p>Float</p></td>
+<td><p>Scanner</p></td>
+<td><p>Cumulative time spent resolving UIDs from row keys to strings for use with regex and wildcard filters. If neither filter is used this value should be zero.</p></td>
 </tr>
-<tr class="row-odd"><td>successfulScan</td>
-<td>Integer</td>
-<td>Scanner, Query, Global</td>
-<td>How many scanners completed successfully. Per query, this should be equal to the number of salting buckets, or <code class="docutils literal"><span class="pre">1</span></code> if salting is disabled.</td>
+<tr class="row-odd"><td><p>successfulScan</p></td>
+<td><p>Integer</p></td>
+<td><p>Scanner, Query, Global</p></td>
+<td><p>How many scanners completed successfully. Per query, this should be equal to the number of salting buckets, or <code class="docutils literal notranslate"><span class="pre">1</span></code> if salting is disabled.</p></td>
 </tr>
-<tr class="row-even"><td>uidPairsResolved</td>
-<td>Integer</td>
-<td>Scanner</td>
-<td>Total number of row key UIDs resolved to tag values when a regex or wildcard filter is used. If neither filter is used this value should be zero.</td>
+<tr class="row-even"><td><p>uidPairsResolved</p></td>
+<td><p>Integer</p></td>
+<td><p>Scanner</p></td>
+<td><p>Total number of row key UIDs resolved to tag values when a regex or wildcard filter is used. If neither filter is used this value should be zero.</p></td>
 </tr>
-<tr class="row-odd"><td>aggregationTime</td>
-<td>Float</td>
-<td>Query</td>
-<td>Cumulative time spent aggregating data points including downsampling, multi-series aggregation and rate calculations.</td>
+<tr class="row-odd"><td><p>aggregationTime</p></td>
+<td><p>Float</p></td>
+<td><p>Query</p></td>
+<td><p>Cumulative time spent aggregating data points including downsampling, multi-series aggregation and rate calculations.</p></td>
 </tr>
-<tr class="row-even"><td>groupByTime</td>
-<td>Float</td>
-<td>Query</td>
-<td>Cumulative time spent sorting scanner results into groups for future aggregation.</td>
+<tr class="row-even"><td><p>groupByTime</p></td>
+<td><p>Float</p></td>
+<td><p>Query</p></td>
+<td><p>Cumulative time spent sorting scanner results into groups for future aggregation.</p></td>
 </tr>
-<tr class="row-odd"><td>queryScanTime</td>
-<td>Float</td>
-<td>Query</td>
-<td>Total time spent waiting on the scanners to return results. This includes the <code class="docutils literal"><span class="pre">groupByTime</span></code>.</td>
+<tr class="row-odd"><td><p>queryScanTime</p></td>
+<td><p>Float</p></td>
+<td><p>Query</p></td>
+<td><p>Total time spent waiting on the scanners to return results. This includes the <code class="docutils literal notranslate"><span class="pre">groupByTime</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td>saltScannerMergeTime</td>
-<td>Float</td>
-<td>Query</td>
-<td>Total time spent merging the salt scanner results into a single set prior to group by operations.</td>
+<tr class="row-even"><td><p>saltScannerMergeTime</p></td>
+<td><p>Float</p></td>
+<td><p>Query</p></td>
+<td><p>Total time spent merging the salt scanner results into a single set prior to group by operations.</p></td>
 </tr>
-<tr class="row-odd"><td>serializationTime</td>
-<td>Float</td>
-<td>Query</td>
-<td>Total time spent serializing the query results. This includes <code class="docutils literal"><span class="pre">aggregationTime</span></code> and <code class="docutils literal"><span class="pre">uidToStringTime</span></code>.</td>
+<tr class="row-odd"><td><p>serializationTime</p></td>
+<td><p>Float</p></td>
+<td><p>Query</p></td>
+<td><p>Total time spent serializing the query results. This includes <code class="docutils literal notranslate"><span class="pre">aggregationTime</span></code> and <code class="docutils literal notranslate"><span class="pre">uidToStringTime</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td>uidToStringTime</td>
-<td>Float</td>
-<td>Query</td>
-<td>Cumulative time spent resolving UIDs to strings for serialization.</td>
+<tr class="row-even"><td><p>uidToStringTime</p></td>
+<td><p>Float</p></td>
+<td><p>Query</p></td>
+<td><p>Cumulative time spent resolving UIDs to strings for serialization.</p></td>
 </tr>
-<tr class="row-odd"><td>emittedDPs</td>
-<td>Integer</td>
-<td>Query, Global</td>
-<td>The total number of data points serialized in the output. Note that this may include NaNs or Nulls if the query specified such.</td>
+<tr class="row-odd"><td><p>emittedDPs</p></td>
+<td><p>Integer</p></td>
+<td><p>Query, Global</p></td>
+<td><p>The total number of data points serialized in the output. Note that this may include NaNs or Nulls if the query specified such.</p></td>
 </tr>
-<tr class="row-even"><td>queryIndex</td>
-<td>Integer</td>
-<td>Query</td>
-<td>The index of the sub query in the original user supplied query list.</td>
+<tr class="row-even"><td><p>queryIndex</p></td>
+<td><p>Integer</p></td>
+<td><p>Query</p></td>
+<td><p>The index of the sub query in the original user supplied query list.</p></td>
 </tr>
-<tr class="row-odd"><td>processingPreWriteTime</td>
-<td>Float</td>
-<td>Global</td>
-<td>Total time spent processing, fetching data and serializing results for the query until it is written over the wire. This value is sent in the API summary results and used as an estimate of the total time spent processing by the TSD. However it does not include the amount of time it took to send the value over the wire.</td>
+<tr class="row-odd"><td><p>processingPreWriteTime</p></td>
+<td><p>Float</p></td>
+<td><p>Global</p></td>
+<td><p>Total time spent processing, fetching data and serializing results for the query until it is written over the wire. This value is sent in the API summary results and used as an estimate of the total time spent processing by the TSD. However it does not include the amount of time it took to send the value over the wire.</p></td>
 </tr>
-<tr class="row-even"><td>totalTime</td>
-<td>Float</td>
-<td>Global</td>
-<td>Total time spent on the query including writing to the socket. This is only found in the log files and stats API.</td>
+<tr class="row-even"><td><p>totalTime</p></td>
+<td><p>Float</p></td>
+<td><p>Global</p></td>
+<td><p>Total time spent on the query including writing to the socket. This is only found in the log files and stats API.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="id4">
 <h3>Example</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;statsSummary&quot;</span><span class="o">:</span> <span class="p">{</span>
               <span class="s2">&quot;avgAggregationTime&quot;</span><span class="o">:</span> <span class="mf">3.784976</span><span class="p">,</span>
               <span class="s2">&quot;avgHBaseTime&quot;</span><span class="o">:</span> <span class="mf">8.530751</span><span class="p">,</span>
@@ -481,7 +473,7 @@
               <span class="s2">&quot;avgScannerTime&quot;</span><span class="o">:</span> <span class="mf">8.588306</span><span class="p">,</span>
               <span class="s2">&quot;avgScannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
               <span class="s2">&quot;avgSerializationTime&quot;</span><span class="o">:</span> <span class="mf">3.809661</span><span class="p">,</span>
-              <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mi">1256</span><span class="p">,</span>
+              <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mf">1256</span><span class="p">,</span>
               <span class="s2">&quot;maxAggregationTime&quot;</span><span class="o">:</span> <span class="mf">3.759478</span><span class="p">,</span>
               <span class="s2">&quot;maxHBaseTime&quot;</span><span class="o">:</span> <span class="mf">9.904215</span><span class="p">,</span>
               <span class="s2">&quot;maxQueryScanTime&quot;</span><span class="o">:</span> <span class="mf">10.320964</span><span class="p">,</span>
@@ -494,11 +486,11 @@
                       <span class="s2">&quot;avgHBaseTime&quot;</span><span class="o">:</span> <span class="mf">8.849337</span><span class="p">,</span>
                       <span class="s2">&quot;avgScannerTime&quot;</span><span class="o">:</span> <span class="mf">8.908597</span><span class="p">,</span>
                       <span class="s2">&quot;avgScannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                      <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mi">628</span><span class="p">,</span>
+                      <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mf">628</span><span class="p">,</span>
                       <span class="s2">&quot;groupByTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
                       <span class="s2">&quot;maxHBaseTime&quot;</span><span class="o">:</span> <span class="mf">9.904215</span><span class="p">,</span>
                       <span class="s2">&quot;maxScannerUidtoStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                      <span class="s2">&quot;queryIndex&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                      <span class="s2">&quot;queryIndex&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
                       <span class="s2">&quot;queryScanTime&quot;</span><span class="o">:</span> <span class="mf">10.964149</span><span class="p">,</span>
                       <span class="s2">&quot;saltScannerMergeTime&quot;</span><span class="o">:</span> <span class="mf">0.128234</span><span class="p">,</span>
                       <span class="s2">&quot;scannerStats&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -508,8 +500,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[0, 0, 2, 88, 86, -63, -25, -16], stop_key=[0, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.899045</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_01&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.066892</span><span class="p">,</span>
@@ -517,8 +509,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[1, 0, 2, 88, 86, -63, -25, -16], stop_key=[1, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.314855</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_02&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.01298</span><span class="p">,</span>
@@ -526,8 +518,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[2, 0, 2, 88, 86, -63, -25, -16], stop_key=[2, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.478315</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_03&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.036998</span><span class="p">,</span>
@@ -535,8 +527,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[3, 0, 2, 88, 86, -63, -25, -16], stop_key=[3, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.904215</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_04&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.058698</span><span class="p">,</span>
@@ -544,8 +536,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[4, 0, 2, 88, 86, -63, -25, -16], stop_key=[4, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.587324</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_05&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.041017</span><span class="p">,</span>
@@ -553,8 +545,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[5, 0, 2, 88, 86, -63, -25, -16], stop_key=[5, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.802395</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_06&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.062371</span><span class="p">,</span>
@@ -562,8 +554,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[6, 0, 2, 88, 86, -63, -25, -16], stop_key=[6, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.40264</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_07&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.063974</span><span class="p">,</span>
@@ -571,8 +563,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[7, 0, 2, 88, 86, -63, -25, -16], stop_key=[7, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.265713</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_08&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.062196</span><span class="p">,</span>
@@ -580,8 +572,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[8, 0, 2, 88, 86, -63, -25, -16], stop_key=[8, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.287582</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_09&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.051666</span><span class="p">,</span>
@@ -589,8 +581,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[9, 0, 2, 88, 86, -63, -25, -16], stop_key=[9, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">7.849597</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_10&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.036429</span><span class="p">,</span>
@@ -598,8 +590,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[10, 0, 2, 88, 86, -63, -25, -16], stop_key=[10, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">7.689386</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_11&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.044493</span><span class="p">,</span>
@@ -607,8 +599,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[11, 0, 2, 88, 86, -63, -25, -16], stop_key=[11, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">7.94793</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_12&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.025362</span><span class="p">,</span>
@@ -616,8 +608,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[12, 0, 2, 88, 86, -63, -25, -16], stop_key=[12, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.332411</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_13&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.057429</span><span class="p">,</span>
@@ -625,8 +617,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[13, 0, 2, 88, 86, -63, -25, -16], stop_key=[13, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.278104</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_14&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.102855</span><span class="p">,</span>
@@ -634,8 +626,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[14, 0, 2, 88, 86, -63, -25, -16], stop_key=[14, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.712258</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_15&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.0727</span><span class="p">,</span>
@@ -643,8 +635,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[15, 0, 2, 88, 86, -63, -25, -16], stop_key=[15, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.35403</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_16&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.025867</span><span class="p">,</span>
@@ -652,8 +644,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[16, 0, 2, 88, 86, -63, -25, -16], stop_key=[16, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.039663</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_17&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.066071</span><span class="p">,</span>
@@ -661,8 +653,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[17, 0, 2, 88, 86, -63, -25, -16], stop_key=[17, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">9.24738</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_18&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.090249</span><span class="p">,</span>
@@ -670,8 +662,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[18, 0, 2, 88, 86, -63, -25, -16], stop_key=[18, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.831461</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_19&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.039327</span><span class="p">,</span>
@@ -679,13 +671,13 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[19, 0, 2, 88, 86, -63, -25, -16], stop_key=[19, 0, 2, 88, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.947639</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">}</span>
                       <span class="p">},</span>
                       <span class="s2">&quot;serializationTime&quot;</span><span class="o">:</span> <span class="mf">3.809661</span><span class="p">,</span>
-                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">20</span><span class="p">,</span>
+                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
                       <span class="s2">&quot;uidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.197926</span>
               <span class="p">},</span>
               <span class="s2">&quot;queryIdx_01&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -693,11 +685,11 @@
                       <span class="s2">&quot;avgHBaseTime&quot;</span><span class="o">:</span> <span class="mf">8.212164</span><span class="p">,</span>
                       <span class="s2">&quot;avgScannerTime&quot;</span><span class="o">:</span> <span class="mf">8.268015</span><span class="p">,</span>
                       <span class="s2">&quot;avgScannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                      <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mi">628</span><span class="p">,</span>
+                      <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mf">628</span><span class="p">,</span>
                       <span class="s2">&quot;groupByTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
                       <span class="s2">&quot;maxHBaseTime&quot;</span><span class="o">:</span> <span class="mf">8.986041</span><span class="p">,</span>
                       <span class="s2">&quot;maxScannerUidtoStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                      <span class="s2">&quot;queryIndex&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                      <span class="s2">&quot;queryIndex&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
                       <span class="s2">&quot;queryScanTime&quot;</span><span class="o">:</span> <span class="mf">9.67778</span><span class="p">,</span>
                       <span class="s2">&quot;saltScannerMergeTime&quot;</span><span class="o">:</span> <span class="mf">0.095797</span><span class="p">,</span>
                       <span class="s2">&quot;scannerStats&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -707,8 +699,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[0, 0, 2, 76, 86, -63, -25, -16], stop_key=[0, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.770252</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_01&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.055956</span><span class="p">,</span>
@@ -716,8 +708,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[1, 0, 2, 76, 86, -63, -25, -16], stop_key=[1, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.730629</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_02&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.011224</span><span class="p">,</span>
@@ -725,8 +717,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[2, 0, 2, 76, 86, -63, -25, -16], stop_key=[2, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.487582</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_03&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.081926</span><span class="p">,</span>
@@ -734,8 +726,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[3, 0, 2, 76, 86, -63, -25, -16], stop_key=[3, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.986041</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_04&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.01882</span><span class="p">,</span>
@@ -743,8 +735,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[4, 0, 2, 76, 86, -63, -25, -16], stop_key=[4, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.231502</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_05&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.056902</span><span class="p">,</span>
@@ -752,8 +744,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[5, 0, 2, 76, 86, -63, -25, -16], stop_key=[5, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.772216</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_06&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.131424</span><span class="p">,</span>
@@ -761,8 +753,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[6, 0, 2, 76, 86, -63, -25, -16], stop_key=[6, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.181117</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_07&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.022517</span><span class="p">,</span>
@@ -770,8 +762,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[7, 0, 2, 76, 86, -63, -25, -16], stop_key=[7, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.032073</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_08&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.011527</span><span class="p">,</span>
@@ -779,8 +771,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[8, 0, 2, 76, 86, -63, -25, -16], stop_key=[8, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.604491</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_09&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.162222</span><span class="p">,</span>
@@ -788,8 +780,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[9, 0, 2, 76, 86, -63, -25, -16], stop_key=[9, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.435525</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_10&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.033886</span><span class="p">,</span>
@@ -797,8 +789,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[10, 0, 2, 76, 86, -63, -25, -16], stop_key=[10, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.011236</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_11&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.039491</span><span class="p">,</span>
@@ -806,8 +798,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[11, 0, 2, 76, 86, -63, -25, -16], stop_key=[11, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.003249</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_12&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.107793</span><span class="p">,</span>
@@ -815,8 +807,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[12, 0, 2, 76, 86, -63, -25, -16], stop_key=[12, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.298284</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_13&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.020697</span><span class="p">,</span>
@@ -824,8 +816,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[13, 0, 2, 76, 86, -63, -25, -16], stop_key=[13, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.147879</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_14&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.033261</span><span class="p">,</span>
@@ -833,8 +825,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[14, 0, 2, 76, 86, -63, -25, -16], stop_key=[14, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.182331</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_15&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.057804</span><span class="p">,</span>
@@ -842,8 +834,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[15, 0, 2, 76, 86, -63, -25, -16], stop_key=[15, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.243458</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_16&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.01212</span><span class="p">,</span>
@@ -851,8 +843,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[16, 0, 2, 76, 86, -63, -25, -16], stop_key=[16, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">8.084813</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_17&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.036777</span><span class="p">,</span>
@@ -860,8 +852,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[17, 0, 2, 76, 86, -63, -25, -16], stop_key=[17, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">7.959645</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_18&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.048097</span><span class="p">,</span>
@@ -869,8 +861,8 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[18, 0, 2, 76, 86, -63, -25, -16], stop_key=[18, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">7.926318</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">},</span>
                               <span class="s2">&quot;scannerIdx_19&quot;</span><span class="o">:</span> <span class="p">{</span>
                                       <span class="s2">&quot;compactionTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
@@ -878,17 +870,17 @@
                                       <span class="s2">&quot;scannerId&quot;</span><span class="o">:</span> <span class="s2">&quot;Scanner(table=\&quot;tsdb\&quot;, start_key=[19, 0, 2, 76, 86, -63, -25, -16], stop_key=[19, 0, 2, 76, 86, -62, 4, 16], columns={\&quot;t\&quot;}, populate_blockcache=true, max_num_rows=128, max_num_kvs=4096, region=null, filter=KeyRegexpFilter(\&quot;(?s)^.{8}(?:.{7})*\\Q\u0000\u0000\u0005\\E(?:\\Q\u0000\u0000\u00006\\E)(?:.{7})*$\&quot;, ISO-8859-1), scanner_id=0x0000000000000000)&quot;</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerTime&quot;</span><span class="o">:</span> <span class="mf">7.271664</span><span class="p">,</span>
                                       <span class="s2">&quot;scannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+                                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
                               <span class="p">}</span>
                       <span class="p">},</span>
                       <span class="s2">&quot;serializationTime&quot;</span><span class="o">:</span> <span class="mf">3.749764</span><span class="p">,</span>
-                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">20</span><span class="p">,</span>
+                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
                       <span class="s2">&quot;uidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.162088</span>
               <span class="p">},</span>
-              <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
-              <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mi">0</span>
+              <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">40</span><span class="p">,</span>
+              <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
       <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -910,7 +902,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

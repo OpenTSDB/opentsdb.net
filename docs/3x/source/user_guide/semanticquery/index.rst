@@ -134,6 +134,7 @@ Built-in Query Nodes
    join
    movingaverage
    rate
+   ratio
    slidingwindow
    summarizer
    timeseriesdatasource

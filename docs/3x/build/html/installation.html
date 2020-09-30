@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Installation and Quick Start &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Users Guide" href="user_guide/index.html" />
@@ -31,9 +20,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><span><img src="_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -167,23 +159,22 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="installation-and-quick-start">
 <h1>Installation and Quick Start</h1>
 <p>OpenTSDB, so far, must be compiled from source. You can use the compiled libs directly or build a Docker image. The source is at <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/tree/3.0">https://github.com/OpenTSDB/opentsdb/tree/3.0</a>, just make sure to checkout the 3.0 branch.</p>
 <div class="section" id="runtime-requirements">
 <h2>Runtime Requirements</h2>
-<p>To actually run OpenTSDB, you'll need to meet the following:</p>
+<p>To actually run OpenTSDB, you’ll need to meet the following:</p>
 <ul class="simple">
-<li>A Linux system (or Windows with manual building)</li>
-<li>Java Runtime Environment 1.8 or later</li>
-<li><dl class="first docutils">
-<dt>A data store such as:</dt>
-<dd><ul class="first last">
-<li>HBase 0.92 or later</li>
-<li>Google Bigtable</li>
-<li>The dummy in-memory built-in store</li>
+<li><p>A Linux system (or Windows with manual building)</p></li>
+<li><p>Java Runtime Environment 1.8 or later</p></li>
+<li><dl class="simple">
+<dt>A data store such as:</dt><dd><ul>
+<li><p>HBase 0.92 or later</p></li>
+<li><p>Google Bigtable</p></li>
+<li><p>The dummy in-memory built-in store</p></li>
 </ul>
 </dd>
 </dl>
@@ -192,16 +183,16 @@
 </div>
 <div class="section" id="installation">
 <h2>Installation</h2>
-<p>3.0 has a built-in super simple and inefficient in-memory data store that you can read and write from. If the <code class="docutils literal"><span class="pre">MockBase</span></code> plugin is loaded, you can query some data as soon as you start the process and write using the <code class="docutils literal"><span class="pre">/api/put</span></code> HTTP API.</p>
-<p>If you have data in HBase (TODO, Bigtable support is kinda working but it's slow right now) then you can query it without problem. If you want to test with HBase, follow the 2.x documentation to install HBase and configure the tables.</p>
+<p>3.0 has a built-in super simple and inefficient in-memory data store that you can read and write from. If the <code class="docutils literal notranslate"><span class="pre">MockBase</span></code> plugin is loaded, you can query some data as soon as you start the process and write using the <code class="docutils literal notranslate"><span class="pre">/api/put</span></code> HTTP API.</p>
+<p>If you have data in HBase (TODO, Bigtable support is kinda working but it’s slow right now) then you can query it without problem. If you want to test with HBase, follow the 2.x documentation to install HBase and configure the tables.</p>
 </div>
 <div class="section" id="compile">
 <h2>Compile</h2>
-<p>From the root directory, run <code class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span></code> (append <cite>-Dmaven.test.skip=true</cite> if you don't want to run tests) and look in the <code class="docutils literal"><span class="pre">distribution/target/</span></code> directory. There will be a tarball you can move around and uncompress, e.g. to some place like <code class="docutils literal"><span class="pre">/opt/opentsdb/</span></code> or <code class="docutils literal"><span class="pre">/usr/share/opentsdb</span></code>. That directory will contain sub directories including <cite>bin</cite> where the exec script is located, <code class="docutils literal"><span class="pre">conf</span></code> where configurations lie and <cite>lib</cite> where the JARs are located.</p>
+<p>From the root directory, run <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">package</span></code> (append <cite>-Dmaven.test.skip=true</cite> if you don’t want to run tests) and look in the <code class="docutils literal notranslate"><span class="pre">distribution/target/</span></code> directory. There will be a tarball you can move around and uncompress, e.g. to some place like <code class="docutils literal notranslate"><span class="pre">/opt/opentsdb/</span></code> or <code class="docutils literal notranslate"><span class="pre">/usr/share/opentsdb</span></code>. That directory will contain sub directories including <cite>bin</cite> where the exec script is located, <code class="docutils literal notranslate"><span class="pre">conf</span></code> where configurations lie and <cite>lib</cite> where the JARs are located.</p>
 </div>
 <div class="section" id="docker">
 <h2>Docker</h2>
-<p>To build the Docker image, from the root directory run <code class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span> <span class="pre">-Pdocker</span></code> and it should build and install an image in your local docker repo (assuming Docker is installed). NOTE: We could use some help on properly building docker and getting instructions together on how to upload the image somewhere).</p>
+<p>To build the Docker image, from the root directory run <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">package</span> <span class="pre">-Pdocker</span></code> and it should build and install an image in your local docker repo (assuming Docker is installed). NOTE: We could use some help on properly building docker and getting instructions together on how to upload the image somewhere).</p>
 <div class="section" id="quickstart">
 <h3>Quickstart</h3>
 </div>
@@ -209,27 +200,27 @@
 <div class="section" id="local">
 <h2>Local</h2>
 <ul class="simple">
-<li>Create a logging directory named <cite>/var/log/opentsdb</cite>. If you're on a Mac, run <cite>sudo mkdir /var/log/opentsdb</cite> then run <cite>sudo chown &lt;your username&gt; /var/log/opentsdb</cite>. If you can't create that directory due to permissions, modify the <cite>conf/logback.xml</cite> file to write to a different directory.</li>
-<li>Change to <cite>cd distribution/target/opentsdb-3.0.90-SNAPSHOT/opentsdb/</cite> or the properly versioned directory.</li>
-<li>To start a TSD, run <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb_dev.yaml</span></code> to run the in-memory store or <code class="docutils literal"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb.yaml</span></code> to run it with HBase (and make sure to modify the config for your HBase settings).</li>
-<li>Make sure the TSD is running by loading <cite>http://localhost:4242/api/registry/plugins</cite> in your browser or via a CLI tool.</li>
+<li><p>Create a logging directory named <cite>/var/log/opentsdb</cite>. If you’re on a Mac, run <cite>sudo mkdir /var/log/opentsdb</cite> then run <cite>sudo chown &lt;your username&gt; /var/log/opentsdb</cite>. If you can’t create that directory due to permissions, modify the <cite>conf/logback.xml</cite> file to write to a different directory.</p></li>
+<li><p>Change to <cite>cd distribution/target/opentsdb-3.0.90-SNAPSHOT/opentsdb/</cite> or the properly versioned directory.</p></li>
+<li><p>To start a TSD, run <code class="docutils literal notranslate"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb_dev.yaml</span></code> to run the in-memory store or <code class="docutils literal notranslate"><span class="pre">bin/tsdb</span> <span class="pre">tsd</span> <span class="pre">--config.providers=file://conf/opentsdb.yaml</span></code> to run it with HBase (and make sure to modify the config for your HBase settings).</p></li>
+<li><p>Make sure the TSD is running by loading <cite>http://localhost:4242/api/registry/plugins</cite> in your browser or via a CLI tool.</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
 <h2>Docker</h2>
 <ul class="simple">
-<li>To start the docker image, run <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--name</span> <span class="pre">opentsdb</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opentsdb</span></code>.</li>
-<li>Make sure the TSD is running by loading <cite>http://localhost:4242/api/registry/plugins</cite> in your browser or via a CLI tool.</li>
+<li><p>To start the docker image, run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--name</span> <span class="pre">opentsdb</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opentsdb</span></code>.</p></li>
+<li><p>Make sure the TSD is running by loading <cite>http://localhost:4242/api/registry/plugins</cite> in your browser or via a CLI tool.</p></li>
 </ul>
 </div>
 <div class="section" id="querying">
 <h2>Querying</h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This section assumes you are using the in-memory store. At startup, some dummy time series are written with dummy data using a timestamp around the startup time.</p>
+<p class="admonition-title">Note</p>
+<p>This section assumes you are using the in-memory store. At startup, some dummy time series are written with dummy data using a timestamp around the startup time.</p>
 </div>
 <p>Using a CLI tool like CURL or a Restful API GUI tool like Postmane, make an HTTP POST V3 query to <cite>http://localhost:4242/api/query/graph</cite> with the following JSON:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
     <span class="s2">&quot;mode&quot;</span><span class="o">:</span> <span class="s2">&quot;SINGLE&quot;</span><span class="p">,</span>
     <span class="s2">&quot;timezone&quot;</span><span class="o">:</span> <span class="s2">&quot;America/Denver&quot;</span><span class="p">,</span>
@@ -326,7 +317,7 @@
 </pre></div>
 </div>
 <p>For a V2 query, use the endpoint <cite>http://localhost:4242/api/query/</cite> and post:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;2h-ago&quot;</span><span class="p">,</span>
   <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[</span>
     <span class="p">{</span>
@@ -335,7 +326,7 @@
       <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mf">1</span>
       <span class="p">},</span>
       <span class="s2">&quot;explicitTags&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{},</span>
@@ -359,32 +350,32 @@
 <div class="section" id="write-data">
 <h3>Write Data</h3>
 <p>Now that you can query data, try writing something. Currently we only have the HTTP JSON API available. As an example, <strong>POST</strong> the following JSON to <cite>http://localhost:4242/api/put/</cite>:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300800</span><span class="p">,</span>
-    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1546300800</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">18</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
     <span class="p">}</span>
 <span class="p">},</span>
 <span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300800</span><span class="p">,</span>
-    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1546300800</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">14</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
     <span class="p">}</span>
 <span class="p">},{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300860</span><span class="p">,</span>
-    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1546300860</span><span class="p">,</span>
+    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web01&quot;</span>
     <span class="p">}</span>
 <span class="p">},</span>
 <span class="p">{</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mi">1546300860</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1546300860</span><span class="p">,</span>
     <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="mf">32.5</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;web02&quot;</span>
@@ -394,7 +385,7 @@
 </pre></div>
 </div>
 <p>You should get a <cite>204</cite> response code without any content. This means the data was written successfully to the in-memory store. Turn around an <strong>POST</strong> the following query to <a href="#id2"><span class="problematic" id="id3">``</span></a>:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1546300000&quot;</span><span class="p">,</span>
     <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;1546344000&quot;</span><span class="p">,</span>
     <span class="s2">&quot;mode&quot;</span><span class="o">:</span> <span class="s2">&quot;SINGLE&quot;</span><span class="p">,</span>
@@ -428,15 +419,15 @@
 </pre></div>
 </div>
 <p>You should see a result like:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;results&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;gb:m1&quot;</span><span class="p">,</span>
             <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
                 <span class="p">{</span>
                     <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;1546300800&quot;</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
-                        <span class="s2">&quot;1546300860&quot;</span><span class="o">:</span> <span class="mi">2</span>
+                        <span class="s2">&quot;1546300800&quot;</span><span class="o">:</span> <span class="mf">18</span><span class="p">,</span>
+                        <span class="s2">&quot;1546300860&quot;</span><span class="o">:</span> <span class="mf">2</span>
                     <span class="p">},</span>
                     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -445,7 +436,7 @@
                 <span class="p">},</span>
                 <span class="p">{</span>
                     <span class="s2">&quot;NumericType&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">&quot;1546300800&quot;</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+                        <span class="s2">&quot;1546300800&quot;</span><span class="o">:</span> <span class="mf">14</span><span class="p">,</span>
                         <span class="s2">&quot;1546300860&quot;</span><span class="o">:</span> <span class="mf">32.5</span>
                     <span class="p">},</span>
                     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;my.test.metric&quot;</span><span class="p">,</span>
@@ -465,7 +456,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now you're good to try out alternative configurations, different queries and more. Thanks!</p>
+<p>Now you’re good to try out alternative configurations, different queries and more. Thanks!</p>
 </div>
 </div>
 </div>
@@ -483,7 +474,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

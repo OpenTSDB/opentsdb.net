@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tuning &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -42,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../index.html"><span><img src="../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -157,22 +149,22 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="tuning">
 <h1>Tuning</h1>
 <p id="index-0">As with any database there are many tuning parameters for OpenTSDB that can be used to improve write and read performance. Some of these options are specific to certain backends, others are global.</p>
 <div class="section" id="tsdb-memory">
 <h2>TSDB Memory</h2>
-<p>As with any server process, tuning the TSD's memory footprint is important for a successful install. There are a number of caches in OpenTSDB that can be tuned.</p>
+<p>As with any server process, tuning the TSD’s memory footprint is important for a successful install. There are a number of caches in OpenTSDB that can be tuned.</p>
 <div class="section" id="uid-caches">
 <h3>UID Caches</h3>
 <p>OpenTSDB saves space in storage by converting strings to binary UIDs. However for writing and querying, these UIDs have to be cached to improve performance (otherwise every operation would amplify queries against storage). In early versions of OpenTSDB, the cache would maintain an unbounded map of strings to UIDs and UIDs to strings regardless of modes of operation. In 2.4 you can choose how much data to cache and optionally use an LRU. The pertinent settings include:</p>
 <ul class="simple">
-<li>'tsd.uid.use_mode=true' - When this is set to true, the <cite>tsd.mode</cite> value is examined to determine if either or both of the forward (string to UID) and reverse (UID to string) maps are populated. When empty or set to <cite>rw</cite>, both maps are populated. When set to <cite>ro</cite>, only the reverse map is populated (as query results need caching). When in <cite>w</cite> or write-only mode, only the forward map is populated as metrics need to find their UIDs when writing.</li>
-<li><cite>tsd.uid.lru.enable=true</cite> - Switch to the LRU version of the cache that will expire entries that haven't been read in a while.</li>
-<li><cite>tsd.uid.lru.id.size=&lt;integer&gt;</cite> - For TSDs focused on reads, set this size larger than <cite>tsd.uid.lru.name.size</cite>.</li>
-<li><cite>tsd.uid.lru.name.size=&lt;integer&gt;</cite> - For TSDs focused on writes, set this size larger than the <cite>tsd.uid.lru.id.size</cite>.</li>
+<li><p>‘tsd.uid.use_mode=true’ - When this is set to true, the <cite>tsd.mode</cite> value is examined to determine if either or both of the forward (string to UID) and reverse (UID to string) maps are populated. When empty or set to <cite>rw</cite>, both maps are populated. When set to <cite>ro</cite>, only the reverse map is populated (as query results need caching). When in <cite>w</cite> or write-only mode, only the forward map is populated as metrics need to find their UIDs when writing.</p></li>
+<li><p><cite>tsd.uid.lru.enable=true</cite> - Switch to the LRU version of the cache that will expire entries that haven’t been read in a while.</p></li>
+<li><p><cite>tsd.uid.lru.id.size=&lt;integer&gt;</cite> - For TSDs focused on reads, set this size larger than <cite>tsd.uid.lru.name.size</cite>.</p></li>
+<li><p><cite>tsd.uid.lru.name.size=&lt;integer&gt;</cite> - For TSDs focused on writes, set this size larger than the <cite>tsd.uid.lru.id.size</cite>.</p></li>
 </ul>
 </div>
 </div>
@@ -181,11 +173,11 @@
 <p>These are parameters to look at for using OpenTSDB with Apache HBase.</p>
 <div class="section" id="date-tierd-compaction">
 <span id="id1"></span><h3>Date Tierd Compaction</h3>
-<p>HBase is an LSM store meaning data is written to blocks in memory, then flushed in blocks to disk, then periodically those blocks on disk are merged into fewer blocks to reduce file count and redundancies. The process of reading and merging blocks from disk can consume a fair amount of CPU and memory so if a system is heavily loaded with time series write traffic, background compactions can begin to impact write performance. HBase offers various compaction strategies including Date Tiered Compaction that looks at the the edit timestamps of columns to figure out if stale file that haven't been modified should be ignored and arranges data so that time ranged queries are much more efficient.</p>
+<p>HBase is an LSM store meaning data is written to blocks in memory, then flushed in blocks to disk, then periodically those blocks on disk are merged into fewer blocks to reduce file count and redundancies. The process of reading and merging blocks from disk can consume a fair amount of CPU and memory so if a system is heavily loaded with time series write traffic, background compactions can begin to impact write performance. HBase offers various compaction strategies including Date Tiered Compaction that looks at the the edit timestamps of columns to figure out if stale file that haven’t been modified should be ignored and arranges data so that time ranged queries are much more efficient.</p>
 <p>OpenTSDB can leverage this compaction strategy (as of 2.4) to improve HBase performance, particularly for queries. To setup Date Tiered Compaction in HBase, see <a class="reference external" href="http://hbase.apache.org/book.html#ops.date.tiered">HBase Book</a>. Parameters that must be set in the OpenTSDB config include:</p>
 <ul class="simple">
-<li><cite>tsd.storage.use_otsdb_timestamp=true</cite> - By default the edit timestamps of every data point is <cite>now</cite>. This changes the timestamp to be that of the actual data point. Note that rollups do not use this strategy yet.</li>
-<li><cite>tsd.storage.get_date_tiered_compaction_start=&lt;Unix Epoch MS timestamp&gt;</cite> - A timestamp in milliseconds when the date tiered compactor was enabled on a table. If you are creating a brand new table for OpenTSDB you can leave this at the default of <cite>0</cite>.</li>
+<li><p><cite>tsd.storage.use_otsdb_timestamp=true</cite> - By default the edit timestamps of every data point is <cite>now</cite>. This changes the timestamp to be that of the actual data point. Note that rollups do not use this strategy yet.</p></li>
+<li><p><cite>tsd.storage.get_date_tiered_compaction_start=&lt;Unix Epoch MS timestamp&gt;</cite> - A timestamp in milliseconds when the date tiered compactor was enabled on a table. If you are creating a brand new table for OpenTSDB you can leave this at the default of <cite>0</cite>.</p></li>
 </ul>
 </div>
 <div class="section" id="hbase-read-write-queues">
@@ -196,8 +188,8 @@
 </div>
 <div class="section" id="hbase-cache">
 <h3>HBase Cache</h3>
-<p>Tuning the HBase cache is also important for queries as you want to avoid reading data off disk as much as possible (particularly if that disk is S3). Try using the offheap cache via <cite>hbase.bucketcache.combinedcache.enabled=true</cite> and <cite>hbase.bucketcache.ioengine=offheap</cite>. Give the offheap cache a good amount of RAM, e.g. <cite>hbase.bucketcache.size=4000</cite> for 4GB of RAM. Since the most recent data is usually queried when reading time series, it's a good idea to populate the block cache on writes and use most of that space for the latest data. Try the following settings:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hbase</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">cacheblocksonwrite</span><span class="o">=</span><span class="n">true</span>
+<p>Tuning the HBase cache is also important for queries as you want to avoid reading data off disk as much as possible (particularly if that disk is S3). Try using the offheap cache via <cite>hbase.bucketcache.combinedcache.enabled=true</cite> and <cite>hbase.bucketcache.ioengine=offheap</cite>. Give the offheap cache a good amount of RAM, e.g. <cite>hbase.bucketcache.size=4000</cite> for 4GB of RAM. Since the most recent data is usually queried when reading time series, it’s a good idea to populate the block cache on writes and use most of that space for the latest data. Try the following settings:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hbase</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">cacheblocksonwrite</span><span class="o">=</span><span class="n">true</span>
 <span class="n">hbase</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">evictblocksonclose</span><span class="o">=</span><span class="n">false</span>
 <span class="n">hfile</span><span class="o">.</span><span class="n">block</span><span class="o">.</span><span class="n">bloom</span><span class="o">.</span><span class="n">cacheonwrite</span><span class="o">=</span><span class="n">true</span>
 <span class="n">hfile</span><span class="o">.</span><span class="n">block</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">cacheonwrite</span><span class="o">=</span><span class="n">true</span>
@@ -210,7 +202,7 @@
 </div>
 <p>This will allocate the majority of the black cache for writes and cache it in memory.</p>
 <p>For the on-heap cache, you can try an allocation of:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hbase</span><span class="o">.</span><span class="n">lru</span><span class="o">.</span><span class="n">blockcache</span><span class="o">.</span><span class="n">single</span><span class="o">.</span><span class="n">percentage</span><span class="o">=.</span><span class="mi">50</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hbase</span><span class="o">.</span><span class="n">lru</span><span class="o">.</span><span class="n">blockcache</span><span class="o">.</span><span class="n">single</span><span class="o">.</span><span class="n">percentage</span><span class="o">=.</span><span class="mi">50</span>
 <span class="n">hbase</span><span class="o">.</span><span class="n">lru</span><span class="o">.</span><span class="n">blockcache</span><span class="o">.</span><span class="n">multi</span><span class="o">.</span><span class="n">percentage</span><span class="o">=.</span><span class="mi">49</span>
 <span class="n">hbase</span><span class="o">.</span><span class="n">lru</span><span class="o">.</span><span class="n">blockcache</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">percentage</span><span class="o">=.</span><span class="mi">01</span>
 </pre></div>
@@ -219,7 +211,7 @@
 <div class="section" id="hbase-compaction">
 <h3>HBase Compaction</h3>
 <p>Compaction is the process of merging multiple stores on disk for a region into fewer files to reduce space and query times. You can tune the number of threads and thresholds for compaction to avoid using too many resources when the focus should be on writes.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hbase</span><span class="o">.</span><span class="n">hstore</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">ratio</span><span class="o">=</span><span class="mf">1.2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hbase</span><span class="o">.</span><span class="n">hstore</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">ratio</span><span class="o">=</span><span class="mf">1.2</span>
 <span class="n">hbase</span><span class="o">.</span><span class="n">regionserver</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">large</span><span class="o">=</span><span class="mi">2</span>
 <span class="n">hbase</span><span class="o">.</span><span class="n">regionserver</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">small</span><span class="o">=</span><span class="mi">6</span>
 <span class="n">hbase</span><span class="o">.</span><span class="n">regionserver</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">compaction</span><span class="o">.</span><span class="n">throttle</span><span class="o">=</span><span class="mi">524288000</span>
@@ -228,11 +220,11 @@
 </div>
 <div class="section" id="hbase-regions">
 <h3>HBase Regions</h3>
-<p>For OpenTSDB we've observed that 10G regions are a good size for a large cluster <cite>hbase.hregion.max.filesize=10737418240</cite>.</p>
+<p>For OpenTSDB we’ve observed that 10G regions are a good size for a large cluster <cite>hbase.hregion.max.filesize=10737418240</cite>.</p>
 </div>
 <div class="section" id="hbase-memstore">
 <h3>HBase Memstore</h3>
-<p>Try flushing the mem store to disk (and cache) more often, particularly for heavy write loads. We've seen good behavior with 16MBs <cite>hbase.hregion.memstore.flush.size=16777216</cite>. Also try reducing the memstore size limit via <cite>hbase.regionserver.global.memstore.lowerLimit=.20</cite> and <cite>hbase.regionserver.global.memstore.upperLimit=.30</cite>.</p>
+<p>Try flushing the mem store to disk (and cache) more often, particularly for heavy write loads. We’ve seen good behavior with 16MBs <cite>hbase.hregion.memstore.flush.size=16777216</cite>. Also try reducing the memstore size limit via <cite>hbase.regionserver.global.memstore.lowerLimit=.20</cite> and <cite>hbase.regionserver.global.memstore.upperLimit=.30</cite>.</p>
 </div>
 </div>
 </div>
@@ -250,7 +242,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

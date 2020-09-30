@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expression &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Filters" href="filters.html" />
@@ -31,9 +20,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -152,6 +144,7 @@
 <li><a class="reference internal" href="#literals">Literals</a></li>
 <li><a class="reference internal" href="#operators">Operators</a><ul>
 <li><a class="reference internal" href="#substitution">Substitution</a></li>
+<li><a class="reference internal" href="#ternary-or-conditional-expressions">Ternary or Conditional Expressions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#joining-time-series">Joining Time Series</a><ul>
@@ -165,69 +158,69 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="expression">
 <h1>Expression</h1>
 <p>Computes an arbitrary expression on time series fed to the node. It supports arithmentic, relational and logical operations.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">When combining arithmetic and relational/logical ops, we currently treat values &gt; 0 as true and &lt;= 0 as false. At some point we need to make it configurable.</p>
+<p class="admonition-title">Note</p>
+<p>When combining arithmetic and relational/logical ops, we currently treat values &gt; 0 as true and &lt;= 0 as false. At some point we need to make it configurable.</p>
 </div>
 <p>Fields include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>expression</td>
-<td>String</td>
-<td>Required</td>
-<td>The expression string to compute.</td>
-<td>null</td>
-<td>m2 / (m1 + m2)</td>
+<tbody>
+<tr class="row-even"><td><p>expression</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The expression string to compute.</p></td>
+<td><p>null</p></td>
+<td><p>m2 / (m1 + m2)</p></td>
 </tr>
-<tr class="row-odd"><td>as</td>
-<td>String</td>
-<td>Optional</td>
-<td>A name to substitute for the metric name for time series emitted from this node. If the <code class="docutils literal"><span class="pre">as</span></code> config is missing, the expression ID is substituted as the metric name. Tags are preserved.</td>
-<td>null</td>
-<td>Percent</td>
+<tr class="row-odd"><td><p>as</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A name to substitute for the metric name for time series emitted from this node. If the <code class="docutils literal notranslate"><span class="pre">as</span></code> config is missing, the expression ID is substituted as the metric name. Tags are preserved.</p></td>
+<td><p>null</p></td>
+<td><p>Percent</p></td>
 </tr>
-<tr class="row-even"><td>joinConfig</td>
-<td>Object</td>
-<td>Required</td>
-<td>The join config to use when combining series.</td>
-<td>null</td>
-<td>See the Join section below.</td>
+<tr class="row-even"><td><p>joinConfig</p></td>
+<td><p>Object</p></td>
+<td><p>Required</p></td>
+<td><p>The join config to use when combining series.</p></td>
+<td><p>null</p></td>
+<td><p>See the Join section below.</p></td>
 </tr>
-<tr class="row-odd"><td>interpolatorConfig</td>
-<td>List</td>
-<td>Required <em>for now</em></td>
-<td>A list of interpolator configs for the downsampler to deal with empty buckets.</td>
-<td>null</td>
-<td>See <a class="reference internal" href="interpolator.html"><span class="doc">Interpolators</span></a></td>
+<tr class="row-odd"><td><p>interpolatorConfig</p></td>
+<td><p>List</p></td>
+<td><p>Required <em>for now</em></p></td>
+<td><p>A list of interpolator configs for the downsampler to deal with empty buckets.</p></td>
+<td><p>null</p></td>
+<td><p>See <a class="reference internal" href="interpolator.html"><span class="doc">Interpolators</span></a></p></td>
 </tr>
-<tr class="row-even"><td>infectiousNan</td>
-<td>boolean</td>
-<td>Optional</td>
-<td>Whether or not NaNs from the source data should infect each timestamp when aggregating values. E.g. if one value out of 20 are <code class="docutils literal"><span class="pre">NaN</span></code> for a timestamp and this is true, the timestamp will return a <code class="docutils literal"><span class="pre">NaN</span></code>. If all values for the timestamp are <code class="docutils literal"><span class="pre">NaN</span></code> then the result will be <code class="docutils literal"><span class="pre">NaN</span></code> regardless.</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-even"><td><p>infectiousNan</p></td>
+<td><p>boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not NaNs from the source data should infect each timestamp when aggregating values. E.g. if one value out of 20 are <code class="docutils literal notranslate"><span class="pre">NaN</span></code> for a timestamp and this is true, the timestamp will return a <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. If all values for the timestamp are <code class="docutils literal notranslate"><span class="pre">NaN</span></code> then the result will be <code class="docutils literal notranslate"><span class="pre">NaN</span></code> regardless.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
 </tbody>
 </table>
@@ -235,126 +228,137 @@
 <h2>Variable Names</h2>
 <p>Variable names in expressions can be one of two values:</p>
 <ul class="simple">
-<li>A <code class="docutils literal"><span class="pre">TimeSeriesDataSource</span></code> node ID such as <code class="docutils literal"><span class="pre">m1</span></code> if the node had that ID. This is also the data source ID.</li>
-<li>The full metric name such as <code class="docutils literal"><span class="pre">sys.cpu.busy</span></code>.</li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSource</span></code> node ID such as <code class="docutils literal notranslate"><span class="pre">m1</span></code> if the node had that ID. This is also the data source ID.</p></li>
+<li><p>The full metric name such as <code class="docutils literal notranslate"><span class="pre">sys.cpu.busy</span></code>.</p></li>
 </ul>
 </div>
 <div class="section" id="literals">
 <h2>Literals</h2>
 <p>Literals may also be used such as:</p>
 <ul class="simple">
-<li>Integers</li>
-<li>Double precision floating point values</li>
-<li><code class="docutils literal"><span class="pre">true</span></code> or <code class="docutils literal"><span class="pre">false</span></code></li>
+<li><p>Integers</p></li>
+<li><p>Double precision floating point values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="operators">
 <h2>Operators</h2>
 <p>Currently supported operators include:</p>
 <ul class="simple">
-<li><strong>+</strong> - Addition</li>
-<li><strong>-</strong> - Subtraction</li>
-<li><strong>*</strong> - Multiplication</li>
-<li><strong>/</strong> - Division</li>
-<li><strong>%</strong> - Modulo</li>
-<li><strong>&gt;, &lt;, ==, !=, &lt;=, &gt;=</strong> - Conditionals</li>
-<li><strong>AND, OR, NOT</strong> - Relationals</li>
+<li><p><strong>+</strong> - Addition</p></li>
+<li><p><strong>-</strong> - Subtraction</p></li>
+<li><p><strong>*</strong> - Multiplication</p></li>
+<li><p><strong>/</strong> - Division</p></li>
+<li><p><strong>%</strong> - Modulo</p></li>
+<li><p><strong>&gt;, &lt;, ==, !=, &lt;=, &gt;=</strong> - Conditionals</p></li>
+<li><p><strong>AND, OR, NOT</strong> - Relationals</p></li>
+<li><p><strong>? :</strong> - Ternary/Conditional Expression</p></li>
 </ul>
-<p>We'll have ternary support shortly.</p>
 <div class="section" id="substitution">
 <h3>Substitution</h3>
 <p>When a value is missing at a given timestamp for either side of an expression and the interpolator does not return a literal value, a value may be subsituted based on the operator in order to provide a useful result.</p>
 <ul class="simple">
-<li>For addition and subtraction, missing values are treated as zero.</li>
-<li>For all other operations, missing values are treated as infectious NaNs.</li>
+<li><p>For addition and subtraction, missing values are treated as zero.</p></li>
+<li><p>For all other operations, missing values are treated as infectious NaNs.</p></li>
 </ul>
+</div>
+<div class="section" id="ternary-or-conditional-expressions">
+<h3>Ternary or Conditional Expressions</h3>
+<p>A ternary expression is a simple if/else statement that evaluates a condition and returns one value if the result is true and a different value if the result is false. V3 supports single level ternary expressions at this time (nesting to come in the future).</p>
+<p>The condition of a ternary can be one of:</p>
+<ul class="simple">
+<li><p>A relational condition such as <code class="docutils literal notranslate"><span class="pre">m1</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">AND</span> <span class="pre">m2</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">?</span> <span class="pre">1</span> <span class="pre">:</span> <span class="pre">0</span></code></p></li>
+<li><p>A logical condition such as <code class="docutils literal notranslate"><span class="pre">m1</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">?</span> <span class="pre">1</span> <span class="pre">:</span> <span class="pre">0</span></code></p></li>
+<li><p>A single metric such as <code class="docutils literal notranslate"><span class="pre">m1</span> <span class="pre">?</span> <span class="pre">m1</span> <span class="pre">:</span> <span class="pre">NaN</span></code> in which case the value of the condition metric is treated as boolean according to the rules at the top of this document.</p></li>
+</ul>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">NaN</span></code> can be used as a literal in a ternary operand.</p>
 </div>
 </div>
 <div class="section" id="joining-time-series">
 <h2>Joining Time Series</h2>
 <p>Because multiple time series are received in an expression node from multiple sources, the time series must be grouped so that time series from source A match up with those from source B based on the tag values. Additionally, when two time series are matched, the data points at each timestamp must be aligned as well.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">We highly recommend that you apply a downsampling operator to all data sources before linking them into an expression node so that the values align cleanly and interpolation is skipped.</p>
+<p class="admonition-title">Note</p>
+<p>We highly recommend that you apply a downsampling operator to all data sources before linking them into an expression node so that the values align cleanly and interpolation is skipped.</p>
 </div>
-<p>If we take the example query below, we'll see time series like the following:</p>
-<table border="1" class="colwidths-given docutils">
+<p>If we take the example query below, we’ll see time series like the following:</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="15%" />
-<col width="30%" />
-<col width="40%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Number</th>
-<th class="head">Source</th>
-<th class="head">Metric</th>
-<th class="head">Tags</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Number</p></th>
+<th class="head"><p>Source</p></th>
+<th class="head"><p>Metric</p></th>
+<th class="head"><p>Tags</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS1</td>
-<td>m1</td>
-<td>sys.if.in</td>
-<td>host=web01, dc=PHX</td>
+<tbody>
+<tr class="row-even"><td><p>TS1</p></td>
+<td><p>m1</p></td>
+<td><p>sys.if.in</p></td>
+<td><p>host=web01, dc=PHX</p></td>
 </tr>
-<tr class="row-odd"><td>TS2</td>
-<td>m1</td>
-<td>sys.if.in</td>
-<td>host=web02, dc=PHX</td>
+<tr class="row-odd"><td><p>TS2</p></td>
+<td><p>m1</p></td>
+<td><p>sys.if.in</p></td>
+<td><p>host=web02, dc=PHX</p></td>
 </tr>
-<tr class="row-even"><td>TS3</td>
-<td>m1</td>
-<td>sys.if.in</td>
-<td>host=web01, dc=DEN</td>
+<tr class="row-even"><td><p>TS3</p></td>
+<td><p>m1</p></td>
+<td><p>sys.if.in</p></td>
+<td><p>host=web01, dc=DEN</p></td>
 </tr>
-<tr class="row-odd"><td>TS4</td>
-<td>m2</td>
-<td>sys.if.out</td>
-<td>host=web01, dc=PHX</td>
+<tr class="row-odd"><td><p>TS4</p></td>
+<td><p>m2</p></td>
+<td><p>sys.if.out</p></td>
+<td><p>host=web01, dc=PHX</p></td>
 </tr>
-<tr class="row-even"><td>TS5</td>
-<td>m2</td>
-<td>sys.if.out</td>
-<td>host=web02, dc=PHX</td>
+<tr class="row-even"><td><p>TS5</p></td>
+<td><p>m2</p></td>
+<td><p>sys.if.out</p></td>
+<td><p>host=web02, dc=PHX</p></td>
 </tr>
-<tr class="row-odd"><td>TS6</td>
-<td>m2</td>
-<td>sys.if.out</td>
-<td>host=web01, dc=DEN</td>
+<tr class="row-odd"><td><p>TS6</p></td>
+<td><p>m2</p></td>
+<td><p>sys.if.out</p></td>
+<td><p>host=web01, dc=DEN</p></td>
 </tr>
 </tbody>
 </table>
 <p>We have 6 total time series with 3 from each time series data source.</p>
-<p>Similar to a relational database, there are a number of join types that you can choose from. The most common join is the <code class="docutils literal"><span class="pre">NATURAL_OUTER</span></code> join that will attempt a one-to-one match using all of the tags in a time series and for those that do not align it will use substitution rules to handle the missing series. Using a <code class="docutils literal"><span class="pre">NATURAL_OUTER</span></code> join (or even an <code class="docutils literal"><span class="pre">INNER</span></code> join) we would match <code class="docutils literal"><span class="pre">TS1</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS3</span></code>, <code class="docutils literal"><span class="pre">TS2</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS4</span></code> and <code class="docutils literal"><span class="pre">TS3</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS5</span></code>. The result of the expression would have 3 time series:</p>
-<table border="1" class="colwidths-given docutils">
+<p>Similar to a relational database, there are a number of join types that you can choose from. The most common join is the <code class="docutils literal notranslate"><span class="pre">NATURAL_OUTER</span></code> join that will attempt a one-to-one match using all of the tags in a time series and for those that do not align it will use substitution rules to handle the missing series. Using a <code class="docutils literal notranslate"><span class="pre">NATURAL_OUTER</span></code> join (or even an <code class="docutils literal notranslate"><span class="pre">INNER</span></code> join) we would match <code class="docutils literal notranslate"><span class="pre">TS1</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS3</span></code>, <code class="docutils literal notranslate"><span class="pre">TS2</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS4</span></code> and <code class="docutils literal notranslate"><span class="pre">TS3</span> <span class="pre">&lt;=&gt;</span> <span class="pre">TS5</span></code>. The result of the expression would have 3 time series:</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="35%" />
-<col width="50%" />
+<col style="width: 15%" />
+<col style="width: 35%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Number</th>
-<th class="head">Metric</th>
-<th class="head">Tags</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Number</p></th>
+<th class="head"><p>Metric</p></th>
+<th class="head"><p>Tags</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>TS7</td>
-<td>if.in.pct_of_total</td>
-<td>host=web01, dc=PHX</td>
+<tbody>
+<tr class="row-even"><td><p>TS7</p></td>
+<td><p>if.in.pct_of_total</p></td>
+<td><p>host=web01, dc=PHX</p></td>
 </tr>
-<tr class="row-odd"><td>TS8</td>
-<td>if.in.pct_of_total</td>
-<td>host=web02, dc=PHX</td>
+<tr class="row-odd"><td><p>TS8</p></td>
+<td><p>if.in.pct_of_total</p></td>
+<td><p>host=web02, dc=PHX</p></td>
 </tr>
-<tr class="row-even"><td>TS9</td>
-<td>if.in.pct_of_total</td>
-<td>host=web01, dc=DEN</td>
+<tr class="row-even"><td><p>TS9</p></td>
+<td><p>if.in.pct_of_total</p></td>
+<td><p>host=web01, dc=DEN</p></td>
 </tr>
 </tbody>
 </table>
-<p>As another example, lets assume that we are using the <code class="docutils literal"><span class="pre">INNER</span></code> join and <code class="docutils literal"><span class="pre">TS2</span></code> and <code class="docutils literal"><span class="pre">TS6</span></code> are both missing values for our query time range. In this case our output would only have 1 time series, that of <code class="docutils literal"><span class="pre">TS7</span></code> in the table above because an inner join requires that both time series on either side of an expression be present in order for it to be evaluated.</p>
+<p>As another example, lets assume that we are using the <code class="docutils literal notranslate"><span class="pre">INNER</span></code> join and <code class="docutils literal notranslate"><span class="pre">TS2</span></code> and <code class="docutils literal notranslate"><span class="pre">TS6</span></code> are both missing values for our query time range. In this case our output would only have 1 time series, that of <code class="docutils literal notranslate"><span class="pre">TS7</span></code> in the table above because an inner join requires that both time series on either side of an expression be present in order for it to be evaluated.</p>
 <p>When processing multi-variate expressions, the expression is broken into a tree of binary expressions. If a pair of time series at one level of the tree fails to satisfy join requirements, the rest of the tree is not evaluated.</p>
 <p>For simple expressions where a single variable is combined with a literal value, join configurations are essentially ignored.</p>
 <p>For more details on join configs see <a class="reference internal" href="join.html"><span class="doc">Join</span></a>.</p>
@@ -365,7 +369,7 @@
 </div>
 <div class="section" id="example-query">
 <h2>Example Query</h2>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
     <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
                     <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m1&quot;</span><span class="p">,</span>
@@ -446,7 +450,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

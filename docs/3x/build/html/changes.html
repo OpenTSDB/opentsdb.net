@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Changes in 3.0 &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation and Quick Start" href="installation.html" />
@@ -31,9 +20,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><span><img src="_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -156,42 +148,42 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="changes-in-3-0">
 <h1>Changes in 3.0</h1>
 <p>OpenTSDB 3.0 is mostly a re-write of the original code with a focus on making it a time series data routing and analysis engine. The new framework goals include:</p>
 <ul class="simple">
-<li>Support for multiple types of data sources such as HBase, Bigtable, cloud providers and the latest time series DBs.</li>
-<li>Pluggable everything with support for custom data types, functions, etc.</li>
-<li>Streaming support for large queries that won't fit in memory.</li>
-<li>Flexible querying by providing an executable graph of operations.</li>
-<li>Support for multiple query languages such as OpenTSDB, PromQL, SQL, etc.</li>
-<li>Provide backwards compatibility with previous versions to easy migration.</li>
+<li><p>Support for multiple types of data sources such as HBase, Bigtable, cloud providers and the latest time series DBs.</p></li>
+<li><p>Pluggable everything with support for custom data types, functions, etc.</p></li>
+<li><p>Streaming support for large queries that won’t fit in memory.</p></li>
+<li><p>Flexible querying by providing an executable graph of operations.</p></li>
+<li><p>Support for multiple query languages such as OpenTSDB, PromQL, SQL, etc.</p></li>
+<li><p>Provide backwards compatibility with previous versions to easy migration.</p></li>
 </ul>
 <div class="section" id="new-features">
 <h2>New Features</h2>
 <p>Noteable new features that have been implemented so far include:</p>
 <ul class="simple">
-<li>A new configuration system that supports properties, JSON or YAML (and eventually remote sources) that allows for configuration via:
+<li><p>A new configuration system that supports properties, JSON or YAML (and eventually remote sources) that allows for configuration via:
 * Environment variables
 * Java system properties
 * Command line arguments
-* Java properties, YAML or JSON encoded files</li>
-<li>A new low-level DSL for querying that allows for flexible ordering of operations (e.g. group by then downsample or downsample then group by) and merging data from multiple sources.</li>
-<li>HA query support, querying two or more sources that should have the same data. E.g. when running HBase and dual-writing to two different clusters, we can query the two clusters and merge the results so that one can be in maintenance mode.</li>
-<li>Faster queries from HBase by re-writing the query pipeline.</li>
-<li>New aggregation functions and more advanced expressions.</li>
+* Java properties, YAML or JSON encoded files</p></li>
+<li><p>A new low-level DSL for querying that allows for flexible ordering of operations (e.g. group by then downsample or downsample then group by) and merging data from multiple sources.</p></li>
+<li><p>HA query support, querying two or more sources that should have the same data. E.g. when running HBase and dual-writing to two different clusters, we can query the two clusters and merge the results so that one can be in maintenance mode.</p></li>
+<li><p>Faster queries from HBase by re-writing the query pipeline.</p></li>
+<li><p>New aggregation functions and more advanced expressions.</p></li>
 </ul>
 </div>
 <div class="section" id="whats-missing">
 <h2>Whats Missing</h2>
 <p>Stuff we have to get to include:</p>
 <ul class="simple">
-<li>The old Telnet style API, at least we'll maintain the write method though we may drop the other commands.</li>
-<li>A GUI. Right nowe we only have the HTTP API.</li>
-<li>OS packages.</li>
-<li>Histograms and annotations.</li>
+<li><p>The old Telnet style API, at least we’ll maintain the write method though we may drop the other commands.</p></li>
+<li><p>A GUI. Right nowe we only have the HTTP API.</p></li>
+<li><p>OS packages.</p></li>
+<li><p>Histograms and annotations.</p></li>
 </ul>
 </div>
 </div>
@@ -209,7 +201,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

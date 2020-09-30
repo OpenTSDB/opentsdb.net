@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TimeSeriesDataSource &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="TopN" href="topn.html" />
@@ -31,9 +20,12 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
-  </head>
-  <body>
+  </head><body>
 
   <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
@@ -44,7 +36,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/opentsdb_logo_square_sm.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           OpenTSDB</a>
         <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
       </div>
@@ -155,88 +147,88 @@
 
         </div>
       </div>
-    <div class="col-md-9 content">
+    <div class="body col-md-9 content" role="main">
       
   <div class="section" id="timeseriesdatasource">
 <h1>TimeSeriesDataSource</h1>
 <p>The most important node in OpenTSDB as every query must have one or more data sources, this type of node will retreive data and pass it through the execution graph.</p>
 <p>There can be a number of time series data sources configured for a TSD system.</p>
 <p>Fields common for all ata sources include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>metric</td>
-<td>Object</td>
-<td>Required</td>
-<td>A metric filter object (see below) that determines which metric(s) to fetch.</td>
-<td>null</td>
-<td>See <a class="reference internal" href="filters.html"><span class="doc">Filters</span></a></td>
+<tbody>
+<tr class="row-even"><td><p>metric</p></td>
+<td><p>Object</p></td>
+<td><p>Required</p></td>
+<td><p>A metric filter object (see below) that determines which metric(s) to fetch.</p></td>
+<td><p>null</p></td>
+<td><p>See <a class="reference internal" href="filters.html"><span class="doc">Filters</span></a></p></td>
 </tr>
-<tr class="row-odd"><td>fetchLast</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to just fetch the last possible value for the metric(s) if the underlying store supports such an operation.</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-odd"><td><p>fetchLast</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to just fetch the last possible value for the metric(s) if the underlying store supports such an operation.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
-<tr class="row-even"><td>filter</td>
-<td>Object</td>
-<td>Optional</td>
-<td>A filter object to narrow down the choice of data.</td>
-<td>null</td>
-<td>See <a class="reference internal" href="filters.html"><span class="doc">Filters</span></a></td>
+<tr class="row-even"><td><p>filter</p></td>
+<td><p>Object</p></td>
+<td><p>Optional</p></td>
+<td><p>A filter object to narrow down the choice of data.</p></td>
+<td><p>null</p></td>
+<td><p>See <a class="reference internal" href="filters.html"><span class="doc">Filters</span></a></p></td>
 </tr>
-<tr class="row-odd"><td>filterId</td>
-<td>String</td>
-<td>Optional</td>
-<td>An ID of a named filter in the containing query. If this field is not null and not empty then it would override the <code class="docutils literal"><span class="pre">filter</span></code> field.</td>
-<td>null</td>
-<td>f1</td>
+<tr class="row-odd"><td><p>filterId</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An ID of a named filter in the containing query. If this field is not null and not empty then it would override the <code class="docutils literal notranslate"><span class="pre">filter</span></code> field.</p></td>
+<td><p>null</p></td>
+<td><p>f1</p></td>
 </tr>
-<tr class="row-even"><td>sourceId</td>
-<td>String</td>
-<td>Optional</td>
-<td>The ID of a data source loaded in the Registry. If null, then the default data source is used.</td>
-<td>null</td>
-<td>AWS</td>
+<tr class="row-even"><td><p>sourceId</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>The ID of a data source loaded in the Registry. If null, then the default data source is used.</p></td>
+<td><p>null</p></td>
+<td><p>AWS</p></td>
 </tr>
-<tr class="row-odd"><td>types</td>
-<td>List</td>
-<td>Optional</td>
-<td>A list of data types to filter out the response from the source. E.g. if the query only wants annotations it could specify that type here. By default all types are returned.</td>
-<td>null</td>
-<td>[&quot;Annotations&quot;]</td>
+<tr class="row-odd"><td><p>types</p></td>
+<td><p>List</p></td>
+<td><p>Optional</p></td>
+<td><p>A list of data types to filter out the response from the source. E.g. if the query only wants annotations it could specify that type here. By default all types are returned.</p></td>
+<td><p>null</p></td>
+<td><p>[“Annotations”]</p></td>
 </tr>
-<tr class="row-even"><td>timeShiftInterval</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional duration by which the data will be looked for in the past and timestamps shifted to align with the &quot;current&quot; time. See the Time Shift section below.</td>
-<td>null</td>
-<td>1d</td>
+<tr class="row-even"><td><p>timeShiftInterval</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional duration by which the data will be looked for in the past and timestamps shifted to align with the “current” time. See the Time Shift section below.</p></td>
+<td><p>null</p></td>
+<td><p>1d</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="time-shift">
 <h2>Time Shift</h2>
-<p>When analyzing time series it's often useful to compare a time range of data against the same time range maybe a day ago or a week ago. Using the <code class="docutils literal"><span class="pre">timeShiftInterval</span></code> setting you can issue one query and fetch data for multiple periods offset by a given interval. The data returned is shifted to the same time range given in the original query so that the data can be plotted on the same graph or used in expressions where data will be aligned for the same time but shifted by an interval.</p>
+<p>When analyzing time series it’s often useful to compare a time range of data against the same time range maybe a day ago or a week ago. Using the <code class="docutils literal notranslate"><span class="pre">timeShiftInterval</span></code> setting you can issue one query and fetch data for multiple periods offset by a given interval. The data returned is shifted to the same time range given in the original query so that the data can be plotted on the same graph or used in expressions where data will be aligned for the same time but shifted by an interval.</p>
 <p>An example query for three days of data:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span>
     <span class="s2">&quot;executionGraph&quot;</span><span class="o">:</span> <span class="p">[{</span>
             <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;m0&quot;</span><span class="p">,</span>
@@ -265,7 +257,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The response will have three data source sets, <code class="docutils literal"><span class="pre">m0,</span> <span class="pre">m0-1d</span> <span class="pre">and</span> <span class="pre">m0-2d</span></code>.</p>
+<p>The response will have three data source sets, <code class="docutils literal notranslate"><span class="pre">m0,</span> <span class="pre">m0-1d</span> <span class="pre">and</span> <span class="pre">m0-2d</span></code>.</p>
 </div>
 </div>
 
@@ -282,7 +274,7 @@
     </p>
     <p>
         &copy; Copyright 2020, OpenTSDB.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

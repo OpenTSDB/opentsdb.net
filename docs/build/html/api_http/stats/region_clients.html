@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/stats/region_clients &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/stats/threads" href="threads.html" />
@@ -36,8 +29,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -52,12 +44,13 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/stats</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/stats</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/api/stats/region_clients</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/api/stats/region_clients</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
@@ -80,15 +73,15 @@
   <p class="topless"><a href="threads.html"
                         title="next chapter">/api/stats/threads</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -103,7 +96,7 @@
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET</li>
+<li><p>GET</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
@@ -112,7 +105,7 @@
 <div class="section" id="example-request">
 <h3>Example Request</h3>
 <p><strong>Query String</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">region_clients</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">region_clients</span>
 </pre></div>
 </div>
 </div>
@@ -120,105 +113,105 @@
 <div class="section" id="response">
 <h2>Response</h2>
 <p>The response is an array of objects. Fields in the response include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="60%" />
-<col width="20%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 60%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Description</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>pendingBreached</td>
-<td>Integer</td>
-<td>The total number of times writes to a new region client were discarded because it's pending RPC buffer was full. This should almost always be zero and a positive value indicates the TSD took a long time to connect to a region server.</td>
-<td>0</td>
+<tbody>
+<tr class="row-even"><td><p>pendingBreached</p></td>
+<td><p>Integer</p></td>
+<td><p>The total number of times writes to a new region client were discarded because it’s pending RPC buffer was full. This should almost always be zero and a positive value indicates the TSD took a long time to connect to a region server.</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-odd"><td>writesBlocked</td>
-<td>Integer</td>
-<td>How many RPCs (batched or individual) in total were blocked due to the connection's send buffer being full. A positive value indicates a slow HBase server or poor network performance.</td>
-<td>0</td>
+<tr class="row-odd"><td><p>writesBlocked</p></td>
+<td><p>Integer</p></td>
+<td><p>How many RPCs (batched or individual) in total were blocked due to the connection’s send buffer being full. A positive value indicates a slow HBase server or poor network performance.</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-even"><td>inflightBreached</td>
-<td>Integer</td>
-<td>The total number of times RPCs were blocked due to too many outstanding RPCs waiting for a response from HBase. A positive value indicates the region server is slow or network performance is poor.</td>
-<td>0</td>
+<tr class="row-even"><td><p>inflightBreached</p></td>
+<td><p>Integer</p></td>
+<td><p>The total number of times RPCs were blocked due to too many outstanding RPCs waiting for a response from HBase. A positive value indicates the region server is slow or network performance is poor.</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-odd"><td>dead</td>
-<td>Boolean</td>
-<td>Whether or not the region client is marked as dead due to a connection close event (such as region server going down)</td>
-<td>false</td>
+<tr class="row-odd"><td><p>dead</p></td>
+<td><p>Boolean</p></td>
+<td><p>Whether or not the region client is marked as dead due to a connection close event (such as region server going down)</p></td>
+<td><p>false</p></td>
 </tr>
-<tr class="row-even"><td>rpcsInFlight</td>
-<td>Integer</td>
-<td>The current number of RPCs sent to HBase and awaiting a response.</td>
-<td>10</td>
+<tr class="row-even"><td><p>rpcsInFlight</p></td>
+<td><p>Integer</p></td>
+<td><p>The current number of RPCs sent to HBase and awaiting a response.</p></td>
+<td><p>10</p></td>
 </tr>
-<tr class="row-odd"><td>rpcsSent</td>
-<td>Integer</td>
-<td>The total number of RPCs sent to HBase.</td>
-<td>424242</td>
+<tr class="row-odd"><td><p>rpcsSent</p></td>
+<td><p>Integer</p></td>
+<td><p>The total number of RPCs sent to HBase.</p></td>
+<td><p>424242</p></td>
 </tr>
-<tr class="row-even"><td>rpcResponsesUnknown</td>
-<td>Integer</td>
-<td>The total number of responses received from HBase for which we couldn't find an RPC. This may indicate packet corruption or an incompatible HBase version.</td>
-<td>0</td>
+<tr class="row-even"><td><p>rpcResponsesUnknown</p></td>
+<td><p>Integer</p></td>
+<td><p>The total number of responses received from HBase for which we couldn’t find an RPC. This may indicate packet corruption or an incompatible HBase version.</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-odd"><td>pendingBatchedRPCs</td>
-<td>Integer</td>
-<td>The number of RPCs queued in the batched RPC awaiting the next flush or the batch limit.</td>
-<td>0</td>
+<tr class="row-odd"><td><p>pendingBatchedRPCs</p></td>
+<td><p>Integer</p></td>
+<td><p>The number of RPCs queued in the batched RPC awaiting the next flush or the batch limit.</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-even"><td>endpoint</td>
-<td>String</td>
-<td>The IP and port of the region server in the format '/&lt;ip&gt;:&lt;port&gt;'</td>
-<td>/127.0.0.1:35008</td>
+<tr class="row-even"><td><p>endpoint</p></td>
+<td><p>String</p></td>
+<td><p>The IP and port of the region server in the format ‘/&lt;ip&gt;:&lt;port&gt;’</p></td>
+<td><p>/127.0.0.1:35008</p></td>
 </tr>
-<tr class="row-odd"><td>rpcResponsesTimedout</td>
-<td>Integer</td>
-<td>The total number of responses from HBase for RPCs that have previously timedout. This means HBase may be catching up and responding to stale RPCs.</td>
-<td>0</td>
+<tr class="row-odd"><td><p>rpcResponsesTimedout</p></td>
+<td><p>Integer</p></td>
+<td><p>The total number of responses from HBase for RPCs that have previously timedout. This means HBase may be catching up and responding to stale RPCs.</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-even"><td>rpcid</td>
-<td>Integer</td>
-<td>The ID of the last RPC sent to HBase. This may be a negative number</td>
-<td>42</td>
+<tr class="row-even"><td><p>rpcid</p></td>
+<td><p>Integer</p></td>
+<td><p>The ID of the last RPC sent to HBase. This may be a negative number</p></td>
+<td><p>42</p></td>
 </tr>
-<tr class="row-odd"><td>rpcsTimedout</td>
-<td>Integer</td>
-<td>The total number of RPCs that have timed out. This may indicate a slow region server, poor network performance or GC issues with the TSD.</td>
-<td>0</td>
+<tr class="row-odd"><td><p>rpcsTimedout</p></td>
+<td><p>Integer</p></td>
+<td><p>The total number of RPCs that have timed out. This may indicate a slow region server, poor network performance or GC issues with the TSD.</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-even"><td>pendingRPCs</td>
-<td>Integer</td>
-<td>The number of RPCs queued and waiting for the connection handshake with the region server to complete</td>
-<td>0</td>
+<tr class="row-even"><td><p>pendingRPCs</p></td>
+<td><p>Integer</p></td>
+<td><p>The number of RPCs queued and waiting for the connection handshake with the region server to complete</p></td>
+<td><p>0</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">&quot;pendingBreached&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;writesBlocked&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;inflightBreached&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;pendingBreached&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s2">&quot;writesBlocked&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s2">&quot;inflightBreached&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
         <span class="s2">&quot;dead&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">&quot;rpcsInFlight&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;rpcsSent&quot;</span><span class="o">:</span> <span class="mi">35704</span><span class="p">,</span>
-        <span class="s2">&quot;rpcResponsesUnknown&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;pendingBatchedRPCs&quot;</span><span class="o">:</span> <span class="mi">452</span><span class="p">,</span>
+        <span class="s2">&quot;rpcsInFlight&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s2">&quot;rpcsSent&quot;</span><span class="o">:</span> <span class="mf">35704</span><span class="p">,</span>
+        <span class="s2">&quot;rpcResponsesUnknown&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s2">&quot;pendingBatchedRPCs&quot;</span><span class="o">:</span> <span class="mf">452</span><span class="p">,</span>
         <span class="s2">&quot;endpoint&quot;</span><span class="o">:</span> <span class="s2">&quot;/127.0.0.1:35008&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rpcResponsesTimedout&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;rpcid&quot;</span><span class="o">:</span> <span class="mi">35703</span><span class="p">,</span>
-        <span class="s2">&quot;rpcsTimedout&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;pendingRPCs&quot;</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="s2">&quot;rpcResponsesTimedout&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s2">&quot;rpcid&quot;</span><span class="o">:</span> <span class="mf">35703</span><span class="p">,</span>
+        <span class="s2">&quot;rpcsTimedout&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s2">&quot;pendingRPCs&quot;</span><span class="o">:</span> <span class="mf">0</span>
     <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
@@ -228,6 +221,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -247,7 +241,8 @@
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/stats</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/stats</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/api/stats/region_clients</a></li> 
       </ul>
     </div>
     <div class="footer">

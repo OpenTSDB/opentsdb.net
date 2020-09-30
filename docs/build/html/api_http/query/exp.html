@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/query/exp &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/query/gexp" href="gexp.html" />
@@ -36,8 +29,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -52,21 +44,22 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/query</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/api/query/exp</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/api/query/exp</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
-<li><a class="reference internal" href="#time">&quot;time&quot;</a></li>
-<li><a class="reference internal" href="#filters">&quot;filters&quot;</a></li>
-<li><a class="reference internal" href="#metrics">&quot;metrics&quot;</a></li>
-<li><a class="reference internal" href="#expressions">&quot;expressions&quot;</a></li>
-<li><a class="reference internal" href="#outputs">&quot;outputs&quot;</a></li>
+<li><a class="reference internal" href="#time">“time”</a></li>
+<li><a class="reference internal" href="#filters">“filters”</a></li>
+<li><a class="reference internal" href="#metrics">“metrics”</a></li>
+<li><a class="reference internal" href="#expressions">“expressions”</a></li>
+<li><a class="reference internal" href="#outputs">“outputs”</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#response">Response</a><ul>
@@ -84,15 +77,15 @@
   <p class="topless"><a href="gexp.html"
                         title="next chapter">/api/query/gexp</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -105,236 +98,236 @@
 <h1>/api/query/exp</h1>
 <p>This endpoint allows for querying data using expressions. The query is broken up into different sections.</p>
 <p>Two set operations (or Joins) are allowed. The union of all time series ore the intersection.</p>
-<p>For example we can compute &quot;a + b&quot; with a group by on the host field. Both metrics queried alone would emit a time series per host, e.g. maybe one for &quot;web01&quot;, &quot;web02&quot; and &quot;web03&quot;. Lets say metric &quot;a&quot; has values for all 3 hosts but metric &quot;b&quot; is missing &quot;web03&quot;.</p>
-<p>With the intersection operator, the expression will effectively add &quot;a.web01 + b.web01&quot; and &quot;a.web02 + b.web02&quot; but will skip emitting anything for &quot;web03&quot;. Be aware of this if you see fewer outputs that you expected or you see errors about no series available after intersection.</p>
-<p>With the union operator the expression will add the <code class="docutils literal"><span class="pre">web01</span></code> and <code class="docutils literal"><span class="pre">web02</span></code> series but for metric &quot;b&quot;, it will substitute the metric's fill policy value for the results.</p>
+<p>For example we can compute “a + b” with a group by on the host field. Both metrics queried alone would emit a time series per host, e.g. maybe one for “web01”, “web02” and “web03”. Lets say metric “a” has values for all 3 hosts but metric “b” is missing “web03”.</p>
+<p>With the intersection operator, the expression will effectively add “a.web01 + b.web01” and “a.web02 + b.web02” but will skip emitting anything for “web03”. Be aware of this if you see fewer outputs that you expected or you see errors about no series available after intersection.</p>
+<p>With the union operator the expression will add the <code class="docutils literal notranslate"><span class="pre">web01</span></code> and <code class="docutils literal notranslate"><span class="pre">web02</span></code> series but for metric “b”, it will substitute the metric’s fill policy value for the results.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Supported as of version 2.3</p>
+<p class="admonition-title">Note</p>
+<p>Supported as of version 2.3</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>POST</li>
+<li><p>POST</p></li>
 </ul>
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
 <p>The various sections implemented include:</p>
 <div class="section" id="time">
-<h3>&quot;time&quot;</h3>
+<h3>“time”</h3>
 <p>The time section is required and is a single JSON object. This affects the time range and optional reductions for all metrics requested.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>start</td>
-<td>Integer</td>
-<td>Required</td>
-<td>The start time for the query. This may be relative, absolute human readable or absolute Unix Epoch.</td>
-<td>&#160;</td>
-<td>1h-ago, 2015/05/05-00:00:00</td>
+<tbody>
+<tr class="row-even"><td><p>start</p></td>
+<td><p>Integer</p></td>
+<td><p>Required</p></td>
+<td><p>The start time for the query. This may be relative, absolute human readable or absolute Unix Epoch.</p></td>
+<td></td>
+<td><p>1h-ago, 2015/05/05-00:00:00</p></td>
 </tr>
-<tr class="row-odd"><td>aggregator</td>
-<td>String</td>
-<td>Required</td>
-<td>The global aggregation function to use for all metrics. It may be overridden on a per metric basis.</td>
-<td>&#160;</td>
-<td>sum</td>
+<tr class="row-odd"><td><p>aggregator</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The global aggregation function to use for all metrics. It may be overridden on a per metric basis.</p></td>
+<td></td>
+<td><p>sum</p></td>
 </tr>
-<tr class="row-even"><td>end</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>The end time for the query. If left out, the end is <em>now</em></td>
-<td>now</td>
-<td>1h-ago, 2015/05/05-00:00:00</td>
+<tr class="row-even"><td><p>end</p></td>
+<td><p>Integer</p></td>
+<td><p>Optional</p></td>
+<td><p>The end time for the query. If left out, the end is <em>now</em></p></td>
+<td><p>now</p></td>
+<td><p>1h-ago, 2015/05/05-00:00:00</p></td>
 </tr>
-<tr class="row-odd"><td>downsampler</td>
-<td>Object</td>
-<td>Optional</td>
-<td>Reduces the number of data points returned. The format is defined below</td>
-<td>None</td>
-<td>See below</td>
+<tr class="row-odd"><td><p>downsampler</p></td>
+<td><p>Object</p></td>
+<td><p>Optional</p></td>
+<td><p>Reduces the number of data points returned. The format is defined below</p></td>
+<td><p>None</p></td>
+<td><p>See below</p></td>
 </tr>
-<tr class="row-even"><td>rate</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to calculate all metrics as rates, i.e. value per second. This is computed before expressions.</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-even"><td><p>rate</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to calculate all metrics as rates, i.e. value per second. This is computed before expressions.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;time&quot;</span><span class="o">:</span><span class="p">{</span> <span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;10m-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;downsampler&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;interval&quot;</span><span class="o">:</span><span class="s2">&quot;15m&quot;</span><span class="p">,</span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;time&quot;</span><span class="o">:</span><span class="p">{</span> <span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="s2">&quot;1h-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="s2">&quot;10m-ago&quot;</span><span class="p">,</span> <span class="s2">&quot;downsampler&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;interval&quot;</span><span class="o">:</span><span class="s2">&quot;15m&quot;</span><span class="p">,</span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Downsampler</strong></p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>interval</td>
-<td>String</td>
-<td>Required</td>
-<td>A downsampling interval, i.e. what time span to rollup raw values into. The format is <code class="docutils literal"><span class="pre">&lt;#&gt;&lt;unit&gt;</span></code>, e.g. <code class="docutils literal"><span class="pre">15m</span></code></td>
-<td>&#160;</td>
-<td>1h</td>
+<tbody>
+<tr class="row-even"><td><p>interval</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A downsampling interval, i.e. what time span to rollup raw values into. The format is <code class="docutils literal notranslate"><span class="pre">&lt;#&gt;&lt;unit&gt;</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">15m</span></code></p></td>
+<td></td>
+<td><p>1h</p></td>
 </tr>
-<tr class="row-odd"><td>aggregator</td>
-<td>String</td>
-<td>Required</td>
-<td>The aggregation function to use for reducing the data points</td>
-<td>&#160;</td>
-<td>avg</td>
+<tr class="row-odd"><td><p>aggregator</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The aggregation function to use for reducing the data points</p></td>
+<td></td>
+<td><p>avg</p></td>
 </tr>
-<tr class="row-even"><td>fillPolicy</td>
-<td>Object</td>
-<td>Optional</td>
-<td>A policy to use for filling buckets that are missing data points</td>
-<td>None</td>
-<td>See Below</td>
+<tr class="row-even"><td><p>fillPolicy</p></td>
+<td><p>Object</p></td>
+<td><p>Optional</p></td>
+<td><p>A policy to use for filling buckets that are missing data points</p></td>
+<td><p>None</p></td>
+<td><p>See Below</p></td>
 </tr>
 </tbody>
 </table>
 <p><strong>Fill Policies</strong></p>
-<p>These are used to replace &quot;missing&quot; values, i.e. when a data point was expected but couldn't be found in storage.</p>
-<table border="1" class="colwidths-given docutils">
+<p>These are used to replace “missing” values, i.e. when a data point was expected but couldn’t be found in storage.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>policy</td>
-<td>String</td>
-<td>Required</td>
-<td>The name of a policy to use. The values are listed in the table below</td>
-<td>&#160;</td>
-<td>zero</td>
+<tbody>
+<tr class="row-even"><td><p>policy</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The name of a policy to use. The values are listed in the table below</p></td>
+<td></td>
+<td><p>zero</p></td>
 </tr>
-<tr class="row-odd"><td>value</td>
-<td>Double</td>
-<td>Optional</td>
-<td>For scalar fills, an optional value that can be used during substitution</td>
-<td>NaN</td>
-<td>42</td>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>Double</p></td>
+<td><p>Optional</p></td>
+<td><p>For scalar fills, an optional value that can be used during substitution</p></td>
+<td><p>NaN</p></td>
+<td><p>42</p></td>
 </tr>
 </tbody>
 </table>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="75%" />
+<col style="width: 25%" />
+<col style="width: 75%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>nan</td>
-<td>Emits a NaN if all values in the aggregation function were NaN or &quot;missing&quot;. For aggregators, NaNs are treated as &quot;sentinel&quot; values that cause the function to skip over the values. Note that if a series emits a NaN in an expression, the NaN is infectious and will cause the output of that expression to be NaN. At serialization the NaN will be emitted.</td>
+<tbody>
+<tr class="row-even"><td><p>nan</p></td>
+<td><p>Emits a NaN if all values in the aggregation function were NaN or “missing”. For aggregators, NaNs are treated as “sentinel” values that cause the function to skip over the values. Note that if a series emits a NaN in an expression, the NaN is infectious and will cause the output of that expression to be NaN. At serialization the NaN will be emitted.</p></td>
 </tr>
-<tr class="row-odd"><td>null</td>
-<td>Emits a Null at serialization time. During computation the values are treated as NaNs.</td>
+<tr class="row-odd"><td><p>null</p></td>
+<td><p>Emits a Null at serialization time. During computation the values are treated as NaNs.</p></td>
 </tr>
-<tr class="row-even"><td>zero</td>
-<td>Emits a zero when the value is missing</td>
+<tr class="row-even"><td><p>zero</p></td>
+<td><p>Emits a zero when the value is missing</p></td>
 </tr>
-<tr class="row-odd"><td>scalar</td>
-<td>Emits a user defined value when a data point is missing. Must specify the value with <code class="docutils literal"><span class="pre">value</span></code>. The value can be an integer or floating point.</td>
+<tr class="row-odd"><td><p>scalar</p></td>
+<td><p>Emits a user defined value when a data point is missing. Must specify the value with <code class="docutils literal notranslate"><span class="pre">value</span></code>. The value can be an integer or floating point.</p></td>
 </tr>
 </tbody>
 </table>
-<p>Note that if you try to supply a value that is incompatible with the type the query will throw an exception. E.g. supplying a value with the NaN that isn't NaN will throw an error.</p>
+<p>Note that if you try to supply a value that is incompatible with the type the query will throw an exception. E.g. supplying a value with the NaN that isn’t NaN will throw an error.</p>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;policy&quot;</span><span class="o">:</span><span class="s2">&quot;scalar&quot;</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;policy&quot;</span><span class="o">:</span><span class="s2">&quot;scalar&quot;</span><span class="p">,</span><span class="s2">&quot;value&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="filters">
-<h3>&quot;filters&quot;</h3>
+<h3>“filters”</h3>
 <p>Filters are for selecting various time series based on the tag keys and values. At least one filter must be specified (for now) with at least an aggregation function supplied. Fields include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>String</td>
-<td>Required</td>
-<td>A unique ID for the filter. Cannot be the same as any metric or expression ID</td>
-<td>&#160;</td>
-<td>f1</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A unique ID for the filter. Cannot be the same as any metric or expression ID</p></td>
+<td></td>
+<td><p>f1</p></td>
 </tr>
-<tr class="row-odd"><td>tags</td>
-<td>Array</td>
-<td>Optional</td>
-<td>A list of filters on tag values</td>
-<td>None</td>
-<td>See below</td>
+<tr class="row-odd"><td><p>tags</p></td>
+<td><p>Array</p></td>
+<td><p>Optional</p></td>
+<td><p>A list of filters on tag values</p></td>
+<td><p>None</p></td>
+<td><p>See below</p></td>
 </tr>
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="p">[</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="p">[</span>
   <span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span>
   <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[</span>
     <span class="p">{</span>
@@ -354,175 +347,175 @@
 </pre></div>
 </div>
 <p><strong>Filter Fields</strong></p>
-<p>Within the &quot;tags&quot; field you can have one or more filter. The list of filters can be found via the <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a> endpoint.</p>
-<table border="1" class="colwidths-given docutils">
+<p>Within the “tags” field you can have one or more filter. The list of filters can be found via the <a class="reference internal" href="../config/filters.html"><span class="doc">/api/config/filters</span></a> endpoint.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>type</td>
-<td>String</td>
-<td>Required</td>
-<td>The name of the filter from the API</td>
-<td>&#160;</td>
-<td>regexp</td>
+<tbody>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The name of the filter from the API</p></td>
+<td></td>
+<td><p>regexp</p></td>
 </tr>
-<tr class="row-odd"><td>tagk</td>
-<td>String</td>
-<td>Required</td>
-<td>The tag key name such as <em>host</em> or <em>colo</em> that we filter on</td>
-<td>&#160;</td>
-<td>host</td>
+<tr class="row-odd"><td><p>tagk</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The tag key name such as <em>host</em> or <em>colo</em> that we filter on</p></td>
+<td></td>
+<td><p>host</p></td>
 </tr>
-<tr class="row-even"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>The value to filter on. This depends on the filter in use. See the API for details</td>
-<td>&#160;</td>
-<td>web.*mysite.com</td>
+<tr class="row-even"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The value to filter on. This depends on the filter in use. See the API for details</p></td>
+<td></td>
+<td><p>web.*mysite.com</p></td>
 </tr>
-<tr class="row-odd"><td>groupBy</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to group results by the tag values matching this filter. E.g. grouping by host will return one result per host. Not grouping by host would aggregate (using the aggregation function) all results for the metric into one series</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-odd"><td><p>groupBy</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to group results by the tag values matching this filter. E.g. grouping by host will return one result per host. Not grouping by host would aggregate (using the aggregation function) all results for the metric into one series</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="metrics">
-<h3>&quot;metrics&quot;</h3>
+<h3>“metrics”</h3>
 <p>The metrics list determines which metrics are included in the expression. There must be at least one metric.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>String</td>
-<td>Required</td>
-<td>A unique ID for the metric. This MUST be a simple string, no punctuation or spaces</td>
-<td>&#160;</td>
-<td>cpunice</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A unique ID for the metric. This MUST be a simple string, no punctuation or spaces</p></td>
+<td></td>
+<td><p>cpunice</p></td>
 </tr>
-<tr class="row-odd"><td>filter</td>
-<td>String</td>
-<td>Required</td>
-<td>The filter to use when fetching this metric. It must match a filter in the filters array</td>
-<td>&#160;</td>
-<td>f1</td>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The filter to use when fetching this metric. It must match a filter in the filters array</p></td>
+<td></td>
+<td><p>f1</p></td>
 </tr>
-<tr class="row-even"><td>metric</td>
-<td>String</td>
-<td>Required</td>
-<td>The name of a metric in OpenTSDB</td>
-<td>&#160;</td>
-<td>system.cpu.nice</td>
+<tr class="row-even"><td><p>metric</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The name of a metric in OpenTSDB</p></td>
+<td></td>
+<td><p>system.cpu.nice</p></td>
 </tr>
-<tr class="row-odd"><td>aggregator</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional aggregation function to overload the global function in <code class="docutils literal"><span class="pre">time</span></code> for just this metric</td>
-<td><code class="docutils literal"><span class="pre">time</span></code>'s aggregator</td>
-<td>count</td>
+<tr class="row-odd"><td><p>aggregator</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional aggregation function to overload the global function in <code class="docutils literal notranslate"><span class="pre">time</span></code> for just this metric</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time</span></code>’s aggregator</p></td>
+<td><p>count</p></td>
 </tr>
-<tr class="row-even"><td>fillPolicy</td>
-<td>Object</td>
-<td>Optional</td>
-<td>If downsampling is not used, this can be included to determine what to emit in calculations. It will also override the downsampling policy</td>
-<td>zero fill</td>
-<td>See above</td>
+<tr class="row-even"><td><p>fillPolicy</p></td>
+<td><p>Object</p></td>
+<td><p>Optional</p></td>
+<td><p>If downsampling is not used, this can be included to determine what to emit in calculations. It will also override the downsampling policy</p></td>
+<td><p>zero fill</p></td>
+<td><p>See above</p></td>
 </tr>
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;cpunice&quot;</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="s2">&quot;system.cpu.nice&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;cpunice&quot;</span><span class="p">,</span> <span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="s2">&quot;system.cpu.nice&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="expressions">
-<h3>&quot;expressions&quot;</h3>
+<h3>“expressions”</h3>
 <p>A list of one or more expressions over the metrics. The variables in an expression <strong>MUST</strong> refer to either a metric ID field or an expression ID field. Nested expressions are supported but exceptions will be thrown if a self reference or circular dependency is detected. So far only basic operations are supported such as addition, subtraction, multiplication, division, modulo</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>String</td>
-<td>Required</td>
-<td>A unique ID for the expression</td>
-<td>&#160;</td>
-<td>cpubusy</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A unique ID for the expression</p></td>
+<td></td>
+<td><p>cpubusy</p></td>
 </tr>
-<tr class="row-odd"><td>expr</td>
-<td>String</td>
-<td>Required</td>
-<td>The expression to execute</td>
-<td>&#160;</td>
-<td>a + b / 1024</td>
+<tr class="row-odd"><td><p>expr</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The expression to execute</p></td>
+<td></td>
+<td><p>a + b / 1024</p></td>
 </tr>
-<tr class="row-even"><td>join</td>
-<td>Object</td>
-<td>Optional</td>
-<td>The set operation or &quot;join&quot; to perform for series across sets.</td>
-<td>union</td>
-<td>See below</td>
+<tr class="row-even"><td><p>join</p></td>
+<td><p>Object</p></td>
+<td><p>Optional</p></td>
+<td><p>The set operation or “join” to perform for series across sets.</p></td>
+<td><p>union</p></td>
+<td><p>See below</p></td>
 </tr>
-<tr class="row-odd"><td>fillPolicy</td>
-<td>Object</td>
-<td>Optional</td>
-<td>An optional fill policy for the expression when it is used in a nested expression and doesn't have a value</td>
-<td>NaN</td>
-<td>See above</td>
+<tr class="row-odd"><td><p>fillPolicy</p></td>
+<td><p>Object</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional fill policy for the expression when it is used in a nested expression and doesn’t have a value</p></td>
+<td><p>NaN</p></td>
+<td><p>See above</p></td>
 </tr>
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;cpubusy&quot;</span><span class="p">,</span>
   <span class="s2">&quot;expr&quot;</span><span class="o">:</span> <span class="s2">&quot;(((a + b + c + d + e + f + g) - g) / (a + b + c + d + e + f + g)) * 100&quot;</span><span class="p">,</span>
   <span class="s2">&quot;join&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -535,97 +528,97 @@
 </div>
 <p><strong>Joins</strong></p>
 <p>The join object controls how the various time series for a given metric are merged within an expression. The two basic operations supported at this time are the union and intersection operators. Additional flags control join behavior.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>operator</td>
-<td>String</td>
-<td>Required</td>
-<td>The operator to use, either union or intersection</td>
-<td>&#160;</td>
-<td>intersection</td>
+<tbody>
+<tr class="row-even"><td><p>operator</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The operator to use, either union or intersection</p></td>
+<td></td>
+<td><p>intersection</p></td>
 </tr>
-<tr class="row-odd"><td>useQueryTags</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to use just the tags explicitly defined in the filters when computing the join keys</td>
-<td>false</td>
-<td>true</td>
+<tr class="row-odd"><td><p>useQueryTags</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to use just the tags explicitly defined in the filters when computing the join keys</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
 </tr>
-<tr class="row-even"><td>includeAggTags</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Whether or not to include the tag keys that were aggregated out of a series in the join key</td>
-<td>true</td>
-<td>false</td>
+<tr class="row-even"><td><p>includeAggTags</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to include the tag keys that were aggregated out of a series in the join key</p></td>
+<td><p>true</p></td>
+<td><p>false</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="outputs">
-<h3>&quot;outputs&quot;</h3>
+<h3>“outputs”</h3>
 <p>These determine the output behavior and allow you to eliminate some expressions from the results or include the raw metrics. By default, if this section is missing, all expressions and only the expressions will be serialized. The field is a list of one or more output objects. More fields will be added later with flags to affect the output.</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>String</td>
-<td>Required</td>
-<td>The ID of the metric or expression</td>
-<td>&#160;</td>
-<td>e</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The ID of the metric or expression</p></td>
+<td></td>
+<td><p>e</p></td>
 </tr>
-<tr class="row-odd"><td>alias</td>
-<td>String</td>
-<td>Optional</td>
-<td>An optional descriptive name for series</td>
-<td>&#160;</td>
-<td>System Busy</td>
+<tr class="row-odd"><td><p>alias</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional descriptive name for series</p></td>
+<td></td>
+<td><p>System Busy</p></td>
 </tr>
 </tbody>
 </table>
 <p>E.g.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="o">:</span><span class="s2">&quot;System Busy&quot;</span><span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="o">:</span><span class="s2">&quot;System Busy&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal"><span class="pre">id</span></code> field for all objects can not contain spaces, special characters or periods at this time.</p>
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">id</span></code> field for all objects can not contain spaces, special characters or periods at this time.</p>
 </div>
 <p><strong>Complete Example</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="s2">&quot;time&quot;</span><span class="o">:</span> <span class="p">{</span>
        <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1y-ago&quot;</span><span class="p">,</span>
        <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="s2">&quot;sum&quot;</span>
@@ -690,110 +683,110 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>The output will contain a list of objects in the <code class="docutils literal"><span class="pre">outputs</span></code> array with the results in an array of arrays representing each time series followed by meta data for each series and the query overall. Also included is the original query and some summary statistics. The fields include:</p>
-<table border="1" class="colwidths-given docutils">
+<p>The output will contain a list of objects in the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> array with the results in an array of arrays representing each time series followed by meta data for each series and the query overall. Also included is the original query and some summary statistics. The fields include:</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="80%" />
+<col style="width: 20%" />
+<col style="width: 80%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>id</td>
-<td>The expression ID the output matches</td>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>The expression ID the output matches</p></td>
 </tr>
-<tr class="row-odd"><td>dps</td>
-<td>The array of results. Each sub array starts with the timestamp in ms as the first (offset 0) value. The remaining values are the results for each series when a group by was applied.</td>
+<tr class="row-odd"><td><p>dps</p></td>
+<td><p>The array of results. Each sub array starts with the timestamp in ms as the first (offset 0) value. The remaining values are the results for each series when a group by was applied.</p></td>
 </tr>
-<tr class="row-even"><td>dpsMeta</td>
-<td>Meta data around the query including the first and last timestamps, number of result &quot;sets&quot;, or sub arrays, and the number of series represented.</td>
+<tr class="row-even"><td><p>dpsMeta</p></td>
+<td><p>Meta data around the query including the first and last timestamps, number of result “sets”, or sub arrays, and the number of series represented.</p></td>
 </tr>
-<tr class="row-odd"><td>datapoints</td>
-<td>The total number of data points returned to the user after aggregation</td>
+<tr class="row-odd"><td><p>datapoints</p></td>
+<td><p>The total number of data points returned to the user after aggregation</p></td>
 </tr>
-<tr class="row-even"><td>meta</td>
-<td>Data about each time series in the result set. The fields are below</td>
+<tr class="row-even"><td><p>meta</p></td>
+<td><p>Data about each time series in the result set. The fields are below</p></td>
 </tr>
 </tbody>
 </table>
-<p>The meta section contains ordered information about each time series in the output arrays. The first element in the array will always have a <code class="docutils literal"><span class="pre">metrics</span></code> value of <code class="docutils literal"><span class="pre">timestamp</span></code> and no other data.</p>
-<table border="1" class="colwidths-given docutils">
+<p>The meta section contains ordered information about each time series in the output arrays. The first element in the array will always have a <code class="docutils literal notranslate"><span class="pre">metrics</span></code> value of <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> and no other data.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="80%" />
+<col style="width: 20%" />
+<col style="width: 80%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>index</td>
-<td>The index in the data point arrays that the meta refers to</td>
+<tbody>
+<tr class="row-even"><td><p>index</p></td>
+<td><p>The index in the data point arrays that the meta refers to</p></td>
 </tr>
-<tr class="row-odd"><td>metrics</td>
-<td>The different metric names included in the expression</td>
+<tr class="row-odd"><td><p>metrics</p></td>
+<td><p>The different metric names included in the expression</p></td>
 </tr>
-<tr class="row-even"><td>commonTags</td>
-<td>Tag keys and values that were common across all time series that were aggregated in the resulting series</td>
+<tr class="row-even"><td><p>commonTags</p></td>
+<td><p>Tag keys and values that were common across all time series that were aggregated in the resulting series</p></td>
 </tr>
-<tr class="row-odd"><td>aggregatedTags</td>
-<td>Tag keys that appeared in all series in the resulting series but had different values</td>
+<tr class="row-odd"><td><p>aggregatedTags</p></td>
+<td><p>Tag keys that appeared in all series in the resulting series but had different values</p></td>
 </tr>
-<tr class="row-even"><td>dps</td>
-<td>The number of data points emitted</td>
+<tr class="row-even"><td><p>dps</p></td>
+<td><p>The number of data points emitted</p></td>
 </tr>
-<tr class="row-odd"><td>rawDps</td>
-<td>The number of raw values wrapped into the result</td>
+<tr class="row-odd"><td><p>rawDps</p></td>
+<td><p>The number of raw values wrapped into the result</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-responses">
 <h3>Example Responses</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[</span>
       <span class="p">{</span>
           <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;Mega expression&quot;</span><span class="p">,</span>
           <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">[</span>
               <span class="p">[</span>
-                  <span class="mi">1431561600000</span><span class="p">,</span>
-                  <span class="mi">1010</span><span class="p">,</span>
-                  <span class="mi">1030</span>
+                  <span class="mf">1431561600000</span><span class="p">,</span>
+                  <span class="mf">1010</span><span class="p">,</span>
+                  <span class="mf">1030</span>
               <span class="p">],</span>
               <span class="p">[</span>
-                  <span class="mi">1431561660000</span><span class="p">,</span>
+                  <span class="mf">1431561660000</span><span class="p">,</span>
                   <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
                   <span class="s2">&quot;NaN&quot;</span>
               <span class="p">],</span>
               <span class="p">[</span>
-                  <span class="mi">1431561720000</span><span class="p">,</span>
+                  <span class="mf">1431561720000</span><span class="p">,</span>
                   <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
                   <span class="s2">&quot;NaN&quot;</span>
               <span class="p">],</span>
               <span class="p">[</span>
-                  <span class="mi">1431561780000</span><span class="p">,</span>
-                  <span class="mi">1120</span><span class="p">,</span>
-                  <span class="mi">1140</span>
+                  <span class="mf">1431561780000</span><span class="p">,</span>
+                  <span class="mf">1120</span><span class="p">,</span>
+                  <span class="mf">1140</span>
               <span class="p">]</span>
           <span class="p">],</span>
           <span class="s2">&quot;dpsMeta&quot;</span><span class="o">:</span> <span class="p">{</span>
-              <span class="s2">&quot;firstTimestamp&quot;</span><span class="o">:</span> <span class="mi">1431561600000</span><span class="p">,</span>
-              <span class="s2">&quot;lastTimestamp&quot;</span><span class="o">:</span> <span class="mi">1431561780000</span><span class="p">,</span>
-              <span class="s2">&quot;setCount&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-              <span class="s2">&quot;series&quot;</span><span class="o">:</span> <span class="mi">2</span>
+              <span class="s2">&quot;firstTimestamp&quot;</span><span class="o">:</span> <span class="mf">1431561600000</span><span class="p">,</span>
+              <span class="s2">&quot;lastTimestamp&quot;</span><span class="o">:</span> <span class="mf">1431561780000</span><span class="p">,</span>
+              <span class="s2">&quot;setCount&quot;</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span>
+              <span class="s2">&quot;series&quot;</span><span class="o">:</span> <span class="mf">2</span>
           <span class="p">},</span>
           <span class="s2">&quot;meta&quot;</span><span class="o">:</span> <span class="p">[</span>
               <span class="p">{</span>
-                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
                   <span class="s2">&quot;metrics&quot;</span><span class="o">:</span> <span class="p">[</span>
                       <span class="s2">&quot;timestamp&quot;</span>
                   <span class="p">]</span>
               <span class="p">},</span>
               <span class="p">{</span>
-                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
                   <span class="s2">&quot;metrics&quot;</span><span class="o">:</span> <span class="p">[</span>
                       <span class="s2">&quot;sys.cpu&quot;</span><span class="p">,</span>
                       <span class="s2">&quot;sys.iowait&quot;</span>
@@ -804,7 +797,7 @@
                   <span class="s2">&quot;aggregatedTags&quot;</span><span class="o">:</span> <span class="p">[]</span>
               <span class="p">},</span>
               <span class="p">{</span>
-                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
                   <span class="s2">&quot;metrics&quot;</span><span class="o">:</span> <span class="p">[</span>
                       <span class="s2">&quot;sys.cpu&quot;</span><span class="p">,</span>
                       <span class="s2">&quot;sys.iowait&quot;</span>
@@ -820,41 +813,41 @@
           <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu&quot;</span><span class="p">,</span>
           <span class="s2">&quot;dps&quot;</span><span class="o">:</span> <span class="p">[</span>
               <span class="p">[</span>
-                  <span class="mi">1431561600000</span><span class="p">,</span>
-                  <span class="mi">1</span><span class="p">,</span>
-                  <span class="mi">2</span>
+                  <span class="mf">1431561600000</span><span class="p">,</span>
+                  <span class="mf">1</span><span class="p">,</span>
+                  <span class="mf">2</span>
               <span class="p">],</span>
               <span class="p">[</span>
-                  <span class="mi">1431561660000</span><span class="p">,</span>
-                  <span class="mi">3</span><span class="p">,</span>
-                  <span class="mi">0</span>
+                  <span class="mf">1431561660000</span><span class="p">,</span>
+                  <span class="mf">3</span><span class="p">,</span>
+                  <span class="mf">0</span>
               <span class="p">],</span>
               <span class="p">[</span>
-                  <span class="mi">1431561720000</span><span class="p">,</span>
-                  <span class="mi">5</span><span class="p">,</span>
-                  <span class="mi">0</span>
+                  <span class="mf">1431561720000</span><span class="p">,</span>
+                  <span class="mf">5</span><span class="p">,</span>
+                  <span class="mf">0</span>
               <span class="p">],</span>
               <span class="p">[</span>
-                  <span class="mi">1431561780000</span><span class="p">,</span>
-                  <span class="mi">7</span><span class="p">,</span>
-                  <span class="mi">8</span>
+                  <span class="mf">1431561780000</span><span class="p">,</span>
+                  <span class="mf">7</span><span class="p">,</span>
+                  <span class="mf">8</span>
               <span class="p">]</span>
           <span class="p">],</span>
           <span class="s2">&quot;dpsMeta&quot;</span><span class="o">:</span> <span class="p">{</span>
-              <span class="s2">&quot;firstTimestamp&quot;</span><span class="o">:</span> <span class="mi">1431561600000</span><span class="p">,</span>
-              <span class="s2">&quot;lastTimestamp&quot;</span><span class="o">:</span> <span class="mi">1431561780000</span><span class="p">,</span>
-              <span class="s2">&quot;setCount&quot;</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-              <span class="s2">&quot;series&quot;</span><span class="o">:</span> <span class="mi">2</span>
+              <span class="s2">&quot;firstTimestamp&quot;</span><span class="o">:</span> <span class="mf">1431561600000</span><span class="p">,</span>
+              <span class="s2">&quot;lastTimestamp&quot;</span><span class="o">:</span> <span class="mf">1431561780000</span><span class="p">,</span>
+              <span class="s2">&quot;setCount&quot;</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span>
+              <span class="s2">&quot;series&quot;</span><span class="o">:</span> <span class="mf">2</span>
           <span class="p">},</span>
           <span class="s2">&quot;meta&quot;</span><span class="o">:</span> <span class="p">[</span>
               <span class="p">{</span>
-                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
                   <span class="s2">&quot;metrics&quot;</span><span class="o">:</span> <span class="p">[</span>
                       <span class="s2">&quot;timestamp&quot;</span>
                   <span class="p">]</span>
               <span class="p">},</span>
               <span class="p">{</span>
-                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
                   <span class="s2">&quot;metrics&quot;</span><span class="o">:</span> <span class="p">[</span>
                       <span class="s2">&quot;sys.cpu&quot;</span>
                   <span class="p">],</span>
@@ -864,7 +857,7 @@
                   <span class="s2">&quot;aggregatedTags&quot;</span><span class="o">:</span> <span class="p">[]</span>
               <span class="p">},</span>
               <span class="p">{</span>
-                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                  <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
                   <span class="s2">&quot;metrics&quot;</span><span class="o">:</span> <span class="p">[</span>
                       <span class="s2">&quot;sys.cpu&quot;</span>
                   <span class="p">],</span>
@@ -877,11 +870,11 @@
       <span class="p">}</span>
   <span class="p">],</span>
   <span class="s2">&quot;statsSummary&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;datapoints&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">&quot;rawDatapoints&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">&quot;aggregationTime&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">&quot;serializationTime&quot;</span><span class="o">:</span> <span class="mi">33</span><span class="p">,</span>
-      <span class="s2">&quot;storageTime&quot;</span><span class="o">:</span> <span class="mi">77</span><span class="p">,</span>
+      <span class="s2">&quot;datapoints&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+      <span class="s2">&quot;rawDatapoints&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+      <span class="s2">&quot;aggregationTime&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+      <span class="s2">&quot;serializationTime&quot;</span><span class="o">:</span> <span class="mf">33</span><span class="p">,</span>
+      <span class="s2">&quot;storageTime&quot;</span><span class="o">:</span> <span class="mf">77</span><span class="p">,</span>
       <span class="s2">&quot;timeTotal&quot;</span><span class="o">:</span> <span class="mf">148.63</span>
   <span class="p">},</span>
   <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -971,6 +964,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -990,7 +984,8 @@
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/query</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/api/query/exp</a></li> 
       </ul>
     </div>
     <div class="footer">

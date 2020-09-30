@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/api/uid/tsmeta &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '2.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/uid/uidmeta" href="uidmeta.html" />
@@ -36,8 +29,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -52,12 +44,13 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/uid</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">/api/uid</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/api/uid/tsmeta</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/api/uid/tsmeta</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
@@ -86,15 +79,15 @@
   <p class="topless"><a href="uidmeta.html"
                         title="next chapter">/api/uid/uidmeta</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -105,33 +98,33 @@
             
   <div class="section" id="api-uid-tsmeta">
 <h1>/api/uid/tsmeta</h1>
-<p>This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <code class="docutils literal"><span class="pre">POST</span></code> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <code class="docutils literal"><span class="pre">PUT</span></code> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
+<p>This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <code class="docutils literal notranslate"><span class="pre">POST</span></code> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <code class="docutils literal notranslate"><span class="pre">PUT</span></code> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
 <p>Please note that deleting a meta data entry will not delete the data points stored for the timeseries. Neither will it remove the UID assignments or associated UID meta objects.</p>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
 <ul class="simple">
-<li>GET - Lookup one or more TS meta data</li>
-<li>POST - Updates only the fields provided</li>
-<li>PUT - Overwrites all user configurable meta data fields</li>
-<li>DELETE - Deletes the TS meta data</li>
+<li><p>GET - Lookup one or more TS meta data</p></li>
+<li><p>POST - Updates only the fields provided</p></li>
+<li><p>PUT - Overwrites all user configurable meta data fields</p></li>
+<li><p>DELETE - Deletes the TS meta data</p></li>
 </ul>
 </div>
 <div class="section" id="get-requests">
 <h2>GET Requests</h2>
 <p>A GET request can lookup the TS meta objects for one or more time series if they exist in the storage system. Two types of queries are supported:</p>
 <ul class="simple">
-<li><strong>tsuid</strong> - A single hexadecimal TSUID may be supplied and a meta data object will be returned if located. The results will include a single object.</li>
-<li><strong>metric</strong> - <em>(Version 2.1)</em> Similar to a data point query, you can supply a metric and one or more tag pairs. Any TS meta data matching the query will be returned. The results will be an array of one or more objects. Only one metric query may be supplied per call and wild cards or grouping operators are not supported.</li>
+<li><p><strong>tsuid</strong> - A single hexadecimal TSUID may be supplied and a meta data object will be returned if located. The results will include a single object.</p></li>
+<li><p><strong>metric</strong> - <em>(Version 2.1)</em> Similar to a data point query, you can supply a metric and one or more tag pairs. Any TS meta data matching the query will be returned. The results will be an array of one or more objects. Only one metric query may be supplied per call and wild cards or grouping operators are not supported.</p></li>
 </ul>
 <div class="section" id="example-tsuid-get-request">
 <h3>Example TSUID GET Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-metric-get-request">
 <h3>Example Metric GET Request</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga
 </pre></div>
 </div>
 </div>
@@ -140,147 +133,147 @@
 <h2>POST/PUT Requests</h2>
 <p>By default, you may only write data to a TS meta object if it already exists. TS meta data is created via the meta sync CLI command or in real-time as data points are written. If you attempt to write data to the tsmeta endpoint for a TSUID that does not exist, an error will be returned and no data will be saved.</p>
 <p>Fields that can be supplied with a request include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="45%" />
-<col width="10%" />
-<col width="5%" />
-<col width="5%" />
-<col width="15%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Required</th>
-<th class="head">Description</th>
-<th class="head">Default</th>
-<th class="head">QS</th>
-<th class="head">RW</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>QS</p></th>
+<th class="head"><p>RW</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>tsuid</td>
-<td>String</td>
-<td>Required</td>
-<td>A hexadecimal representation of the timeseries UID</td>
-<td>&#160;</td>
-<td>tsuid</td>
-<td>RO</td>
-<td>00002A000001000001</td>
+<tbody>
+<tr class="row-even"><td><p>tsuid</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>A hexadecimal representation of the timeseries UID</p></td>
+<td></td>
+<td><p>tsuid</p></td>
+<td><p>RO</p></td>
+<td><p>00002A000001000001</p></td>
 </tr>
-<tr class="row-odd"><td>description</td>
-<td>String</td>
-<td>Optional</td>
-<td>A brief description of what the UID represents</td>
-<td>&#160;</td>
-<td>description</td>
-<td>RW</td>
-<td>System processor time</td>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A brief description of what the UID represents</p></td>
+<td></td>
+<td><p>description</p></td>
+<td><p>RW</p></td>
+<td><p>System processor time</p></td>
 </tr>
-<tr class="row-even"><td>displayName</td>
-<td>String</td>
-<td>Optional</td>
-<td>A short name that can be displayed in GUIs instead of the default name</td>
-<td>&#160;</td>
-<td>display_name</td>
-<td>RW</td>
-<td>System CPU Time</td>
+<tr class="row-even"><td><p>displayName</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A short name that can be displayed in GUIs instead of the default name</p></td>
+<td></td>
+<td><p>display_name</p></td>
+<td><p>RW</p></td>
+<td><p>System CPU Time</p></td>
 </tr>
-<tr class="row-odd"><td>notes</td>
-<td>String</td>
-<td>Optional</td>
-<td>Detailed notes about what the UID represents</td>
-<td>&#160;</td>
-<td>notes</td>
-<td>RW</td>
-<td>Details</td>
+<tr class="row-odd"><td><p>notes</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>Detailed notes about what the UID represents</p></td>
+<td></td>
+<td><p>notes</p></td>
+<td><p>RW</p></td>
+<td><p>Details</p></td>
 </tr>
-<tr class="row-even"><td>custom</td>
-<td>Map</td>
-<td>Optional</td>
-<td>A key/value map to store custom fields and values</td>
-<td>null</td>
-<td>&#160;</td>
-<td>RW</td>
-<td><em>See Below</em></td>
+<tr class="row-even"><td><p>custom</p></td>
+<td><p>Map</p></td>
+<td><p>Optional</p></td>
+<td><p>A key/value map to store custom fields and values</p></td>
+<td><p>null</p></td>
+<td></td>
+<td><p>RW</p></td>
+<td><p><em>See Below</em></p></td>
 </tr>
-<tr class="row-odd"><td>units</td>
-<td>String</td>
-<td>Optional</td>
-<td>Units reflective of the data stored in the timeseries, may be used in GUIs or calculations</td>
-<td>&#160;</td>
-<td>units</td>
-<td>RW</td>
-<td>Mbps</td>
+<tr class="row-odd"><td><p>units</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>Units reflective of the data stored in the timeseries, may be used in GUIs or calculations</p></td>
+<td></td>
+<td><p>units</p></td>
+<td><p>RW</p></td>
+<td><p>Mbps</p></td>
 </tr>
-<tr class="row-even"><td>dataType</td>
-<td>String</td>
-<td>Optional</td>
-<td>The kind of data stored in the timeseries such as <code class="docutils literal"><span class="pre">counter</span></code>, <code class="docutils literal"><span class="pre">gauge</span></code>, <code class="docutils literal"><span class="pre">absolute</span></code>, etc. These may be defined later but they should be similar to Data Source Types in an <a class="reference external" href="http://oss.oetiker.ch/rrdtool">RRD</a></td>
-<td>&#160;</td>
-<td>data_type</td>
-<td>RW</td>
-<td>counter</td>
+<tr class="row-even"><td><p>dataType</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>The kind of data stored in the timeseries such as <code class="docutils literal notranslate"><span class="pre">counter</span></code>, <code class="docutils literal notranslate"><span class="pre">gauge</span></code>, <code class="docutils literal notranslate"><span class="pre">absolute</span></code>, etc. These may be defined later but they should be similar to Data Source Types in an <a class="reference external" href="http://oss.oetiker.ch/rrdtool">RRD</a></p></td>
+<td></td>
+<td><p>data_type</p></td>
+<td><p>RW</p></td>
+<td><p>counter</p></td>
 </tr>
-<tr class="row-odd"><td>retention</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>The number of days of data points to retain for the given timeseries. <strong>Not Implemented</strong>. When set to 0, the default, data is retained indefinitely.</td>
-<td>0</td>
-<td>retention</td>
-<td>RW</td>
-<td>365</td>
+<tr class="row-odd"><td><p>retention</p></td>
+<td><p>Integer</p></td>
+<td><p>Optional</p></td>
+<td><p>The number of days of data points to retain for the given timeseries. <strong>Not Implemented</strong>. When set to 0, the default, data is retained indefinitely.</p></td>
+<td><p>0</p></td>
+<td><p>retention</p></td>
+<td><p>RW</p></td>
+<td><p>365</p></td>
 </tr>
-<tr class="row-even"><td>max</td>
-<td>Float</td>
-<td>Optional</td>
-<td>An optional maximum value for this timeseries that may be used in calculations such as percent of maximum. If the default of <code class="docutils literal"><span class="pre">NaN</span></code> is present, the value is ignored.</td>
-<td>NaN</td>
-<td>max</td>
-<td>RW</td>
-<td>1024</td>
+<tr class="row-even"><td><p>max</p></td>
+<td><p>Float</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional maximum value for this timeseries that may be used in calculations such as percent of maximum. If the default of <code class="docutils literal notranslate"><span class="pre">NaN</span></code> is present, the value is ignored.</p></td>
+<td><p>NaN</p></td>
+<td><p>max</p></td>
+<td><p>RW</p></td>
+<td><p>1024</p></td>
 </tr>
-<tr class="row-odd"><td>min</td>
-<td>Float</td>
-<td>Optional</td>
-<td>An optional minimum value for this timeseries that may be used in calculations such as percent of minimum. If the default of <code class="docutils literal"><span class="pre">NaN</span></code> is present, the value is ignored.</td>
-<td>NaN</td>
-<td>min</td>
-<td>RW</td>
-<td>0</td>
+<tr class="row-odd"><td><p>min</p></td>
+<td><p>Float</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional minimum value for this timeseries that may be used in calculations such as percent of minimum. If the default of <code class="docutils literal notranslate"><span class="pre">NaN</span></code> is present, the value is ignored.</p></td>
+<td><p>NaN</p></td>
+<td><p>min</p></td>
+<td><p>RW</p></td>
+<td><p>0</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Custom fields cannot be passed via query string. You must use the <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> verbs.</p>
+<p class="admonition-title">Note</p>
+<p>Custom fields cannot be passed via query string. You must use the <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> verbs.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If your request uses <code class="docutils literal"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal"><span class="pre">description</span></code> field will be set to an emtpy string and the <code class="docutils literal"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal"><span class="pre">null</span></code>.</p>
+<p class="admonition-title">Warning</p>
+<p>If your request uses <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal notranslate"><span class="pre">description</span></code> field will be set to an emtpy string and the <code class="docutils literal notranslate"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
 </div>
-<p>With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the <code class="docutils literal"><span class="pre">tsuid</span></code> field must be left empty. Additionally two query string parameters must be supplied:</p>
+<p>With OpenTSDB 2.1 you may supply a metric style query and, if UIDs exist for the given metric and tags, a new TS meta object will be stored. Data may be supplied via POST for the fields above as per a normal request, however the <code class="docutils literal notranslate"><span class="pre">tsuid</span></code> field must be left empty. Additionally two query string parameters must be supplied:</p>
 <ul class="simple">
-<li><strong>m</strong> - A metric and tags similar to a GET request or data point query</li>
-<li><strong>create</strong> - A flag with a value of <code class="docutils literal"><span class="pre">true</span></code></li>
+<li><p><strong>m</strong> - A metric and tags similar to a GET request or data point query</p></li>
+<li><p><strong>create</strong> - A flag with a value of <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 <p>For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?display_name=Testing&amp;m=sys.cpu.nice{host=web01,dc=lga}&amp;create=true&amp;method_override=post
 </pre></div>
 </div>
 <p>If a TS meta object already exists in storage for the given metric and tags, the fields will be updated or overwritten.</p>
 <div class="section" id="example-post-or-put-request">
 <h3>Example POST or PUT Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time
 </pre></div>
 </div>
 <p><em>JSON Content:</em></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
     <span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="s2">&quot;System CPU Time for Webserver 01&quot;</span><span class="p">,</span>
     <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -295,11 +288,11 @@
 <div class="section" id="example-delete-request">
 <h3>Example DELETE Request</h3>
 <p><em>Query String:</em></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete
 </pre></div>
 </div>
 <p><em>JSON Content:</em></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -308,53 +301,53 @@
 </div>
 <div class="section" id="response">
 <h2>Response</h2>
-<p>A successful response to a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code> or <code class="docutils literal"><span class="pre">PUT</span></code> request will return the full TS meta data object with any given changes. Successful <code class="docutils literal"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal"><span class="pre">304</span></code> without any body content. If the requested TSUID did not exist in the system, a <code class="docutils literal"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
+<p>A successful response to a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request will return the full TS meta data object with any given changes. Successful <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal notranslate"><span class="pre">304</span></code> without any body content. If the requested TSUID did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="60%" />
-<col width="20%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 60%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Data Type</th>
-<th class="head">Description</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>metric</td>
-<td>UIDMeta</td>
-<td>A UID meta data object representing information about the UID</td>
-<td><em>See Below</em></td>
+<tbody>
+<tr class="row-even"><td><p>metric</p></td>
+<td><p>UIDMeta</p></td>
+<td><p>A UID meta data object representing information about the UID</p></td>
+<td><p><em>See Below</em></p></td>
 </tr>
-<tr class="row-odd"><td>tags</td>
-<td>Array of UIDMeta</td>
-<td>A list of tag name / tag value UID meta data objects associated with the timeseries. The <code class="docutils literal"><span class="pre">tagk</span></code> UID will be first followed by its corresponding <code class="docutils literal"><span class="pre">tagv</span></code> object.</td>
-<td><em>See Below</em></td>
+<tr class="row-odd"><td><p>tags</p></td>
+<td><p>Array of UIDMeta</p></td>
+<td><p>A list of tag name / tag value UID meta data objects associated with the timeseries. The <code class="docutils literal notranslate"><span class="pre">tagk</span></code> UID will be first followed by its corresponding <code class="docutils literal notranslate"><span class="pre">tagv</span></code> object.</p></td>
+<td><p><em>See Below</em></p></td>
 </tr>
-<tr class="row-even"><td>created</td>
-<td>Integer</td>
-<td>A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the <a class="reference internal" href="../../user_guide/cli/uid.html"><span class="doc">uid</span></a> utility to synchronize meta data.</td>
-<td>1350425579</td>
+<tr class="row-even"><td><p>created</p></td>
+<td><p>Integer</p></td>
+<td><p>A Unix epoch timestamp, in seconds, when the timeseries was first recorded in the system. Note that if the TSD was upgraded or meta data recently enabled, this value may not be accurate. Run the <a class="reference internal" href="../../user_guide/cli/uid.html"><span class="doc">uid</span></a> utility to synchronize meta data.</p></td>
+<td><p>1350425579</p></td>
 </tr>
-<tr class="row-odd"><td>lastReceived</td>
-<td>Integer</td>
-<td>A Unix epoch timestamp, in seconds, when a data point was last recieved. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.</td>
-<td>1350425579</td>
+<tr class="row-odd"><td><p>lastReceived</p></td>
+<td><p>Integer</p></td>
+<td><p>A Unix epoch timestamp, in seconds, when a data point was last recieved. This is only updated on TSDs where meta data is enabled and it is not updated for every data point so there may be some lag.</p></td>
+<td><p>1350425579</p></td>
 </tr>
-<tr class="row-even"><td>totalDatapoints</td>
-<td>Integer</td>
-<td>The total number of data points recorded for the timeseries. NOTE: This may not be accurate unless you have enabled metadata tracking since creating the TSDB tables.</td>
-<td>3242322</td>
+<tr class="row-even"><td><p>totalDatapoints</p></td>
+<td><p>Integer</p></td>
+<td><p>The total number of data points recorded for the timeseries. NOTE: This may not be accurate unless you have enabled metadata tracking since creating the TSDB tables.</p></td>
+<td><p>3242322</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="example-response">
 <h3>Example Response</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
     <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;00002A&quot;</span><span class="p">,</span>
@@ -362,7 +355,7 @@
         <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
         <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;System CPU Time&quot;</span><span class="p">,</span>
         <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1350425579</span><span class="p">,</span>
+        <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
         <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
     <span class="p">},</span>
@@ -373,7 +366,7 @@
             <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
             <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Server Hostname&quot;</span><span class="p">,</span>
             <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1350425579</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
             <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
             <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;Hostname&quot;</span>
         <span class="p">},</span>
@@ -383,16 +376,16 @@
             <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web01.mysite.com&quot;</span><span class="p">,</span>
             <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Website hosting server&quot;</span><span class="p">,</span>
             <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1350425579</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
             <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
             <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;Web Server 01&quot;</span>
         <span class="p">}</span>
     <span class="p">],</span>
     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Measures CPU activity&quot;</span><span class="p">,</span>
     <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mi">1350425579</span><span class="p">,</span>
+    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
     <span class="s2">&quot;units&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;retention&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;retention&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
     <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
     <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
     <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -402,8 +395,8 @@
     <span class="p">},</span>
     <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;absolute&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mi">1350425590</span><span class="p">,</span>
-    <span class="s2">&quot;totalDatapoints&quot;</span><span class="p">,</span> <span class="mi">12532</span>
+    <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mf">1350425590</span><span class="p">,</span>
+    <span class="s2">&quot;totalDatapoints&quot;</span><span class="p">,</span> <span class="mf">12532</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -412,6 +405,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -431,7 +425,8 @@
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >HTTP API</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >/api/uid</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" >/api/uid</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/api/uid/tsmeta</a></li> 
       </ul>
     </div>
     <div class="footer">

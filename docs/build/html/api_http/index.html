@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HTTP API &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="/s" href="s.html" />
@@ -36,8 +29,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,12 +42,13 @@
         <li class="right" >
           <a href="../user_guide/troubleshooting.html" title="Troubleshooting"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">HTTP API</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">HTTP API</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
@@ -86,15 +79,15 @@
   <p class="topless"><a href="s.html"
                         title="next chapter">/s</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -108,32 +101,30 @@
 <p>OpenTSDB provides an HTTP based application programming interface to enable integration with external systems. Almost all OpenTSDB features are accessiable via the API such as querying timeseries data, managing metadata and storing data points. Please read this entire page for important information about standard API behavior before investigating individual endpoints.</p>
 <div class="section" id="overview">
 <h2>Overview</h2>
-<p>The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though pluggable <code class="docutils literal"><span class="pre">formatters</span></code> may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.</p>
+<p>The HTTP API is RESTful in nature but provides alternative access through various overrides since not all clients can adhere to a strict REST protocol. The default data exchange is via JSON though pluggable <code class="docutils literal notranslate"><span class="pre">formatters</span></code> may be accessed, via the request, to send or receive data in different formats. Standard HTTP response codes are used for all returned results and errors will be returned as content using the proper format.</p>
 </div>
 <div class="section" id="version-1-x-to-2-x">
 <h2>Version 1.X to 2.x</h2>
-<p>OpenTSDB 1.x had a simple HTTP API that provided access to common behaviors such as querying for data, auto-complete queries and static file requests. OpenTSDB 2.0 introduces a new, formalized API as documented here. The 1.0 API is still accessible though most calls are deprecated and may be removed in version 3. All 2.0 API calls start with <code class="docutils literal"><span class="pre">/api/</span></code>.</p>
+<p>OpenTSDB 1.x had a simple HTTP API that provided access to common behaviors such as querying for data, auto-complete queries and static file requests. OpenTSDB 2.0 introduces a new, formalized API as documented here. The 1.0 API is still accessible though most calls are deprecated and may be removed in version 3. All 2.0 API calls start with <code class="docutils literal notranslate"><span class="pre">/api/</span></code>.</p>
 </div>
 <div class="section" id="serializers">
 <h2>Serializers</h2>
 <p>2.0 introduces pluggable serializers that allow for parsing user input and returning results in different formats such as XML or JSON. Serializers only apply to the 2.0 API calls, all 1.0 behave as before. For details on Serializers and options supported, please read <a class="reference internal" href="serializers/index.html"><span class="doc">HTTP Serializers</span></a></p>
-<p>All API calls use the default JSON serializer unless overridden by query string or <code class="docutils literal"><span class="pre">Content-Type</span></code> header. To override:</p>
+<p>All API calls use the default JSON serializer unless overridden by query string or <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> header. To override:</p>
 <ul>
-<li><p class="first"><strong>Query String</strong> - Supply a parameter such as <code class="docutils literal"><span class="pre">serializer=&lt;serializer_name&gt;</span></code> where <code class="docutils literal"><span class="pre">&lt;serializer_name&gt;</span></code> is the hard-coded name of the serializer as shown in the <code class="docutils literal"><span class="pre">/api/serializers</span></code> <code class="docutils literal"><span class="pre">serializer</span></code> output field.</p>
+<li><p><strong>Query String</strong> - Supply a parameter such as <code class="docutils literal notranslate"><span class="pre">serializer=&lt;serializer_name&gt;</span></code> where <code class="docutils literal notranslate"><span class="pre">&lt;serializer_name&gt;</span></code> is the hard-coded name of the serializer as shown in the <code class="docutils literal notranslate"><span class="pre">/api/serializers</span></code> <code class="docutils literal notranslate"><span class="pre">serializer</span></code> output field.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If a serializer isn't found that matches the <code class="docutils literal"><span class="pre">&lt;serializer_name&gt;</span></code> value, the query will return an error instead of processing further.</p>
+<p class="admonition-title">Warning</p>
+<p>If a serializer isn’t found that matches the <code class="docutils literal notranslate"><span class="pre">&lt;serializer_name&gt;</span></code> value, the query will return an error instead of processing further.</p>
 </div>
 </li>
-<li><p class="first"><strong>Content-Type</strong> - If a query string is not given, the TSD will parse the <code class="docutils literal"><span class="pre">Content-Type</span></code> header from the HTTP request. Each serializer may supply a content type and if matched to the incoming request, the proper serializer will be used. If a serializer isn't located that maps to the content type, the default serializer will be used.</p>
-</li>
-<li><p class="first"><strong>Default</strong> - If no query string parameter is given or the content-type is missing or not matched, the default JSON serializer will be used.</p>
-</li>
+<li><p><strong>Content-Type</strong> - If a query string is not given, the TSD will parse the <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> header from the HTTP request. Each serializer may supply a content type and if matched to the incoming request, the proper serializer will be used. If a serializer isn’t located that maps to the content type, the default serializer will be used.</p></li>
+<li><p><strong>Default</strong> - If no query string parameter is given or the content-type is missing or not matched, the default JSON serializer will be used.</p></li>
 </ul>
 <p>The API documentation will display requests and responses using the JSON serializer. See plugin documentation for the ways in which serializers alter behavior.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The JSON specification states that fields can appear in any order, so do not assume the ordering in given examples will be preserved. Arrays may be sorted and if so, this will be documented.</p>
+<p class="admonition-title">Note</p>
+<p>The JSON specification states that fields can appear in any order, so do not assume the ordering in given examples will be preserved. Arrays may be sorted and if so, this will be documented.</p>
 </div>
 </div>
 <div class="section" id="authentication-permissions">
@@ -146,66 +137,66 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <div class="section" id="response-codes">
 <h2>Response Codes</h2>
 <p>Every request will be returned with a standard HTTP response code. Most responses will include content, particularly error codes that will include details in the body about what went wrong. Successful codes returned from the API include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Code</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>200</td>
-<td>The request completed successfully</td>
+<tbody>
+<tr class="row-even"><td><p>200</p></td>
+<td><p>The request completed successfully</p></td>
 </tr>
-<tr class="row-odd"><td>204</td>
-<td>The server has completed the request successfully but is not returning content in the body. This is primarily used for storing data points as it is not necessary to return data to caller</td>
+<tr class="row-odd"><td><p>204</p></td>
+<td><p>The server has completed the request successfully but is not returning content in the body. This is primarily used for storing data points as it is not necessary to return data to caller</p></td>
 </tr>
-<tr class="row-even"><td>301</td>
-<td>This may be used in the event that an API call has migrated or should be forwarded to another server</td>
+<tr class="row-even"><td><p>301</p></td>
+<td><p>This may be used in the event that an API call has migrated or should be forwarded to another server</p></td>
 </tr>
 </tbody>
 </table>
 <p>Common error response codes include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Code</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>400</td>
-<td>Information provided by the API user, via a query string or content data, was in error or missing. This will usually include information in the error body about what parameter caused the issue. Correct the data and try again.</td>
+<tbody>
+<tr class="row-even"><td><p>400</p></td>
+<td><p>Information provided by the API user, via a query string or content data, was in error or missing. This will usually include information in the error body about what parameter caused the issue. Correct the data and try again.</p></td>
 </tr>
-<tr class="row-odd"><td>404</td>
-<td>The requested endpoint or file was not found. This is usually related to the static file endpoint.</td>
+<tr class="row-odd"><td><p>404</p></td>
+<td><p>The requested endpoint or file was not found. This is usually related to the static file endpoint.</p></td>
 </tr>
-<tr class="row-even"><td>405</td>
-<td>The requested verb or method was not allowed. Please see the documentation for the endpoint you are attempting to access</td>
+<tr class="row-even"><td><p>405</p></td>
+<td><p>The requested verb or method was not allowed. Please see the documentation for the endpoint you are attempting to access</p></td>
 </tr>
-<tr class="row-odd"><td>406</td>
-<td>The request could not generate a response in the format specified. For example, if you ask for a PNG file of the <code class="docutils literal"><span class="pre">logs</span></code> endpoing, you will get a 406 response since log entries cannot be converted to a PNG image (easily)</td>
+<tr class="row-odd"><td><p>406</p></td>
+<td><p>The request could not generate a response in the format specified. For example, if you ask for a PNG file of the <code class="docutils literal notranslate"><span class="pre">logs</span></code> endpoing, you will get a 406 response since log entries cannot be converted to a PNG image (easily)</p></td>
 </tr>
-<tr class="row-even"><td>408</td>
-<td>The request has timed out. This may be due to a timeout fetching data from the underlying storage system or other issues</td>
+<tr class="row-even"><td><p>408</p></td>
+<td><p>The request has timed out. This may be due to a timeout fetching data from the underlying storage system or other issues</p></td>
 </tr>
-<tr class="row-odd"><td>413</td>
-<td>The results returned from a query may be too large for the server's buffers to handle. This can happen if you request a lot of raw data from OpenTSDB. In such cases break your query up into smaller queries and run each individually</td>
+<tr class="row-odd"><td><p>413</p></td>
+<td><p>The results returned from a query may be too large for the server’s buffers to handle. This can happen if you request a lot of raw data from OpenTSDB. In such cases break your query up into smaller queries and run each individually</p></td>
 </tr>
-<tr class="row-even"><td>500</td>
-<td>An internal error occured within OpenTSDB. Make sure all of the systems OpenTSDB depends on are accessible and check the bug list for issues</td>
+<tr class="row-even"><td><p>500</p></td>
+<td><p>An internal error occured within OpenTSDB. Make sure all of the systems OpenTSDB depends on are accessible and check the bug list for issues</p></td>
 </tr>
-<tr class="row-odd"><td>501</td>
-<td>The requested feature has not been implemented yet. This may appear with formatters or when calling methods that depend on plugins</td>
+<tr class="row-odd"><td><p>501</p></td>
+<td><p>The requested feature has not been implemented yet. This may appear with formatters or when calling methods that depend on plugins</p></td>
 </tr>
-<tr class="row-even"><td>503</td>
-<td>A temporary overload has occurred. Check with other users/applications that are interacting with OpenTSDB and determine if you need to reduce requests or scale your system.</td>
+<tr class="row-even"><td><p>503</p></td>
+<td><p>A temporary overload has occurred. Check with other users/applications that are interacting with OpenTSDB and determine if you need to reduce requests or scale your system.</p></td>
 </tr>
 </tbody>
 </table>
@@ -213,55 +204,55 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <div class="section" id="errors">
 <h2>Errors</h2>
 <p>If an error occurs, the API will return a response with an error object formatted per the requested response type. Error object fields include:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="50%" />
-<col width="20%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 50%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Field Name</th>
-<th class="head">Data Type</th>
-<th class="head">Always Present</th>
-<th class="head">Description</th>
-<th class="head">Example</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Always Present</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>code</td>
-<td>Integer</td>
-<td>Yes</td>
-<td>The HTTP status code</td>
-<td>400</td>
+<tbody>
+<tr class="row-even"><td><p>code</p></td>
+<td><p>Integer</p></td>
+<td><p>Yes</p></td>
+<td><p>The HTTP status code</p></td>
+<td><p>400</p></td>
 </tr>
-<tr class="row-odd"><td>message</td>
-<td>String</td>
-<td>Yes</td>
-<td>A descriptive error message about what went wrong</td>
-<td>Missing required parameter</td>
+<tr class="row-odd"><td><p>message</p></td>
+<td><p>String</p></td>
+<td><p>Yes</p></td>
+<td><p>A descriptive error message about what went wrong</p></td>
+<td><p>Missing required parameter</p></td>
 </tr>
-<tr class="row-even"><td>details</td>
-<td>String</td>
-<td>Optional</td>
-<td>Details about the error, often a stack trace</td>
-<td>Missing value: type</td>
+<tr class="row-even"><td><p>details</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>Details about the error, often a stack trace</p></td>
+<td><p>Missing value: type</p></td>
 </tr>
-<tr class="row-odd"><td>trace</td>
-<td>String</td>
-<td>Optional</td>
-<td>A JAVA stack trace describing the location where the error was generated. This can be disabled via the <code class="docutils literal"><span class="pre">tsd.http.show_stack_trace</span></code> configuration option. The default for TSD is to show the stack trace.</td>
-<td><cite>See below</cite></td>
+<tr class="row-odd"><td><p>trace</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A JAVA stack trace describing the location where the error was generated. This can be disabled via the <code class="docutils literal notranslate"><span class="pre">tsd.http.show_stack_trace</span></code> configuration option. The default for TSD is to show the stack trace.</p></td>
+<td><p><cite>See below</cite></p></td>
 </tr>
 </tbody>
 </table>
-<p>All errors will return with a valid HTTP status error code and a content body with error details. The default formatter returns error messages as JSON with the <code class="docutils literal"><span class="pre">application/json</span></code> content-type. If a different formatter was requested, the output may be different. See the formatter documentation for details.</p>
+<p>All errors will return with a valid HTTP status error code and a content body with error details. The default formatter returns error messages as JSON with the <code class="docutils literal notranslate"><span class="pre">application/json</span></code> content-type. If a different formatter was requested, the output may be different. See the formatter documentation for details.</p>
 <div class="section" id="example-error-result">
 <h3>Example Error Result</h3>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">400</span><span class="p">,</span>
+        <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mf">400</span><span class="p">,</span>
         <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Missing parameter &lt;code&gt;type&lt;/code&gt;&quot;</span><span class="p">,</span>
         <span class="s2">&quot;trace&quot;</span><span class="o">:</span> <span class="s2">&quot;net.opentsdb.tsd.BadRequestException: Missing parameter &lt;code&gt;type&lt;/code&gt;\r\n\tat net.opentsdb.tsd.BadRequestException.missingParameter(BadRequestException.java:78) ~[bin/:na]\r\n\tat net.opentsdb.tsd.HttpQuery.getRequiredQueryStringParam(HttpQuery.java:250) ~[bin/:na]\r\n\tat net.opentsdb.tsd.SuggestRpc.execute(SuggestRpc.java:63) ~[bin/:na]\r\n\tat net.opentsdb.tsd.RpcHandler.handleHttpQuery(RpcHandler.java:172) [bin/:na]\r\n\tat net.opentsdb.tsd.RpcHandler.messageReceived(RpcHandler.java:120) [bin/:na]\r\n\tat org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:75) [netty-3.5.9.Final.jar:na]\r\n\tat org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:565) [netty-3.5.9.Final.jar:na]</span>
 <span class="s2">        ....\r\n\tat java.lang.Thread.run(Unknown Source) [na:1.6.0_26]\r\n&quot;</span>
@@ -269,83 +260,83 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Note that the stack trace is truncated. Also, the trace will include system specific line endings (in this case <code class="docutils literal"><span class="pre">\r\n</span></code> for Windows). If displaying for a user or writing to a log, be sure to replace the <code class="docutils literal"><span class="pre">\n</span></code> or <code class="docutils literal"><span class="pre">\r\n</span></code> and <code class="docutils literal"><span class="pre">\r</span></code> characters with new lines and tabs.</p>
+<p>Note that the stack trace is truncated. Also, the trace will include system specific line endings (in this case <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> for Windows). If displaying for a user or writing to a log, be sure to replace the <code class="docutils literal notranslate"><span class="pre">\n</span></code> or <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> and <code class="docutils literal notranslate"><span class="pre">\r</span></code> characters with new lines and tabs.</p>
 </div>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
-<p>The HTTP API is RESTful in nature, meaning it does its best to adhere to the REST protocol by using HTTP verbs to determine a course of action. For example, a <code class="docutils literal"><span class="pre">GET</span></code> request should only return data, a <code class="docutils literal"><span class="pre">PUT</span></code> or <code class="docutils literal"><span class="pre">POST</span></code> should modify data and <code class="docutils literal"><span class="pre">DELETE</span></code> should remove it. Documentation will reflect what verbs can be used on an endpoint and what they do.</p>
-<p>However in some situations, verbs such as <code class="docutils literal"><span class="pre">DELETE</span></code> and <code class="docutils literal"><span class="pre">PUT</span></code> are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using <code class="docutils literal"><span class="pre">GET</span></code> and <code class="docutils literal"><span class="pre">POST</span></code> exclusively. Therefore, while the OpenTSDB API supports extended verbs, most requests can be performed with just <code class="docutils literal"><span class="pre">GET</span></code> by adding the query string parameter <code class="docutils literal"><span class="pre">method_override</span></code>. This parameter allows clients to pass data for most API calls as query string values instead of body content. For example, you can delete an annotation by issuing a <code class="docutils literal"><span class="pre">GET</span></code> with a query string <code class="docutils literal"><span class="pre">/api/annotation?start_time=1369141261&amp;tsuid=010101&amp;method_override=delete</span></code>. The following table describes verb behavior and overrides.</p>
-<table border="1" class="colwidths-given docutils">
+<p>The HTTP API is RESTful in nature, meaning it does its best to adhere to the REST protocol by using HTTP verbs to determine a course of action. For example, a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request should only return data, a <code class="docutils literal notranslate"><span class="pre">PUT</span></code> or <code class="docutils literal notranslate"><span class="pre">POST</span></code> should modify data and <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> should remove it. Documentation will reflect what verbs can be used on an endpoint and what they do.</p>
+<p>However in some situations, verbs such as <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> and <code class="docutils literal notranslate"><span class="pre">PUT</span></code> are blocked by firewalls, proxies or not implemented in clients. Furthermore, most developers are used to using <code class="docutils literal notranslate"><span class="pre">GET</span></code> and <code class="docutils literal notranslate"><span class="pre">POST</span></code> exclusively. Therefore, while the OpenTSDB API supports extended verbs, most requests can be performed with just <code class="docutils literal notranslate"><span class="pre">GET</span></code> by adding the query string parameter <code class="docutils literal notranslate"><span class="pre">method_override</span></code>. This parameter allows clients to pass data for most API calls as query string values instead of body content. For example, you can delete an annotation by issuing a <code class="docutils literal notranslate"><span class="pre">GET</span></code> with a query string <code class="docutils literal notranslate"><span class="pre">/api/annotation?start_time=1369141261&amp;tsuid=010101&amp;method_override=delete</span></code>. The following table describes verb behavior and overrides.</p>
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="70%" />
-<col width="20%" />
+<col style="width: 10%" />
+<col style="width: 70%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Verb</th>
-<th class="head">Description</th>
-<th class="head">Override</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Verb</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Override</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>GET</td>
-<td>Used to retrieve data from OpenTSDB. Overrides can be provided to modify content. <strong>Note</strong>: Requests via GET can only use query string parameters; see the note below.</td>
-<td>N/A</td>
+<tbody>
+<tr class="row-even"><td><p>GET</p></td>
+<td><p>Used to retrieve data from OpenTSDB. Overrides can be provided to modify content. <strong>Note</strong>: Requests via GET can only use query string parameters; see the note below.</p></td>
+<td><p>N/A</p></td>
 </tr>
-<tr class="row-odd"><td>POST</td>
-<td>Used to update or create an object in OpenTSDB using the content body from the request. Will use a formatter to parse the content body</td>
-<td>method_override=post</td>
+<tr class="row-odd"><td><p>POST</p></td>
+<td><p>Used to update or create an object in OpenTSDB using the content body from the request. Will use a formatter to parse the content body</p></td>
+<td><p>method_override=post</p></td>
 </tr>
-<tr class="row-even"><td>PUT</td>
-<td>Replace an entire object in the system with the provided content</td>
-<td>method_override=put</td>
+<tr class="row-even"><td><p>PUT</p></td>
+<td><p>Replace an entire object in the system with the provided content</p></td>
+<td><p>method_override=put</p></td>
 </tr>
-<tr class="row-odd"><td>DELETE</td>
-<td>Used to delete data from the system</td>
-<td>method_override=delete</td>
+<tr class="row-odd"><td><p>DELETE</p></td>
+<td><p>Used to delete data from the system</p></td>
+<td><p>method_override=delete</p></td>
 </tr>
 </tbody>
 </table>
 <p>If a method is not supported for a given API call, the TSD will return a 405 error.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The HTTP specification states that there shouldn't be an association between data passed in a request body and the URI in a <code class="docutils literal"><span class="pre">GET</span></code> request. Thus OpenTSDB's API does not parse body content in <code class="docutils literal"><span class="pre">GET</span></code> requests. You can, however, provide a query string with data and an override for updating data in certain endpoints. But we recommend that you use <code class="docutils literal"><span class="pre">POST</span></code> for anything that writes data.</p>
+<p class="admonition-title">Note</p>
+<p>The HTTP specification states that there shouldn’t be an association between data passed in a request body and the URI in a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request. Thus OpenTSDB’s API does not parse body content in <code class="docutils literal notranslate"><span class="pre">GET</span></code> requests. You can, however, provide a query string with data and an override for updating data in certain endpoints. But we recommend that you use <code class="docutils literal notranslate"><span class="pre">POST</span></code> for anything that writes data.</p>
 </div>
 </div>
 <div class="section" id="api-versioning">
 <h2>API Versioning</h2>
-<p>OpenTSDB 2.0's API call calls are versioned so that users can upgrade with gauranteed backwards compatability. To access a specific API version, you craft a URL such as <code class="docutils literal"><span class="pre">/api/v&lt;version&gt;/&lt;endpoint&gt;</span></code> such as <code class="docutils literal"><span class="pre">/api/v2/suggest</span></code>. This will access version 2 of the <code class="docutils literal"><span class="pre">suggest</span></code> endpoint. Versioning starts at 1 for OpenTSDB 2.0.0. Requests for a version that does not exist will result in calls to the latest version. Also, if you do not supply an explicit version, such as <code class="docutils literal"><span class="pre">/api/suggest</span></code>, the latest version will be used.</p>
+<p>OpenTSDB 2.0’s API call calls are versioned so that users can upgrade with gauranteed backwards compatability. To access a specific API version, you craft a URL such as <code class="docutils literal notranslate"><span class="pre">/api/v&lt;version&gt;/&lt;endpoint&gt;</span></code> such as <code class="docutils literal notranslate"><span class="pre">/api/v2/suggest</span></code>. This will access version 2 of the <code class="docutils literal notranslate"><span class="pre">suggest</span></code> endpoint. Versioning starts at 1 for OpenTSDB 2.0.0. Requests for a version that does not exist will result in calls to the latest version. Also, if you do not supply an explicit version, such as <code class="docutils literal notranslate"><span class="pre">/api/suggest</span></code>, the latest version will be used.</p>
 </div>
 <div class="section" id="query-string-vs-body-content">
 <h2>Query String Vs. Body Content</h2>
-<p>Most of the API endpoints support query string parameters, particularly those that fetch data from the system. However due to the complexities of encoding some characters, and particularly Unicode, all endpoints also support access via POST content using formatters. The default format is JSON so clients can use their favorite means of generating a JSON object and send it to the OpenTSDB API via a <code class="docutils literal"><span class="pre">POST</span></code> request. <code class="docutils literal"><span class="pre">POST</span></code> requests will generally provided greater flexibility in the fields offered and fully Unicode support than query strings.</p>
+<p>Most of the API endpoints support query string parameters, particularly those that fetch data from the system. However due to the complexities of encoding some characters, and particularly Unicode, all endpoints also support access via POST content using formatters. The default format is JSON so clients can use their favorite means of generating a JSON object and send it to the OpenTSDB API via a <code class="docutils literal notranslate"><span class="pre">POST</span></code> request. <code class="docutils literal notranslate"><span class="pre">POST</span></code> requests will generally provided greater flexibility in the fields offered and fully Unicode support than query strings.</p>
 </div>
 <div class="section" id="compressed-requests">
 <h2>Compressed Requests</h2>
-<p>The API can accept body content that has been compressed. Make sure to set the <code class="docutils literal"><span class="pre">Content-Encoding</span></code> header to <code class="docutils literal"><span class="pre">gzip</span></code> and pass the binary encoded data over the wire. This is particularly useful for posting data points to the <code class="docutils literal"><span class="pre">/api/put</span></code> endpoint. An example using curl:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">$</span> <span class="nx">gzip</span> <span class="o">-</span><span class="mi">9</span><span class="nx">c</span> <span class="nx">clear</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span> <span class="o">&gt;</span> <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
+<p>The API can accept body content that has been compressed. Make sure to set the <code class="docutils literal notranslate"><span class="pre">Content-Encoding</span></code> header to <code class="docutils literal notranslate"><span class="pre">gzip</span></code> and pass the binary encoded data over the wire. This is particularly useful for posting data points to the <code class="docutils literal notranslate"><span class="pre">/api/put</span></code> endpoint. An example using curl:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span> <span class="nx">gzip</span> <span class="o">-</span><span class="mf">9</span><span class="nx">c</span> <span class="nx">clear</span><span class="o">-</span><span class="mf">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span> <span class="o">&gt;</span> <span class="nx">gzip</span><span class="o">-</span><span class="mf">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
 
-<span class="nx">$</span> <span class="nx">file</span> <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
-<span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span><span class="o">:</span> <span class="nx">gzip</span> <span class="nx">compressed</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">was</span> <span class="s2">&quot;clear-32k.json&quot;</span><span class="p">,</span> <span class="nx">from</span> <span class="nx">Unix</span><span class="p">,</span> <span class="nx">last</span> <span class="nx">modified</span><span class="o">:</span> <span class="nx">Thu</span> <span class="nx">Jan</span> <span class="mi">16</span> <span class="mi">15</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">55</span> <span class="mi">2014</span>
+<span class="nx">$</span> <span class="nx">file</span> <span class="nx">gzip</span><span class="o">-</span><span class="mf">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
+<span class="nx">gzip</span><span class="o">-</span><span class="mf">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span><span class="o">:</span> <span class="nx">gzip</span> <span class="nx">compressed</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">was</span> <span class="s2">&quot;clear-32k.json&quot;</span><span class="p">,</span> <span class="nx">from</span> <span class="nx">Unix</span><span class="p">,</span> <span class="nx">last</span> <span class="nx">modified</span><span class="o">:</span> <span class="nx">Thu</span> <span class="nx">Jan</span> <span class="mf">16</span> <span class="mf">15</span><span class="o">:</span><span class="mf">31</span><span class="o">:</span><span class="mf">55</span> <span class="mf">2014</span>
 
-<span class="nx">$</span> <span class="nx">ls</span> <span class="o">-</span><span class="nx">l</span> <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
-<span class="o">-</span><span class="nx">rw</span><span class="o">-</span><span class="nx">r</span><span class="o">--</span><span class="nx">r</span><span class="o">--</span> <span class="mi">1</span> <span class="nx">root</span> <span class="nx">root</span> <span class="mi">1666</span> <span class="nx">févr</span><span class="p">.</span>  <span class="mi">4</span> <span class="mi">09</span><span class="o">:</span><span class="mi">57</span> <span class="nx">gzip</span><span class="o">-</span><span class="mi">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
+<span class="nx">$</span> <span class="nx">ls</span> <span class="o">-</span><span class="nx">l</span> <span class="nx">gzip</span><span class="o">-</span><span class="mf">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
+<span class="o">-</span><span class="nx">rw</span><span class="o">-</span><span class="nx">r</span><span class="o">--</span><span class="nx">r</span><span class="o">--</span> <span class="mf">1</span> <span class="nx">root</span> <span class="nx">root</span> <span class="mf">1666</span> <span class="nx">févr</span><span class="p">.</span>  <span class="mf">4</span> <span class="mf">09</span><span class="o">:</span><span class="mf">57</span> <span class="nx">gzip</span><span class="o">-</span><span class="mf">32</span><span class="nx">k</span><span class="p">.</span><span class="nx">json</span>
 
 <span class="nx">$</span> <span class="nx">curl</span> <span class="o">-</span><span class="nx">X</span> <span class="nx">POST</span> <span class="o">--</span><span class="nx">data</span><span class="o">-</span><span class="nx">binary</span> <span class="s2">&quot;@gzip-32k.json&quot;</span> <span class="o">--</span><span class="nx">header</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="o">--</span><span class="nx">header</span> <span class="s2">&quot;Content-Encoding: gzip&quot;</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//mytsdb1:4242/api/put?details</span>
-<span class="p">{</span><span class="s2">&quot;errors&quot;</span><span class="o">:</span><span class="p">[],</span><span class="s2">&quot;failed&quot;</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;success&quot;</span><span class="o">:</span><span class="mi">280</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;errors&quot;</span><span class="o">:</span><span class="p">[],</span><span class="s2">&quot;failed&quot;</span><span class="o">:</span><span class="mf">0</span><span class="p">,</span><span class="s2">&quot;success&quot;</span><span class="o">:</span><span class="mf">280</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="cors">
 <h2>CORS</h2>
-<p>OpenTSDB provides simple and preflight support for Cross-Origin Resource Sharing (CORS) requests. To enable CORS, you must supply either a wild card <code class="docutils literal"><span class="pre">*</span></code> or a comma separated list of specific domains in the <code class="docutils literal"><span class="pre">tsd.http.request.cors_domains</span></code> configuration setting and restart OpenTSDB. For example, you can supply a value of <code class="docutils literal"><span class="pre">*</span></code> or you could provide a list of domains such as <code class="docutils literal"><span class="pre">beeblebrox.com,www.beeblebrox.com,aurtherdent.com</span></code>. The domain list is case insensitive but must fully match any value sent by clients.</p>
-<p>When a <code class="docutils literal"><span class="pre">GET</span></code>, <code class="docutils literal"><span class="pre">POST</span></code>, <code class="docutils literal"><span class="pre">PUT</span></code> or <code class="docutils literal"><span class="pre">DELETE</span></code> request arrives with the <code class="docutils literal"><span class="pre">Origin</span></code> header set to a valid domain name, the server will compare the domain against the configured list. If the domain appears in the list or the wild card was set, the server will add the <code class="docutils literal"><span class="pre">Access-Control-Allow-Origin</span></code> and <code class="docutils literal"><span class="pre">Access-Control-Allow-Methods</span></code> headers to the response after processing is complete. The allowed methods will always be <code class="docutils literal"><span class="pre">GET,</span> <span class="pre">POST,</span> <span class="pre">PUT,</span> <span class="pre">DELETE</span></code>. It does not change per end point. If the request is a CORS preflight, i.e. the <code class="docutils literal"><span class="pre">OPTION</span></code> method is used, the response will be the same but with an empty content body and a 200 status code.</p>
-<p>If the <code class="docutils literal"><span class="pre">Origin</span></code> domain did not match a domain in the configured list, the response will be a 200 status code and an Error (see above) for the content body stating that access was denied, regardless of whether the request was a preflight or a regular request. The request will not be processed any further.</p>
-<p>By default, the <code class="docutils literal"><span class="pre">tsd.http.request.cors_domains</span></code> list is empty and CORS is diabled. Requests are passed through without appending CORS specific headers. If an <code class="docutils literal"><span class="pre">Options</span></code> request arrives, it will receive a 405 error message.</p>
+<p>OpenTSDB provides simple and preflight support for Cross-Origin Resource Sharing (CORS) requests. To enable CORS, you must supply either a wild card <code class="docutils literal notranslate"><span class="pre">*</span></code> or a comma separated list of specific domains in the <code class="docutils literal notranslate"><span class="pre">tsd.http.request.cors_domains</span></code> configuration setting and restart OpenTSDB. For example, you can supply a value of <code class="docutils literal notranslate"><span class="pre">*</span></code> or you could provide a list of domains such as <code class="docutils literal notranslate"><span class="pre">beeblebrox.com,www.beeblebrox.com,aurtherdent.com</span></code>. The domain list is case insensitive but must fully match any value sent by clients.</p>
+<p>When a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PUT</span></code> or <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> request arrives with the <code class="docutils literal notranslate"><span class="pre">Origin</span></code> header set to a valid domain name, the server will compare the domain against the configured list. If the domain appears in the list or the wild card was set, the server will add the <code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Origin</span></code> and <code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Methods</span></code> headers to the response after processing is complete. The allowed methods will always be <code class="docutils literal notranslate"><span class="pre">GET,</span> <span class="pre">POST,</span> <span class="pre">PUT,</span> <span class="pre">DELETE</span></code>. It does not change per end point. If the request is a CORS preflight, i.e. the <code class="docutils literal notranslate"><span class="pre">OPTION</span></code> method is used, the response will be the same but with an empty content body and a 200 status code.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">Origin</span></code> domain did not match a domain in the configured list, the response will be a 200 status code and an Error (see above) for the content body stating that access was denied, regardless of whether the request was a preflight or a regular request. The request will not be processed any further.</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">tsd.http.request.cors_domains</span></code> list is empty and CORS is diabled. Requests are passed through without appending CORS specific headers. If an <code class="docutils literal notranslate"><span class="pre">Options</span></code> request arrives, it will receive a 405 error message.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Do not rely on CORS for security. It is exceedingly easy to spoof a domain in an HTTP request and OpenTSDB does not perform reverse lookups or domain validation. CORS is only implemented as a means to make it easier JavaScript developers to work with the API.</p>
+<p class="admonition-title">Note</p>
+<p>Do not rely on CORS for security. It is exceedingly easy to spoof a domain in an HTTP request and OpenTSDB does not perform reverse lookups or domain validation. CORS is only implemented as a means to make it easier JavaScript developers to work with the API.</p>
 </div>
 </div>
 <div class="section" id="documentation">
@@ -353,20 +344,21 @@ We do not recommend running OpenTSDB on a machine with a public IP Address.</p>
 <p>The documentation for each endpoint listed below will contain details about how to use that endpoint. Eahc page will contain a description of the endpoint, what verbs are supported, the fields in a request, fields in a respone and examples.</p>
 <p>Request Parameters are a list of field names that you can pass in with your request. Each table has the following information:</p>
 <ul class="simple">
-<li>Name - The name of the field</li>
-<li>Data Type - The type of data you need to supply. E.g. <code class="docutils literal"><span class="pre">String</span></code> should be text, <code class="docutils literal"><span class="pre">Integer</span></code> must be a whole number (positive or negative), <code class="docutils literal"><span class="pre">Float</span></code> should be a decimal number. The data type may also be a complex object such as an array or map of values or objects.
-If you see <code class="docutils literal"><span class="pre">Present</span></code> in this column then simply adding the parameter to the query string sets the value to <code class="docutils literal"><span class="pre">true</span></code>, the actual value of the parameter is ignored. For example <code class="docutils literal"><span class="pre">/api/put?summary</span></code> will effectively set <code class="docutils literal"><span class="pre">summary=true</span></code>. If you request <code class="docutils literal"><span class="pre">/api/put?summary=false</span></code>, the API will still consider the request as <code class="docutils literal"><span class="pre">summary=true</span></code>.</li>
-<li>Required - Whether or not the parameter is required for a successful query. If the parameter is required, you'll see <code class="docutils literal"><span class="pre">Required</span></code> otherwise it will be <code class="docutils literal"><span class="pre">Optional</span></code>.</li>
-<li>Description - A detailed description of the parameter including what values are allowed if applicable.</li>
-<li>Default - The default value of the <code class="docutils literal"><span class="pre">Optional</span></code> parameter. If the data is required, this field will be blank.</li>
-<li>QS - If the parameter can be supplied via query string, this field will have a <code class="docutils literal"><span class="pre">Yes</span></code> in it, otherwise it will have a <code class="docutils literal"><span class="pre">No</span></code> meaning the parameter can only be supplied as part of the request body content.</li>
-<li>RW - Describes whether or not this parameter can result in an update to data stored in OpenTSDB. Possible values in this column are:<ul>
-<li><em>empty</em> - This means that the field is for queries only and does not, necessarily, represent a field in the response.</li>
-<li><strong>RO</strong> - A field that appears in the response but is read only. The value passed along with a request will not alter the output field.</li>
-<li><strong>RW</strong> or <strong>W</strong> - A field that <strong>will</strong> result in an update to the data stored in the system</li>
+<li><p>Name - The name of the field</p></li>
+<li><p>Data Type - The type of data you need to supply. E.g. <code class="docutils literal notranslate"><span class="pre">String</span></code> should be text, <code class="docutils literal notranslate"><span class="pre">Integer</span></code> must be a whole number (positive or negative), <code class="docutils literal notranslate"><span class="pre">Float</span></code> should be a decimal number. The data type may also be a complex object such as an array or map of values or objects.
+If you see <code class="docutils literal notranslate"><span class="pre">Present</span></code> in this column then simply adding the parameter to the query string sets the value to <code class="docutils literal notranslate"><span class="pre">true</span></code>, the actual value of the parameter is ignored. For example <code class="docutils literal notranslate"><span class="pre">/api/put?summary</span></code> will effectively set <code class="docutils literal notranslate"><span class="pre">summary=true</span></code>. If you request <code class="docutils literal notranslate"><span class="pre">/api/put?summary=false</span></code>, the API will still consider the request as <code class="docutils literal notranslate"><span class="pre">summary=true</span></code>.</p></li>
+<li><p>Required - Whether or not the parameter is required for a successful query. If the parameter is required, you’ll see <code class="docutils literal notranslate"><span class="pre">Required</span></code> otherwise it will be <code class="docutils literal notranslate"><span class="pre">Optional</span></code>.</p></li>
+<li><p>Description - A detailed description of the parameter including what values are allowed if applicable.</p></li>
+<li><p>Default - The default value of the <code class="docutils literal notranslate"><span class="pre">Optional</span></code> parameter. If the data is required, this field will be blank.</p></li>
+<li><p>QS - If the parameter can be supplied via query string, this field will have a <code class="docutils literal notranslate"><span class="pre">Yes</span></code> in it, otherwise it will have a <code class="docutils literal notranslate"><span class="pre">No</span></code> meaning the parameter can only be supplied as part of the request body content.</p></li>
+<li><p>RW - Describes whether or not this parameter can result in an update to data stored in OpenTSDB. Possible values in this column are:</p>
+<ul>
+<li><p><em>empty</em> - This means that the field is for queries only and does not, necessarily, represent a field in the response.</p></li>
+<li><p><strong>RO</strong> - A field that appears in the response but is read only. The value passed along with a request will not alter the output field.</p></li>
+<li><p><strong>RW</strong> or <strong>W</strong> - A field that <strong>will</strong> result in an update to the data stored in the system</p></li>
 </ul>
 </li>
-<li>Example - An example of the parameter value</li>
+<li><p>Example - An example of the parameter value</p></li>
 </ul>
 </div>
 <div class="section" id="deprecated-api">
@@ -399,6 +391,7 @@ If you see <code class="docutils literal"><span class="pre">Present</span></code
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -416,7 +409,8 @@ If you see <code class="docutils literal"><span class="pre">Present</span></code
         <li class="right" >
           <a href="../user_guide/troubleshooting.html" title="Troubleshooting"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">HTTP API</a></li> 
       </ul>
     </div>
     <div class="footer">

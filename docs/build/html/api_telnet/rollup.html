@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>rollup &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="histogram" href="histogram.html" />
@@ -36,8 +29,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -51,12 +43,13 @@
           <a href="put.html" title="put"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Telnet Style API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">rollup</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">rollup</a><ul>
 <li><a class="reference internal" href="#request">Request</a><ul>
@@ -78,15 +71,15 @@
   <p class="topless"><a href="histogram.html"
                         title="next chapter">histogram</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -101,25 +94,25 @@
 <div class="section" id="request">
 <h2>Request</h2>
 <p>The command format is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="o">&lt;</span><span class="n">rollup</span> <span class="n">spec</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">metric</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">timestamp</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tagk_1</span><span class="o">&gt;=&lt;</span><span class="n">tagv_1</span><span class="o">&gt;</span><span class="p">[</span> <span class="o">&lt;</span><span class="n">tagk_n</span><span class="o">&gt;=&lt;</span><span class="n">tagv_n</span><span class="o">&gt;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="o">&lt;</span><span class="n">rollup</span> <span class="n">spec</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">metric</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">timestamp</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tagk_1</span><span class="o">&gt;=&lt;</span><span class="n">tagv_1</span><span class="o">&gt;</span><span class="p">[</span> <span class="o">&lt;</span><span class="n">tagk_n</span><span class="o">&gt;=&lt;</span><span class="n">tagv_n</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>In this case the rollup spec is one of:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">&lt;interval&gt;-&lt;aggregator&gt;</span></code> for a <em>raw</em> or <em>non-pre-aggregated</em> <strong>rollup</strong> over the interval.</li>
-<li><code class="docutils literal"><span class="pre">&lt;group_by_aggregator&gt;</span></code> for a <em>raw</em> <strong>pre-aggregated</strong> value that has not been rolled up over time.</li>
-<li><code class="docutils literal"><span class="pre">&lt;interval&gt;-&lt;aggregator&gt;:&lt;group_by_aggregator&gt;</span></code> for a <em>rolled up</em> <em>pre-aggregated</em> value.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;interval&gt;-&lt;aggregator&gt;</span></code> for a <em>raw</em> or <em>non-pre-aggregated</em> <strong>rollup</strong> over the interval.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;group_by_aggregator&gt;</span></code> for a <em>raw</em> <strong>pre-aggregated</strong> value that has not been rolled up over time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;interval&gt;-&lt;aggregator&gt;:&lt;group_by_aggregator&gt;</span></code> for a <em>rolled up</em> <em>pre-aggregated</em> value.</p></li>
 </ul>
 <p>Note:</p>
 <ul class="simple">
-<li>Because fields are space delimited, metrics and tag values may not contain spaces.</li>
-<li>The timestamp must be a positive Unix epoch timestamp. E.g. <code class="docutils literal"><span class="pre">1479496100</span></code> to represent <code class="docutils literal"><span class="pre">Fri,</span> <span class="pre">18</span> <span class="pre">Nov</span> <span class="pre">2016</span> <span class="pre">19:08:20</span> <span class="pre">GMT</span></code></li>
-<li>The value must be a number. It may be an integer (maximum and minimum values of Java's <code class="docutils literal"><span class="pre">long</span></code> data type), a floating point value or scientific notation (in the format <code class="docutils literal"><span class="pre">[-]&lt;#&gt;.&lt;#&gt;[e|E][-]&lt;#&gt;</span></code>).</li>
-<li>At least one tag pair must be present. Additional tag pairs can be added with spaces in between.</li>
+<li><p>Because fields are space delimited, metrics and tag values may not contain spaces.</p></li>
+<li><p>The timestamp must be a positive Unix epoch timestamp. E.g. <code class="docutils literal notranslate"><span class="pre">1479496100</span></code> to represent <code class="docutils literal notranslate"><span class="pre">Fri,</span> <span class="pre">18</span> <span class="pre">Nov</span> <span class="pre">2016</span> <span class="pre">19:08:20</span> <span class="pre">GMT</span></code></p></li>
+<li><p>The value must be a number. It may be an integer (maximum and minimum values of Java’s <code class="docutils literal notranslate"><span class="pre">long</span></code> data type), a floating point value or scientific notation (in the format <code class="docutils literal notranslate"><span class="pre">[-]&lt;#&gt;.&lt;#&gt;[e|E][-]&lt;#&gt;</span></code>).</p></li>
+<li><p>At least one tag pair must be present. Additional tag pairs can be added with spaces in between.</p></li>
 </ul>
 <div class="section" id="examples">
 <h3>Examples</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="mi">1</span><span class="n">h</span><span class="o">-</span><span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="k">if</span><span class="o">.</span><span class="n">bytes</span><span class="o">.</span><span class="n">out</span> <span class="mi">1479412800</span> <span class="mf">1.3E3</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span> <span class="n">interface</span><span class="o">=</span><span class="n">eth0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="mi">1</span><span class="n">h</span><span class="o">-</span><span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="k">if</span><span class="o">.</span><span class="n">bytes</span><span class="o">.</span><span class="n">out</span> <span class="mi">1479412800</span> <span class="mf">1.3E3</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span> <span class="n">interface</span><span class="o">=</span><span class="n">eth0</span>
 <span class="n">rollup</span> <span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="n">procs</span><span class="o">.</span><span class="n">running</span> <span class="mi">1479496100</span> <span class="mi">42</span> <span class="n">colo</span><span class="o">=</span><span class="n">lga</span>
 <span class="n">rollup</span> <span class="mi">1</span><span class="n">h</span><span class="o">-</span><span class="n">SUM</span><span class="p">:</span><span class="n">SUM</span> <span class="n">sys</span><span class="o">.</span><span class="n">procs</span><span class="o">.</span><span class="n">running</span> <span class="mi">1479412800</span> <span class="mi">24</span> <span class="n">colo</span><span class="o">=</span><span class="n">lga</span>
 </pre></div>
@@ -131,16 +124,16 @@
 <p>A successful request will not return a response. Only on error will the socket return a line of data. Some examples appear below:</p>
 <div class="section" id="example-requests-and-responses">
 <h3>Example Requests and Responses</h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rollup</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rollup</span>
 <span class="n">rollup</span><span class="p">:</span> <span class="n">illegal</span> <span class="n">argument</span><span class="p">:</span> <span class="ow">not</span> <span class="n">enough</span> <span class="n">arguments</span> <span class="p">(</span><span class="n">need</span> <span class="n">least</span> <span class="mi">5</span><span class="p">,</span> <span class="n">got</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="n">SUM</span> <span class="n">metric</span><span class="o">.</span><span class="n">foo</span> <span class="n">notatime</span> <span class="mi">42</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="n">SUM</span> <span class="n">metric</span><span class="o">.</span><span class="n">foo</span> <span class="n">notatime</span> <span class="mi">42</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
 <span class="n">rollup</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">value</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">character</span> <span class="s1">&#39;n&#39;</span> <span class="ow">in</span> <span class="n">notatime</span>
 </pre></div>
 </div>
-<p>The following will be returned if <code class="docutils literal"><span class="pre">tsd.core.auto_create_metrics</span></code> are disabled.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="n">SUM</span> <span class="n">new</span><span class="o">.</span><span class="n">metric</span> <span class="mi">1479496160</span> <span class="mf">1.3e3</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
+<p>The following will be returned if <code class="docutils literal notranslate"><span class="pre">tsd.core.auto_create_metrics</span></code> are disabled.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rollup</span> <span class="n">SUM</span> <span class="n">new</span><span class="o">.</span><span class="n">metric</span> <span class="mi">1479496160</span> <span class="mf">1.3e3</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
 <span class="n">rollup</span><span class="p">:</span> <span class="n">unknown</span> <span class="n">metric</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">name</span> <span class="k">for</span> <span class="s1">&#39;metrics&#39;</span><span class="p">:</span> <span class="s1">&#39;new.metric&#39;</span>
 </pre></div>
 </div>
@@ -149,6 +142,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -167,7 +161,8 @@
           <a href="put.html" title="put"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Telnet Style API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">rollup</a></li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/s &#8212; OpenTSDB 2.4 documentation</title>
     <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.4',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="/api/aggregators" href="aggregators.html" />
@@ -36,8 +29,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -51,12 +43,13 @@
           <a href="index.html" title="HTTP API"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">HTTP API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/s</a></li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">/s</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
@@ -74,15 +67,15 @@
   <p class="topless"><a href="aggregators.html"
                         title="next chapter">/api/aggregators</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -93,15 +86,15 @@
             
   <div class="section" id="s">
 <h1>/s</h1>
-<p>This endpoint was introduced in 1.0 as a means of accessing static files on the local system. <code class="docutils literal"><span class="pre">/s</span></code> will be maintained in the future and will not be deprecated. The static root is definied in the config file as <code class="docutils literal"><span class="pre">tsd.http.staticroot</span></code> or CLI via <code class="docutils literal"><span class="pre">--staticroot</span></code>.</p>
-<p>By default, static files will be returned with a header telling clients to cache them for 1 year. Any file that contains <code class="docutils literal"><span class="pre">nocache</span></code> in the name (e.g. <code class="docutils literal"><span class="pre">queryui.nocache.js</span></code>, the idiom used by GWT) will not include the cache header.</p>
+<p>This endpoint was introduced in 1.0 as a means of accessing static files on the local system. <code class="docutils literal notranslate"><span class="pre">/s</span></code> will be maintained in the future and will not be deprecated. The static root is definied in the config file as <code class="docutils literal notranslate"><span class="pre">tsd.http.staticroot</span></code> or CLI via <code class="docutils literal notranslate"><span class="pre">--staticroot</span></code>.</p>
+<p>By default, static files will be returned with a header telling clients to cache them for 1 year. Any file that contains <code class="docutils literal notranslate"><span class="pre">nocache</span></code> in the name (e.g. <code class="docutils literal notranslate"><span class="pre">queryui.nocache.js</span></code>, the idiom used by GWT) will not include the cache header.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The TSD will attempt to return the correct <strong>Content-Type</strong> header for the requested file. However the TSD code doesn't support very many formats at this time, just HTML, JSON, Javascript and PNG. Let us know what formats you need or issue a pull request with your patches.</p>
+<p class="admonition-title">Note</p>
+<p>The TSD will attempt to return the correct <strong>Content-Type</strong> header for the requested file. However the TSD code doesn’t support very many formats at this time, just HTML, JSON, Javascript and PNG. Let us know what formats you need or issue a pull request with your patches.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The code for this endpoint is very simple and does not include any security. Thus you should make sure that permissions on your static root directory are secure so that users can't write malicious files and serve them out of OpenTSDB. Users shouldn't be able to write files via OpenTSDB, but take precautions just to be safe.</p>
+<p class="admonition-title">Warning</p>
+<p>The code for this endpoint is very simple and does not include any security. Thus you should make sure that permissions on your static root directory are secure so that users can’t write malicious files and serve them out of OpenTSDB. Users shouldn’t be able to write files via OpenTSDB, but take precautions just to be safe.</p>
 </div>
 <div class="section" id="verbs">
 <h2>Verbs</h2>
@@ -109,12 +102,12 @@
 </div>
 <div class="section" id="requests">
 <h2>Requests</h2>
-<p>Query string and content body requests are ignored. Rather the requested file is a component of the path, e.g. <code class="docutils literal"><span class="pre">/s/index.html</span></code> will return the contents of the <code class="docutils literal"><span class="pre">index.html</span></code> file.</p>
+<p>Query string and content body requests are ignored. Rather the requested file is a component of the path, e.g. <code class="docutils literal notranslate"><span class="pre">/s/index.html</span></code> will return the contents of the <code class="docutils literal notranslate"><span class="pre">index.html</span></code> file.</p>
 </div>
 <div class="section" id="example-request">
 <h2>Example Request</h2>
 <p><strong>Query String</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">queryui</span><span class="o">.</span><span class="n">nocache</span><span class="o">.</span><span class="n">js</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">queryui</span><span class="o">.</span><span class="n">nocache</span><span class="o">.</span><span class="n">js</span>
 </pre></div>
 </div>
 </div>
@@ -125,6 +118,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -143,7 +137,8 @@
           <a href="index.html" title="HTTP API"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">OpenTSDB 2.4 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >HTTP API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">/s</a></li> 
       </ul>
     </div>
     <div class="footer">

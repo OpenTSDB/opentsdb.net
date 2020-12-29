@@ -67,7 +67,7 @@ The condition of a ternary can be one of:
 * A logical condition such as ``m1 > 1 ? 1 : 0``
 * A single metric such as ``m1 ? m1 : NaN`` in which case the value of the condition metric is treated as boolean according to the rules at the top of this document.
 
-Note that ``NaN`` can be used as a literal in a ternary operand.
+Note that ``NaN`` can be used as a literal in a ternary operand but not in the condition (yet).
 
 Joining Time Series
 -------------------

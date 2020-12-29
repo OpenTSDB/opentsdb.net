@@ -126,6 +126,7 @@ Built-in Query Nodes
 .. toctree::
    :maxdepth: 1
    
+   bucketquantiles
    downsample
    expression
    filters

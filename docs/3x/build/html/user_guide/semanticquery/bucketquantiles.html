@@ -281,8 +281,8 @@
 <p>Some systems report histogram counts as the number of measurements that fell within that bucket at that time, e.g.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
-<col style="width: 75%" />
-<col style="width: 25%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Bucket Boundaries</p></th>
@@ -304,6 +304,34 @@
 </tr>
 </tbody>
 </table>
+<p>In this case the total number of measurements across all buckets is <code class="docutils literal notranslate"><span class="pre">3</span></code>. However some systems report a <code class="docutils literal notranslate"><span class="pre">cumulative</span></code> count across buckets, in which case you need to set the <code class="docutils literal notranslate"><span class="pre">cumulativeBuckets</span></code> flag to <code class="docutils literal notranslate"><span class="pre">true</span></code>. E.g.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bucket Boundaries</p></th>
+<th class="head"><p>Count</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-100</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>100-200</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>200-300</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>300-400</p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+<p>In this case the total number of measurements across buckets is still <code class="docutils literal notranslate"><span class="pre">3</span></code> but each bucket reports the count of buckets lower than it’s range as well as it’s own count.</p>
+<p>Additionally some systems will report bucket counts as monotonically increasing counters over time instead of restting counts to 0 at each reporting interval. In those cases make sure to set <code class="docutils literal notranslate"><span class="pre">counterBuckets</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 </div>
 <div class="section" id="query-example">
 <h2>Query Example</h2>
@@ -351,7 +379,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2020, OpenTSDB.<br/>
+        &copy; Copyright 2021, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>

@@ -27,7 +27,6 @@ Fields include:
    "nanThreshold", "Float", "Optional", "If the number of missing counts across histogram buckets at a given timestamp is greater than the given percentage, the output will be a NaN instead of a calculated quantile. This can be used to avoid giving errant results. When set to 0, the threshold is ignored and missing values are skipped during calculation.", "0", "25.5"
    "missingMetricThreshold", "Float", "Optional", "If the number of missing histogram time series for the query range is greater than the given threshold, the node will skip calculating quantiles and return an empty result. This can be used to avoid giving errant results. If set to 0, quantiles are computed despite the missing buckets.", "0", "15.5"
 
-
 Parsing Buckets
 ---------------
 
@@ -40,13 +39,27 @@ Some systems report histogram counts as the number of measurements that fell wit
 
 .. csv-table::
    :header: "Bucket Boundaries", "Count"
-   :widths: 15, 5
+   :widths: 25, 25
    
 	"0-100", "0"
 	"100-200", "2"
 	"200-300", "0"
 	"300-400", "1"
 
+In this case the total number of measurements across all buckets is ``3``. However some systems report a ``cumulative`` count across buckets, in which case you need to set the ``cumulativeBuckets`` flag to ``true``. E.g.
+
+.. csv-table::
+   :header: "Bucket Boundaries", "Count"
+   :widths: 25, 25
+   
+	"0-100", "0"
+	"100-200", "2"
+	"200-300", "2"
+	"300-400", "3"
+
+In this case the total number of measurements across buckets is still ``3`` but each bucket reports the count of buckets lower than it's range as well as it's own count.
+
+Additionally some systems will report bucket counts as monotonically increasing counters over time instead of restting counts to 0 at each reporting interval. In those cases make sure to set ``counterBuckets`` to ``true``.
 
 Query Example
 -------------

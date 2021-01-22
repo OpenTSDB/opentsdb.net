@@ -138,6 +138,7 @@ Built-in Query Nodes
    ratio
    slidingwindow
    summarizer
+   timedifference
    timeseriesdatasource
    topn
 

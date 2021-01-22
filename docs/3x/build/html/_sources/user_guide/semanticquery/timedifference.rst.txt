@@ -1,0 +1,35 @@
+ Time Difference
+===============
+.. index:: timedifference
+Computes the delta between data point time stamps. E.g. if one data point is at 11:05 and the second at 11:10 the difference reported would be 300 seconds (with a resolution of seconds). Only data points with a numeric value are considered, the node will skip over ``NaN`` and ``null`` values.
+
+It is best to process raw data with this node as downsampled or interpolated data may be filled and not reflect the actual time deltas.
+
+Fields include:
+
+.. csv-table::
+   :header: "Name", "Data Type", "Required", "Description", "Default", "Example"
+   :widths: 10, 5, 5, 45, 10, 25
+   
+   "resolution", "String", "Optional", "The resolution used to report the timestamp delta.", "SECONDS", "MILLIS"
+      
+Potential values for the resolution string include:
+
+* HOURS
+* MINUTES
+* SECONDS
+* MILLIS
+* NANOS
+
+They come from the Java ``ChronoUnit`` enumeration.
+
+Example:
+
+.. code-block:: javascript
+
+  {
+    "id": "diff",
+    "type": "TimeDifference",
+    "sources": ["m1"],
+    "resolution": "SECONDS"
+  }

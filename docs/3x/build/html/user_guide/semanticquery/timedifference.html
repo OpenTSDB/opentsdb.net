@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tsddrain.py &#8212; OpenTSDB 3.0 documentation</title>
+    <title>Time Difference &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -14,6 +14,8 @@
     <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="TimeSeriesDataSource" href="timeseriesdatasource.html" />
+    <link rel="prev" title="Summarizer" href="summarizer.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,7 +56,7 @@
      href="../../index.html">Documentation <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
@@ -70,13 +72,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Users Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/semanticquery/index.html">Semantic Query (Version 3)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Semantic Query (Version 3)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Administrators Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../configuration.html">TSDB Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/logging.html">Logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
@@ -102,6 +104,14 @@
             
               
                 
+  <li>
+    <a href="summarizer.html" title="Previous Chapter: Summarizer"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Summarizer</span>
+    </a>
+  </li>
+  <li>
+    <a href="timeseriesdatasource.html" title="Next Chapter: TimeSeriesDataSource"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">TimeSeriesDataSource &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -129,75 +139,63 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">tsddrain.py</a><ul>
-<li><a class="reference internal" href="#parameters">Parameters</a></li>
-<li><a class="reference internal" href="#results">Results</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Time Difference</a></li>
 </ul>
 
         </div>
       </div>
     <div class="body col-md-9 content" role="main">
       
-  <div class="section" id="tsddrain-py">
-<h1>tsddrain.py</h1>
-<p>This is a simple utility for consuming data points from collectors while a TSD, HBase or HDFS is underoing maintenance. The script should be run on the same port as a TSD and accepts data in the <code class="docutils literal notranslate"><span class="pre">put</span></code> Telnet style. Data points are then written directly to disk in a format that can be used with the <a class="reference internal" href="../cli/import.html"><span class="doc">import</span></a> command once HBase is back up.</p>
-<div class="section" id="parameters">
-<h2>Parameters</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tsddrain.py &lt;port&gt; &lt;directory&gt;
-</pre></div>
-</div>
+  <div class="section" id="time-difference">
+<h1>Time Difference</h1>
+<p>Computes the delta between data point time stamps. E.g. if one data point is at 11:05 and the second at 11:10 the difference reported would be 300 seconds (with a resolution of seconds). Only data points with a numeric value are considered, the node will skip over <code class="docutils literal notranslate"><span class="pre">NaN</span></code> and <code class="docutils literal notranslate"><span class="pre">null</span></code> values.</p>
+<p>It is best to process raw data with this node as downsampled or interpolated data may be filled and not reflect the actual time deltas.</p>
+<p>Fields include:</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
-<col style="width: 15%" />
+<col style="width: 10%" />
 <col style="width: 5%" />
-<col style="width: 40%" />
 <col style="width: 5%" />
-<col style="width: 35%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Default</p></th>
 <th class="head"><p>Example</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>port</p></td>
-<td><p>Integer</p></td>
-<td><p>The TCP port to listen on</p></td>
-<td></td>
-<td><p>4242</p></td>
-</tr>
-<tr class="row-odd"><td><p>directory</p></td>
+<tr class="row-even"><td><p>resolution</p></td>
 <td><p>String</p></td>
-<td><p>Path to a directory where data files should be written. A file is created for each client with the IP address of the client as the file name,</p></td>
-<td></td>
-<td><p>/opt/temptsd/</p></td>
+<td><p>Optional</p></td>
+<td><p>The resolution used to report the timestamp delta.</p></td>
+<td><p>SECONDS</p></td>
+<td><p>MILLIS</p></td>
 </tr>
 </tbody>
 </table>
-<p>Example</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tsddrain.py <span class="m">4242</span> /opt/temptsd/
+<p>Potential values for the resolution string include:</p>
+<ul class="simple">
+<li><p>HOURS</p></li>
+<li><p>MINUTES</p></li>
+<li><p>SECONDS</p></li>
+<li><p>MILLIS</p></li>
+<li><p>NANOS</p></li>
+</ul>
+<p>They come from the Java <code class="docutils literal notranslate"><span class="pre">ChronoUnit</span></code> enumeration.</p>
+<p>Example:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;diff&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TimeDifference&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;sources&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;resolution&quot;</span><span class="o">:</span> <span class="s2">&quot;SECONDS&quot;</span>
+<span class="p">}</span>
 </pre></div>
-</div>
-</div>
-<div class="section" id="results">
-<h2>Results</h2>
-<p>On succesfully binding to the default IPv4 address <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> and port it will simply print out the line below and start writing. When you’re ready to resume using a TSD, simply kill the process.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Use Ctrl-C to stop me.
-</pre></div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Tsddrain does not accept HTTP input at this time.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Test throughput on your systems to make sure it handles the load properly. Since it writes each point to disk immediately this can result in a huge disk IO load so very large OpenTSDB installations may require a larger number of drains than TSDs.</p>
-</div>
 </div>
 </div>
 

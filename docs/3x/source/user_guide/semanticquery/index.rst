@@ -5,7 +5,7 @@ OpenTSDB 3 has a new query syntax that finally allows for manipulating the time 
 
 .. NOTE::
 
-  The query syntax is verbose and ugly. It is intended as a *semantic* design, conveying the intent of the queryant, ontop of which we can overaly easier query languages like SQL, PromQL, possibly Flux and others. It does not support branches or loops at this time so it is not a Turing complete DSL but should support the vast majority of operations required for time series analysis.
+  The query syntax is verbose and ugly. It is intended as a *semantic* design, conveying the intent of the queryant, ontop of which we can overaly easier query languages like SQL, PromQL (incubating in the PromQL plugin), possibly Flux and others. It does not support branches or loops at this time so it is not a Turing complete DSL but should support the vast majority of operations required for time series analysis.
 
 These documents will include query examples in JSON as the most common use case will be querying an OpenTSDB instance via the HTTP interface. YAML may also be used over HTTP. For those importing the OpenTSDB JAR files, a ``SemanticQuery.newBuilder()`` method can be called to start constructing a query. We'll have documentation on making calls from Java later on.
 
@@ -145,13 +145,9 @@ Built-in Query Nodes
 Plugin Query Nodes
 ^^^^^^^^^^^^^^^^^^
 
-OpenTSDB source includes some plugins that can be loaded by the system administrator. These plugins are:
+TODO - Link to docs about plugins with query ndoes.
 
-.. toctree:
-   :maxdepth: 1
-   
-   plugins/olympicscoring
-   
+
 Filters
 -------
 

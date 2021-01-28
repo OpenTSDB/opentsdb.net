@@ -1,14 +1,9 @@
 EGADS: Olympic Scoring
 ======================
 .. index:: olympicscoring
-The rate node is a bit complex with a number of flags and the following main features:
+`EGADs <https://github.com/yahoo/egads>` is an open source time series analysis module for Java for forecasting future time series behavior. A useful model in the library is the Olympic Scoring algorithm that takes the average of multiple periods spaced in time to compute an expected value. For example, it will align the timestamps for the past 5 Mondays, optionally remove outlier values (the smallest or largest) then average the results to predict will be observed next Monday. 
 
-* Turning a monotonically increasing counter into a rate (e.g. TSDB 1x and 2x metrics that mostly reported counters at a given timestamp)
-* Converting a stored rate back into a "count" over time.
-* Compute the first derivative.
-* Compute just the delta of values, ignoring time. (NOTE: We may push this into a separate node before a prod release).
-
-Depending on the configuration of the node, the location in the execution graph should change. 
+It is a simple algorithm but works fairly well at handling "seasonal" trends for human behavior.
 
 Fields for the rate config include:
 

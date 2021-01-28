@@ -73,7 +73,8 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Users Guide</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Semantic Query (Version 3)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#writing-data">Writing Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
@@ -162,7 +163,7 @@
 <p>OpenTSDB 3 has a new query syntax that finally allows for manipulating the time series data with various transforms, operators, etc. The new syntax is designed to allow the querant to provide a query <em>graph</em> that links one or more time series data sources with transformation nodes that are finally serialized.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The query syntax is verbose and ugly. It is intended as a <em>semantic</em> design, conveying the intent of the queryant, ontop of which we can overaly easier query languages like SQL, PromQL, possibly Flux and others. It does not support branches or loops at this time so it is not a Turing complete DSL but should support the vast majority of operations required for time series analysis.</p>
+<p>The query syntax is verbose and ugly. It is intended as a <em>semantic</em> design, conveying the intent of the queryant, ontop of which we can overaly easier query languages like SQL, PromQL (incubating in the PromQL plugin), possibly Flux and others. It does not support branches or loops at this time so it is not a Turing complete DSL but should support the vast majority of operations required for time series analysis.</p>
 </div>
 <p>These documents will include query examples in JSON as the most common use case will be querying an OpenTSDB instance via the HTTP interface. YAML may also be used over HTTP. For those importing the OpenTSDB JAR files, a <code class="docutils literal notranslate"><span class="pre">SemanticQuery.newBuilder()</span></code> method can be called to start constructing a query. We’ll have documentation on making calls from Java later on.</p>
 <div class="section" id="overview">
@@ -381,7 +382,7 @@
 </div>
 <div class="section" id="plugin-query-nodes">
 <h3>Plugin Query Nodes</h3>
-<p>OpenTSDB source includes some plugins that can be loaded by the system administrator. These plugins are:</p>
+<p>TODO - Link to docs about plugins with query ndoes.</p>
 </div>
 </div>
 <div class="section" id="filters">

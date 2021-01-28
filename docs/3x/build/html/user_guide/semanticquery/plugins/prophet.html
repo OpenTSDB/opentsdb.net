@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EGADS: Olympic Scoring &#8212; OpenTSDB 3.0 documentation</title>
+    <title>Facebook Prophet &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -14,8 +14,8 @@
     <script src="../../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Facebook Prophet" href="prophet.html" />
-    <link rel="prev" title="TopN" href="../topn.html" />
+    <link rel="next" title="/api/query" href="../../../api_http/query/index.html" />
+    <link rel="prev" title="EGADS: Olympic Scoring" href="olympicscoring.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -106,11 +106,11 @@
               
                 
   <li>
-    <a href="../topn.html" title="Previous Chapter: TopN"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; TopN</span>
+    <a href="olympicscoring.html" title="Previous Chapter: EGADS: Olympic Scoring"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; EGADS: Olympi...</span>
     </a>
   </li>
   <li>
-    <a href="prophet.html" title="Next Chapter: Facebook Prophet"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Facebook Prophet &raquo;</span>
+    <a href="../../../api_http/query/index.html" title="Next Chapter: /api/query"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">/api/query &raquo;</span>
     </a>
   </li>
               
@@ -140,7 +140,7 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">EGADS: Olympic Scoring</a><ul>
+<li><a class="reference internal" href="#">Facebook Prophet</a><ul>
 <li><a class="reference internal" href="#counter-to-rate">Counter To Rate</a></li>
 <li><a class="reference internal" href="#rate-to-count">Rate to Count</a></li>
 <li><a class="reference internal" href="#first-derivative-or-rate">First Derivative or Rate</a></li>
@@ -153,10 +153,16 @@
       </div>
     <div class="body col-md-9 content" role="main">
       
-  <div class="section" id="egads-olympic-scoring">
-<h1>EGADS: Olympic Scoring</h1>
-<p><cite>EGADs &lt;https://github.com/yahoo/egads&gt;</cite> is an open source time series analysis module for Java for forecasting future time series behavior. A useful model in the library is the Olympic Scoring algorithm that takes the average of multiple periods spaced in time to compute an expected value. For example, it will align the timestamps for the past 5 Mondays, optionally remove outlier values (the smallest or largest) then average the results to predict will be observed next Monday.</p>
-<p>It is a simple algorithm but works fairly well at handling “seasonal” trends for human behavior.</p>
+  <div class="section" id="facebook-prophet">
+<h1>Facebook Prophet</h1>
+<p>The rate node is a bit complex with a number of flags and the following main features:</p>
+<ul class="simple">
+<li><p>Turning a monotonically increasing counter into a rate (e.g. TSDB 1x and 2x metrics that mostly reported counters at a given timestamp)</p></li>
+<li><p>Converting a stored rate back into a “count” over time.</p></li>
+<li><p>Compute the first derivative.</p></li>
+<li><p>Compute just the delta of values, ignoring time. (NOTE: We may push this into a separate node before a prod release).</p></li>
+</ul>
+<p>Depending on the configuration of the node, the location in the execution graph should change.</p>
 <p>Fields for the rate config include:</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>

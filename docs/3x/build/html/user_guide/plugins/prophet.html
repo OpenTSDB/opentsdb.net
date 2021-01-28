@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook Prophet &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Administrators Guide" href="../../admin_guide/index.html" />
+    <link rel="prev" title="EGADS: Olympic Scoring" href="olympicscoring.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#writing-data">Writing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../admin_guide/logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="olympicscoring.html" title="Previous Chapter: EGADS: Olympic Scoring"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; EGADS: Olympi...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../../admin_guide/index.html" title="Next Chapter: Administrators Guide"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Administrators Guide &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Facebook Prophet</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="facebook-prophet">
+<h1>Facebook Prophet</h1>
+<p>Prophet is a time series forecasting tool open sourced by Facebook that aims to account for various seasonality of behavior as well as auto detecting change points and anticipating different behavior during holidays. Details can be found on the <a class="reference external" href="https://facebook.github.io/prophet/">Prophet</a> page.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is still a work in progress. Currently the plugin shells out to a Python script that runs the Prophet python module. It’s less than efficient but it’s enough to get started building a UI.</p>
+</div>
+<p>Fields specific to the prophet config include:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>numberofChangePoints</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>The number of anticpated change points spread evenly across the historical data. Must be smaller than the number of points fed into the training algo.</p></td>
+<td><p>25</p></td>
+<td><p>1440</p></td>
+</tr>
+<tr class="row-odd"><td><p>growth</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>One of <code class="docutils literal notranslate"><span class="pre">LINEAR</span></code>, <code class="docutils literal notranslate"><span class="pre">LOGISTIC</span></code>, <code class="docutils literal notranslate"><span class="pre">FLAT</span></code>. The anticipated change in values over time, e.g. growing linearly or logarithmically.</p></td>
+<td><p>LINEAR</p></td>
+<td><p>LOGISTIC</p></td>
+</tr>
+<tr class="row-even"><td><p>changePointRange</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>Proportion of history in which trend changepoints will be estimated. Defaults to 0.8 for the first 80%. Not used if <code class="docutils literal notranslate"><span class="pre">changepoints</span></code> (not implemented yet) is specified.</p></td>
+<td><p>0.80</p></td>
+<td><p>0.50</p></td>
+</tr>
+<tr class="row-odd"><td><p>yearlySeasonality</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to look for yearly seasonality. If null, defaults to auto detection.</p></td>
+<td><p>null</p></td>
+<td><p>true</p></td>
+</tr>
+<tr class="row-even"><td><p>weeklySeasonality</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to look for weekly seasonality. If null, defaults to auto detection.</p></td>
+<td><p>null</p></td>
+<td><p>true</p></td>
+</tr>
+<tr class="row-odd"><td><p>dailySeasonality</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not to look for daily seasonality. If null, defaults to auto detection.</p></td>
+<td><p>null</p></td>
+<td><p>true</p></td>
+</tr>
+<tr class="row-even"><td><p>seasonalityMode</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>One of <code class="docutils literal notranslate"><span class="pre">ADDITIVE</span></code> or <code class="docutils literal notranslate"><span class="pre">MULTIPLICATIVE</span></code>. TODO not sure what it is.</p></td>
+<td><p>ADDITIVE</p></td>
+<td><p>MULTIPLICATIVE</p></td>
+</tr>
+<tr class="row-odd"><td><p>seasonalityPriorScale</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>Parameter modulating the strength of the seasonality model. Larger values allow the model to fit larger seasonal fluctuations, smaller values dampen the seasonality. Can be specified for individual seasonalities using add_seasonality.</p></td>
+<td><p>10</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-even"><td><p>holidayPriorScale</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>Parameter modulating the strength of the holiday components model, unless overridden in the holidays input.</p></td>
+<td><p>10</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-odd"><td><p>changepointPriorScale</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>Parameter modulating the flexibility of the automatic changepoint selection. Large values will allow many changepoints, small values will allow few changepoints.</p></td>
+<td><p>0.05</p></td>
+<td><p>0.10</p></td>
+</tr>
+<tr class="row-even"><td><p>mcmcSamples</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>If greater than 0, will do full Bayesian inference with the specified number of MCMC samples. If 0, will do MAP estimation</p></td>
+<td><p>0</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>uncertaintyIntervalWidth</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>Width of the uncertainty intervals provided for the forecast. If <code class="docutils literal notranslate"><span class="pre">mcmcSamples</span></code> = 0, this will be only the uncertainty in the trend using the MAP estimate of the extrapolated generative model. If <code class="docutils literal notranslate"><span class="pre">mcmcSamples</span></code> &gt; 0, this will be integrated over all model parameters, which will include uncertainty in seasonality.</p></td>
+<td><p>0.8</p></td>
+<td><p>0.5</p></td>
+</tr>
+<tr class="row-even"><td><p>uncertaintySamples</p></td>
+<td><p>Numeric</p></td>
+<td><p>Optional</p></td>
+<td><p>Number of simulated draws used to estimate uncertainty intervals. Settings this value to 0 or False will disable uncertainty estimation and speed up the calculation.</p></td>
+<td><p>1000</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

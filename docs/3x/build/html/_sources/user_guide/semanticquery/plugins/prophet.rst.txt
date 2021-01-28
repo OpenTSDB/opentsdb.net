@@ -1,6 +1,6 @@
-EGADS: Olympic Scoring
-======================
-.. index:: olympicscoring
+Facebook Prophet
+================
+.. index:: prophet
 The rate node is a bit complex with a number of flags and the following main features:
 
 * Turning a monotonically increasing counter into a rate (e.g. TSDB 1x and 2x metrics that mostly reported counters at a given timestamp)

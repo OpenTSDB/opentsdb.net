@@ -73,7 +73,8 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Users Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="semanticquery/index.html">Semantic Query (Version 3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-data">Writing Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../admin_guide/index.html">Administrators Guide</a><ul>
@@ -139,7 +140,14 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Users Guide</a></li>
+<li><a class="reference internal" href="#">Users Guide</a><ul>
+<li><a class="reference internal" href="#querying-data">Querying Data</a><ul>
+<li><a class="reference internal" href="#anomaly-detection">Anomaly Detection</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-data">Writing Data</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -148,11 +156,39 @@
       
   <div class="section" id="users-guide">
 <h1>Users Guide</h1>
-<p>These pages serve as a guide for using OpenTSDB installation, i.e. querying and writing data.</p>
+<p>These pages serve as a guide for using OpenTSDB, i.e. querying and writing data. More to come.</p>
+<div class="section" id="querying-data">
+<h2>Querying Data</h2>
+<p>TSDB V3 provides backwards compatibility with the V2 HTTP query APIs via query parameters or JSON payloads. It also introduces new querying means including a pedantic semantic query via JSON and plugins for other languages such as PromQL.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="semanticquery/index.html">Semantic Query (Version 3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_http/query/index.html">/api/query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_http/query/exp.html">/api/query/exp</a></li>
 </ul>
+</div>
+<div class="section" id="anomaly-detection">
+<h3>Anomaly Detection</h3>
+<p>V3 also supports time series forecasting/predictions with optional anomaly detection. Optional plugins are provided to use different models or algorithms for computing the forecasts.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="anomaly.html">Anomaly Detection</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="writing-data">
+<h2>Writing Data</h2>
+<p>V3 also supports previous write protocols over HTTP.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The write path hasn’t been tested a great deal yet and some features are missing. TODOs include:</p>
+<ul class="simple">
+<li><p>Telnet writes</p></li>
+<li><p>Rollup writes via HTTP</p></li>
+<li><p>Validation of the data and proper UTs</p></li>
+</ul>
+</div>
 </div>
 </div>
 

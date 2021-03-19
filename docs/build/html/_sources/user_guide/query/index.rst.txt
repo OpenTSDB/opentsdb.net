@@ -33,8 +33,8 @@ OpenTSDB provides a number of tools and endpoints allowing for various query spe
    "Filter", "String", "Optional", "Filters on tag values to reduce the number of time series picked up in a query or group and aggregate on various tags.", "host=*,dc=lax"
    "Downsampler", "String", "Optional", "An optional interval and function to reduce the number of data points returned across time", "1h-avg"
    "Rate", "String", "Optional", "An optional flag to calculate the rate of change, per second, for the result", "rate"
-   "Functions", "String", "Optional", "Data manipulation functions such as additional filtering, time shifting, etc.", "highestMax(...)"
-   "Expressions", "String", "Optional", "Data manipulation functions across time series such as dividing one series by another.", "(m2 / (m1 + m2)) * 100"
+   "Functions", "String", "Optional", "Data manipulation functions such as additional filtering, time shifting, etc. (Only on the gexp endpoint :doc:`../../api_http/query/gexp`)", "highestMax(...)"
+   "Expressions", "String", "Optional", "Data manipulation functions across time series such as dividing one series by another. (Only on the exp endpoint :doc:`../../api_http/query/exp`)", "(m2 / (m1 + m2)) * 100"
 
 Times
 ^^^^^

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TSDB Configuration &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Plugin Loading Configuration" href="plugin.html" />
+    <link rel="prev" title="Administrators Guide" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#quickstart">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#write-data">Write Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/index.html#writing-data">Writing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Administrators Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../index.html" title="Previous Chapter: Administrators Guide"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Administrators Guide</span>
+    </a>
+  </li>
+  <li>
+    <a href="plugin.html" title="Next Chapter: Plugin Loading Configuration"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Plugin Loadin... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">TSDB Configuration</a><ul>
+<li><a class="reference internal" href="#index">Index</a></li>
+<li><a class="reference internal" href="#overview">Overview</a><ul>
+<li><a class="reference internal" href="#default-providers">Default Providers</a></li>
+<li><a class="reference internal" href="#plugin-location">Plugin Location</a></li>
+<li><a class="reference internal" href="#bootstrapping">Bootstrapping</a></li>
+<li><a class="reference internal" href="#reloading">Reloading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="tsdb-configuration">
+<h1>TSDB Configuration</h1>
+<p>As of 3.0 OpenTSDB has a much more flexible configuration system with features like:</p>
+<ul class="simple">
+<li><p>Dynamic updates of configuration parameters to avoid JVM restarts (depends on the specific config)</p></li>
+<li><p>Secure key/value support like AWS Secrets</p></li>
+<li><p>Combining multiple configuration sources</p></li>
+<li><p>Configs via HTTP to for containerized deployments</p></li>
+<li><p>YAML or JSON support for object configurations</p></li>
+<li><p>Plugins</p></li>
+</ul>
+<p>Because there are so many new configs we’ve broken them up into sections below. For details on how the config system works, jump to the overview. Start with the :doc:plugin documentation as all TSDs require this section to be present.</p>
+<div class="section" id="index">
+<h2>Index</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="plugin.html">Plugin Loading Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hbase.html">HBase Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rollup.html">Rollup Configuration</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="overview">
+<h2>Overview</h2>
+<p>OpenTSDB is now configured via one or more sources that are flattened into a single application wide configuration consisting of keys and values. Multiple sources can be provided with the same keys but different values and later values will override the earlier values. As an example, a common config may be available over HTTP with many settings but a local config may override some of those settings for a specific environment.</p>
+<p>Available built-in providers include:</p>
+<ul class="simple">
+<li><p><strong>Environment</strong> - Environment variables can be set with keys and values, useful in a containerized environment.</p></li>
+<li><p><strong>System Properties</strong> - JVM properties can be parsed such as those given over the command line in the <cite>-Dmy.key=my.value</cite> format.</p></li>
+<li><p><strong>Command Line</strong> - Traditional command line arguments like <cite>–my.key=my.value</cite></p></li>
+<li><p><strong>YAML/JSON File</strong> - Either a local file or available over HTTP(S). Suffixes supported include <cite>.yaml, .yml, .json, .jsn</cite>.</p></li>
+<li><p><strong>Java Properties File</strong> - Either a local file or available over HTTP(S). Suffixes supported include <cite>.conf, .config, .txt, .properties</cite>.</p></li>
+<li><p><strong>Secrets Support</strong> - A plugin to load encrypted values from a secure location like Amazon’s AWS Secrets, a local key vault or other secure locations. Useful for credential storage.</p></li>
+</ul>
+<p>The <cite>config.providers</cite> key is used to set the providers and order that they’re loaded in. Providers are separated by commas and the last configuration in the list is loaded first, with earlier configs over-ridding the later configs (<strong>NOTE:</strong> If this is a pain we can reverse it before release, let us know what ya’ll think). And example config may look like this:</p>
+<p><cite>–config.providers=secrets://net.opentsdb.configuration.providers.AWSSecretsProvider:AWS,https://tsdbconfig.mysite.com/stage/elasticsearch.yaml,https://tsdbconfig.mysite.com/stage/tsdr.yaml,https://tsdbconfig.mysite.com/stage/hbase.yaml,https://tsdbconfig.mysite.com/stage/common.yaml</cite></p>
+<p>With secrets, files and remote files, the configuration format uses protocols like <cite>https://</cite>, <cite>file://</cite> or <cite>secrets://</cite>. These protocols determine which plugin or built-in module parses the config. For remote and files, the suffix will also determine the parser.</p>
+<p>Because multiple configurations are flattened into a single structure, key values in earlier providers will be overwritten by those in later providers. For example, lets assume the following providers config: <cite>–config.providers=https://tsdbconfig.mysite.com/stage/tsdr.yaml,https://tsdbconfig.mysite.com/stage/common.yaml</cite>.</p>
+<p>Lets say <cite>https://tsdbconfig.mysite.com/stage/common.yaml</cite> contains:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tsd.stats.environment</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">development</span>
+</pre></div>
+</div>
+<p>and <cite>https://tsdbconfig.mysite.com/stage/tsdr.yaml</cite> defines</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tsd.stats.environment</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">stage</span>
+</pre></div>
+</div>
+<p>since we’re in stage. The final value read by TSDB for <cite>tsd.stats.environment</cite> will be <cite>stage</cite>.</p>
+<div class="section" id="default-providers">
+<h3>Default Providers</h3>
+<p>The default provider set is <cite>PropertiesFile,Environment,SystemProperties,CommandLine,RuntimeOverride</cite> where the properties file will automatically search for Java property formatted files in the following locations:</p>
+<ul class="simple">
+<li><p>/etc/opentsdb.conf</p></li>
+<li><p>/etc/opentsdb/opentsdb.conf</p></li>
+<li><p>/opt/opentsdb/opentsdb.conf</p></li>
+</ul>
+<p>This is useful when migrating from an OpenTSDB 2.0 config file.</p>
+</div>
+<div class="section" id="plugin-location">
+<h3>Plugin Location</h3>
+<p>When secrets need to be loaded (and particularly when they need to be used during bootstraping) a path to a plugin directory can be provided via the <cite>config.plugin.path</cite> key. For example <cite>–config.plugin.path=/usr/share/opentsdb/plugins</cite> can be given on the command line.</p>
+</div>
+<div class="section" id="bootstrapping">
+<h3>Bootstrapping</h3>
+<p>On TSD startup, the configuration class will look for <cite>config.providers</cite> and <cite>config.plugin.path</cite> in the following locations and take the first value found:</p>
+<ul class="simple">
+<li><p>Environment variable</p></li>
+<li><p>System properties</p></li>
+<li><p>Command line</p></li>
+</ul>
+</div>
+<div class="section" id="reloading">
+<h3>Reloading</h3>
+<p>All file based or remote configurations will be reloaded, by default, every 5 minutes. To change the interval, set <cite>config.reload.interval</cite> to an integer in seconds. This feature allows for common tunnable parameters to be changed during runtime without having to restart the TSD.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

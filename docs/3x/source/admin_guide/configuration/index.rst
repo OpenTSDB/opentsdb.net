@@ -7,8 +7,21 @@ As of 3.0 OpenTSDB has a much more flexible configuration system with features l
 * Secure key/value support like AWS Secrets
 * Combining multiple configuration sources
 * Configs via HTTP to for containerized deployments
-* YAML or JSON support for objec configurations
+* YAML or JSON support for object configurations
 * Plugins
+
+Because there are so many new configs we've broken them up into sections below. For details on how the config system works, jump to the overview. Start with the :doc:plugin documentation as all TSDs require this section to be present.
+
+Index
+-----
+.. toctree::
+   :maxdepth: 1
+   
+   plugin
+   httpserver
+   hbase
+   rollup
+   
 
 Overview
 --------
@@ -75,37 +88,3 @@ Reloading
 ^^^^^^^^^
 
 All file based or remote configurations will be reloaded, by default, every 5 minutes. To change the interval, set `config.reload.interval` to an integer in seconds. This feature allows for common tunnable parameters to be changed during runtime without having to restart the TSD. 
-
-Plugin and Module Configuration
--------------------------------
-
-OpenTSDB is a flexible time series solution wherein a JVM can be configured as a query router or a data store. Therefore the most important configuration is the module config or `tsd.plugin.config`.
-
-Many modules or plugins are loaded automatically, e.g. aggregators, query nodes like the downsampler or group by. But some modules, like data sources or authentication methods, must be configured by the administrator or they won't load. There are four sections to the `tsd.plugin.config`:
-
-* **configs** - This is a list of one or more plugin configuration definitions that will be loaded in the order they are defined. See the configs section below for details.
-* **pluginLocations** - An optional list of directories in which to search for plugins (compiled as `.jar` files).
-* **continueOnError** - Whether or not to allow the TSD to startup when an error is encountered trying to load a plugin.
-* **loadDefaultInstances** - Whether or not to load default module instances.
-
-configs
-^^^^^^^
-
-Each module config entry is a map of keys and values with the following keys available:
-
-.. csv-table::foo
-   :header: "Name", "Data Type", "Required", "Description", "Default", "Example"
-   :widths: 10, 5, 5, 45, 10, 25
-   
-   "plugin", "String", "Required", "The fully qualified class name of the plugin or module.", "", "net.opentsdb.query.execution.HttpQueryV3Factory"
-   "type", "String", "Required", "The fully qualified class name of the type (interface) of plugin or module to be loaded.", "", "net.opentsdb.data.TimeSeriesDataSourceFactory"
-   "id", "String", "Optional", "A unique ID, amongst all modules, for the instance of the plugin or module to be instantiated. Must contain only alpha-numeric characters. Only one module can be instantiated with any given ID.", "", "PHXDataCenter"
-   "isDefault", "Boolean", "Optional", "Whether or not this instance should be the default instance of it's type. Only one default plugin for each `type` can be instantiated.", "false", "true"
-
-.. Note::
-
-  Each config must include either a non-empty `id` or `isDefault` must be set to true. 
-
-Each module or plugin may have various configurations that are required for it to load properly. These configs can appear in any config source and in any order. The configuration is loaded and flattened prior to module initialization.
-
-If a module has a dependency on another module, make sure the required module is listed *before* the dependent module in the configuration list.

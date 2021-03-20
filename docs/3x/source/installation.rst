@@ -13,30 +13,34 @@ To actually run OpenTSDB, you'll need to meet the following:
 * A data store such as:
     * HBase 0.92 or later
     * Google Bigtable
-    * The dummy in-memory built-in store
+    * The test in-memory built-in store
 
 Installation
 ^^^^^^^^^^^^
 
-3.0 has a built-in super simple and inefficient in-memory data store that you can read and write from. If the ``MockBase`` plugin is loaded, you can query some data as soon as you start the process and write using the ``/api/put`` HTTP API.
+3.0 has a built-in simple and inefficient in-memory data store that you can read and write from for short term testing only. If the ``MockBase`` plugin is loaded, you can query some data as soon as you start the process and write using the ``/api/put`` HTTP API.
 
-If you have data in HBase (TODO, Bigtable support is kinda working but it's slow right now) then you can query it without problem. If you want to test with HBase, follow the 2.x documentation to install HBase and configure the tables.
+If you have data in HBase (TODO, Bigtable support is kinda working but it's slow right now) then you can query it without problem. If you want to test with HBase, follow the 2.x documentation to install HBase or Bigtable and configure the tables.
+
+At this time we don't have any tarballs or binaries to install. The only pre-built and ready-to-run solution is Docker. 
 
 Compile
-^^^^^^^
+-------
 
 From the root directory, run ``mvn package`` (append `-Dmaven.test.skip=true` if you don't want to run tests) and look in the ``distribution/target/`` directory. There will be a tarball you can move around and uncompress, e.g. to some place like ``/opt/opentsdb/`` or ``/usr/share/opentsdb``. That directory will contain sub directories including `bin` where the exec script is located, ``conf`` where configurations lie and `lib` where the JARs are located. 
 
 Docker
-^^^^^^
+------
 
-To build the Docker image, from the root directory run ``mvn package -Pdocker`` and it should build and install an image in your local docker repo (assuming Docker is installed). NOTE: We could use some help on properly building docker and getting instructions together on how to upload the image somewhere).
+To build the Docker image, from the root directory run ``mvn package -Pdocker`` and it should build and install an image in your local docker repo (assuming Docker is installed). NOTE: We could use some help on properly building docker and getting instructions together on how to upload the image somewhere). Containers are hosted on Docker Hub under the `opentsdb/opentsdb`.
 
 Quickstart
-----------
+^^^^^^^^^^
+
+These instructions will launch a TSD with only the built-in plugins and the in-memory testing data store.
 
 Local
-^^^^^
+-----
 
 * Create a logging directory named `/var/log/opentsdb`. If you're on a Mac, run `sudo mkdir /var/log/opentsdb` then run `sudo chown <your username> /var/log/opentsdb`. If you can't create that directory due to permissions, modify the `conf/logback.xml` file to write to a different directory.
 * Change to `cd distribution/target/opentsdb-3.0.90-SNAPSHOT/opentsdb/` or the properly versioned directory.
@@ -44,7 +48,7 @@ Local
 * Make sure the TSD is running by loading `http://localhost:4242/api/registry/plugins` in your browser or via a CLI tool.
 
 Docker
-^^^^^^
+------
 
 * To start the docker image, run ``docker run --name opentsdb -d -p 4242:4242 opentsdb``. 
 * Make sure the TSD is running by loading `http://localhost:4242/api/registry/plugins` in your browser or via a CLI tool.
@@ -190,7 +194,7 @@ For a V2 query, use the endpoint `http://localhost:4242/api/query/` and post:
 You should see some time series in the output and this will confirm that the TSD is up and running.
 
 Write Data
-----------
+^^^^^^^^^^
 
 Now that you can query data, try writing something. Currently we only have the HTTP JSON API available. As an example, **POST** the following JSON to `http://localhost:4242/api/put/`:
 

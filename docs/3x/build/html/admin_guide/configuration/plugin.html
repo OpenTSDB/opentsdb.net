@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plugin Loading Configuration &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="HBase Configuration" href="hbase.html" />
+    <link rel="prev" title="TSDB Configuration" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#quickstart">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#write-data">Write Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/index.html#writing-data">Writing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Administrators Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: TSDB Configuration"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; TSDB Configuration</span>
+    </a>
+  </li>
+  <li>
+    <a href="hbase.html" title="Next Chapter: HBase Configuration"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">HBase Configuration &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Plugin Loading Configuration</a><ul>
+<li><a class="reference internal" href="#configurations">Configurations</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="plugin-loading-configuration">
+<h1>Plugin Loading Configuration</h1>
+<p>OpenTSDB is a flexible time series solution wherein a JVM can be configured as a query router or a data store. Therefore the most important configuration is the module config or <cite>tsd.plugin.config</cite>.</p>
+<p>Many modules or plugins are loaded automatically, e.g. aggregators, query nodes like the downsampler or group by. But some modules, like data sources or authentication methods, must be configured by the administrator or they won’t load. There are four sections to the <cite>tsd.plugin.config</cite>:</p>
+<ul class="simple">
+<li><p><strong>configs</strong> - This is a list of one or more plugin configuration definitions that will be loaded in the order they are defined. See the configs section below for details.</p></li>
+<li><p><strong>pluginLocations</strong> - An optional list of directories in which to search for plugins (compiled as <cite>.jar</cite> files).</p></li>
+<li><p><strong>continueOnError</strong> - Whether or not to allow the TSD to startup when an error is encountered trying to load a plugin.</p></li>
+<li><p><strong>loadDefaultInstances</strong> - Whether or not to load default module instances.</p></li>
+</ul>
+<div class="section" id="configurations">
+<h2>Configurations</h2>
+<p>Each module config entry is a map of keys and values with the following keys available:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>plugin</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The fully qualified class name of the plugin or module.</p></td>
+<td></td>
+<td><p>net.opentsdb.query.execution.HttpQueryV3Factory</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The fully qualified class name of the type (interface) of plugin or module to be loaded.</p></td>
+<td></td>
+<td><p>net.opentsdb.data.TimeSeriesDataSourceFactory</p></td>
+</tr>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>A unique ID, amongst all modules, for the instance of the plugin or module to be instantiated. Must contain only alpha-numeric characters. Only one module can be instantiated with any given ID.</p></td>
+<td></td>
+<td><p>PHXDataCenter</p></td>
+</tr>
+<tr class="row-odd"><td><p>isDefault</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not this instance should be the default instance of it’s type. Only one default plugin for each <cite>type</cite> can be instantiated.</p></td>
+<td><p>false</p></td>
+<td><p>true</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each config must include either a non-empty <cite>id</cite> or <cite>isDefault</cite> must be set to true.</p>
+</div>
+<p>Each module or plugin may have various configurations that are required for it to load properly. These configs can appear in any config source and in any order. The configuration is loaded and flattened prior to module initialization.</p>
+<p>If a module has a dependency on another module, make sure the required module is listed <em>before</em> the dependent module in the configuration list.</p>
+</div>
+<div class="section" id="example">
+<h2>Example</h2>
+<p>In this example we will define two HTTP query factories that communicate with TSDs in two different data centers with unique IDs. We will also declare an HA cluster factory that will route queries to both data centers and merge the responses. This will be the default time series data source.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tsd.plugin.config</span><span class="p">:</span>
+  <span class="nt">configs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">plugin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">net.opentsdb.query.execution.HttpQueryV3Factory</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DEN</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">net.opentsdb.data.TimeSeriesDataSourceFactory</span>
+
+    <span class="p p-Indicator">-</span> <span class="nt">plugin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">net.opentsdb.query.execution.HttpQueryV3Factory</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LON</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">net.opentsdb.data.TimeSeriesDataSourceFactory</span>
+
+    <span class="p p-Indicator">-</span> <span class="nt">plugin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">net.opentsdb.query.hacluster.HAClusterFactory</span>
+      <span class="nt">isDefault</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">net.opentsdb.data.TimeSeriesDataSourceFactory</span>
+
+  <span class="nt">pluginLocations</span><span class="p">:</span>
+  <span class="nt">continueOnError</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">loadDefaultInstances</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># ------- HA --------</span>
+<span class="nt">tsd.query.hacluster.sources</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DEN,LON</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

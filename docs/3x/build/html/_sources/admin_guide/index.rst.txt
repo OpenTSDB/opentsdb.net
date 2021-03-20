@@ -6,6 +6,6 @@ These pages serve as a guide for administrating an OpenTSDB installation. Becaus
 .. toctree::
    :maxdepth: 1
    
-   configuration
+   configuration/index
    logging
    

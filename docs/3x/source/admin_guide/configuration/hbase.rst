@@ -2,7 +2,7 @@ HBase Configuration
 ===================
 .. index:: hbaseconfiguration
 
-HBase configurations for the ``net.opentsdb.storage.Tsdb1xHBaseFactory`` have the prefix ``tsd.storage.`` to be somewhat compatible with previous TSD configs. For plugins with an ID, the ID follows the prefix and comes before the suffix. E.g. if our plugin had an ID of ``DEN`` then the ZK quorum would be ``tsd.storage.DEN.zookeeper.quorum: zk1:281``. Configurations in the table do **not** have the prefixes, so make sure you use ``tsd.storage.`` before any config name.
+HBase configurations for the ``net.opentsdb.storage.Tsdb1xHBaseFactory`` have the prefix ``tsd.storage.`` to be somewhat compatible with previous TSD configs. For plugins with an ID, the ID follows the prefix and comes before the suffix. E.g. if our plugin had an ID of ``DEN`` then the ZK quorum would be ``tsd.storage.DEN.zookeeper.quorum: zk1:281``. Configurations in the table do **not** have the prefixes (unless noted with an asterisk *), so make sure you use ``tsd.storage.`` before any config name.
 
 The most important settings are:
 * ``zookeeper.quorum`` - The set of Zookeeper hosts configured for HBase.
@@ -34,3 +34,4 @@ Configurations
    "uid.cache.type.tagk", "String", "Optional", "Type of cache used for metric UIDs.", "", "LRUUniqueId"
    "rollups.enable", "Boolean", "Optional", "Whether or not rollups are enabled for reading and/or writing. Note that ``rollups.config`` must also be supplied.", "false", "true"
    "rollups.config", "Object", "Optional", "A rollup config. See :doc:`rollup`", "", ":doc:`rollup`"
+   "tsd.query.enable_fuzzy_filter*", "Boolean", "Optional", "Whether or not to enable the fuzzy filter for HBase queries.", "false", "true"

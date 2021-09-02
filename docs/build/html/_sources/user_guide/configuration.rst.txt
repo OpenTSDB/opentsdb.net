@@ -128,6 +128,8 @@ documentation for details.
    "tsd.rollups.tag_raw *(2.4)*", "Boolean", "Optional", "Whether or not to tag non-rolled-up and non-pre-aggregated values with the tag key configured in ``tsd.rollups.agg_tag_key`` and value configured in ``tsd.rollups.raw_agg_tag_value``", "false", ""
    "tsd.rollups.agg_tag_key *(2.4)*", "String", "Optional", "A special key to tag pre-aggregated data with when writing to storage", "_aggregate", ""
    "tsd.rollups.raw_agg_tag_value *(2.4)*", "String", "Optional", "A special tag value to non-rolled-up and non-pre-aggregated data with when writing to storage. ``tsd.rollups.tag_raw`` must be set to true.", "RAW", ""
+   "tsd.rollups.split_query.enable *(2.4.1)*", "Boolean", "Optional", "Whether or not queries should merge both rollup and raw data in a single query,
+   particularly when rolledup data is delayed.", "false", """
    "tsd.rollups.block_derived *(2.4)*", "Boolean", "Optional", "Whether or not to block storing derived aggregations such as ``AVG`` and ``DEV``.", "true", ""
    "tsd.rpc.plugins", "String", "Optional", "A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.", "", ""
    "tsd.rpc.telnet.return_errors *(2.4)*", "Boolean", "Optional", "Whether or not to return errors to the Telnet style socket when writing data via ``put`` or ``rollup``", "true", ""

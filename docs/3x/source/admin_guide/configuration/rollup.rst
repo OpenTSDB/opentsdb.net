@@ -3,6 +3,11 @@ Rollup Configuration
 
 A rollup configuration is a complex object best defined in YAML. It is usually passed to a storage node in the ``rollups.config`` suffix.
 
+.. NOTE::
+
+  Remember that the `tsd.storage.rollups.enable` configuration must be 
+set to true
+
 .. WARNING::
 
   Do not change the aggregation ID mappings or table values after writing data or it will become unreadable.

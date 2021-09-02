@@ -18,9 +18,11 @@ Index
    :maxdepth: 1
    
    plugin
+   query
    httpserver
    hbase
    rollup
+   2xto3x
    
 
 Overview

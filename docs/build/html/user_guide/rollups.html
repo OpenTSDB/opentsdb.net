@@ -575,6 +575,61 @@
 <li><p><strong>Rollup Interval</strong> - Any interval with <code class="docutils literal notranslate"><span class="pre">&quot;defaultInterval&quot;:false</span></code> or the default interval not set. These are rollup tables where values are snapped to interval boundaries.</p></li>
 </ul>
 <p>The following fields should be defined:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 55%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Data Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>table</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The base or rollup table for non-pre-aggregated data. For the default table, this should be <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> or the table existing raw data is written to. For rolled up data, it must be a different table than the raw data.</p></td>
+<td><p>tsdb-rollup-1h</p></td>
+</tr>
+<tr class="row-odd"><td><p>preAggregationTable</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The table where pre-aggregated and (optionally) rolled up data should be written to. This may be the same table as the <code class="docutils literal notranslate"><span class="pre">table</span></code> value.</p></td>
+<td><p>tsdb-rollup-preagg-1h</p></td>
+</tr>
+<tr class="row-even"><td><p>interval</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The expected interval between data points in the format <code class="docutils literal notranslate"><span class="pre">&lt;interval&gt;&lt;units&gt;</span></code>. E.g. if rollups are computed every hour, the interval should be <code class="docutils literal notranslate"><span class="pre">1h</span></code>. If they are computed every 10 minutes, set it to <code class="docutils literal notranslate"><span class="pre">10m</span></code>. For the default table, this value is ignored.</p></td>
+<td><p>1h</p></td>
+</tr>
+<tr class="row-odd"><td><p>rowSpan</p></td>
+<td><p>String</p></td>
+<td><p>Required</p></td>
+<td><p>The width of each row in storage. This value must be greater than the <code class="docutils literal notranslate"><span class="pre">interval</span></code> and defines the number of <code class="docutils literal notranslate"><span class="pre">interval``s</span> <span class="pre">that</span> <span class="pre">will</span> <span class="pre">fit</span> <span class="pre">in</span> <span class="pre">each</span> <span class="pre">row.</span> <span class="pre">E.g.</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">interval</span> <span class="pre">is</span> <span class="pre">``1h</span></code> and <code class="docutils literal notranslate"><span class="pre">rowSpan</span></code> is <code class="docutils literal notranslate"><span class="pre">1d</span></code> then we would have 24 values per row.</p></td>
+<td><p>1d</p></td>
+</tr>
+<tr class="row-even"><td><p>defaultInterval</p></td>
+<td><p>Boolean</p></td>
+<td><p>Optional</p></td>
+<td><p>Whether or not the configured interval is the default for raw, non-rolled up data.</p></td>
+<td><p>true</p></td>
+</tr>
+<tr class="row-odd"><td><p>delaySla</p></td>
+<td><p>String</p></td>
+<td><p>Optional</p></td>
+<td><p>An optional delay that accounts for how long it takes to generate and store the rolled up data. Must be a TSD duration</p></td>
+<td><p>2h</p></td>
+</tr>
+</tbody>
+</table>
 <p>In storage, rollups are written similar to the raw data in that each row has a base timestamp and each data point is an offset from that base time. Each offset is an increment off of the base time, not an actual offset. For example, if a row stores 1 day of 1 hour data, there would be up to 24 offsets. Offset <code class="docutils literal notranslate"><span class="pre">0</span></code> would map to midnight for the row and offset 5 would map to 6 AM. Because rollup offsets are encoded on 14 bits, if too many intervals would be stored in a row to fit within 14 bits, an error will be thrown when the TSD is started.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

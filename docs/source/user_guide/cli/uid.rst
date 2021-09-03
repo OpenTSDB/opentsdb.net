@@ -20,7 +20,7 @@ Parameters specific to the UID utility include:
    
    "--idwidth", "Integer", "Number of bytes on which the UniqueId is encoded. This allows for an override of the built in UID width.", "3", "--idwidth=4"
    "--ignore-case", "Flag", "Ignore case distinctions when matching on a regular expression using the ``grep`` sub command", "", "--ignore-case"
-   "--verbose", "Flag", "Print logging messages at level DEBUG and higher. The default is for ERROR and higher to be displayed.", "", ""--verbose"
+   "--verbose", "Flag", "Print logging messages at level DEBUG and higher. The default is for ERROR and higher to be displayed.", "", "--verbose"
    "-i", "Flag", "Short hand for the ``--ignore-case`` flag", "", "-i"
    "-v", "Flag", "Short hand for the ``--verbose`` flag", "", "-v"
 
@@ -225,7 +225,7 @@ This command will run through the entire data table, scanning each row of timese
 
 It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.
 
-.. WARN:: Because the entire ``tsdb`` table is scanned, this command may take a very long time depending on how much data is in your system.
+.. WARNING:: Because the entire ``tsdb`` table is scanned, this command may take a very long time depending on how much data is in your system.
 
 Command Format
 --------------

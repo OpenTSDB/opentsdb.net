@@ -57,6 +57,7 @@ documentation for details.
 .. csv-table::
    :header: "Property", "Type", "Required", "Description", "Default", "CLI"
    :widths: 20, 5, 5, 55, 5, 10
+   :escape: \
 
    "tsd.core.auto_create_metrics", "Boolean", "Optional", "Whether or not a data point with a new metric will assign a UID to the metric. When false, a data point with a metric that is not in the database will be rejected and an exception will be thrown.", "False", "--auto-metric"
    "tsd.core.auto_create_tagks *(2.1)*", "Boolean", "Optional", "Whether or not a data point with a new tag name will assign a UID to the tagk. When false, a data point with a tag name that is not in the database will be rejected and an exception will be thrown.", "True", ""
@@ -64,12 +65,12 @@ documentation for details.
    "tsd.core.connections.limit *(2.3)*", "Integer", "Optional", "Sets the maximum number of connections a TSD will handle, additional connections are immediately closed.", "0", ""
    "tsd.core.enable_api *(2.3)*", "Boolean", "Optional", "Whether or not to allow the 2.x HTTP API to function. When disabled, calls to endpoints such as ``/api/query`` or ``/api/suggest`` will return a 404.", "True", "--disable-api"
    "tsd.core.enable_ui *(2.3)*", "Boolean", "Optional", "Whether or not to allow the built-in GUI and legacy HTTP API to function. When disabled, calls to the root endpoint or other such as ``/logs`` or ``/suggest`` will return a 404.", "True", "--disable-ui"
-   "tsd.core.histograms.config *(2.4)*", "JSON/File Path", "Optional", "A mapping of histogram codec class names to numeric identifications for storing multi-measurement data. For simple configurations, the value may be a quote-escaped JSON map, e.g. ``{\""net.opentsdb.core.SimpleHistogramDecoder\"": 0,\""net.opentsdb.core.CompactQuantilesSketchCodec\"":1}``. If the value ends with ``.json`` then it will be treated as a file path and the given file will be opened and parsed. Numeric IDs must be between 0 and 255.", "", ""
+   "tsd.core.histograms.config *(2.4)*", "JSON/File Path", "Optional", "A mapping of histogram codec class names to numeric identifications for storing multi-measurement data. For simple configurations, the value may be a quote-escaped JSON map, e.g. ``{\"net.opentsdb.core.SimpleHistogramDecoder\":0, \"net.opentsdb.core.CompactQuantilesSketchCodec\":1}``. If the value ends with ``.json`` then it will be treated as a file path and the given file will be opened and parsed. Numeric IDs must be between 0 and 255.", "", ""
    "tsd.core.meta.cache.enable *(2.3)*", "Boolean", "Optional", "Whether or not the meta data caching plugin is enabled.", "False", "True"
    "tsd.core.meta.cache.plugin *(2.3)*", "String", "Optional", "The class name of a plugin implementing the meta cache interface.", "", ""
    "tsd.core.meta.enable_realtime_ts", "Boolean", "Optional", "Whether or not to enable real-time TSMeta object creation. See :doc:`../user_guide/metadata`", "False", ""
    "tsd.core.meta.enable_realtime_uid", "Boolean", "Optional", "Whether or not to enable real-time UIDMeta object creation. See :doc:`../user_guide/metadata`", "False", ""
-   "tsd.core.meta.enable_tsuid_incrementing", "Boolean", "Optional", "Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See :doc:`../user_guide/metadata` (Overrides ""tsd.core.meta.enable_tsuid_tracking"")", "False", ""
+   "tsd.core.meta.enable_tsuid_incrementing", "Boolean", "Optional", "Whether or not to enable tracking of TSUIDs by incrementing a counter every time a data point is recorded. See :doc:`../user_guide/metadata` (Overrides ``tsd.core.meta.enable_tsuid_tracking``)", "False", ""
    "tsd.core.meta.enable_tsuid_tracking", "Boolean", "Optional", "Whether or not to enable tracking of TSUIDs by storing a ``1`` with the current timestamp every time a data point is recorded. See :doc:`../user_guide/metadata`", "False", ""
    "tsd.core.plugin_path", "String", "Optional", "A path to search for plugins when the TSD starts. If the path is invalid, the TSD will fail to start. Plugins can still be enabled if they are in the class path.", "", ""
    "tsd.core.preload_uid_cache *(2.1)*", "Boolean", "Optional", "Enables pre-population of the UID caches when starting a TSD.", "False", ""
@@ -77,16 +78,14 @@ documentation for details.
    "tsd.core.stats_with_port *(2.3)*", "Boolean", "Optional", "Whether or not to export the listening network port of the TSD as a tag with stats when calling one of the stats endpoints.", "False", "True"
    "tsd.core.storage_exception_handler.enable *(2.2)*", "Boolean", "Optional", "Whether or not to enable the configured storage exception handler plugin.", "False", ""
    "tsd.core.storage_exception_handler.plugin *(2.2)*", "String", "Optional", "The full class name of the storage exception handler plugin you wish to use.", "", ""
-   "tsd.core.tag.allow_specialchars *(2.3)*", "String", "Optional", "An optional list of ASCII characters allowed in metric names, tag names and tag keys above those already allowed by TSDB. Spaces are allowed.", "", "! ~/\"
-   "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps.
-   E.g. America/Los_Angeles", "System Configured", ""
+   "tsd.core.tag.allow_specialchars *(2.3)*", "String", "Optional", "An optional list of ASCII characters allowed in metric names, tag names and tag keys above those already allowed by TSDB. Spaces are allowed.", "", "! ~/\\"
+   "tsd.core.timezone", "String", "Optional", "A localized timezone identification string used to override the local system timezone used when converting absolute times to UTC when executing a query. This does not affect incoming data timestamps. E.g. America/Los_Angeles", "System Configured", ""
    "tsd.core.tree.enable_processing", "Boolean", "Optional", "Whether or not to enable processing new/edited TSMeta through tree rule sets", "false", ""
    "tsd.core.uid.random_metrics *(2.2)*", "Boolean", "Optional", "Whether or not to randomly assign UIDs to new metrics as they are created", "false", ""
    "tsd.core.bulk.allow_out_of_order_timestamps *(2.3.2)", "Boolean", "Optional", "Whether or not to allow out-of-order values when bulk importing data from a text file.", "false", ""
    "tsd.core.authentication.enable *(2.4)", "Boolean", "Optional", "Whether or not to enable the specified Authentication plugin", "false", ""
    "tsd.core.authentication.plugin *(2.4)", "String", "Optional", "The class name of an authentication plugin to instantiate. If ``tsd.core.authentication.enable`` is set to false, this value is ignored.", "", ""
-   "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written.
-   E.g. /tmp/opentsdb", "", "--cachedir"
+   "tsd.http.cachedir", "String", "Required", "The full path to a location where temporary files can be written. E.g. /tmp/opentsdb", "", "--cachedir"
    "tsd.http.query.allow_delete", "Boolean", "Optional", "Whether or not to allow deleting data points from storage during query time.", "False", ""
    "tsd.query.enable_fuzzy_filter", "Boolean", "Optional", "Whether or not to enable the FuzzyRowFilter for HBase when making queries using the ``explicitTags`` flag.", "True", ""
    "tsd.http.header_tag *(2.4)*", "String", "Optional", "An optional HTTP header that, when passed to the HTTP /api/put API, will be extracted and added to the tags of the values posted with the content. Must match an HTTP header exactly.", "", "X-CustomTag"
@@ -96,13 +95,11 @@ documentation for details.
    "tsd.http.request.max_chunk", "Integer", "Optional", "The maximum request body size to support for incoming HTTP requests when chunking is enabled.", "4096", ""
    "tsd.http.rpc.plugins *(2.2)*", "String", "Optional", "A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.", "", ""
    "tsd.http.show_stack_trace", "Boolean", "Optional", "Whether or not to return the stack trace with an API query response when an exception occurs.", "false", ""
-   "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as JavaScript files for the web interface, are located.
-   E.g. /opt/opentsdb/staticroot", "", "--staticroot"
+   "tsd.http.staticroot", "String", "Required", "Location of a directory where static files, such as JavaScript files for the web interface, are located. E.g. /opt/opentsdb/staticroot", "", "--staticroot"
    "tsd.mode *(2.1)*", "String", "Optional", "Whether or not the TSD will allow writing data points. Must be either ``rw`` to allow writing data or ``ro`` to block data point writes. Note that meta data such as UIDs can still be written/modified.", "rw", ""
    "tsd.network.async_io", "Boolean", "Optional", "Whether or not to use NIO or traditional blocking IO", "True", "--async-io"
    "tsd.network.backlog", "Integer", "Optional", "The connection queue depth for completed or incomplete connection requests depending on OS. The default may be limited by  the 'somaxconn' kernel setting or set by Netty to 3072.", "See Description", "--backlog"
-   "tsd.network.bind", "String", "Optional", "An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces.
-   E.g. 127.0.0.1", "0.0.0.0", "--bind"
+   "tsd.network.bind", "String", "Optional", "An IPv4 address to bind to for incoming requests. The default is to listen on all interfaces. E.g. 127.0.0.1", "0.0.0.0", "--bind"
    "tsd.network.keep_alive", "Boolean", "Optional", "Whether or not to allow keep-alive connections", "True", ""
    "tsd.network.port", "Integer", "Required", "The TCP port to use for accepting connections", "", "--port"
    "tsd.network.reuse_address", "Boolean", "Optional", "Whether or not to allow reuse of the bound port within Netty", "True", ""
@@ -128,17 +125,14 @@ documentation for details.
    "tsd.rollups.tag_raw *(2.4)*", "Boolean", "Optional", "Whether or not to tag non-rolled-up and non-pre-aggregated values with the tag key configured in ``tsd.rollups.agg_tag_key`` and value configured in ``tsd.rollups.raw_agg_tag_value``", "false", ""
    "tsd.rollups.agg_tag_key *(2.4)*", "String", "Optional", "A special key to tag pre-aggregated data with when writing to storage", "_aggregate", ""
    "tsd.rollups.raw_agg_tag_value *(2.4)*", "String", "Optional", "A special tag value to non-rolled-up and non-pre-aggregated data with when writing to storage. ``tsd.rollups.tag_raw`` must be set to true.", "RAW", ""
-   "tsd.rollups.split_query.enable *(2.4.1)*", "Boolean", "Optional", "Whether or not queries should merge both rollup and raw data in a single query,
-   particularly when rolledup data is delayed.", "false", """
+   "tsd.rollups.split_query.enable *(2.4.1)*", "Boolean", "Optional", "Whether or not queries should merge both rollup and raw data in a single query, particularly when rolledup data is delayed.", "false", """
    "tsd.rollups.block_derived *(2.4)*", "Boolean", "Optional", "Whether or not to block storing derived aggregations such as ``AVG`` and ``DEV``.", "true", ""
    "tsd.rpc.plugins", "String", "Optional", "A comma delimited list of RPC plugins to load when starting a TSD. Must contain the entire class name.", "", ""
    "tsd.rpc.telnet.return_errors *(2.4)*", "Boolean", "Optional", "Whether or not to return errors to the Telnet style socket when writing data via ``put`` or ``rollup``", "true", ""
    "tsd.rtpublisher.enable", "Boolean", "Optional", "Whether or not to enable a real time publishing plugin. If true, you must supply a valid ``tsd.rtpublisher.plugin`` class name", "False", ""
-   "tsd.rtpublisher.plugin", "String", "Optional", "The class name of a real time publishing plugin to instantiate. If ``tsd.rtpublisher.enable`` is set to false, this value is ignored.
-   E.g. net.opentsdb.tsd.RabbitMQPublisher", "", ""
+   "tsd.rtpublisher.plugin", "String", "Optional", "The class name of a real time publishing plugin to instantiate. If ``tsd.rtpublisher.enable`` is set to false, this value is ignored. E.g. net.opentsdb.tsd.RabbitMQPublisher", "", ""
    "tsd.search.enable", "Boolean", "Optional", "Whether or not to enable search functionality. If true, you must supply a valid ``tsd.search.plugin`` class name", "False", ""
-   "tsd.search.plugin", "String", "Optional", "The class name of a search plugin to instantiate. If ``tsd.search.enable`` is set to false, this value is ignored.
-   E.g. net.opentsdb.search.ElasticSearch", "", ""
+   "tsd.search.plugin", "String", "Optional", "The class name of a search plugin to instantiate. If ``tsd.search.enable`` is set to false, this value is ignored. E.g. net.opentsdb.search.ElasticSearch", "", ""
    "tsd.stats.canonical", "Boolean", "Optional", "Whether or not the FQDN should be returned with statistics requests. The default stats are returned with ``host=<hostname>`` which is not guaranteed to perform a lookup and return the FQDN. Setting this to true will perform a name lookup and return the FQDN if found, otherwise it may return the IP. The stats output should be ``fqdn=<hostname>``", "false", ""
    "tsd.startup.enable *(2.3)*", "Boolean", "Optional", "Whether or not a startu plugin should be loaded before the TSD.", "False", "True"
    "tsd.startup.plugin *(2.3)*", "String", "Optional", "The name of a plugin implementing the `StartupPlugin` interface.", "", ""
@@ -168,7 +162,7 @@ documentation for details.
    "tsd.storage.uid.width.metric *(2.2)*", "Integer", "Optional", "The width, in bytes, of metric UIDs. Maximum value is 7. **WARNING** Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.", "3", ""
    "tsd.storage.uid.width.tagk *(2.2)*", "Integer", "Optional", "The width, in bytes, of tag name UIDs. Maximum value is 7. **WARNING** Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.", "3", ""
    "tsd.storage.uid.width.tagv *(2.2)*", "Integer", "Optional", "The width, in bytes, of tag value UIDs. Maximum value is 7. **WARNING** Do not change after writing data to HBase or you will corrupt your tables and not be able to query any more.", "3", ""
-	"tsd.storage.use_max_value *(2.4)*", "Boolean", "Optional", "Whether or not to choose the larger numeric value during TSDB compaction when duplicates are found and `tsd.storage.use_otsdb_timestamp` has been set to `true`.", "True", "False"
+   "tsd.storage.use_max_value *(2.4)*", "Boolean", "Optional", "Whether or not to choose the larger numeric value during TSDB compaction when duplicates are found and `tsd.storage.use_otsdb_timestamp` has been set to `true`.", "True", "False"
    "tsd.storage.use_otsdb_timestamp *(2.4)*", "Boolean", "Optional", "Uses the data point's timestamp for the edits in storage instead of the default `now`. See :ref:`date_tierd_compaction`.", "False", "True"
    "tsd.uidfilter.enable *(2.3)*", "Boolean", "Optional", "Whether or not the UID assignment plugin filter is enabled.", "False", "True"
    "tsd.uidfilter.plugin *(2.3)*", "String", "Optional", "A plugin implementing the `UniqueIdFilterPlugin` interface.", "", ""

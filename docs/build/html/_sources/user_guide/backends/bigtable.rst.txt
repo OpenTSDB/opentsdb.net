@@ -8,6 +8,8 @@ Bigtable
 Setup
 ^^^^^
 
+To run under GKE, see Monitoring time-series data with `OpenTSDB on Cloud Bigtable and GKE <https://cloud.google.com/architecture/monitoring-time-series-data-opentsdb>`_
+
 1. Setup your Google Cloud Platform account.
 2. Follow the steps in `Creating a Cloud Bigtable Cluster <https://cloud.google.com/bigtable/docs/creating-cluster>`_.
 3. Follow the steps in `HBase Shell Quickstart <https://cloud.google.com/bigtable/docs/hbase-shell-quickstart>`_, paying attention to where you download your JSON key file.

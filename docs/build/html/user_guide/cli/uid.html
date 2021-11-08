@@ -519,11 +519,11 @@
 <h2>metasync</h2>
 <p>This command will run through the entire data table, scanning each row of timeseries data and generate missing TSMeta objects and UIDMeta objects or update the created timestamps for each object type if necessary. Use this command after enabling meta tracking with existing data or if you suspect that some timeseries may not have been indexed properly. The command will also push new or updated meta entries to a search engine if a plugin has been configured. If existing meta is corrupted, meaning the TSD is unable to deserialize the object, it will be replaced with a new entry.</p>
 <p>It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.</p>
-<div class="section" id="id14">
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Because the entire <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> table is scanned, this command may take a very long time depending on how much data is in your system.</p>
 </div>
+<div class="section" id="id14">
 <h3>Command Format</h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">metasync</span>
 </pre></div>

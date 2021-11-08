@@ -275,7 +275,7 @@ The following fields should be defined:
    "interval", "String", "Required", "The expected interval between data points in the format ``<interval><units>``. E.g. if rollups are computed every hour, the interval should be ``1h``. If they are computed every 10 minutes, set it to ``10m``. For the default table, this value is ignored.", "1h"
    "rowSpan", "String", "Required", "The width of each row in storage. This value must be greater than the ``interval`` and defines the number of ``interval``s that will fit in each row. E.g. if the interval is ``1h`` and ``rowSpan`` is ``1d`` then we would have 24 values per row.", "1d"
    "defaultInterval", "Boolean", "Optional", "Whether or not the configured interval is the default for raw, non-rolled up data.", "true"
-   "delaySla", "String", "Optional", "An optional delay that accounts for how long it takes to generate and store the rolled up data. Must be a TSD duration", "", "2h"
+   "delaySla", "String", "Optional", "An optional delay that accounts for how long it takes to generate and store the rolled up data. Must be a TSD duration", "2h"
 
 In storage, rollups are written similar to the raw data in that each row has a base timestamp and each data point is an offset from that base time. Each offset is an increment off of the base time, not an actual offset. For example, if a row stores 1 day of 1 hour data, there would be up to 24 offsets. Offset ``0`` would map to midnight for the row and offset 5 would map to 6 AM. Because rollup offsets are encoded on 14 bits, if too many intervals would be stored in a row to fit within 14 bits, an error will be thrown when the TSD is started. 
 

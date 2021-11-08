@@ -14,6 +14,8 @@
     <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Query Path Development" href="query_development.html" />
+    <link rel="prev" title="Development" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,7 +56,7 @@
      href="../index.html">Documentation <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes in 3.0</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../changes.html#new-features">New Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changes.html#whats-missing">Whats Missing</a></li>
@@ -63,19 +65,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation and Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#runtime-requirements">Runtime Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#compile">Compile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#docker">Docker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#local">Local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quickstart">Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#querying">Querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#write-data">Write Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Users Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/semanticquery/index.html">Semantic Query (Version 3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/index.html#writing-data">Writing Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../admin_guide/index.html">Administrators Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../admin_guide/configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_guide/configuration/index.html">TSDB Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../admin_guide/logging.html">Logging</a></li>
 </ul>
 </li>
@@ -94,6 +95,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#api-endpoints">API Endpoints</a></li>
 </ul>
 </li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#git-repository">Git Repository</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#details">Details</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -102,6 +108,14 @@
             
               
                 
+  <li>
+    <a href="index.html" title="Previous Chapter: Development"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Development</span>
+    </a>
+  </li>
+  <li>
+    <a href="query_development.html" title="Next Chapter: Query Path Development"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Query Path De... &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -130,14 +144,10 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">General Development</a><ul>
-<li><a class="reference internal" href="#build-system">Build System</a></li>
-<li><a class="reference internal" href="#building">Building</a><ul>
-<li><a class="reference internal" href="#build-targets">Build Targets</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#adding-a-dependency">Adding a Dependency</a></li>
-<li><a class="reference internal" href="#adding-removing-moving-a-class">Adding/Removing/Moving a Class</a></li>
-<li><a class="reference internal" href="#ides">IDEs</a></li>
+<li><a class="reference internal" href="#building">Building</a></li>
+<li><a class="reference internal" href="#project-layout">Project Layout</a></li>
+<li><a class="reference internal" href="#contributing">Contributing</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 </ul>
 </li>
 </ul>
@@ -148,121 +158,63 @@
       
   <div class="section" id="general-development">
 <h1>General Development</h1>
-<p>OpenTSDB isn’t laid out like a typical Java project, instead it’s a bit more like a C or C++ environment. This page is to help folks who want to modify OpenTSDB and provide updates back to the community.</p>
-<div class="section" id="build-system">
-<h2>Build System</h2>
-<p>There are almost as many build systems as there are developers so it’s impossible to satisfy everyone no matter which system or layout is chosen. Autotools and GNU Make were chosen early on for OpenTSDB because of their flexibility, portability, and especially speed and popular usage. It’s not the easiest to configure but for our needs, it’s really not too difficult. We’ll spell out what you need to change below and give tips for IDE users who want to setup an environment. Note that the build script can now compile a <code class="docutils literal notranslate"><span class="pre">pom.xml</span></code> file for compiling with Maven and work is underway to provide better Maven support. However you still have to modify <code class="docutils literal notranslate"><span class="pre">Makefile.am</span></code> if you add or remove classes or dependencies and such.</p>
-</div>
+<p>OpenTSDB 1.x and 2.x used Make to compile in a non-Java’y way. 3.x uses straight Maven with modules and is compatible with IDEs. This page goes over general dev and building guidelines.</p>
 <div class="section" id="building">
 <h2>Building</h2>
-<p>OpenTSDB is built using the standard <code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span></code> model that is most commonly employed by many open-source projects. Fresh working copies checked out from Git must first be <code class="docutils literal notranslate"><span class="pre">./bootstraped</span></code>.</p>
-<p>Alternatively, there is a <code class="docutils literal notranslate"><span class="pre">build.sh</span></code> script you can run that makes as it takes care of all the steps for you. You can give it a Make target in argument, e.g. <code class="docutils literal notranslate"><span class="pre">./build.sh</span> <span class="pre">distcheck</span></code> (the default target is <code class="docutils literal notranslate"><span class="pre">all</span></code>).</p>
-<div class="section" id="build-targets">
-<h3>Build Targets</h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">build.sh</span></code> script will compile a JAR and the static GWT files for the front-end GUI if no parameters are passed. Additional parameters include:</p>
+<p>Standard <code class="docutils literal notranslate"><span class="pre">mvn</span></code> commands work fine. E.g. <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">clean</span> <span class="pre">package</span></code> will cleanout existing builds, build each module and run it’s unit test, and create a distribution tarball in <code class="docutils literal notranslate"><span class="pre">distribution/target/</span></code>.</p>
+</div>
+<div class="section" id="project-layout">
+<h2>Project Layout</h2>
+<p>The TSDB code base now uses modules with the primary focus being on adding features via plugins. Note that this is still Java 8 modules and we haven’t started the ugly migration process of using the Java 9x module system wherein packages should not overlap. In general, interfaces are in the common module while implementations of those same classes are in other modules. We could use some help with organization.</p>
+<p>The modules or directories include:</p>
 <ul class="simple">
-<li><p><strong>check</strong> - Executes unit tests and reports on the results. You can specify executing the checks in a specific file via <code class="docutils literal notranslate"><span class="pre">test_SRC=&lt;path&gt;</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">./build.sh</span> <span class="pre">check</span> <span class="pre">test_SRC=test/uid/TestNoSuchUniqueId.java</span></code></p></li>
-<li><p><strong>pom.xml</strong> - Compile a POM file to compile with Maven.</p></li>
-<li><p><strong>dist</strong> - Downloads dependencies, compiles OpenTSDB and creates a tarball for distribution</p></li>
-<li><p><strong>distcheck</strong> - Same as dist but also runs unit tests. This should be run before issuing pull requests to verify that everything performs correctly.</p></li>
-<li><p><strong>debian</strong> - Compiles OpenTSDB and generates a Debian package</p></li>
+<li><p><strong>common</strong> - The common interfaces and utilities along with implementations that do not require dependencies. The goal is to keep this generically applicable and only include dependencies other modules may not require (though Netty and Jackson snuck in unfortunately). This is just a library.</p></li>
+<li><p><strong>core</strong> - This is the core write and read module of OpenTSDB in that it handles the routing of data, query planning, etc. It’s just a library and still needs another module to turn up a useful daemon (generally the <code class="docutils literal notranslate"><span class="pre">server-undertow</span></code> module with <code class="docutils literal notranslate"><span class="pre">TSDMain.java</span></code>). This is just a library.</p></li>
+<li><p><strong>Executors</strong> - This is a directory that was meant to hold various RPC implementations to communicate between TSDB components. It only has the <code class="docutils literal notranslate"><span class="pre">http</span></code> implementation right now so we’ll probably reorganize this at some point.</p></li>
+<li><p><strong>Implementations</strong> - A catch-all module directory for now that has all kinds of plugins and utilities like the <code class="docutils literal notranslate"><span class="pre">servlet</span></code> module to handle JAX-RS servlets for an HTTP server and <code class="docutils literal notranslate"><span class="pre">server-undertow</span></code> that can spin up a TSD server using the servlets. It also has Prometheus and Influx query/data converters.</p></li>
+<li><p><strong>Storage</strong> - A directory with storage implentations like the HBase integration and Google Bigtable. Also some queue/pubsub modules.</p></li>
+<li><p><strong>Distribution</strong> - The module that is responsible for building a distributable tarball and Docker container(s).</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are still directories (<code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code>) and files from the 2.x code path. This is so we can <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">mv</span> <span class="pre">...</span></code> files from the old to the new, make changes and maintain contribution history.</p>
 </div>
 </div>
-<div class="section" id="adding-a-dependency">
-<h2>Adding a Dependency</h2>
-<p><em>Please try your best not to</em>. We’re extremely picky on the dependencies and will require a code review before we start depending on a new library. The goal isn’t to re-invent the wheel either, but we are very mindful about the number and quality of dependent libraries we pull in.
-If you absolutely must add a new dependency, here are the steps:</p>
+<div class="section" id="contributing">
+<h2>Contributing</h2>
+<ul class="simple">
+<li><p>Please file <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">issues on GitHub</a> after checking to see if anyone has posted a bug already. Make sure your bug reports contain enough details so they can be easily understood by others and quickly fixed.</p></li>
+<li><p>The best way to contribute code is to fork the main repo and <a class="reference external" href="https://help.github.com/articles/using-pull-requests">send a pull request</a> on GitHub.</p>
 <ul>
-<li><p>Find the canonical source to download the dependent JAR file</p></li>
-<li><p>Find or create the proper directory under <code class="docutils literal notranslate"><span class="pre">third_party/</span></code></p></li>
-<li><p>In that directory, create a <code class="docutils literal notranslate"><span class="pre">&lt;depdencency&gt;.jar.md5</span></code> file</p></li>
-<li><p>Paste the MD5 hash of the entire jar in that file and save it</p></li>
-<li><p>Create or edit the <code class="docutils literal notranslate"><span class="pre">include.mk</span></code> file and copy the header info from another directory’s file</p></li>
-<li><p>Add a <code class="docutils literal notranslate"><span class="pre">&lt;DEPENDENCY&gt;_VERSION</span> <span class="pre">:=</span> <span class="pre">&lt;version&gt;</span></code> e.g. <code class="docutils literal notranslate"><span class="pre">JACKSON_VERSION</span> <span class="pre">:=</span> <span class="pre">1.9.4</span></code></p></li>
-<li><p>Add a <code class="docutils literal notranslate"><span class="pre">&lt;DEPENDENCY&gt;</span> <span class="pre">:=</span> <span class="pre">third_parth/&lt;DIR&gt;/&lt;dependency&gt;$(&lt;DEPENDENCY&gt;_VERSION).jar</span></code> line e.g. <code class="docutils literal notranslate"><span class="pre">JACKSON_CORE</span> <span class="pre">:=</span> <span class="pre">third_party/jackson/jackson-core-lgpl-$(JACKSON_CORE_VERSION).jar</span></code></p></li>
-<li><p>Add the canonical source URL in the format <code class="docutils literal notranslate"><span class="pre">&lt;DEPENDENCY&gt;_BASE_URL</span> <span class="pre">:=</span> <span class="pre">&lt;URL&gt;</span></code> e.g. <code class="docutils literal notranslate"><span class="pre">JACKSON_CORE_BASE_URL</span> <span class="pre">:=</span> <span class="pre">http://repository.codehaus.org/org/codehaus/jackson/jackson-core-lgpl/$(JACKSON_VERSION)</span></code> and note that the JAR name will be appended to the end of the URL</p></li>
-<li><p>Add the following lines</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$(&lt;DEPENDENCY&gt;): $(J&lt;DEPENDENCY&gt;).md5
-set dummy ``$(&lt;DEPENDENCY&gt;_BASE_URL)`` ``$(&lt;DEPENDENCY&gt;)``; shift; $(FETCH_DEPENDENCY)
-</pre></div>
-</div>
-<p>e.g.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$(JACKSON_CORE): $(JACKSON_CORE).md5
-set dummy ``$(JACKSON_CORE_BASE_URL)`` ``$(JACKSON_CORE)``; shift; $(FETCH_DEPENDENCY)
-</pre></div>
-</div>
+<li><p>Bug fixes should be done in the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch</p></li>
+<li><p>New features or major changes should be done in the <code class="docutils literal notranslate"><span class="pre">next</span></code> branch</p></li>
+</ul>
 </li>
-<li><p>Add a line <code class="docutils literal notranslate"><span class="pre">THIRD_PARTY</span> <span class="pre">+=</span> <span class="pre">$(&lt;DEPENDENCY&gt;)</span></code> e.g. <code class="docutils literal notranslate"><span class="pre">THIRD_PARTY</span> <span class="pre">+=</span> <span class="pre">$(JACKSON_CORE)</span></code></p></li>
-<li><p>Next, back in the <code class="docutils literal notranslate"><span class="pre">third_party/</span></code> directory, edit the <code class="docutils literal notranslate"><span class="pre">include.mk</span></code> file and if you added a new directory for your dependency, insert a reference to the <code class="docutils literal notranslate"><span class="pre">.mk</span></code> file in the proper alphabetical position.</p></li>
-<li><p>Edit <code class="docutils literal notranslate"><span class="pre">Makefile.am</span></code></p>
+<li><p>Alternatively, you can send a plain-text patch to the <a class="reference external" href="https://groups.google.com/forum/#!forum/opentsdb">mailing list</a>.</p></li>
+<li><p>Before your code changes can be included, please file the <a class="reference external" href="https://docs.google.com/spreadsheet/embeddedform?formkey=dFNiOFROLXJBbFBmMkQtb1hNMWhUUnc6MQ">Contribution License Agreement</a>.</p></li>
+<li><p>Unlike, say, the Apache Software Foundation, we do not require every single code change to be attached to an issue. Feel free to send as many small fixes as you want.</p></li>
+<li><p>Please break down your changes into as many small commits as possible.</p></li>
+<li><p>Please <em>respect the coding style of the code</em> you’re changing (as much as possible. We’re less picky about this now).</p>
 <ul>
-<li><p>Find the <code class="docutils literal notranslate"><span class="pre">tsdb_DEPS</span> <span class="pre">=</span> <span class="pre">\</span></code> line</p></li>
-<li><p>Add your new dependency in the proper alphabetical position in the format <code class="docutils literal notranslate"><span class="pre">$(&lt;DEPENDENCY&gt;)</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">$(JACKSON_CORE&gt;</span></code>. Note that if you put it the middle of the list, you must finish with the line continuation character, the backslash <code class="docutils literal notranslate"><span class="pre">\</span></code>. If your dependency goes at the end, do not add the backslash.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the dependency is only used for unit tests, then add it to the <code class="docutils literal notranslate"><span class="pre">test_DEPS</span> <span class="pre">=</span> <span class="pre">\</span></code> list</p>
-</div>
-</li>
-<li><p>Find the <code class="docutils literal notranslate"><span class="pre">pom.xml:</span> <span class="pre">pom.xml.in</span> <span class="pre">Makefile</span></code> line in the file</p></li>
-<li><p>Add a sed line such as <code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">'s/&#64;&lt;DEPENDENCY&gt;_VERSION&#64;/$(&lt;DEPENDENCY&gt;_VERSION)/'</span> <span class="pre">\</span></code> e.g. <code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">'s/&#64;JACKSON_VERSION&#64;/$(JACKSON_VERSION)/'</span> <span class="pre">\</span></code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Unit test dependencies go here as well as regular items</p>
-</div>
-</li>
+<li><p>Indent code with 2 spaces, no tabs</p></li>
+<li><p>Keep code to 80 columns</p></li>
+<li><p>Curly brace on the same line as <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code>, etc</p></li>
+<li><p>Variables need descriptive names <code class="docutils literal notranslate"><span class="pre">like_this</span></code> (instead of the typical Java style of <code class="docutils literal notranslate"><span class="pre">likeThis</span></code>)</p></li>
+<li><p>Methods named <code class="docutils literal notranslate"><span class="pre">likeThis()</span></code> starting with lower case letters</p></li>
+<li><p>Classes named <code class="docutils literal notranslate"><span class="pre">LikeThis</span></code>, starting with upper case letters</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">final</span></code> keyword as much as you can, particularly in method parameters and returns statements.</p></li>
+<li><p>Avoid checked exceptions as much as possible</p></li>
+<li><p>Always provide the most restrictive visibility to classes and members</p></li>
+<li><p>Javadoc all of your classes and methods. Some folks make use the Java API directly and we’ll build docs for the site, so the more the merrier</p></li>
+<li><p>Don’t add dependencies to the core OpenTSDB library unless absolutely necessary</p></li>
+<li><p>Add unit tests for any classes/methods you create and verify that your change doesn’t break existing unit tests. We know UTs aren’t fun, but they are useful</p></li>
 </ul>
 </li>
-<li><p>Edit <code class="docutils literal notranslate"><span class="pre">pom.xml.in</span></code></p>
-<ul class="simple">
-<li><p>Find the <code class="docutils literal notranslate"><span class="pre">&lt;dependencies&gt;</span></code> XML section</p></li>
-<li><p>Copy and paste an existing dependency section and modify it for your variables</p></li>
-</ul>
-</li>
-<li><p>Now run a build via <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code> and verify that it fetches your dependency and builds without errors. * Then run <code class="docutils literal notranslate"><span class="pre">./build.sh</span> <span class="pre">pom.xml</span></code> to verify that the POM is compiled properly and run a <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">compile</span></code> to verify the Maven build works correctly.</p></li>
 </ul>
 </div>
-<div class="section" id="adding-removing-moving-a-class">
-<h2>Adding/Removing/Moving a Class</h2>
-<p>This is much easier than dealing with a dependency. You only need to modify <code class="docutils literal notranslate"><span class="pre">Makefile.am</span></code> and edit the <code class="docutils literal notranslate"><span class="pre">tsdb_SRC</span> <span class="pre">:=</span> <span class="pre">\</span></code> or the <code class="docutils literal notranslate"><span class="pre">test_SRC</span> <span class="pre">:=</span> <span class="pre">\</span></code> lists. If you’re adding a class, put it in the proper alphabetical position and account for the proper directory and class name. It is case sensitive so make sure to get that right. If removing a class, just delete the line. If moving a class, add the new line and delete the old one. Be careful to handle the line continuation <code class="docutils literal notranslate"><span class="pre">\</span></code> backslashes. The last class in each list should NOT end with a backslash, the rest need it.</p>
-<p>After editing, rebuild with <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code> and verify that your class was compiled and included properly.</p>
-</div>
-<div class="section" id="ides">
-<h2>IDEs</h2>
-<p>Many devs use an IDE to work on Java projects and despite OpenTSDB’s non-java-standard directory layout, working with an IDE is pretty easy. Here are some steps to get up and running with Eclipse though they should work with other environments. This example assumes you’re using Eclipse.</p>
-<ul class="simple">
-<li><p>Clone the GIT repo to a location such as <code class="docutils literal notranslate"><span class="pre">/home/$USER/opentsdb</span></code></p></li>
-<li><p>Build the repo with <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code> from the directory</p></li>
-<li><p>Fire up Eclipse or your favorite IDE</p></li>
-<li><p>Create a new Java project with a name like <code class="docutils literal notranslate"><span class="pre">opentsdb_dev</span></code> so that it winds up in <code class="docutils literal notranslate"><span class="pre">/home/$USER/opentsdb_dev</span></code></p></li>
-<li><p>Your dev directory should now have a <code class="docutils literal notranslate"><span class="pre">./src</span></code> directory</p></li>
-<li><p>Create a <code class="docutils literal notranslate"><span class="pre">net</span></code> directory under <code class="docutils literal notranslate"><span class="pre">./src</span></code> so that you have <code class="docutils literal notranslate"><span class="pre">./src/net</span></code> (some IDEs may create a <code class="docutils literal notranslate"><span class="pre">./src/java</span></code> dir, so add <code class="docutils literal notranslate"><span class="pre">./src/java/net</span></code>)</p></li>
-<li><p>Create a symlink to the GIT repo’s <code class="docutils literal notranslate"><span class="pre">./src</span></code> directory from <code class="docutils literal notranslate"><span class="pre">./src/net/opentsdb</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span> <span class="pre">/home/$USER/opentsdb/src</span> <span class="pre">/home/$USER/opentsdb_dev/src/net/opentsdb</span></code></p></li>
-<li><p>Also, create a <code class="docutils literal notranslate"><span class="pre">tsd</span></code> directory under <code class="docutils literal notranslate"><span class="pre">./src</span></code> so that you have <code class="docutils literal notranslate"><span class="pre">./src/tsd</span></code></p></li>
-<li><p>Create a symlink to the GIT repo’s <code class="docutils literal notranslate"><span class="pre">./src/tsd/client</span></code> directory from <code class="docutils literal notranslate"><span class="pre">./src/tsd/client</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span> <span class="pre">/home/$USER/opentsdb/src/tsd/client</span> <span class="pre">/home/$USER/opentsdb_dev/src/tsd/client</span></code></p></li>
-<li><p>If your IDE didn’t, create a <code class="docutils literal notranslate"><span class="pre">./test</span></code> directory under your dev project folder. This will be used for unit tests.</p></li>
-<li><p>Add a <code class="docutils literal notranslate"><span class="pre">net</span></code> directory under <code class="docutils literal notranslate"><span class="pre">./test</span></code> so you have <code class="docutils literal notranslate"><span class="pre">./test/net</span></code></p></li>
-<li><p>Create a symlink to the GIT repo’s <code class="docutils literal notranslate"><span class="pre">./test</span></code> directory from <code class="docutils literal notranslate"><span class="pre">./test/net/opentsdb</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span> <span class="pre">/home/$USER/opentsdb/test</span> <span class="pre">/home/$USER/opentsdb_dev/test/net/opentsdb</span></code></p></li>
-<li><p>Refresh the directory lists in Eclipse and you should see all of the source files</p></li>
-<li><p>Right click the <code class="docutils literal notranslate"><span class="pre">net.opentsdb.tsd.client</span></code> package under SRC and select <code class="docutils literal notranslate"><span class="pre">Build</span> <span class="pre">Path</span></code> then <code class="docutils literal notranslate"><span class="pre">Exclude</span></code> from the menu</p></li>
-<li><p>Now add the downloaded dependencies by clicking Project -&gt; Properties, click the <code class="docutils literal notranslate"><span class="pre">Java</span> <span class="pre">Build</span> <span class="pre">Path</span></code> menu item and click <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">External</span> <span class="pre">JARs</span></code> button.</p></li>
-<li><p>Do that for each of the dependencies that were downloaded by the build script</p></li>
-<li><p>Copy the file <code class="docutils literal notranslate"><span class="pre">./build/src/BuildData.java</span></code> from the GIT repo, post build, to your <code class="docutils literal notranslate"><span class="pre">./src/net/opentsdb/</span></code> directory</p></li>
-<li><p>Now click Run (or Debug) -&gt; Manage Configurations</p></li>
-<li><p>Under Java Application, right click and select New from the pop-up</p></li>
-<li><p>Under the Main tab, brows to your <code class="docutils literal notranslate"><span class="pre">opentsdb_dev</span></code> project</p></li>
-<li><p>For the Main Class, search for <code class="docutils literal notranslate"><span class="pre">net.opentsdb.tools.TSDMain</span></code></p></li>
-<li><p>Under Arguments, add the runtime arguments to select your Zookeeper quorum and the static and cache directories</p></li>
-<li><p>Run or Debug it and hopefully it worked</p></li>
-<li><p>Now edit away and when you’re ready to publish changes, follow the directions above about modifying the build system (if necessary), publish to your own GitHub fork, and issue a pull request.</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This won’t compile the GWT UI. If you want to do UI work and have made changes, recompile OpenTSDB or export it as a JAR from your IDE, then execute the following command (assuming the directory structure above):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>java -cp ``&lt;PATH_TO&gt;gwt-dev-2.4.0.jar;&lt;PATH_TO&gt;gwt-user-2.4.0.jar;&lt;PATH_TO&gt;tsdb-1.1.0.jar;/home/$USER/opentsdb/src/net/opentsdb;/home/$USER/opentsdb/src`` com.google.gwt.dev.Compiler -ea -war &lt;PATH_TO_STATIC_DIRECTORY&gt; tsd.Queryui
-</pre></div>
-</div>
-</div>
+<div class="section" id="dependencies">
+<h2>Dependencies</h2>
+<p>Do not add dependencies to the <cite>common</cite> or <cite>core</cite> modules if at all possible. If you have a dependency you can’t bypass, try writing a plugin.</p>
 </div>
 </div>
 

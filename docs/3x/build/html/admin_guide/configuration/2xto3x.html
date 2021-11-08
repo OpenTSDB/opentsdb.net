@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rollup Configuration &#8212; OpenTSDB 3.0 documentation</title>
+    <title>2.x to 3.x Configuration Mapping &#8212; OpenTSDB 3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -14,8 +14,8 @@
     <script src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.x to 3.x Configuration Mapping" href="2xto3x.html" />
-    <link rel="prev" title="HBase Configuration" href="hbase.html" />
+    <link rel="next" title="Logging" href="../logging.html" />
+    <link rel="prev" title="Rollup Configuration" href="rollup.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -104,11 +104,11 @@
               
                 
   <li>
-    <a href="hbase.html" title="Previous Chapter: HBase Configuration"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; HBase Configuration</span>
+    <a href="rollup.html" title="Previous Chapter: Rollup Configuration"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Rollup Configuration</span>
     </a>
   </li>
   <li>
-    <a href="2xto3x.html" title="Next Chapter: 2.x to 3.x Configuration Mapping"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">2.x to 3.x Co... &raquo;</span>
+    <a href="../logging.html" title="Next Chapter: Logging"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Logging &raquo;</span>
     </a>
   </li>
               
@@ -138,12 +138,8 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Rollup Configuration</a><ul>
-<li><a class="reference internal" href="#configurations">Configurations</a><ul>
-<li><a class="reference internal" href="#interval-configuration">Interval Configuration</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#">2.x to 3.x Configuration Mapping</a><ul>
+<li><a class="reference internal" href="#hbase">HBase</a></li>
 </ul>
 </li>
 </ul>
@@ -152,144 +148,81 @@
       </div>
     <div class="body col-md-9 content" role="main">
       
-  <div class="section" id="rollup-configuration">
-<h1>Rollup Configuration</h1>
-<p>A rollup configuration is a complex object best defined in YAML. It is usually passed to a storage node in the <code class="docutils literal notranslate"><span class="pre">rollups.config</span></code> suffix.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Remember that the <cite>tsd.storage.rollups.enable</cite> configuration must be</p>
-</div>
-<p>set to true</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Do not change the aggregation ID mappings or table values after writing data or it will become unreadable.</p>
-</div>
-<div class="section" id="configurations">
-<h2>Configurations</h2>
+  <div class="section" id="x-to-3-x-configuration-mapping">
+<h1>2.x to 3.x Configuration Mapping</h1>
+<div class="section" id="hbase">
+<h2>HBase</h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 25%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 60%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Data Type</p></th>
-<th class="head"><p>Required</p></th>
+<tr class="row-odd"><th class="head"><p>2.x</p></th>
+<th class="head"><p>3.x</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Example</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>aggregationIds</p></td>
-<td><p>Map</p></td>
-<td><p>Required</p></td>
-<td><p>A map of strings keyed on an aggregation function to a number representing their encoding the storage layer or system. See the example for the layout.</p></td>
-<td></td>
-<td><p>SUM: 0</p></td>
+<tr class="row-even"><td><p>tsd.storage.hbase.zk_quorum</p></td>
+<td><p>tsd.storage.zk_quorum</p></td>
+<td><p>Drop <code class="docutils literal notranslate"><span class="pre">hbase.</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>intervals</p></td>
-<td><p>List</p></td>
-<td><p>Required</p></td>
-<td><p>A list of one or more intervals defining tables and the amount of data per row to store in those tables.</p></td>
+<tr class="row-odd"><td><p>tsd.storage.hbase.znode.parent</p></td>
+<td><p>tsd.storage.znode.parent</p></td>
+<td><p>Drop <code class="docutils literal notranslate"><span class="pre">hbase.</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>tsd.storage.hbase.data_table</p></td>
+<td><p>tsd.storage.data_table</p></td>
+<td><p>Drop <code class="docutils literal notranslate"><span class="pre">hbase.</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>tsd.storage.hbase.uid_table</p></td>
+<td><p>tsd.storage.uid_table</p></td>
+<td><p>Drop <code class="docutils literal notranslate"><span class="pre">hbase.</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>tsd.storage.hbase.meta_table</p></td>
+<td></td>
+<td><p>TODO.</p></td>
+</tr>
+<tr class="row-odd"><td><p>tsd.storage.hbase.tree_table</p></td>
+<td></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p>tsd.storage.salt.buckets</p></td>
+<td><p>tsd.storage.salt.buckets</p></td>
+<td><p>Same</p></td>
+</tr>
+<tr class="row-odd"><td><p>tsd.storage.salt.width</p></td>
+<td><p>tsd.storage.salt.width</p></td>
+<td><p>Same</p></td>
+</tr>
+<tr class="row-even"><td><p>tsd.storage.uid.width.metric</p></td>
+<td><p>tsd.storage.uid.width.metric</p></td>
+<td><p>Same</p></td>
+</tr>
+<tr class="row-odd"><td><p>tsd.storage.uid.width.tagk</p></td>
+<td><p>tsd.storage.uid.width.tagk</p></td>
+<td><p>Same</p></td>
+</tr>
+<tr class="row-even"><td><p>tsd.storage.uid.width.tagv</p></td>
+<td><p>tsd.storage.uid.width.tagv</p></td>
+<td><p>Same</p></td>
+</tr>
+<tr class="row-odd"><td><p>tsd.uid.lru.enable</p></td>
+<td></td>
+<td><p>See the <code class="docutils literal notranslate"><span class="pre">uid.cache.type</span></code> configurations in <a class="reference internal" href="hbase.html"><span class="doc">HBase Configuration</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>tsd.storage.hbase.prefetch_meta</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>tsd.storage.hbase.scanner.maxNumRows</p></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="interval-configuration">
-<h3>Interval Configuration</h3>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Data Type</p></th>
-<th class="head"><p>Required</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>table</p></td>
-<td><p>String</p></td>
-<td><p>Required</p></td>
-<td><p>The table for the rolled up data.</p></td>
-<td></td>
-<td><p>tsdb-rollup-1h</p></td>
-</tr>
-<tr class="row-odd"><td><p>preAggregationTable</p></td>
-<td><p>String</p></td>
-<td><p>Optional</p></td>
-<td><p>A table for storing pre-aggregated data.</p></td>
-<td></td>
-<td><p>tsdb-1h-preagg</p></td>
-</tr>
-<tr class="row-even"><td><p>interval</p></td>
-<td><p>Duration</p></td>
-<td><p>Required</p></td>
-<td><p>A duration reflecting how the interval of data stored in each rollup/summary.</p></td>
-<td></td>
-<td><p>1h</p></td>
-</tr>
-<tr class="row-odd"><td><p>rowSpan</p></td>
-<td><p>Duration</p></td>
-<td><p>Required</p></td>
-<td><p>How many intervals are stored in a row. E.g. there could be 24 1 hour records in a row</p></td>
-<td></td>
-<td><p>1d</p></td>
-</tr>
-<tr class="row-even"><td><p>defaultInterval</p></td>
-<td><p>Boolean</p></td>
-<td><p>Optional</p></td>
-<td><p>Used to define the <em>raw</em> data table where non-rolledup or aggregated data is stored. The interval and row span are ignored.</p></td>
-<td><p>false</p></td>
-<td><p>true</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The default interval must be defined, particularly when enabling the fallback feature.</p>
-</div>
-</div>
-</div>
-<div class="section" id="example">
-<h2>Example</h2>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tsd.storage.rollups.config</span><span class="p">:</span>
-  <span class="nt">aggregationIds</span><span class="p">:</span>
-    <span class="nt">SUM</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
-    <span class="nt">COUNT</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class="nt">MIN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-    <span class="nt">MAX</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
-    <span class="nt">AVG</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
-    <span class="nt">FIRST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6</span>
-    <span class="nt">LAST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7</span>
-
-  <span class="nt">intervals</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">table</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsdb</span>
-      <span class="nt">preAggregationTable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsdb</span>
-      <span class="nt">interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1m</span>
-      <span class="nt">rowSpan</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1h</span>
-      <span class="nt">defaultInterval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-
-    <span class="p p-Indicator">-</span> <span class="nt">table</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsdb-rollup-1h</span>
-      <span class="nt">preAggregationTable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tsdb-rollup-1h</span>
-      <span class="nt">interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1h</span>
-      <span class="nt">rowSpan</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1d</span>
-</pre></div>
-</div>
 </div>
 </div>
 

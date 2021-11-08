@@ -29,6 +29,7 @@ Contents
    user_guide/index
    admin_guide/index
    api_http/index
+   development/index
    
 Indices and tables
 ==================

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Query Path Development &#8212; OpenTSDB 3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plugins" href="plugins.html" />
+    <link rel="prev" title="General Development" href="development.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          OpenTSDB</a>
+        <span class="navbar-text navbar-version pull-left"><b>3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/OpenTSDB/opentsdb/releases">Download</a></li>
+                <li><a href="https://github.com/OpenTSDB/opentsdb">Source</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes in 3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changes.html#new-features">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changes.html#whats-missing">Whats Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation and Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#runtime-requirements">Runtime Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quickstart">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#querying">Querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#write-data">Write Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Users Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/index.html#writing-data">Writing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../admin_guide/index.html">Administrators Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../admin_guide/configuration/index.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../admin_guide/logging.html">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_http/index.html">HTTP API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#version-2-x-to-3-x">Version 2.X to 3.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#authentication-permissions">Authentication/Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#response-codes">Response Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#verbs">Verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#query-string-vs-body-content">Query String Vs. Body Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#compressed-requests">Compressed Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#deprecated-api">Deprecated API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#git-repository">Git Repository</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#details">Details</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="development.html" title="Previous Chapter: General Development"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; General Development</span>
+    </a>
+  </li>
+  <li>
+    <a href="plugins.html" title="Next Chapter: Plugins"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Plugins &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Query Path Development</a><ul>
+<li><a class="reference internal" href="#querycontext">QueryContext</a><ul>
+<li><a class="reference internal" href="#semanticquery">SemanticQuery</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#querypipelinecontext">QueryPipelineContext</a></li>
+<li><a class="reference internal" href="#queryplanner">QueryPlanner</a><ul>
+<li><a class="reference internal" href="#build-the-initial-graph">Build the Initial Graph</a></li>
+<li><a class="reference internal" href="#validate-and-mutate-graph">Validate and Mutate Graph</a></li>
+<li><a class="reference internal" href="#initialize-filters-and-converters">Initialize Filters and Converters</a></li>
+<li><a class="reference internal" href="#verify-sink-filters">Verify Sink Filters</a></li>
+<li><a class="reference internal" href="#compute-pushdowns">Compute Pushdowns</a></li>
+<li><a class="reference internal" href="#compute-serialization-sources">Compute Serialization Sources</a></li>
+<li><a class="reference internal" href="#build-and-initialize-nodes">Build and Initialize Nodes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#querynodefactory">QueryNodeFactory</a></li>
+<li><a class="reference internal" href="#querynode">QueryNode</a><ul>
+<li><a class="reference internal" href="#onnext-queryresult">onNext(QueryResult)</a></li>
+<li><a class="reference internal" href="#onerror-throwable">onError(Throwable)</a></li>
+<li><a class="reference internal" href="#other-functions">Other Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#querysink">QuerySink</a></li>
+<li><a class="reference internal" href="#queryresults-and-iterators">QueryResults and Iterators</a><ul>
+<li><a class="reference internal" href="#queryresult">QueryResult</a><ul>
+<li><a class="reference internal" href="#timeseries">timeSeries()</a></li>
+<li><a class="reference internal" href="#datasource">dataSource()</a></li>
+<li><a class="reference internal" href="#source">source()</a></li>
+<li><a class="reference internal" href="#error-and-exception">error() and exception()</a></li>
+<li><a class="reference internal" href="#timespecification">timeSpecification()</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#typedtimeseriesiterator">TypedTimeSeriesIterator</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data-types">Data Types</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="query-path-development">
+<h1>Query Path Development</h1>
+<p>OpenTSDB 1/2.x had a fixed query workflow. Rate -&gt; Downsample -&gt; Groupby -&gt; optional expressions. That was it. V3 now has a DAG (directed acyclic graph) that allows for arbitrary ordering of operations similar to a traditional database. This, along with routing queries to various data sources and handling multiple data types, is pretty messy. Here’s an outline of the general query flow and components that are involved.</p>
+<img alt="Query Flow" src="../_images/dev_query_flow.png" />
+<p>A good starting point to follow along is the <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/blob/3.0/implementation/servlet/src/main/java/net/opentsdb/servlet/resources/RawQueryRpc.java">Graph Query RPC</a> JAX-RS servlet where a JSON query arrives, is processed, and the results serialized back to the caller.</p>
+<div class="section" id="querycontext">
+<h2>QueryContext</h2>
+<p>This is the user or API facing component that keeps track of a query’s execution from start to finish (or error). The caller gives a <code class="docutils literal notranslate"><span class="pre">TimeSeriesQuery</span></code> to a builder for the context along with a sink to send results. These (along with a TSDB reference) are the two required parameters. Additional optional attributes can be set such as a tracer, auth state, etc.</p>
+<p>Once the context has been created, the following steps are required to execute the query:</p>
+<ul class="simple">
+<li><p>Call the <code class="docutils literal notranslate"><span class="pre">QueryContext.initialize(span)</span></code> method and wait or add a callback to the deferred (equivalent of a Future). This call with perform the query planning and optimization. It may throw exceptions if problems were found with the query. In this case, the caller should catch those exceptions and pass them back to the user, particularly if they’re <code class="docutils literal notranslate"><span class="pre">QueryExecutionException</span></code> errors.</p></li>
+<li><p>If initialization was successful, call <code class="docutils literal notranslate"><span class="pre">QueryContext.fetchNext(span)</span></code> to begin fetching and processing data.</p></li>
+<li><p>Results are sent to the <code class="docutils literal notranslate"><span class="pre">QuerySink</span></code> given to the context via <code class="docutils literal notranslate"><span class="pre">QuerySink.onNext(QueryResult)</span></code>. Once all results have been sent to the context and closed, <code class="docutils literal notranslate"><span class="pre">QuerySink.onComplete()</span></code> will be called to tell the sink the query is finished.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the sink does not call <code class="docutils literal notranslate"><span class="pre">QueryResult.close()</span></code> on <em>each</em> query result to come it’s way, the query will hang. Calling this method tells the context that the result has been serialized and when all of the expected results are closed, the context will call <code class="docutils literal notranslate"><span class="pre">QuerySink.onComplete()</span></code>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">QueryContext</span></code> also has some logging functions that can be invoked by the nodes for adding diagnostic information surrounding a query for serialization to the caller. This is really useful for tracing queries to various sources, figuring out what operations are pushed down, etc. Also for non-fatal warnings or errors like one source for an HA node being unavailable.</p>
+<div class="section" id="semanticquery">
+<h3>SemanticQuery</h3>
+<p>This is the main representation of a query, containing the DAG and serialization parameters. The goal is for it to be able to implement all kinds of query syntax definitions like V1 and V2 OpenTSDB queries, PromQL or Flux queries and even SQL. Therefore you’ll see converters that take the offered syntax and convert it to a <code class="docutils literal notranslate"><span class="pre">SemanticQuery</span></code> DAG. It’s not perfect of course but it seems to work well so far.</p>
+<p>Documentation can be found at <a class="reference internal" href="../user_guide/semanticquery/index.html"><span class="doc">Semantic Query (Version 3)</span></a></p>
+</div>
+</div>
+<div class="section" id="querypipelinecontext">
+<h2>QueryPipelineContext</h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">QueryContext</span></code> contains a reference to a <code class="docutils literal notranslate"><span class="pre">QueryPipelineContext</span></code> which does the work of planning and handling the query execution. It’s similar to the query context but separate in order to hide internal details from API users.</p>
+<p>The default implementation is the <code class="docutils literal notranslate"><span class="pre">AbstractQueryPipelineContext</span></code> class. It acts as a <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code> and sits between the sink and the serializable nodes, intercepting the calls so that it can determine if a query should be failed or if all the results are in.</p>
+<p>A query pipeline consists of <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code> that are built from <code class="docutils literal notranslate"><span class="pre">QueryNodeConfigs</span></code>. Two type of nodes are special instances of <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code>. The <code class="docutils literal notranslate"><span class="pre">QuerySink</span></code> which is the output of a query into a serializable format or for use by an API call and <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSource</span></code> which is an input a pipeline, fetching data to process through the pipeline. Each pipeline must have at least one sink and one source. Data <em>flows</em> from the sources to the sink meaning the source node <em>pushes</em> data to its <em>predecessor</em> in the graph by calling <code class="docutils literal notranslate"><span class="pre">onNext(QueryResult)</span></code> on the predecessor node.</p>
+<img alt="Query Flow" src="../_images/dev_query_node_flow.png" />
+<p>When you look at the planner code that deals with the DAG, for a given node you’ll see calls to <em>predecessors</em>, meaning nodes closer to the sink, and <em>ancestors</em>, nodes that are closer to the source.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The pipeline is asynchronous. When a query begins, the context will iterate over each <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSource</span></code> node and call <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSource.fetchNext(span)</span></code>. Each source could call its predecessor in a different thread so be mindful of this feature.</p>
+</div>
+</div>
+<div class="section" id="queryplanner">
+<h2>QueryPlanner</h2>
+<p>The query planner is responsible for:</p>
+<ul class="simple">
+<li><p>Building the DAG and validating that it’s acyclic.</p></li>
+<li><p>Mapping a <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> to their <code class="docutils literal notranslate"><span class="pre">QueryNodeFactory</span></code> and letting those factories mutate the graph via the <code class="docutils literal notranslate"><span class="pre">QueryNodeFactory.setupGraph()</span></code> methods.</p></li>
+<li><p>Pushing operations down to data source nodes when possible.</p></li>
+<li><p>Instantiating <code class="docutils literal notranslate"><span class="pre">QueryNodes</span></code> from <code class="docutils literal notranslate"><span class="pre">QueryNodeFactories</span></code>.</p></li>
+<li><p>Determining how many <code class="docutils literal notranslate"><span class="pre">QueryResult</span></code> objects will flow through the DAG.</p></li>
+<li><p>Adding ID converters when <a href="#id1"><span class="problematic" id="id2">``</span></a>TimeSeriesByteId` IDs are in play.</p></li>
+<li><p>Linking serializable nodes to the <code class="docutils literal notranslate"><span class="pre">QuerySink</span></code> via the <code class="docutils literal notranslate"><span class="pre">QueryContextPipeline</span></code>.</p></li>
+</ul>
+<p>Currently the <code class="docutils literal notranslate"><span class="pre">DefaultQueryPlanner</span></code> is the only implementation and it’s workflow is as follows:</p>
+<div class="section" id="build-the-initial-graph">
+<h3>Build the Initial Graph</h3>
+<p>The planner walks through the list of <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> entries in the query execution graph and builds the DAG based on the config IDs and the config sources (the IDs of nodes that send data <em>to</em> the current config node). It will fail the query if there are duplicate node IDs or a cycle in the graph.</p>
+</div>
+<div class="section" id="validate-and-mutate-graph">
+<h3>Validate and Mutate Graph</h3>
+<p>Next, the planner performs a depth-first recursive walk of the graph and validates that each <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> has a factory in the TSDB registry to handle it. If a config is missing a factory, the query will fail.</p>
+<p>When a factory is found, the <code class="docutils literal notranslate"><span class="pre">QueryNodeFactory.setupGraph()</span></code> method is called, passing in the config, context and planner. This gives the factory a chance to mutate the graph or the config based on server configuration or other nodes in the graph. This step is <em>very</em> important and complex and messy. There are probably better ways to go about it but the reason it’s so messy is that <code class="docutils literal notranslate"><span class="pre">QueryNodeFactories</span></code> are plugins and developers can add new plugins at any time. So we need to be flexible and let them mutate the graph but it also allows for a world of trouble with nodes messing with other nodes.</p>
+<p>A prime example of this the router factory for <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSourceConfig</span></code> (the class name may change. It was <code class="docutils literal notranslate"><span class="pre">TimeRouterFactory</span></code>. This factory is configured with a set of local, remote or further data source routers (like the <code class="docutils literal notranslate"><span class="pre">HAClusterFactory</span></code>) and figures out, based on the <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSourceConfig</span></code> and other query factors, what destinations should partake in the query. It may split the query across multiple sources or pick just one. Either way, the factory will remove its <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> and replace it with one or more node configs.</p>
+<p>Any time a setup call mutates the graph, the recursive setup starts over again at the sources so that new node configs can be setup. Each node config also has a flag to mark that it has been setup so that it can be skipped on these recursive calls if there isn’t anything else to do.</p>
+<p>Another operation here is to compute any missing result IDs. Each <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> has a list of one or more <code class="docutils literal notranslate"><span class="pre">QueryResultId</span></code> that provide an identifier for the results that it will emit to a predecessor node. Some nodes will operate on any results passed through them (e.g. Downsample) but others, like the Expression node, need to know the results it will receive and can only pass a result upstream once it has received all of the results. These <code class="docutils literal notranslate"><span class="pre">QueryResultId</span></code> objects are used to determine when all of the results are in. If a setup method hasn’t added IDs to a <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> then the planner will deduce them by walking the graph and update the config.</p>
+</div>
+<div class="section" id="initialize-filters-and-converters">
+<h3>Initialize Filters and Converters</h3>
+<p>The next step is to initialize <code class="docutils literal notranslate"><span class="pre">QueryFilter</span></code> instances within <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSourceConfig</span></code> instances. These filters are plugins as well and may call external services asynchronously, hence they are initialized asynchronously in order to populate with results useful by a data source.</p>
+<p>As mentioned above, if a data source returns time series IDs in an encoded form to save space and operations (e.g. the AsyncHBase driver uses byte IDs to avoid resolving UIDs to strings whenever possible) then a converter is likely needed before serializing the data. The planner will add a global converter just before the sink in situations where a converter has not been provided yet.</p>
+</div>
+<div class="section" id="verify-sink-filters">
+<h3>Verify Sink Filters</h3>
+<p>The next step is to make sure that any explicitly defined serialization filters are satisfied. By default, only the final nodes in the graph that do not have a data source pointed to them are serialized. However sink filters can be provided by the caller to serialize nodes that are sources to other nodes. E.g. a query may want a summary of each time series along with the timestamped time series. This would need an explicit filter.</p>
+<p>If a node was removed due to a bug in the code when it was in a sink filter, the planner will throw an exception. This is usually the fault of a <code class="docutils literal notranslate"><span class="pre">QueryNodeFactory.setupGraph()</span></code> call.</p>
+</div>
+<div class="section" id="compute-pushdowns">
+<h3>Compute Pushdowns</h3>
+<p>With OpenTSDB V3’s flexible query engine, it’s now possible to query time series data from other systems and remote sources. To send as little data as possible over the network, operations that reduce data, like grouping and downsampling, should happen remotely before the data comes into the TSDB pipeline. Therefore the planner can examine each of the node configurations in the DAG and the data sources, determine if some of those operations are supported by the data source and if so, push those operations to the source and eliminate them from the DAG.</p>
+<p>The planner performs another depth-first search from the sources. For each predecessor it checks:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">QueryNodeConfig.pushDown()</span></code> (soon <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig.nodeOption(QueryNodeConfigOptions.SUPPORTS_PUSH_DOWN)</span></code>) and if false, stops there. If it’s true then it will:</p></li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSourceFactory.supportsPushDown(QueryNodeConfig)</span></code>. If false it will stop there. If true it moves on to the next predecessor node until it hits the sink.</p></li>
+</ul>
+<p>When the sink or a query node that can’t be pushed down is encountered and there is one or more nodes that can be pushed down, then the nodes are added to the <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSourceConfig.getPushDownNodes()</span></code> list and the source is linked to either the sink or the first predecessor that couldn’t be pushed down (a new edge is created).</p>
+</div>
+<div class="section" id="compute-serialization-sources">
+<h3>Compute Serialization Sources</h3>
+<p>This step simply find the nodes that will be serialized and creates a list of <code class="docutils literal notranslate"><span class="pre">QueryResultId</span></code> objects for the <code class="docutils literal notranslate"><span class="pre">QueryPipelineContext</span></code> to keep track of, using this list to trigger the <code class="docutils literal notranslate"><span class="pre">QuerySink.onComplete()</span></code> call once all of the results have flowed through and the sink has closed them.</p>
+</div>
+<div class="section" id="build-and-initialize-nodes">
+<h3>Build and Initialize Nodes</h3>
+<p>Up until this point we’ve been working with <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> objects that simply <em>describe</em> the execution graph. Finally we can instantiate <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code> instances and place them in a processing DAG to start doing some work. To do so, the planner starts with the <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSourceConfigs</span></code> and performs a breadth-first walk of the graph up to the sink with the following steps:</p>
+<ul class="simple">
+<li><p>The factory for the current <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> is located and <code class="docutils literal notranslate"><span class="pre">QueryNodeFactory.newNode(QueryPipelineContext,</span> <span class="pre">QueryNodeConfig)</span></code> is called.</p></li>
+<li><p>On the newly instantiated node, <a href="#id3"><span class="problematic" id="id4">``</span></a>QueryNode.initialize(span)` is called so the node can perform any work it needs before data starts to flow.</p></li>
+</ul>
+<p>Because the initialize method is asynchronous, predecessor nodes are initialized on the callback from the previous initialization. This, and the fact that the nodes are initialized breadth-first means that each node is <em>guaranteed*</em> that it’s ancestor nodes have been initialized.</p>
+</div>
+</div>
+<div class="section" id="querynodefactory">
+<h2>QueryNodeFactory</h2>
+<p>These are the starting point when implementing a data source, sink or processing node for OpenTSDB. They are singletons (per JVM) that are responsible for mutating the query planning graph when necessary and instantiating <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code> implementations. Most factories do little work, like the Sliding Window or ID Converter factories. Some do quite a bit like the Expression or time based router node that mutate graphs extensively. Factories also parse configuration from JSON when needed.</p>
+<p>Factories are registered with the <code class="docutils literal notranslate"><span class="pre">Registry</span></code> that belongs to the <code class="docutils literal notranslate"><span class="pre">TSDB</span></code> singleton instance. The <code class="docutils literal notranslate"><span class="pre">QueryNodeFactory.id()</span></code> provides a mapping from a <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> to the instance.</p>
+</div>
+<div class="section" id="querynode">
+<h2>QueryNode</h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code> is a vertex in the processing DAG that generates, mutates or serializes time series data. The node instance is unique to a particular query so it can store state. It can also find its predecessors and ancestors via methods in the base <code class="docutils literal notranslate"><span class="pre">AbstractQueryNode</span></code> class. Every <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code> must send at least one <code class="docutils literal notranslate"><span class="pre">QueryResult</span></code> upstream (though an edge case could be simply sending an exception. That would be odd though).</p>
+<p>The two most important methods for each node are:</p>
+<div class="section" id="onnext-queryresult">
+<h3>onNext(QueryResult)</h3>
+<p>This method is called with a non-null <code class="docutils literal notranslate"><span class="pre">QueryResult</span></code> object by an ancestor node. The result may have an exception and error or it may have 0 (empty or no results) or more time series to operate on. As noted above, this method is called <em>asynchronously</em> so if your node implementation needs to work with state, <em>be careful</em> as you never know when or from which tread data may arrive.</p>
+<p>Once your node is finished with it’s work and has created it’s own <code class="docutils literal notranslate"><span class="pre">QueryResult</span></code> (may simply be a wrapper around the result it received with the <code class="docutils literal notranslate"><span class="pre">QueryResult.source()</span></code> pointing to the current node and result ID’s update) then it should be sent to <em>each</em> predecessor node by calling <code class="docutils literal notranslate"><span class="pre">QueryNode.onNext(QueryResult)</span></code> on each. The <code class="docutils literal notranslate"><span class="pre">AbstractQueryNode.sendUpstream(QueryResult)</span></code> helper exists to handle this for you.</p>
+</div>
+<div class="section" id="onerror-throwable">
+<h3>onError(Throwable)</h3>
+<p>Be careful to capture any exceptions that might happen when processing data in a <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code>. If an exception is thrown in the <code class="docutils literal notranslate"><span class="pre">onNext(QueryResult)</span></code> call, it may not be caught and a query may hang. Instead, make sure to wrap code in a <code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">{</span> <span class="pre">}</span> <span class="pre">catch</span> <span class="pre">(Exception</span> <span class="pre">e)</span></code> block and pass the caught exception to the predecessors using their <code class="docutils literal notranslate"><span class="pre">QueryNode.onError(Throwable)</span></code> method. The current node should pass errors upstream in its <code class="docutils literal notranslate"><span class="pre">onError()</span></code> method. Again, <code class="docutils literal notranslate"><span class="pre">AbstractQueryNode.sendUpstream(Throwable)</span></code> is available as a helper and handles the local node’s error handling, passing it upstream.</p>
+<p>This method is meant to handle unrecoverable exceptions that will be returned to the end user. There are some situations where invalid data or some other error occurs but the query <em>can</em> continue. E.g. for a multi-region query for the same data, if one region is down, the query can simply use the other region’s results. In this case, send an empty with a non-null <code class="docutils literal notranslate"><span class="pre">QueryResult.error()</span></code> string or a non-null <code class="docutils literal notranslate"><span class="pre">QueryResult.exception()</span></code>.</p>
+</div>
+<div class="section" id="other-functions">
+<h3>Other Functions</h3>
+<p>In the <code class="docutils literal notranslate"><span class="pre">QueryNode.initialize(Span)</span></code> method, a node can asynchronously make calls to external resources and walk the query graph if needed. Make sure to keep a reference to any resources that need to be released as node fields.</p>
+<p>If the node <em>did</em> acquire some resources to release (like an object pool reference) release it in the <code class="docutils literal notranslate"><span class="pre">QueryNode.close()</span></code> method. This only needs to handle local resources and doesn’t need to worry about other nodes. It will be called when the <code class="docutils literal notranslate"><span class="pre">QueryContext.close()</span></code> method is executed by the original caller.</p>
+<p>There is also an <code class="docutils literal notranslate"><span class="pre">QueryNode.onComplete()</span></code> method but it is meant for streaming pipelines and doesn’t really do anything right now.</p>
+</div>
+</div>
+<div class="section" id="querysink">
+<h2>QuerySink</h2>
+<p>The query sink behaves similar to any <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code> except that the <code class="docutils literal notranslate"><span class="pre">QuerySink.onNext(QueryResult)</span></code> code is excepted to run either serialization code or user code to deal with the data in the <code class="docutils literal notranslate"><span class="pre">QueryResult</span></code>.</p>
+<p>If at any time the <code class="docutils literal notranslate"><span class="pre">QuerySink.onError(Throwable)</span></code> method is called, the sink can choose to skip processing the remainder of the query results (<strong>WARNING:</strong> Make sure to close them though) and handle the error.</p>
+<p>When all of the query results sent to <code class="docutils literal notranslate"><span class="pre">onNext()</span></code> have been closed, <code class="docutils literal notranslate"><span class="pre">QueryResult.onComplete()</span></code> is called to let the sink know the query is finished.</p>
+</div>
+<div class="section" id="queryresults-and-iterators">
+<h2>QueryResults and Iterators</h2>
+<p>So far we’ve looked at the high level components that comprise setting up a query and passing data bags (<code class="docutils literal notranslate"><span class="pre">QueryResult</span></code>) around. Next we’ll look into these query results and see how to deal with the time series therein.</p>
+<div class="section" id="queryresult">
+<h3>QueryResult</h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">QueryResult</span></code> is a collection of 0 or more <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> objects from a particular <code class="docutils literal notranslate"><span class="pre">QueryNode</span></code>. The time series references are accessed via the <code class="docutils literal notranslate"><span class="pre">QueryResult.timeSeries()</span></code> method. An important design decision made with OpenTSDB V3 was to maintain the compute-on-access model of V1 and V2. An example query may fetch 10 time series from a data source and keep the results in memory (in the future it could be spooled to temporary storage if the data is too large). Lets say there are 15 nodes operating on the data including grouping, downsampling, rate conversion, topNs, etc. The TSD will not have <code class="docutils literal notranslate"><span class="pre">15</span> <span class="pre">*</span> <span class="pre">10</span> <span class="pre">=</span> <span class="pre">150</span></code> copies of the data in memory. Instead, each query result will maintain a reference to the <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> from the previous/ancestor query result. When the <code class="docutils literal notranslate"><span class="pre">QuerySink</span></code> receives the final result, it can iterate over the list of <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> entries and fetch a <code class="docutils literal notranslate"><span class="pre">TypedTimeSeriesIterator&lt;?</span> <span class="pre">extends</span> <span class="pre">TimeSeriesDataType&gt;</span></code> for each series. It then calls the <code class="docutils literal notranslate"><span class="pre">TypedTimeSeriesIterator.hasNext()</span></code> and <code class="docutils literal notranslate"><span class="pre">TypedTimeSeriesIterator.next()</span></code> methods to get the data needed for serialization or further processing. See the next section for information about these iterators.</p>
+<p>Before diving into the iterators, let’s look at some important aspects of the query result.</p>
+<div class="section" id="timeseries">
+<h4>timeSeries()</h4>
+<p>This method <em>must</em> return a non-null object with 0 or more time series. An empty list means the result wasn’t able to find any time series to satisfy its processing requirements, such as a data source not finding series matching a filter or an expression not finding series to join with.</p>
+<p>The resultant <code class="docutils literal notranslate"><span class="pre">List&lt;TimeSeries&gt;</span></code> can be a custom implementation for efficiency reasons (see the Aura Metrics result list) but it <em>must</em> honor indexing. The reason being that some query nodes may iterate over the list once to choose a subset of the series then pick that subset to form a sub list.</p>
+</div>
+<div class="section" id="datasource">
+<h4>dataSource()</h4>
+<p>The data source is a unique identifier for a result within a <code class="docutils literal notranslate"><span class="pre">QueryContext</span></code>. It <em>must</em> be set and be <em>unique</em> or the query will likely stall. The <code class="docutils literal notranslate"><span class="pre">QueryResultId</span></code> returned has two methods/fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nodeID()</span></code> that returns the ID of the query node that generated the result, pulled from the <code class="docutils literal notranslate"><span class="pre">QueryNodeConfig</span></code> of the node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dataSource()</span></code> is the ID of the <code class="docutils literal notranslate"><span class="pre">TimeSeriesDataSource</span></code> node or the ID of a node that joined one or more data sources (such as an expression). This is used for differentiating multiple data sources that feed into a <em>single</em> node. E.g. to compute CPU busy, you create an expression involving many metrics measured on a Linux machine. Downsampling to normalize the data should happen before the expression so instead of creating a separate downsample node per data source, all of the data sources can pass through the downsample node with IDs like <code class="docutils literal notranslate"><span class="pre">ds:m1</span></code> and <code class="docutils literal notranslate"><span class="pre">ds:m2</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="source">
+<h4>source()</h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">source()</span></code> method returns a reference to the source that created the result. It’s used primarily to get the configuration from the result’s node if needed. If a result is passed through a node without modifications, simply wrap that result to pass the proper source.</p>
+</div>
+<div class="section" id="error-and-exception">
+<h4>error() and exception()</h4>
+<p>As mentioned before, some nodes can run into non-fatal situations where a query can continue. In the <code class="docutils literal notranslate"><span class="pre">HAClusterFactory</span></code>, the same query is sent to replica clusters and the results merged into a single result to send upstream. If one of these clusters fails, maybe due to downtime, the other cluster’s results can be used. Therefore the data source will send a query result upstream with the error flag set telling the <code class="docutils literal notranslate"><span class="pre">Merger</span></code> node to pass on the results of the other cluster.</p>
+</div>
+<div class="section" id="timespecification">
+<h4>timeSpecification()</h4>
+<p>An important optimization in OpenTSDB is the ability to work with arrays of time series data (in the future, vectors when Java supports them). This requires time series to be <em>downsampled</em> or normalized into an array with a fixed interval between each value (called the <em>step</em> in some time series processing systems). With a fixed interval we can discard raw timestamps and (generally) save memory and speed up queries. Thus when a downsample has been applied (or pre-downsampled data is queried) the result will have a non-null time spec that describes the start and end times of the resulting data set along with the interval. This can be serialized or used for processing the data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any time <code class="docutils literal notranslate"><span class="pre">NumericArrayType</span></code> data is present in a query result, the time specification must be set. Generally, any query node processing data after a downsample node will use arrays and return the timespec. If no downsampling is present, this can return null.</p>
+</div>
+</div>
+</div>
+<div class="section" id="typedtimeseriesiterator">
+<h3>TypedTimeSeriesIterator</h3>
+<p>These are extensions of the Java <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> including a data type. Within each instantiation of an iterator, or the call to <code class="docutils literal notranslate"><span class="pre">.next()</span></code>, the iterator can instantiate iterators for <em>downstream/ancestor</em> time series it depends on. This will happen recursively until the time series in the data source are fetched through an iterator. Then data is passed back up the pipeline to the sink. In this way we avoid creating too many copies of the data and arrive at almost a functional processing of the actual time series data.</p>
+<p>One drawback is that the source generally needs to keep all of its data in memory because none of the iterator methods are asynchronous. A massive data set can still be iterated over if the data source returns data in a blocking fashion. However it <em>must</em> return <em>all</em> of the final time series identifiers in the call to <code class="docutils literal notranslate"><span class="pre">QueryResult.timeseries()</span></code> as predecessor nodes need to know how many time series to expect.</p>
+<div class="section" id="example">
+<h4>Example</h4>
+<p>Let’s walk through an example. Say we have a query with on sink, a Downsample processing node and a data source. This data source returns 2 time series. The basic sink code looks like this:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="p">(</span><span class="kd">final</span> <span class="n">QueryResult</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">TimeSeries</span> <span class="n">ts</span> <span class="p">:</span> <span class="n">result</span><span class="p">.</span><span class="na">timeseries</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// Note that we&#39;re fetching a specific data type here and</span>
+    <span class="c1">// not checking to see if the Optional has data.</span>
+    <span class="n">TypedTimeSeriesIterator</span><span class="o">&lt;</span><span class="n">NumericType</span><span class="o">&gt;</span> <span class="n">iterator</span> <span class="o">=</span>
+      <span class="n">ts</span><span class="p">.</span><span class="na">iterator</span><span class="p">(</span><span class="n">NumericType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">TimeSeriesValue</span><span class="o">&lt;</span><span class="n">NumericType</span><span class="o">&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="n">iterator</span><span class="p">.</span><span class="na">next</span><span class="p">();</span>
+      <span class="c1">// work with the value.</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The query <code class="docutils literal notranslate"><span class="pre">result</span></code> is from the downsample node, let’s give it a simple ID of <code class="docutils literal notranslate"><span class="pre">ds</span></code>. The downsample result has a reference to the time series from the data source result, let’s call it <code class="docutils literal notranslate"><span class="pre">m1</span></code>. (More about <code class="docutils literal notranslate"><span class="pre">QueryResultIds</span></code> later.) We’ll have two time series, <code class="docutils literal notranslate"><span class="pre">TS1</span></code> and <code class="docutils literal notranslate"><span class="pre">TS2</span></code>. Here’s a diagram of what happens in the code above with <code class="docutils literal notranslate"><span class="pre">TS1</span></code>.</p>
+<img alt="Query Iterator Flow" src="../_images/dev_query_iterator_flow.png" />
+<p>The first time through the loop, the sink code above receives time series <code class="docutils literal notranslate"><span class="pre">TS1:ds:m1</span></code> from the downsample results (assigned to the variable <code class="docutils literal notranslate"><span class="pre">ts</span></code> but for documentation purposes we’ll put the identifier in brackets. Sorry for the confusion). It then calls <code class="docutils literal notranslate"><span class="pre">[TS1:ds].iterator()</span></code> and the <code class="docutils literal notranslate"><span class="pre">TS1:ds</span></code> time series object instantiates an iterator instance. The constructor of the downsample iterator fetches an iterator from the source node time series <code class="docutils literal notranslate"><span class="pre">TS1:m1</span></code> and holds it in a member field. The downsample iterator is now returned to the query sink. No data has been processed yet.</p>
+<p>Next, the query sink sees if its iterator has any data by calling <code class="docutils literal notranslate"><span class="pre">[TS1:ds].hasNext()</span></code>. Control passes to the downsample iterator and <em>now</em> it will ask the data source time series for an iterator by invoking <code class="docutils literal notranslate"><span class="pre">[TS1:m1].iterator()</span></code>. Once the downsample iterator has the source iterator it can call <code class="docutils literal notranslate"><span class="pre">[TS1:m1].hasNext()</span></code> and return that response to the sink.</p>
+<p>Since the data source iterator, <code class="docutils literal notranslate"><span class="pre">TS1:m1</span></code> has confirmed there is data (through the <code class="docutils literal notranslate"><span class="pre">TS1:ds</span></code> iterator), the sink now fetches the first value by calling <code class="docutils literal notranslate"><span class="pre">[TS1:ds].next()</span></code>. The downsample iterator calls <code class="docutils literal notranslate"><span class="pre">[TS1:m1].next()</span></code> to get a value from the data source. The value is processed through the downsample node and a <em>new</em> value is created, <code class="docutils literal notranslate"><span class="pre">[TS1:ds]</span> <span class="pre">TimeSeriesData]</span></code> which is returned to the sink. The sink can now serialize or process the <em>downsampled</em> value instead of the raw data source value.</p>
+<p>Phew!</p>
+<p>This process repeats for each time series and the callstack grows with each node added. It looks ugly and it is. But there are a few benefits:</p>
+<ul class="simple">
+<li><p>If processing stops due to an error or maybe too many series have been serialized, we haven’t wasted CPU cycles all of the raw data when we didn’t have to.</p></li>
+<li><p>Generally, only a small subset of iterators are active at any time so that GC has a chance to reclaim some space before processing the next set of iterators. (Particularly true with the <code class="docutils literal notranslate"><span class="pre">NumericArrayType</span></code> data).</p></li>
+<li><p>Serialization can happen in parallel (yes, more iterators would be open at once) to speed up those big queries.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="data-types">
+<h2>Data Types</h2>
+<p>While most users think of time series data consisting only of numeric data, many datum can be associated with timestamps in the observability space like tracing spans, events, annotations and logs. OpenTSDB V3 aims to handle all kinds of time series data, not just ye olde metrics. The reason <code class="docutils literal notranslate"><span class="pre">TypedTimeSeriesIterator&lt;?</span> <span class="pre">extends</span> <span class="pre">TimeSeriesDataType&gt;</span></code> is that a single query may incorporate and correlate various types of data. Currently we only support events and numerics but others can be added easily (including histograms and annotations from V2).</p>
+<p>Here is some information on the built-ins so far:</p>
+<p>This is a single numeric value, signed 64 bit integer or signed 64 bit double precision floating point value, associated with a timestamp. It’s the same as OpenTSDB V2 and is good for sporadic and sparse data or raw data processing. Querying over this type of data for wide time spans with dense time series is inefficient however. Thus…</p>
+<p>… which is, as the name implies, a normalized array of either signed 64 bit integers or signed 64 bit double precision floating point values with regular time intervals. The benefit of using such arrays is the ability to take advantage of memory locality for computations within an array and SIMD operations for JDKs that support them (See <code class="docutils literal notranslate"><span class="pre">-XX:+UseSuperWord</span></code>, enabled by default) to operate across two arrays. It also allows the timestamp information to be discarded, saving more memory.</p>
+<p>However this is most useful for dense time series with fairly narrow time ranges. The reason being that the current way of knowing whether a value is present or not is to convert the array to a <code class="docutils literal notranslate"><span class="pre">double[]</span></code> and fill missing values with <code class="docutils literal notranslate"><span class="pre">Double.NaN</span></code>. If there are few values and a wide time range, the array can wind up mostly with NaNs and waste processing and serialization time.</p>
+<p>For the majority of time series data stores, it simply costs too much to keep the original data for a long period of time so most observability systems downsample values by computing the sum, count, min and max over time buckets, e.g. an hour, and store that for longer periods. The <code class="docutils literal notranslate"><span class="pre">NumericSummaryType</span></code> handles this data by associating the numeric values above with the type of rollup/summary and a single timestamp. E.g. a query may want the average of some time series so in order to compute an accurate average, the store should fetch the sum and counts over time. Then OpenTSDB will downsample the sums and counts and compute the proper average for each timestamp.</p>
+<p>We don’t have arrays yet for summary types but they can be added.</p>
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous</h2>
+<p>Throughout the query path you’ll find some references and dead-ends that need cleaning up.</p>
+<p>The intention here is to handle really big queries by allowing for a streaming response. The only supported mode right now is <code class="docutils literal notranslate"><span class="pre">SINGLE</span></code> in that a query will fetch <cite>all</cite> of the data it needs in one go and serialize it. Streaming is difficult over HTTP but easier over Websockets, GRPC, Thrift and other forms of RPC so we may revisit this later.</p>
+<p>Along with the streaming query modes, nodes have a push API that isn’t fully baked. It’s meant to push up partial results for individual time series rather than having to accumulate everything into a <code class="docutils literal notranslate"><span class="pre">QueryResult</span></code>. It is less efficient for large queries so we haven’t done any more work here.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, OpenTSDB.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

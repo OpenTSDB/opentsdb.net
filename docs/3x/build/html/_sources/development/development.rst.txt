@@ -1,124 +1,59 @@
 General Development
 ===================
 
-OpenTSDB isn't laid out like a typical Java project, instead it's a bit more like a C or C++ environment. This page is to help folks who want to modify OpenTSDB and provide updates back to the community.
-
-Build System
-^^^^^^^^^^^^
-.. index:: Build System
-There are almost as many build systems as there are developers so it's impossible to satisfy everyone no matter which system or layout is chosen. Autotools and GNU Make were chosen early on for OpenTSDB because of their flexibility, portability, and especially speed and popular usage. It's not the easiest to configure but for our needs, it's really not too difficult. We'll spell out what you need to change below and give tips for IDE users who want to setup an environment. Note that the build script can now compile a ``pom.xml`` file for compiling with Maven and work is underway to provide better Maven support. However you still have to modify ``Makefile.am`` if you add or remove classes or dependencies and such.
+OpenTSDB 1.x and 2.x used Make to compile in a non-Java'y way. 3.x uses straight Maven with modules and is compatible with IDEs. This page goes over general dev and building guidelines.
 
 Building
 ^^^^^^^^
 
-OpenTSDB is built using the standard ``./configure && make`` model that is most commonly employed by many open-source projects. Fresh working copies checked out from Git must first be ``./bootstraped``.
+Standard ``mvn`` commands work fine. E.g. ``mvn clean package`` will cleanout existing builds, build each module and run it's unit test, and create a distribution tarball in ``distribution/target/``. 
 
-Alternatively, there is a ``build.sh`` script you can run that makes as it takes care of all the steps for you. You can give it a Make target in argument, e.g. ``./build.sh distcheck`` (the default target is ``all``).
+Project Layout
+^^^^^^^^^^^^^^
 
-Build Targets
--------------
+The TSDB code base now uses modules with the primary focus being on adding features via plugins. Note that this is still Java 8 modules and we haven't started the ugly migration process of using the Java 9x module system wherein packages should not overlap. In general, interfaces are in the common module while implementations of those same classes are in other modules. We could use some help with organization.
 
-The ``build.sh`` script will compile a JAR and the static GWT files for the front-end GUI if no parameters are passed. Additional parameters include:
+The modules or directories include:
 
-* **check** - Executes unit tests and reports on the results. You can specify executing the checks in a specific file via ``test_SRC=<path>``, e.g. ``./build.sh check test_SRC=test/uid/TestNoSuchUniqueId.java``
-* **pom.xml** - Compile a POM file to compile with Maven.
-* **dist** - Downloads dependencies, compiles OpenTSDB and creates a tarball for distribution
-* **distcheck** - Same as dist but also runs unit tests. This should be run before issuing pull requests to verify that everything performs correctly.
-* **debian** - Compiles OpenTSDB and generates a Debian package
+* **common** - The common interfaces and utilities along with implementations that do not require dependencies. The goal is to keep this generically applicable and only include dependencies other modules may not require (though Netty and Jackson snuck in unfortunately). This is just a library.
+* **core** - This is the core write and read module of OpenTSDB in that it handles the routing of data, query planning, etc. It's just a library and still needs another module to turn up a useful daemon (generally the ``server-undertow`` module with ``TSDMain.java``). This is just a library.
+* **Executors** - This is a directory that was meant to hold various RPC implementations to communicate between TSDB components. It only has the ``http`` implementation right now so we'll probably reorganize this at some point.
+* **Implementations** - A catch-all module directory for now that has all kinds of plugins and utilities like the ``servlet`` module to handle JAX-RS servlets for an HTTP server and ``server-undertow`` that can spin up a TSD server using the servlets. It also has Prometheus and Influx query/data converters.
+* **Storage** - A directory with storage implentations like the HBase integration and Google Bigtable. Also some queue/pubsub modules.
+* **Distribution** - The module that is responsible for building a distributable tarball and Docker container(s).
 
+.. NOTE:: There are still directories (``src``, ``test``) and files from the 2.x code path. This is so we can ``git mv ...`` files from the old to the new, make changes and maintain contribution history.
 
-Adding a Dependency
-^^^^^^^^^^^^^^^^^^^
+Contributing
+^^^^^^^^^^^^
 
-*Please try your best not to*. We're extremely picky on the dependencies and will require a code review before we start depending on a new library. The goal isn't to re-invent the wheel either, but we are very mindful about the number and quality of dependent libraries we pull in.
-If you absolutely must add a new dependency, here are the steps:
+* Please file `issues on GitHub <https://github.com/OpenTSDB/opentsdb/issues>`_ after checking to see if anyone has posted a bug already. Make sure your bug reports contain enough details so they can be easily understood by others and quickly fixed.
+* The best way to contribute code is to fork the main repo and `send a pull request <https://help.github.com/articles/using-pull-requests>`_ on GitHub.
 
-* Find the canonical source to download the dependent JAR file
-* Find or create the proper directory under ``third_party/``
-* In that directory, create a ``<depdencency>.jar.md5`` file
-* Paste the MD5 hash of the entire jar in that file and save it
-* Create or edit the ``include.mk`` file and copy the header info from another directory's file
-* Add a ``<DEPENDENCY>_VERSION := <version>`` e.g. ``JACKSON_VERSION := 1.9.4``
-* Add a ``<DEPENDENCY> := third_parth/<DIR>/<dependency>$(<DEPENDENCY>_VERSION).jar`` line e.g. ``JACKSON_CORE := third_party/jackson/jackson-core-lgpl-$(JACKSON_CORE_VERSION).jar``
-* Add the canonical source URL in the format ``<DEPENDENCY>_BASE_URL := <URL>`` e.g. ``JACKSON_CORE_BASE_URL := http://repository.codehaus.org/org/codehaus/jackson/jackson-core-lgpl/$(JACKSON_VERSION)`` and note that the JAR name will be appended to the end of the URL
-* Add the following lines
-  ::
+  * Bug fixes should be done in the ``master`` branch
+  * New features or major changes should be done in the ``next`` branch
 
-    $(<DEPENDENCY>): $(J<DEPENDENCY>).md5
-    set dummy ``$(<DEPENDENCY>_BASE_URL)`` ``$(<DEPENDENCY>)``; shift; $(FETCH_DEPENDENCY)
-  
-  e.g.
-  ::
-  
-    $(JACKSON_CORE): $(JACKSON_CORE).md5
-    set dummy ``$(JACKSON_CORE_BASE_URL)`` ``$(JACKSON_CORE)``; shift; $(FETCH_DEPENDENCY)
+* Alternatively, you can send a plain-text patch to the `mailing list <https://groups.google.com/forum/#!forum/opentsdb>`_.
+* Before your code changes can be included, please file the `Contribution License Agreement <https://docs.google.com/spreadsheet/embeddedform?formkey=dFNiOFROLXJBbFBmMkQtb1hNMWhUUnc6MQ>`_.
+* Unlike, say, the Apache Software Foundation, we do not require every single code change to be attached to an issue. Feel free to send as many small fixes as you want.
+* Please break down your changes into as many small commits as possible.
+* Please *respect the coding style of the code* you're changing (as much as possible. We're less picky about this now).
 
-* Add a line ``THIRD_PARTY += $(<DEPENDENCY>)`` e.g. ``THIRD_PARTY += $(JACKSON_CORE)``
-* Next, back in the ``third_party/`` directory, edit the ``include.mk`` file and if you added a new directory for your dependency, insert a reference to the ``.mk`` file in the proper alphabetical position.
-* Edit ``Makefile.am``
+  * Indent code with 2 spaces, no tabs
+  * Keep code to 80 columns
+  * Curly brace on the same line as ``if``, ``for``, ``while``, etc
+  * Variables need descriptive names ``like_this`` (instead of the typical Java style of ``likeThis``)
+  * Methods named ``likeThis()`` starting with lower case letters
+  * Classes named ``LikeThis``, starting with upper case letters
+  * Use the ``final`` keyword as much as you can, particularly in method parameters and returns statements.
+  * Avoid checked exceptions as much as possible
+  * Always provide the most restrictive visibility to classes and members
+  * Javadoc all of your classes and methods. Some folks make use the Java API directly and we'll build docs for the site, so the more the merrier
+  * Don't add dependencies to the core OpenTSDB library unless absolutely necessary
+  * Add unit tests for any classes/methods you create and verify that your change doesn't break existing unit tests. We know UTs aren't fun, but they are useful
 
-  * Find the ``tsdb_DEPS = \`` line
-  * Add your new dependency in the proper alphabetical position in the format ``$(<DEPENDENCY>)``, e.g. ``$(JACKSON_CORE>``. Note that if you put it the middle of the list, you must finish with the line continuation character, the backslash ``\``. If your dependency goes at the end, do not add the backslash.
+Dependencies
+^^^^^^^^^^^^
 
-    .. Note:: 
-  
-      If the dependency is only used for unit tests, then add it to the ``test_DEPS = \`` list
-    
-  * Find the ``pom.xml: pom.xml.in Makefile`` line in the file
-  * Add a sed line such as ``-e 's/@<DEPENDENCY>_VERSION@/$(<DEPENDENCY>_VERSION)/' \`` e.g. ``-e 's/@JACKSON_VERSION@/$(JACKSON_VERSION)/' \``
+Do not add dependencies to the `common` or `core` modules if at all possible. If you have a dependency you can't bypass, try writing a plugin.
 
-    .. Note::
-   
-      Unit test dependencies go here as well as regular items
-    
-* Edit ``pom.xml.in``
-
-  * Find the ``<dependencies>`` XML section
-  * Copy and paste an existing dependency section and modify it for your variables
-
-* Now run a build via ``./build.sh`` and verify that it fetches your dependency and builds without errors. * Then run ``./build.sh pom.xml`` to verify that the POM is compiled properly and run a ``mvn compile`` to verify the Maven build works correctly.
-
-Adding/Removing/Moving a Class
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This is much easier than dealing with a dependency. You only need to modify ``Makefile.am`` and edit the ``tsdb_SRC := \`` or the ``test_SRC := \`` lists. If you're adding a class, put it in the proper alphabetical position and account for the proper directory and class name. It is case sensitive so make sure to get that right. If removing a class, just delete the line. If moving a class, add the new line and delete the old one. Be careful to handle the line continuation ``\`` backslashes. The last class in each list should NOT end with a backslash, the rest need it.
-
-After editing, rebuild with ``./build.sh`` and verify that your class was compiled and included properly.
-
-IDEs
-^^^^
-.. index:: IDEs
-Many devs use an IDE to work on Java projects and despite OpenTSDB's non-java-standard directory layout, working with an IDE is pretty easy. Here are some steps to get up and running with Eclipse though they should work with other environments. This example assumes you're using Eclipse.
-
-* Clone the GIT repo to a location such as ``/home/$USER/opentsdb``
-* Build the repo with ``./build.sh`` from the directory
-* Fire up Eclipse or your favorite IDE
-* Create a new Java project with a name like ``opentsdb_dev`` so that it winds up in ``/home/$USER/opentsdb_dev``
-* Your dev directory should now have a ``./src`` directory
-* Create a ``net`` directory under ``./src`` so that you have ``./src/net`` (some IDEs may create a ``./src/java`` dir, so add ``./src/java/net``)
-* Create a symlink to the GIT repo's ``./src`` directory from ``./src/net/opentsdb``. E.g. ``ln -s /home/$USER/opentsdb/src /home/$USER/opentsdb_dev/src/net/opentsdb``
-* Also, create a ``tsd`` directory under ``./src`` so that you have ``./src/tsd``
-* Create a symlink to the GIT repo's ``./src/tsd/client`` directory from ``./src/tsd/client``. E.g. ``ln -s /home/$USER/opentsdb/src/tsd/client /home/$USER/opentsdb_dev/src/tsd/client``
-* If your IDE didn't, create a ``./test`` directory under your dev project folder. This will be used for unit tests.
-* Add a ``net`` directory under ``./test`` so you have ``./test/net``
-* Create a symlink to the GIT repo's ``./test`` directory from ``./test/net/opentsdb``. E.g. ``ln -s /home/$USER/opentsdb/test /home/$USER/opentsdb_dev/test/net/opentsdb``
-* Refresh the directory lists in Eclipse and you should see all of the source files
-* Right click the ``net.opentsdb.tsd.client`` package under SRC and select ``Build Path`` then ``Exclude`` from the menu
-* Now add the downloaded dependencies by clicking Project -> Properties, click the ``Java Build Path`` menu item and click ``Add External JARs`` button.
-* Do that for each of the dependencies that were downloaded by the build script
-* Copy the file ``./build/src/BuildData.java`` from the GIT repo, post build, to your ``./src/net/opentsdb/`` directory
-* Now click Run (or Debug) -> Manage Configurations
-* Under Java Application, right click and select New from the pop-up
-* Under the Main tab, brows to your ``opentsdb_dev`` project
-* For the Main Class, search for ``net.opentsdb.tools.TSDMain``
-* Under Arguments, add the runtime arguments to select your Zookeeper quorum and the static and cache directories
-* Run or Debug it and hopefully it worked
-* Now edit away and when you're ready to publish changes, follow the directions above about modifying the build system (if necessary), publish to your own GitHub fork, and issue a pull request.
-
-.. Note:: 
-
-  This won't compile the GWT UI. If you want to do UI work and have made changes, recompile OpenTSDB or export it as a JAR from your IDE, then execute the following command (assuming the directory structure above):
-
-  ::
-
-    java -cp ``<PATH_TO>gwt-dev-2.4.0.jar;<PATH_TO>gwt-user-2.4.0.jar;<PATH_TO>tsdb-1.1.0.jar;/home/$USER/opentsdb/src/net/opentsdb;/home/$USER/opentsdb/src`` com.google.gwt.dev.Compiler -ea -war <PATH_TO_STATIC_DIRECTORY> tsd.Queryui

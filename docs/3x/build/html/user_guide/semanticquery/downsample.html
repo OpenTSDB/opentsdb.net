@@ -301,14 +301,14 @@
 </div>
 <div class="section" id="auto-intervals">
 <h2>Auto Intervals</h2>
-<p>When <code class="docutils literal notranslate"><span class="pre">auto</span></code> is used in the interval and configured in the TSD, the TSD will take the start and end time of the query and compute a downsample that would return at most about 400 data points for the query range. A stepping configuration is used to determine the final resolution. By default, this stepping config is:</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">auto</span></code> is used in the interval and configured in the TSD, the TSD will take the start and end time of the query and compute a downsample that would return at most about 800 data points for the query range. A stepping configuration is used to determine the final resolution. By default, this stepping config is:</p>
 <ul class="simple">
-<li><p>&lt; 6h use <code class="docutils literal notranslate"><span class="pre">1m</span></code></p></li>
-<li><p>&gt;= 6h and &lt; 12h use <code class="docutils literal notranslate"><span class="pre">15m</span></code></p></li>
-<li><p>&gt;= 12h and &lt; 3d use <code class="docutils literal notranslate"><span class="pre">1h</span></code></p></li>
-<li><p>&gt;= 3d and &lt; 1w use <code class="docutils literal notranslate"><span class="pre">6h</span></code></p></li>
-<li><p>&gt;= 1w and &lt; 1 month use <code class="docutils literal notranslate"><span class="pre">1d</span></code></p></li>
-<li><p>&gt;= 1 month use <code class="docutils literal notranslate"><span class="pre">1w</span></code></p></li>
+<li><p>&lt; 12h use <code class="docutils literal notranslate"><span class="pre">1m</span></code></p></li>
+<li><p>&gt;= 12h and &lt; 3d use <code class="docutils literal notranslate"><span class="pre">15m</span></code></p></li>
+<li><p>&gt;= 3d and &lt; 1w use <code class="docutils literal notranslate"><span class="pre">1h</span></code></p></li>
+<li><p>&gt;= 1w and &lt; 1 month use <code class="docutils literal notranslate"><span class="pre">6h</span></code></p></li>
+<li><p>&gt;= 1 month &lt; 1 year use <code class="docutils literal notranslate"><span class="pre">1d</span></code></p></li>
+<li><p>&gt;= 1 year use <code class="docutils literal notranslate"><span class="pre">1w</span></code></p></li>
 </ul>
 <p>To override this configuration, use the <code class="docutils literal notranslate"><span class="pre">tsd.query.downsample.auto.config</span></code> property. An example looks like:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span># ---------- DOWNSAMPLE ----------

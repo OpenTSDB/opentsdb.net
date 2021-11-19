@@ -64,14 +64,14 @@ When downsampling is present, a time specifications will be serialized in the ou
 Auto Intervals
 --------------
 
-When ``auto`` is used in the interval and configured in the TSD, the TSD will take the start and end time of the query and compute a downsample that would return at most about 400 data points for the query range. A stepping configuration is used to determine the final resolution. By default, this stepping config is:
+When ``auto`` is used in the interval and configured in the TSD, the TSD will take the start and end time of the query and compute a downsample that would return at most about 800 data points for the query range. A stepping configuration is used to determine the final resolution. By default, this stepping config is:
 
-* < 6h use ``1m``
-* >= 6h and < 12h use ``15m``
-* >= 12h and < 3d use ``1h``
-* >= 3d and < 1w use ``6h``
-* >= 1w and < 1 month use ``1d``
-* >= 1 month use ``1w``
+* < 12h use ``1m``
+* >= 12h and < 3d use ``15m``
+* >= 3d and < 1w use ``1h``
+* >= 1w and < 1 month use ``6h``
+* >= 1 month < 1 year use ``1d``
+* >= 1 year use ``1w``
 
 To override this configuration, use the ``tsd.query.downsample.auto.config`` property. An example looks like:
 

@@ -65,4 +65,4 @@ In this example we have data reported every 10 seconds and we want to enforce a 
    "B ``sum`` Downsampled", "10", "NaN", "20", "NaN", "NaN", "NaN", "20"
    "``sum`` Aggregated Result", "10", "NaN", "20", "15", "NaN", "5", "20"
 
-If we requested the output without a fill policy, no value or timestamp at ``t0+20s`` or ``t0+40s`` would be emitted. Additionally, values at ``t0+30s`` and ``t0+50s`` for series ``B`` would be linearly interpolated to fill in values to be summed with series ``A``.
+If we requested the output without a fill policy, no value or timestamp at ``t0+10s`` or ``t0+40s`` would be emitted. Additionally, values at ``t0+30s`` and ``t0+50s`` for series ``B`` would be linearly interpolated to fill in values to be summed with series ``A``.

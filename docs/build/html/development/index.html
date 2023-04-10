@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Development &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/solar.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="General Development" href="development.html" />
@@ -48,8 +47,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Development</a><ul>
 <li><a class="reference internal" href="#guidelines">Guidelines</a></li>
 <li><a class="reference internal" href="#git-repository">Git Repository</a></li>
@@ -58,22 +58,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../api_telnet/diediedie.html"
-                        title="previous chapter">diediedie</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="development.html"
-                        title="next chapter">General Development</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../api_telnet/diediedie.html"
+                          title="previous chapter">diediedie</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="development.html"
+                          title="next chapter">General Development</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -82,12 +87,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="development">
-<h1>Development</h1>
-<p>OpenTSDB has a strong and growing base of users running TSDs in production. There are also a number of talented developers creating tools for OpenTSDB or contributing code directly to the project. If you are interested in helping, by adding new features, fixing bugs, adding tools or simply updating documentation, please read the guidelines below. Then sign the contributors agreement and send us a pull request!</p>
+  <section id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">OpenTSDB has a strong and growing base of users running TSDs in production. There are also a number of talented developers creating tools for OpenTSDB or contributing code directly to the project. If you are interested in helping, by adding new features, fixing bugs, adding tools or simply updating documentation, please read the guidelines below. Then sign the contributors agreement and send us a pull request!</p>
 <p>If you are looking to integrate OpenTSDB with your application, the compiled JAVA library has a consistent and well documented API. Please see <a class="reference external" href="http://opentsdb.net/docs/javadoc/index.html">JAVA API Documentation</a>.</p>
-<div class="section" id="guidelines">
-<h2>Guidelines</h2>
+<section id="guidelines">
+<h2>Guidelines<a class="headerlink" href="#guidelines" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Please file <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/issues">issues on GitHub</a> after checking to see if anyone has posted a bug already. Make sure your bug reports contain enough details so they can be easily understood by others and quickly fixed.</p></li>
 <li><p>Read the Development page for tips</p></li>
@@ -118,9 +123,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="git-repository">
-<h2>Git Repository</h2>
+</section>
+<section id="git-repository">
+<h2>Git Repository<a class="headerlink" href="#git-repository" title="Permalink to this heading">¶</a></h2>
 <p>OpenTSDB is maintained in <a class="reference external" href="https://github.com/OpenTSDB/opentsdb/">GitHub</a>. There are a limited number of branches and the purpose of each branch is as follows:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">maintenance</span></code> - This was the previously released version of OpenTSDB, usually the last minor version. E.g. if 2.3.0 or 2.3.1 is the current release, <code class="docutils literal notranslate"><span class="pre">maintenance</span></code> will have the last 2.2.x version. This branch should rarely have PRs pointed at it. Rather patches against <code class="docutils literal notranslate"><span class="pre">master</span></code> that would apply to previous releases can be cherry-picked.</p></li>
@@ -130,9 +135,9 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">X.0</span></code> - The next major version of OpenTSDB that may include breaking API changes. When the code is in a fairly stable state, it will be promoted up to <code class="docutils literal notranslate"><span class="pre">next</span></code> as an RC, then <code class="docutils literal notranslate"><span class="pre">master</span></code> for an official release.</p></li>
 </ul>
 <p>Any other branches are likely to be pruned at some point as they may contain stale code or temporary hacks.</p>
-</div>
-<div class="section" id="details">
-<h2>Details</h2>
+</section>
+<section id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="development.html">General Development</a></li>
@@ -140,8 +145,8 @@
 <li class="toctree-l1"><a class="reference internal" href="http_api.html">HTTP API</a></li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -167,7 +172,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

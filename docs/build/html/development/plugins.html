@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Plugins &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/solar.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="HTTP API" href="http_api.html" />
@@ -49,8 +48,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Plugins</a><ul>
 <li><a class="reference internal" href="#manifest">Manifest</a></li>
 <li><a class="reference internal" href="#startup-plugins">Startup Plugins</a><ul>
@@ -64,22 +64,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="development.html"
-                        title="previous chapter">General Development</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="http_api.html"
-                        title="next chapter">HTTP API</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="development.html"
+                          title="previous chapter">General Development</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="http_api.html"
+                          title="next chapter">HTTP API</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -88,12 +93,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="plugins">
-<h1>Plugins</h1>
+  <section id="plugins">
+<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h1>
 <p>OpenTSDB implements a very simple plugin model to extend the application. Plugins use the <em>service</em> and <em>service provider</em> facilities built into Java 1.6 that allows for dynamically loading JAR files and instantiating plugin implementations after OpenTSDB has been started. While not as flexible as many framework implementations, all we need to do is load a plugin on startup, initialize the implementation, and start passing data to or through it.</p>
 <p>To create a plugin, all you have to do is extend one of the <em>abstract</em> plugin classes, write a service description/manifest, compile, drop your JAR (along with any dependencies needed) into the OpenTSDB plugin folder, edit the TSD config and restart. That’s all there is to it. No fancy frameworks, no worrying about loading and unloading at strange times, etc.</p>
-<div class="section" id="manifest">
-<h2>Manifest</h2>
+<section id="manifest">
+<h2>Manifest<a class="headerlink" href="#manifest" title="Permalink to this heading">¶</a></h2>
 <p>A plugin JAR requires a manifest with a special <em>services</em> folder and file to enable the <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to load it properly. Here are the steps for creating the proper files:</p>
 <blockquote>
 <div><ul>
@@ -138,9 +143,9 @@ NOTE: If you have widely different implementations, start a different project an
 </li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="startup-plugins">
-<h2>Startup Plugins</h2>
+</section>
+<section id="startup-plugins">
+<h2>Startup Plugins<a class="headerlink" href="#startup-plugins" title="Permalink to this heading">¶</a></h2>
 <p>Startup Plugins can be used to perform additional initialization steps during the OpenTSDB startup process.</p>
 <dl class="simple">
 <dt>There are four hooks available, and they are called in this order:</dt><dd><ul class="simple">
@@ -151,29 +156,29 @@ NOTE: If you have widely different implementations, start a different project an
 </ul>
 </dd>
 </dl>
-<div class="section" id="constructor">
-<h3>Constructor</h3>
+<section id="constructor">
+<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this heading">¶</a></h3>
 <p>In the constructor for your plugin, you should initialize your plugin and make any external connections required here. For example, to connect to a service discovery tool such as Etcd or Curator.</p>
-</div>
-<div class="section" id="initialize">
-<h3>Initialize</h3>
+</section>
+<section id="initialize">
+<h3>Initialize<a class="headerlink" href="#initialize" title="Permalink to this heading">¶</a></h3>
 <p>The Initialize hook is called once OpenTSDB has fully read the configuration options, both from the file, and the command line. This is called prior to creating the TSDB object so you can modify the configuration at this time.</p>
 <p>This hook could be used to register OpenTSDB with a service discovery mechanism or look up the location of an HBase cluster dynamically and populate the connfiguration. You could potentially create HBase tables if they do not exist at this time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You will want to make sure you set the status to PENDING or some other non-ready state in your service discovery system when this is called. TSDB has not been initialized yet at this point.</p>
 </div>
-</div>
-<div class="section" id="ready">
-<h3>Ready</h3>
+</section>
+<section id="ready">
+<h3>Ready<a class="headerlink" href="#ready" title="Permalink to this heading">¶</a></h3>
 <p>This hook is called once OpenTSDB has been fully initialized and is ready to serve traffic. This hook could be used to set the status to READY in a service discovery system, change the state of in a load balancer or perform other tasks which require a fully functioning OpenTSDB instance.</p>
-</div>
-<div class="section" id="shutdown">
-<h3>Shutdown</h3>
+</section>
+<section id="shutdown">
+<h3>Shutdown<a class="headerlink" href="#shutdown" title="Permalink to this heading">¶</a></h3>
 <p>This hook is called when OpenTSDB is performing shutdown tasks. No work should be done here which requires a functioning and connected OpenTSDB instance. You could use this to update the status of this node within your service discovery mechanism.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -200,7 +205,7 @@ NOTE: If you have widely different implementations, start a different project an
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

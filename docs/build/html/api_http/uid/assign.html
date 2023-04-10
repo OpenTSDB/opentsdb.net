@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>/api/uid/assign &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/uid/tsmeta" href="tsmeta.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">/api/uid/assign</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
@@ -66,22 +66,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">/api/uid</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tsmeta.html"
-                        title="next chapter">/api/uid/tsmeta</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">/api/uid</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tsmeta.html"
+                          title="next chapter">/api/uid/tsmeta</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -90,29 +95,29 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-uid-assign">
-<h1>/api/uid/assign</h1>
-<p>This endpoint enables assigning UIDs to new metrics, tag names and tag values. Multiple types and names can be provided in a single call and the API will process each name individually, reporting which names were assigned UIDs successfully, along with the UID assigned, and which failed due to invalid characters or had already been assigned. Assignment can be performed via query string or content data.</p>
-<div class="section" id="verbs">
-<h2>Verbs</h2>
+  <section id="api-uid-assign">
+<h1>/api/uid/assign<a class="headerlink" href="#api-uid-assign" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">This endpoint enables assigning UIDs to new metrics, tag names and tag values. Multiple types and names can be provided in a single call and the API will process each name individually, reporting which names were assigned UIDs successfully, along with the UID assigned, and which failed due to invalid characters or had already been assigned. Assignment can be performed via query string or content data.</p>
+<section id="verbs">
+<h2>Verbs<a class="headerlink" href="#verbs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>GET</p></li>
 <li><p>POST</p></li>
 </ul>
-</div>
-<div class="section" id="requests">
-<h2>Requests</h2>
+</section>
+<section id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this heading">¶</a></h2>
 <p>Each request must have one or more of the following fields:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 15%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 45.0%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 15.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -156,60 +161,60 @@
 </tbody>
 </table>
 <p>When making a query string request, multiple names for a given type can be supplied in a comma separated fashion. E.g. <code class="docutils literal notranslate"><span class="pre">metric=sys.cpu.0,sys.cpu.1,sys.cpu.2,sys.cpu.3</span></code>. Naming conventions apply: see _______.</p>
-<div class="section" id="example-request">
-<h3>Example Request</h3>
+<section id="example-request">
+<h3>Example Request<a class="headerlink" href="#example-request" title="Permalink to this heading">¶</a></h3>
 <p><strong>Query String</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/assign?metric=sys.cpu.0,sys.cpu.1&amp;tagk=host&amp;tagv=web01,web02,web03
 </pre></div>
 </div>
 <p><strong>JSON Content</strong></p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sys.cpu.1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;illegal!character&quot;</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;host&quot;</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;tagv&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;web01&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;web02&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;web03&quot;</span>
-    <span class="p">]</span>
+<span class="w">    </span><span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;sys.cpu.1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;illegal!character&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;host&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="s2">&quot;tagv&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;web01&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;web02&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;web03&quot;</span>
+<span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>The response will contain a map of successful assignments along with the hex encoded UID value. If one or more values were not assigned, a separate map will contain a list of the values and the reason why they were not assigned. Maps with the type name and <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;_errors</span></code> will be generated only if one or more values for that type were provided.</p>
 <p>When all values are assigned, the endpoint returns a 200 status code but if any value failed assignment, it will return a 400.</p>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+<section id="example-response">
+<h3>Example Response<a class="headerlink" href="#example-response" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{},</span>
-    <span class="s2">&quot;metric_errors&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;sys.cpu.0&quot;</span><span class="o">:</span> <span class="s2">&quot;Name already exists with UID: 000042&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sys.cpu.1&quot;</span><span class="o">:</span> <span class="s2">&quot;Name already exists with UID: 000043&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;illegal!character&quot;</span><span class="o">:</span> <span class="s2">&quot;Invalid metric (illegal!character): illegal character: !&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;tagv&quot;</span><span class="o">:</span> <span class="p">{},</span>
-    <span class="s2">&quot;tagk_errors&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;Name already exists with UID: 0007E5&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;web01&quot;</span><span class="o">:</span> <span class="s2">&quot;000012&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;web02&quot;</span><span class="o">:</span> <span class="s2">&quot;000013&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;web03&quot;</span><span class="o">:</span> <span class="s2">&quot;000014&quot;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="s2">&quot;metric_errors&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;sys.cpu.0&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Name already exists with UID: 000042&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;sys.cpu.1&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Name already exists with UID: 000043&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;illegal!character&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Invalid metric (illegal!character): illegal character: !&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;tagv&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="s2">&quot;tagk_errors&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;host&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Name already exists with UID: 0007E5&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;web01&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;000012&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;web02&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;000013&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;web03&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;000014&quot;</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -237,7 +242,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

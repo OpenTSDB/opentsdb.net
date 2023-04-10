@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Query Filters &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Aggregation" href="aggregators.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Query Filters</a><ul>
 <li><a class="reference internal" href="#grouping">Grouping</a></li>
 <li><a class="reference internal" href="#opentsdb-1-x-2-1">OpenTSDB 1.x - 2.1</a><ul>
@@ -79,22 +79,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="dates.html"
-                        title="previous chapter">Dates and Times</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="aggregators.html"
-                        title="next chapter">Aggregation</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="dates.html"
+                          title="previous chapter">Dates and Times</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="aggregators.html"
+                          title="next chapter">Aggregation</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -103,17 +108,17 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="query-filters">
-<h1>Query Filters</h1>
-<p>A critical function of any database system is to enable fetching subsets of the full data set using some form of filtering. OpenTSDB has provided filtering since version 1.x with expanded capabilities starting with 2.2 and beyond. Filters currently operate on tag values at this time. That means that any metrics and tag keys must be specified exactly as they appear in the database when fetching data.</p>
+  <section id="query-filters">
+<h1>Query Filters<a class="headerlink" href="#query-filters" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">A critical function of any database system is to enable fetching subsets of the full data set using some form of filtering. OpenTSDB has provided filtering since version 1.x with expanded capabilities starting with 2.2 and beyond. Filters currently operate on tag values at this time. That means that any metrics and tag keys must be specified exactly as they appear in the database when fetching data.</p>
 <p><strong>Example Data</strong></p>
 <p>As each filter is explained below, the following data set is used. It consists of a single metric with multiple time series defined on various tags. Only one data point is given at <em>T1</em> as an example.</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 20%" />
-<col style="width: 50%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>TS#</p></th>
@@ -160,30 +165,30 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="grouping">
-<h2>Grouping</h2>
-<span class="target" id="index-1"></span><p>Grouping, also referred to as <em>group-by</em>, is the process of combining multiple time series into one using the required aggregation function and filters. By default, OpenTSDB groups everything by metric so that if the query returned 10 time series with an aggregator of <code class="docutils literal notranslate"><span class="pre">sum</span></code>, all 10 series would be added together over time to arrive at one value. See <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> for details on how time series are merged.</p>
+<section id="grouping">
+<h2>Grouping<a class="headerlink" href="#grouping" title="Permalink to this heading">¶</a></h2>
+<span class="target" id="index-1"></span><p id="index-2">Grouping, also referred to as <em>group-by</em>, is the process of combining multiple time series into one using the required aggregation function and filters. By default, OpenTSDB groups everything by metric so that if the query returned 10 time series with an aggregator of <code class="docutils literal notranslate"><span class="pre">sum</span></code>, all 10 series would be added together over time to arrive at one value. See <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> for details on how time series are merged.</p>
 <p>To avoid grouping and fetch each underlying time series without any aggregation, use the <code class="docutils literal notranslate"><span class="pre">none</span></code> aggregator included in version 2.2. Alternatively, you can disable grouping on a per-filter bases with OpenTSDB 2.2 and later. See API documentation on how to do so.</p>
-</div>
-<div class="section" id="opentsdb-1-x-2-1">
-<h2>OpenTSDB 1.x - 2.1</h2>
+</section>
+<section id="opentsdb-1-x-2-1">
+<h2>OpenTSDB 1.x - 2.1<a class="headerlink" href="#opentsdb-1-x-2-1" title="Permalink to this heading">¶</a></h2>
 <p>In the original OpenTSDB release and up to 2.1, only two types of filters were available and they were implicitly configured for grouping. The two operators allowed were:</p>
 <ul class="simple">
 <li><p><strong>*</strong> - The asterisk (or <em>wildcard</em>) will return a separate result for each unique tag value detected. E.g. if the tag key <code class="docutils literal notranslate"><span class="pre">host</span></code> was paired with <code class="docutils literal notranslate"><span class="pre">web01</span></code> and <code class="docutils literal notranslate"><span class="pre">web02</span></code> then there would be two groups emitted, one on <code class="docutils literal notranslate"><span class="pre">web01</span></code> and one on <code class="docutils literal notranslate"><span class="pre">web02</span></code>.</p></li>
 <li><p><strong>|</strong> - The pipe (or <em>literal_or</em>) will return a separate result <em>only</em> for the exact tag values specified. I.e. it will match only time series with the given tag value and group on each of those matches.</p></li>
 </ul>
 <p>Multiple filters can be provided per query and the results are always <em>ANDed</em> together. These filters are still available for use in 2.x and later.</p>
-<div class="section" id="examples">
-<h3>Examples</h3>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
 <p>The following examples use the v1 HTTP URI syntax wherein the <code class="docutils literal notranslate"><span class="pre">m</span></code> parameter consists of the aggregator, a colon, then the metric and tag filters in brackets separated by equal signs.</p>
 <p><strong>Example 1:</strong>
 <code class="docutils literal notranslate"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{host=web01}</span></code></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 10%" />
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Time Series Included</p></th>
@@ -203,12 +208,12 @@
 <p>In this case the aggregated tags set will be empty as time series 4 and 5 have tags that are not in common with the entire set.</p>
 <p><strong>Example 2:</strong>
 <code class="docutils literal notranslate"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{host=web01,dc=dal}</span></code></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 10%" />
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Time Series Included</p></th>
@@ -227,12 +232,12 @@
 </table>
 <p><strong>Example 3:</strong>
 <code class="docutils literal notranslate"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{host=*,dc=dal}</span></code></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 10%" />
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Time Series Included</p></th>
@@ -262,12 +267,12 @@
 <p>This time we provided the <code class="docutils literal notranslate"><span class="pre">*</span></code> for the host and an explicit match for <code class="docutils literal notranslate"><span class="pre">dc</span></code>. This will group on the <code class="docutils literal notranslate"><span class="pre">host</span></code> tag key and return a time series per unique host tag value, in this case 3 series.</p>
 <p><strong>Example 4:</strong>
 <code class="docutils literal notranslate"><span class="pre">http://host:4242/q?start=1h-ago&amp;m=sum:sys.cpu.system{dc=dal|lax}</span></code></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 10%" />
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Time Series Included</p></th>
@@ -294,36 +299,36 @@
 <p class="admonition-title">Warning</p>
 <p>Because these filters are limited, if users write time series like <strong>#1</strong>, <strong>#4</strong> and <strong>#5</strong>, unexpected results can be returned as a result of aggregating time series that may have one common tag but varying additional tags. This problem is somewhat addressed with 2.3 and <strong>Explicit Tags</strong>.</p>
 </div>
-</div>
-</div>
-<div class="section" id="opentsdb-2-2">
-<h2>OpenTSDB 2.2</h2>
+</section>
+</section>
+<section id="opentsdb-2-2">
+<h2>OpenTSDB 2.2<a class="headerlink" href="#opentsdb-2-2" title="Permalink to this heading">¶</a></h2>
 <p>In OpenTSDB 2.2 a more flexible filter framework was added that allows for disabling grouping as well as additional filter types such as regular expressions and wild cards. The filter framework is plugable to allow for tying into external systems such as asset management or provisioning systems.</p>
 <p>Multiple filters on the same tag key are allowed and when processed, they are <em>ANDed</em> together e.g. if we have two filters <code class="docutils literal notranslate"><span class="pre">host=literal_or(web01)</span></code> and <code class="docutils literal notranslate"><span class="pre">host=literal_or(web02)</span></code> the query will always return empty. If two or more filters are included for the same tag key and one has group by enabled but another does not, then group by will effectively be true for all filters on that tag key.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Some type of filters may cause queries to execute slower than others, particularly the <code class="docutils literal notranslate"><span class="pre">regexp</span></code>, <code class="docutils literal notranslate"><span class="pre">wildcard</span></code> and case-insensitive filters. Before fetching data from storage, the filters are processed to create a database filter based on UIDs so using the case sensitive <code class="docutils literal notranslate"><span class="pre">literal_or</span></code> filter is always faster than <code class="docutils literal notranslate"><span class="pre">regexp</span></code> because we can resolve the strings to UIDs and send those to the storage system for filtering. Instead if you ask for regex or wildcards with pre, post or infix filtering the TSD must retrieve all of the rows from storage with the tag key UID, then for each unique row, resolve the UIDs back to strings and then run the filter over the results. Also, filter sets with a large list of literals will be processed post storage to avoid creating a massive filter for the backing store to process. This limit defaults to <code class="docutils literal notranslate"><span class="pre">4096</span></code> and can be configured via the <code class="docutils literal notranslate"><span class="pre">tsd.query.filter.expansion_limit</span></code> parameter.</p>
 </div>
-</div>
-<div class="section" id="explicit-tags">
-<h2>Explicit Tags</h2>
-<p>As of 2.3 and later, if you know all of the tag keys for a given metric query latency can be improved greatly by using the <code class="docutils literal notranslate"><span class="pre">explicitTags</span></code> feature. This flag has two benefits:</p>
+</section>
+<section id="explicit-tags">
+<h2>Explicit Tags<a class="headerlink" href="#explicit-tags" title="Permalink to this heading">¶</a></h2>
+<p id="index-3">As of 2.3 and later, if you know all of the tag keys for a given metric query latency can be improved greatly by using the <code class="docutils literal notranslate"><span class="pre">explicitTags</span></code> feature. This flag has two benefits:</p>
 <ol class="arabic simple">
 <li><p>For metrics that have a high cardinality, the backend can switch to a more efficient query to fetch a smaller subset of data from storage. (Particularly in 2.4)</p></li>
 <li><p>For metrics with varying tags, this can be used to avoid aggregating time series that should not be included in the final result.</p></li>
 </ol>
 <p>Explicit tags will craft an underlying storage query that fetches only those rows with the given tag keys. That can allow the database to skip over irrelevant rows and answer in less time.</p>
-<div class="section" id="id1">
-<h3>Examples</h3>
+<section id="id1">
+<h3>Examples<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>The following examples use the v2 HTTP URI syntax wherein the <code class="docutils literal notranslate"><span class="pre">m</span></code> parameter consists of the aggregator, a colon, the <code class="docutils literal notranslate"><span class="pre">explicit_tags</span></code> URI flag, then the metric and tag filters in brackets separated by equal signs.</p>
 <p><strong>Example 1:</strong>
 <code class="docutils literal notranslate"><span class="pre">http://host:4242/api/query?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=web01}</span></code></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 10%" />
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Time Series Included</p></th>
@@ -343,12 +348,12 @@
 <p>This solves the issue of inconsistent tag keys, allowing us to pick out only time series <em>#4</em>.</p>
 <p><strong>Example 2:</strong>
 <code class="docutils literal notranslate"><span class="pre">http://host:4242/api/query?start=1h-ago&amp;m=sum:explicit_tags:sys.cpu.system{host=*}{dc=*}</span></code></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 10%" />
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Time Series Included</p></th>
@@ -384,10 +389,10 @@
 <p class="admonition-title">Note</p>
 <p>With 2.4, TSDB will issue multiple <code class="docutils literal notranslate"><span class="pre">get</span></code> requests against the backend instead of using a scanner. This can reduce query time by multiple factors, particularly with high-cardinality time series. However the filters must consist of only <code class="docutils literal notranslate"><span class="pre">literal_or</span></code>’s.</p>
 </div>
-</div>
-</div>
-<div class="section" id="built-in-2-x-filters">
-<h2>Built-in 2.x Filters</h2>
+</section>
+</section>
+<section id="built-in-2-x-filters">
+<h2>Built-in 2.x Filters<a class="headerlink" href="#built-in-2-x-filters" title="Permalink to this heading">¶</a></h2>
 <p>The following list are built-in filters included with OpenTSDB. Additional filters can be loaded as plugins. Each heading is the <code class="docutils literal notranslate"><span class="pre">type</span></code> of filter to use in a URI or JSON query. When writing a URI query, the filter is used by placing the filter name after the tag key’s equals sign and placing the filter value in parentheses. E.g. <code class="docutils literal notranslate"><span class="pre">{host=regexp(web[0-9]+.lax.mysite.com)}</span></code>. For JSON queries simply use the filter name as the <code class="docutils literal notranslate"><span class="pre">type</span></code> parameter and the filter value as the <code class="docutils literal notranslate"><span class="pre">filter</span></code> parameter, e.g.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;regexp&quot;</span><span class="p">,</span>
@@ -398,30 +403,30 @@
 </pre></div>
 </div>
 <p>The examples below use the URI syntax.</p>
-<div class="section" id="literal-or">
-<h3>literal_or</h3>
-<p>Takes a single literal value or a <code class="docutils literal notranslate"><span class="pre">|</span></code> pipe delimited list of values and returns any time series matching the results on a case sensitive bases. This is a very efficient filter as it can resolve the strings to UIDs and send that to the storage layer for pre-filtering. In SQL this is similar to the <code class="docutils literal notranslate"><span class="pre">IN</span></code> or <code class="docutils literal notranslate"><span class="pre">=</span></code> predicates.</p>
+<section id="literal-or">
+<h3>literal_or<a class="headerlink" href="#literal-or" title="Permalink to this heading">¶</a></h3>
+<p id="index-4">Takes a single literal value or a <code class="docutils literal notranslate"><span class="pre">|</span></code> pipe delimited list of values and returns any time series matching the results on a case sensitive bases. This is a very efficient filter as it can resolve the strings to UIDs and send that to the storage layer for pre-filtering. In SQL this is similar to the <code class="docutils literal notranslate"><span class="pre">IN</span></code> or <code class="docutils literal notranslate"><span class="pre">=</span></code> predicates.</p>
 <p><em>Examples</em></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">host=literal_or(web01|web02|web03)</span></code>  In SQL: <code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">host</span> <span class="pre">IN</span> <span class="pre">('web01',</span> <span class="pre">'web02',</span> <span class="pre">'web03')</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">host=literal_or(web01)</span></code>  In SQL: <code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">host</span> <span class="pre">=</span> <span class="pre">'web01'</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="iliteral-or">
-<h3>iliteral_or</h3>
-<p>The same as a <code class="docutils literal notranslate"><span class="pre">literal_or</span></code> but is case insensitive. Note that this is not efficient like the literal or as it must post-process all rows from storage.</p>
-</div>
-<div class="section" id="not-literal-or">
-<h3>not_literal_or</h3>
-<p>Case sensitive <code class="docutils literal notranslate"><span class="pre">literal_or</span></code> that will return series that do <strong>NOT</strong> match the given list of values. Efficient as it can be pre-processed by storage.</p>
-</div>
-<div class="section" id="not-iliteral-or">
-<h3>not_iliteral_or</h3>
-<p>Case insensitive <code class="docutils literal notranslate"><span class="pre">not_literal_or</span></code>.</p>
-</div>
-<div class="section" id="wildcard">
-<h3>wildcard</h3>
-<p>Provides case sensitive postfix, prefix, infix and multi-infix filtering. The wildcard character is an asterisk (star) <code class="docutils literal notranslate"><span class="pre">*</span></code>. Multiple wildcards can be used. If only the asterisk is given, the filter effectively returns any time series that include the tag key (and is an efficient filter that can be pre-processed). In SQL land, this is similar to <code class="docutils literal notranslate"><span class="pre">LIKE</span></code> predicate with a bit more flexibility.</p>
+</section>
+<section id="iliteral-or">
+<h3>iliteral_or<a class="headerlink" href="#iliteral-or" title="Permalink to this heading">¶</a></h3>
+<p id="index-5">The same as a <code class="docutils literal notranslate"><span class="pre">literal_or</span></code> but is case insensitive. Note that this is not efficient like the literal or as it must post-process all rows from storage.</p>
+</section>
+<section id="not-literal-or">
+<h3>not_literal_or<a class="headerlink" href="#not-literal-or" title="Permalink to this heading">¶</a></h3>
+<p id="index-6">Case sensitive <code class="docutils literal notranslate"><span class="pre">literal_or</span></code> that will return series that do <strong>NOT</strong> match the given list of values. Efficient as it can be pre-processed by storage.</p>
+</section>
+<section id="not-iliteral-or">
+<h3>not_iliteral_or<a class="headerlink" href="#not-iliteral-or" title="Permalink to this heading">¶</a></h3>
+<p id="index-7">Case insensitive <code class="docutils literal notranslate"><span class="pre">not_literal_or</span></code>.</p>
+</section>
+<section id="wildcard">
+<h3>wildcard<a class="headerlink" href="#wildcard" title="Permalink to this heading">¶</a></h3>
+<p id="index-8">Provides case sensitive postfix, prefix, infix and multi-infix filtering. The wildcard character is an asterisk (star) <code class="docutils literal notranslate"><span class="pre">*</span></code>. Multiple wildcards can be used. If only the asterisk is given, the filter effectively returns any time series that include the tag key (and is an efficient filter that can be pre-processed). In SQL land, this is similar to <code class="docutils literal notranslate"><span class="pre">LIKE</span></code> predicate with a bit more flexibility.</p>
 <p><em>Examples</em></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">host=wildcard(*mysite.com)</span></code> In SQL: <code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">host='%mysite.com'</span></code></p></li>
@@ -430,31 +435,31 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">host=wildcard(web*mysite*)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">host=wildcard(*)</span></code> This is equivalent to the v1 basic group by operator and is efficient.</p></li>
 </ul>
-</div>
-<div class="section" id="iwildcard">
-<h3>iwildcard</h3>
-<p>The same as <code class="docutils literal notranslate"><span class="pre">wildcard</span></code> but case insensitive.</p>
-</div>
-<div class="section" id="regexp">
-<h3>regexp</h3>
-<p>Filters using POSIX compliant regular expressions post fetching from storage. The filter uses Java’s built-in regular expression operation. Be careful to escape special characters depending on the query method used.</p>
+</section>
+<section id="iwildcard">
+<h3>iwildcard<a class="headerlink" href="#iwildcard" title="Permalink to this heading">¶</a></h3>
+<p id="index-9">The same as <code class="docutils literal notranslate"><span class="pre">wildcard</span></code> but case insensitive.</p>
+</section>
+<section id="regexp">
+<h3>regexp<a class="headerlink" href="#regexp" title="Permalink to this heading">¶</a></h3>
+<p id="index-10">Filters using POSIX compliant regular expressions post fetching from storage. The filter uses Java’s built-in regular expression operation. Be careful to escape special characters depending on the query method used.</p>
 <p><em>Examples</em></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">regexp(web.*)</span></code> In SQL: <code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">host</span> <span class="pre">REGEXP</span> <span class="pre">'web.*'</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">regexp(web[0-9].mysite.com)</span></code></p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="loaded-filters">
-<h2>Loaded Filters</h2>
+</section>
+</section>
+<section id="loaded-filters">
+<h2>Loaded Filters<a class="headerlink" href="#loaded-filters" title="Permalink to this heading">¶</a></h2>
 <p>To show the loaded filters in OpenTSDB 2.2 and later, call the HTTP <code class="docutils literal notranslate"><span class="pre">/api/config/filters</span></code> endpoint. This will list loaded plugins along with a description and example usage.</p>
-</div>
-<div class="section" id="plugins">
-<h2>Plugins</h2>
+</section>
+<section id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h2>
 <p>As developers add plugins we will list them here.</p>
 <p>To develop a plugin, simply extend the <code class="docutils literal notranslate"><span class="pre">net.opentsdb.query.filter.TagVFilter</span></code> class, create JAR per the <a class="reference internal" href="../../development/plugins.html"><span class="doc">Plugins</span></a> documentation and drop it in your plugins directory. On start, the TSD will search for the plugin and load it. If there was an error with the implementation the TSD will not start up and will log the exception.</p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -482,7 +487,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Querying or Reading Data &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Understanding Metrics and Time Series" href="timeseries.html" />
@@ -49,8 +48,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Querying or Reading Data</a><ul>
 <li><a class="reference internal" href="#query-components">Query Components</a></li>
 <li><a class="reference internal" href="#times">Times</a></li>
@@ -63,22 +63,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../writing/index.html"
-                        title="previous chapter">Writing Data</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="timeseries.html"
-                        title="next chapter">Understanding Metrics and Time Series</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../writing/index.html"
+                          title="previous chapter">Writing Data</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="timeseries.html"
+                          title="next chapter">Understanding Metrics and Time Series</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -87,9 +92,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="querying-or-reading-data">
-<h1>Querying or Reading Data</h1>
-<p>OpenTSDB offers a number of means to extract, manipulate and analyze data. Data can be queried via  CLI tools, an HTTP API and viewed as a GnuPlot graph. Open source tools such as <a class="reference external" href="http://grafana.org/">Grafana</a> and <a class="reference external" href="https://bosun.org/">Bosun</a> can also access TSDB data. Querying with OpenTSDB’s tag based system can be a bit tricky so read through this document and checkout the following pages for deeper information. Example queries on this page follow the HTTP API format.</p>
+  <section id="querying-or-reading-data">
+<h1>Querying or Reading Data<a class="headerlink" href="#querying-or-reading-data" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">OpenTSDB offers a number of means to extract, manipulate and analyze data. Data can be queried via  CLI tools, an HTTP API and viewed as a GnuPlot graph. Open source tools such as <a class="reference external" href="http://grafana.org/">Grafana</a> and <a class="reference external" href="https://bosun.org/">Bosun</a> can also access TSDB data. Querying with OpenTSDB’s tag based system can be a bit tricky so read through this document and checkout the following pages for deeper information. Example queries on this page follow the HTTP API format.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="timeseries.html">Understanding Metrics and Time Series</a></li>
@@ -103,16 +108,16 @@
 </ul>
 </div>
 <p>This page offers a quick overview of the typical query components. For details on each component, see the page referred to in the text or the table of contents above.</p>
-<div class="section" id="query-components">
-<h2>Query Components</h2>
-<p>OpenTSDB provides a number of tools and endpoints allowing for various query specifications that have evolved over time. The original syntax allowed for simple filtering, aggregation and downsampling. Later versions added support for functions and expressions. In general, each query has the following components:</p>
-<table class="colwidths-given docutils align-default">
+<section id="query-components">
+<h2>Query Components<a class="headerlink" href="#query-components" title="Permalink to this heading">¶</a></h2>
+<p id="index-1">OpenTSDB provides a number of tools and endpoints allowing for various query specifications that have evolved over time. The original syntax allowed for simple filtering, aggregation and downsampling. Later versions added support for functions and expressions. In general, each query has the following components:</p>
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 50%" />
-<col style="width: 20%" />
+<col style="width: 15.0%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 50.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -179,15 +184,15 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="times">
-<h2>Times</h2>
+</section>
+<section id="times">
+<h2>Times<a class="headerlink" href="#times" title="Permalink to this heading">¶</a></h2>
 <p>Absolute time stamps are supported in human readable format or Unix style integers. Relative times may be used for refreshing dashboards. Currently, all queries are able to cover a single time span. In the future we hope to provide an offset query parameter that would allow for aggregations or graphing of a metric over different time periods, such as comparing last week to 1 year ago. See <a class="reference internal" href="dates.html"><span class="doc">Dates and Times</span></a> for details on what is permissible.</p>
 <p>While OpenTSDB can store data with millisecond resolution, by default, queries will return the data with second resolution to provide backwards compatibility for existing tools. If you are storing multiple data points per second, make sure that any query you issue includes a <cite>1s-&lt;func&gt;</cite> downsampler to read the right data. Otherwise an indeterminate value will be emitted.</p>
 <p>To extract data with millisecond resolution, use the <code class="docutils literal notranslate"><span class="pre">/api/query</span></code> endpoint and specify the <code class="docutils literal notranslate"><span class="pre">msResolution</span></code> (<code class="docutils literal notranslate"><span class="pre">ms</span></code> is also okay, but not recommended) JSON parameter or query string flag and it will bypass down sampling (unless specified) and return all timestamps in Unix epoch millisecond resolution. Also, the <code class="docutils literal notranslate"><span class="pre">scan</span></code> command line utility will return the timestamp as written in storage.</p>
-</div>
-<div class="section" id="filters">
-<h2>Filters</h2>
+</section>
+<section id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this heading">¶</a></h2>
 <p>Every time series is comprised of a metric and one or more tag name/value pairs. In OpenTSDB, filters are applied against tag values (at this time TSDB does not provide filtering on metrics or tag keys). Since filters are optional in queries, if you request only the metric name, then every metric with any number or value of tags will be returned in the aggregated results. Filters are similar to the predicates following a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause in SQL. For example, if we have a stored data set:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver01</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">0</span>  <span class="mi">1356998400</span>  <span class="mi">1</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">user</span> <span class="n">host</span><span class="o">=</span><span class="n">webserver01</span><span class="p">,</span><span class="n">cpu</span><span class="o">=</span><span class="mi">1</span>  <span class="mi">1356998400</span>  <span class="mi">4</span>
@@ -202,35 +207,35 @@
 <p>Inconsistent tags can cause unexpected results when querying. See <a class="reference internal" href="../writing/index.html"><span class="doc">Writing Data</span></a> for details. Also see <em>Explicit Tags</em> below.</p>
 </div>
 <p>Read the <a class="reference internal" href="filters.html"><span class="doc">Query Filters</span></a> documentation for details.</p>
-</div>
-<div class="section" id="aggregation">
-<h2>Aggregation</h2>
+</section>
+<section id="aggregation">
+<h2>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this heading">¶</a></h2>
 <p>A powerful feature of OpenTSDB is the ability to perform on-the-fly aggregations of multiple time series into a single set of data points. The original data is always available in storage but we can quickly extract the data in meaningful ways. Aggregation functions are means of merging two or more data points for a single time stamp into a single value.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>OpenTSDB aggregates data by default and requires an aggregation operator for every query. Each aggregator has to handle missing or data points at different time stamps for multiple series. This is performed via interpolation and can lead to unexpected results at query time if users are unaware of what TSDB is doing.</p>
 </div>
 <p>See <a class="reference internal" href="aggregators.html"><span class="doc">Aggregation</span></a> for details.</p>
-</div>
-<div class="section" id="downsampling">
-<h2>Downsampling</h2>
+</section>
+<section id="downsampling">
+<h2>Downsampling<a class="headerlink" href="#downsampling" title="Permalink to this heading">¶</a></h2>
 <p>OpenTSDB can ingest a large amount of data, even a data point every second for a given time series. Thus queries may return a large number of data points. Accessing the results of a query with a large number of points from the API can eat up bandwidth. High frequencies of data can easily overwhelm Javascript graphing libraries, hence the choice to use GnuPlot. Graphs created by the GUI can be difficult to read, resulting in thick lines such as the graph below:</p>
-<img alt="../../_images/gui_downsampling_off1.png" src="../../_images/gui_downsampling_off1.png" />
+<img alt="../../_images/gui_downsampling_off.png" src="../../_images/gui_downsampling_off.png" />
 <p>Downsampling can be used at query time to reduce the number of data points returned so that you can extract better information from a graph or pass less data over a connection. Down sampling requires an <strong>aggregation</strong> function and a <strong>time interval</strong>. The aggregation function is used to compute a new data point across all of the data points in the specified interval with the proper mathematical function. For example, if the aggregation <code class="docutils literal notranslate"><span class="pre">sum</span></code> is used, then all of the data points within the interval will be summed together into a single value. If <code class="docutils literal notranslate"><span class="pre">avg</span></code> is chosen, then the average of all data points within the interval will be returned.</p>
 <p>Using downsampling we can cleanup the previous graph to arrive at something much more useful:</p>
-<img alt="../../_images/gui_downsampling_on1.png" src="../../_images/gui_downsampling_on1.png" />
+<img alt="../../_images/gui_downsampling_on.png" src="../../_images/gui_downsampling_on.png" />
 <p>For details, see <a class="reference internal" href="downsampling.html"><span class="doc">Downsampling</span></a>.</p>
-</div>
-<div class="section" id="rate">
-<h2>Rate</h2>
-<p>A number of data sources return values as constantly incrementing counters. One example is a web site hit counter. When you start a web server, it may have a hit counter of 0. After five minutes the value may be 1,024. After another five minutes it may be 2,048. The graph for a counter will be a somewhat straight line angling up to the right and isn’t always very useful. OpenTSDB provides a <strong>rate</strong> conversion function that calculates the rate of change in values over time. This will transform counters into lines with spikes to show you when activity occurred and can be much more useful.</p>
+</section>
+<section id="rate">
+<h2>Rate<a class="headerlink" href="#rate" title="Permalink to this heading">¶</a></h2>
+<p id="index-2">A number of data sources return values as constantly incrementing counters. One example is a web site hit counter. When you start a web server, it may have a hit counter of 0. After five minutes the value may be 1,024. After another five minutes it may be 2,048. The graph for a counter will be a somewhat straight line angling up to the right and isn’t always very useful. OpenTSDB provides a <strong>rate</strong> conversion function that calculates the rate of change in values over time. This will transform counters into lines with spikes to show you when activity occurred and can be much more useful.</p>
 <p>The rate is the first derivative of the values. It’s defined as <code class="docutils literal notranslate"><span class="pre">(v2</span> <span class="pre">-</span> <span class="pre">v1)</span> <span class="pre">/</span> <span class="pre">(t2</span> <span class="pre">-</span> <span class="pre">t1)</span></code> where the times are in seconds. Therefore you will get the rate of change per second. Currently the rate of change between millisecond values defaults to a per second calculation.</p>
 <p>OpenTSDB 2.0 provides support for special monotonically increasing counter data handling including the ability to set a “rollover” value and suppress anomalous fluctuations. When the <code class="docutils literal notranslate"><span class="pre">counterMax</span></code> value is specified in a query, if a data point approaches this value and the point after is less than the previous, the max value will be used to calculate an accurate rate given the two points. For example, if we were recording an integer counter on 2 bytes, the maximum value would be 65,535. If the value at <code class="docutils literal notranslate"><span class="pre">t0</span></code> is <code class="docutils literal notranslate"><span class="pre">64000</span></code> and the value at <code class="docutils literal notranslate"><span class="pre">t1</span></code> is <code class="docutils literal notranslate"><span class="pre">1000</span></code>, the resulting rate per second would be calculated as <code class="docutils literal notranslate"><span class="pre">-63000</span></code>. However we know that it’s likely the counter rolled over so we can set the max to <code class="docutils literal notranslate"><span class="pre">65535</span></code> and now the calculation will be <code class="docutils literal notranslate"><span class="pre">65535</span> <span class="pre">-</span> <span class="pre">t0</span> <span class="pre">+</span> <span class="pre">t1</span></code> to give us <code class="docutils literal notranslate"><span class="pre">2535</span></code>.</p>
 <p>Systems that track data in counters often revert to 0 when restarted. When that happens and we could get a spurious result when using the max counter feature. For example, if the counter has reached <code class="docutils literal notranslate"><span class="pre">2000</span></code> at <code class="docutils literal notranslate"><span class="pre">t0</span></code> and someone reboots the server, the next value may be <code class="docutils literal notranslate"><span class="pre">500</span></code> at <code class="docutils literal notranslate"><span class="pre">t1</span></code>. If we set our max to <code class="docutils literal notranslate"><span class="pre">65535</span></code> the result would be <code class="docutils literal notranslate"><span class="pre">65535</span> <span class="pre">-</span> <span class="pre">2000</span> <span class="pre">+</span> <span class="pre">500</span></code> to give us <code class="docutils literal notranslate"><span class="pre">64035</span></code>. If the normal rate is a few points per second, this particular spike, with <code class="docutils literal notranslate"><span class="pre">30s</span></code> between points, would create a rate spike of <code class="docutils literal notranslate"><span class="pre">2,134.5</span></code>! To avoid this, we can set the <code class="docutils literal notranslate"><span class="pre">resetValue</span></code> which will, when the rate exceeds this value, return a data point of <code class="docutils literal notranslate"><span class="pre">0</span></code> so as to avoid spikes in either direction. For the example above, if we know that our rate almost never exceeds 100, we could configure a <code class="docutils literal notranslate"><span class="pre">resetValue</span></code> of <code class="docutils literal notranslate"><span class="pre">100</span></code> and when the data point above is calculated, it will return <code class="docutils literal notranslate"><span class="pre">0</span></code> instead of <code class="docutils literal notranslate"><span class="pre">2,134.5</span></code>. The default value of 0 means the reset value will be ignored, no rates will be suppressed.</p>
-</div>
-<div class="section" id="order-of-operations">
-<h2>Order of Operations</h2>
-<p>Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:</p>
+</section>
+<section id="order-of-operations">
+<h2>Order of Operations<a class="headerlink" href="#order-of-operations" title="Permalink to this heading">¶</a></h2>
+<p id="index-3">Understanding the order of operations is important. When returning query results the following is the order in which processing takes place:</p>
 <ol class="arabic simple">
 <li><p>Filtering</p></li>
 <li><p>Grouping</p></li>
@@ -241,8 +246,8 @@
 <li><p>Functions</p></li>
 <li><p>Expressions</p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -269,7 +274,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

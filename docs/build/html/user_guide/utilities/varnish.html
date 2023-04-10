@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Load Balancing with Varnish &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Alerting with Nagios" href="nagios.html" />
@@ -50,22 +49,26 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tsddrain.html"
-                        title="previous chapter">tsddrain.py</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="nagios.html"
-                        title="next chapter">Alerting with Nagios</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="tsddrain.html"
+                          title="previous chapter">tsddrain.py</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="nagios.html"
+                          title="next chapter">Alerting with Nagios</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -74,8 +77,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="load-balancing-with-varnish">
-<h1>Load Balancing with Varnish</h1>
+  <section id="load-balancing-with-varnish">
+<h1>Load Balancing with Varnish<a class="headerlink" href="#load-balancing-with-varnish" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://www.varnish-cache.org/">Varnish</a> is a powerful HTTP load balancer (reverse proxy), which is also very good at caching. When running multiple TSDs, Varnish comes in handy to distribute the HTTP traffic across the TSDs. Bear in mind that write traffic doesn’t use the HTTP protocol by default, and as such you can only use Varnish for read queries. Using Varnish will help you easily scale the amount of read capacity of your TSD cluster.</p>
 <p>The following is a sample Varnish configuration recommended for use with OpenTSDB. It uses a slightly custom load balancing strategy to achieve optimal cache hit rate at the TSD level. This configuration requires at least Varnish 2.1.0 to run, but using Varnish 3.0 or above is strongly recommended.</p>
 <p>This sample configuration is for 2 backends, named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. You need to substitute at least the host names.</p>
@@ -154,7 +157,7 @@
 <p class="admonition-title">Note</p>
 <p>if you’re using Varnish 2.x (which is not recommended as we would strongly encourage you to migrate to 3.x) you have to replace each function call <code class="docutils literal notranslate"><span class="pre">hash_data(foo);</span></code> to set <code class="docutils literal notranslate"><span class="pre">req.hash</span> <span class="pre">+=</span> <span class="pre">foo;</span></code> in the VCL configuration above.</p>
 </div>
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -182,7 +185,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

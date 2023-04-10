@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>/api/stats/query &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/stats/region_clients" href="region_clients.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">/api/stats/query</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
@@ -66,22 +66,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="jvm.html"
-                        title="previous chapter">/api/stats/jvm</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="region_clients.html"
-                        title="next chapter">/api/stats/region_clients</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="jvm.html"
+                          title="previous chapter">/api/stats/jvm</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="region_clients.html"
+                          title="next chapter">/api/stats/region_clients</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -90,166 +95,166 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-stats-query">
-<h1>/api/stats/query</h1>
-<p>This endpoint can be used for tracking and troubleshooting queries executed against a TSD. It maintains an unbounded list of currently executing queries as well as a list of up to 256 completed queries (rotating the oldest queries out of memory). Information about each query includes the original query, request headers, response code, timing and an exception if thrown. (v2.2)</p>
-<div class="section" id="verbs">
-<h2>Verbs</h2>
+  <section id="api-stats-query">
+<h1>/api/stats/query<a class="headerlink" href="#api-stats-query" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">This endpoint can be used for tracking and troubleshooting queries executed against a TSD. It maintains an unbounded list of currently executing queries as well as a list of up to 256 completed queries (rotating the oldest queries out of memory). Information about each query includes the original query, request headers, response code, timing and an exception if thrown. (v2.2)</p>
+<section id="verbs">
+<h2>Verbs<a class="headerlink" href="#verbs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>GET</p></li>
 </ul>
-</div>
-<div class="section" id="requests">
-<h2>Requests</h2>
+</section>
+<section id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this heading">¶</a></h2>
 <p>No parameters available.</p>
-<div class="section" id="example-request">
-<h3>Example Request</h3>
+<section id="example-request">
+<h3>Example Request<a class="headerlink" href="#example-request" title="Permalink to this heading">¶</a></h3>
 <p><strong>Query String</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">4242</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">query</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>The response includes two arrays. <code class="docutils literal notranslate"><span class="pre">completed</span></code> lists the 256 most recent queries that have finished execution, whether successfully or with an error. The <code class="docutils literal notranslate"><span class="pre">running</span></code> array contains a list of queries currently executing. If this list is growing, the TSD is under heavy load. Note that the running list will not contain an exception, response code or timing details.</p>
 <p>For information on the various sections and data from the stats endpoint, see <a class="reference internal" href="../../user_guide/query/stats.html"><span class="doc">Query Details and Stats</span></a>.</p>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+<section id="example-response">
+<h3>Example Response<a class="headerlink" href="#example-response" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-      <span class="s2">&quot;completed&quot;</span><span class="o">:</span> <span class="p">[{</span>
-              <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="p">{</span>
-                      <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;1455531250181&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                      <span class="s2">&quot;timezone&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                      <span class="s2">&quot;options&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                      <span class="s2">&quot;padding&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;queries&quot;</span><span class="o">:</span> <span class="p">[{</span>
-                              <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;zimsum&quot;</span><span class="p">,</span>
-                              <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.connectionmgr.bytes.written&quot;</span><span class="p">,</span>
-                              <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                              <span class="s2">&quot;downsample&quot;</span><span class="o">:</span> <span class="s2">&quot;1m-avg&quot;</span><span class="p">,</span>
-                              <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                              <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[{</span>
-                                      <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;colo&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;group_by&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;wildcard&quot;</span>
-                              <span class="p">},</span> <span class="p">{</span>
-                                      <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;env&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;prod&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;group_by&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or&quot;</span>
-                              <span class="p">},</span> <span class="p">{</span>
-                                      <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;role&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;frontend&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;group_by&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or&quot;</span>
-                              <span class="p">}],</span>
-                              <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
-                                      <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mf">9223372036854775807</span><span class="p">,</span>
-                                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">false</span>
-                              <span class="p">},</span>
-                              <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-                                      <span class="s2">&quot;role&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or(frontend)&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or(prod)&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;colo&quot;</span><span class="o">:</span> <span class="s2">&quot;wildcard(*)&quot;</span>
-                              <span class="p">}</span>
-                      <span class="p">},</span> <span class="p">{</span>
-                              <span class="s2">&quot;aggregator&quot;</span><span class="o">:</span> <span class="s2">&quot;zimsum&quot;</span><span class="p">,</span>
-                              <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="s2">&quot;tsd.hbase.rpcs.cumulative_bytes_received&quot;</span><span class="p">,</span>
-                              <span class="s2">&quot;tsuids&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-                              <span class="s2">&quot;downsample&quot;</span><span class="o">:</span> <span class="s2">&quot;1m-avg&quot;</span><span class="p">,</span>
-                              <span class="s2">&quot;rate&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                              <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="p">[{</span>
-                                      <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;colo&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;group_by&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;wildcard&quot;</span>
-                              <span class="p">},</span> <span class="p">{</span>
-                                      <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;env&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;prod&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;group_by&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or&quot;</span>
-                              <span class="p">},</span> <span class="p">{</span>
-                                      <span class="s2">&quot;tagk&quot;</span><span class="o">:</span> <span class="s2">&quot;role&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;filter&quot;</span><span class="o">:</span> <span class="s2">&quot;frontend&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;group_by&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or&quot;</span>
-                              <span class="p">}],</span>
-                              <span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
-                                      <span class="s2">&quot;counter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                                      <span class="s2">&quot;counterMax&quot;</span><span class="o">:</span> <span class="mf">9223372036854775807</span><span class="p">,</span>
-                                      <span class="s2">&quot;resetValue&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-                                      <span class="s2">&quot;dropResets&quot;</span><span class="o">:</span> <span class="kc">false</span>
-                              <span class="p">},</span>
-                              <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">{</span>
-                                      <span class="s2">&quot;role&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or(frontend)&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="s2">&quot;literal_or(prod)&quot;</span><span class="p">,</span>
-                                      <span class="s2">&quot;colo&quot;</span><span class="o">:</span> <span class="s2">&quot;wildcard(*)&quot;</span>
-                              <span class="p">}</span>
-                      <span class="p">}],</span>
-                      <span class="s2">&quot;delete&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;noAnnotations&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;globalAnnotations&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;showTSUIDs&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;msResolution&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;showQuery&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;showStats&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                      <span class="s2">&quot;showSummary&quot;</span><span class="o">:</span> <span class="kc">false</span>
-              <span class="p">},</span>
-              <span class="s2">&quot;exception&quot;</span><span class="o">:</span> <span class="s2">&quot;null&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;executed&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-              <span class="s2">&quot;user&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-              <span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span> <span class="p">{</span>
-                      <span class="s2">&quot;Accept-Language&quot;</span><span class="o">:</span> <span class="s2">&quot;en-US,en;q=0.8&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;Host&quot;</span><span class="o">:</span> <span class="s2">&quot;tsdhost:4242&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;Content-Length&quot;</span><span class="o">:</span> <span class="s2">&quot;440&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;Referer&quot;</span><span class="o">:</span> <span class="s2">&quot;http://tsdhost:8080/dashboard/db/tsdfrontend&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;Accept-Encoding&quot;</span><span class="o">:</span> <span class="s2">&quot;gzip, deflate&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;X-Forwarded-For&quot;</span><span class="o">:</span> <span class="s2">&quot;192.168.0.2&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;User-Agent&quot;</span><span class="o">:</span> <span class="s2">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;Origin&quot;</span><span class="o">:</span> <span class="s2">&quot;http://tsdhost:8080&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json;charset=UTF-8&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;Accept&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json, text/plain, */*&quot;</span>
-              <span class="p">},</span>
-              <span class="s2">&quot;numRunningQueries&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-              <span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span> <span class="p">{</span>
-                      <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mf">200</span><span class="p">,</span>
-                      <span class="s2">&quot;reasonPhrase&quot;</span><span class="o">:</span> <span class="s2">&quot;OK&quot;</span>
-              <span class="p">},</span>
-              <span class="s2">&quot;queryStartTimestamp&quot;</span><span class="o">:</span> <span class="mf">1455552844368</span><span class="p">,</span>
-              <span class="s2">&quot;queryCompletedTimestamp&quot;</span><span class="o">:</span> <span class="mf">1455552844621</span><span class="p">,</span>
-              <span class="s2">&quot;sentToClient&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-              <span class="s2">&quot;stats&quot;</span><span class="o">:</span> <span class="p">{</span>
-                      <span class="s2">&quot;avgAggregationTime&quot;</span><span class="o">:</span> <span class="mf">2.11416</span><span class="p">,</span>
-                      <span class="s2">&quot;avgHBaseTime&quot;</span><span class="o">:</span> <span class="mf">200.267711</span><span class="p">,</span>
-                      <span class="s2">&quot;avgQueryScanTime&quot;</span><span class="o">:</span> <span class="mf">242.037174</span><span class="p">,</span>
-                      <span class="s2">&quot;avgScannerTime&quot;</span><span class="o">:</span> <span class="mf">200.474122</span><span class="p">,</span>
-                      <span class="s2">&quot;avgScannerUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                      <span class="s2">&quot;avgSerializationTime&quot;</span><span class="o">:</span> <span class="mf">2.124153</span><span class="p">,</span>
-                      <span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span> <span class="mf">716</span><span class="p">,</span>
-                      <span class="s2">&quot;maxAggregationTime&quot;</span><span class="o">:</span> <span class="mf">2.093369</span><span class="p">,</span>
-                      <span class="s2">&quot;maxHBaseTime&quot;</span><span class="o">:</span> <span class="mf">241.708782</span><span class="p">,</span>
-                      <span class="s2">&quot;maxQueryScanTime&quot;</span><span class="o">:</span> <span class="mf">240.637231</span><span class="p">,</span>
-                      <span class="s2">&quot;maxScannerUidtoStringTime&quot;</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-                      <span class="s2">&quot;maxSerializationTime&quot;</span><span class="o">:</span> <span class="mf">2.103411</span><span class="p">,</span>
-                      <span class="s2">&quot;maxUidToStringTime&quot;</span><span class="o">:</span> <span class="mf">0.059345</span><span class="p">,</span>
-                      <span class="s2">&quot;processingPreWriteTime&quot;</span><span class="o">:</span> <span class="mf">253.050907</span><span class="p">,</span>
-                      <span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span> <span class="mf">40</span><span class="p">,</span>
-                      <span class="s2">&quot;totalTime&quot;</span><span class="o">:</span> <span class="mf">256.568992</span><span class="p">,</span>
-                      <span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span> <span class="mf">0</span>
-              <span class="p">}</span>
-      <span class="p">}],</span>
-      <span class="s2">&quot;running&quot;</span><span class="o">:</span> <span class="p">[]</span>
+<span class="w">      </span><span class="s2">&quot;completed&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">              </span><span class="s2">&quot;query&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1455531250181&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;timezone&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;options&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;padding&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;queries&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">                              </span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;zimsum&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsd.connectionmgr.bytes.written&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;tsuids&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;downsample&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1m-avg&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;rate&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">                                      </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;colo&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;group_by&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;wildcard&quot;</span>
+<span class="w">                              </span><span class="p">},</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;env&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;group_by&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or&quot;</span>
+<span class="w">                              </span><span class="p">},</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;role&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;frontend&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;group_by&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or&quot;</span>
+<span class="w">                              </span><span class="p">}],</span>
+<span class="w">                              </span><span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;counter&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;counterMax&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">9223372036854775807</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;resetValue&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;dropResets&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">                              </span><span class="p">},</span>
+<span class="w">                              </span><span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;role&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or(frontend)&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;env&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or(prod)&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;colo&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;wildcard(*)&quot;</span>
+<span class="w">                              </span><span class="p">}</span>
+<span class="w">                      </span><span class="p">},</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                              </span><span class="s2">&quot;aggregator&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;zimsum&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsd.hbase.rpcs.cumulative_bytes_received&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;tsuids&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;downsample&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1m-avg&quot;</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;rate&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                              </span><span class="s2">&quot;filters&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">                                      </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;colo&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;group_by&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;wildcard&quot;</span>
+<span class="w">                              </span><span class="p">},</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;env&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;group_by&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or&quot;</span>
+<span class="w">                              </span><span class="p">},</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;tagk&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;role&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;filter&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;frontend&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;group_by&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or&quot;</span>
+<span class="w">                              </span><span class="p">}],</span>
+<span class="w">                              </span><span class="s2">&quot;rateOptions&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;counter&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;counterMax&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">9223372036854775807</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;resetValue&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;dropResets&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">                              </span><span class="p">},</span>
+<span class="w">                              </span><span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                                      </span><span class="s2">&quot;role&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or(frontend)&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;env&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;literal_or(prod)&quot;</span><span class="p">,</span>
+<span class="w">                                      </span><span class="s2">&quot;colo&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;wildcard(*)&quot;</span>
+<span class="w">                              </span><span class="p">}</span>
+<span class="w">                      </span><span class="p">}],</span>
+<span class="w">                      </span><span class="s2">&quot;delete&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;noAnnotations&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;globalAnnotations&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;showTSUIDs&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;msResolution&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;showQuery&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;showStats&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;showSummary&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="s2">&quot;exception&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="s2">&quot;executed&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">              </span><span class="s2">&quot;user&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">              </span><span class="s2">&quot;requestHeaders&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="s2">&quot;Accept-Language&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;en-US,en;q=0.8&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;Host&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsdhost:4242&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;Content-Length&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;440&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;Referer&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://tsdhost:8080/dashboard/db/tsdfrontend&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;Accept-Encoding&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;gzip, deflate&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;X-Forwarded-For&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;192.168.0.2&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;User-Agent&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;Origin&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://tsdhost:8080&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/json;charset=UTF-8&quot;</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;Accept&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/json, text/plain, */*&quot;</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="s2">&quot;numRunningQueries&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">              </span><span class="s2">&quot;httpResponse&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="s2">&quot;code&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;reasonPhrase&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span>
+<span class="w">              </span><span class="p">},</span>
+<span class="w">              </span><span class="s2">&quot;queryStartTimestamp&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1455552844368</span><span class="p">,</span>
+<span class="w">              </span><span class="s2">&quot;queryCompletedTimestamp&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1455552844621</span><span class="p">,</span>
+<span class="w">              </span><span class="s2">&quot;sentToClient&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">              </span><span class="s2">&quot;stats&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="s2">&quot;avgAggregationTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2.11416</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;avgHBaseTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">200.267711</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;avgQueryScanTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">242.037174</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;avgScannerTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">200.474122</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;avgScannerUidToStringTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;avgSerializationTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2.124153</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;emittedDPs&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">716</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;maxAggregationTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2.093369</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;maxHBaseTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">241.708782</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;maxQueryScanTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">240.637231</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;maxScannerUidtoStringTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;maxSerializationTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2.103411</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;maxUidToStringTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.059345</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;processingPreWriteTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">253.050907</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;successfulScan&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">40</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;totalTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">256.568992</span><span class="p">,</span>
+<span class="w">                      </span><span class="s2">&quot;uidPairsResolved&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}],</span>
+<span class="w">      </span><span class="s2">&quot;running&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -277,7 +282,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

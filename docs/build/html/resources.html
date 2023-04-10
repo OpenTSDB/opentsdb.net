@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Additional Resources &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/solar.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="HTTP API" href="development/http_api.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -44,8 +43,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Additional Resources</a><ul>
 <li><a class="reference internal" href="#monitoring">Monitoring</a></li>
 <li><a class="reference internal" href="#docker-images">Docker Images</a></li>
@@ -58,19 +58,22 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="development/http_api.html"
-                        title="previous chapter">HTTP API</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="development/http_api.html"
+                          title="previous chapter">HTTP API</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -79,24 +82,24 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="additional-resources">
-<h1>Additional Resources</h1>
-<p>These are just some of the awesome front-ends, utilities, libraries and resources created by the OpenTSDB community. Please let us know if you have a project you’d like to see listed and if you don’t see something you need, search for it on Github (new projects are popping up all the time) or your favorite search engine.</p>
-<div class="section" id="monitoring">
-<h2>Monitoring</h2>
+  <section id="additional-resources">
+<h1>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">These are just some of the awesome front-ends, utilities, libraries and resources created by the OpenTSDB community. Please let us know if you have a project you’d like to see listed and if you don’t see something you need, search for it on Github (new projects are popping up all the time) or your favorite search engine.</p>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://bosun.org/">Bosun</a> - A monitoring and alerting system built on OpenTSDB from the folks at <a class="reference external" href="http://stackexchange.com/">Stack Exchange</a>.</p></li>
 </ul>
-</div>
-<div class="section" id="docker-images">
-<h2>Docker Images</h2>
+</section>
+<section id="docker-images">
+<h2>Docker Images<a class="headerlink" href="#docker-images" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://registry.hub.docker.com/u/petergrace/opentsdb-docker/">petergrace/opentsdb-docker</a> - A prebuilt Docker image with HBase and OpenTSDB already configured and ready to run!  If you have Docker installed, execute <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">petergrace/opentsdb-docker</span></code> to create an opentsdb instance running on port 4242.</p></li>
 <li><p><a class="reference external" href="https://registry.hub.docker.com/u/opower/opentsdb/">opower/opentsdb</a> - A Docker image containing OpenTSDB, HBase, and tcollector. Comes in both 2.0.1 and 2.1 versions (latest defaults to 2.1). Execute <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">4242:4242</span> <span class="pre">opower/opentsdb</span></code> to create an OpenTSDB instance running on port 4242.</p></li>
 </ul>
-</div>
-<div class="section" id="front-ends">
-<h2>Front Ends</h2>
+</section>
+<section id="front-ends">
+<h2>Front Ends<a class="headerlink" href="#front-ends" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/box/StatusWolf">Status Wolf</a> - A PHP and MySQL based dashboard for creating and storing dynamic custom graphs with OpenTSDB data including anonmaly detection.</p></li>
 <li><p><a class="reference external" href="https://github.com/Ticketmaster/metrilyx-2.0">Metrilyx</a> - A Python and Django based dashboard system with dynamic graphs from Ticketmaster.</p></li>
@@ -106,9 +109,9 @@
 <li><p><a class="reference external" href="http://grafana.org">Grafana</a> - A dashboard and graph editor with OpenTSDB support.</p></li>
 <li><p><a class="reference external" href="https://github.com/mikebryant/graphite-opentsdb-finder">Graphite OpenTSDB Finder</a> - A Graphite plugin to load TSDB data.</p></li>
 </ul>
-</div>
-<div class="section" id="utilities">
-<h2>Utilities</h2>
+</section>
+<section id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/noca/opentsdbjsonproxy">opentsdbjsonproxy</a> - An HTTP proxy to convert 1.x ASCII output from the <code class="docutils literal notranslate"><span class="pre">/q</span></code> endpoint to JSON for use with High Charts or other libraries.</p></li>
 <li><p><a class="reference external" href="https://github.com/auxesis/collectd-opentsdb">Collectd-opentsdb</a> - A Collectd plugin to emmit stats to a TSD.</p></li>
@@ -131,9 +134,9 @@
 <li><p><a class="reference external" href="https://github.com/worldline/proxyTSDB">proxTSDB</a> - A metric data gateway capable of buffering data to RAM or disk if the TSD is down.</p></li>
 <li><p><a class="reference external" href="https://github.com/santosh-d3vpl3x/opentsdb-udfs">OpenTSDB Pig UDFs</a> - Integrate OpenTSDB with Apache Pig for large data set processing.</p></li>
 </ul>
-</div>
-<div class="section" id="clients">
-<h2>Clients</h2>
+</section>
+<section id="clients">
+<h2>Clients<a class="headerlink" href="#clients" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/holstius/opentsdbr">R Client</a> - A client to pull data from OpenTSDB into R.</p></li>
 <li><p><a class="reference external" href="https://github.com/bradfordw/gen_opentsdb">Erlang Client</a> - A simple client to publish data to a TSD from Erlang.</p></li>
@@ -144,9 +147,9 @@
 <li><p><a class="reference external" href="https://pypi.python.org/pypi/potsdb">Potsdb</a> - A Python client for writing data.</p></li>
 <li><p><a class="reference external" href="https://github.com/cyngn/vertx-opentsdb">vert.x OpenTsDb</a> - A library to write data to OpenTSDB from Vert.x.</p></li>
 </ul>
-</div>
-<div class="section" id="references-to-opentsdb">
-<h2>References to OpenTSDB</h2>
+</section>
+<section id="references-to-opentsdb">
+<h2>References to OpenTSDB<a class="headerlink" href="#references-to-opentsdb" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.manning.com/dimidukkhurana/">HBase in Action</a> (Manning Publications) - Chapter 7: HBase by Example: OpenTSDB</p></li>
 <li><p><a class="reference external" href="http://www.wrox.com/WileyCDA/WroxTitle/Professional-NoSQL.productCd-047094224X.html">Professional NoSQL</a> (Wrox Publishing) - Mentioned in Chapter 17: Tools and Utilities</p></li>
@@ -155,16 +158,16 @@
 <li><p><a class="reference external" href="http://www.hbasecon.com/sessions/opentsdb-at-scale/">HBaseCon 2013</a> - Presentation from Jonathan Creasy and Geoffrey Anderson</p></li>
 <li><p><a class="reference external" href="http://strataconf.com/strata2011/public/schedule/detail/16996">Strata 2011</a> - Presentation by Benoit Sigoure</p></li>
 </ul>
-</div>
-<div class="section" id="statistical-analysis-tools">
-<h2>Statistical Analysis Tools</h2>
+</section>
+<section id="statistical-analysis-tools">
+<h2>Statistical Analysis Tools<a class="headerlink" href="#statistical-analysis-tools" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.gnuplot.info/">GnuPlot</a> - Graphing library used by OpenTSDB</p></li>
 <li><p><a class="reference external" href="http://www.r-project.org/">R</a> - Statistical computing framework</p></li>
 <li><p><a class="reference external" href="http://www.scipy.org/">SciPy</a> - Python libraries for dealing with numbers (Pandas library has time series support)</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -187,7 +190,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

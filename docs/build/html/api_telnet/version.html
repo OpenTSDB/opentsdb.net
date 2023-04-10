@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>version &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/solar.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="help" href="help.html" />
@@ -49,8 +48,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">version</a><ul>
 <li><a class="reference internal" href="#request">Request</a></li>
 <li><a class="reference internal" href="#response">Response</a><ul>
@@ -61,22 +61,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="stats.html"
-                        title="previous chapter">stats</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="help.html"
-                        title="next chapter">help</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="stats.html"
+                          title="previous chapter">stats</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="help.html"
+                          title="next chapter">help</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -85,28 +90,28 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="version">
-<h1>version</h1>
-<p>This command is similar to the HTTP <a class="reference internal" href="../api_http/version.html"><span class="doc">/api/version</span></a> endpoint in that it will return information about the currently running version of OpenTSDB. This command does not modify TSD in any way.</p>
-<div class="section" id="request">
-<h2>Request</h2>
+  <section id="version">
+<h1>version<a class="headerlink" href="#version" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">This command is similar to the HTTP <a class="reference internal" href="../api_http/version.html"><span class="doc">/api/version</span></a> endpoint in that it will return information about the currently running version of OpenTSDB. This command does not modify TSD in any way.</p>
+<section id="request">
+<h2>Request<a class="headerlink" href="#request" title="Permalink to this heading">¶</a></h2>
 <p>The command format is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">version</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>A set of lines with version information.</p>
-<div class="section" id="example">
-<h3>Example</h3>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">opentsdb</span><span class="o">.</span><span class="n">tools</span> <span class="n">BuildData</span> <span class="n">built</span> <span class="n">at</span> <span class="n">revision</span> <span class="n">a7a0980</span> <span class="p">(</span><span class="n">MODIFIED</span><span class="p">)</span>
 <span class="n">Built</span> <span class="n">on</span> <span class="mi">2016</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">03</span> <span class="mi">19</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span><span class="mi">50</span> <span class="o">+</span><span class="mi">0000</span> <span class="n">by</span> <span class="n">clarsen</span><span class="nd">@tsdvm</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">clarsen</span><span class="o">/</span><span class="n">Documents</span><span class="o">/</span><span class="n">opentsdb</span><span class="o">/</span><span class="n">opentsdb_dev</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -133,7 +138,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

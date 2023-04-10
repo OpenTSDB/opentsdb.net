@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>HTTP API &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/solar.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Additional Resources" href="../resources.html" />
@@ -49,30 +48,36 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">HTTP API</a><ul>
 <li><a class="reference internal" href="#reserved-query-string-parameters">Reserved Query String Parameters</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="plugins.html"
-                        title="previous chapter">Plugins</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../resources.html"
-                        title="next chapter">Additional Resources</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="plugins.html"
+                          title="previous chapter">Plugins</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../resources.html"
+                          title="next chapter">Additional Resources</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -81,16 +86,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="http-api">
-<h1>HTTP API</h1>
+  <section id="http-api">
+<h1>HTTP API<a class="headerlink" href="#http-api" title="Permalink to this heading">¶</a></h1>
 <p>These are some notes on adding to the HTTP API.</p>
-<div class="section" id="reserved-query-string-parameters">
-<h2>Reserved Query String Parameters</h2>
+<section id="reserved-query-string-parameters">
+<h2>Reserved Query String Parameters<a class="headerlink" href="#reserved-query-string-parameters" title="Permalink to this heading">¶</a></h2>
 <p>The following is a list of query string parameters that are used by OpenTSDB across the entire API. Don’t try to overload their use please:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -106,8 +111,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -134,7 +139,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

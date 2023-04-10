@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Bigtable &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Cassandra" href="cassandra.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Bigtable</a><ul>
 <li><a class="reference internal" href="#setup">Setup</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
@@ -59,22 +59,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="hbase.html"
-                        title="previous chapter">HBase Schema</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="cassandra.html"
-                        title="next chapter">Cassandra</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="hbase.html"
+                          title="previous chapter">HBase Schema</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="cassandra.html"
+                          title="next chapter">Cassandra</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -83,15 +88,15 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="bigtable">
-<h1>Bigtable</h1>
-<p><a class="reference external" href="https://cloud.google.com/">Google Cloud Platform</a> provides hosting of Google’s Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google’s backend is simple. Indeed, the schemas (see <a class="reference internal" href="hbase.html"><span class="doc">HBase Schema</span></a>) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.</p>
+  <section id="bigtable">
+<h1>Bigtable<a class="headerlink" href="#bigtable" title="Permalink to this heading">¶</a></h1>
+<p id="index-0"><a class="reference external" href="https://cloud.google.com/">Google Cloud Platform</a> provides hosting of Google’s Bigtable database, the original inspiration of HBase and many NoSQL storage systems. Because HBase is so similar to Bigtable, running OpenTSDB 2.3 and later with Google’s backend is simple. Indeed, the schemas (see <a class="reference internal" href="hbase.html"><span class="doc">HBase Schema</span></a>) are exactly the same so all you have to do is create your Bigtable instance, create your TSDB tables using the Bigtable HBase shell, and fire up the TSDs.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The clients for Bigtable are in beta and undergoing a number of changes. Performance should improve as we adjust the code and uncover new tuning parameters. Please help us out on the mailing list or by modifying the code in GitHub.</p>
 </div>
-<div class="section" id="setup">
-<h2>Setup</h2>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
 <p>To run under GKE, see Monitoring time-series data with <a class="reference external" href="https://cloud.google.com/architecture/monitoring-time-series-data-opentsdb">OpenTSDB on Cloud Bigtable and GKE</a></p>
 <ol class="arabic simple">
 <li><p>Setup your Google Cloud Platform account.</p></li>
@@ -102,17 +107,17 @@
 <li><p>Prepare the <cite>opentsdb.conf</cite> file with the required and/or optional configuration parameters below.</p></li>
 <li><p>Run the TSD via <cite>build/tsdb tsd –config=&lt;path&gt;/opentsdb.conf</cite></p></li>
 </ol>
-</div>
-<div class="section" id="configuration">
-<h2>Configuration</h2>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
 <p>The following is a table of required and optional parameters to run OpenTSDB with Bigtable. These are in addition to the standard TSD configuration parameters from <a class="reference internal" href="../configuration.html"><span class="doc">Configuration</span></a>.</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 60%" />
-<col style="width: 10%" />
+<col style="width: 20.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 60.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Property</p></th>
@@ -171,8 +176,8 @@
 <p class="admonition-title">Note</p>
 <p>In older version’s of the client, Google’s Bigtable client communicates with their servers over HTTP2 with TLS using ALPN. As Java 7 and 8 (dunno about 9) lack native ALPN support, a <a class="reference external" href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html">library</a> must be loaded at JVM start to modify the JVM’s bytecode. The build script for OpenTSDB will attempt to detect your JDK version and download the proper version of ALPN but if you have a custom JVM or something other than Hotspot or OpenJDK you may run into issues. Try different versions of the <cite>alpn-boot</cite> JAR to see what works for you. With AsyncBigtable 0.3.0 a JDK agnostic library is used so ALPN is no longer required.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -200,7 +205,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

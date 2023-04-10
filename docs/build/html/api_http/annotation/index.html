@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>/api/annotation &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/annotation/bulk" href="bulk.html" />
@@ -49,8 +48,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">/api/annotation</a><ul>
 <li><a class="reference internal" href="#annotation-api-endpoints">Annotation API Endpoints</a></li>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
@@ -67,22 +67,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../aggregators.html"
-                        title="previous chapter">/api/aggregators</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="bulk.html"
-                        title="next chapter">/api/annotation/bulk</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../aggregators.html"
+                          title="previous chapter">/api/aggregators</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="bulk.html"
+                          title="next chapter">/api/annotation/bulk</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -91,41 +96,41 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-annotation">
-<h1>/api/annotation</h1>
-<p>These endpoints provides a means of adding, editing or deleting annotations stored in the OpenTSDB backend. Annotations are very basic objects used to record a note of an arbitrary event at some point, optionally associated with a timeseries. Annotations are not meant to be used as a tracking or event based system, rather they are useful for providing links to such systems by displaying a notice on graphs or via API query calls.</p>
+  <section id="api-annotation">
+<h1>/api/annotation<a class="headerlink" href="#api-annotation" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">These endpoints provides a means of adding, editing or deleting annotations stored in the OpenTSDB backend. Annotations are very basic objects used to record a note of an arbitrary event at some point, optionally associated with a timeseries. Annotations are not meant to be used as a tracking or event based system, rather they are useful for providing links to such systems by displaying a notice on graphs or via API query calls.</p>
 <p>When creating, modifying or deleting annotations, all changes will be propagated to the search plugin if configured.</p>
-<div class="section" id="annotation-api-endpoints">
-<h2>Annotation API Endpoints</h2>
+<section id="annotation-api-endpoints">
+<h2>Annotation API Endpoints<a class="headerlink" href="#annotation-api-endpoints" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="bulk.html">/api/annotation/bulk</a></li>
 </ul>
 </div>
 <p>The default <code class="docutils literal notranslate"><span class="pre">/annotation</span></code> endpoint deals with one notation at a time. The <code class="docutils literal notranslate"><span class="pre">/annotation/bulk</span></code> endpoint allows for adding or updating multiple annotations at a time.</p>
-</div>
-<div class="section" id="verbs">
-<h2>Verbs</h2>
+</section>
+<section id="verbs">
+<h2>Verbs<a class="headerlink" href="#verbs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>GET - Retrieve a single annotation</p></li>
 <li><p>POST - Create or modify an annotation</p></li>
 <li><p>PUT - Create or replace an annotation</p></li>
 <li><p>DELETE - Delete an annotation</p></li>
 </ul>
-</div>
-<div class="section" id="requests">
-<h2>Requests</h2>
+</section>
+<section id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this heading">¶</a></h2>
 <p>All annotations are identified by the <code class="docutils literal notranslate"><span class="pre">startTime</span></code> field and optionally the <code class="docutils literal notranslate"><span class="pre">tsuid</span></code> field. Each note can be global, meaning it is associated with all timeseries, or it can be local, meaning it’s associated with a specific tsuid. If the tsuid is not supplied or has an empty value, the annotation is considered to be a global note.</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 15%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 45.0%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 15.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -203,49 +208,49 @@
 <p class="admonition-title">Warning</p>
 <p>If your request uses <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, any fields that you do not supply with the request will be overwritten with their default values. For example, the <code class="docutils literal notranslate"><span class="pre">description</span></code> field will be set to an empty string and the <code class="docutils literal notranslate"><span class="pre">custom</span></code> field will be reset to <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
 </div>
-<div class="section" id="example-get-request">
-<h3>Example GET Request</h3>
+<section id="example-get-request">
+<h3>Example GET Request<a class="headerlink" href="#example-get-request" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/annotation?start_time=1369141261&amp;tsuid=000001000001000001
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-post-request">
-<h3>Example POST Request</h3>
+</section>
+<section id="example-post-request">
+<h3>Example POST Request<a class="headerlink" href="#example-post-request" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="s2">&quot;1369141261&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;custom&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;owner&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;dept&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ops&quot;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>A successful response to a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request will return the full object with the requested changes. Successful <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the response will be a <code class="docutils literal notranslate"><span class="pre">304</span></code> without any body content. If the requested annotation did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal notranslate"><span class="pre">400</span></code> error will be returned.</p>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+<section id="example-response">
+<h3>Example Response<a class="headerlink" href="#example-response" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;dept&quot;</span><span class="o">:</span> <span class="s2">&quot;ops&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;endTime&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-    <span class="s2">&quot;startTime&quot;</span><span class="o">:</span> <span class="mf">1369141261</span>
+<span class="w">    </span><span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;000001000001000001&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Testing Annotations&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;These would be details about the event, the description is just a summary&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;custom&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jdoe&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;dept&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ops&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;endTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;startTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1369141261</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -272,7 +277,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

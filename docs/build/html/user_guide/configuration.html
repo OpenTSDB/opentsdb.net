@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Configuration &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/solar.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Writing Data" href="writing/index.html" />
@@ -49,8 +48,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Configuration</a><ul>
 <li><a class="reference internal" href="#configuration-file">Configuration File</a></li>
 <li><a class="reference internal" href="#file-locations">File Locations</a></li>
@@ -60,22 +60,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">User Guide</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="writing/index.html"
-                        title="next chapter">Writing Data</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">User Guide</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="writing/index.html"
+                          title="next chapter">Writing Data</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -84,19 +89,19 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="configuration">
-<h1>Configuration</h1>
-<p>OpenTSDB can be configured via a file on the local system, via command line
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">OpenTSDB can be configured via a file on the local system, via command line
 arguments or a combination or both.</p>
-<div class="section" id="configuration-file">
-<h2>Configuration File</h2>
-<p>The configuration file conforms to the Java properties specification.
+<section id="configuration-file">
+<h2>Configuration File<a class="headerlink" href="#configuration-file" title="Permalink to this heading">¶</a></h2>
+<p id="index-1">The configuration file conforms to the Java properties specification.
 Configuration names are lower-case, dotted strings without spaces. Each name
 is followed by an equals sign, then the value for the property. All OpenTSDB
 properties start with <code class="docutils literal notranslate"><span class="pre">tsd.</span></code> Comments or inactive configuration lines are
 blocked by a hash symbol <code class="docutils literal notranslate"><span class="pre">#</span></code>. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of Zookeeper hosts that manage the HBase cluster</span>
-<span class="n">tsd</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">zk_quorum</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.100</span>
+<span class="n">tsd</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">zk_quorum</span> <span class="o">=</span> <span class="mf">192.168.1.100</span>
 </pre></div>
 </div>
 <p>will configure the TSD to connect to Zookeeper on <code class="docutils literal notranslate"><span class="pre">192.168.1.100</span></code>.</p>
@@ -107,10 +112,10 @@ processing is as follows:</p>
 <li><p>Configuration file values are loaded, overriding default values</p></li>
 <li><p>Command line parameters are loaded, overriding config file and default values</p></li>
 </ol>
-</div>
-<div class="section" id="file-locations">
-<h2>File Locations</h2>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">--config</span></code> command line argument to specify the full path to
+</section>
+<section id="file-locations">
+<h2>File Locations<a class="headerlink" href="#file-locations" title="Permalink to this heading">¶</a></h2>
+<p id="index-2">You can use the <code class="docutils literal notranslate"><span class="pre">--config</span></code> command line argument to specify the full path to
 a configuration file. Otherwise if not specified, OpenTSDB and some of the
 command-line tools will attempt to search for a valid configuration file in
 the following locations:</p>
@@ -123,9 +128,9 @@ the following locations:</p>
 <p>In the event that a valid configuration file cannot be found and the required
 properties are not set, the TSD will not start. Please see the properties
 table below for a list of required configuration settings.</p>
-</div>
-<div class="section" id="properties">
-<h2>Properties</h2>
+</section>
+<section id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Permalink to this heading">¶</a></h2>
 <p>The following is a table of configuration options for all tools. When
 applicable, the corresponding command line override is provided. Please note
 that individual command line tools may have their own values so see their
@@ -134,14 +139,14 @@ documentation for details.</p>
 <p class="admonition-title">Note</p>
 <p>For additional parameters used for tuning the AsyncHBase client, see <a class="reference external" href="http://opentsdb.github.io/asynchbase/docs/build/html/configuration.html">AsyncHBase Configuration</a></p>
 </div>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 55%" />
-<col style="width: 5%" />
-<col style="width: 10%" />
+<col style="width: 20.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 55.0%" />
+<col style="width: 5.0%" />
+<col style="width: 10.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Property</p></th>
@@ -932,9 +937,9 @@ documentation for details.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="data-types">
-<h2>Data Types</h2>
+</section>
+<section id="data-types">
+<h2>Data Types<a class="headerlink" href="#data-types" title="Permalink to this heading">¶</a></h2>
 <p>Some configuration values require special consideration:</p>
 <ul>
 <li><p>Booleans - The following literals will parse to <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
@@ -961,8 +966,8 @@ E.g.:</p>
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -989,7 +994,7 @@ E.g.:</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

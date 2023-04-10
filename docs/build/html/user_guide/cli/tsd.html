@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>tsd &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Utilities" href="../utilities/index.html" />
@@ -50,22 +49,26 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="search.html"
-                        title="previous chapter">search</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="../utilities/index.html"
-                        title="next chapter">Utilities</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="search.html"
+                          title="previous chapter">search</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../utilities/index.html"
+                          title="next chapter">Utilities</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -74,15 +77,15 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="tsd">
-<h1>tsd</h1>
-<p>The TSD command launches the OpenTSDB daemon in the foreground so that it can accept connections over TCP and HTTP. If successful, you should see a number of messages then:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">26</span> <span class="mi">18</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">02</span><span class="p">,</span><span class="mi">472</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">TSDMain</span><span class="p">:</span> <span class="n">Ready</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">on</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">4242</span>
+  <section id="tsd">
+<h1>tsd<a class="headerlink" href="#tsd" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">The TSD command launches the OpenTSDB daemon in the foreground so that it can accept connections over TCP and HTTP. If successful, you should see a number of messages then:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">26</span> <span class="mi">18</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">02</span><span class="p">,</span><span class="mi">472</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">TSDMain</span><span class="p">:</span> <span class="n">Ready</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">on</span> <span class="mf">0.0.0.0</span><span class="p">:</span><span class="mi">4242</span>
 </pre></div>
 </div>
 <p>The daemon will continue to run until killed via a Telnet or HTTP command is sent to tell it to stop. If an error occurred, such as failure to connect to Zookeeper or the inability to bind to the proper interface and port, an error will be logged and the daemon will exit.</p>
 <p>Note that the daemon does not fork and run in the background.</p>
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -110,7 +113,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

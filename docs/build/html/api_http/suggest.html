@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>/api/suggest &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/solar.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="/api/tree" href="tree/index.html" />
@@ -49,8 +48,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">/api/suggest</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
@@ -65,22 +65,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="stats/threads.html"
-                        title="previous chapter">/api/stats/threads</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tree/index.html"
-                        title="next chapter">/api/tree</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="stats/threads.html"
+                          title="previous chapter">/api/stats/threads</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tree/index.html"
+                          title="next chapter">/api/tree</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -89,28 +94,28 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-suggest">
-<h1>/api/suggest</h1>
-<p>This endpoint provides a means of implementing an “auto-complete” call that can be accessed repeatedly as a user types a request in a GUI. It does not offer full text searching or wildcards, rather it simply matches the entire string passed in the query on the first characters of the stored data. For example, passing a query of <code class="docutils literal notranslate"><span class="pre">type=metrics&amp;q=sys</span></code> will return the top 25 metrics in the system that start with <code class="docutils literal notranslate"><span class="pre">sys</span></code>. Matching is case sensitive, so <code class="docutils literal notranslate"><span class="pre">sys</span></code> will not match <code class="docutils literal notranslate"><span class="pre">System.CPU</span></code>. Results are sorted alphabetically.</p>
-<div class="section" id="verbs">
-<h2>Verbs</h2>
+  <section id="api-suggest">
+<h1>/api/suggest<a class="headerlink" href="#api-suggest" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">This endpoint provides a means of implementing an “auto-complete” call that can be accessed repeatedly as a user types a request in a GUI. It does not offer full text searching or wildcards, rather it simply matches the entire string passed in the query on the first characters of the stored data. For example, passing a query of <code class="docutils literal notranslate"><span class="pre">type=metrics&amp;q=sys</span></code> will return the top 25 metrics in the system that start with <code class="docutils literal notranslate"><span class="pre">sys</span></code>. Matching is case sensitive, so <code class="docutils literal notranslate"><span class="pre">sys</span></code> will not match <code class="docutils literal notranslate"><span class="pre">System.CPU</span></code>. Results are sorted alphabetically.</p>
+<section id="verbs">
+<h2>Verbs<a class="headerlink" href="#verbs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>GET</p></li>
 <li><p>POST</p></li>
 </ul>
-</div>
-<div class="section" id="requests">
-<h2>Requests</h2>
-<table class="colwidths-given docutils align-default">
+</section>
+<section id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this heading">¶</a></h2>
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 15%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 45.0%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 15.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -153,40 +158,40 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="example-request">
-<h3>Example Request</h3>
+<section id="example-request">
+<h3>Example Request<a class="headerlink" href="#example-request" title="Permalink to this heading">¶</a></h3>
 <p><strong>Query String</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/suggest?type=metrics&amp;q=sys&amp;max=10
 </pre></div>
 </div>
 <p><strong>JSON Content</strong></p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;metrics&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;q&quot;</span><span class="o">:</span><span class="s2">&quot;sys&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="mf">10</span>
+<span class="w">  </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;metrics&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;q&quot;</span><span class="o">:</span><span class="s2">&quot;sys&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="mf">10</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>The response is an array of strings of the given type that match the query. If nothing was found to match the query, an empty array will be returned.</p>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+<section id="example-response">
+<h3>Example Response<a class="headerlink" href="#example-response" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-  <span class="s2">&quot;sys.cpu.0.nice&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;sys.cpu.0.system&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;sys.cpu.0.user&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;sys.cpu.1.nice&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;sys.cpu.1.system&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;sys.cpu.1.user&quot;</span>
+<span class="w">  </span><span class="s2">&quot;sys.cpu.0.nice&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;sys.cpu.0.system&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;sys.cpu.0.user&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;sys.cpu.1.nice&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;sys.cpu.1.system&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;sys.cpu.1.user&quot;</span>
 <span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -213,7 +218,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>/api/uid/tsmeta &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/uid/uidmeta" href="uidmeta.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">/api/uid/tsmeta</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#get-requests">GET Requests</a><ul>
@@ -72,22 +72,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="assign.html"
-                        title="previous chapter">/api/uid/assign</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="uidmeta.html"
-                        title="next chapter">/api/uid/uidmeta</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="assign.html"
+                          title="previous chapter">/api/uid/assign</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="uidmeta.html"
+                          title="next chapter">/api/uid/uidmeta</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -96,53 +101,53 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-uid-tsmeta">
-<h1>/api/uid/tsmeta</h1>
-<p>This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <code class="docutils literal notranslate"><span class="pre">POST</span></code> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <code class="docutils literal notranslate"><span class="pre">PUT</span></code> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
+  <section id="api-uid-tsmeta">
+<h1>/api/uid/tsmeta<a class="headerlink" href="#api-uid-tsmeta" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">This endpoint enables searching, editing or deleting timeseries meta data information, that is meta data associated with a specific timeseries associated with a <em>metric</em> and one or more <em>tag name/value</em> pairs. Some fields are set by the TSD but others can be set by the user. When using the <code class="docutils literal notranslate"><span class="pre">POST</span></code> method, only the fields supplied with the request will be stored. Existing fields that are not included will be left alone. Using the <code class="docutils literal notranslate"><span class="pre">PUT</span></code> method will overwrite all user mutable fields with given values or defaults if a given field is not provided.</p>
 <p>Please note that deleting a meta data entry will not delete the data points stored for the timeseries. Neither will it remove the UID assignments or associated UID meta objects.</p>
-<div class="section" id="verbs">
-<h2>Verbs</h2>
+<section id="verbs">
+<h2>Verbs<a class="headerlink" href="#verbs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>GET - Lookup one or more TS meta data</p></li>
 <li><p>POST - Updates only the fields provided</p></li>
 <li><p>PUT - Overwrites all user configurable meta data fields</p></li>
 <li><p>DELETE - Deletes the TS meta data</p></li>
 </ul>
-</div>
-<div class="section" id="get-requests">
-<h2>GET Requests</h2>
+</section>
+<section id="get-requests">
+<h2>GET Requests<a class="headerlink" href="#get-requests" title="Permalink to this heading">¶</a></h2>
 <p>A GET request can lookup the TS meta objects for one or more time series if they exist in the storage system. Two types of queries are supported:</p>
 <ul class="simple">
 <li><p><strong>tsuid</strong> - A single hexadecimal TSUID may be supplied and a meta data object will be returned if located. The results will include a single object.</p></li>
 <li><p><strong>metric</strong> - <em>(Version 2.1)</em> Similar to a data point query, you can supply a metric and one or more tag pairs. Any TS meta data matching the query will be returned. The results will be an array of one or more objects. Only one metric query may be supplied per call and wild cards or grouping operators are not supported.</p></li>
 </ul>
-<div class="section" id="example-tsuid-get-request">
-<h3>Example TSUID GET Request</h3>
+<section id="example-tsuid-get-request">
+<h3>Example TSUID GET Request<a class="headerlink" href="#example-tsuid-get-request" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-metric-get-request">
-<h3>Example Metric GET Request</h3>
+</section>
+<section id="example-metric-get-request">
+<h3>Example Metric GET Request<a class="headerlink" href="#example-metric-get-request" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?m=sys.cpu.nice&amp;dc=lga
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="post-put-requests">
-<h2>POST/PUT Requests</h2>
+</section>
+</section>
+<section id="post-put-requests">
+<h2>POST/PUT Requests<a class="headerlink" href="#post-put-requests" title="Permalink to this heading">¶</a></h2>
 <p>By default, you may only write data to a TS meta object if it already exists. TS meta data is created via the meta sync CLI command or in real-time as data points are written. If you attempt to write data to the tsmeta endpoint for a TSUID that does not exist, an error will be returned and no data will be saved.</p>
 <p>Fields that can be supplied with a request include:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 15%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 45.0%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 15.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -266,49 +271,49 @@
 </pre></div>
 </div>
 <p>If a TS meta object already exists in storage for the given metric and tags, the fields will be updated or overwritten.</p>
-<div class="section" id="example-post-or-put-request">
-<h3>Example POST or PUT Request</h3>
+<section id="example-post-or-put-request">
+<h3>Example POST or PUT Request<a class="headerlink" href="#example-post-or-put-request" title="Permalink to this heading">¶</a></h3>
 <p><em>Query String:</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=post&amp;display_name=System%20CPU%20Time
 </pre></div>
 </div>
 <p><em>JSON Content:</em></p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="s2">&quot;System CPU Time for Webserver 01&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;department&quot;</span><span class="o">:</span> <span class="s2">&quot;Operations&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;assetTag&quot;</span><span class="o">:</span> <span class="s2">&quot;12345&quot;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="s2">&quot;System CPU Time for Webserver 01&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;custom&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;department&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Operations&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;assetTag&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;12345&quot;</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-delete-request">
-<h3>Example DELETE Request</h3>
+</section>
+<section id="example-delete-request">
+<h3>Example DELETE Request<a class="headerlink" href="#example-delete-request" title="Permalink to this heading">¶</a></h3>
 <p><em>Query String:</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/uid/tsmeta?tsuid=00002A000001000001&amp;method_override=delete
 </pre></div>
 </div>
 <p><em>JSON Content:</em></p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span>
+<span class="w">    </span><span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="s2">&quot;00002A000001000001&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>A successful response to a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request will return the full TS meta data object with any given changes. Successful <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal notranslate"><span class="pre">304</span></code> without any body content. If the requested TSUID did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied an error will be returned.</p>
 <p>All <strong>Request</strong> fields will be present in the response in addition to others:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 60%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -345,64 +350,64 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+<section id="example-response">
+<h3>Example Response<a class="headerlink" href="#example-response" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;tsuid&quot;</span><span class="o">:</span> <span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;metric&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;00002A&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;System CPU Time&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
-        <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Server Hostname&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
-            <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;Hostname&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;000001&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;web01.mysite.com&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Website hosting server&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
-            <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-            <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;Web Server 01&quot;</span>
-        <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Measures CPU activity&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;created&quot;</span><span class="o">:</span> <span class="mf">1350425579</span><span class="p">,</span>
-    <span class="s2">&quot;units&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;retention&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-    <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;custom&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;department&quot;</span><span class="o">:</span> <span class="s2">&quot;Operations&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;assetTag&quot;</span><span class="o">:</span> <span class="s2">&quot;12345&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;displayName&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="s2">&quot;absolute&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span> <span class="mf">1350425590</span><span class="p">,</span>
-    <span class="s2">&quot;totalDatapoints&quot;</span><span class="p">,</span> <span class="mf">12532</span>
+<span class="w">    </span><span class="s2">&quot;tsuid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;00002A000001000001&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;metric&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;uid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;00002A&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sys.cpu.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;System CPU Time&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;created&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1350425579</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;custom&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="s2">&quot;uid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;000001&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;TAGK&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;host&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Server Hostname&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;created&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1350425579</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;custom&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hostname&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="s2">&quot;uid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;000001&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;TAGV&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;web01.mysite.com&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Website hosting server&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;created&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1350425579</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;custom&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Web Server 01&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Measures CPU activity&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;created&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1350425579</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;units&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;retention&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;max&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;min&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;NaN&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;custom&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;owner&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;department&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Operations&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;assetTag&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;12345&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;displayName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;dataType&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;absolute&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;lastReceived&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1350425590</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;totalDatapoints&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">12532</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -430,7 +435,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

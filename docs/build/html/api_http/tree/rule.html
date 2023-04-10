@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>/api/tree/rule &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/tree/rules" href="rules.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">/api/tree/rule</a><ul>
 <li><a class="reference internal" href="#verbs">Verbs</a></li>
 <li><a class="reference internal" href="#requests">Requests</a></li>
@@ -75,22 +75,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="notmatched.html"
-                        title="previous chapter">/api/tree/notmatched</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="rules.html"
-                        title="next chapter">/api/tree/rules</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="notmatched.html"
+                          title="previous chapter">/api/tree/notmatched</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="rules.html"
+                          title="next chapter">/api/tree/rules</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -99,35 +104,35 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-tree-rule">
-<h1>/api/tree/rule</h1>
-<p>Each rule in a tree is an individual object in storage, thus the <code class="docutils literal notranslate"><span class="pre">/api/tree/rule</span></code> endpoint allows for easy modification of a single rule in the set. Rules are addressed by their <code class="docutils literal notranslate"><span class="pre">tree</span></code> ID, <code class="docutils literal notranslate"><span class="pre">level</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> and all requests require these three parameters.</p>
+  <section id="api-tree-rule">
+<h1>/api/tree/rule<a class="headerlink" href="#api-tree-rule" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">Each rule in a tree is an individual object in storage, thus the <code class="docutils literal notranslate"><span class="pre">/api/tree/rule</span></code> endpoint allows for easy modification of a single rule in the set. Rules are addressed by their <code class="docutils literal notranslate"><span class="pre">tree</span></code> ID, <code class="docutils literal notranslate"><span class="pre">level</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> and all requests require these three parameters.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If a manual tree synchronization is running somewhere or there is a large number of TSMeta objects being created or edited, the tree rule may be cached and modifications to a tree’s rule set may take some time to propagate. If you make any modifications to the rule set, other than to meta information such as the <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">notes</span></code>, you may want to flush the tree data and perform a manual synchronization so that branches and leaves reflect the new rules.</p>
 </div>
-<div class="section" id="verbs">
-<h2>Verbs</h2>
+<section id="verbs">
+<h2>Verbs<a class="headerlink" href="#verbs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>GET - Retrieve one or more rules</p></li>
 <li><p>POST - Create or modify a rule</p></li>
 <li><p>PUT - Create or replace a rule</p></li>
 <li><p>DELETE - Delete a rule</p></li>
 </ul>
-</div>
-<div class="section" id="requests">
-<h2>Requests</h2>
+</section>
+<section id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this heading">¶</a></h2>
 <p>The following fields can be used for all rule endpoint requests:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 15%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 45.0%" />
+<col style="width: 10.0%" />
+<col style="width: 5.0%" />
+<col style="width: 5.0%" />
+<col style="width: 15.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -255,97 +260,97 @@
 <p class="admonition-title">Note</p>
 <p>When supplying a <code class="docutils literal notranslate"><span class="pre">separator</span></code> or a <code class="docutils literal notranslate"><span class="pre">regex</span></code> value, you must supply a valid regular expression. For separators, the most common use is to split dotted metrics into branches. E.g. you may want “sys.cpu.0.user” to be split into “sys”, “cpu”, “0” and “user” branches. You cannot supply just a “.” for the separator value as that will not match properly. Instead, escape the period via “.”. Note that if you are supplying JSON via a POST request, you must escape the backslash as well and supply “\.”. GET request responses will escape all backslashes.</p>
 </div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>A successful response to a <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request will return the full rule object with optional requested changes. Successful <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> calls will return with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no body content. When modifying data, if no changes were present, i.e. the call did not provide any data to store, the resposne will be a <code class="docutils literal notranslate"><span class="pre">304</span></code> without any body content. If the requested tree or rule did not exist in the system, a <code class="docutils literal notranslate"><span class="pre">404</span></code> will be returned with an error message. If invalid data was supplied a <code class="docutils literal notranslate"><span class="pre">400</span></code> error will be returned.</p>
-</div>
-<div class="section" id="get">
-<h2>GET</h2>
+</section>
+<section id="get">
+<h2>GET<a class="headerlink" href="#get" title="Permalink to this heading">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">GET</span></code> request requires a specific tree ID, rule level and order. Otherwise a <code class="docutils literal notranslate"><span class="pre">400</span></code> will be returned. To fetch all of the rules for a tree, use the <code class="docutils literal notranslate"><span class="pre">/api/tree</span></code> endpoint with a <a href="#id3"><span class="problematic" id="id4">``</span></a>treeId’ value.</p>
-<div class="section" id="example-get-query">
-<h3>Example GET Query</h3>
+<section id="example-get-query">
+<h3>Example GET Query<a class="headerlink" href="#example-get-query" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+</section>
+<section id="example-response">
+<h3>Example Response<a class="headerlink" href="#example-response" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;\\.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Split the metric on periods&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-    <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-    <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-    <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;field&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;regex&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;separator&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;\\.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Split the metric on periods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;level&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;order&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;treeId&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;customField&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="post-put">
-<h2>POST/PUT</h2>
+</section>
+</section>
+<section id="post-put">
+<h2>POST/PUT<a class="headerlink" href="#post-put" title="Permalink to this heading">¶</a></h2>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">POST</span></code> or <code class="docutils literal notranslate"><span class="pre">PUT</span></code> methods, you can create a new rule or edit an existing rule. New rules require a <code class="docutils literal notranslate"><span class="pre">type</span></code> value. Existing trees require a valid <code class="docutils literal notranslate"><span class="pre">treeId</span></code> ID and any fields that require modification. A successful request will return the modified rule object. Note that if a rule exists at the given level and order, any changes will be merged with or overwrite the existing rule.</p>
-<div class="section" id="example-query-string-request">
-<h3>Example Query String Request</h3>
+<section id="example-query-string-request">
+<h3>Example Query String Request<a class="headerlink" href="#example-query-string-request" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;type=METRIC&amp;separator=\.&amp;method_override=post
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-content-request">
-<h3>Example Content Request</h3>
+</section>
+<section id="example-content-request">
+<h3>Example Content Request<a class="headerlink" href="#example-content-request" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;\\.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Split the metric on periods&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-    <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mf">1</span>
+<span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;separator&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;\\.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Split the metric on periods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;level&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;order&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;treeId&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
-<h3>Example Response</h3>
+</section>
+<section id="id5">
+<h3>Example Response<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;field&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;regex&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;separator&quot;</span><span class="o">:</span> <span class="s2">&quot;\\.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Split the metric on periods&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;notes&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-    <span class="s2">&quot;order&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-    <span class="s2">&quot;treeId&quot;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-    <span class="s2">&quot;customField&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
-    <span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;METRIC&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;field&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;regex&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;separator&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;\\.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Split the metric on periods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;notes&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;level&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;order&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;treeId&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;customField&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;regexGroupIdx&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;displayFormat&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="delete">
-<h2>DELETE</h2>
+</section>
+</section>
+<section id="delete">
+<h2>DELETE<a class="headerlink" href="#delete" title="Permalink to this heading">¶</a></h2>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> method will remove a rule from a tree. A successful deletion will respond with a <code class="docutils literal notranslate"><span class="pre">204</span></code> status code and no content body. If the rule did not exist, a <code class="docutils literal notranslate"><span class="pre">404</span></code> error will be returned.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This method cannot be undone.</p>
 </div>
-<div class="section" id="example-delete-request">
-<h3>Example DELETE Request</h3>
+<section id="example-delete-request">
+<h3>Example DELETE Request<a class="headerlink" href="#example-delete-request" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:4242/api/tree/rule?treeId=1&amp;level=0&amp;order=0&amp;method_override=delete
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -373,7 +378,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

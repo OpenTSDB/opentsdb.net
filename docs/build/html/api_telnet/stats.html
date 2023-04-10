@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>stats &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/solar.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="version" href="version.html" />
@@ -49,8 +48,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">stats</a><ul>
 <li><a class="reference internal" href="#request">Request</a></li>
 <li><a class="reference internal" href="#response">Response</a><ul>
@@ -61,22 +61,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="histogram.html"
-                        title="previous chapter">histogram</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="version.html"
-                        title="next chapter">version</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="histogram.html"
+                          title="previous chapter">histogram</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="version.html"
+                          title="next chapter">version</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -85,21 +90,21 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="stats">
-<h1>stats</h1>
-<p>This command is similar to the HTTP <a class="reference internal" href="../api_http/stats/index.html"><span class="doc">/api/stats</span></a> endpoint in that it will return a list of the TSD stats, one per line, in the <code class="docutils literal notranslate"><span class="pre">put</span></code> format. This command does not modify TSD in any way.</p>
-<div class="section" id="request">
-<h2>Request</h2>
+  <section id="stats">
+<h1>stats<a class="headerlink" href="#stats" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">This command is similar to the HTTP <a class="reference internal" href="../api_http/stats/index.html"><span class="doc">/api/stats</span></a> endpoint in that it will return a list of the TSD stats, one per line, in the <code class="docutils literal notranslate"><span class="pre">put</span></code> format. This command does not modify TSD in any way.</p>
+<section id="request">
+<h2>Request<a class="headerlink" href="#request" title="Permalink to this heading">¶</a></h2>
 <p>The command format is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="response">
-<h2>Response</h2>
+</section>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>A set of time series with data about the running TSD.</p>
-<div class="section" id="example">
-<h3>Example</h3>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">increment</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
 <span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="nb">type</span><span class="o">=</span><span class="n">delete</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
 <span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span> <span class="mi">1479600574</span> <span class="mi">1</span> <span class="nb">type</span><span class="o">=</span><span class="n">get</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
@@ -111,9 +116,9 @@
 <span class="n">tsd</span><span class="o">.</span><span class="n">hbase</span><span class="o">.</span><span class="n">rpcs</span><span class="o">.</span><span class="n">batched</span> <span class="mi">1479600574</span> <span class="mi">0</span> <span class="n">host</span><span class="o">=</span><span class="n">web01</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -140,7 +145,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

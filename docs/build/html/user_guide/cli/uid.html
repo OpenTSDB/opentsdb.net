@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>uid &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="mkmetric" href="mkmetric.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">uid</a><ul>
 <li><a class="reference internal" href="#common-cli-parameters">Common CLI Parameters</a></li>
 <li><a class="reference internal" href="#lookup">Lookup</a><ul>
@@ -112,22 +112,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">CLI Tools</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mkmetric.html"
-                        title="next chapter">mkmetric</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">CLI Tools</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="mkmetric.html"
+                          title="next chapter">mkmetric</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -136,23 +141,23 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="uid">
-<h1>uid</h1>
-<p>The UID utility provides various functions to search or modify information in the <code class="docutils literal notranslate"><span class="pre">tsdb-uid</span></code> table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data.</p>
+  <section id="uid">
+<h1>uid<a class="headerlink" href="#uid" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">The UID utility provides various functions to search or modify information in the <code class="docutils literal notranslate"><span class="pre">tsdb-uid</span></code> table. This includes UID assignments for metrics, tag names and tag values as well as UID meta data, timeseries meta data and tree definitions or data.</p>
 <p>Use the UID utility with the command line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uid</span> <span class="o">&lt;</span><span class="n">subcommands</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">arguments</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="section" id="common-cli-parameters">
-<h2>Common CLI Parameters</h2>
+<section id="common-cli-parameters">
+<h2>Common CLI Parameters<a class="headerlink" href="#common-cli-parameters" title="Permalink to this heading">¶</a></h2>
 <p>Parameters specific to the UID utility include:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 50%" />
-<col style="width: 10%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 50.0%" />
+<col style="width: 10.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -195,40 +200,40 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="lookup">
-<h2>Lookup</h2>
+</section>
+<section id="lookup">
+<h2>Lookup<a class="headerlink" href="#lookup" title="Permalink to this heading">¶</a></h2>
 <p>The lookup command is the default for <code class="docutils literal notranslate"><span class="pre">uid</span></code> used to lookup the UID assigned to a name or the name assinged to a UID for a given type.</p>
-<div class="section" id="command-format">
-<h3>Command Format</h3>
+<section id="command-format">
+<h3>Command Format<a class="headerlink" href="#command-format" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">UID</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-command">
-<h3>Example Command</h3>
+</section>
+<section id="example-command">
+<h3>Example Command<a class="headerlink" href="#example-command" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">tagk</span> <span class="n">host</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-response">
-<h3>Example Response</h3>
+</section>
+<section id="example-response">
+<h3>Example Response<a class="headerlink" href="#example-response" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tagk</span> <span class="n">host</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="grep">
-<h2>grep</h2>
+</section>
+</section>
+<section id="grep">
+<h2>grep<a class="headerlink" href="#grep" title="Permalink to this heading">¶</a></h2>
 <p>The grep sub command performs a regular expression search for the given UID type and returns a list of all UID names that match the expression. Fields required for the grep command include:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 50%" />
-<col style="width: 10%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 50.0%" />
+<col style="width: 10.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -253,37 +258,37 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="id1">
-<h3>Command Format</h3>
+<section id="id1">
+<h3>Command Format<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="s1">&#39;&lt;expression&gt;&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
-<h3>Example Command</h3>
+</section>
+<section id="id2">
+<h3>Example Command<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">grep</span> <span class="n">metrics</span> <span class="s1">&#39;disk.*write&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id3">
-<h3>Example Response</h3>
+</section>
+<section id="id3">
+<h3>Example Response<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">msec_write</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">67</span><span class="p">]</span>
 <span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_merged</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">69</span><span class="p">]</span>
 <span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_requests</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">]</span>
 <span class="n">metrics</span> <span class="n">iostat</span><span class="o">.</span><span class="n">disk</span><span class="o">.</span><span class="n">write_sectors</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="assign">
-<h2>assign</h2>
+</section>
+</section>
+<section id="assign">
+<h2>assign<a class="headerlink" href="#assign" title="Permalink to this heading">¶</a></h2>
 <p>This sub command is used to assign IDs to new unique names for metrics, tag names or tag values. Supply a list of one or more values to assign UIDs and the list of assignments will be returned.</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 60%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -305,35 +310,35 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="id4">
-<h3>Command Format</h3>
+<section id="id4">
+<h3>Command Format<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">assign</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;...</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
-<h3>Example Command</h3>
+</section>
+<section id="id5">
+<h3>Example Command<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">assign</span> <span class="n">metrics</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span> <span class="n">disk</span><span class="o">.</span><span class="n">d1</span> <span class="n">disk</span><span class="o">.</span><span class="n">d2</span> <span class="n">disk</span><span class="o">.</span><span class="n">d3</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id6">
-<h3>Example Response</h3>
-</div>
-</div>
-<div class="section" id="rename">
-<h2>rename</h2>
+</section>
+<section id="id6">
+<h3>Example Response<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="rename">
+<h2>rename<a class="headerlink" href="#rename" title="Permalink to this heading">¶</a></h2>
 <p>Changes the name of an already assigned UID. If the UID of the given type does not exist, an error will be returned.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>After changing a UID name you must flush the cache (see <a class="reference internal" href="../../api_http/dropcaches.html"><span class="doc">/api/dropcaches</span></a>) or restart all TSDs for the change to take effect. TSDs do not periodically reload UID maps.</p>
 </div>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 60%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -360,21 +365,21 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="id7">
-<h3>Command Format</h3>
+<section id="id7">
+<h3>Command Format<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rename</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">newname</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id8">
-<h3>Example Command</h3>
+</section>
+<section id="id8">
+<h3>Example Command<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">rename</span> <span class="n">metrics</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span><span class="o">.</span><span class="n">bytes_read</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="delete">
-<h2>delete</h2>
+</section>
+</section>
+<section id="delete">
+<h2>delete<a class="headerlink" href="#delete" title="Permalink to this heading">¶</a></h2>
 <p>Removes the mapping of the UID from the <code class="docutils literal notranslate"><span class="pre">tsdb-uid</span></code> table. Make sure all sources are no longer writing data using the UID and that sufficient time has passed so that users would not query for data that used the UIDs.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -384,12 +389,12 @@
 <p class="admonition-title">Warning</p>
 <p>Deleting a UID will not delete the underlying data associated with the UIDs (we’re working on that). For metrics this is safe, it won’t affect queries. But for tag names and values, if a query scans over data containing the old UID, the query will fail with an exception because it can no longer find the name mapping.</p>
 </div>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 60%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -411,27 +416,27 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="id9">
-<h3>Command Format</h3>
+<section id="id9">
+<h3>Command Format<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delete</span> <span class="o">&lt;</span><span class="n">kind</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id10">
-<h3>Example Command</h3>
+</section>
+<section id="id10">
+<h3>Example Command<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">delete</span> <span class="n">disk</span><span class="o">.</span><span class="n">d0</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="fsck">
-<h2>fsck</h2>
+</section>
+</section>
+<section id="fsck">
+<h2>fsck<a class="headerlink" href="#fsck" title="Permalink to this heading">¶</a></h2>
 <p>The UID FSCK command will scan the entire UID table for errors pertaining to name and UID mappings. By default, the run will scan every column in the table and log any errors that were found. With version 2.1 it is possible to fix errors in the table by passing the “fix” flag. UIDMeta objects are skipped during scanning. Possible errors include:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 34%" />
-<col style="width: 33%" />
+<col style="width: 33.0%" />
+<col style="width: 34.0%" />
+<col style="width: 33.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Error</p></th>
@@ -483,20 +488,20 @@
 <li><p>fix - Attempts to fix errors per the table above</p></li>
 <li><p>delete_unknown - Removes any columns in the UID table that do not belong to OpenTSDB</p></li>
 </ul>
-<div class="section" id="id11">
-<h3>Command Format</h3>
+<section id="id11">
+<h3>Command Format<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fsck</span> <span class="p">[</span><span class="n">fix</span><span class="p">]</span> <span class="p">[</span><span class="n">delete_unknown</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id12">
-<h3>Example Command</h3>
+</section>
+<section id="id12">
+<h3>Example Command<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">fsck</span> <span class="n">fix</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id13">
-<h3>Example Response</h3>
+</section>
+<section id="id13">
+<h3>Example Response<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">----------------------------------</span>
 <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">-</span>    <span class="n">Running</span> <span class="n">fsck</span> <span class="ow">in</span> <span class="n">FIX</span> <span class="n">mode</span>    <span class="o">-</span>
 <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="o">-</span>      <span class="n">Remove</span> <span class="n">Unknowns</span><span class="p">:</span> <span class="n">false</span>    <span class="o">-</span>
@@ -513,70 +518,70 @@
 <span class="n">WARN</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">UidManager</span><span class="p">:</span> <span class="mi">2</span> <span class="n">errors</span> <span class="n">found</span><span class="o">.</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="metasync">
-<h2>metasync</h2>
+</section>
+</section>
+<section id="metasync">
+<h2>metasync<a class="headerlink" href="#metasync" title="Permalink to this heading">¶</a></h2>
 <p>This command will run through the entire data table, scanning each row of timeseries data and generate missing TSMeta objects and UIDMeta objects or update the created timestamps for each object type if necessary. Use this command after enabling meta tracking with existing data or if you suspect that some timeseries may not have been indexed properly. The command will also push new or updated meta entries to a search engine if a plugin has been configured. If existing meta is corrupted, meaning the TSD is unable to deserialize the object, it will be replaced with a new entry.</p>
 <p>It is safe to run this command at any time as it will not destroy or overwrite valid data. (Unless you modify columns directly in HBase in a manner inconsistent with the meta data formats). The utility will split the data table into chunks processed by multiple threads so the more cores in your processor, the faster the command will complete.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Because the entire <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> table is scanned, this command may take a very long time depending on how much data is in your system.</p>
 </div>
-<div class="section" id="id14">
-<h3>Command Format</h3>
+<section id="id14">
+<h3>Command Format<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">metasync</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id15">
-<h3>Example Command</h3>
+</section>
+<section id="id15">
+<h3>Example Command<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">metasync</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="metapurge">
-<h2>metapurge</h2>
+</section>
+</section>
+<section id="metapurge">
+<h2>metapurge<a class="headerlink" href="#metapurge" title="Permalink to this heading">¶</a></h2>
 <p>This sub command will mark all TSMeta and UIDMeta objects for deletion in the UID table. This is useful for downgrading from 2.0 to a 1.x version or simply flushing all meta data and starting over with a <code class="docutils literal notranslate"><span class="pre">metasync</span></code>.</p>
-<div class="section" id="id16">
-<h3>Command Format</h3>
+<section id="id16">
+<h3>Command Format<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">metapurge</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id17">
-<h3>Example Command</h3>
+</section>
+<section id="id17">
+<h3>Example Command<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">metapurge</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="treesync">
-<h2>treesync</h2>
+</section>
+</section>
+<section id="treesync">
+<h2>treesync<a class="headerlink" href="#treesync" title="Permalink to this heading">¶</a></h2>
 <p>Runs through the list of TSMeta objects in the UID table and processes each through all configured and enabled trees to compile branches. This command may be run at any time and will not affect existing objects.</p>
-<div class="section" id="id18">
-<h3>Command Format</h3>
+<section id="id18">
+<h3>Command Format<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">treesync</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id19">
-<h3>Example Command</h3>
+</section>
+<section id="id19">
+<h3>Example Command<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">treesync</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="treepurge">
-<h2>treepurge</h2>
+</section>
+</section>
+<section id="treepurge">
+<h2>treepurge<a class="headerlink" href="#treepurge" title="Permalink to this heading">¶</a></h2>
 <p>Removes all branches, collision, not matched data and optionally the tree definition itself for a given tree. Parameters include:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 10%" />
-<col style="width: 60%" />
-<col style="width: 20%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+<col style="width: 20.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -598,20 +603,20 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="id20">
-<h3>Command Format</h3>
+<section id="id20">
+<h3>Command Format<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">treepurge</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">definition</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id21">
-<h3>Example Command</h3>
+</section>
+<section id="id21">
+<h3>Example Command<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tsdb</span> <span class="n">uid</span> <span class="n">treepurge</span> <span class="mi">1</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -639,7 +644,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

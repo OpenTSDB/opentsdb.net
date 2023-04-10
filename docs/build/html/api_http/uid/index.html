@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>/api/uid &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="/api/uid/assign" href="assign.html" />
@@ -49,30 +48,36 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">/api/uid</a><ul>
 <li><a class="reference internal" href="#uid-api-endpoints">UID API Endpoints</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../tree/test.html"
-                        title="previous chapter">/api/tree/test</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="assign.html"
-                        title="next chapter">/api/uid/assign</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../tree/test.html"
+                          title="previous chapter">/api/tree/test</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="assign.html"
+                          title="next chapter">/api/uid/assign</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -81,13 +86,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="api-uid">
-<h1>/api/uid</h1>
-<p>Every metric, tag name and tag value is associated with a unique identifier (UID). Internally, the UID is a binary array assigned to a text value the first time it is encountered or via an explicit assignment request. This endpoint provides utilities for managing UIDs and their associated data. Please see the UID endpoint TOC below for information on what functions are implemented.</p>
+  <section id="api-uid">
+<h1>/api/uid<a class="headerlink" href="#api-uid" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">Every metric, tag name and tag value is associated with a unique identifier (UID). Internally, the UID is a binary array assigned to a text value the first time it is encountered or via an explicit assignment request. This endpoint provides utilities for managing UIDs and their associated data. Please see the UID endpoint TOC below for information on what functions are implemented.</p>
 <p>UIDs exposed via the API are encoded as hexadecimal strings. The UID <code class="docutils literal notranslate"><span class="pre">42</span></code> would be expressed as <code class="docutils literal notranslate"><span class="pre">00002A</span></code> given the default UID width of 3 bytes.</p>
 <p>You may also edit meta data associated with timeseries or individual UID objects via the UID endpoint.</p>
-<div class="section" id="uid-api-endpoints">
-<h2>UID API Endpoints</h2>
+<section id="uid-api-endpoints">
+<h2>UID API Endpoints<a class="headerlink" href="#uid-api-endpoints" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="assign.html">/api/uid/assign</a></li>
@@ -95,8 +100,8 @@
 <li class="toctree-l1"><a class="reference internal" href="uidmeta.html">/api/uid/uidmeta</a></li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -123,7 +128,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

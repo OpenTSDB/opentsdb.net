@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>fsck &#8212; OpenTSDB 2.4 documentation</title>
-    <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="scan" href="scan.html" />
@@ -50,8 +49,9 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">fsck</a><ul>
 <li><a class="reference internal" href="#parameters">Parameters</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
@@ -77,22 +77,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="query.html"
-                        title="previous chapter">query</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="scan.html"
-                        title="next chapter">scan</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="query.html"
+                          title="previous chapter">query</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scan.html"
+                          title="next chapter">scan</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
 
@@ -101,9 +106,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="fsck">
-<h1>fsck</h1>
-<p>Similar to a file system check, the fsck command will scan and, optionally, attempt to repair problems with data points in OpenTSDB’s data table. The fsck command only operates on the <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> storage table, scanning the entire data table or any rows of data that match on a given query. Fsck can be used to repair errors and also reclaim space by compacting rows that were not compacted by a TSD and variable-length encoding data points from previous versions of OpenTSDB.</p>
+  <section id="fsck">
+<h1>fsck<a class="headerlink" href="#fsck" title="Permalink to this heading">¶</a></h1>
+<p id="index-0">Similar to a file system check, the fsck command will scan and, optionally, attempt to repair problems with data points in OpenTSDB’s data table. The fsck command only operates on the <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> storage table, scanning the entire data table or any rows of data that match on a given query. Fsck can be used to repair errors and also reclaim space by compacting rows that were not compacted by a TSD and variable-length encoding data points from previous versions of OpenTSDB.</p>
 <p>By default, running fsck will only report errors found by the query. No changes are made to the underlying data unless you supply the <code class="docutils literal notranslate"><span class="pre">--fix</span></code> or <code class="docutils literal notranslate"><span class="pre">--fix-all</span></code> flags. Generally you should run an fsck without a fix flag first and verify issues found in the log file. If you’re confident in the repairs, add a fix flag. Not all errors can be repaired automatically.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -113,18 +118,18 @@
 <p class="admonition-title">Note</p>
 <p>This page documents the OpenTSDB 2.1 fsck utility. For previous versions, only the <code class="docutils literal notranslate"><span class="pre">--fix</span></code> flag is available and only data within a query may be fsckd.</p>
 </div>
-<div class="section" id="parameters">
-<h2>Parameters</h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fsck <span class="o">[</span>flags<span class="o">]</span> <span class="o">[</span>START-DATE <span class="o">[</span>END-DATE<span class="o">]</span> query <span class="o">[</span>queries...<span class="o">]]</span>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fsck<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span><span class="w"> </span><span class="o">[</span>START-DATE<span class="w"> </span><span class="o">[</span>END-DATE<span class="o">]</span><span class="w"> </span>query<span class="w"> </span><span class="o">[</span>queries...<span class="o">]]</span>
 </pre></div>
 </div>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 5%" />
-<col style="width: 40%" />
-<col style="width: 5%" />
-<col style="width: 35%" />
+<col style="width: 15.0%" />
+<col style="width: 5.0%" />
+<col style="width: 40.0%" />
+<col style="width: 5.0%" />
+<col style="width: 35.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -227,26 +232,26 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="examples">
-<h2>Examples</h2>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <p><strong>Query</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fsck --fix 1h-ago now sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>put sum tsd.hbase.rpcs <span class="nv">type</span><span class="o">=</span>scan
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fsck<span class="w"> </span>--fix<span class="w"> </span>1h-ago<span class="w"> </span>now<span class="w"> </span>sum<span class="w"> </span>tsd.hbase.rpcs<span class="w"> </span><span class="nv">type</span><span class="o">=</span>put<span class="w"> </span>sum<span class="w"> </span>tsd.hbase.rpcs<span class="w"> </span><span class="nv">type</span><span class="o">=</span>scan
 </pre></div>
 </div>
 <p><strong>Full Table</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fsck --full-scan --threads<span class="o">=</span><span class="m">8</span> --fix --resolve-duplicates --compact
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fsck<span class="w"> </span>--full-scan<span class="w"> </span>--threads<span class="o">=</span><span class="m">8</span><span class="w"> </span>--fix<span class="w"> </span>--resolve-duplicates<span class="w"> </span>--compact
 </pre></div>
 </div>
-</div>
-<div class="section" id="full-table-vs-queries">
-<h2>Full Table Vs Queries</h2>
+</section>
+<section id="full-table-vs-queries">
+<h2>Full Table Vs Queries<a class="headerlink" href="#full-table-vs-queries" title="Permalink to this heading">¶</a></h2>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">--full-scan</span></code> flag, the entire OpenTSDB <code class="docutils literal notranslate"><span class="pre">tsdb</span></code> data table will be scanned. By default the utility will launch <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">x</span> <span class="pre">CPU</span> <span class="pre">core</span></code> threads for optimal performance. Data is stored with the metric UID as the start of each row key so the utility will determine the maximum metric UID and split up the main data table equally among threads. If your data is distributed among metrics fairly evenly, then each thread should complete in roughly the same amount of time. However some metrics usually have more data or time series than others so these threads may be running much longer than others. Future updates to OpenTSDB will be able to divy up the workload in a more efficient manner.</p>
 <p>Alternatively you can spcify a CLI query to fsck over a smaller timespan and look at a specific metric or time series. These queries will almost always complete much faster than a full scan and will uncover similar issues. However orphaned metrics will not found as the query will only operate on known time series. Orphans where tag names or values have been deleted will still be found.</p>
 <p>Regardless of the method used, fsck only looks at the most recent column value in HBase. If the table is configured to store multiple versions, older versions of a column are ignored.</p>
-</div>
-<div class="section" id="results">
-<h2>Results</h2>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">¶</a></h2>
 <p>The results will be logged with settings in the <code class="docutils literal notranslate"><span class="pre">logback.xml</span></code> file. For long fscks, it’s recommended to run in the background and configure LogBack to have plenty of space for writing data. On completion, statistics about the run will be printed. An example looks like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">610</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Starting</span> <span class="n">full</span> <span class="n">table</span> <span class="n">scan</span>
 <span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">619</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Fsck</span><span class="p">:</span> <span class="n">Max</span> <span class="n">metric</span> <span class="n">ID</span> <span class="ow">is</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -288,128 +293,128 @@
 </pre></div>
 </div>
 <p>Any time an error is found (and possibly fixed), the log will be updated immediately. Errors will usually include the column where the error was found in the output. Byte arrays are represented in either Java style signed bytes, e.g. <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">-42]</span></code> or hex encoded strings, e.g. <code class="docutils literal notranslate"><span class="pre">00000000000000040000000000000005</span></code>. Short-hand references include (k) for the row key, (q) for the qualifier and (v) for the value.</p>
-</div>
-<div class="section" id="types-of-errors-and-fixes">
-<h2>Types of Errors and Fixes</h2>
+</section>
+<section id="types-of-errors-and-fixes">
+<h2>Types of Errors and Fixes<a class="headerlink" href="#types-of-errors-and-fixes" title="Permalink to this heading">¶</a></h2>
 <p>The following is a list of errors and/or fixes that can be found or performed with fsck.</p>
-<div class="section" id="bad-row-keys">
-<h3>Bad Row Keys</h3>
+<section id="bad-row-keys">
+<h3>Bad Row Keys<a class="headerlink" href="#bad-row-keys" title="Permalink to this heading">¶</a></h3>
 <p>If a row key is found that doesn’t conform to the OpenTSDB data table specification <code class="docutils literal notranslate"><span class="pre">&lt;metric_UID&gt;&lt;base_timestamp&gt;&lt;tagk1_UID&gt;&lt;tagv1_UID&gt;[...&lt;tagkn_UID&gt;&lt;tagvn_UID&gt;]</span></code>, the entire row is considered invalid.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">15</span>:03:46,483 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Invalid row key.</span>
-      Key: <span class="m">000001</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">15</span>:03:46,483<span class="w"> </span>ERROR<span class="w"> </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: Invalid row key.</span>
+<span class="w">      </span>Key:<span class="w"> </span><span class="m">000001</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>If <code class="docutils literal notranslate"><span class="pre">--delete-bad-rows</span></code> is set, then the entire row will be removed from HBase.</p>
-</div>
-<div class="section" id="orphaned-rows">
-<h3>Orphaned Rows</h3>
+</section>
+<section id="orphaned-rows">
+<h3>Orphaned Rows<a class="headerlink" href="#orphaned-rows" title="Permalink to this heading">¶</a></h3>
 <p>If a row key is parsed as a proper OpenTSDB row, then the UIDs for the time series ID (TSUID) of the row are resolved to their names. If any of the UIDs does not match a name in the <code class="docutils literal notranslate"><span class="pre">tsdb-uid</span></code> table, then the row is considered an orphan. This can happen if a UID is manually deleted from the UID table or a deletion does not complete properly.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">15</span>:08:45,057 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Unable to resolve the metric from the row key.</span>
-      Key: 00000150E22700000001000001
-      No such unique ID <span class="k">for</span> <span class="s1">&#39;metric&#39;</span>: <span class="o">[</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">1</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">15</span>:08:45,057<span class="w"> </span>ERROR<span class="w"> </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: Unable to resolve the metric from the row key.</span>
+<span class="w">      </span>Key:<span class="w"> </span>00000150E22700000001000001
+<span class="w">      </span>No<span class="w"> </span>such<span class="w"> </span>unique<span class="w"> </span>ID<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;metric&#39;</span>:<span class="w"> </span><span class="o">[</span><span class="m">0</span>,<span class="w"> </span><span class="m">0</span>,<span class="w"> </span><span class="m">1</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>If <code class="docutils literal notranslate"><span class="pre">--delete-orphans</span></code> is set, then the entire row will be removed from HBase.</p>
-</div>
-<div class="section" id="compact-row">
-<h3>Compact Row</h3>
+</section>
+<section id="compact-row">
+<h3>Compact Row<a class="headerlink" href="#compact-row" title="Permalink to this heading">¶</a></h3>
 <p>While it’s not strictly an error, fsck can be used to compact rows into a single column. Compacting rows saves storage space by merging multiple columns into one. This cuts down on HBase overhead. If a TSD that is configured to compact columns crashes, some rows may be missed and remain in stand-alone data point form. As compaction can consume resources, you can use fsck to compact rows when the load on your cluster is reduced.</p>
 <p>Specifying the <code class="docutils literal notranslate"><span class="pre">--compact</span></code> flag along with <code class="docutils literal notranslate"><span class="pre">--fix</span></code> will compact any row that has stand-alone data points within the query range. During compaction, any data points from old OpenTSDB versions that qualify for VLE will be re-encoded.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If a row is repaired for any reason and has one or more compacted columns, the row will be re-compacted regardless of the <code class="docutils literal notranslate"><span class="pre">--compact</span></code> flag.</p>
 </div>
-</div>
-<div class="section" id="bad-compacted-column-error">
-<h3>Bad Compacted Column Error</h3>
+</section>
+<section id="bad-compacted-column-error">
+<h3>Bad Compacted Column Error<a class="headerlink" href="#bad-compacted-column-error" title="Permalink to this heading">¶</a></h3>
 <p>These errors occur when compacted column is found that cannot be parsed into individual data points. This can happen if the qualifier appears correct but the number of bytes in the value array do not match the lengths encoded in the qualifier. Compacted columns with their data points out of order are not considered bad columns. Instead, the column will be sorted properly and re-written if the <code class="docutils literal notranslate"><span class="pre">--fix</span></code> or <code class="docutils literal notranslate"><span class="pre">--fix-all</span></code> flags are present.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">13</span>:29:40,251 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Corrupted value: couldn&#39;t break down into individual values (consumed 20 bytes, but was expecting to consume 24): [k &#39;00000150E22700000001000001&#39; q &#39;000700270033&#39; v &#39;00000000000000040000000000000005000000000000000600&#39;], cells so far: [Cell([0, 7], [0, 0, 0, 0, 0, 0, 0, 4]), Cell([0, 39], [0, 0, 0, 0, 0, 0, 0, 5]), Cell([0, 51], [0, 0, 0, 0])]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">13</span>:29:40,251<span class="w"> </span>ERROR<span class="w"> </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: Corrupted value: couldn&#39;t break down into individual values (consumed 20 bytes, but was expecting to consume 24): [k &#39;00000150E22700000001000001&#39; q &#39;000700270033&#39; v &#39;00000000000000040000000000000005000000000000000600&#39;], cells so far: [Cell([0, 7], [0, 0, 0, 0, 0, 0, 0, 4]), Cell([0, 39], [0, 0, 0, 0, 0, 0, 0, 5]), Cell([0, 51], [0, 0, 0, 0])]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>The only fix for this error is to delete the column by specifying the <code class="docutils literal notranslate"><span class="pre">--delete-bad-compacts</span></code> flag.</p>
-</div>
-<div class="section" id="compacted-last-byte-error">
-<h3>Compacted Last Byte Error</h3>
+</section>
+<section id="compacted-last-byte-error">
+<h3>Compacted Last Byte Error<a class="headerlink" href="#compacted-last-byte-error" title="Permalink to this heading">¶</a></h3>
 <p>The last byte of a compacted value is for storing meta data. It will usually be <code class="docutils literal notranslate"><span class="pre">0</span></code> if all of the data points are encoded in seconds or milliseconds. If there is a mixture of seconds and milliseconds will be set to <code class="docutils literal notranslate"><span class="pre">1</span></code>. If the value is something else then it may be from a future version of OpenTSDB or the column may be invalid.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">18</span>:13:35.979 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - The last byte of a compacted should be <span class="m">0</span> or <span class="m">1</span>. Either this value is corrupted or it was written by a future version of OpenTSDB.
-      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;00070027&#39;</span> v <span class="s1">&#39;00000000000000040000000000000005&#39;</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">18</span>:13:35.979<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>ERROR<span class="w"> </span>net.opentsdb.tools.Fsck<span class="w"> </span>-<span class="w"> </span>The<span class="w"> </span>last<span class="w"> </span>byte<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>compacted<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span><span class="m">0</span><span class="w"> </span>or<span class="w"> </span><span class="m">1</span>.<span class="w"> </span>Either<span class="w"> </span>this<span class="w"> </span>value<span class="w"> </span>is<span class="w"> </span>corrupted<span class="w"> </span>or<span class="w"> </span>it<span class="w"> </span>was<span class="w"> </span>written<span class="w"> </span>by<span class="w"> </span>a<span class="w"> </span>future<span class="w"> </span>version<span class="w"> </span>of<span class="w"> </span>OpenTSDB.
+<span class="w">      </span><span class="o">[</span>k<span class="w"> </span><span class="s1">&#39;00000150E22700000001000001&#39;</span><span class="w"> </span>q<span class="w"> </span><span class="s1">&#39;00070027&#39;</span><span class="w"> </span>v<span class="w"> </span><span class="s1">&#39;00000000000000040000000000000005&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>Currently this is not repaired. You can manually set the last byte to 0 or 1 to prevent the error from being thrown. The <code class="docutils literal notranslate"><span class="pre">--delete-bad-compacts</span></code> flag will not remove these columns.</p>
-</div>
-<div class="section" id="value-too-long-or-short">
-<h3>Value Too Long Or Short</h3>
+</section>
+<section id="value-too-long-or-short">
+<h3>Value Too Long Or Short<a class="headerlink" href="#value-too-long-or-short" title="Permalink to this heading">¶</a></h3>
 <p>This may occur if a value is recorded on greater than 8 bytes for a single data point column. Individual data points are stored on 2 or 4 byte qualifiers. This error cannot happen for a data point within a compacted column. If it was compacted, the column would throw a bad compacted column error as it wouldn’t be parseable.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:50:44,022 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: This floating point value must be encoded either on 4 or 8 bytes, but it&#39;s on 9 bytes.</span>
-      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;F000020B&#39;</span> v <span class="s1">&#39;000000000000000005&#39;</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">14</span>:50:44,022<span class="w"> </span>ERROR<span class="w"> </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: This floating point value must be encoded either on 4 or 8 bytes, but it&#39;s on 9 bytes.</span>
+<span class="w">      </span><span class="o">[</span>k<span class="w"> </span><span class="s1">&#39;00000150E22700000001000001&#39;</span><span class="w"> </span>q<span class="w"> </span><span class="s1">&#39;F000020B&#39;</span><span class="w"> </span>v<span class="w"> </span><span class="s1">&#39;000000000000000005&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p><code class="docutils literal notranslate"><span class="pre">--delete-bad-values</span></code> will remove the column.</p>
-</div>
-<div class="section" id="old-version-floats">
-<h3>Old Version Floats</h3>
+</section>
+<section id="old-version-floats">
+<h3>Old Version Floats<a class="headerlink" href="#old-version-floats" title="Permalink to this heading">¶</a></h3>
 <p>Early OpenTSDB versions had a bug in the floating point value storage where the first 4 bytes of an 8 byte value were written with all bits set to 1. The value should be on the last four bytes as the qualifier encodes the length as four bytes. However if the invalid data was compacted, the data cannot be parsed properly and an error will be recorded.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">18</span>:43:35.297 <span class="o">[</span>main<span class="o">]</span> ERROR net.opentsdb.tools.Fsck - Floating point value with 0xFF most significant bytes, probably caused by sign extension bug present in revisions <span class="o">[</span><span class="m">96908436</span>..607256fc<span class="o">]</span>.
-      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;002B&#39;</span> v <span class="s1">&#39;FFFFFFFF43FA6666&#39;</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">18</span>:43:35.297<span class="w"> </span><span class="o">[</span>main<span class="o">]</span><span class="w"> </span>ERROR<span class="w"> </span>net.opentsdb.tools.Fsck<span class="w"> </span>-<span class="w"> </span>Floating<span class="w"> </span>point<span class="w"> </span>value<span class="w"> </span>with<span class="w"> </span>0xFF<span class="w"> </span>most<span class="w"> </span>significant<span class="w"> </span>bytes,<span class="w"> </span>probably<span class="w"> </span>caused<span class="w"> </span>by<span class="w"> </span>sign<span class="w"> </span>extension<span class="w"> </span>bug<span class="w"> </span>present<span class="w"> </span><span class="k">in</span><span class="w"> </span>revisions<span class="w"> </span><span class="o">[</span><span class="m">96908436</span>..607256fc<span class="o">]</span>.
+<span class="w">      </span><span class="o">[</span>k<span class="w"> </span><span class="s1">&#39;00000150E22700000001000001&#39;</span><span class="w"> </span>q<span class="w"> </span><span class="s1">&#39;002B&#39;</span><span class="w"> </span>v<span class="w"> </span><span class="s1">&#39;FFFFFFFF43FA6666&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">--fix</span></code> flag will repair these errors by rewriting the value without the first four bytes. The qualifier remains unchanged.</p>
-</div>
-<div class="section" id="byte-floats-with-8-byte-value-ok">
-<h3>4 Byte Floats with 8 Byte Value OK</h3>
+</section>
+<section id="byte-floats-with-8-byte-value-ok">
+<h3>4 Byte Floats with 8 Byte Value OK<a class="headerlink" href="#byte-floats-with-8-byte-value-ok" title="Permalink to this heading">¶</a></h3>
 <p>Some versions of OpenTSDB may have encoded floating point values on 8 bytes when setting the qualifier length to 4 bytes. The first four bytes should be 0. If the value was compacted, the compacted column will be invalid as parsing is no longer possible.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:33:34,498 WARN  <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Floating point value was marked as 4 bytes long but was actually 8 bytes long</span>
-      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;000B&#39;</span> v <span class="s1">&#39;0000000040866666&#39;</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">14</span>:33:34,498<span class="w"> </span>WARN<span class="w">  </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: Floating point value was marked as 4 bytes long but was actually 8 bytes long</span>
+<span class="w">      </span><span class="o">[</span>k<span class="w"> </span><span class="s1">&#39;00000150E22700000001000001&#39;</span><span class="w"> </span>q<span class="w"> </span><span class="s1">&#39;000B&#39;</span><span class="w"> </span>v<span class="w"> </span><span class="s1">&#39;0000000040866666&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">--fix</span></code> flag will repair these errors by rewriting the value without the first four bytes. The qualifier remains unchanged.</p>
-</div>
-<div class="section" id="byte-floats-with-8-byte-value-bad">
-<h3>4 Byte Floats with 8 Byte Value Bad</h3>
+</section>
+<section id="byte-floats-with-8-byte-value-bad">
+<h3>4 Byte Floats with 8 Byte Value Bad<a class="headerlink" href="#byte-floats-with-8-byte-value-bad" title="Permalink to this heading">¶</a></h3>
 <p>In this case a value was encoded on 8 bytes with the first four bytes set to a non-zero value. It could be that the value is an 8 byte double since OpenTSDB never actually encoded on 8 bytes, the value is likely corrupt. If the value was compacted, the compacted column will be invalid as parsing is no longer possible.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:37:02,717 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Floating point value was marked as 4 bytes long but was actually 8 bytes long and the first four bytes were not zeroed</span>
-      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;002B&#39;</span> v <span class="s1">&#39;FB02F40F43FA6666&#39;</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">14</span>:37:02,717<span class="w"> </span>ERROR<span class="w"> </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: Floating point value was marked as 4 bytes long but was actually 8 bytes long and the first four bytes were not zeroed</span>
+<span class="w">      </span><span class="o">[</span>k<span class="w"> </span><span class="s1">&#39;00000150E22700000001000001&#39;</span><span class="w"> </span>q<span class="w"> </span><span class="s1">&#39;002B&#39;</span><span class="w"> </span>v<span class="w"> </span><span class="s1">&#39;FB02F40F43FA6666&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">--delete-bad-values</span></code> flag will remove the column. You could try parsing the value as a Double manually and see if it looks valid, otherwise it’s likely a corrupt column.</p>
-</div>
-<div class="section" id="unknown-object">
-<h3>Unknown Object</h3>
+</section>
+<section id="unknown-object">
+<h3>Unknown Object<a class="headerlink" href="#unknown-object" title="Permalink to this heading">¶</a></h3>
 <p>OpenTSDB 2.0 supports objects such as annotations in the data table. If a column is found that doesn’t match an OpenTSDB object, a compacted column or a stand-alone data point, it is considered an unknown object and can likely be deleted.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:55:03,019 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Unknown qualifier, must be 2, 3, 5 or an even number of bytes.</span>
-      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;00270401010101&#39;</span> v <span class="s1">&#39;0000000000000005&#39;</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">14</span>:55:03,019<span class="w"> </span>ERROR<span class="w"> </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: Unknown qualifier, must be 2, 3, 5 or an even number of bytes.</span>
+<span class="w">      </span><span class="o">[</span>k<span class="w"> </span><span class="s1">&#39;00000150E22700000001000001&#39;</span><span class="w"> </span>q<span class="w"> </span><span class="s1">&#39;00270401010101&#39;</span><span class="w"> </span>v<span class="w"> </span><span class="s1">&#39;0000000000000005&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">--delete-unknown-columns</span></code> flag will remove this column from the row.</p>
-</div>
-<div class="section" id="future-object">
-<h3>Future Object</h3>
+</section>
+<section id="future-object">
+<h3>Future Object<a class="headerlink" href="#future-object" title="Permalink to this heading">¶</a></h3>
 <p>Objects are encoded on 3 or 5 byte qualifiers and the type is determined by a prefix. If a prefix is found that OpenTSDB doesn’t recognize, then it will report the object but it will not be deleted. Note that this may actually be an unknown or corrupted column as fsck only looks at the qualifier length and the first byte of the qualifier. If that is the case, you can safely delete this column manually.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">14</span>:57:15,858 WARN  <span class="o">[</span>Fsck <span class="c1">#0] Fsck: Found an object possibly from a future version of OpenTSDB</span>
-      <span class="o">[</span>k <span class="s1">&#39;00000150E22700000001000001&#39;</span> q <span class="s1">&#39;042704&#39;</span> v <span class="s1">&#39;467574757265204F626A656374&#39;</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">14</span>:57:15,858<span class="w"> </span>WARN<span class="w">  </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: Found an object possibly from a future version of OpenTSDB</span>
+<span class="w">      </span><span class="o">[</span>k<span class="w"> </span><span class="s1">&#39;00000150E22700000001000001&#39;</span><span class="w"> </span>q<span class="w"> </span><span class="s1">&#39;042704&#39;</span><span class="w"> </span>v<span class="w"> </span><span class="s1">&#39;467574757265204F626A656374&#39;</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
 <p>Future objects are left alone during fsck. Querying over the data with a TSD that doesn’t support the object will throw an exception but versions that do support the object should procede normally.</p>
-</div>
-<div class="section" id="duplicate-timestamps">
-<h3>Duplicate Timestamps</h3>
+</section>
+<section id="duplicate-timestamps">
+<h3>Duplicate Timestamps<a class="headerlink" href="#duplicate-timestamps" title="Permalink to this heading">¶</a></h3>
 <p>Due to the use of encoding length and type for datapoints in qualifiers, it’s possible to record a data point for the same timestamp with two different qualifiers. For example if you post an integer value for time <code class="docutils literal notranslate"><span class="pre">1</span></code> and then post a float value for time <code class="docutils literal notranslate"><span class="pre">1</span></code>, two different columns will be created. Duplicates can also happen if a row has been compacted and the TSD writes a new stand-alone column that matches a timestamp in the compacted column. At query time, an exception will be thrown as TSD does not know which value is the correct one.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07 <span class="m">15</span>:22:43,231 ERROR <span class="o">[</span>Fsck <span class="c1">#0] Fsck: More than one column had a value for the same timestamp: (1356998400000)</span>
-  row key: <span class="o">(</span>00000150E22700000001000001<span class="o">)</span>
-  write time: <span class="o">(</span><span class="m">1388534400000</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">7</span><span class="o">]</span>  &lt;--- Keep oldest
-  write time: <span class="o">(</span><span class="m">1388534400001</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">11</span><span class="o">]</span>
-  write time: <span class="o">(</span><span class="m">1388534400002</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">3</span><span class="o">]</span>
-  write time: <span class="o">(</span><span class="m">1388534400003</span><span class="o">)</span>  compacted: <span class="o">(</span><span class="nb">false</span><span class="o">)</span>  qualifier: <span class="o">[</span><span class="m">0</span>, <span class="m">1</span><span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">15</span>:22:43,231<span class="w"> </span>ERROR<span class="w"> </span><span class="o">[</span>Fsck<span class="w"> </span><span class="c1">#0] Fsck: More than one column had a value for the same timestamp: (1356998400000)</span>
+<span class="w">  </span>row<span class="w"> </span>key:<span class="w"> </span><span class="o">(</span>00000150E22700000001000001<span class="o">)</span>
+<span class="w">  </span>write<span class="w"> </span>time:<span class="w"> </span><span class="o">(</span><span class="m">1388534400000</span><span class="o">)</span><span class="w">  </span>compacted:<span class="w"> </span><span class="o">(</span><span class="nb">false</span><span class="o">)</span><span class="w">  </span>qualifier:<span class="w"> </span><span class="o">[</span><span class="m">0</span>,<span class="w"> </span><span class="m">7</span><span class="o">]</span><span class="w">  </span>&lt;---<span class="w"> </span>Keep<span class="w"> </span>oldest
+<span class="w">  </span>write<span class="w"> </span>time:<span class="w"> </span><span class="o">(</span><span class="m">1388534400001</span><span class="o">)</span><span class="w">  </span>compacted:<span class="w"> </span><span class="o">(</span><span class="nb">false</span><span class="o">)</span><span class="w">  </span>qualifier:<span class="w"> </span><span class="o">[</span><span class="m">0</span>,<span class="w"> </span><span class="m">11</span><span class="o">]</span>
+<span class="w">  </span>write<span class="w"> </span>time:<span class="w"> </span><span class="o">(</span><span class="m">1388534400002</span><span class="o">)</span><span class="w">  </span>compacted:<span class="w"> </span><span class="o">(</span><span class="nb">false</span><span class="o">)</span><span class="w">  </span>qualifier:<span class="w"> </span><span class="o">[</span><span class="m">0</span>,<span class="w"> </span><span class="m">3</span><span class="o">]</span>
+<span class="w">  </span>write<span class="w"> </span>time:<span class="w"> </span><span class="o">(</span><span class="m">1388534400003</span><span class="o">)</span><span class="w">  </span>compacted:<span class="w"> </span><span class="o">(</span><span class="nb">false</span><span class="o">)</span><span class="w">  </span>qualifier:<span class="w"> </span><span class="o">[</span><span class="m">0</span>,<span class="w"> </span><span class="m">1</span><span class="o">]</span>
 </pre></div>
 </div>
 <p><em>Fix:</em></p>
@@ -422,13 +427,13 @@
 <p class="admonition-title">Note</p>
 <p>With compactions enabled, it is possible (though unlikely) that a data point is written while a row is being compacted. In this case, the compacted column will have a <em>later</em> timestamp than a data point written during the compaction. Therefore the default result of <code class="docutils literal notranslate"><span class="pre">--resolve-duplicates</span></code> will keep the stand-alone data point or, if last writes win, then the compacted value.</p>
 </div>
-</div>
-<div class="section" id="variable-length-encoding">
-<h3>Variable-Length Encoding</h3>
+</section>
+<section id="variable-length-encoding">
+<h3>Variable-Length Encoding<a class="headerlink" href="#variable-length-encoding" title="Permalink to this heading">¶</a></h3>
 <p>Early OpenTSDB implementations always encoded integer values on 8 bytes. With 2.0, integers were written on the smallest number of bytes possible, either 1, 2, 4 or 8. During fsck, any 8 byte encoded integers detected will be re-written with VLE if the <code class="docutils literal notranslate"><span class="pre">--fix</span></code> or <code class="docutils literal notranslate"><span class="pre">--fix-all</span></code> flags are specified. This includes stand-alone and compacted values. At the end of a run, the number of bytes saved with VLE are displayed.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -456,7 +461,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2021, OpenTSDB.
+        &copy; Copyright 2023, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -1,10 +1,14 @@
 GUI
 ===
 .. index:: GUI
-Currently OpenTSDB offers a simple built-in GUI accessible by opening your browser and navigating to the host and port where the TSD is running. For example, if you are running a TSD on your local computer on port 4242, simply navigate to ``http://localhost:4242``. While the GUI won't win awards for beauty, it provides a quick means of building a useful graph with the data in your system.
+Currently OpenTSDB offers a simple built-in GUI accessible by opening your browser and navigating to the
+host and port where the TSD is running. For example, if you are running a TSD on your local computer on
+port 4242, simply navigate to ``http://localhost:4242``. While the GUI won't win awards for beauty, it
+provides a quick means of building a useful graph with the data in your system.
 
 A much nicer GUI can be found in the form of the open source `Grafana <http://grafana.org/>`_.
 
+.. WARNING:: TSDB create GnuPlot images by writing a file to disk then running the GnuPlot executable with the scripts as input. This is **NOT** particularly secure. If you do not need the UI, make sure to set ``tsd.core.enable_ui`` or pass in ``-disable-ui`` on startup. Otherwise, make certain the TSD is only available internally and preferably protected with a secured proxy.
 Interface
 ^^^^^^^^^
 
@@ -173,3 +177,31 @@ Saving Your Work
 ^^^^^^^^^^^^^^^^
 
 As you make changes via the GUI you'll see that the URL reflects your edits. You can copy the URL, save it or email it around and pull it back up to pick up where you were. Unfortunately OpenTSDB doesn't include a built in dashboard so you'll have to save the URL somewhere manually.
+
+URI Parameters
+^^^^^^^^^^^^^^
+
+Parameters to modify graphing behavior are available via the URI. Not all settings or permutations
+are available, only a subset that is limited for general time series use. Regular expression filters
+are in place to try and avoid remote code execution issues so if a value for a parameter fails, the
+API will return the regex that caused the failure. Below is a list of available parameters and notes
+regarding their usage.
+
+.. csv-table::
+   :header: "Parameter", "Example", "Description"
+   :widths: 30, 20, 50
+
+   "bgcolor", "x000000", "The background color of the graph. Hex RGB value starting with ``x``."
+   "fgcolor", "xFFFFFF", "The foreground color of the graph. Hex RGB value starting with ``x``."
+   "key", "bottom", "The location of the key. One of ``out, left, top, center, right, horiz, box or bottom``."
+   "nokey", "true", "Whether or not to hide the key."
+   "smooth", "unique", "An optional smoothing function for lines. One of ``unique, frequency, fnormal, cumulative, cnormal, bins, csplines, acsplines, mcsplines, bezier, sbezier, unwrap, zsort``."
+   "style", "linespoint", "The style for each line. One of ``linespoint, points, circles, dots``."
+   "title", "Cpu Avg vs Max", "A title for the graph. Same characterset as the labels."
+   "xlabel", "%.2f seconds", "A printf format for Y axis labels. Only supports ``[%0-9.a-zA-Z -]``."
+   "ylabel", "%.2f seconds", "A printf format for Y axis labels. Only supports ``[%0-9.a-zA-Z -]``."
+   "y2label", "%.2f seconds", "A printf format for Y 2 axis labels. Only supports ``[%0-9.a-zA-Z -]``."
+   "ylog", "true", "Sets the Y axis to a log scale."
+   "y2log", "true", "Sets the Y 2 axis to a log scale."
+   "yrange", "[:42]", "Sets the vertical range that will be displayed on the Y axis."
+   "y2range", "[0:1]", "Sets the vertical range that will be displayed on the Y2 axis."

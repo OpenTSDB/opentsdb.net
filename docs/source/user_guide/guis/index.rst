@@ -183,9 +183,9 @@ URI Parameters
 
 Parameters to modify graphing behavior are available via the URI. Not all settings or permutations
 are available, only a subset that is limited for general time series use. Regular expression filters
-are in place to try and avoid remote code execution issues so if a value for a parameter fails, the
-API will return the regex that caused the failure. Below is a list of available parameters and notes
-regarding their usage.
+are in place (since 2.4.2) to try and avoid remote code execution issues so if a value for a parameter
+fails, the API will return the regex that caused the failure. Below is a list of available parameters
+and notes regarding their usage.
 
 .. csv-table::
    :header: "Parameter", "Example", "Description"

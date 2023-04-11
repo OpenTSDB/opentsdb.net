@@ -1,0 +1,3 @@
+[submodule "docs/3x/source/_themes/sphinx-bootstrap-theme"]
+  path = docs/3x/source/_themes/sphinx-bootstrap-theme
+  url = git@github.com:ryan-roemer/sphinx-bootstrap-theme.git

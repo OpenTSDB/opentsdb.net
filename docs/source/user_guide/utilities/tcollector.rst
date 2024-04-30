@@ -62,21 +62,31 @@ If there any non-numeric named directories in the ``collectors``
 directory, then they are ignored.  We've included a ``lib`` and
 ``etc`` directory for library and config data used by all collectors.
 
+
+Runtime Requirements for tcollector
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+| tcollector requires one of following python versions: 3.7, 3.8, 3.9, 3.10, 3.11.
+| Each non general collector may have additional requirements.
+
+
 Installation of tcollector
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You need to clone tcollector from GitHub: ::
+1. Clone or download tcollector archive from GitHub on
+   https://github.com/OpenTSDB/tcollector .
 
-  git clone git://github.com/OpenTSDB/tcollector.git
+2. Review collectors in ``collectors`` directory and remove ones you do not need so they
+   do not start needlessly after each tcollector restart.
 
-and edit 'tcollector/startstop' script to set following variable:
-``TSD_HOST=dns.name.of.tsd``
+3. Consider using of shell script ``tcollector/tcollector`` to run tcollector if you want
+   to auto start after OS restart.
 
-
-To avoid having to run ``mkmetric`` for every metric that
-tcollector tracks you can to start TSD with the ``--auto-metric``
-flag.  This is useful to get started quickly, but it's not recommended to
-keep this flag in the long term, to avoid accidental metric creation.
+.. NOTE::
+   To avoid having to run ``mkmetric`` for every metric that
+   tcollector tracks you can to start TSD with the ``--auto-metric``
+   flag.  This is useful to get started quickly, but it's not recommended to
+   keep this flag in the long term, to avoid accidental metric creation.
 
 Collectors bundled with ``tcollector``
 ======================================

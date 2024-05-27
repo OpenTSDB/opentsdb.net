@@ -20,6 +20,11 @@ Tcollector does several things for you:
 * Does de-duplication of repeated values
 * Handles all of the wire protocol work for you, as well as future enhancements
 
+Collectors in tcollector can be written in any language. They just need to
+be executable and output the data to stdout. Tcollector will handle the rest.
+However most collectors written in python for easy portability.
+
+
 Deduplication
 ^^^^^^^^^^^^^
 
@@ -38,36 +43,12 @@ storage in the backend.  A future OpenTSDB release however will improve on
 the storage format by using RLE (among other things), making it essentially
 free to store repeated values.
 
-Collecting lots of metrics with tcollector
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Collectors in tcollector can be written in any language.  They just need to
-be executable and output the data to stdout.  Tcollector will handle the rest.
-The collectors are placed in the ``collectors`` directory.  Tcollector
-iterates over every directory named with a number in that directory and runs all
-the collectors in each directory.  If you name the directory ``60``,
-then tcollector will try to run every collector in that directory every 60
-seconds. The shortest supported interval is 15 seconds, you should use a
-long-running collector in the 0 folder for intervals shorter than 15 seconds.
-TCollector will sleep for 15 seconds after each time it runs the collectors
-so intervals of 15 seconds are the only actually supported intervals. For example,
-this would allow you to run a collector every 15, 30, 45, 60, 75, or 90 seconds,
-but not 80 or 55 seconds. Use the directory ``0`` for any collectors that are long-lived
-and run continuously. Tcollector will read their output and respawn them if they
-die. Generally you want to write long-lived collectors since that has less
-overhead. OpenTSDB is designed to have lots of datapoints for each metric (for
-most metrics we send datapoints every 15 seconds).
-
-If there any non-numeric named directories in the ``collectors``
-directory, then they are ignored.  We've included a ``lib`` and
-``etc`` directory for library and config data used by all collectors.
-
 
 Runtime Requirements for tcollector
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-| tcollector requires one of following python versions: 3.7, 3.8, 3.9, 3.10, 3.11.
-| Each non general collector may have additional requirements.
+| Tcollector requires one of following python versions: 3.7, 3.8, 3.9, 3.10, 3.11.
+| Each collector in ``collectors/available/software`` may have additional requirements.
 
 
 Installation of tcollector
@@ -87,6 +68,58 @@ Installation of tcollector
    tcollector tracks you can to start TSD with the ``--auto-metric``
    flag.  This is useful to get started quickly, but it's not recommended to
    keep this flag in the long term, to avoid accidental metric creation.
+
+
+Collecting metrics with tcollector
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The collectors are organized in following structure: ::
+
+ collectors/
+ ┣ available/
+ ┃ ┣ linux/
+ ┃ ┃ ┣ long-lived/
+ ┃ ┃ ┗ one-shot/
+ ┃ ┣ freebsd/
+ ┃ ┃ ┣ long-lived/
+ ┃ ┃ ┗ one-shot/
+ ┃ ┣ software/
+ ┃ ┃ ┣ long-lived/
+ ┃ ┃ ┗ one-shot/
+ ┣ enabled/
+ ┃ ┣ 0/
+ ┃ ┣ 60/
+ ┃ ┣ 3600/
+ ┃ ┗ (...)
+ ┣ etc/
+ ┣ lib/
+ ┗ test/
+Available collectors are placed in the ``collectors/available`` directory that divided
+into OS specific (linux, freebsd, macos) and software specific (software) subdirectories.
+
+To make Tcollector use a collector create a symbolic link for the collector in
+``collectors/available`` sub-directory to ``collectors/enabled`` sub-directory.
+Tcollector iterates over every directory in ``collectors/enabled`` named with a number in
+that directory and runs all the collectors in each directory. If you name the directory
+``60``, then tcollector will try to run every collector in that directory every 60
+seconds. The shortest supported interval is 15 seconds, you should use a
+long-running collector in the 0 folder for intervals shorter than 15 seconds.
+
+TCollector will sleep for 15 seconds after each time it runs the collectors
+so intervals of 15 seconds are the only actually supported intervals. For example,
+this would allow you to run a collector every 15, 30, 45, 60, 75, or 90 seconds,
+but not 80 or 55 seconds. Use the directory ``0`` for any collectors that are long-lived
+and run continuously. Tcollector will read their output and respawn them if they
+die. If there any non-numeric named directories in the ``collectors`` directory,
+then they are ignored.
+
+Generally you want to write long-lived collectors since that has less overhead.
+OpenTSDB is designed to have lots of datapoints for each metric (for most metrics
+we send datapoints every 15 seconds by default).
+
+We've included a ``lib``, ``etc``, and ``test`` directories for library, config data,
+and unittest for all collectors.
+
 
 Collectors bundled with ``tcollector``
 ======================================

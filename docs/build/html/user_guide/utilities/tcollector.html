@@ -57,9 +57,9 @@
     <ul>
 <li><a class="reference internal" href="#">TCollector</a><ul>
 <li><a class="reference internal" href="#deduplication">Deduplication</a></li>
-<li><a class="reference internal" href="#collecting-lots-of-metrics-with-tcollector">Collecting lots of metrics with tcollector</a></li>
 <li><a class="reference internal" href="#runtime-requirements-for-tcollector">Runtime Requirements for tcollector</a></li>
 <li><a class="reference internal" href="#installation-of-tcollector">Installation of tcollector</a></li>
+<li><a class="reference internal" href="#collecting-metrics-with-tcollector">Collecting metrics with tcollector</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#collectors-bundled-with-tcollector">Collectors bundled with <code class="docutils literal notranslate"><span class="pre">tcollector</span></code></a><ul>
@@ -141,6 +141,9 @@ collectors stay running?  This is where tcollector comes in.</p>
 <li><p>Does de-duplication of repeated values</p></li>
 <li><p>Handles all of the wire protocol work for you, as well as future enhancements</p></li>
 </ul>
+<p>Collectors in tcollector can be written in any language. They just need to
+be executable and output the data to stdout. Tcollector will handle the rest.
+However most collectors written in python for easy portability.</p>
 <section id="deduplication">
 <h2>Deduplication</h2>
 <p>Typically you want to gather data about everything in your system.
@@ -158,33 +161,11 @@ storage in the backend.  A future OpenTSDB release however will improve on
 the storage format by using RLE (among other things), making it essentially
 free to store repeated values.</p>
 </section>
-<section id="collecting-lots-of-metrics-with-tcollector">
-<h2>Collecting lots of metrics with tcollector</h2>
-<p>Collectors in tcollector can be written in any language.  They just need to
-be executable and output the data to stdout.  Tcollector will handle the rest.
-The collectors are placed in the <code class="docutils literal notranslate"><span class="pre">collectors</span></code> directory.  Tcollector
-iterates over every directory named with a number in that directory and runs all
-the collectors in each directory.  If you name the directory <code class="docutils literal notranslate"><span class="pre">60</span></code>,
-then tcollector will try to run every collector in that directory every 60
-seconds. The shortest supported interval is 15 seconds, you should use a
-long-running collector in the 0 folder for intervals shorter than 15 seconds.
-TCollector will sleep for 15 seconds after each time it runs the collectors
-so intervals of 15 seconds are the only actually supported intervals. For example,
-this would allow you to run a collector every 15, 30, 45, 60, 75, or 90 seconds,
-but not 80 or 55 seconds. Use the directory <code class="docutils literal notranslate"><span class="pre">0</span></code> for any collectors that are long-lived
-and run continuously. Tcollector will read their output and respawn them if they
-die. Generally you want to write long-lived collectors since that has less
-overhead. OpenTSDB is designed to have lots of datapoints for each metric (for
-most metrics we send datapoints every 15 seconds).</p>
-<p>If there any non-numeric named directories in the <code class="docutils literal notranslate"><span class="pre">collectors</span></code>
-directory, then they are ignored.  We’ve included a <code class="docutils literal notranslate"><span class="pre">lib</span></code> and
-<code class="docutils literal notranslate"><span class="pre">etc</span></code> directory for library and config data used by all collectors.</p>
-</section>
 <section id="runtime-requirements-for-tcollector">
 <h2>Runtime Requirements for tcollector</h2>
 <div class="line-block">
-<div class="line">tcollector requires one of following python versions: 3.7, 3.8, 3.9, 3.10, 3.11.</div>
-<div class="line">Each non general collector may have additional requirements.</div>
+<div class="line">Tcollector requires one of following python versions: 3.7, 3.8, 3.9, 3.10, 3.11.</div>
+<div class="line">Each collector in <code class="docutils literal notranslate"><span class="pre">collectors/available/software</span></code> may have additional requirements.</div>
 </div>
 </section>
 <section id="installation-of-tcollector">
@@ -204,6 +185,52 @@ tcollector tracks you can to start TSD with the <code class="docutils literal no
 flag.  This is useful to get started quickly, but it’s not recommended to
 keep this flag in the long term, to avoid accidental metric creation.</p>
 </div>
+</section>
+<section id="collecting-metrics-with-tcollector">
+<h2>Collecting metrics with tcollector</h2>
+<p>The collectors are organized in following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>collectors/
+┣ available/
+┃ ┣ linux/
+┃ ┃ ┣ long-lived/
+┃ ┃ ┗ one-shot/
+┃ ┣ freebsd/
+┃ ┃ ┣ long-lived/
+┃ ┃ ┗ one-shot/
+┃ ┣ software/
+┃ ┃ ┣ long-lived/
+┃ ┃ ┗ one-shot/
+┣ enabled/
+┃ ┣ 0/
+┃ ┣ 60/
+┃ ┣ 3600/
+┃ ┗ (...)
+┣ etc/
+┣ lib/
+┗ test/
+</pre></div>
+</div>
+<p>Available collectors are placed in the <code class="docutils literal notranslate"><span class="pre">collectors/available</span></code> directory that divided
+into OS specific (linux, freebsd, macos) and software specific (software) subdirectories.</p>
+<p>To make Tcollector use a collector create a symbolic link for the collector in
+<code class="docutils literal notranslate"><span class="pre">collectors/available</span></code> sub-directory to <code class="docutils literal notranslate"><span class="pre">collectors/enabled</span></code> sub-directory.
+Tcollector iterates over every directory in <code class="docutils literal notranslate"><span class="pre">collectors/enabled</span></code> named with a number in
+that directory and runs all the collectors in each directory. If you name the directory
+<code class="docutils literal notranslate"><span class="pre">60</span></code>, then tcollector will try to run every collector in that directory every 60
+seconds. The shortest supported interval is 15 seconds, you should use a
+long-running collector in the 0 folder for intervals shorter than 15 seconds.</p>
+<p>TCollector will sleep for 15 seconds after each time it runs the collectors
+so intervals of 15 seconds are the only actually supported intervals. For example,
+this would allow you to run a collector every 15, 30, 45, 60, 75, or 90 seconds,
+but not 80 or 55 seconds. Use the directory <code class="docutils literal notranslate"><span class="pre">0</span></code> for any collectors that are long-lived
+and run continuously. Tcollector will read their output and respawn them if they
+die. If there any non-numeric named directories in the <code class="docutils literal notranslate"><span class="pre">collectors</span></code> directory,
+then they are ignored.</p>
+<p>Generally you want to write long-lived collectors since that has less overhead.
+OpenTSDB is designed to have lots of datapoints for each metric (for most metrics
+we send datapoints every 15 seconds by default).</p>
+<p>We’ve included a <code class="docutils literal notranslate"><span class="pre">lib</span></code>, <code class="docutils literal notranslate"><span class="pre">etc</span></code>, and <code class="docutils literal notranslate"><span class="pre">test</span></code> directories for library, config data,
+and unittest for all collectors.</p>
 </section>
 </section>
 <section id="collectors-bundled-with-tcollector">

@@ -63,30 +63,64 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#collectors-bundled-with-tcollector">Collectors bundled with <code class="docutils literal notranslate"><span class="pre">tcollector</span></code></a><ul>
-<li><a class="reference internal" href="#general-collectors">General collectors</a><ul>
+<li><a class="reference internal" href="#linux-os-collectors">Linux OS collectors</a><ul>
 <li><a class="reference internal" href="#dfstat-py"><code class="docutils literal notranslate"><span class="pre">0/dfstat.py</span></code></a></li>
 <li><a class="reference internal" href="#ifstat-py"><code class="docutils literal notranslate"><span class="pre">0/ifstat.py</span></code></a></li>
 <li><a class="reference internal" href="#iostat-py"><code class="docutils literal notranslate"><span class="pre">0/iostat.py</span></code></a></li>
+<li><a class="reference internal" href="#mountstats-py"><code class="docutils literal notranslate"><span class="pre">0/mountstats.py</span></code></a></li>
+<li><a class="reference internal" href="#netfilter-py"><code class="docutils literal notranslate"><span class="pre">0/netfilter.py</span></code></a></li>
 <li><a class="reference internal" href="#netstat-py"><code class="docutils literal notranslate"><span class="pre">0/netstat.py</span></code></a></li>
 <li><a class="reference internal" href="#nfsstat-py"><code class="docutils literal notranslate"><span class="pre">0/nfsstat.py</span></code></a></li>
+<li><a class="reference internal" href="#ntpstats-py"><code class="docutils literal notranslate"><span class="pre">0/ntpstats.py</span></code></a></li>
 <li><a class="reference internal" href="#procnettcp-py"><code class="docutils literal notranslate"><span class="pre">0/procnettcp.py</span></code></a></li>
 <li><a class="reference internal" href="#procstats-py"><code class="docutils literal notranslate"><span class="pre">0/procstats.py</span></code></a></li>
 <li><a class="reference internal" href="#smart-stats-py"><code class="docutils literal notranslate"><span class="pre">0/smart-stats.py</span></code></a></li>
+<li><a class="reference internal" href="#sysload-py"><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code></a></li>
+<li><a class="reference internal" href="#tcp-bridge-py"><code class="docutils literal notranslate"><span class="pre">0/tcp_bridge.py</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#other-collectors">Other collectors</a><ul>
+<li><a class="reference internal" href="#freebsd-os-collectors">FreeBSD OS collectors</a><ul>
+<li><a class="reference internal" href="#gstat-py"><code class="docutils literal notranslate"><span class="pre">0/gstat.py</span></code></a></li>
+<li><a class="reference internal" href="#ifrate-py"><code class="docutils literal notranslate"><span class="pre">0/ifrate.py</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#software-collectors">Software collectors</a><ul>
 <li><a class="reference internal" href="#couchbase-py"><code class="docutils literal notranslate"><span class="pre">0/couchbase.py</span></code></a></li>
+<li><a class="reference internal" href="#docker-py"><code class="docutils literal notranslate"><span class="pre">0/docker.py</span></code></a></li>
+<li><a class="reference internal" href="#docker-engine-py"><code class="docutils literal notranslate"><span class="pre">0/docker_engine.py</span></code></a></li>
 <li><a class="reference internal" href="#elasticsearch-py"><code class="docutils literal notranslate"><span class="pre">0/elasticsearch.py</span></code></a></li>
-<li><a class="reference internal" href="#hadoop-datanode-jmx-py"><code class="docutils literal notranslate"><span class="pre">0/hadoop_datanode_jmx.py</span></code></a></li>
+<li><a class="reference internal" href="#flume-py"><code class="docutils literal notranslate"><span class="pre">0/flume.py</span></code></a></li>
+<li><a class="reference internal" href="#g1gc-py"><code class="docutils literal notranslate"><span class="pre">0/g1gc.py</span></code></a></li>
+<li><a class="reference internal" href="#graphite-bridge-py"><code class="docutils literal notranslate"><span class="pre">0/graphite_bridge.py</span></code></a></li>
+<li><a class="reference internal" href="#hadoop-datanode-py"><code class="docutils literal notranslate"><span class="pre">0/hadoop_datanode.py</span></code></a></li>
+<li><a class="reference internal" href="#hadoop-journalnode-py"><code class="docutils literal notranslate"><span class="pre">0/hadoop_journalnode.py</span></code></a></li>
+<li><a class="reference internal" href="#hadoop-namenode-py"><code class="docutils literal notranslate"><span class="pre">0/hadoop_namenode.py</span></code></a></li>
+<li><a class="reference internal" href="#hadoop-yarn-node-manager-py"><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_node_manager.py</span></code></a></li>
+<li><a class="reference internal" href="#hadoop-yarn-resource-manager-py"><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_resource_manager.py</span></code></a></li>
 <li><a class="reference internal" href="#haproxy-py"><code class="docutils literal notranslate"><span class="pre">0/haproxy.py</span></code></a></li>
-<li><a class="reference internal" href="#hbase-regionserver-jmx-py"><code class="docutils literal notranslate"><span class="pre">0/hbase_regionserver_jmx.py</span></code></a></li>
+<li><a class="reference internal" href="#hbase-master-py"><code class="docutils literal notranslate"><span class="pre">0/hbase_master.py</span></code></a></li>
+<li><a class="reference internal" href="#hbase-regionserver-py"><code class="docutils literal notranslate"><span class="pre">0/hbase_regionserver.py</span></code></a></li>
+<li><a class="reference internal" href="#jolokia-py"><code class="docutils literal notranslate"><span class="pre">0/jolokia.py</span></code></a></li>
+<li><a class="reference internal" href="#mapr-metrics-py"><code class="docutils literal notranslate"><span class="pre">0/mapr_metrics.py</span></code></a></li>
 <li><a class="reference internal" href="#mongo-py"><code class="docutils literal notranslate"><span class="pre">0/mongo.py</span></code></a></li>
+<li><a class="reference internal" href="#mongo3-py"><code class="docutils literal notranslate"><span class="pre">0/mongo3.py</span></code></a></li>
 <li><a class="reference internal" href="#mysql-py"><code class="docutils literal notranslate"><span class="pre">0/mysql.py</span></code></a></li>
+<li><a class="reference internal" href="#opentsdb-sh"><code class="docutils literal notranslate"><span class="pre">0/opentsdb.sh</span></code></a></li>
 <li><a class="reference internal" href="#postgresql-py"><code class="docutils literal notranslate"><span class="pre">0/postgresql.py</span></code></a></li>
+<li><a class="reference internal" href="#postgresql-replication-py"><code class="docutils literal notranslate"><span class="pre">0/postgresql_replication.py</span></code></a></li>
+<li><a class="reference internal" href="#prometheus-py"><code class="docutils literal notranslate"><span class="pre">0/prometheus.py</span></code></a></li>
+<li><a class="reference internal" href="#pxc-collector-py"><code class="docutils literal notranslate"><span class="pre">0/pxc-collector.py</span></code></a></li>
 <li><a class="reference internal" href="#redis-stats-py"><code class="docutils literal notranslate"><span class="pre">0/redis-stats.py</span></code></a></li>
 <li><a class="reference internal" href="#riak-py"><code class="docutils literal notranslate"><span class="pre">0/riak.py</span></code></a></li>
+<li><a class="reference internal" href="#tcollector-py"><code class="docutils literal notranslate"><span class="pre">0/tcollector.py</span></code></a></li>
 <li><a class="reference internal" href="#varnishstat-py"><code class="docutils literal notranslate"><span class="pre">0/varnishstat.py</span></code></a></li>
+<li><a class="reference internal" href="#zabbis-bridge-py"><code class="docutils literal notranslate"><span class="pre">0/zabbis_bridge.py</span></code></a></li>
+<li><a class="reference internal" href="#zfsiostats-py"><code class="docutils literal notranslate"><span class="pre">0/zfsiostats.py</span></code></a></li>
+<li><a class="reference internal" href="#zfskerelstats-py"><code class="docutils literal notranslate"><span class="pre">0/zfskerelstats.py</span></code></a></li>
 <li><a class="reference internal" href="#zookeeper-py"><code class="docutils literal notranslate"><span class="pre">0/zookeeper.py</span></code></a></li>
+<li><a class="reference internal" href="#aws-cloudwatch-stats-py"><code class="docutils literal notranslate"><span class="pre">60/aws_cloudwatch_stats.py</span></code></a></li>
+<li><a class="reference internal" href="#zabbix-bridge-cache-py"><code class="docutils literal notranslate"><span class="pre">60/zabbix_bridge_cache.py</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -178,38 +212,14 @@ do not start needlessly after each tcollector restart.</p></li>
 <li><p>Consider using of shell script <code class="docutils literal notranslate"><span class="pre">tcollector/tcollector</span></code> to run tcollector if you want
 to auto start after OS restart.</p></li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To avoid having to run <code class="docutils literal notranslate"><span class="pre">mkmetric</span></code> for every metric that
+<p>NOTE:
+To avoid having to run <code class="docutils literal notranslate"><span class="pre">mkmetric</span></code> for every metric that
 tcollector tracks you can to start TSD with the <code class="docutils literal notranslate"><span class="pre">--auto-metric</span></code>
 flag.  This is useful to get started quickly, but it’s not recommended to
 keep this flag in the long term, to avoid accidental metric creation.</p>
-</div>
 </section>
 <section id="collecting-metrics-with-tcollector">
 <h2>Collecting metrics with tcollector</h2>
-<p>The collectors are organized in following structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>collectors/
-┣ available/
-┃ ┣ linux/
-┃ ┃ ┣ long-lived/
-┃ ┃ ┗ one-shot/
-┃ ┣ freebsd/
-┃ ┃ ┣ long-lived/
-┃ ┃ ┗ one-shot/
-┃ ┣ software/
-┃ ┃ ┣ long-lived/
-┃ ┃ ┗ one-shot/
-┣ enabled/
-┃ ┣ 0/
-┃ ┣ 60/
-┃ ┣ 3600/
-┃ ┗ (...)
-┣ etc/
-┣ lib/
-┗ test/
-</pre></div>
-</div>
 <p>Available collectors are placed in the <code class="docutils literal notranslate"><span class="pre">collectors/available</span></code> directory that divided
 into OS specific (linux, freebsd, macos) and software specific (software) subdirectories.</p>
 <p>To make Tcollector use a collector create a symbolic link for the collector in
@@ -231,79 +241,142 @@ OpenTSDB is designed to have lots of datapoints for each metric (for most metric
 we send datapoints every 15 seconds by default).</p>
 <p>We’ve included a <code class="docutils literal notranslate"><span class="pre">lib</span></code>, <code class="docutils literal notranslate"><span class="pre">etc</span></code>, and <code class="docutils literal notranslate"><span class="pre">test</span></code> directories for library, config data,
 and unittest for all collectors.</p>
+<p>The structure of directories:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>collectors/
+┣ available/
+┃ ┣ linux/
+┃ ┃ ┣ long-lived/
+┃ ┃ ┗ one-shot/
+┃ ┣ freebsd/
+┃ ┃ ┣ long-lived/
+┃ ┃ ┗ one-shot/
+┃ ┣ software/
+┃ ┃ ┣ long-lived/
+┃ ┃ ┗ one-shot/
+┣ enabled/
+┃ ┣ 0/
+┃ ┣ 60/
+┃ ┣ 3600/
+┃ ┗ (...)
+┣ etc/
+┣ lib/
+┗ test/
+</pre></div>
+</div>
 </section>
 </section>
 <section id="collectors-bundled-with-tcollector">
 <h1>Collectors bundled with <code class="docutils literal notranslate"><span class="pre">tcollector</span></code></h1>
-<p>The following are the collectors we’ve included as part of the base package,
-together with all of the metric names they report on and what they mean. If you
-have any others you’d like to contribute, we’d love to hear about them so we can
-reference them or include them with your permission in a future release.</p>
-<section id="general-collectors">
-<h2>General collectors</h2>
+<p>The following are the collectors we’ve included as part of the package, together with
+all of the metric names they report on and what they mean. If you have any others you’d
+like to contribute, we’d love to hear about them so we can reference them or include
+them with your permission in a future release.</p>
+<section id="linux-os-collectors">
+<h2>Linux OS collectors</h2>
 <section id="dfstat-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/dfstat.py</span></code></h3>
-<p>These stats are similar to ones provided by <code class="docutils literal notranslate"><span class="pre">/usr/bin/df</span></code> util.</p>
+<p>These stats are similar to ones provided by <code class="docutils literal notranslate"><span class="pre">/usr/bin/df</span></code> util.
+It shows disks space usage of mounted file systems.</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">df.bytes.total</span></code></dt><dd><p>total size of data</p>
+<dt><code class="docutils literal notranslate"><span class="pre">df.bytes.total</span></code></dt><dd><p>Total size of data</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">df.bytes.used</span></code></dt><dd><p>bytes used</p>
+<dt><code class="docutils literal notranslate"><span class="pre">df.bytes.used</span></code></dt><dd><p>Bytes used</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">df.bytes.free</span></code></dt><dd><p>bytes free</p>
+<dt><code class="docutils literal notranslate"><span class="pre">df.bytes.free</span></code></dt><dd><p>Bytes free</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">df.inodes.total</span></code></dt><dd><p>total number of inodes</p>
+<dt><code class="docutils literal notranslate"><span class="pre">df.bytes.percentused</span></code></dt><dd><p>Percent used</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">df.inodes.used</span></code></dt><dd><p>number of inodes used</p>
+<dt><code class="docutils literal notranslate"><span class="pre">df.inodes.total</span></code></dt><dd><p>Total number of inodes</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">df.inodes.free</span></code></dt><dd><p>number of inodes free</p>
+<dt><code class="docutils literal notranslate"><span class="pre">df.inodes.used</span></code></dt><dd><p>Number of inodes used</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">df.inodes.free</span></code></dt><dd><p>Number of inodes free</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">df.inodes.percentused</span></code></dt><dd><p>Percent used</p>
 </dd>
 </dl>
 </li>
 </ul>
 <p>These metrics include time series tagged with each mount point and the
 filesystem’s fstype. This collector filters out any cgroup, debugfs, devtmpfs,
-rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted under
+nfs, rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted under
 <code class="docutils literal notranslate"><span class="pre">/dev/</span></code>, <code class="docutils literal notranslate"><span class="pre">/sys/</span></code>, <code class="docutils literal notranslate"><span class="pre">/proc/</span></code>, and <code class="docutils literal notranslate"><span class="pre">/lib/</span></code>.</p>
 <p>With these tags you can select to graph just a specific filesystem, or all
 filesystems with a particular fstype (e.g. ext3).</p>
 </section>
 <section id="ifstat-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/ifstat.py</span></code></h3>
-<p>These stats are from <code class="docutils literal notranslate"><span class="pre">/proc/net/dev</span></code>.</p>
+<p>These stats are from <code class="docutils literal notranslate"><span class="pre">/proc/net/dev</span></code> that provides network interface statistics</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">proc.net.bytes</span></code></dt><dd><p>(rate) Bytes in/out</p>
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.bytes</span></code></dt><dd><p>Bytes in/out</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">proc.net.packets</span></code></dt><dd><p>(rate) Packets in/out</p>
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.packets</span></code></dt><dd><p>Packets in/out</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">proc.net.errs</span></code></dt><dd><p>(rate) Packet errors in/out</p>
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.errs</span></code></dt><dd><p>Packet errors in/out</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">proc.net.dropped</span></code></dt><dd><p>(rate) Dropped packets in/out</p>
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.dropped</span></code></dt><dd><p>Dropped packets in/out</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.fifo.errs</span></code></dt><dd><p>FIFO errors in/out</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.frame.errs</span></code></dt><dd><p>Frame errors in/out</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.compressed</span></code></dt><dd><p>Compressed packets in/out</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.multicast</span></code></dt><dd><p>Multicast packets in/out</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.collisions</span></code></dt><dd><p>Collisions transmitting packets in/out</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">proc.net.carrier.errs</span></code></dt><dd><p>Carrier errors in/out</p>
 </dd>
 </dl>
 </li>
@@ -319,44 +392,111 @@ to double-count a box’s network traffic if you don’t select on <code class="
 <p>Data is from <code class="docutils literal notranslate"><span class="pre">/proc/diskstats</span></code>.</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">iostat.disk.*</span></code></dt><dd><p>per-disk stats</p>
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.disk</span></code></dt><dd><p>Per-disk stats</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">iostat.part.*</span></code></dt><dd><p>per-partition stats (see note below on different metrics, depending
-on if you have a 2.6 kernel before 2.6.25 or after.)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.part.*</span></code></dt><dd><p>Per-partition stats (kernel specific)</p>
 </dd>
 </dl>
 </li>
 </ul>
-<p>See <a class="reference external" href="http://www.kernel.org/doc/Documentation/iostats.txt">iostats.txt</a></p>
-<p><code class="docutils literal notranslate"><span class="pre">/proc/diskstats</span></code> has 11 stats for a given physical device.
+<p>See <a class="reference external" href="http://www.kernel.org/doc/Documentation/iostats.txt">iostats.txt</a> kernel specific metrics, depending on if you have a 2.6 kernel before 2.6.25 or after.</p>
+<p><code class="docutils literal notranslate"><span class="pre">/proc/diskstats</span></code> has stats for a given physical device.
 These are all rate counters, except <code class="docutils literal notranslate"><span class="pre">ios_in_progress</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">read_requests</span>       <span class="n">Number</span> <span class="n">of</span> <span class="n">reads</span> <span class="n">completed</span>
-<span class="o">.</span><span class="n">read_merged</span>         <span class="n">Number</span> <span class="n">of</span> <span class="n">reads</span> <span class="n">merged</span>
-<span class="o">.</span><span class="n">read_sectors</span>        <span class="n">Number</span> <span class="n">of</span> <span class="n">sectors</span> <span class="n">read</span>
-<span class="o">.</span><span class="n">msec_read</span>           <span class="n">Time</span> <span class="ow">in</span> <span class="n">msec</span> <span class="n">spent</span> <span class="n">reading</span>
-<span class="o">.</span><span class="n">write_requests</span>      <span class="n">Number</span> <span class="n">of</span> <span class="n">writes</span> <span class="n">completed</span>
-<span class="o">.</span><span class="n">write_merged</span>        <span class="n">Number</span> <span class="n">of</span> <span class="n">writes</span> <span class="n">merged</span>
-<span class="o">.</span><span class="n">write_sectors</span>       <span class="n">Number</span> <span class="n">of</span> <span class="n">sectors</span> <span class="n">written</span>
-<span class="o">.</span><span class="n">msec_write</span>          <span class="n">Time</span> <span class="ow">in</span> <span class="n">msec</span> <span class="n">spent</span> <span class="n">writing</span>
-<span class="o">.</span><span class="n">ios_in_progress</span>     <span class="n">Number</span> <span class="n">of</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">operations</span> <span class="ow">in</span> <span class="n">progress</span>
-<span class="o">.</span><span class="n">msec_total</span>          <span class="n">Time</span> <span class="ow">in</span> <span class="n">msec</span> <span class="n">doing</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span>
-<span class="o">.</span><span class="n">msec_weighted_total</span> <span class="n">Weighted</span> <span class="n">time</span> <span class="n">doing</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="p">(</span><span class="n">multiplied</span> <span class="n">by</span> <span class="n">ios_in_progress</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>kernel 2.6+</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat.read_requests</span></code>
+Number of reads completed</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.read_merged</span></code></dt><dd><p>Number of reads merged</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.read_sectors</span></code></dt><dd><p>Number of sectors read</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.msec_read</span></code></dt><dd><p>Time in msec spent reading</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.write_requests</span></code></dt><dd><p>Number of writes completed</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.write_merged</span></code></dt><dd><p>Number of writes merged</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.write_sectors</span></code></dt><dd><p>Number of sectors written</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.msec_write</span></code></dt><dd><p>Time in msec spent writing</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.ios_in_progress</span></code></dt><dd><p>Number of I/O operations in progress</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.msec_total</span></code></dt><dd><p>Time in msec doing I/O</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.msec_weighted_total</span></code></dt><dd><p>Weighted time doing I/O (multiplied by ios_in_progress)</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>kernel 4.18+</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.discards_requests</span></code></dt><dd><p>Number of discards completed</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.discards_merged</span></code></dt><dd><p>Number of discards merged</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.sectors_discarded</span></code></dt><dd><p>Number of sectors discarded</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.msecs_discard</span></code></dt><dd><p>Time is msec doing discarding</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>kernel 5.5+</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.flush_requests</span></code></dt><dd><p>Number of flush requests completed</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">iostat.msecs_flushing</span></code></dt><dd><p>Time is msec doing discarding</p>
+</dd>
+</dl>
+</li>
+</ul>
 <p>in 2.6.25 and later, by-partition stats are reported the same as disks.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>in 2.6 before 2.6.25, partitions have only 4 stats per partition</p>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">read_issued</span>
-<span class="o">.</span><span class="n">read_sectors</span>
-<span class="o">.</span><span class="n">write_issued</span>
-<span class="o">.</span><span class="n">write_sectors</span>
-</pre></div>
-</div>
 <p>For partitions, these <code class="docutils literal notranslate"><span class="pre">*_issued</span></code> are counters collected before requests are
 merged, so aren’t the same as <code class="docutils literal notranslate"><span class="pre">*_requests</span></code> (which is post-merge, which
 more closely represents represents the actual number of disk transactions).</p>
@@ -367,10 +507,91 @@ for a given box will be double-counted, since a given operation will increment
 both the disk series and the partition series.  To fix this, we output by-disk
 data to <code class="docutils literal notranslate"><span class="pre">iostat.disk.*</span></code> and by-partition data to <code class="docutils literal notranslate"><span class="pre">iostat.part.*</span></code>.</p>
 </section>
+<section id="mountstats-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/mountstats.py</span></code></h3>
+<p>NFS mountstats data, deduped by mount point and put into the following namespaces:
+<code class="docutils literal notranslate"><span class="pre">proc.mountstats.&lt;rpccall&gt;.&lt;metric&gt;</span> <span class="pre">nfshost=&lt;nfsserver&gt;</span> <span class="pre">nfsvol=&lt;nfsvolume&gt;</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.totaltime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.ops</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.timeouts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.qtime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.txbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.rttime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.rxbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.getattr.txs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.totaltime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.ops</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.timeouts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.qtime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.txbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.rttime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.rxbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.access.txs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.totaltime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.ops</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.timeouts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.qtime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.txbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.rttime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.rxbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.read.txs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.totaltime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.ops</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.timeouts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.qtime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.txbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.rttime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.rxbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.write.txs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.totaltime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.ops</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.timeouts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.qtime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.txbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.rttime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.rxbytes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.other.txs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.normalread</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.normalwrite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.directread</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.directwrite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.serverread</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.serverwrite</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.readpages</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.mountstats.bytes.writepages</span></code></p></li>
+</ul>
+</section>
+<section id="netfilter-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/netfilter.py</span></code></h3>
+<p>Metrics from /proc/sys/net/ipv4/netfilter/*</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_buckets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_checksum</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_count</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_generic_timeout</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_icmp_timeout</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_log_invalid</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_max</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_be_liberal</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_loose</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_max_retrans</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_close</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_close_wait</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_established</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_fin_wait</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_last_ack</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_max_retrans</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_syn_recv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_syn_sent</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_tcp_timeout_time_wait</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_udp_timeout</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_udp_timeout_stream</span></code></p></li>
+</ul>
+</section>
 <section id="netstat-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/netstat.py</span></code></h3>
-<p>Socket allocation and network statistics.</p>
-<p>Metrics from <code class="docutils literal notranslate"><span class="pre">/proc/net/sockstat</span></code>.</p>
+<p>Metrics from <code class="docutils literal notranslate"><span class="pre">/proc/net/sockstat</span></code> (socket allocation).</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">net.sockstat.num_sockets</span></code></dt><dd><p>Number of sockets allocated (only TCP)</p>
@@ -378,7 +599,7 @@ data to <code class="docutils literal notranslate"><span class="pre">iostat.disk
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.sockstat.num_timewait</span></code></dt><dd><p>Number of TCP sockets currently in <code class="docutils literal notranslate"><span class="pre">TIME_WAIT</span></code> state</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.sockstat.num_timewait</span></code></dt><dd><p>Number of TCP sockets currently in TIME_WAIT state</p>
 </dd>
 </dl>
 </li>
@@ -398,8 +619,7 @@ data to <code class="docutils literal notranslate"><span class="pre">iostat.disk
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.sockstat.ipfragqueues</span></code></dt><dd><p>Number of IP flows for which there are currently fragments queued for
-reassembly</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.sockstat.ipfragqueues</span></code></dt><dd><p>Number of IP flows for which there are currently fragments queued for reassembly</p>
 </dd>
 </dl>
 </li>
@@ -407,22 +627,17 @@ reassembly</p>
 <p>Metrics from <code class="docutils literal notranslate"><span class="pre">/proc/net/netstat</span></code> (<code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-s</span></code> command).</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.abort</span></code></dt><dd><p>Number of connections that the kernel had to abort.
-&lt;code&gt;type=memory&lt;/code&gt; is especially bad, the kernel had to drop a
-connection due to having too many orphaned sockets. Other types are normal
-(e.g. timeout)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.abort</span></code></dt><dd><p>Number of connections that the kernel had to abort. “type=memory” is especially bad, the kernel had to drop a connection due to having too many orphaned sockets. Other types are normal (e.g. timeout)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.abort.failed</span></code></dt><dd><p>Number of times the kernel failed to abort a connection because it didn’t
-even have enough memory to reset it (bad)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.abort.failed</span></code></dt><dd><p>Number of times the kernel failed to abort a connection because it didn’t even have enough memory to reset it (bad)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.congestion.recovery</span></code></dt><dd><p>Number of times the kernel detected spurious retransmits and was able to
-recover part or all of the CWND</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.congestion.recovery</span></code></dt><dd><p>Number of times the kernel detected spurious retransmits and was able to recover part or all of the CWND</p>
 </dd>
 </dl>
 </li>
@@ -432,15 +647,12 @@ recover part or all of the CWND</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.failed_accept</span></code></dt><dd><p>Number of times a connection had to be dropped after the 3WHS.
-<code class="docutils literal notranslate"><span class="pre">reason=full_acceptq</span></code> indicates that the application isn’t
-accepting connections fast enough.  You should see SYN cookies too</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.failed_accept</span></code></dt><dd><p>Number of times a connection had to be dropped after the 3WHS. “reason=full_acceptq” indicates that the application isn’t accepting connections fast enough. You should see SYN cookies too</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.invalid_sack</span></code></dt><dd><p>Number of invalid SACKs we saw of diff types.
-(requires Linux v2.6.24-rc1 or newer)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.invalid_sack</span></code></dt><dd><p>Number of invalid SACKs we saw of diff types. (requires Linux v2.6.24-rc1 or newer)</p>
 </dd>
 </dl>
 </li>
@@ -450,20 +662,17 @@ accepting connections fast enough.  You should see SYN cookies too</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.memory.prune</span></code></dt><dd><p>Number of times a socket had to discard received data due to low memory
-conditions (bad)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.memory.prune</span></code></dt><dd><p>Number of times a socket had to discard received data due to low memory conditions (bad)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.packetloss.recovery</span></code></dt><dd><p>Number of times we recovered from packet loss by type of recovery (e.g.
-fast retransmit vs SACK)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.packetloss.recovery</span></code></dt><dd><p>Number of times we recovered from packet loss by type of recovery (e.g. fast retransmit vs SACK)</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.receive.queue.full</span></code></dt><dd><p>Number of times a received packet had to be dropped because the socket’s
-receive queue was full. (requires Linux v2.6.34-rc2 or newer)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.receive.queue.full</span></code></dt><dd><p>Number of times a received packet had to be dropped because the socket’s receive queue was full. (requires Linux v2.6.34-rc2 or newer)</p>
 </dd>
 </dl>
 </li>
@@ -473,7 +682,7 @@ receive queue was full. (requires Linux v2.6.34-rc2 or newer)</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.syncookies</span></code></dt><dd><p>SYN cookies (both sent &amp;amp; received)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">net.stat.tcp.syncookies</span></code></dt><dd><p>SYN cookies (both sent &amp; received)</p>
 </dd>
 </dl>
 </li>
@@ -501,11 +710,22 @@ of retransmissions</p>
 </li>
 </ul>
 <p>It tagged with the version (<code class="docutils literal notranslate"><span class="pre">version=</span></code>) of NFS server that conducted
-the operation, and name of operation (<code class="docutils literal notranslate"><span class="pre">op=</span></code>)</p>
+the operation, and name of operation (<code class="docutils literal notranslate"><span class="pre">op=</span></code>).</p>
 <p>Description of operations can be found at appropriate RFC:
 NFS ver. 3 <a class="reference external" href="http://tools.ietf.org/html/rfc1813">RFC1813</a>,
 NFS ver. 4 <a class="reference external" href="http://tools.ietf.org/html/rfc3530">RFC3530</a>,
 NFS ver. 4.1 <a class="reference external" href="http://tools.ietf.org/html/rfc5661">RFC5661</a>.</p>
+</section>
+<section id="ntpstats-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/ntpstats.py</span></code></h3>
+<p>It runs ntpq to get NTP offset</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ntp.offset</span></code></dt><dd><p>Estimated offset</p>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 <section id="procnettcp-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/procnettcp.py</span></code></h3>
@@ -851,9 +1071,110 @@ value of 1</p>
 <a class="reference external" href="https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes">S.M.A.R.T. article on wikipedia</a>.
 The best way to understand/find metric is to look at producer’s specification.</p>
 </section>
+<section id="sysload-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code></h3>
+<p>CPU detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">mpstat</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.usr</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.nice</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.sys</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.irq</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.idle</span></code></p></li>
+</ul>
 </section>
-<section id="other-collectors">
-<h2>Other collectors</h2>
+<section id="tcp-bridge-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/tcp_bridge.py</span></code></h3>
+<p>Statistics for metrics gathered by listening on a local TCP socket for incoming Metrics.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tcollector.tcp_bridge.lines_read</span></code>
+<code class="docutils literal notranslate"><span class="pre">tcollector.tcp_bridge.connections_processed</span></code>
+<code class="docutils literal notranslate"><span class="pre">tcollector.tcp_bridge.processing_time</span></code>
+<code class="docutils literal notranslate"><span class="pre">tcollector.tcp_bridge.active</span></code></p>
+</section>
+</section>
+<section id="freebsd-os-collectors">
+<h2>FreeBSD OS collectors</h2>
+<section id="gstat-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/gstat.py</span></code></h3>
+<p>Disks detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">gstat</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.queue</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ops.read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.b.read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.bps.read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ms.read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ops.write</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.b.write</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.bps.write</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ms.write</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ops.delete</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.b.delete</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.bps.delete</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ms.delete</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ops.other</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.ms.other</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk.busy</span></code></p></li>
+</ul>
+</section>
+<section id="ifrate-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/ifrate.py</span></code></h3>
+<p>Network interfaces detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">netstat</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.byt.in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.byt.out</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.pkt.in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.pkt.out</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.err</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.drp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.err.in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.drp.in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.err.out</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.drp.out</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifrate.col</span></code></p></li>
+</ul>
+</section>
+<section id="id2">
+<h3><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code></h3>
+<p>CPU detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">top</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.usr</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.nice</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.sys</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.irq</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu.idle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load.1m</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load.5m</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load.15m</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.all</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.start</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.run</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.sleep</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.stop</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.zomb</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.wait</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps.lock</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem.active</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem.inact</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem.wired</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem.cache</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem.buf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem.free</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arc.total</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arc.mru</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arc.mfu</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arc.anon</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arc.header</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arc.other</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">swap.total</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">swap.used</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">swap.free</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">swap.inuse</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">swap.inps</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">swap.outps</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="software-collectors">
+<h2>Software collectors</h2>
 <section id="couchbase-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/couchbase.py</span></code></h3>
 <p>Stats from couchbase (document-oriented NoSQL database).</p>
@@ -865,14 +1186,34 @@ data storage resources.</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://docs.couchbase.com/couchbase-manual-2.1/#cbstats-tool">Cbstats documentation</a>.</p>
 </section>
+<section id="docker-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/docker.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="docker-engine-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/docker_engine.py</span></code></h3>
+<p>see source code.</p>
+</section>
 <section id="elasticsearch-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/elasticsearch.py</span></code></h3>
 <p>Stats from Elastic Search (search and analytics engine).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster.html">ElasticSearch cluster APIs</a>.</p>
 </section>
-<section id="hadoop-datanode-jmx-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_datanode_jmx.py</span></code></h3>
+<section id="flume-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/flume.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="g1gc-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/g1gc.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="graphite-bridge-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/graphite_bridge.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="hadoop-datanode-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_datanode.py</span></code></h3>
 <p>Stats from Hadoop (framework for the distributed processing), DataNode stats.</p>
 <p>Following metrics are disabled at the collector by default: revision,
 hdfsUser, hdfsDate, hdfsUrl, date, hdfsRevision, user, hdfsVersion, url,
@@ -880,6 +1221,22 @@ version, NamenodeAddress, Version, RpcPort, HttpPort, CurrentThreadCpuTime,
 CurrentThreadUserTime, StorageInfo, VolumeInfo.</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://hbase.apache.org/book.html#hbase_metrics">HBase metrics</a>.</p>
+</section>
+<section id="hadoop-journalnode-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_journalnode.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="hadoop-namenode-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_namenode.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="hadoop-yarn-node-manager-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_node_manager.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="hadoop-yarn-resource-manager-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_resource_manager.py</span></code></h3>
+<p>see source code.</p>
 </section>
 <section id="haproxy-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/haproxy.py</span></code></h3>
@@ -901,8 +1258,12 @@ CurrentThreadUserTime, StorageInfo, VolumeInfo.</p>
 <a class="reference external" href="http://haproxy.1wt.eu/download/1.4/doc/configuration.txt">Haproxy configuration</a>
 # section 9.2.Unix Socket commands</p>
 </section>
-<section id="hbase-regionserver-jmx-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hbase_regionserver_jmx.py</span></code></h3>
+<section id="hbase-master-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/hbase_master.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="hbase-regionserver-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/hbase_regionserver.py</span></code></h3>
 <p>Stats from Hadoop (framework for the distributed processing), RegionServer
 stats.</p>
 <p>Following metrics are disabled at the collector by default: revision, hdfsUser,
@@ -911,11 +1272,23 @@ Version, RpcPort, HttpPort,HeapMemoryUsage, NonHeapMemoryUsage.</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://hbase.apache.org/book.html#hbase_metrics">HBase metrics</a>.</p>
 </section>
+<section id="jolokia-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/jolokia.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="mapr-metrics-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/mapr_metrics.py</span></code></h3>
+<p>see source code.</p>
+</section>
 <section id="mongo-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/mongo.py</span></code></h3>
 <p>Stats from Mongo (document NoSQL database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://docs.mongodb.org/manual/reference/server-status/">Mongo DB server-status</a>.</p>
+</section>
+<section id="mongo3-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/mongo3.py</span></code></h3>
+<p>see source code.</p>
 </section>
 <section id="mysql-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/mysql.py</span></code></h3>
@@ -927,11 +1300,27 @@ Engine <a class="reference external" href="http://dev.mysql.com/doc/refman/5.1/e
 Slave <a class="reference external" href="http://dev.mysql.com/doc/refman/5.0/en/show-slave-status.html">Show slave status</a>,
 Process list <a class="reference external" href="ahref=&quot;http://dev.mysql.com/doc/refman/5.0/en/show-processlist.html&quot;">Show process list</a>.</p>
 </section>
+<section id="opentsdb-sh">
+<h3><code class="docutils literal notranslate"><span class="pre">0/opentsdb.sh</span></code></h3>
+<p>see source code.</p>
+</section>
 <section id="postgresql-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/postgresql.py</span></code></h3>
 <p>Stats from PostgreSQL (relational database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://www.postgresql.org/docs/9.2/static/monitoring-stats.html">PostgreSQL monitoring stats</a>.</p>
+</section>
+<section id="postgresql-replication-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/postgresql_replication.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="prometheus-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/prometheus.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="pxc-collector-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/pxc-collector.py</span></code></h3>
+<p>see source code.</p>
 </section>
 <section id="redis-stats-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/redis-stats.py</span></code></h3>
@@ -945,6 +1334,21 @@ Process list <a class="reference external" href="ahref=&quot;http://dev.mysql.co
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://docs.basho.com/riak/latest/ops/running/stats-and-monitoring/#Statistics-from-Riak">Riak statistics</a>.</p>
 </section>
+<section id="tcollector-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/tcollector.py</span></code></h3>
+<p>Tcollector collector.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tcollector.processes</span></code>
+Number of running tcollector processes</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">tcollector.cputime</span></code></dt><dd><p>CPU time spent on tcollector</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tcollector.mem_bytes</span></code>
+Memory consumed in bytes, has 2 types: VSIZE and RSS.</p></li>
+</ul>
+</section>
 <section id="varnishstat-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/varnishstat.py</span></code></h3>
 <p>Stats from Varnish (HTTP accelerator).</p>
@@ -953,11 +1357,31 @@ of the collector.</p>
 <p>Refer to the following documentation for metrics description: run
 “varnishstat -l” to have lists the available metrics.</p>
 </section>
+<section id="zabbis-bridge-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/zabbis_bridge.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="zfsiostats-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/zfsiostats.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="zfskerelstats-py">
+<h3><code class="docutils literal notranslate"><span class="pre">0/zfskerelstats.py</span></code></h3>
+<p>see source code.</p>
+</section>
 <section id="zookeeper-py">
 <h3><code class="docutils literal notranslate"><span class="pre">0/zookeeper.py</span></code></h3>
 <p>Stats from Zookeeper (centralized service for distributed synchronization).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_zkCommands">Zookeeper admin commands</a>.</p>
+</section>
+<section id="aws-cloudwatch-stats-py">
+<h3><code class="docutils literal notranslate"><span class="pre">60/aws_cloudwatch_stats.py</span></code></h3>
+<p>see source code.</p>
+</section>
+<section id="zabbix-bridge-cache-py">
+<h3><code class="docutils literal notranslate"><span class="pre">60/zabbix_bridge_cache.py</span></code></h3>
+<p>see source code.</p>
 </section>
 </section>
 </section>

@@ -198,25 +198,20 @@ free to store repeated values.</p>
 <section id="runtime-requirements-for-tcollector">
 <h2>Runtime Requirements for tcollector</h2>
 <div class="line-block">
-<div class="line">Tcollector requires one of following python versions: 3.7, 3.8, 3.9, 3.10, 3.11.</div>
-<div class="line">Each collector in <code class="docutils literal notranslate"><span class="pre">collectors/available/software</span></code> may have additional requirements.</div>
+<div class="line">Tcollector requires one of following python versions to run: 3.7 - 3.11.</div>
 </div>
+<p>OS specific collectors located in <code class="docutils literal notranslate"><span class="pre">collectors/available/Linux|FreeBSD|MacOS</span></code>
+should run using base tools installed with respected OS. Other software collectors located
+in <code class="docutils literal notranslate"><span class="pre">collectors/available/software</span></code> may have additional requirements.</p>
 </section>
 <section id="installation-of-tcollector">
 <h2>Installation of tcollector</h2>
 <ol class="arabic simple">
 <li><p>Clone or download tcollector archive from GitHub on
 <a class="reference external" href="https://github.com/OpenTSDB/tcollector">https://github.com/OpenTSDB/tcollector</a> .</p></li>
-<li><p>Review collectors in <code class="docutils literal notranslate"><span class="pre">collectors</span></code> directory and remove ones you do not need so they
-do not start needlessly after each tcollector restart.</p></li>
 <li><p>Consider using of shell script <code class="docutils literal notranslate"><span class="pre">tcollector/tcollector</span></code> to run tcollector if you want
-to auto start after OS restart.</p></li>
+to auto start after OS restart. Source codes to build RPM or DEB packages are also available in tcollector folder.</p></li>
 </ol>
-<p>NOTE:
-To avoid having to run <code class="docutils literal notranslate"><span class="pre">mkmetric</span></code> for every metric that
-tcollector tracks you can to start TSD with the <code class="docutils literal notranslate"><span class="pre">--auto-metric</span></code>
-flag.  This is useful to get started quickly, but it’s not recommended to
-keep this flag in the long term, to avoid accidental metric creation.</p>
 </section>
 <section id="collecting-metrics-with-tcollector">
 <h2>Collecting metrics with tcollector</h2>
@@ -262,6 +257,13 @@ and unittest for all collectors.</p>
 ┣ lib/
 ┗ test/
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To avoid having to run <code class="docutils literal notranslate"><span class="pre">mkmetric</span></code> for every metric that
+tcollector tracks you can to start TSD with the <code class="docutils literal notranslate"><span class="pre">--auto-metric</span></code>
+flag.  This is useful to get started quickly, but it’s not recommended to
+keep this flag in the long term, to avoid accidental metric creation.</p>
 </div>
 </section>
 </section>

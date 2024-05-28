@@ -47,8 +47,10 @@ free to store repeated values.
 Runtime Requirements for tcollector
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-| Tcollector requires one of following python versions: 3.7, 3.8, 3.9, 3.10, 3.11.
-| Each collector in ``collectors/available/software`` may have additional requirements.
+| Tcollector requires one of following python versions to run: 3.7 - 3.11.
+OS specific collectors located in ``collectors/available/Linux|FreeBSD|MacOS``
+should run using base tools installed with respected OS. Other software collectors located
+in ``collectors/available/software`` may have additional requirements.
 
 
 Installation of tcollector
@@ -57,17 +59,8 @@ Installation of tcollector
 1. Clone or download tcollector archive from GitHub on
    https://github.com/OpenTSDB/tcollector .
 
-2. Review collectors in ``collectors`` directory and remove ones you do not need so they
-   do not start needlessly after each tcollector restart.
-
-3. Consider using of shell script ``tcollector/tcollector`` to run tcollector if you want
-   to auto start after OS restart.
-
-NOTE:
-To avoid having to run ``mkmetric`` for every metric that
-tcollector tracks you can to start TSD with the ``--auto-metric``
-flag.  This is useful to get started quickly, but it's not recommended to
-keep this flag in the long term, to avoid accidental metric creation.
+2. Consider using of shell script ``tcollector/tcollector`` to run tcollector if you want
+   to auto start after OS restart. Source codes to build RPM or DEB packages are also available in tcollector folder.
 
 
 Collecting metrics with tcollector
@@ -120,6 +113,14 @@ The structure of directories: ::
  ┣ etc/
  ┣ lib/
  ┗ test/
+
+.. NOTE ::
+
+ To avoid having to run ``mkmetric`` for every metric that
+ tcollector tracks you can to start TSD with the ``--auto-metric``
+ flag.  This is useful to get started quickly, but it's not recommended to
+ keep this flag in the long term, to avoid accidental metric creation.
+
 
 Collectors bundled with ``tcollector``
 ======================================

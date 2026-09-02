@@ -247,9 +247,9 @@ provides a quick means of building a useful graph with the data in your system.<
 <h2>URI Parameters<a class="headerlink" href="#uri-parameters" title="Permalink to this heading">¶</a></h2>
 <p>Parameters to modify graphing behavior are available via the URI. Not all settings or permutations
 are available, only a subset that is limited for general time series use. Regular expression filters
-are in place to try and avoid remote code execution issues so if a value for a parameter fails, the
-API will return the regex that caused the failure. Below is a list of available parameters and notes
-regarding their usage.</p>
+are in place (since 2.4.2) to try and avoid remote code execution issues so if a value for a parameter
+fails, the API will return the regex that caused the failure. Below is a list of available parameters
+and notes regarding their usage.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 30.0%" />
@@ -263,6 +263,54 @@ regarding their usage.</p>
 </tr>
 </thead>
 <tbody>
+<tr class="row-even"><td><p>bgcolor</p></td>
+<td><p>x000000</p></td>
+<td><p>The background color of the graph. Hex RGB value starting with <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>fgcolor</p></td>
+<td><p>xFFFFFF</p></td>
+<td><p>The foreground color of the graph. Hex RGB value starting with <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>bottom</p></td>
+<td><p>The location of the key. One of <code class="docutils literal notranslate"><span class="pre">out,</span> <span class="pre">left,</span> <span class="pre">top,</span> <span class="pre">center,</span> <span class="pre">right,</span> <span class="pre">horiz,</span> <span class="pre">box</span> <span class="pre">or</span> <span class="pre">bottom</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nokey</p></td>
+<td><p>true</p></td>
+<td><p>Whether or not to hide the key.</p></td>
+</tr>
+<tr class="row-even"><td><p>smooth</p></td>
+<td><p>unique</p></td>
+<td><p>An optional smoothing function for lines. One of <code class="docutils literal notranslate"><span class="pre">unique,</span> <span class="pre">frequency,</span> <span class="pre">fnormal,</span> <span class="pre">cumulative,</span> <span class="pre">cnormal,</span> <span class="pre">bins,</span> <span class="pre">csplines,</span> <span class="pre">acsplines,</span> <span class="pre">mcsplines,</span> <span class="pre">bezier,</span> <span class="pre">sbezier,</span> <span class="pre">unwrap,</span> <span class="pre">zsort</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>style</p></td>
+<td><p>linespoint</p></td>
+<td><p>The style for each line. One of <code class="docutils literal notranslate"><span class="pre">linespoint,</span> <span class="pre">points,</span> <span class="pre">circles,</span> <span class="pre">dots</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>title</p></td>
+<td><p>Cpu Avg vs Max</p></td>
+<td><p>A title for the graph. Same characterset as the labels.</p></td>
+</tr>
+<tr class="row-odd"><td><p>xlabel</p></td>
+<td><p>%.2f seconds</p></td>
+<td><p>A printf format for Y axis labels. Only supports <code class="docutils literal notranslate"><span class="pre">[%0-9.a-zA-Z</span> <span class="pre">-]</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>ylabel</p></td>
+<td><p>%.2f seconds</p></td>
+<td><p>A printf format for Y axis labels. Only supports <code class="docutils literal notranslate"><span class="pre">[%0-9.a-zA-Z</span> <span class="pre">-]</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>y2label</p></td>
+<td><p>%.2f seconds</p></td>
+<td><p>A printf format for Y 2 axis labels. Only supports <code class="docutils literal notranslate"><span class="pre">[%0-9.a-zA-Z</span> <span class="pre">-]</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>ylog</p></td>
+<td><p>true</p></td>
+<td><p>Sets the Y axis to a log scale.</p></td>
+</tr>
+<tr class="row-odd"><td><p>y2log</p></td>
+<td><p>true</p></td>
+<td><p>Sets the Y 2 axis to a log scale.</p></td>
+</tr>
 <tr class="row-even"><td><p>yrange</p></td>
 <td><p>[:42]</p></td>
 <td><p>Sets the vertical range that will be displayed on the Y axis.</p></td>
@@ -270,54 +318,6 @@ regarding their usage.</p>
 <tr class="row-odd"><td><p>y2range</p></td>
 <td><p>[0:1]</p></td>
 <td><p>Sets the vertical range that will be displayed on the Y2 axis.</p></td>
-</tr>
-<tr class="row-even"><td><p>xlabel</p></td>
-<td><p>%.2f seconds</p></td>
-<td><p>A printf format for Y axis labels. Only supports <code class="docutils literal notranslate"><span class="pre">[%0-9.a-zA-Z</span> <span class="pre">-]</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>ylabel</p></td>
-<td><p>%.2f seconds</p></td>
-<td><p>A printf format for Y axis labels. Only supports <code class="docutils literal notranslate"><span class="pre">[%0-9.a-zA-Z</span> <span class="pre">-]</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p>y2label</p></td>
-<td><p>%.2f seconds</p></td>
-<td><p>A printf format for Y 2 axis labels. Only supports <code class="docutils literal notranslate"><span class="pre">[%0-9.a-zA-Z</span> <span class="pre">-]</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>ylog</p></td>
-<td><p>true</p></td>
-<td><p>Sets the Y axis to a log scale.</p></td>
-</tr>
-<tr class="row-even"><td><p>y2log</p></td>
-<td><p>true</p></td>
-<td><p>Sets the Y 2 axis to a log scale.</p></td>
-</tr>
-<tr class="row-odd"><td><p>key</p></td>
-<td><p>bottom</p></td>
-<td><p>The location of the key. One of <code class="docutils literal notranslate"><span class="pre">out,</span> <span class="pre">left,</span> <span class="pre">top,</span> <span class="pre">center,</span> <span class="pre">right,</span> <span class="pre">horiz,</span> <span class="pre">box</span> <span class="pre">or</span> <span class="pre">bottom</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p>title</p></td>
-<td><p>Cpu Avg vs Max</p></td>
-<td><p>A title for the graph. Same characterset as the labels.</p></td>
-</tr>
-<tr class="row-odd"><td><p>bgcolor</p></td>
-<td><p>x000000</p></td>
-<td><p>The background color of the graph. Hex RGB value starting with <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p>fgcolor</p></td>
-<td><p>xFFFFFF</p></td>
-<td><p>The foreground color of the graph. Hex RGB value starting with <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>smooth</p></td>
-<td><p>unique</p></td>
-<td><p>An optional smoothing function for lines. One of <code class="docutils literal notranslate"><span class="pre">unique,</span> <span class="pre">frequency,</span> <span class="pre">fnormal,</span> <span class="pre">cumulative,</span> <span class="pre">cnormal,</span> <span class="pre">bins,</span> <span class="pre">csplines,</span> <span class="pre">acsplines,</span> <span class="pre">mcsplines,</span> <span class="pre">bezier,</span> <span class="pre">sbezier,</span> <span class="pre">unwrap,</span> <span class="pre">zsort</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p>style</p></td>
-<td><p>linespoint</p></td>
-<td><p>The style for each line. One of <code class="docutils literal notranslate"><span class="pre">linespoint,</span> <span class="pre">points,</span> <span class="pre">circles,</span> <span class="pre">dots</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>nokey</p></td>
-<td><p>true</p></td>
-<td><p>Whether or not to hide the key.</p></td>
 </tr>
 </tbody>
 </table>
@@ -349,7 +349,7 @@ regarding their usage.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2023, OpenTSDB.
+        &copy; Copyright 2026, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

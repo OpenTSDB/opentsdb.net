@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -18,10 +19,11 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-migrate-3.5.2.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -63,19 +65,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#runtime-requirements">Runtime Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../installation.html#compile">Compile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../installation.html#docker">Docker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../installation.html#local">Local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#quickstart">Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#querying">Querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#write-data">Write Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">Users Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../user_guide/semanticquery/index.html">Semantic Query (Version 3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_guide/index.html#writing-data">Writing Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Administrators Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">TSDB Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging</a></li>
 </ul>
 </li>
@@ -92,6 +93,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#deprecated-api">Deprecated API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/index.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../development/index.html#git-repository">Git Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development/index.html#details">Details</a></li>
 </ul>
 </li>
 </ul>
@@ -139,7 +145,7 @@
   <div class="section" id="tsd">
 <h1>tsd</h1>
 <p>The TSD command launches the OpenTSDB daemon in the foreground so that it can accept connections over TCP and HTTP. If successful, you should see a number of messages then:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">26</span> <span class="mi">18</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">02</span><span class="p">,</span><span class="mi">472</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">TSDMain</span><span class="p">:</span> <span class="n">Ready</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">on</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">4242</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">26</span> <span class="mi">18</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">02</span><span class="p">,</span><span class="mi">472</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">TSDMain</span><span class="p">:</span> <span class="n">Ready</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">on</span> <span class="mf">0.0.0.0</span><span class="p">:</span><span class="mi">4242</span>
 </pre></div>
 </div>
 <p>The daemon will continue to run until killed via a Telnet or HTTP command is sent to tell it to stop. If an error occurred, such as failure to connect to Zookeeper or the inability to bind to the proper interface and port, an error will be logged and the daemon will exit.</p>
@@ -158,7 +164,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2021, OpenTSDB.<br/>
+        &copy; Copyright 2026, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>

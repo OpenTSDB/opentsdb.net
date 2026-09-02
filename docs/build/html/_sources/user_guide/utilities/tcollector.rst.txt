@@ -20,6 +20,11 @@ Tcollector does several things for you:
 * Does de-duplication of repeated values
 * Handles all of the wire protocol work for you, as well as future enhancements
 
+Collectors in tcollector can be written in any language. They just need to
+be executable and output the data to stdout. Tcollector will handle the rest.
+However most collectors written in python for easy portability.
+
+
 Deduplication
 ^^^^^^^^^^^^^
 
@@ -38,77 +43,121 @@ storage in the backend.  A future OpenTSDB release however will improve on
 the storage format by using RLE (among other things), making it essentially
 free to store repeated values.
 
-Collecting lots of metrics with tcollector
+
+Runtime Requirements for tcollector
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+| Tcollector requires one of following python versions to run: 3.7 - 3.11.
+OS specific collectors located in ``collectors/available/Linux|FreeBSD|MacOS``
+should run using base tools installed with respected OS. Other software collectors located
+in ``collectors/available/software`` may have additional requirements.
+
+
+Installation of tcollector
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Clone or download tcollector archive from GitHub on
+   https://github.com/OpenTSDB/tcollector .
+
+2. Consider using of shell script ``tcollector/tcollector`` to run tcollector if you want
+   to auto start after OS restart. Source codes to build RPM or DEB packages are also available in tcollector folder.
+
+
+Collecting metrics with tcollector
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Collectors in tcollector can be written in any language.  They just need to
-be executable and output the data to stdout.  Tcollector will handle the rest.
-The collectors are placed in the ``collectors`` directory.  Tcollector
-iterates over every directory named with a number in that directory and runs all
-the collectors in each directory.  If you name the directory ``60``,
-then tcollector will try to run every collector in that directory every 60
+Available collectors are placed in the ``collectors/available`` directory that divided
+into OS specific (linux, freebsd, macos) and software specific (software) subdirectories.
+
+To make Tcollector use a collector create a symbolic link for the collector in
+``collectors/available`` sub-directory to ``collectors/enabled`` sub-directory.
+Tcollector iterates over every directory in ``collectors/enabled`` named with a number in
+that directory and runs all the collectors in each directory. If you name the directory
+``60``, then tcollector will try to run every collector in that directory every 60
 seconds. The shortest supported interval is 15 seconds, you should use a
 long-running collector in the 0 folder for intervals shorter than 15 seconds.
+
 TCollector will sleep for 15 seconds after each time it runs the collectors
 so intervals of 15 seconds are the only actually supported intervals. For example,
 this would allow you to run a collector every 15, 30, 45, 60, 75, or 90 seconds,
 but not 80 or 55 seconds. Use the directory ``0`` for any collectors that are long-lived
 and run continuously. Tcollector will read their output and respawn them if they
-die. Generally you want to write long-lived collectors since that has less
-overhead. OpenTSDB is designed to have lots of datapoints for each metric (for
-most metrics we send datapoints every 15 seconds).
+die. If there any non-numeric named directories in the ``collectors`` directory,
+then they are ignored.
 
-If there any non-numeric named directories in the ``collectors``
-directory, then they are ignored.  We've included a ``lib`` and
-``etc`` directory for library and config data used by all collectors.
+Generally you want to write long-lived collectors since that has less overhead.
+OpenTSDB is designed to have lots of datapoints for each metric (for most metrics
+we send datapoints every 15 seconds by default).
 
-Installation of tcollector
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+We've included a ``lib``, ``etc``, and ``test`` directories for library, config data,
+and unittest for all collectors.
 
-You need to clone tcollector from GitHub: ::
+The structure of directories: ::
 
-  git clone git://github.com/OpenTSDB/tcollector.git
+ collectors/
+ ┣ available/
+ ┃ ┣ linux/
+ ┃ ┃ ┣ long-lived/
+ ┃ ┃ ┗ one-shot/
+ ┃ ┣ freebsd/
+ ┃ ┃ ┣ long-lived/
+ ┃ ┃ ┗ one-shot/
+ ┃ ┣ software/
+ ┃ ┃ ┣ long-lived/
+ ┃ ┃ ┗ one-shot/
+ ┣ enabled/
+ ┃ ┣ 0/
+ ┃ ┣ 60/
+ ┃ ┣ 3600/
+ ┃ ┗ (...)
+ ┣ etc/
+ ┣ lib/
+ ┗ test/
 
-and edit 'tcollector/startstop' script to set following variable:
-``TSD_HOST=dns.name.of.tsd``
+.. NOTE ::
 
+ To avoid having to run ``mkmetric`` for every metric that
+ tcollector tracks you can to start TSD with the ``--auto-metric``
+ flag.  This is useful to get started quickly, but it's not recommended to
+ keep this flag in the long term, to avoid accidental metric creation.
 
-To avoid having to run ``mkmetric`` for every metric that
-tcollector tracks you can to start TSD with the ``--auto-metric``
-flag.  This is useful to get started quickly, but it's not recommended to
-keep this flag in the long term, to avoid accidental metric creation.
 
 Collectors bundled with ``tcollector``
 ======================================
 
-The following are the collectors we've included as part of the base package,
-together with all of the metric names they report on and what they mean. If you
-have any others you'd like to contribute, we'd love to hear about them so we can
-reference them or include them with your permission in a future release.
+The following are the collectors we've included as part of the package, together with
+all of the metric names they report on and what they mean. If you have any others you'd
+like to contribute, we'd love to hear about them so we can reference them or include
+them with your permission in a future release.
 
-General collectors
-^^^^^^^^^^^^^^^^^^
+Linux OS collectors
+^^^^^^^^^^^^^^^^^^^^
 
 ``0/dfstat.py``
 ---------------
 These stats are similar to ones provided by ``/usr/bin/df`` util.
+It shows disks space usage of mounted file systems.
 
-* ``df.bytes.total`` 
-    total size of data
-* ``df.bytes.used`` 
-    bytes used
-* ``df.bytes.free`` 
-    bytes free
-* ``df.inodes.total`` 
-    total number of inodes
-* ``df.inodes.used`` 
-    number of inodes used
-* ``df.inodes.free`` 
-    number of inodes free
+* ``df.bytes.total``
+   Total size of data
+* ``df.bytes.used``
+   Bytes used
+* ``df.bytes.free``
+   Bytes free
+* ``df.bytes.percentused``
+   Percent used
+* ``df.inodes.total``
+   Total number of inodes
+* ``df.inodes.used``
+   Number of inodes used
+* ``df.inodes.free``
+   Number of inodes free
+* ``df.inodes.percentused``
+   Percent used
 
 These metrics include time series tagged with each mount point and the
 filesystem's fstype. This collector filters out any cgroup, debugfs, devtmpfs,
-rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted under
+nfs, rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted under
 ``/dev/``, ``/sys/``, ``/proc/``, and ``/lib/``.
 
 With these tags you can select to graph just a specific filesystem, or all
@@ -117,16 +166,28 @@ filesystems with a particular fstype (e.g. ext3).
 ``0/ifstat.py``
 ---------------
 
-These stats are from ``/proc/net/dev``.
+These stats are from ``/proc/net/dev`` that provides network interface statistics
 
-* ``proc.net.bytes`` 
-    (rate) Bytes in/out
-* ``proc.net.packets`` 
-    (rate) Packets in/out
-* ``proc.net.errs`` 
-    (rate) Packet errors in/out
-* ``proc.net.dropped`` 
-    (rate) Dropped packets in/out
+* ``proc.net.bytes``
+   Bytes in/out
+* ``proc.net.packets``
+   Packets in/out
+* ``proc.net.errs``
+   Packet errors in/out
+* ``proc.net.dropped``
+   Dropped packets in/out
+* ``proc.net.fifo.errs``
+   FIFO errors in/out
+* ``proc.net.frame.errs``
+   Frame errors in/out
+* ``proc.net.compressed``
+   Compressed packets in/out
+* ``proc.net.multicast``
+   Multicast packets in/out
+* ``proc.net.collisions``
+   Collisions transmitting packets in/out
+* ``proc.net.carrier.errs``
+   Carrier errors in/out
 
 These are interface counters, tagged with the interface, ``iface=``, and
 ``direction=`` in or out. Only ``ethN`` interfaces are tracked. We
@@ -138,39 +199,60 @@ to double-count a box's network traffic if you don't select on ``iface=``.
 ---------------
 Data is from ``/proc/diskstats``.
 
-* ``iostat.disk.*`` 
-    per-disk stats
-* ``iostat.part.*`` 
-    per-partition stats (see note below on different metrics, depending 
-    on if you have a 2.6 kernel before 2.6.25 or after.)
+* ``iostat.disk``
+   Per-disk stats
+* ``iostat.part.*``
+   Per-partition stats (kernel specific)
 
-See `iostats.txt <http://www.kernel.org/doc/Documentation/iostats.txt>`_
+See `iostats.txt <http://www.kernel.org/doc/Documentation/iostats.txt>`_ kernel specific metrics, depending on if you have a 2.6 kernel before 2.6.25 or after.
 
-``/proc/diskstats`` has 11 stats for a given physical device.
-These are all rate counters, except ``ios_in_progress``. ::
+``/proc/diskstats`` has stats for a given physical device.
+These are all rate counters, except ``ios_in_progress``.
 
-  .read_requests       Number of reads completed
-  .read_merged         Number of reads merged
-  .read_sectors        Number of sectors read
-  .msec_read           Time in msec spent reading
-  .write_requests      Number of writes completed
-  .write_merged        Number of writes merged
-  .write_sectors       Number of sectors written
-  .msec_write          Time in msec spent writing
-  .ios_in_progress     Number of I/O operations in progress
-  .msec_total          Time in msec doing I/O
-  .msec_weighted_total Weighted time doing I/O (multiplied by ios_in_progress)
+kernel 2.6+
 
+* ``iostat.read_requests``
+  Number of reads completed
+* ``iostat.read_merged``
+   Number of reads merged
+* ``iostat.read_sectors``
+   Number of sectors read
+* ``iostat.msec_read``
+   Time in msec spent reading
+* ``iostat.write_requests``
+   Number of writes completed
+* ``iostat.write_merged``
+   Number of writes merged
+* ``iostat.write_sectors``
+   Number of sectors written
+* ``iostat.msec_write``
+   Time in msec spent writing
+* ``iostat.ios_in_progress``
+   Number of I/O operations in progress
+* ``iostat.msec_total``
+   Time in msec doing I/O
+* ``iostat.msec_weighted_total``
+   Weighted time doing I/O (multiplied by ios_in_progress)
+
+kernel 4.18+
+
+* ``iostat.discards_requests``
+   Number of discards completed
+* ``iostat.discards_merged``
+   Number of discards merged
+* ``iostat.sectors_discarded``
+   Number of sectors discarded
+* ``iostat.msecs_discard``
+   Time is msec doing discarding
+
+kernel 5.5+
+
+* ``iostat.flush_requests``
+   Number of flush requests completed
+* ``iostat.msecs_flushing``
+   Time is msec doing discarding
 
 in 2.6.25 and later, by-partition stats are reported the same as disks.
-
-.. NOTE:: in 2.6 before 2.6.25, partitions have only 4 stats per partition
-::
-
-  .read_issued
-  .read_sectors
-  .write_issued
-  .write_sectors
 
 For partitions, these ``*_issued`` are counters collected before requests are
 merged, so aren't the same as ``*_requests`` (which is post-merge, which
@@ -183,89 +265,161 @@ for a given box will be double-counted, since a given operation will increment
 both the disk series and the partition series.  To fix this, we output by-disk
 data to ``iostat.disk.*`` and by-partition data to ``iostat.part.*``.
 
+
+``0/mountstats.py``
+-------------------
+NFS mountstats data, deduped by mount point and put into the following namespaces:
+``proc.mountstats.<rpccall>.<metric> nfshost=<nfsserver> nfsvol=<nfsvolume>``
+
+* ``proc.mountstats.getattr.totaltime``
+* ``proc.mountstats.getattr.ops``
+* ``proc.mountstats.getattr.timeouts``
+* ``proc.mountstats.getattr.qtime``
+* ``proc.mountstats.getattr.txbytes``
+* ``proc.mountstats.getattr.rttime``
+* ``proc.mountstats.getattr.rxbytes``
+* ``proc.mountstats.getattr.txs``
+* ``proc.mountstats.access.totaltime``
+* ``proc.mountstats.access.ops``
+* ``proc.mountstats.access.timeouts``
+* ``proc.mountstats.access.qtime``
+* ``proc.mountstats.access.txbytes``
+* ``proc.mountstats.access.rttime``
+* ``proc.mountstats.access.rxbytes``
+* ``proc.mountstats.access.txs``
+* ``proc.mountstats.read.totaltime``
+* ``proc.mountstats.read.ops``
+* ``proc.mountstats.read.timeouts``
+* ``proc.mountstats.read.qtime``
+* ``proc.mountstats.read.txbytes``
+* ``proc.mountstats.read.rttime``
+* ``proc.mountstats.read.rxbytes``
+* ``proc.mountstats.read.txs``
+* ``proc.mountstats.write.totaltime``
+* ``proc.mountstats.write.ops``
+* ``proc.mountstats.write.timeouts``
+* ``proc.mountstats.write.qtime``
+* ``proc.mountstats.write.txbytes``
+* ``proc.mountstats.write.rttime``
+* ``proc.mountstats.write.rxbytes``
+* ``proc.mountstats.write.txs``
+* ``proc.mountstats.other.totaltime``
+* ``proc.mountstats.other.ops``
+* ``proc.mountstats.other.timeouts``
+* ``proc.mountstats.other.qtime``
+* ``proc.mountstats.other.txbytes``
+* ``proc.mountstats.other.rttime``
+* ``proc.mountstats.other.rxbytes``
+* ``proc.mountstats.other.txs``
+* ``proc.mountstats.bytes.normalread``
+* ``proc.mountstats.bytes.normalwrite``
+* ``proc.mountstats.bytes.directread``
+* ``proc.mountstats.bytes.directwrite``
+* ``proc.mountstats.bytes.serverread``
+* ``proc.mountstats.bytes.serverwrite``
+* ``proc.mountstats.bytes.readpages``
+* ``proc.mountstats.bytes.writepages``
+
+``0/netfilter.py``
+-------------------
+Metrics from /proc/sys/net/ipv4/netfilter/*
+
+* ``proc.sys.net.netfilter.nf_conntrack_buckets``
+* ``proc.sys.net.netfilter.nf_conntrack_checksum``
+* ``proc.sys.net.netfilter.nf_conntrack_count``
+* ``proc.sys.net.netfilter.nf_conntrack_generic_timeout``
+* ``proc.sys.net.netfilter.nf_conntrack_icmp_timeout``
+* ``proc.sys.net.netfilter.nf_conntrack_log_invalid``
+* ``proc.sys.net.netfilter.nf_conntrack_max``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_be_liberal``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_loose``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_max_retrans``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_close``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_close_wait``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_established``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_fin_wait``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_last_ack``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_max_retrans``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_syn_recv``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_syn_sent``
+* ``proc.sys.net.netfilter.nf_conntrack_tcp_timeout_time_wait``
+* ``proc.sys.net.netfilter.nf_conntrack_udp_timeout``
+* ``proc.sys.net.netfilter.nf_conntrack_udp_timeout_stream``
+
 ``0/netstat.py``
 ----------------
 
-Socket allocation and network statistics.
-
-Metrics from ``/proc/net/sockstat``.
+Metrics from ``/proc/net/sockstat`` (socket allocation).
 
 * ``net.sockstat.num_sockets``
-    Number of sockets allocated (only TCP)
+   Number of sockets allocated (only TCP)
 * ``net.sockstat.num_timewait``
-    Number of TCP sockets currently in ``TIME_WAIT`` state
+   Number of TCP sockets currently in TIME_WAIT state
 * ``net.sockstat.sockets_inuse``
-    Number of sockets in use (TCP/UDP/raw)
+   Number of sockets in use (TCP/UDP/raw)
 * ``net.sockstat.num_orphans``
-    Number of orphan TCP sockets (not attached to any file descriptor)
+   Number of orphan TCP sockets (not attached to any file descriptor)
 * ``net.sockstat.memory``
-    Memory allocated for this socket type (in bytes)
+   Memory allocated for this socket type (in bytes)
 * ``net.sockstat.ipfragqueues``
-    Number of IP flows for which there are currently fragments queued for
-    reassembly
+   Number of IP flows for which there are currently fragments queued for reassembly
 
 Metrics from ``/proc/net/netstat`` (``netstat -s`` command).
 
 * ``net.stat.tcp.abort``
-    Number of connections that the kernel had to abort.
-    <code>type=memory</code> is especially bad, the kernel had to drop a
-    connection due to having too many orphaned sockets. Other types are normal
-    (e.g. timeout)
+   Number of connections that the kernel had to abort. "type=memory" is especially bad, the kernel had to drop a connection due to having too many orphaned sockets. Other types are normal (e.g. timeout)
 * ``net.stat.tcp.abort.failed``
-    Number of times the kernel failed to abort a connection because it didn't
-    even have enough memory to reset it (bad)
+   Number of times the kernel failed to abort a connection because it didn't even have enough memory to reset it (bad)
 * ``net.stat.tcp.congestion.recovery``
-    Number of times the kernel detected spurious retransmits and was able to
-    recover part or all of the CWND
+   Number of times the kernel detected spurious retransmits and was able to recover part or all of the CWND
 * ``net.stat.tcp.delayedack``
-    Number of delayed ACKs sent of different types.
+   Number of delayed ACKs sent of different types.
 * ``net.stat.tcp.failed_accept``
-    Number of times a connection had to be dropped after the 3WHS.
-    ``reason=full_acceptq`` indicates that the application isn't
-    accepting connections fast enough.  You should see SYN cookies too
+   Number of times a connection had to be dropped after the 3WHS. "reason=full_acceptq" indicates that the application isn't accepting connections fast enough. You should see SYN cookies too
 * ``net.stat.tcp.invalid_sack``
-    Number of invalid SACKs we saw of diff types.
-    (requires Linux v2.6.24-rc1 or newer)
+   Number of invalid SACKs we saw of diff types. (requires Linux v2.6.24-rc1 or newer)
 * ``net.stat.tcp.memory.pressure``
-    Number of times a socket entered the "memory pressure" mode (not great).
+   Number of times a socket entered the "memory pressure" mode (not great).
 * ``net.stat.tcp.memory.prune``
-    Number of times a socket had to discard received data due to low memory
-    conditions (bad)
+   Number of times a socket had to discard received data due to low memory conditions (bad)
 * ``net.stat.tcp.packetloss.recovery``
-    Number of times we recovered from packet loss by type of recovery (e.g.
-    fast retransmit vs SACK)
+   Number of times we recovered from packet loss by type of recovery (e.g. fast retransmit vs SACK)
 * ``net.stat.tcp.receive.queue.full``
-    Number of times a received packet had to be dropped because the socket's
-    receive queue was full. (requires Linux v2.6.34-rc2 or newer)
+   Number of times a received packet had to be dropped because the socket's receive queue was full. (requires Linux v2.6.34-rc2 or newer)
 * ``net.stat.tcp.reording``
-    Number of times we detected re-ordering and how
+   Number of times we detected re-ordering and how
 * ``net.stat.tcp.syncookies``
-    SYN cookies (both sent &amp; received)
-
+   SYN cookies (both sent & received)
 
 ``0/nfsstat.py``
-----------------
+------------------
 These stats are from ``/proc/net/rpc/nfs``.
 
-
-* ``nfs.client.rpc.stats`` 
-    RPC stats counter
+* ``nfs.client.rpc.stats``
+   RPC stats counter
 
 It tagged with the type (<code>type=</code>) of operation. There are 3
 operations: ``authrefrsh`` - number of times the authentication information
 refreshed, ``calls`` - number of calls conducted, and ``retrans`` - number
 of retransmissions
 
-* ``nfs.client.rpc`` 
-    RPC calls counter
+* ``nfs.client.rpc``
+   RPC calls counter
 
 It tagged with the version (``version=``) of NFS server that conducted
-the operation, and name of operation (``op=``)
+the operation, and name of operation (``op=``).
 
 Description of operations can be found at appropriate RFC:
 NFS ver. 3 `RFC1813 <http://tools.ietf.org/html/rfc1813>`_,
 NFS ver. 4 `RFC3530 <http://tools.ietf.org/html/rfc3530>`_,
 NFS ver. 4.1 `RFC5661 <http://tools.ietf.org/html/rfc5661>`_.
+
+``0/ntpstats.py``
+------------------
+It runs ntpq to get NTP offset
+
+* ``ntp.offset``
+   Estimated offset
 
 ``0/procnettcp.py``
 -------------------
@@ -278,8 +432,8 @@ this collector can take sometimes 5 minutes or more to run one interval, so
 the frequency of datapoints can be highly variable depending on the
 system.
 
-* ``proc.net.tcp`` 
-    Number of TCP connections
+* ``proc.net.tcp``
+   Number of TCP connections
 
 For each run of the collector, we classify each connection and generate
 subtotals. TSD will automatically total these up when displaying the graph,
@@ -298,7 +452,7 @@ states are generally ever seen. On a typical server this can dedup down to
 under 10 values per interval.
 
 ``0/procstats.py``
-------------------
+-------------------
 
 Miscellaneous stats from ``/proc``.
 
@@ -345,7 +499,7 @@ See http://www.linuxhowtos.org/System/procstat.htm
     Number of pages allocated successfully by the interleave strategy
 
 ``0/smart-stats.py``
---------------------
+---------------------
 
 Stats from SMART disks.
 
@@ -453,8 +607,115 @@ Description of metrics can be found at:
 The best way to understand/find metric is to look at producer's specification.
 
 
-Other collectors
-^^^^^^^^^^^^^^^^
+``0/sysload.py``
+-----------------
+CPU detailed statistics gathered from ``mpstat``.
+
+* ``cpu.usr``
+* ``cpu.nice``
+* ``cpu.sys``
+* ``cpu.irq``
+* ``cpu.idle``
+
+``0/tcp_bridge.py``
+--------------------
+Statistics for metrics gathered by listening on a local TCP socket for incoming Metrics.
+
+``tcollector.tcp_bridge.lines_read``
+``tcollector.tcp_bridge.connections_processed``
+``tcollector.tcp_bridge.processing_time``
+``tcollector.tcp_bridge.active``
+
+
+FreeBSD OS collectors
+^^^^^^^^^^^^^^^^^^^^^^
+
+``0/gstat.py``
+----------------
+Disks detailed statistics gathered from ``gstat``.
+
+* ``disk.queue``
+* ``disk.ops.read``
+* ``disk.b.read``
+* ``disk.bps.read``
+* ``disk.ms.read``
+* ``disk.ops.write``
+* ``disk.b.write``
+* ``disk.bps.write``
+* ``disk.ms.write``
+* ``disk.ops.delete``
+* ``disk.b.delete``
+* ``disk.bps.delete``
+* ``disk.ms.delete``
+* ``disk.ops.other``
+* ``disk.ms.other``
+* ``disk.busy``
+
+
+``0/ifrate.py``
+------------------
+Network interfaces detailed statistics gathered from ``netstat``.
+
+* ``ifrate.byt.in``
+* ``ifrate.byt.out``
+* ``ifrate.pkt.in``
+* ``ifrate.pkt.out``
+* ``ifrate.err``
+* ``ifrate.drp``
+* ``ifrate.err.in``
+* ``ifrate.drp.in``
+* ``ifrate.err.out``
+* ``ifrate.drp.out``
+* ``ifrate.col``
+
+
+``0/sysload.py``
+------------------
+CPU detailed statistics gathered from ``top``.
+
+* ``cpu.usr``
+* ``cpu.nice``
+* ``cpu.sys``
+* ``cpu.irq``
+* ``cpu.idle``
+
+* ``load.1m``
+* ``load.5m``
+* ``load.15m``
+
+* ``ps.all``
+* ``ps.start``
+* ``ps.run``
+* ``ps.sleep``
+* ``ps.stop``
+* ``ps.zomb``
+* ``ps.wait``
+* ``ps.lock``
+
+* ``mem.active``
+* ``mem.inact``
+* ``mem.wired``
+* ``mem.cache``
+* ``mem.buf``
+* ``mem.free``
+
+* ``arc.total``
+* ``arc.mru``
+* ``arc.mfu``
+* ``arc.anon``
+* ``arc.header``
+* ``arc.other``
+
+* ``swap.total``
+* ``swap.used``
+* ``swap.free``
+* ``swap.inuse``
+* ``swap.inps``
+* ``swap.outps``
+
+
+Software collectors
+^^^^^^^^^^^^^^^^^^^^^
 
 ``0/couchbase.py``
 ------------------
@@ -471,6 +732,16 @@ Refer to the following documentation for metrics description:
 `Cbstats documentation <http://docs.couchbase.com/couchbase-manual-2.1/#cbstats-tool>`_.
 
 
+``0/docker.py``
+------------------
+see source code.
+
+
+``0/docker_engine.py``
+-----------------------
+see source code.
+
+
 ``0/elasticsearch.py``
 ----------------------
 
@@ -480,8 +751,20 @@ Refer to the following documentation for metrics description:
 `ElasticSearch cluster APIs <http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster.html>`_.
 
 
-``0/hadoop_datanode_jmx.py``
-----------------------------
+``0/flume.py``
+----------------
+see source code.
+
+``0/g1gc.py``
+---------------
+see source code.
+
+``0/graphite_bridge.py``
+-------------------------
+see source code.
+
+``0/hadoop_datanode.py``
+-------------------------
 
 Stats from Hadoop (framework for the distributed processing), DataNode stats.
 
@@ -492,6 +775,25 @@ CurrentThreadUserTime, StorageInfo, VolumeInfo.
 
 Refer to the following documentation for metrics description:
 `HBase metrics <http://hbase.apache.org/book.html#hbase_metrics>`_.
+
+``0/hadoop_journalnode.py``
+----------------------------
+see source code.
+
+
+``0/hadoop_namenode.py``
+--------------------------
+see source code.
+
+
+``0/hadoop_yarn_node_manager.py``
+----------------------------------
+see source code.
+
+
+``0/hadoop_yarn_resource_manager.py``
+--------------------------------------
+see source code.
 
 
 ``0/haproxy.py``
@@ -511,8 +813,13 @@ Refer to the following documentation for metrics description:
 # section 9.2.Unix Socket commands
 
 
-``0/hbase_regionserver_jmx.py``
---------------------------------
+``0/hbase_master.py``
+----------------------
+see source code.
+
+
+``0/hbase_regionserver.py``
+----------------------------
 
 Stats from Hadoop (framework for the distributed processing), RegionServer
 stats.
@@ -524,18 +831,31 @@ Version, RpcPort, HttpPort,HeapMemoryUsage, NonHeapMemoryUsage.
 Refer to the following documentation for metrics description:
 `HBase metrics <http://hbase.apache.org/book.html#hbase_metrics>`_.
 
+``0/jolokia.py``
+------------------
+see source code.
+
+
+``0/mapr_metrics.py``
+----------------------
+see source code.
+
 
 ``0/mongo.py``
---------------
+---------------
 
 Stats from Mongo (document NoSQL database).
 
 Refer to the following documentation for metrics description:
 `Mongo DB server-status <http://docs.mongodb.org/manual/reference/server-status/>`_.
 
+``0/mongo3.py``
+----------------
+see source code.
+
 
 ``0/mysql.py``
---------------
+---------------
 
 Stats from MySQL (relational database).
 
@@ -547,6 +867,11 @@ Slave `Show slave status <http://dev.mysql.com/doc/refman/5.0/en/show-slave-stat
 Process list `Show process list <a href="http://dev.mysql.com/doc/refman/5.0/en/show-processlist.html">`_.
 
 
+``0/opentsdb.sh``
+-------------------
+see source code.
+
+
 ``0/postgresql.py``
 -------------------
 
@@ -555,9 +880,23 @@ Stats from PostgreSQL (relational database).
 Refer to the following documentation for metrics description:
 `PostgreSQL monitoring stats <http://www.postgresql.org/docs/9.2/static/monitoring-stats.html>`_.
 
+``0/postgresql_replication.py``
+-------------------------------
+see source code.
+
+
+``0/prometheus.py``
+--------------------
+see source code.
+
+
+``0/pxc-collector.py``
+------------------------
+see source code.
+
 
 ``0/redis-stats.py``
---------------------
+----------------------
 
 Stats from Redis (key-value store).
 
@@ -566,12 +905,24 @@ Refer to the following documentation for metrics description:
 
 
 ``0/riak.py``
--------------
+---------------
 
 Stats from Riak (document NoSQL database).
 
 Refer to the following documentation for metrics description:
 `Riak statistics <http://docs.basho.com/riak/latest/ops/running/stats-and-monitoring/#Statistics-from-Riak>`_.
+
+
+``0/tcollector.py``
+--------------------
+Tcollector collector.
+
+* ``tcollector.processes``
+  Number of running tcollector processes
+* ``tcollector.cputime``
+   CPU time spent on tcollector
+* ``tcollector.mem_bytes``
+  Memory consumed in bytes, has 2 types: VSIZE and RSS.
 
 
 ``0/varnishstat.py``
@@ -585,6 +936,20 @@ of the collector.
 Refer to the following documentation for metrics description: run
 "varnishstat -l" to have lists the available metrics.
 
+``0/zabbis_bridge.py``
+----------------------
+see source code.
+
+
+``0/zfsiostats.py``
+--------------------
+see source code.
+
+
+``0/zfskerelstats.py``
+--------------------
+see source code.
+
 
 ``0/zookeeper.py``
 ------------------
@@ -594,3 +959,12 @@ Stats from Zookeeper (centralized service for distributed synchronization).
 Refer to the following documentation for metrics description:
 `Zookeeper admin commands <http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_zkCommands>`_.
 
+
+``60/aws_cloudwatch_stats.py``
+------------------------------
+see source code.
+
+
+``60/zabbix_bridge_cache.py``
+------------------------------
+see source code.

@@ -9,9 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/solar.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -157,7 +154,7 @@
           <div class="body" role="main">
             
   <section id="tcollector">
-<h1>TCollector</h1>
+<h1>TCollector<a class="headerlink" href="#tcollector" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://github.com/OpenTSDB/tcollector/">tcollector</a> is a client-side
 process that gathers data from local collectors and pushes the data to
 OpenTSDB. You run it on all your hosts, and it does the work of sending each
@@ -179,7 +176,7 @@ collectors stay running?  This is where tcollector comes in.</p>
 be executable and output the data to stdout. Tcollector will handle the rest.
 However most collectors written in python for easy portability.</p>
 <section id="deduplication">
-<h2>Deduplication</h2>
+<h2>Deduplication<a class="headerlink" href="#deduplication" title="Permalink to this heading">¶</a></h2>
 <p>Typically you want to gather data about everything in your system.
 This generates a lot of datapoints, the majority of which don’t
 change very often over time (if ever).  However, you want fine-grained
@@ -196,7 +193,7 @@ the storage format by using RLE (among other things), making it essentially
 free to store repeated values.</p>
 </section>
 <section id="runtime-requirements-for-tcollector">
-<h2>Runtime Requirements for tcollector</h2>
+<h2>Runtime Requirements for tcollector<a class="headerlink" href="#runtime-requirements-for-tcollector" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line">Tcollector requires one of following python versions to run: 3.7 - 3.11.</div>
 </div>
@@ -205,7 +202,7 @@ should run using base tools installed with respected OS. Other software collecto
 in <code class="docutils literal notranslate"><span class="pre">collectors/available/software</span></code> may have additional requirements.</p>
 </section>
 <section id="installation-of-tcollector">
-<h2>Installation of tcollector</h2>
+<h2>Installation of tcollector<a class="headerlink" href="#installation-of-tcollector" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Clone or download tcollector archive from GitHub on
 <a class="reference external" href="https://github.com/OpenTSDB/tcollector">https://github.com/OpenTSDB/tcollector</a> .</p></li>
@@ -214,7 +211,7 @@ to auto start after OS restart. Source codes to build RPM or DEB packages are al
 </ol>
 </section>
 <section id="collecting-metrics-with-tcollector">
-<h2>Collecting metrics with tcollector</h2>
+<h2>Collecting metrics with tcollector<a class="headerlink" href="#collecting-metrics-with-tcollector" title="Permalink to this heading">¶</a></h2>
 <p>Available collectors are placed in the <code class="docutils literal notranslate"><span class="pre">collectors/available</span></code> directory that divided
 into OS specific (linux, freebsd, macos) and software specific (software) subdirectories.</p>
 <p>To make Tcollector use a collector create a symbolic link for the collector in
@@ -268,15 +265,15 @@ keep this flag in the long term, to avoid accidental metric creation.</p>
 </section>
 </section>
 <section id="collectors-bundled-with-tcollector">
-<h1>Collectors bundled with <code class="docutils literal notranslate"><span class="pre">tcollector</span></code></h1>
+<h1>Collectors bundled with <code class="docutils literal notranslate"><span class="pre">tcollector</span></code><a class="headerlink" href="#collectors-bundled-with-tcollector" title="Permalink to this heading">¶</a></h1>
 <p>The following are the collectors we’ve included as part of the package, together with
 all of the metric names they report on and what they mean. If you have any others you’d
 like to contribute, we’d love to hear about them so we can reference them or include
 them with your permission in a future release.</p>
 <section id="linux-os-collectors">
-<h2>Linux OS collectors</h2>
+<h2>Linux OS collectors<a class="headerlink" href="#linux-os-collectors" title="Permalink to this heading">¶</a></h2>
 <section id="dfstat-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/dfstat.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/dfstat.py</span></code><a class="headerlink" href="#dfstat-py" title="Permalink to this heading">¶</a></h3>
 <p>These stats are similar to ones provided by <code class="docutils literal notranslate"><span class="pre">/usr/bin/df</span></code> util.
 It shows disks space usage of mounted file systems.</p>
 <ul class="simple">
@@ -329,7 +326,7 @@ nfs, rpc_pipefs, rootfs filesystems, as well as any any mountpoints mounted unde
 filesystems with a particular fstype (e.g. ext3).</p>
 </section>
 <section id="ifstat-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/ifstat.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/ifstat.py</span></code><a class="headerlink" href="#ifstat-py" title="Permalink to this heading">¶</a></h3>
 <p>These stats are from <code class="docutils literal notranslate"><span class="pre">/proc/net/dev</span></code> that provides network interface statistics</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -390,7 +387,7 @@ still keep counters on their child <code class="docutils literal notranslate"><s
 to double-count a box’s network traffic if you don’t select on <code class="docutils literal notranslate"><span class="pre">iface=</span></code>.</p>
 </section>
 <section id="iostat-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/iostat.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/iostat.py</span></code><a class="headerlink" href="#iostat-py" title="Permalink to this heading">¶</a></h3>
 <p>Data is from <code class="docutils literal notranslate"><span class="pre">/proc/diskstats</span></code>.</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -510,7 +507,7 @@ both the disk series and the partition series.  To fix this, we output by-disk
 data to <code class="docutils literal notranslate"><span class="pre">iostat.disk.*</span></code> and by-partition data to <code class="docutils literal notranslate"><span class="pre">iostat.part.*</span></code>.</p>
 </section>
 <section id="mountstats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/mountstats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/mountstats.py</span></code><a class="headerlink" href="#mountstats-py" title="Permalink to this heading">¶</a></h3>
 <p>NFS mountstats data, deduped by mount point and put into the following namespaces:
 <code class="docutils literal notranslate"><span class="pre">proc.mountstats.&lt;rpccall&gt;.&lt;metric&gt;</span> <span class="pre">nfshost=&lt;nfsserver&gt;</span> <span class="pre">nfsvol=&lt;nfsvolume&gt;</span></code></p>
 <ul class="simple">
@@ -565,7 +562,7 @@ data to <code class="docutils literal notranslate"><span class="pre">iostat.disk
 </ul>
 </section>
 <section id="netfilter-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/netfilter.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/netfilter.py</span></code><a class="headerlink" href="#netfilter-py" title="Permalink to this heading">¶</a></h3>
 <p>Metrics from /proc/sys/net/ipv4/netfilter/*</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">proc.sys.net.netfilter.nf_conntrack_buckets</span></code></p></li>
@@ -592,7 +589,7 @@ data to <code class="docutils literal notranslate"><span class="pre">iostat.disk
 </ul>
 </section>
 <section id="netstat-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/netstat.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/netstat.py</span></code><a class="headerlink" href="#netstat-py" title="Permalink to this heading">¶</a></h3>
 <p>Metrics from <code class="docutils literal notranslate"><span class="pre">/proc/net/sockstat</span></code> (socket allocation).</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -691,7 +688,7 @@ data to <code class="docutils literal notranslate"><span class="pre">iostat.disk
 </ul>
 </section>
 <section id="nfsstat-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/nfsstat.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/nfsstat.py</span></code><a class="headerlink" href="#nfsstat-py" title="Permalink to this heading">¶</a></h3>
 <p>These stats are from <code class="docutils literal notranslate"><span class="pre">/proc/net/rpc/nfs</span></code>.</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -719,7 +716,7 @@ NFS ver. 4 <a class="reference external" href="http://tools.ietf.org/html/rfc353
 NFS ver. 4.1 <a class="reference external" href="http://tools.ietf.org/html/rfc5661">RFC5661</a>.</p>
 </section>
 <section id="ntpstats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/ntpstats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/ntpstats.py</span></code><a class="headerlink" href="#ntpstats-py" title="Permalink to this heading">¶</a></h3>
 <p>It runs ntpq to get NTP offset</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -730,7 +727,7 @@ NFS ver. 4.1 <a class="reference external" href="http://tools.ietf.org/html/rfc5
 </ul>
 </section>
 <section id="procnettcp-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/procnettcp.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/procnettcp.py</span></code><a class="headerlink" href="#procnettcp-py" title="Permalink to this heading">¶</a></h3>
 <p>These stats are all from <code class="docutils literal notranslate"><span class="pre">/proc/net/tcp{,6}</span></code>. (Note if IPv6 is enabled,
 some IPv4 connections seem to get put into <code class="docutils literal notranslate"><span class="pre">/proc/net/tcp6</span></code>). Collector
 sleeps 60 seconds in between intervals. Due in part to a kernel performance
@@ -762,7 +759,7 @@ states are generally ever seen. On a typical server this can dedup down to
 under 10 values per interval.</p>
 </section>
 <section id="procstats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/procstats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/procstats.py</span></code><a class="headerlink" href="#procstats-py" title="Permalink to this heading">¶</a></h3>
 <p>Miscellaneous stats from <code class="docutils literal notranslate"><span class="pre">/proc</span></code>.</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -847,7 +844,7 @@ have a free page to accommodate the request</p>
 </ul>
 </section>
 <section id="smart-stats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/smart-stats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/smart-stats.py</span></code><a class="headerlink" href="#smart-stats-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from SMART disks.</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -1074,7 +1071,7 @@ value of 1</p>
 The best way to understand/find metric is to look at producer’s specification.</p>
 </section>
 <section id="sysload-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code><a class="headerlink" href="#sysload-py" title="Permalink to this heading">¶</a></h3>
 <p>CPU detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">mpstat</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cpu.usr</span></code></p></li>
@@ -1085,7 +1082,7 @@ The best way to understand/find metric is to look at producer’s specification.
 </ul>
 </section>
 <section id="tcp-bridge-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/tcp_bridge.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/tcp_bridge.py</span></code><a class="headerlink" href="#tcp-bridge-py" title="Permalink to this heading">¶</a></h3>
 <p>Statistics for metrics gathered by listening on a local TCP socket for incoming Metrics.</p>
 <p><code class="docutils literal notranslate"><span class="pre">tcollector.tcp_bridge.lines_read</span></code>
 <code class="docutils literal notranslate"><span class="pre">tcollector.tcp_bridge.connections_processed</span></code>
@@ -1094,9 +1091,9 @@ The best way to understand/find metric is to look at producer’s specification.
 </section>
 </section>
 <section id="freebsd-os-collectors">
-<h2>FreeBSD OS collectors</h2>
+<h2>FreeBSD OS collectors<a class="headerlink" href="#freebsd-os-collectors" title="Permalink to this heading">¶</a></h2>
 <section id="gstat-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/gstat.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/gstat.py</span></code><a class="headerlink" href="#gstat-py" title="Permalink to this heading">¶</a></h3>
 <p>Disks detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">gstat</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">disk.queue</span></code></p></li>
@@ -1118,7 +1115,7 @@ The best way to understand/find metric is to look at producer’s specification.
 </ul>
 </section>
 <section id="ifrate-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/ifrate.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/ifrate.py</span></code><a class="headerlink" href="#ifrate-py" title="Permalink to this heading">¶</a></h3>
 <p>Network interfaces detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">netstat</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ifrate.byt.in</span></code></p></li>
@@ -1135,7 +1132,7 @@ The best way to understand/find metric is to look at producer’s specification.
 </ul>
 </section>
 <section id="id2">
-<h3><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/sysload.py</span></code><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p>CPU detailed statistics gathered from <code class="docutils literal notranslate"><span class="pre">top</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cpu.usr</span></code></p></li>
@@ -1176,9 +1173,9 @@ The best way to understand/find metric is to look at producer’s specification.
 </section>
 </section>
 <section id="software-collectors">
-<h2>Software collectors</h2>
+<h2>Software collectors<a class="headerlink" href="#software-collectors" title="Permalink to this heading">¶</a></h2>
 <section id="couchbase-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/couchbase.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/couchbase.py</span></code><a class="headerlink" href="#couchbase-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from couchbase (document-oriented NoSQL database).</p>
 <p>All metrics are tagged with name of related bucket(<code class="docutils literal notranslate"><span class="pre">bucket=</span></code>). A bucket is
 a logical grouping of physical resources within a cluster of Couchbase
@@ -1189,33 +1186,33 @@ data storage resources.</p>
 <a class="reference external" href="http://docs.couchbase.com/couchbase-manual-2.1/#cbstats-tool">Cbstats documentation</a>.</p>
 </section>
 <section id="docker-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/docker.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/docker.py</span></code><a class="headerlink" href="#docker-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="docker-engine-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/docker_engine.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/docker_engine.py</span></code><a class="headerlink" href="#docker-engine-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="elasticsearch-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/elasticsearch.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/elasticsearch.py</span></code><a class="headerlink" href="#elasticsearch-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Elastic Search (search and analytics engine).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster.html">ElasticSearch cluster APIs</a>.</p>
 </section>
 <section id="flume-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/flume.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/flume.py</span></code><a class="headerlink" href="#flume-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="g1gc-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/g1gc.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/g1gc.py</span></code><a class="headerlink" href="#g1gc-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="graphite-bridge-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/graphite_bridge.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/graphite_bridge.py</span></code><a class="headerlink" href="#graphite-bridge-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="hadoop-datanode-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_datanode.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_datanode.py</span></code><a class="headerlink" href="#hadoop-datanode-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Hadoop (framework for the distributed processing), DataNode stats.</p>
 <p>Following metrics are disabled at the collector by default: revision,
 hdfsUser, hdfsDate, hdfsUrl, date, hdfsRevision, user, hdfsVersion, url,
@@ -1225,23 +1222,23 @@ CurrentThreadUserTime, StorageInfo, VolumeInfo.</p>
 <a class="reference external" href="http://hbase.apache.org/book.html#hbase_metrics">HBase metrics</a>.</p>
 </section>
 <section id="hadoop-journalnode-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_journalnode.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_journalnode.py</span></code><a class="headerlink" href="#hadoop-journalnode-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="hadoop-namenode-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_namenode.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_namenode.py</span></code><a class="headerlink" href="#hadoop-namenode-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="hadoop-yarn-node-manager-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_node_manager.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_node_manager.py</span></code><a class="headerlink" href="#hadoop-yarn-node-manager-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="hadoop-yarn-resource-manager-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_resource_manager.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/hadoop_yarn_resource_manager.py</span></code><a class="headerlink" href="#hadoop-yarn-resource-manager-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="haproxy-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/haproxy.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/haproxy.py</span></code><a class="headerlink" href="#haproxy-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Haproxy (TCP/HTTP load balancer).</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -1261,11 +1258,11 @@ CurrentThreadUserTime, StorageInfo, VolumeInfo.</p>
 # section 9.2.Unix Socket commands</p>
 </section>
 <section id="hbase-master-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hbase_master.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/hbase_master.py</span></code><a class="headerlink" href="#hbase-master-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="hbase-regionserver-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/hbase_regionserver.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/hbase_regionserver.py</span></code><a class="headerlink" href="#hbase-regionserver-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Hadoop (framework for the distributed processing), RegionServer
 stats.</p>
 <p>Following metrics are disabled at the collector by default: revision, hdfsUser,
@@ -1275,25 +1272,25 @@ Version, RpcPort, HttpPort,HeapMemoryUsage, NonHeapMemoryUsage.</p>
 <a class="reference external" href="http://hbase.apache.org/book.html#hbase_metrics">HBase metrics</a>.</p>
 </section>
 <section id="jolokia-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/jolokia.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/jolokia.py</span></code><a class="headerlink" href="#jolokia-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="mapr-metrics-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/mapr_metrics.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/mapr_metrics.py</span></code><a class="headerlink" href="#mapr-metrics-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="mongo-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/mongo.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/mongo.py</span></code><a class="headerlink" href="#mongo-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Mongo (document NoSQL database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://docs.mongodb.org/manual/reference/server-status/">Mongo DB server-status</a>.</p>
 </section>
 <section id="mongo3-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/mongo3.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/mongo3.py</span></code><a class="headerlink" href="#mongo3-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="mysql-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/mysql.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/mysql.py</span></code><a class="headerlink" href="#mysql-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from MySQL (relational database).</p>
 <p>Refer to the following documentation for metrics description:
 InnoDB <a class="reference external" href="http://dev.mysql.com/doc/refman/5.0/en/innodb-monitors.html">Innodb monitors</a>,
@@ -1303,41 +1300,41 @@ Slave <a class="reference external" href="http://dev.mysql.com/doc/refman/5.0/en
 Process list <a class="reference external" href="ahref=&quot;http://dev.mysql.com/doc/refman/5.0/en/show-processlist.html&quot;">Show process list</a>.</p>
 </section>
 <section id="opentsdb-sh">
-<h3><code class="docutils literal notranslate"><span class="pre">0/opentsdb.sh</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/opentsdb.sh</span></code><a class="headerlink" href="#opentsdb-sh" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="postgresql-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/postgresql.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/postgresql.py</span></code><a class="headerlink" href="#postgresql-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from PostgreSQL (relational database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://www.postgresql.org/docs/9.2/static/monitoring-stats.html">PostgreSQL monitoring stats</a>.</p>
 </section>
 <section id="postgresql-replication-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/postgresql_replication.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/postgresql_replication.py</span></code><a class="headerlink" href="#postgresql-replication-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="prometheus-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/prometheus.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/prometheus.py</span></code><a class="headerlink" href="#prometheus-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="pxc-collector-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/pxc-collector.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/pxc-collector.py</span></code><a class="headerlink" href="#pxc-collector-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="redis-stats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/redis-stats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/redis-stats.py</span></code><a class="headerlink" href="#redis-stats-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Redis (key-value store).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://redis.io/commands/INFO">Redis info comands</a>.</p>
 </section>
 <section id="riak-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/riak.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/riak.py</span></code><a class="headerlink" href="#riak-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Riak (document NoSQL database).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://docs.basho.com/riak/latest/ops/running/stats-and-monitoring/#Statistics-from-Riak">Riak statistics</a>.</p>
 </section>
 <section id="tcollector-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/tcollector.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/tcollector.py</span></code><a class="headerlink" href="#tcollector-py" title="Permalink to this heading">¶</a></h3>
 <p>Tcollector collector.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tcollector.processes</span></code>
@@ -1352,7 +1349,7 @@ Memory consumed in bytes, has 2 types: VSIZE and RSS.</p></li>
 </ul>
 </section>
 <section id="varnishstat-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/varnishstat.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/varnishstat.py</span></code><a class="headerlink" href="#varnishstat-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Varnish (HTTP accelerator).</p>
 <p>By default all metrics collected, it can be changed by editing “vstats” array
 of the collector.</p>
@@ -1360,29 +1357,29 @@ of the collector.</p>
 “varnishstat -l” to have lists the available metrics.</p>
 </section>
 <section id="zabbis-bridge-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/zabbis_bridge.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/zabbis_bridge.py</span></code><a class="headerlink" href="#zabbis-bridge-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="zfsiostats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/zfsiostats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/zfsiostats.py</span></code><a class="headerlink" href="#zfsiostats-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="zfskerelstats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/zfskerelstats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/zfskerelstats.py</span></code><a class="headerlink" href="#zfskerelstats-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="zookeeper-py">
-<h3><code class="docutils literal notranslate"><span class="pre">0/zookeeper.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">0/zookeeper.py</span></code><a class="headerlink" href="#zookeeper-py" title="Permalink to this heading">¶</a></h3>
 <p>Stats from Zookeeper (centralized service for distributed synchronization).</p>
 <p>Refer to the following documentation for metrics description:
 <a class="reference external" href="http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_zkCommands">Zookeeper admin commands</a>.</p>
 </section>
 <section id="aws-cloudwatch-stats-py">
-<h3><code class="docutils literal notranslate"><span class="pre">60/aws_cloudwatch_stats.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">60/aws_cloudwatch_stats.py</span></code><a class="headerlink" href="#aws-cloudwatch-stats-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 <section id="zabbix-bridge-cache-py">
-<h3><code class="docutils literal notranslate"><span class="pre">60/zabbix_bridge_cache.py</span></code></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">60/zabbix_bridge_cache.py</span></code><a class="headerlink" href="#zabbix-bridge-cache-py" title="Permalink to this heading">¶</a></h3>
 <p>see source code.</p>
 </section>
 </section>
@@ -1414,7 +1411,7 @@ of the collector.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2024, OpenTSDB.
+        &copy; Copyright 2026, OpenTSDB.
     Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>. Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>

@@ -1,4 +1,4 @@
- Time Difference
+Time Difference
 ===============
 .. index:: timedifference
 Computes the delta between data point time stamps. E.g. if one data point is at 11:05 and the second at 11:10 the difference reported would be 300 seconds (with a resolution of seconds). Only data points with a numeric value are considered, the node will skip over ``NaN`` and ``null`` values.

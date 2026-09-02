@@ -390,3 +390,21 @@ epub_copyright = u'%s, OpenTSDB' % currentYear
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/': None}
+
+
+# -- Build hooks ---------------------------------------------------------------
+
+def _remove_bundled_jquery(app, exception):
+    # sphinx-bootstrap-theme bundles jQuery 1.x (CVE-2019-11358 and friends).
+    # _templates/layout.html loads _static/js/jquery-3.7.1.min.js instead, so
+    # drop the theme's copy from the output rather than publish an unused,
+    # vulnerable file.
+    if exception is not None or app.builder.name != 'html':
+        return
+    import glob
+    for path in glob.glob(os.path.join(app.outdir, '_static', 'js', 'jquery-1.*.min.js')):
+        os.remove(path)
+
+
+def setup(app):
+    app.connect('build-finished', _remove_bundled_jquery)

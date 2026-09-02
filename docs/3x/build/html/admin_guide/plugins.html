@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -18,10 +19,11 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-migrate-3.5.2.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -63,19 +65,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation and Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#runtime-requirements">Runtime Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#compile">Compile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#docker">Docker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#local">Local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#id1">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quickstart">Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#querying">Querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#write-data">Write Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">Users Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user_guide/semanticquery/index.html">Semantic Query (Version 3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/index.html#querying-data">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/index.html#writing-data">Writing Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Administrators Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html">TSDB Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">TSDB Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
 </li>
@@ -92,6 +93,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#deprecated-api">Deprecated API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_http/index.html#api-endpoints">API Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/index.html#git-repository">Git Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/index.html#details">Details</a></li>
 </ul>
 </li>
 </ul>
@@ -185,7 +191,7 @@
 <h2>General</h2>
 <p>Plugins are loaded at run time by a TSD or command line utility. Once the program or daemon is running, plugin configurations cannot be changed. You must restart the program for changes to take effect.</p>
 <p>Plugins are JAR files that must be downloaded to a directory accessible by OpenTSDB. Once a directory is created, it must be specified in the <code class="docutils literal notranslate"><span class="pre">opentsdb.conf</span></code> config file via the <code class="docutils literal notranslate"><span class="pre">tsd.core.plugin_path</span></code> property. If the plugin has dependency JARs that were not compiled into the plugin and are not located in the standard class path, they must be copied to this plugin directory as well.</p>
-<p>Once the JARs are in place, they must be selected in the configuration file for the type of plugin specified. Usually this will be the fully qualified Java class name such as “net.opentsdb.search.ElasticSearch”. Each plugin should have an “enabled” property as well that must be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for the plugin to be loaded. Plugins may also have configuration settings that must be added to the <code class="docutils literal notranslate"><span class="pre">opentsdb.conf</span></code> file before they can operate properly. See your plugin’s documentation. See <a class="reference internal" href="configuration.html"><span class="doc">TSDB Configuration</span></a> for details.</p>
+<p>Once the JARs are in place, they must be selected in the configuration file for the type of plugin specified. Usually this will be the fully qualified Java class name such as “net.opentsdb.search.ElasticSearch”. Each plugin should have an “enabled” property as well that must be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for the plugin to be loaded. Plugins may also have configuration settings that must be added to the <code class="docutils literal notranslate"><span class="pre">opentsdb.conf</span></code> file before they can operate properly. See your plugin’s documentation. See <span class="xref std std-doc">configuration</span> for details.</p>
 <p>When starting a TSD or CLI tool, a number of errors may prevent a successful launch due to plugin issues. If something happens you should see an exception in the logs related to a plugin. Some things to troubleshoot include:</p>
 <ul class="simple">
 <li><p>Make sure the <code class="docutils literal notranslate"><span class="pre">tsd.core.plugin_path</span></code> is configured</p></li>
@@ -309,7 +315,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2021, OpenTSDB.<br/>
+        &copy; Copyright 2026, OpenTSDB.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
